@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Antibióticos IV (fichas/dilución)</title>
+
+  <style>
+    :root{--c1:#0a5ea8;--c1-600:#0a4c84;--c1-700:#08406a;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
+    *{box-sizing:border-box}
+    body{font-family:Roboto,Arial,Helvetica,sans-serif;margin:0;padding:20px;background:#fff;color:#222}
+    h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
+    .card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px 16px 18px;max-width:820px;margin:0 auto;box-shadow:0 4px 16px rgba(0,0,0,.05)}
+    .sub{color:#475569;margin:-.4rem 0 .8rem;font-size:.95rem}
+    .grid{display:grid;gap:.9rem}
+    .row{display:grid;gap:.5rem;grid-template-columns:1fr 1fr;align-items:center}
+    .ig{display:grid;grid-template-columns:1fr 180px;gap:.5rem}
+    label{font-weight:600;color:#334155}
+    input[type=number],select,textarea{border:1px solid var(--bx);border-radius:10px;padding:.6rem .65rem;font-size:1rem;width:100%}
+    select{max-width:100%}
+    .actions{display:flex;gap:.6rem;margin-top:.6rem;flex-wrap:wrap;align-items:center}
+    .actions .spacer{flex:1 1 auto}
+    .btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
+    .btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1-600)}
+    .btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}.btn.secondary:hover{background:#e6ebf2}
+    .btn.close{margin-left:auto;background:var(--c1-700);color:#fff;border-color:#083554}
+    .btn.close:hover{filter:brightness(1.05)}
+    .result{margin-top:.9rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;color:var(--tx);white-space:pre-wrap}
+    .muted{color:var(--mut);font-size:.9rem}
+    .help{font-size:.9rem;color:#475569}
+    @media (max-width:560px){.row{grid-template-columns:1fr}.ig{grid-template-columns:1fr}}
+  </style>
+
+</head>
+<body>
+<div class="card">
+  <h1>Antibióticos IV (fichas/dilución)</h1>
+  <p class="sub">Asistente de reconstitución y dilución (sin recomendar dosis).</p>
+
+  <form id="calcForm" class="grid">
+
+<div class="row">
+  <label for="ab">Antibiótico (opcional)</label>
+  <div class="ig">
+    <select id="ab">
+      <option value="">— selección libre —</option>
+      <option value="ceftriaxona_1g">Ceftriaxona 1 g (vial 1 g)</option>
+      <option value="piptazo_4_0_5">Piperacilina/Tazobactam 4.0/0.5 g (vial 4.5 g)</option>
+      <option value="vancomicina_1g">Vancomicina 1 g (vial 1 g)</option>
+      <option value="cefazolina_1g">Cefazolina 1 g (vial 1 g)</option>
+      <option value="meropenem_1g">Meropenem 1 g (vial 1 g)</option>
+    </select>
+    <select disabled><option>ficha</option></select>
+  </div>
+</div>
+
+<div class="row">
+  <label for="dosis">Dosis prescrita</label>
+  <div class="ig">
+    <input type="number" id="dosis" min="0" step="100" placeholder="Ej. 1000">
+    <select disabled><option>mg</option></select>
+  </div>
+</div>
+
+<div class="row">
+  <label for="vial">Contenido del vial</label>
+  <div class="ig">
+    <input type="number" id="vial" min="0" step="100" placeholder="Ej. 1000">
+    <select disabled><option>mg por vial</option></select>
+  </div>
+</div>
+
+<div class="row">
+  <label for="reconst">Volumen tras reconstitución</label>
+  <div class="ig">
+    <input type="number" id="reconst" min="1" step="1" placeholder="Ej. 10">
+    <select disabled><option>mL</option></select>
+  </div>
+</div>
+
+<div class="row">
+  <label for="dilucion">Volumen total de dilución</label>
+  <div class="ig">
+    <input type="number" id="dilucion" min="0" step="1" placeholder="Ej. 100">
+    <select disabled><option>mL</option></select>
+  </div>
+</div>
+
+<p class="help">Cálculos: concentración reconstituida (mg/mL), volumen a extraer para dosis prescrita, concentración final tras dilución y, si indicas mL/h, estimación de duración.</p>
+
+<div class="row">
+  <label for="vel">Velocidad (opcional)</label>
+  <div class="ig">
+    <input type="number" id="vel" min="0" step="1" placeholder="Ej. 100">
+    <select disabled><option>mL/h</option></select>
+  </div>
+</div>
+
+    <div class="actions">
+      <button type="submit" class="btn primary">Calcular</button>
+      <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
+      <button type="reset" class="btn secondary">Limpiar</button>
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close">Cerrar ventana</button>
+    </div>
+
+    <div id="result" class="result" aria-live="polite">Introduce los datos y pulsa “Calcular”.</div>
+    
+  <p class="muted">
+    <strong>Nota clínica:</strong> Este módulo <em>no</em> sugiere dosis; solo ayuda a reconstitución y dilución. Consulta siempre la guía/local y la ficha técnica.
+  </p>
+
+  </form>
+</div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  
+  const $ = id => document.getElementById(id);
+  const presets = {
+    ceftriaxona_1g: { dosis:1000, vial:1000, reconst:10, dilucion:100 },
+    piptazo_4_0_5: { dosis:4500, vial:4500, reconst:20, dilucion:100 },
+    vancomicina_1g: { dosis:1000, vial:1000, reconst:20, dilucion:250 },
+    cefazolina_1g: { dosis:1000, vial:1000, reconst:10, dilucion:100 },
+    meropenem_1g: { dosis:1000, vial:1000, reconst:20, dilucion:100 },
+  };
+  document.getElementById('ab').addEventListener('change', ()=>{
+    const p = presets[document.getElementById('ab').value];
+    if(!p) return;
+    document.getElementById('dosis').value = p.dosis;
+    document.getElementById('vial').value = p.vial;
+    document.getElementById('reconst').value = p.reconst;
+    document.getElementById('dilucion').value = p.dilucion;
+  });
+
+  function calcular(){
+    const dosis = +document.getElementById('dosis').value;
+    const vial = +document.getElementById('vial').value;
+    const rec = +document.getElementById('reconst').value;
+    const dil = +document.getElementById('dilucion').value;
+    const vel = +document.getElementById('vel').value;
+    if(!(dosis>0) || !(vial>0) || !(rec>0)){
+      document.getElementById('result').textContent = 'Completa dosis, contenido del vial y volumen tras reconstitución.'; return;
+    }
+    const concRec = vial/rec; // mg/mL
+    const volExtraer = dosis/concRec; // mL
+    let lines = [];
+    lines.push(`Concentración reconstituida: ${concRec.toFixed(1)} mg/mL`);
+    lines.push(`Volumen a extraer para ${dosis} mg: ${volExtraer.toFixed(2)} mL`);
+    if(dil>0){
+      const concFinal = dosis/dil;
+      lines.push(`Concentración final (en ${dil} mL): ${concFinal.toFixed(1)} mg/mL`);
+      if(vel>0){
+        const dur = dil/vel;
+        lines.push(`Infusión a ${vel} mL/h ≈ ${dur.toFixed(2)} h (${(dur*60).toFixed(0)} min)`);
+      }
+    }
+    document.getElementById('result').textContent = lines.join('\n');
+  }
+
+
+  document.getElementById('calcForm').addEventListener('submit', function(e){ e.preventDefault(); calcular(); });
+
+  document.getElementById('copyBtn').addEventListener('click', function(){
+    const t = $('result').textContent || '';
+    if(!t.trim()) return alert('No hay resultado.');
+    navigator.clipboard.writeText(t).then(()=>{
+      const b = $('copyBtn'); b.textContent = '¡Copiado!'; setTimeout(()=>b.textContent='Copiar resultado', 900);
+    });
+  });
+
+  
+  // Cierre inteligente
+  function smartClose(){
+    try{
+      if(window.opener && !window.opener.closed){ window.close(); return; }
+    }catch(e){}
+    if(history.length>1){ history.back(); }
+    else{ location.href='../index.html'; } // ajusta si tu índice está en otra ruta
+  }
+
+  $('closeBtn').addEventListener('click', smartClose);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escala BISAP</title>
+
+  <style>
+    :root{--c1:#0a5ea8;--c1-600:#0a4c84;--c1-700:#08406a;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
+    *{box-sizing:border-box}
+    body{font-family:Roboto,Arial,Helvetica,sans-serif;margin:0;padding:20px;background:#fff;color:#222}
+    h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
+    .card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px 16px 18px;max-width:760px;margin:0 auto;box-shadow:0 4px 16px rgba(0,0,0,.05)}
+    .sub{color:#475569;margin:-.4rem 0 .8rem;font-size:.95rem}
+    .grid{display:grid;gap:.9rem}
+    .row{display:grid;gap:.5rem;grid-template-columns:1fr 1fr;align-items:center}
+    .ig{display:grid;grid-template-columns:1fr 180px;gap:.5rem}
+    label{font-weight:600;color:#334155}
+    input[type=number],select{border:1px solid var(--bx);border-radius:10px;padding:.6rem .65rem;font-size:1rem;width:100%}
+    select{max-width:100%}
+    .actions{display:flex;gap:.6rem;margin-top:.4rem;flex-wrap:wrap;align-items:center}
+    .actions .spacer{flex:1 1 auto}
+    .btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
+    .btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1-600)}
+    .btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}.btn.secondary:hover{background:#e6ebf2}
+    .btn.close{margin-left:auto;background:var(--c1-700);color:#fff;border-color:#083554}
+    .btn.close:hover{filter:brightness(1.05)}
+    .result{margin-top:.9rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;color:var(--tx);white-space:pre-wrap}
+    .muted{color:var(--mut);font-size:.9rem}
+    @media (max-width:560px){.row{grid-template-columns:1fr}.ig{grid-template-columns:1fr}}
+  </style>
+
+</head>
+<body>
+  <div class="card">
+    <h1>Escala BISAP</h1>
+    <form id="bisapForm" class="grid">
+      <label><input type="checkbox" id="bun"> BUN > 25 mg/dL</label>
+      <label><input type="checkbox" id="glasgow"> Glasgow < 15</label>
+      <label><input type="checkbox" id="sirpa"> SIRS presente</label>
+      <label><input type="checkbox" id="edad"> Edad > 60 años</label>
+      <label><input type="checkbox" id="derrame"> Derrame pleural</label>
+      <button type="submit">Calcular BISAP</button>
+    
+      <div class="actions">
+        <button type="submit" class="btn primary">Calcular</button>
+        <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
+        <button type="reset" class="btn secondary">Limpiar</button>
+        <span class="spacer"></span>
+        <button type="button" id="closeBtn" class="btn close">Cerrar ventana</button>
+      </div>
+      <div id="resultado" class="result" aria-live="polite"></div>
+    <p class="muted">
+      <strong>Recordatorio clínico (BISAP):</strong> escala pronóstica para pancreatitis aguda en las primeras 24&nbsp;h.
+      Variables: BUN &gt; 25&nbsp;mg/dL, SIRS, edad &gt; 60&nbsp;años, derrame pleural, Glasgow &lt; 15.
+      Orientación habitual: 0–2 bajo riesgo de complicaciones, 3–5 riesgo elevado. No es diagnóstica;
+      úsese junto a la valoración clínica, analítica y de imagen.
+    </p>
+    
+    </form>
+
+    <div id="resultado" class="result" aria-live="polite"></div>
+  </div>
+
+  <script>
+    document.getElementById('bisapForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const score = ['bun','glasgow','sirpa','edad','derrame']
+        .map(id => document.getElementById(id).checked ? 1 : 0)
+        .reduce((a,b) => a+b, 0);
+
+      document.getElementById('resultado').textContent = `Puntaje BISAP: ${score} puntos`;
+    });
+  
+      // Copiar
+      document.getElementById('copyBtn').addEventListener('click', function(){
+        const t = document.getElementById('resultado').textContent || '';
+        if(!t.trim()) return alert('No hay resultado.');
+        navigator.clipboard.writeText(t).then(()=>{
+          const b=document.getElementById('copyBtn'); b.textContent='¡Copiado!'; setTimeout(()=>b.textContent='Copiar resultado',900);
+        });
+      });
+      // Cierre inteligente
+      function smartClose(){
+        try{
+          if(window.opener && !window.opener.closed){ window.close(); return; }
+        }catch(e){}
+        if(history.length>1){ history.back(); } else { location.href='../index.html'; }
+      }
+      document.getElementById('closeBtn').addEventListener('click', smartClose);
+
+  </script>
+</body>
+</html>

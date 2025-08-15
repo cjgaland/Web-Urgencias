@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Mantenimiento hídrico (Holliday–Segar)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{--c1:#0a5ea8;--c1d:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84}
+body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px}
+.card{max-width:780px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
+h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+label{display:flex;flex-direction:column;font-weight:600;color:#334155}
+input,select{border:1px solid var(--bx);border-radius:10px;padding:.55rem}
+.actions{display:flex;gap:.6rem;margin-top:.9rem;flex-wrap:wrap;align-items:center}
+.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
+.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1d)}
+.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}
+.result{margin-top:1rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;white-space:pre-wrap;color:var(--tx)}
+.small{font-size:.9rem;color:#667085}
+@media(max-width:720px){.grid{grid-template-columns:1fr}}
+
+*{box-sizing:border-box}
+select{max-width:100%}
+.actions .spacer{flex:1 1 auto}
+.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
+.btn.close:hover{filter:brightness(1.05)}</style>
+</head>
+<body>
+<div class="card">
+  <h1>Mantenimiento hídrico (Holliday–Segar)</h1>
+
+  <div class="grid">
+    <label>Peso (kg)
+      <input type="number" id="w" step="0.1" min="0">
+    </label>
+    <label>Horas de infusión
+      <input type="number" id="hours" step="1" min="1" value="24">
+    </label>
+    <label>Añadir <em>bolo</em> (20 ml/kg) <span class="small">(opcional)</span>
+      <select id="bolus">
+        <option value="0" selected>No</option>
+        <option value="1">Sí</option>
+      </select>
+    </label>
+    <label>Multiplicador de estrés/enfermedad <span class="small">(opcional)</span>
+      <select id="stress">
+        <option value="1" selected">1.0 (neutro)</option>
+        <option value="1.2">1.2</option>
+        <option value="1.4">1.4</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="actions">
+    <button class="btn primary" onclick="calc()">Calcular</button>
+    <button class="btn secondary" onclick="copyRes()">Copiar</button>
+    <button class="btn secondary" onclick="clearForm()">Limpiar</button>
+  
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+</div>
+
+  <div id="res" class="result" aria-live="polite">Introduce el peso y pulsa Calcular.</div>
+    <p class="muted"><strong>Nota clínica:</strong> Ajustar por patología (cardiorrenal, SIADH) y situación clínica. Vigilar sodio y signos de sobrecarga. Considerar soluciones isotónicas según protocolo.</p>
+
+  <p class="small" style="margin-top:.6rem">Fórmula: 100 ml/kg (0–10 kg) + 50 ml/kg (10–20 kg) + 20 ml/kg (&gt;20 kg).</p>
+</div>
+
+<script>
+const r=(v,d=0)=>Math.round((v+Number.EPSILON)*10**d)/10**d;
+function maintMlPerDay(kg){
+  if(kg<=10) return 100*kg;
+  if(kg<=20) return 100*10 + 50*(kg-10);
+  return 100*10 + 50*10 + 20*(kg-20);
+}
+function calc(){
+  const w=parseFloat(document.getElementById('w').value);
+  const hours=parseFloat(document.getElementById('hours').value||'24');
+  const bolus=document.getElementById('bolus').value==='1';
+  const stress=parseFloat(document.getElementById('stress').value||'1');
+
+  if(!(w>0)) {document.getElementById('res').textContent='Revisa el peso.'; return;}
+
+  const baseDay=maintMlPerDay(w);
+  const baseAdj=baseDay*stress;
+  const basePerH=baseAdj/24;
+  const volForHours=basePerH*hours;
+  const bolusMl=bolus?20*w:0;
+  const total=volForHours + bolusMl;
+
+  const lines=[
+    `Mantenimiento 24 h: ${r(baseAdj,0)} ml (≈ ${r(basePerH,0)} ml/h)`,
+    `Tiempo programado: ${hours} h → ${r(volForHours,0)} ml`,
+    `Bolo: ${bolus? r(bolusMl,0)+' ml':'No'}`,
+    `Total estimado a infundir: ${r(total,0)} ml`
+  ].join('\n');
+  document.getElementById('res').textContent=lines;
+}
+function copyRes(){
+  const t=document.getElementById('res').textContent||'';
+  if(!t.trim()) return alert('No hay resultado.');
+  navigator.clipboard.writeText(t);
+}
+function clearForm(){
+  document.getElementById('w').value='';
+  document.getElementById('hours').value='24';
+  document.getElementById('bolus').value='0';
+  document.getElementById('stress').value='1';
+  document.getElementById('res').textContent='Introduce el peso y pulsa Calcular.';
+}
+
+// Cierre inteligente
+function smartClose(){
+  try{
+    if(window.opener && !window.opener.closed){ window.close(); return; }
+  }catch(e){}
+  if(history.length>1){ history.back(); }
+  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
+}
+var _cb = document.getElementById('closeBtn');
+if(_cb){ _cb.addEventListener('click', smartClose); }
+
+</script>
+</body>
+</html>

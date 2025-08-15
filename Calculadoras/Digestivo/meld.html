@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora MELD</title>
+
+  <style>
+    :root{--c1:#0a5ea8;--c1-600:#0a4c84;--c1-700:#08406a;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
+    *{box-sizing:border-box}
+    body{font-family:Roboto,Arial,Helvetica,sans-serif;margin:0;padding:20px;background:#fff;color:#222}
+    h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
+    .card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px 16px 18px;max-width:760px;margin:0 auto;box-shadow:0 4px 16px rgba(0,0,0,.05)}
+    .sub{color:#475569;margin:-.4rem 0 .8rem;font-size:.95rem}
+    .grid{display:grid;gap:.9rem}
+    .row{display:grid;gap:.5rem;grid-template-columns:1fr 1fr;align-items:center}
+    .ig{display:grid;grid-template-columns:1fr 180px;gap:.5rem}
+    label{font-weight:600;color:#334155}
+    input[type=number],select{border:1px solid var(--bx);border-radius:10px;padding:.6rem .65rem;font-size:1rem;width:100%}
+    select{max-width:100%}
+    .actions{display:flex;gap:.6rem;margin-top:.4rem;flex-wrap:wrap;align-items:center}
+    .actions .spacer{flex:1 1 auto}
+    .btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
+    .btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1-600)}
+    .btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}.btn.secondary:hover{background:#e6ebf2}
+    .btn.close{margin-left:auto;background:var(--c1-700);color:#fff;border-color:#083554}
+    .btn.close:hover{filter:brightness(1.05)}
+    .result{margin-top:.9rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;color:var(--tx);white-space:pre-wrap}
+    .muted{color:var(--mut);font-size:.9rem}
+    @media (max-width:560px){.row{grid-template-columns:1fr}.ig{grid-template-columns:1fr}}
+  </style>
+
+</head>
+<body>
+  <div class="card">
+    <h1>Calculadora MELD</h1>
+    
+    <form id="meldForm" class="grid">
+      <div class="row">
+        <label for="bilir">Bilirrubina</label>
+        <div class="ig">
+          <input type="number" id="bilir" step="0.01" min="0" placeholder="Ej. 3.2" required>
+          <select disabled><option>mg/dL</option></select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="inr">INR</label>
+        <div class="ig">
+          <input type="number" id="inr" step="0.01" min="0" placeholder="Ej. 1.8" required>
+          <select disabled><option>—</option></select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="creat">Creatinina</label>
+        <div class="ig">
+          <input type="number" id="creat" step="0.01" min="0" placeholder="Ej. 1.4" required>
+          <select disabled><option>mg/dL</option></select>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn primary">Calcular</button>
+        <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
+        <button type="reset" class="btn secondary">Limpiar</button>
+        <span class="spacer"></span>
+        <button type="button" id="closeBtn" class="btn close">Cerrar ventana</button>
+      </div>
+
+      <div id="resultado" class="result" aria-live="polite">Introduce valores y pulsa “Calcular”.</div>
+    <p class="muted">
+      <strong>Recordatorio clínico (MELD):</strong> estima gravedad hepática y priorización de trasplante en hepatopatía crónica.
+      Rango típico 6–40. Interpretar junto a contexto clínico y variantes como <em>MELD-Na</em> (que incorpora sodio sérico).
+      En ocasiones se limita la creatinina a un máximo clínico (p.ej. 4&nbsp;mg/dL) según protocolo.
+      No sustituye el juicio clínico.
+    </p>
+    
+      <p class="muted">MELD clásico: 3.78·ln(bilir) + 11.2·ln(INR) + 9.57·ln(creat) + 6.43. (Unidades en mg/dL y valor de INR sin unidades). Mínimos clínicos habituales: usa ≥1 para evitar ln(0).</p>
+    </form>
+
+    <p id="resultado"></p>
+  </div>
+
+  <script>
+    document.getElementById('meldForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const bil = parseFloat(document.getElementById('bilir').value);
+      const inr = parseFloat(document.getElementById('inr').value);
+      const crea = parseFloat(document.getElementById('creat').value);
+      
+      if (bil > 0 && inr > 0 && crea > 0) {
+        const _bil = Math.max(1e-6, bil);
+        const _inr = Math.max(1e-6, inr);
+        const _crea = Math.max(1e-6, crea);
+        const meld = 3.78 * Math.log(_bil) + 11.2 * Math.log(_inr) + 9.57 * Math.log(_crea) + 6.43;
+        document.getElementById('resultado').textContent = `Puntaje MELD: ${meld.toFixed(1)}`;
+      } else {
+        document.getElementById('resultado').textContent = "Introduce valores válidos.";
+      }
+    });
+  
+    // Copiar
+    document.getElementById('copyBtn').addEventListener('click', function(){
+      const t = document.getElementById('resultado').textContent || '';
+      if(!t.trim()) return alert('No hay resultado.');
+      navigator.clipboard.writeText(t).then(()=>{
+        const b=document.getElementById('copyBtn'); b.textContent='¡Copiado!'; setTimeout(()=>b.textContent='Copiar resultado',900);
+      });
+    });
+    // Cierre inteligente
+    function smartClose(){
+      try{
+        if(window.opener && !window.opener.closed){ window.close(); return; }
+      }catch(e){}
+      if(history.length>1){ history.back(); } else { location.href='../index.html'; }
+    }
+    document.getElementById('closeBtn').addEventListener('click', smartClose);
+
+</script>
+</body>
+</html>

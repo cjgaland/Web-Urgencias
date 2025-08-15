@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>SOFA – Disfunción orgánica en sepsis</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{--c1:#0a5ea8;--c1d:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
+body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px}
+.card{max-width:980px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
+h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)} .small{font-size:.9rem;color:var(--mut)}
+fieldset{border:1px solid #e5e7eb;border-radius:12px;padding:.8rem;margin:.8rem 0}
+legend{padding:0 .4rem;color:#334155;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}
+label{display:flex;flex-direction:column;gap:.35rem}
+input,select{border:1px solid var(--bx);border-radius:10px;padding:.5rem}
+.actions{display:flex;gap:.6rem;margin-top:.8rem;flex-wrap:wrap;align-items:center}
+.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
+.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1d)}
+.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}
+.result{margin-top:.9rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;white-space:pre-wrap;color:var(--tx)}
+.badge{display:inline-block;padding:.2rem .5rem;border-radius:999px;font-weight:700}
+.mod{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
+.sev{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+.good{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+@media(max-width:1000px){.grid{grid-template-columns:1fr}}
+
+*{box-sizing:border-box}
+
+select{max-width:100%}
+.actions .spacer{flex:1 1 auto}
+.btn.close{margin-left:auto;background:var(--c1d,#08406a);color:#fff;border-color:#083554}
+.btn.close:hover{filter:brightness(1.05)}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>SOFA – Disfunción orgánica en sepsis</h1>
+  <p class="small">Calcula SOFA total (0–24). Usa el peor valor de las últimas 24 h. Orientativo.</p>
+
+  <form onsubmit="return false;">
+    <fieldset>
+      <legend>Parámetros</legend>
+      <div class="grid">
+        <label>PaO₂/FiO₂
+          <input type="number" id="pafi" step="1" placeholder="ej. 250">
+        </label>
+        <label>Plaquetas (×10³/µL)
+          <input type="number" id="plt" step="1" placeholder="ej. 150">
+        </label>
+        <label>Bilirrubina (mg/dL)
+          <input type="number" id="bili" step="0.1" placeholder="ej. 1.2">
+        </label>
+        <label>PAM (mmHg)
+          <input type="number" id="map" step="1" placeholder="ej. 70">
+        </label>
+        <label>Vasopresores
+          <select id="vaso">
+            <option value="none">Ninguno</option>
+            <option value="dopLow">Dopamina ≤5 µg/kg/min o dobutamina</option>
+            <option value="dopMed">Dopamina &gt;5 a ≤15</option>
+            <option value="dopHigh">Dopamina &gt;15 o norad/adrenalina ≤0.1</option>
+            <option value="noraHigh">Norad/adrenalina &gt;0.1</option>
+          </select>
+        </label>
+        <label>Glasgow (GCS 3–15)
+          <input type="number" id="gcs" step="1" min="3" max="15" placeholder="ej. 15">
+        </label>
+        <label>Creatinina (mg/dL)
+          <input type="number" id="crea" step="0.1" placeholder="ej. 1.0">
+        </label>
+        <label>Diuresis (mL/día)
+          <input type="number" id="urine" step="1" placeholder="ej. 800">
+        </label>
+      </div>
+    </fieldset>
+
+    <div class="actions">
+      <button class="btn primary" onclick="calc()">Calcular</button>
+      <button class="btn secondary" onclick="copyRes()">Copiar</button>
+      <button class="btn secondary" type="reset" onclick="resetRes()">Limpiar</button>
+    
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+</div>
+  </form>
+
+  <div id="res" class="result" aria-live="polite">Introduce datos y pulsa Calcular.</div>
+</div>
+
+<script>
+// Puntuaciones según definiciones SOFA clásicas (simplificadas)
+function respScore(pafi){
+  if(isNaN(pafi)||pafi<=0) return 0;
+  if(pafi<100) return 4;
+  if(pafi<200) return 3;
+  if(pafi<300) return 2;
+  if(pafi<400) return 1;
+  return 0;
+}
+function coagScore(plt){
+  if(isNaN(plt)||plt<=0) return 0;
+  if(plt<20) return 4;
+  if(plt<50) return 3;
+  if(plt<100) return 2;
+  if(plt<150) return 1;
+  return 0;
+}
+function liverScore(b){
+  if(isNaN(b)||b<0) return 0;
+  if(b>=12) return 4;
+  if(b>=6)  return 3;
+  if(b>=2)  return 2;
+  if(b>=1.2)return 1;
+  return 0;
+}
+function cardioScore(map,vaso){
+  // Si hay vasopresores, prima el nivel de vasopresor
+  switch(vaso){
+    case 'noraHigh': return 4;
+    case 'dopHigh': return 3;
+    case 'dopMed':  return 2;
+    case 'dopLow':  return 2; // dobutamina/dopa<=5 cuentan 2 en muchos esquemas
+    default:
+      if(!isNaN(map) && map<70) return 1;
+      return 0;
+  }
+}
+function neuroScore(g){
+  if(isNaN(g)) return 0;
+  if(g<6) return 4;
+  if(g<10) return 3;
+  if(g<13) return 2;
+  if(g<15) return 1;
+  return 0;
+}
+function renalScore(c,u){
+  // Creatinina o diuresis
+  const byCr = isNaN(c)?0:(c>=5?4:c>=3.5?3:c>=2?2:c>=1.2?1:0);
+  const byUo = isNaN(u)?0:(u<200?4:u<500?3:0);
+  return Math.max(byCr,byUo);
+}
+
+function calc(){
+  const pafi = parseFloat(document.getElementById('pafi').value);
+  const plt = parseFloat(document.getElementById('plt').value);
+  const bili = parseFloat(document.getElementById('bili').value);
+  const map = parseFloat(document.getElementById('map').value);
+  const vaso = document.getElementById('vaso').value;
+  const gcs = parseFloat(document.getElementById('gcs').value);
+  const crea = parseFloat(document.getElementById('crea').value);
+  const urine = parseFloat(document.getElementById('urine').value);
+
+  const s = {
+    Respiración: respScore(pafi),
+    Coagulación: coagScore(plt),
+    Hígado: liverScore(bili),
+    Cardiovascular: cardioScore(map,vaso),
+    Neurológico: neuroScore(gcs),
+    Renal: renalScore(crea,urine)
+  };
+  const total = Object.values(s).reduce((a,b)=>a+b,0);
+
+  let badge='good', msg='SOFA bajo: reevaluar según evolución.';
+  if(total>=11){badge='sev'; msg='SOFA muy alto: riesgo elevado. Manejo intensivo.'}
+  else if(total>=5){badge='mod'; msg='SOFA intermedio/alto: valorar intensificación de soporte.'}
+
+  const desg = Object.entries(s).map(([k,v])=>`${k}:${v}`).join(' · ');
+
+  document.getElementById('res').innerHTML =
+    `SOFA = <strong>${total}</strong>\n`+
+    `Desglose: ${desg}\n`+
+    `<span class="badge ${badge}">${msg}</span>`;
+}
+function copyRes(){ const t=document.getElementById('res').innerText||''; if(!t.trim()) return alert('Sin resultado.'); navigator.clipboard.writeText('SOFA:\n'+t); }
+function resetRes(){ document.getElementById('res').textContent='Introduce datos y pulsa Calcular.'; }
+
+// Cierre inteligente
+function smartClose(){
+  try{
+    if(window.opener && !window.opener.closed){ window.close(); return; }
+  }catch(e){}
+  if(history.length>1){ history.back(); }
+  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
+}
+var _cb = document.getElementById('closeBtn');
+if(_cb){ _cb.addEventListener('click', smartClose); }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>HAS-BLED (Riesgo de sangrado en FA)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{--c1:#0a5ea8;--c1-600:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
+*{box-sizing:border-box}
+
+body{font-family:Roboto,Arial,Helvetica,sans-serif;margin:0;padding:20px;background:#fff;color:#222}
+h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px 16px 18px;max-width:760px;margin:0 auto;box-shadow:0 4px 16px rgba(0,0,0,.05)}
+.sub{color:#475569;margin:-.4rem 0 .8rem;font-size:.95rem}
+.grid{display:grid;gap:.7rem}
+label{display:flex;gap:.6rem;align-items:flex-start}
+input[type=checkbox]{transform:translateY(3px)}
+.small{font-size:.92rem;color:#334155;margin-left:1.5rem}
+details{margin-top:.4rem}
+details summary{cursor:pointer;color:#0a4c84;font-weight:600}
+.details-box{border:1px solid var(--bd);background:var(--bg);border-radius:10px;padding:.7rem .9rem;margin-top:.5rem;color:#374151}
+ul{margin:.3rem 0 .6rem 1rem}
+.actions{display:flex;gap:.6rem;margin-top:.4rem;flex-wrap:wrap;align-items:center}
+.actions .spacer{flex:1 1 auto}
+.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
+.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1-600)}
+.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}.btn.secondary:hover{background:#e6ebf2}
+.result{margin-top:.9rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;color:var(--tx);white-space:pre-wrap}
+.muted{color:var(--mut);font-size:.9rem}
+
+select{max-width:100%}
+
+.btn.close{margin-left:auto;background:var(--c1-600);color:#fff;border-color:#083554}
+.btn.close:hover{filter:brightness(1.05)}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>HAS-BLED (riesgo de sangrado)</h1>
+  <p class="sub">Cada ítem suma 1 punto. A (renal/hepática) y D (fármacos/alcohol) pueden sumar 2 en total. Máximo 9.</p>
+
+  <form id="formHASBLED" class="grid">
+    <label><input type="checkbox" id="h"> H: Hipertensión no controlada (PAS &gt; 160 mmHg)</label>
+
+    <div>
+      <strong>A: Anomalías renal/hepática</strong>
+      <div class="small">
+        <label><input type="checkbox" id="aRenal"> Renal*</label>
+        <label><input type="checkbox" id="aHepatica"> Hepática*</label>
+      </div>
+    </div>
+
+    <label><input type="checkbox" id="s"> S: Ictus (previo)</label>
+    <label><input type="checkbox" id="b"> B: Sangrado mayor previo / predisposición</label>
+    <label><input type="checkbox" id="l"> L: INR lábil (si AVK; TTR bajo)</label>
+    <label><input type="checkbox" id="e"> E: Edad &gt; 65 años</label>
+
+    <div>
+      <strong>D: Fármacos/alcohol</strong>
+      <div class="small">
+        <label><input type="checkbox" id="dDrugs"> Fármacos que favorecen sangrado (antiagregantes, AINEs)</label>
+        <label><input type="checkbox" id="dAlcohol"> Alcohol (consumo alto)</label>
+      </div>
+    </div>
+
+    <details>
+      <summary>Ver criterios y definiciones</summary>
+      <div class="details-box">
+        <ul>
+          <li><strong>H (Hipertensión):</strong> sistólica &gt;160 mmHg de forma persistente o no controlada.</li>
+          <li><strong>A (Renal):</strong> diálisis crónica o trasplante renal, <em>o</em> creatinina sérica ≥2.26 mg/dL (≈200 μmol/L).</li>
+          <li><strong>A (Hepática):</strong> cirrosis, <em>o</em> bilirrubina total &gt;2× LSN con AST/ALT/FA &gt;3× LSN.</li>
+          <li><strong>S (Ictus):</strong> antecedente de ictus o AIT.</li>
+          <li><strong>B (Sangrado):</strong> antecedente de sangrado mayor (p. ej., hospitalización, transfusión, hemorragia intracraneal) o predisposición (diátesis hemorrágica).</li>
+          <li><strong>L (INR lábil):</strong> solo en AVK; TTR bajo/variable según control local.</li>
+          <li><strong>E (&gt;65):</strong> edad mayor de 65 años.</li>
+          <li><strong>D (Fármacos):</strong> uso concomitante de antiagregantes o AINEs.</li>
+          <li><strong>D (Alcohol):</strong> consumo elevado/sostenido (p. ej., ≥8 bebidas/semana); ajusta a tu protocolo local.</li>
+        </ul>
+        <p class="muted">Interpretación habitual: 0–1 bajo, 2 moderado, ≥3 alto. Úsalo para <em>identificar y corregir</em> factores de riesgo; no para negar anticoagulación por sí solo.</p>
+      </div>
+    </details>
+
+    <div class="actions">
+      <button type="button" class="btn primary" id="calc">Calcular</button>
+      <button type="button" class="btn secondary" id="copyBtn">Copiar resultado</button>
+      <button type="reset" class="btn secondary">Limpiar</button>
+    
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+</div>
+
+    <div id="result" class="result" aria-live="polite">Marca los criterios y pulsa “Calcular”.</div>
+    <p class="muted">Consejo práctico: documenta y corrige H, fármacos y alcohol; revisa INR si usa AVK.</p>
+  </form>
+</div>
+
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  function score(){
+    let s = 0;
+    if($('h').checked) s+=1;
+    if($('s').checked) s+=1;
+    if($('b').checked) s+=1;
+    if($('l').checked) s+=1;
+    if($('e').checked) s+=1;
+    // A: renal/hepática (hasta 2)
+    if($('aRenal').checked) s+=1;
+    if($('aHepatica').checked) s+=1;
+    // D: fármacos/alcohol (hasta 2)
+    if($('dDrugs').checked) s+=1;
+    if($('dAlcohol').checked) s+=1;
+    return s;
+  }
+  function interp(s){
+    if(s>=3) return 'Riesgo alto (≥3): revisar factores modificables y monitorizar.';
+    if(s===2) return 'Riesgo moderado (2): precaución y optimizar factores.';
+    return 'Riesgo bajo (0–1).';
+  }
+  function det(){
+    const parts=[];
+    if($('h').checked) parts.push('H');
+    const a=[];
+    if($('aRenal').checked) a.push('renal');
+    if($('aHepatica').checked) a.push('hepática');
+    if(a.length) parts.push('A('+a.join('+')+')');
+    if($('s').checked) parts.push('S');
+    if($('b').checked) parts.push('B');
+    if($('l').checked) parts.push('L');
+    if($('e').checked) parts.push('E');
+    const d=[];
+    if($('dDrugs').checked) d.push('fármacos');
+    if($('dAlcohol').checked) d.push('alcohol');
+    if(d.length) parts.push('D('+d.join('+')+')');
+    return parts.join(' + ') || '—';
+  }
+
+  $('calc').addEventListener('click', ()=>{
+    const s = score();
+    $('result').textContent = `HAS-BLED = ${s}\nComponentes: ${det()}\n${interp(s)}`;
+  });
+
+  $('copyBtn').addEventListener('click', ()=>{
+    const t=document.getElementById('result').textContent||''; if(!t.trim()) return alert('No hay resultado.');
+    navigator.clipboard.writeText(t).then(()=>{ 
+      const b=document.getElementById('copyBtn'); b.textContent='¡Copiado!'; setTimeout(()=>b.textContent='Copiar resultado',900);
+    });
+  });
+})();
+  // Cierre inteligente
+  function smartClose(){
+    try{
+      if(window.opener && !window.opener.closed){
+        window.close();
+        return;
+      }
+    }catch(e){}
+    if(history.length > 1){
+      history.back();
+    }else{
+      location.href = '../index.html'; // Ajusta si tu índice está en otra ruta
+    }
+  }
+  var _closeBtn = document.getElementById('closeBtn');
+  if(_closeBtn){ _closeBtn.addEventListener('click', smartClose); }
+
+</script>
+</body>
+</html>

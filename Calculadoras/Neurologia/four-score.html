@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>FOUR Score</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{--c1:#0a5ea8;--c1d:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
+body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px}
+.card{max-width:980px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
+h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
+.small{font-size:.9rem;color:var(--mut)}
+fieldset{border:1px solid #e5e7eb;border-radius:12px;padding:.8rem;margin-bottom:.9rem}
+legend{padding:0 .4rem;color:#334155;font-weight:700}
+label{display:block;margin:.45rem 0}
+select{border:1px solid var(--bx);border-radius:10px;padding:.55rem;width:100%}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.actions{display:flex;gap:.6rem;margin-top:.9rem;flex-wrap:wrap;align-items:center}
+.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
+.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1d)}
+.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}
+.result{margin-top:1rem;padding:.9rem;border:1px solid var(--bd);background:#f7fbff;border-radius:10px;white-space:pre-wrap;color:var(--tx)}
+.badge{display:inline-block;padding:.2rem .5rem;border-radius:999px;font-weight:600}
+.good{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+.mod{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
+.sev{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+@media(max-width:920px){.grid{grid-template-columns:1fr}}
+
+*{box-sizing:border-box}
+select{max-width:100%}
+.actions .spacer{flex:1 1 auto}
+.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
+.btn.close:hover{filter:brightness(1.05)}</style>
+</head>
+<body>
+<div class="card">
+  <h1>FOUR Score</h1>
+  <p class="small">Evalúa ojos, respuesta motora, tronco encefálico y respiración. Total 0–16. No sustituye el juicio clínico.</p>
+
+  <form id="f">
+    <fieldset>
+      <legend>Selecciona el mejor valor observado en cada dominio</legend>
+
+      <div class="grid">
+        <div>
+          <label>Ojos (E)
+            <select id="eye">
+              <option value="4">4 – Abre ojos espontáneamente</option>
+              <option value="3">3 – Abre al estímulo verbal</option>
+              <option value="2">2 – Abre al dolor</option>
+              <option value="1">1 – No abre, pero parpadea al estímulo amenazante</option>
+              <option value="0">0 – No abre (sin parpadeo a la amenaza)</option>
+            </select>
+          </label>
+          <label>Motora (M)
+            <select id="motor">
+              <option value="4">4 – Obedece órdenes</option>
+              <option value="3">3 – Localiza dolor</option>
+              <option value="2">2 – Retirada al dolor</option>
+              <option value="1">1 – Postura anormal (flexión o extensión)</option>
+              <option value="0">0 – Ninguna respuesta</option>
+            </select>
+          </label>
+        </div>
+
+        <div>
+          <label>Tronco encefálico (B) – reflejos pupilar/corneal
+            <select id="brain">
+              <option value="4">4 – Pupilas y corneales presentes</option>
+              <option value="3">3 – Un reflejo ausente</option>
+              <option value="2">2 – Ambos ausentes</option>
+              <option value="1">1 – Ausentes y con respiración irregular</option>
+              <option value="0">0 – Ausentes y en ventilación mecánica</option>
+            </select>
+          </label>
+          <label>Respiración (R)
+            <select id="resp">
+              <option value="4">4 – Patrón respiratorio regular (sin VM)</option>
+              <option value="3">3 – Respiración Cheyne–Stokes</option>
+              <option value="2">2 – Resp. irregular</option>
+              <option value="1">1 – Apnea intermitente</option>
+              <option value="0">0 – Ventilación mecánica</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="actions">
+      <button type="button" class="btn primary" onclick="calc()">Calcular</button>
+      <button type="button" class="btn secondary" onclick="copyRes()">Copiar</button>
+      <button type="reset"  class="btn secondary" onclick="resetRes()">Limpiar</button>
+    
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+</div>
+  </form>
+
+  <div id="res" class="result" aria-live="polite">Selecciona opciones y pulsa Calcular.</div>
+    <p class="muted"><strong>Nota clínica:</strong> FOUR 0–16: valores bajos indican mayor gravedad. Útil en pacientes intubados (sin componente verbal). Interpretar junto a exploración neurológica y evolución seriada.</p>
+
+</div>
+
+<script>
+function n(id){return parseInt(document.getElementById(id).value,10)}
+function interpret(t){
+  if(t>=13) return {cls:'good', txt:'Alteración leve (orientativo)'}
+  if(t>=9)  return {cls:'mod',  txt:'Compromiso moderado (orientativo)'}
+  return {cls:'sev', txt:'Compromiso grave (orientativo)'}
+}
+function calc(){
+  const e=n('eye'), m=n('motor'), b=n('brain'), r=n('resp');
+  const tot = e+m+b+r;
+  const k = interpret(tot);
+  const desg = `FOUR = ${tot} (E${e} M${m} B${b} R${r})`;
+  document.getElementById('res').innerHTML =
+    `${desg}\n`+
+    `<span class="badge ${k.cls}">${k.txt}</span>`;
+}
+function copyRes(){
+  const t=document.getElementById('res').innerText||'';
+  if(!t.trim()) return alert('No hay resultado.');
+  navigator.clipboard.writeText(t);
+}
+function resetRes(){
+  document.getElementById('res').textContent='Selecciona opciones y pulsa Calcular.';
+}
+
+// Cierre inteligente
+function smartClose(){
+  try{
+    if(window.opener && !window.opener.closed){ window.close(); return; }
+  }catch(e){}
+  if(history.length>1){ history.back(); }
+  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
+}
+var _cb = document.getElementById('closeBtn');
+if(_cb){ _cb.addEventListener('click', smartClose); }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Asma – PRAM (severidad de crisis)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{--c1:#0a5ea8;--c1d:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84}
+body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px}
+.card{max-width:820px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
+h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
+fieldset{border:1px solid #e5e7eb;border-radius:12px;padding:.8rem;margin-bottom:.9rem}
+legend{padding:0 .4rem;color:#334155;font-weight:700}
+label{display:flex;flex-direction:column;gap:.4rem;margin:.25rem 0}
+select{border:1px solid var(--bx);border-radius:10px;padding:.55rem}
+.actions{display:flex;gap:.6rem;margin-top:.9rem;flex-wrap:wrap;align-items:center}
+.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
+.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1d)}
+.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}
+.result{margin-top:1rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;white-space:pre-wrap;color:var(--tx)}
+.badge{display:inline-block;padding:.2rem .5rem;border-radius:999px;font-weight:600}
+.low{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+.mod{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
+.high{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+.small{font-size:.9rem;color:#667085}
+
+*{box-sizing:border-box}
+select{max-width:100%}
+.actions .spacer{flex:1 1 auto}
+.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
+.btn.close:hover{filter:brightness(1.05)}</style>
+</head>
+<body>
+<div class="card">
+  <h1>Asma – PRAM</h1>
+  <p class="small">PRAM: 0–12 puntos (5 dominios). 0–3 leve, 4–7 moderada, 8–12 grave.</p>
+
+  <form id="f">
+    <fieldset>
+      <legend>Ítems PRAM</legend>
+      <label>Retracciones suprasternal (0–2)
+        <select id="ssr">
+          <option value="0">0 – Ausentes</option>
+          <option value="1">1 – Leves</option>
+          <option value="2">2 – Presentes</option>
+        </select>
+      </label>
+      <label>Contracción de escalenos (0–2)
+        <select id="scal">
+          <option value="0">0 – Ausente</option>
+          <option value="1">1 – Dudosa</option>
+          <option value="2">2 – Presente</option>
+        </select>
+      </label>
+      <label>Entrada de aire (0–3)
+        <select id="air">
+          <option value="0">0 – Normal</option>
+          <option value="1">1 – Disminuida en bases</option>
+          <option value="2">2 – Disminuida generalizada</option>
+          <option value="3">3 – Muy disminuida / silencio auscultatorio</option>
+        </select>
+      </label>
+      <label>Sibilancias (0–3)
+        <select id="wheeze">
+          <option value="0">0 – Ninguna</option>
+          <option value="1">1 – Teleespiratorias</option>
+          <option value="2">2 – Espiratorias</option>
+          <option value="3">3 – Inspiratorias y espiratorias / ausentes con flujo muy bajo</option>
+        </select>
+      </label>
+      <label>Saturación O₂ (0–2)
+        <select id="spo2">
+          <option value="0">0 – ≥ 95%</option>
+          <option value="1">1 – 92–94%</option>
+          <option value="2">2 – &lt; 92%</option>
+        </select>
+      </label>
+    </fieldset>
+
+    <div class="actions">
+      <button type="button" class="btn primary" onclick="calc()">Calcular</button>
+      <button type="button" class="btn secondary" onclick="copyRes()">Copiar</button>
+      <button type="reset" class="btn secondary">Limpiar</button>
+    
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+</div>
+  </form>
+
+  <div id="res" class="result" aria-live="polite">Selecciona las opciones y pulsa Calcular.</div>
+    <p class="muted"><strong>Nota clínica:</strong> PRAM 0–3 leve, 4–7 moderada, 8–12 grave. Tratar según respuesta (SABA, O₂ si precisa, corticoide) y reevaluar frecuentemente. Criterios de ingreso si hipoxemia, mala respuesta o comorbilidad.</p>
+
+</div>
+
+<script>
+function calc(){
+  const v=id=>parseInt(document.getElementById(id).value,10);
+  const total = v('ssr')+v('scal')+v('air')+v('wheeze')+v('spo2');
+  let cat='LEVE', badge='low', rec='Tratamiento broncodilatador; valorar corticoide según respuesta.';
+  if(total>=8){cat='GRAVE';badge='high';rec='Tratamiento intensivo (SABA repetido/continuo, O₂, corticoide sistémico, vigilar/UCI).'}
+  else if(total>=4){cat='MODERADA';badge='mod';rec='SABA y corticoide; reevaluar respuesta.'}
+
+  document.getElementById('res').innerHTML =
+    `PRAM = <strong>${total}</strong> → <span class="badge ${badge}">${cat}</span>\n`+
+    `Sugerencia: ${rec}`;
+}
+function copyRes(){
+  const t=document.getElementById('res').innerText||'';
+  if(!t.trim()) return alert('No hay resultado.');
+  navigator.clipboard.writeText(t);
+}
+
+// Cierre inteligente
+function smartClose(){
+  try{
+    if(window.opener && !window.opener.closed){ window.close(); return; }
+  }catch(e){}
+  if(history.length>1){ history.back(); }
+  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
+}
+var _cb = document.getElementById('closeBtn');
+if(_cb){ _cb.addEventListener('click', smartClose); }
+
+</script>
+</body>
+</html>

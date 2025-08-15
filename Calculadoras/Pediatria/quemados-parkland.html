@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Quemados pediátricos – Parkland</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{--c1:#0a5ea8;--c1d:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
+body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px;background:#fff;color:#222}
+.card{max-width:900px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
+h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
+.small{font-size:.9rem;color:var(--mut)}
+fieldset{border:1px solid #e5e7eb;border-radius:12px;padding:.8rem;margin-bottom:.9rem}
+legend{padding:0 .4rem;color:#334155;font-weight:700}
+label{display:flex;flex-direction:column;gap:.4rem;margin:.25rem 0}
+input,select{border:1px solid var(--bx);border-radius:10px;padding:.55rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.actions{display:flex;gap:.6rem;margin-top:.9rem;flex-wrap:wrap;align-items:center}
+.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
+.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1d)}
+.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}
+.result{margin-top:1rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;white-space:pre-wrap;color:var(--tx)}
+.warn{color:#9a3412;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:.5rem .7rem;margin-top:.6rem}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+
+*{box-sizing:border-box}
+select{max-width:100%}
+.actions .spacer{flex:1 1 auto}
+.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
+.btn.close:hover{filter:brightness(1.05)}</style>
+</head>
+<body>
+<div class="card">
+  <h1>Quemados pediátricos – Parkland</h1>
+  <p class="small">
+    Fórmula: <strong>4 ml × peso (kg) × %SCQ</strong> en 24 h (Ringer Lactato). La mitad en las primeras 8 h desde el momento de la quemadura; la otra mitad en las siguientes 16 h.
+    Puedes añadir <em>mantenimiento</em> (p. ej., Holliday–Segar) para ver caudales combinados.
+  </p>
+
+  <form id="f">
+    <fieldset>
+      <legend>Datos</legend>
+      <div class="grid">
+        <label>Peso (kg)
+          <input type="number" id="w" min="0" step="0.1" placeholder="p. ej., 18">
+        </label>
+        <label>% superficie corporal quemada (%SCQ)
+          <input type="number" id="tbsa" min="0" max="100" step="0.1" placeholder="p. ej., 15">
+        </label>
+        <label>Horas desde la quemadura (para cálculo práctico)
+          <input type="number" id="hours_since" min="0" step="0.1" placeholder="p. ej., 2">
+        </label>
+        <label>Mantenimiento (ml/h) (opcional)
+          <input type="number" id="maint" min="0" step="1" placeholder="si lo quieres sumar al goteo">
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Orientaciones adicionales (opcionales)</legend>
+      <div class="grid">
+        <label>¿Inhalación de humo?
+          <select id="smoke">
+            <option value="no" selected>No</option>
+            <option value="si">Sí (considera mayores requerimientos)</option>
+          </select>
+        </label>
+        <label>¿Quemadura eléctrica?
+          <select id="electric">
+            <option value="no" selected>No</option>
+            <option value="si">Sí (considera mayores requerimientos)</option>
+          </select>
+        </label>
+      </div>
+      <p class="small">En inhalación de humo o eléctrica, algunos protocolos consideran aumentar volumen y vigilancia estrecha de diuresis.</p>
+    </fieldset>
+
+    <div class="actions">
+      <button type="button" class="btn primary" onclick="calc()">Calcular</button>
+      <button type="button" class="btn secondary" onclick="copyRes()">Copiar</button>
+      <button type="reset" class="btn secondary">Limpiar</button>
+    
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+</div>
+  </form>
+
+  <div id="res" class="result" aria-live="polite">Introduce peso y %SCQ, y pulsa Calcular.</div>
+    <p class="muted"><strong>Nota clínica:</strong> Objetivo de diuresis pediátrica habitual ≈ 1&nbsp;ml/kg/h (orientativo). Ajusta el volumen por respuesta clínica y tipo de lesión (inhalación de humo/eléctrica). Considera traslado a centro de quemados.</p>
+
+  <div id="warn" class="warn" style="display:none">
+    Indicaciones orientativas. Ajusta siempre a la respuesta clínica (diuresis, perfusión, lactato, etc.) y protocolos de tu centro.
+  </div>
+</div>
+
+<script>
+const r=(v,d=0)=>Math.round((v+Number.EPSILON)*10**d)/10**d;
+
+function calc(){
+  const w=parseFloat(document.getElementById('w').value);
+  const tbsa=parseFloat(document.getElementById('tbsa').value);
+  const since=parseFloat(document.getElementById('hours_since').value||'0');
+  const maint=parseFloat(document.getElementById('maint').value||'0');
+  const smoke=document.getElementById('smoke').value==='si';
+  const electric=document.getElementById('electric').value==='si';
+
+  if(!(w>0) || !(tbsa>0)){
+    document.getElementById('res').textContent='Revisa peso y %SCQ.';
+    return;
+  }
+
+  const total24 = 4 * w * tbsa;        // ml en 24 h
+  const first8  = total24 / 2;         // ml primeras 8 h
+  const next16  = total24 / 2;         // ml siguientes 16 h
+
+  // Caudales base (sin mantenimiento)
+  const rate8   = first8 / 8;          // ml/h primeras 8 h
+  const rate16  = next16 / 16;         // ml/h siguientes 16 h
+
+  // Si ya han pasado X horas desde la quemadura, recalcula lo pendiente de la primera fase (práctico)
+  let pend_first8_ml = first8;
+  let pend_first8_h  = 8;
+  if(since>0 && since<8){
+    pend_first8_h  = 8 - since;
+    // Asumimos que lo ideal hubiera sido repartir lineal en esas 8 h
+    const ya_debian_ir = rate8 * since;
+    pend_first8_ml = Math.max(first8 - ya_debian_ir, 0);
+  } else if (since>=8){
+    pend_first8_ml = 0;
+    pend_first8_h  = 0;
+  }
+
+  const rec_rate_now = pend_first8_h>0 ? pend_first8_ml/pend_first8_h : rate16; // si ya pasó la 1ª fase, mostramos el de 16h
+
+  // Sumar mantenimiento si se ha indicado
+  const rate8_total  = rate8  + maint;
+  const rate16_total = rate16 + maint;
+  const rate_now_tot = rec_rate_now + maint;
+
+  const lines = [
+    `Parkland 24 h: ${r(total24,0)} ml`,
+    `→ Primeras 8 h: ${r(first8,0)} ml (≈ ${r(rate8,0)} ml/h)`,
+    `→ Siguientes 16 h: ${r(next16,0)} ml (≈ ${r(rate16,0)} ml/h)`,
+  ];
+
+  if(since>0){
+    lines.push('');
+    lines.push(`Has indicado ${since} h desde la quemadura:`);
+    if(pend_first8_h>0){
+      lines.push(`• Pendiente 1ª fase: ${r(pend_first8_ml,0)} ml en ${r(pend_first8_h,1)} h → ≈ ${r(rec_rate_now,0)} ml/h`);
+    }else{
+      lines.push(`• 1ª fase completada → Caudal de referencia actual: ≈ ${r(rec_rate_now,0)} ml/h`);
+    }
+  }
+
+  if(maint>0){
+    lines.push('');
+    lines.push(`Con mantenimiento (${maint} ml/h):`);
+    lines.push(`• 1ª fase: ≈ ${r(rate8_total,0)} ml/h`);
+    lines.push(`• 2ª fase: ≈ ${r(rate16_total,0)} ml/h`);
+    lines.push(`• Caudal recomendado ahora (según fase): ≈ ${r(rate_now_tot,0)} ml/h`);
+  }
+
+  if(smoke || electric){
+    lines.push('');
+    lines.push('⚠ Considera mayores requerimientos por inhalación de humo/quemadura eléctrica y monitoriza diuresis.');
+  }
+
+  document.getElementById('res').textContent = lines.join('\n');
+  document.getElementById('warn').style.display='block';
+}
+
+function copyRes(){
+  const t=document.getElementById('res').innerText||'';
+  if(!t.trim()) return alert('No hay resultado.');
+  navigator.clipboard.writeText(t);
+}
+
+// Cierre inteligente
+function smartClose(){
+  try{
+    if(window.opener && !window.opener.closed){ window.close(); return; }
+  }catch(e){}
+  if(history.length>1){ history.back(); }
+  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
+}
+var _cb = document.getElementById('closeBtn');
+if(_cb){ _cb.addEventListener('click', smartClose); }
+
+</script>
+</body>
+</html>

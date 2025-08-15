@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Escala de Glasgow pediátrica</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{--c1:#0a5ea8;--c1d:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
+body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px;background:#fff;color:#222}
+.card{max-width:900px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
+h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
+.small{font-size:.9rem;color:var(--mut)}
+fieldset{border:1px solid #e5e7eb;border-radius:12px;padding:.8rem;margin-bottom:.9rem}
+legend{padding:0 .4rem;color:#334155;font-weight:700}
+label{display:flex;flex-direction:column;gap:.4rem;margin:.25rem 0}
+select{border:1px solid var(--bx);border-radius:10px;padding:.55rem}
+.actions{display:flex;gap:.6rem;margin-top:.9rem;flex-wrap:wrap;align-items:center}
+.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
+.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1d)}
+.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}
+.result{margin-top:1rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;white-space:pre-wrap;color:var(--tx)}
+.badge{display:inline-block;padding:.2rem .5rem;border-radius:999px;font-weight:600}
+.low{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+.mod{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
+.high{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+
+*{box-sizing:border-box}
+select{max-width:100%}
+.actions .spacer{flex:1 1 auto}
+.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
+.btn.close:hover{filter:brightness(1.05)}</style>
+</head>
+<body>
+<div class="card">
+  <h1>Escala de Glasgow pediátrica</h1>
+  <p class="small">Selecciona la categoría de edad para adaptar el componente <strong>Verbal</strong>. Resultado 3–15 puntos. Esta herramienta es de apoyo y no sustituye el juicio clínico.</p>
+
+  <form id="f">
+    <fieldset>
+      <legend>Edad</legend>
+      <label>Grupo de edad
+        <select id="age">
+          <option value="lte2">≤ 2 años</option>
+          <option value="gt2" selected>&gt; 2 años</option>
+        </select>
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Ocular (E)</legend>
+      <label>Respuesta ocular
+        <select id="eye">
+          <option value="4">4 – Espontánea</option>
+          <option value="3">3 – Al habla</option>
+          <option value="2">2 – Al dolor</option>
+          <option value="1">1 – Ninguna</option>
+        </select>
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Verbal (V)</legend>
+      <label>Respuesta verbal
+        <select id="verbal"></select>
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Motora (M)</legend>
+      <label>Respuesta motora
+        <select id="motor">
+          <option value="6">6 – Obedece órdenes</option>
+          <option value="5">5 – Localiza dolor</option>
+          <option value="4">4 – Retirada al dolor</option>
+          <option value="3">3 – Flexión anormal</option>
+          <option value="2">2 – Extensión</option>
+          <option value="1">1 – Ninguna</option>
+        </select>
+      </label>
+    </fieldset>
+
+    <div class="actions">
+      <button type="button" class="btn primary" onclick="calc()">Calcular</button>
+      <button type="button" class="btn secondary" onclick="copyRes()">Copiar</button>
+      <button type="reset" class="btn secondary" onclick="initVerbal()">Limpiar</button>
+    
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+</div>
+  </form>
+
+  <div id="res" class="result" aria-live="polite">Selecciona las opciones y pulsa Calcular.</div>
+    <p class="muted"><strong>Nota clínica:</strong> ≤8 sugiere coma y riesgo de vía aérea; 9–12 moderado; 13–15 leve. Registrar el mejor valor E–V–M y el grupo de edad para el componente verbal.</p>
+
+</div>
+
+<script>
+const verbal_gt2 = [
+  {v:5,t:'5 – Orientado y conversa'},
+  {v:4,t:'4 – Confuso'},
+  {v:3,t:'3 – Palabras inapropiadas'},
+  {v:2,t:'2 – Sonidos incomprensibles'},
+  {v:1,t:'1 – Ninguna'}
+];
+
+const verbal_lte2 = [
+  {v:5,t:'5 – Balbucea/palabras adecuadas para la edad'},
+  {v:4,t:'4 – Llanto consolable'},
+  {v:3,t:'3 – Llanto persistente/irritable'},
+  {v:2,t:'2 – Gemidos al dolor'},
+  {v:1,t:'1 – Ninguna'}
+];
+
+function initVerbal(){
+  const age = document.getElementById('age').value;
+  const sel = document.getElementById('verbal');
+  sel.innerHTML = '';
+  (age==='lte2'?verbal_lte2:verbal_gt2).forEach(o=>{
+    const op = document.createElement('option');
+    op.value = o.v; op.textContent = o.t;
+    sel.appendChild(op);
+  });
+}
+
+document.getElementById('age').addEventListener('change', initVerbal);
+initVerbal();
+
+function calc(){
+  const e = parseInt(document.getElementById('eye').value,10);
+  const v = parseInt(document.getElementById('verbal').value,10);
+  const m = parseInt(document.getElementById('motor').value,10);
+  const total = e + v + m;
+
+  let cat='Leve', badge='low';
+  if(total <= 8){ cat='Grave'; badge='high'; }
+  else if(total <= 12){ cat='Moderado'; badge='mod'; }
+
+  document.getElementById('res').innerHTML =
+    `GCS pediátrica = <strong>${total}</strong> (E${e} V${v} M${m}) → `+
+    `<span class="badge ${badge}">${cat}</span>`;
+}
+
+function copyRes(){
+  const t = document.getElementById('res').innerText || '';
+  if(!t.trim()) return alert('No hay resultado.');
+  navigator.clipboard.writeText(t);
+}
+
+// Cierre inteligente
+function smartClose(){
+  try{
+    if(window.opener && !window.opener.closed){ window.close(); return; }
+  }catch(e){}
+  if(history.length>1){ history.back(); }
+  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
+}
+var _cb = document.getElementById('closeBtn');
+if(_cb){ _cb.addEventListener('click', smartClose); }
+
+</script>
+</body>
+</html>

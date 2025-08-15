@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>PESI y sPESI – Índice de severidad del TEP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{--c1:#0a5ea8;--c1-600:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
+body{font-family:Roboto,Arial,Helvetica,sans-serif;margin:0;padding:20px;background:#fff;color:#222}
+h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;max-width:860px;margin:0 auto;box-shadow:0 4px 16px rgba(0,0,0,.05)}
+fieldset{border:1px solid #e5e7eb;border-radius:10px;margin:.6rem 0;padding:.6rem .9rem}
+legend{padding:0 .4rem;color:#334155;font-weight:600}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+label{display:flex;gap:.5rem;align-items:center}
+input[type=number]{width:100%;padding:.5rem;border:1px solid var(--bx);border-radius:10px}
+select{padding:.5rem;border:1px solid var(--bx);border-radius:10px}
+input[type=checkbox]{transform:translateY(2px)}
+.small{font-size:.9rem;color:#475569}
+.actions{display:flex;gap:.6rem;margin-top:.7rem;flex-wrap:wrap}
+.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
+.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1-600)}
+.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}.btn.secondary:hover{background:#e6ebf2}
+.result{margin-top:1rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;white-space:pre-wrap;color:#0a4c84}
+.muted{color:var(--mut);font-size:.9rem}
+@media(max-width:720px){.grid2,.grid3{grid-template-columns:1fr}}
+
+*{box-sizing:border-box}
+select{max-width:100%}
+.actions .spacer{flex:1 1 auto}
+.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
+.btn.close:hover{filter:brightness(1.05)}</style>
+</head>
+<body>
+<div class="card">
+  <h1>PESI (original) y sPESI (simplificado)</h1>
+  <p class="small">Estratificación de riesgo en tromboembolia pulmonar.</p>
+
+  <form id="formPESI">
+    <fieldset>
+      <legend>Datos</legend>
+      <div class="grid3">
+        <label>Edad (años)
+          <input type="number" id="age" min="0" step="1" placeholder="Ej. 68" required>
+        </label>
+        <label>Sexo
+          <select id="sex">
+            <option value="M">Varón</option>
+            <option value="F">Mujer</option>
+          </select>
+        </label>
+        <label><input type="checkbox" id="cancer"> Cáncer activo</label>
+        <label><input type="checkbox" id="chf"> Insuficiencia cardiaca</label>
+        <label><input type="checkbox" id="lung"> Enfermedad pulmonar crónica</label>
+        <label><input type="checkbox" id="altMental"> Alteración mental</label>
+        <label><input type="checkbox" id="rr30"> FR ≥ 30/min</label>
+        <label><input type="checkbox" id="sbp100"> PAS &lt; 100 mmHg</label>
+        <label><input type="checkbox" id="tempLow"> Temp &lt; 36°C</label>
+        <label><input type="checkbox" id="hr110"> FC ≥ 110 lpm</label>
+        <label><input type="checkbox" id="sat90"> SatO₂ &lt; 90%</label>
+      </div>
+      <p class="small">PESI (original): edad (puntos = años), <strong>+10 por sexo masculino</strong>, +30 cáncer, +10 IC, +10 EPOC/enf. pulmonar crónica, +20 FC≥110, +30 PAS&lt;100, +20 FR≥30, +20 Temp&lt;36, +60 alteración mental, +20 SatO₂&lt;90%.</p>
+      <p class="small">sPESI: 1 punto por cada: edad &gt;80, cáncer, cardiopulmonar crónica (IC o pulmonar), FC≥110, PAS&lt;100, SatO₂&lt;90%. 0 = bajo riesgo.</p>
+    </fieldset>
+
+    <div class="actions">
+      <button type="submit" class="btn primary">Calcular</button>
+      <button type="button" id="copyBtn" class="btn secondary">Copiar</button>
+      <button type="reset" class="btn secondary">Limpiar</button>
+    
+  <span class="spacer"></span>
+  <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+</div>
+
+    <div id="result" class="result" aria-live="polite">Marca los criterios y pulsa “Calcular”.</div>
+    <p class="muted"><strong>Nota clínica:</strong> PESI clasifica en cinco clases de riesgo y sPESI identifica “bajo riesgo” si es 0. Decisión de alta, ingreso o UCI debe individualizarse según clínica, imagen y hemodinámica.</p>
+
+    <p class="muted">Clases PESI: I ≤65, II 66–85, III 86–105, IV 106–125, V &gt;125. sPESI: 0 = bajo, ≥1 = no bajo.</p>
+  </form>
+</div>
+
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+
+  function pesi(){
+    const age = parseInt($('age').value||'0',10);
+    const sex = $('sex').value;
+    let s = age + (sex==='M'?10:0);
+    s += $('cancer').checked ? 30 : 0;
+    s += $('chf').checked ? 10 : 0;
+    s += $('lung').checked ? 10 : 0;
+    s += $('hr110').checked ? 20 : 0;
+    s += $('sbp100').checked ? 30 : 0;
+    s += $('rr30').checked ? 20 : 0;
+    s += $('tempLow').checked ? 20 : 0;
+    s += $('altMental').checked ? 60 : 0;
+    s += $('sat90').checked ? 20 : 0;
+    return s;
+  }
+
+  function pesiClass(s){
+    if(s<=65) return 'I (muy bajo riesgo)';
+    if(s<=85) return 'II (bajo riesgo)';
+    if(s<=105) return 'III (riesgo intermedio)';
+    if(s<=125) return 'IV (riesgo alto)';
+    return 'V (muy alto riesgo)';
+  }
+
+  function spesi(){
+    let s = 0;
+    const age = parseInt($('age').value||'0',10);
+    if(age>80) s++;
+    if($('cancer').checked) s++;
+    if($('chf').checked || $('lung').checked) s++;
+    if($('hr110').checked) s++;
+    if($('sbp100').checked) s++;
+    if($('sat90').checked) s++;
+    return s;
+  }
+
+  $('formPESI').addEventListener('submit',(e)=>{
+    e.preventDefault();
+    const p = pesi();
+    const c = pesiClass(p);
+    const sp = spesi();
+    const spClass = (sp===0) ? 'Bajo riesgo (0)' : 'No bajo (≥1)';
+    $('result').textContent = `PESI = ${p} → Clase ${c}\n`+
+                              `sPESI = ${sp} → ${spClass}`;
+  });
+
+  $('copyBtn').addEventListener('click',()=>{
+    const t=$('result').textContent||''; if(!t.trim()) return alert('No hay resultado.');
+    navigator.clipboard.writeText(t).then(()=>{
+      const b=$('copyBtn'); b.textContent='¡Copiado!'; setTimeout(()=>b.textContent='Copiar',900);
+    });
+  });
+})();
+
+// Cierre inteligente
+function smartClose(){
+  try{
+    if(window.opener && !window.opener.closed){ window.close(); return; }
+  }catch(e){}
+  if(history.length>1){ history.back(); }
+  else{ location.href='../index.html'; }
+}
+var _cb = document.getElementById('closeBtn');
+if(_cb){ _cb.addEventListener('click', smartClose); }
+
+</script>
+</body>
+</html>

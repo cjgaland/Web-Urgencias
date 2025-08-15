@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>PEWS (Bedside) – Pediatric Early Warning Score</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{--c1:#0a5ea8;--c1-600:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
+body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px;background:#fff;color:#222}
+.card{max-width:980px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
+h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
+.small{font-size:.9rem;color:#475569}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+label{display:flex;flex-direction:column;font-weight:600;color:#334155}
+input,select{border:1px solid var(--bx);border-radius:10px;padding:.55rem}
+fieldset{border:1px solid #e5e7eb;border-radius:12px;padding:.8rem}
+legend{padding:0 .4rem;color:#334155;font-weight:700}
+.inline{display:flex;align-items:center;gap:.6rem}
+.actions{display:flex;gap:.6rem;margin-top:.9rem;flex-wrap:wrap;align-items:center}
+.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
+.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1-600)}
+.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}
+.result{margin-top:1rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;white-space:pre-wrap;color:#0a4c84}
+.badge{display:inline-block;padding:.2rem .5rem;border-radius:999px;font-weight:600}
+.badge.low{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+.badge.mod{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
+.badge.high{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+
+*{box-sizing:border-box}
+select{max-width:100%}
+.actions .spacer{flex:1 1 auto}
+.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
+.btn.close:hover{filter:brightness(1.05)}</style>
+</head>
+<body>
+<div class="card">
+  <h1>PEWS (Bedside)</h1>
+  <p class="small">
+    Escala de alerta temprana pediátrica (Bedside PEWS). Introduce constantes y condiciones actuales.
+    Puntuación 0–3 por dominio; total 0–26. Los puntos de corte pueden variar por protocolo local.
+  </p>
+
+  <form id="pewsForm">
+    <fieldset style="margin-bottom:.9rem">
+      <legend>Datos básicos</legend>
+      <div class="grid">
+        <label>Grupo de edad
+          <select id="ageBand" required>
+            <option value="0-3m">0–3 meses</option>
+            <option value="3-12m">3–12 meses</option>
+            <option value="1-3y">1–3 años</option>
+            <option value="4-5y">4–5 años</option>
+            <option value="6-12y" selected>6–12 años</option>
+            <option value=">12y">&gt;12 años</option>
+          </select>
+        </label>
+        <label>Observación/Contexto
+          <select id="context">
+            <option value="baseline" selected>Valor basal/habitual</option>
+            <option value="post-sep1">Pos-reanimación inicial</option>
+            <option value="deterioro">Sospecha de deterioro</option>
+          </select>
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset style="margin-bottom:.9rem">
+      <legend>Respiratorio</legend>
+      <div class="grid">
+        <label>Frecuencia respiratoria (rpm)
+          <input type="number" id="rr" min="0" step="1" placeholder="p. ej., 28">
+        </label>
+        <label>Esfuerzo respiratorio
+          <select id="re">
+            <option value="none" selected>Sin aumento</option>
+            <option value="mild">Tiraje leve / aleteo leve</option>
+            <option value="mod">Tiraje moderado / quejido</option>
+            <option value="sev">Tiraje severo / uso músculos accesorios / apnea</option>
+          </select>
+        </label>
+        <label>Saturación O₂ (%) (mejor de los últimos 5 min)
+          <input type="number" id="spo2" min="0" max="100" step="1" placeholder="p. ej., 94">
+        </label>
+        <label>Soporte de oxígeno actual
+          <select id="o2">
+            <option value="ra" selected>Aire ambiente</option>
+            <option value="lf">O₂ bajo flujo (cánula <4 L/min, FiO₂ &lt;0.4)</option>
+            <option value="hf">O₂ alto flujo / FiO₂ ≥0.4 / mascarilla reservorio</option>
+            <option value="vent">Ventilación no invasiva/invasiva</option>
+          </select>
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset style="margin-bottom:.9rem">
+      <legend>Cardiovascular</legend>
+      <div class="grid">
+        <label>Frecuencia cardiaca (lpm)
+          <input type="number" id="hr" min="0" step="1" placeholder="p. ej., 120">
+        </label>
+        <label>Presión arterial sistólica (mmHg)
+          <input type="number" id="sbp" min="0" step="1" placeholder="p. ej., 100">
+        </label>
+        <label>Relleno capilar (seg)
+          <select id="crt">
+            <option value="<=2" selected>≤ 2 s</option>
+            <option value="3">3 s</option>
+            <option value="4">4 s</option>
+            <option value=">=5">≥ 5 s o piel moteada</option>
+          </select>
+        </label>
+      </div>
+    </fieldset>
+
+    <div class="actions">
+      <button type="submit" class="btn primary">Calcular</button>
+      <button type="button" class="btn secondary" id="copyBtn">Copiar</button>
+      <button type="reset" class="btn secondary">Limpiar</button>
+    
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+</div>
+
+    <div id="res" class="result" aria-live="polite">Completa los campos y pulsa “Calcular”.</div>
+    <p class="muted"><strong>Nota clínica:</strong> PEWS es una herramienta de alerta temprana. Umbrales de activación pueden variar por centro. Un PEWS alto o ascendente requiere reevaluación frecuente y posible aviso a equipo de respuesta rápida/UCI.</p>
+
+    <p class="small" style="margin-top:.5rem">
+      Sugerencia de interpretación (orientativa): 
+      <span class="badge low">0–5 bajo</span> · 
+      <span class="badge mod">6–7 moderado</span> · 
+      <span class="badge high">≥8 alto (aviso médico / considerar UCI)</span>.
+    </p>
+  </form>
+</div>
+
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  const r=(v,d=0)=>Math.round((v+Number.EPSILON)*10**d)/10**d;
+
+  // Rangos/umbrales por edad (valores habituales; personalizables)
+  // RR (rpm): normal [lo..hi]
+  const RR = {
+    "0-3m":[30,60],
+    "3-12m":[30,55],
+    "1-3y":[24,40],
+    "4-5y":[22,34],
+    "6-12y":[18,30],
+    ">12y":[12,22]
+  };
+  // HR (lpm): normal [lo..hi]
+  const HR = {
+    "0-3m":[100,180],
+    "3-12m":[100,170],
+    "1-3y":[90,150],
+    "4-5y":[80,140],
+    "6-12y":[70,120],
+    ">12y":[60,110]
+  };
+  // SBP (mmHg): hipotensión (umbral bajo) por edad (aprox P5)
+  const SBPmin = {
+    "0-3m": 60,
+    "3-12m": 70,
+    "1-3y": 75,
+    "4-5y": 80,
+    "6-12y": 90,
+    ">12y": 95
+  };
+
+  // Scoring helpers (0–3)
+  function scoreRR(ageBand, rr){
+    if(!isFinite(rr)) return 0;
+    const [lo,hi]=RR[ageBand];
+    if(rr>=lo && rr<=hi) return 0;
+    // leve/muy leve desviación: ±20% del rango → 1; ±40% → 2; más → 3
+    const center=(lo+hi)/2;
+    const dev=Math.abs(rr-center)/center;
+    if(dev<0.2) return 1;
+    if(dev<0.4) return 2;
+    return 3;
+  }
+  function scoreRE(re){ // esfuerzo respiratorio
+    return {none:0,mild:1,mod:2,sev:3}[re] ?? 0;
+  }
+  function scoreSpO2(spo2){
+    if(!isFinite(spo2)) return 0;
+    if(spo2>=95) return 0;
+    if(spo2>=92) return 1;
+    if(spo2>=88) return 2;
+    return 3;
+  }
+  function scoreO2(o2){
+    return {ra:0, lf:1, hf:2, vent:3}[o2] ?? 0;
+  }
+  function scoreHR(ageBand, hr){
+    if(!isFinite(hr)) return 0;
+    const [lo,hi]=HR[ageBand];
+    if(hr>=lo && hr<=hi) return 0;
+    const center=(lo+hi)/2;
+    const dev=Math.abs(hr-center)/center;
+    if(dev<0.15) return 1;
+    if(dev<0.30) return 2;
+    return 3;
+  }
+  function scoreSBP(ageBand, sbp){
+    if(!isFinite(sbp)) return 0;
+    const min=SBPmin[ageBand];
+    if(sbp>=min+15) return 0;
+    if(sbp>=min+5) return 1;
+    if(sbp>=min) return 2;
+    return 3; // por debajo del mínimo → 3
+  }
+  function scoreCRT(crt){
+    return {"<=2":0, "3":1, "4":2, ">=5":3}[crt] ?? 0;
+  }
+
+  function band(total){
+    if(total>=8) return {label:"ALTO", cls:"high"};
+    if(total>=6) return {label:"MODERADO", cls:"mod"};
+    return {label:"BAJO", cls:"low"};
+  }
+
+  $('pewsForm').addEventListener('submit', e=>{
+    e.preventDefault();
+    const age=$('ageBand').value;
+
+    const rr=parseFloat($('rr').value);
+    const re=$('re').value;
+    const spo2=parseFloat($('spo2').value);
+    const o2=$('o2').value;
+
+    const hr=parseFloat($('hr').value);
+    const sbp=parseFloat($('sbp').value);
+    const crt=$('crt').value;
+
+    const s_rr=scoreRR(age, rr);
+    const s_re=scoreRE(re);
+    const s_spo2=scoreSpO2(spo2);
+    const s_o2=scoreO2(o2);
+    const s_hr=scoreHR(age, hr);
+    const s_sbp=scoreSBP(age, sbp);
+    const s_crt=scoreCRT(crt);
+
+    const resp = s_rr + s_re + s_spo2 + s_o2;
+    const cardio = s_hr + s_sbp + s_crt;
+    const total = resp + cardio;
+
+    const b = band(total);
+
+    const lines = [
+      `Respiratorio: RR ${isFinite(rr)?rr:'–'} → ${s_rr}, esfuerzo ${re} → ${s_re}, SatO₂ ${isFinite(spo2)?spo2:'–'}% → ${s_spo2}, O₂ ${o2} → ${s_o2}  ⇒  ${resp}`,
+      `Cardiovascular: FC ${isFinite(hr)?hr:'–'} → ${s_hr}, PAS ${isFinite(sbp)?sbp:'–'} → ${s_sbp}, CRT ${crt} → ${s_crt}  ⇒  ${cardio}`,
+      `PEWS total = ${total}  →  Riesgo: ${b.label}`
+    ].join('\n');
+
+    $('res').innerHTML = lines.replaceAll('\n','<br>') +
+      `<br><br><span class="badge ${b.cls}">${b.label}</span>`;
+  });
+
+  $('copyBtn').addEventListener('click', ()=>{
+    const t = $('res').innerText || '';
+    if(!t.trim()) return alert('No hay resultado.');
+    navigator.clipboard.writeText(t);
+  });
+})();
+
+// Cierre inteligente
+function smartClose(){
+  try{
+    if(window.opener && !window.opener.closed){ window.close(); return; }
+  }catch(e){}
+  if(history.length>1){ history.back(); }
+  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
+}
+var _cb = document.getElementById('closeBtn');
+if(_cb){ _cb.addEventListener('click', smartClose); }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Nomograma de Bhutani – Bilirrubina por horas de vida</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{--c1:#0a5ea8;--c1d:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
+body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px}
+.card{max-width:900px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
+h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem}
+label{display:flex;flex-direction:column;font-weight:600;color:#334155}
+input,select{border:1px solid var(--bx);border-radius:10px;padding:.55rem}
+.small{font-size:.9rem;color:var(--mut)}
+.actions{display:flex;gap:.6rem;margin-top:.9rem;flex-wrap:wrap;align-items:center}
+.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
+.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1d)}
+.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}
+.result{margin-top:1rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;white-space:pre-wrap;color:var(--tx)}
+.badge{display:inline-block;padding:.2rem .5rem;border-radius:999px;font-weight:600}
+.low{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+.mod{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
+.high{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+.warn{color:#9a3412;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:.5rem .7rem;margin-top:.6rem}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+
+*{box-sizing:border-box}
+select{max-width:100%}
+.actions .spacer{flex:1 1 auto}
+.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
+.btn.close:hover{filter:brightness(1.05)}</style>
+</head>
+<body>
+<div class="card">
+  <h1>Nomograma de Bhutani</h1>
+  <p class="small">
+    Clasificación orientativa del riesgo de hiperbilirrubinemia significativa según horas de vida (HOL) y bilirrubina total (TSB).
+    Usa el conversor si lo precisas y verifica siempre con el gráfico/guía de tu centro.
+  </p>
+
+  <div class="grid">
+    <label>Horas de vida (HOL)
+      <input type="number" id="hol" min="0" step="1" placeholder="p. ej., 36">
+    </label>
+    <label>TSB (mg/dL)
+      <input type="number" id="tsb" min="0" step="0.1" placeholder="p. ej., 8.5">
+    </label>
+    <label>TSB (µmol/L)
+      <input type="number" id="tsb_umol" min="0" step="1" placeholder="p. ej., 145">
+    </label>
+  </div>
+
+  <div class="actions">
+    <button class="btn secondary" onclick="toUmol()">mg/dL → µmol/L</button>
+    <button class="btn secondary" onclick="toMg()">µmol/L → mg/dL</button>
+    <button class="btn primary" onclick="calc()">Calcular zona</button>
+    <button class="btn secondary" onclick="copyRes()">Copiar</button>
+    <button class="btn secondary" onclick="clearForm()">Limpiar</button>
+  
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+</div>
+
+  <div id="res" class="result" aria-live="polite">Introduce HOL y TSB y pulsa “Calcular zona”.</div>
+    <p class="muted"><strong>Nota clínica:</strong> Clasificación orientativa. Integrar con factores de riesgo (prematuridad, iso-inmunización, pérdida de peso, etc.) y guías AAP. Repetir TSB según edad y evolución, especialmente en &lt;48 h.</p>
+
+  <div id="warn" class="warn" style="display:none"></div>
+
+  <p class="small" style="margin-top:.6rem">
+    Referencia docente: Stanford Newborn Nursery; Bhutani VK et al., Pediatrics 1999. Los cortes exactos son percentilares continuos; aquí se emplea una aproximación para uso orientativo.
+  </p>
+</div>
+
+<script>
+const UMOL_PER_MGDL = 17.104; // 1 mg/dL ≈ 17.104 µmol/L
+
+function r(v,d=1){return Math.round((v+Number.EPSILON)*10**d)/10**d}
+
+function toUmol(){
+  const mg = parseFloat(document.getElementById('tsb').value);
+  if(!(mg>0)) return;
+  document.getElementById('tsb_umol').value = r(mg*UMOL_PER_MGDL,0);
+}
+function toMg(){
+  const um = parseFloat(document.getElementById('tsb_umol').value);
+  if(!(um>0)) return;
+  document.getElementById('tsb').value = r(um/UMOL_PER_MGDL,1);
+}
+
+// Aproximación de zonas (anclajes típicos):
+// A 24 h: Alto riesgo si ≥8 mg/dL; Bajo riesgo si ≤5.8 mg/dL
+// A 48 h: Alto riesgo si ≥11 mg/dL; Bajo riesgo si ≤9.5 mg/dL
+// A 72 h: Alto riesgo si ≥13.5 mg/dL; Bajo riesgo si ≤11 mg/dL
+// Interpolación lineal simple entre anclajes (orientativa).
+const points = [
+  {h:24,  high:8.0,  low:5.8},
+  {h:48,  high:11.0, low:9.5},
+  {h:72,  high:13.5, low:11.0},
+  {h:96,  high:15.0, low:12.0}
+];
+
+function interp(x,x0,y0,x1,y1){
+  if(x<=x0) return y0;
+  if(x>=x1) return y1;
+  const t=(x-x0)/(x1-x0);
+  return y0 + t*(y1-y0);
+}
+
+function thresholdsAt(h){
+  // Busca los dos puntos más cercanos para interpolar
+  let prev = points[0], next = points[points.length-1];
+  for(let i=0;i<points.length-1;i++){
+    if(h>=points[i].h && h<=points[i+1].h){ prev=points[i]; next=points[i+1]; break; }
+  }
+  const high = interp(h, prev.h, prev.high, next.h, next.high);
+  const low  = interp(h, prev.h, prev.low,  next.h, next.low);
+  return {high, low};
+}
+
+function calc(){
+  const hol = parseFloat(document.getElementById('hol').value);
+  const tsb = parseFloat(document.getElementById('tsb').value);
+  const res = document.getElementById('res');
+  const warn = document.getElementById('warn');
+  warn.style.display='none'; warn.textContent='';
+
+  if(!(hol>=0) || !(tsb>=0)){ res.textContent='Revisa HOL y TSB.'; return; }
+
+  const {high, low} = thresholdsAt(hol);
+  let zona='Riesgo intermedio', badge='mod', nota='Repetir TSB y reevaluar según factores de riesgo.';
+  if(tsb >= high){ zona='Riesgo alto'; badge='high'; nota='Valorar fototerapia/ingreso según guía AAP y factores de riesgo.'; }
+  else if(tsb <= low){ zona='Riesgo bajo'; badge='low'; nota='Seguimiento habitual; repetir TSB según edad de alta y factores.'; }
+
+  res.innerHTML =
+    `HOL: <strong>${hol}</strong> h · TSB: <strong>${r(tsb,1)}</strong> mg/dL (${r(tsb*UMOL_PER_MGDL,0)} µmol/L)\n`+
+    `Umbrales estimados → Bajo ≤ ${r(low,1)} · Alto ≥ ${r(high,1)} (orientativos)\n`+
+    `Zona: <span class="badge ${badge}">${zona}</span>\n`+
+    `Sugerencia: ${nota}`;
+
+  if(hol<24){
+    warn.style.display='block';
+    warn.textContent='Precaución: en las primeras 24–48 h pueden existir falsos negativos; valora repetición y seguimiento estrecho.';
+  }
+}
+
+function copyRes(){
+  const t=document.getElementById('res').innerText||'';
+  if(!t.trim()) return alert('No hay resultado.');
+  navigator.clipboard.writeText(t);
+}
+function clearForm(){
+  ['hol','tsb','tsb_umol'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('res').textContent='Introduce HOL y TSB y pulsa “Calcular zona”.';
+  const warn=document.getElementById('warn'); warn.style.display='none'; warn.textContent='';
+}
+
+// Cierre inteligente
+function smartClose(){
+  try{
+    if(window.opener && !window.opener.closed){ window.close(); return; }
+  }catch(e){}
+  if(history.length>1){ history.back(); }
+  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
+}
+var _cb = document.getElementById('closeBtn');
+if(_cb){ _cb.addEventListener('click', smartClose); }
+
+</script>
+</body>
+</html>

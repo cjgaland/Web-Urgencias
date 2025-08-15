@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Diferencia Alvéolo-Arterial de O₂</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px;background:#fff;color:#222}
+.card{background:#fff;border:1px solid #ddd;border-radius:12px;padding:16px;max-width:600px;margin:auto;box-shadow:0 4px 16px rgba(0,0,0,.05)}
+h1{font-size:1.25rem;color:#0a4c84;margin-bottom:1rem}
+label{display:block;margin:.5rem 0 .2rem}
+input{width:100%;padding:.5rem;border:1px solid #ccc;border-radius:8px}
+.actions{display:flex;gap:.5rem;margin-top:1rem;flex-wrap:wrap;align-items:center}
+.btn{padding:.5rem .8rem;border-radius:8px;border:1px solid transparent;cursor:pointer}
+.btn.primary{background:#0a5ea8;color:#fff}
+.btn.secondary{background:#eef2f7;color:#0a4c84;border:1px solid #d9e2ec}
+.result{margin-top:1rem;padding:.7rem;border:1px solid #ddd;background:#f7fbff;border-radius:8px;white-space:pre-wrap}
+
+*{box-sizing:border-box}
+select{max-width:100%}
+.actions .spacer{flex:1 1 auto}
+.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
+.btn.close:hover{filter:brightness(1.05)}</style>
+</head>
+<body>
+<div class="card">
+<h1>Diferencia Alvéolo-Arterial de O₂</h1>
+
+<label>FiO₂ (%)</label>
+<input type="number" id="fio2" placeholder="Ej: 21 para aire ambiente">
+
+<label>PaO₂ (mmHg)</label>
+<input type="number" id="pao2" placeholder="Ej: 80">
+
+<label>PaCO₂ (mmHg)</label>
+<input type="number" id="paco2" placeholder="Ej: 40">
+
+<label>Presión atmosférica (mmHg)</label>
+<input type="number" id="patm" value="760">
+
+<label>Presión vapor de agua (mmHg)</label>
+<input type="number" id="ph2o" value="47">
+
+<label>Cociente respiratorio (R)</label>
+<input type="number" step="0.01" id="rq" value="0.8">
+
+<div class="actions">
+  <button class="btn primary" onclick="calc()">Calcular</button>
+  <button class="btn secondary" onclick="copyRes()">Copiar</button>
+  <button class="btn secondary" onclick="resetForm()">Limpiar</button>
+
+  <span class="spacer"></span>
+  <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+</div>
+
+<div class="result" id="resultado">Introduce los valores y pulsa Calcular.</div>
+    <p class="muted"><strong>Nota clínica:</strong> Un gradiente A–a elevado sugiere alteración V/Q o shunt intrapulmonar. Interpretar con la <em>FiO₂</em> usada y el contexto clínico; los valores “normales” aumentan con la edad. No sustituye la evaluación gasométrica completa.</p>
+
+</div>
+
+<script>
+function calc(){
+  const FiO2 = parseFloat(document.getElementById('fio2').value)/100;
+  const PaO2 = parseFloat(document.getElementById('pao2').value);
+  const PaCO2 = parseFloat(document.getElementById('paco2').value);
+  const Patm = parseFloat(document.getElementById('patm').value);
+  const PH2O = parseFloat(document.getElementById('ph2o').value);
+  const RQ = parseFloat(document.getElementById('rq').value);
+
+  if([FiO2,PaO2,PaCO2,Patm,PH2O,RQ].some(isNaN)){alert("Completa todos los campos");return;}
+
+  const PAO2 = FiO2*(Patm - PH2O) - (PaCO2/RQ);
+  const gradiente = PAO2 - PaO2;
+
+  document.getElementById('resultado').textContent =
+    `PAO₂ = ${PAO2.toFixed(1)} mmHg\nGradiente A-a = ${gradiente.toFixed(1)} mmHg`;
+}
+
+function copyRes(){
+  navigator.clipboard.writeText(document.getElementById('resultado').textContent);
+}
+
+function resetForm(){
+  document.querySelectorAll('input').forEach(e=>e.value="");
+  document.getElementById('resultado').textContent="Introduce los valores y pulsa Calcular.";
+}
+
+// Cierre inteligente
+function smartClose(){
+  try{
+    if(window.opener && !window.opener.closed){ window.close(); return; }
+  }catch(e){}
+  if(history.length>1){ history.back(); }
+  else{ location.href='../index.html'; }
+}
+var _cb = document.getElementById('closeBtn');
+if(_cb){ _cb.addEventListener('click', smartClose); }
+
+</script>
+</body>
+</html>

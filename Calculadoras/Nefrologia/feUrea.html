@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Fracción de excreción de urea (FeUrea)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px}
+.card{max-width:640px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
+h1{font-size:1.25rem;margin-bottom:1rem;color:#0a4c84}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+label{display:flex;flex-direction:column;font-weight:600;color:#334155}
+input{border:1px solid #d1d9e6;border-radius:10px;padding:.55rem}
+.actions{display:flex;gap:.6rem;margin-top:.8rem}
+.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid #d9e2ec;background:#eef2f7;color:#0a4c84;cursor:pointer}
+.btn.primary{background:#0a5ea8;color:#fff;border-color:transparent}
+.result{margin-top:1rem;padding:.9rem;border:1px solid #e1eefc;background:#f7fbff;border-radius:10px;white-space:pre-wrap;color:#0a4c84}
+.small{font-size:.9rem;color:#667085}
+@media(max-width:640px){.grid{grid-template-columns:1fr}}
+
+*{box-sizing:border-box}
+select{max-width:100%}
+.actions .spacer{flex:1 1 auto}
+.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
+.btn.close:hover{filter:brightness(1.05)}</style>
+</head>
+<body>
+<div class="card">
+  <h1>Fracción de excreción de urea (FeUrea)</h1>
+  <div class="grid">
+    <label>Urea urinaria (mg/dL) <input type="number" id="uu" step="0.1"></label>
+    <label>Urea plasmática (mg/dL) <input type="number" id="pu" step="0.1"></label>
+    <label>Creatinina urinaria (mg/dL) <input type="number" id="ucr" step="0.1"></label>
+    <label>Creatinina plasmática (mg/dL) <input type="number" id="pcr" step="0.01"></label>
+  </div>
+  <div class="actions">
+    <button class="btn primary" onclick="calc()">Calcular</button>
+    <button class="btn" onclick="copiar()">Copiar</button>
+    <button class="btn" onclick="limpiar()">Limpiar</button>
+  
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+</div>
+  <div id="res" class="result" aria-live="polite">Introduce valores y calcula.</div>
+    <p class="muted"><strong>Nota clínica:</strong> Útil si hay diuréticos; FeUrea &lt; 35% sugiere hipoperfusión prerrenal. Correlacionar con clínica y analítica.</p>
+
+  <p class="small">Fórmula: FeUrea (%) = (U<sub>Urea</sub> × P<sub>Cr</sub>) / (P<sub>Urea</sub> × U<sub>Cr</sub>) × 100.</p>
+</div>
+
+<script>
+function r(v,d=2){return Math.round((v+Number.EPSILON)*10**d)/10**d}
+function calc(){
+  const uu=+document.getElementById('uu').value, pu=+document.getElementById('pu').value, ucr=+document.getElementById('ucr').value, pcr=+document.getElementById('pcr').value;
+  if(!(uu>0&&pu>0&&ucr>0&&pcr>0)) return alert('Revisa los datos.');
+  const feu = (uu*pcr)/(pu*ucr)*100;
+  document.getElementById('res').textContent = `FeUrea = ${r(feu)} %`;
+}
+function copiar(){navigator.clipboard.writeText(document.getElementById('res').textContent||'')}
+function limpiar(){document.querySelectorAll('input').forEach(i=>i.value='');document.getElementById('res').textContent='Introduce valores y calcula.'}
+
+// Cierre inteligente
+function smartClose(){
+  try{
+    if(window.opener && !window.opener.closed){ window.close(); return; }
+  }catch(e){}
+  if(history.length>1){ history.back(); }
+  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
+}
+var _cb = document.getElementById('closeBtn');
+if(_cb){ _cb.addEventListener('click', smartClose); }
+
+</script>
+</body>
+</html>

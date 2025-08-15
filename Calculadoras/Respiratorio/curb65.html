@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Escala CURB-65</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{font-family:Roboto,Arial,sans-serif;padding:20px;background:#fff}
+.card{background:#fff;border:1px solid #ddd;border-radius:12px;padding:16px;max-width:600px;margin:auto}
+h1{font-size:1.25rem;color:#0a4c84}
+label{display:block;margin:.5rem 0}
+input[type=checkbox]{margin-right:.5rem}
+.actions{display:flex;gap:.5rem;margin-top:1rem}
+.btn{padding:.5rem .8rem;border-radius:8px;cursor:pointer;border:1px solid transparent}
+.btn.primary{background:#0a5ea8;color:#fff}
+.btn.secondary{background:#eef2f7;color:#0a4c84;border:1px solid #d9e2ec}
+.result{margin-top:1rem;padding:.7rem;border:1px solid #ddd;background:#f7fbff;border-radius:8px;white-space:pre-wrap}
+
+*{box-sizing:border-box}
+select{max-width:100%}
+.actions .spacer{flex:1 1 auto}
+.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
+.btn.close:hover{filter:brightness(1.05)}</style>
+</head>
+<body>
+<div class="card">
+<h1>Escala CURB-65</h1>
+
+<label><input type="checkbox" id="c"> Confusión mental</label>
+<label><input type="checkbox" id="u"> Urea &gt; 7 mmol/L</label>
+<label><input type="checkbox" id="r"> FR ≥ 30/min</label>
+<label><input type="checkbox" id="b"> PAS &lt; 90 mmHg o PAD ≤ 60 mmHg</label>
+<label><input type="checkbox" id="age"> Edad ≥ 65 años</label>
+
+<div class="actions">
+  <button class="btn primary" onclick="calc()">Calcular</button>
+  <button class="btn secondary" onclick="copyRes()">Copiar</button>
+  <button class="btn secondary" onclick="resetForm()">Limpiar</button>
+
+  <span class="spacer"></span>
+  <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+</div>
+
+<div class="result" id="resultado">Marca los criterios y pulsa Calcular.</div>
+    <p class="muted"><strong>Nota clínica:</strong> CURB‑65 0–1 → bajo riesgo (habitual manejo ambulatorio); 2 → riesgo intermedio (observación/ingreso breve); ≥3 → alto riesgo (ingreso, valorar UCI). Ajustar a protocolos locales y juicio clínico.</p>
+
+</div>
+
+<script>
+function calc(){
+  let score=0;
+  ['c','u','r','b','age'].forEach(id=>{ if(document.getElementById(id).checked) score++; });
+  let riesgo="";
+  if(score<=1) riesgo="Bajo: ambulatorio";
+  else if(score==2) riesgo="Moderado: ingreso breve";
+  else riesgo="Alto: ingreso hospitalario/UCI";
+  document.getElementById('resultado').textContent=`CURB-65 = ${score} → ${riesgo}`;
+}
+function copyRes(){
+  navigator.clipboard.writeText(document.getElementById('resultado').textContent);
+}
+function resetForm(){
+  document.querySelectorAll('input').forEach(e=>e.checked=false);
+  document.getElementById('resultado').textContent="Marca los criterios y pulsa Calcular.";
+}
+
+// Cierre inteligente
+function smartClose(){
+  try{
+    if(window.opener && !window.opener.closed){ window.close(); return; }
+  }catch(e){}
+  if(history.length>1){ history.back(); }
+  else{ location.href='../index.html'; }
+}
+var _cb = document.getElementById('closeBtn');
+if(_cb){ _cb.addEventListener('click', smartClose); }
+
+</script>
+</body>
+</html>

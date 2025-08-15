@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>mRS – Modified Rankin Scale</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{--c1:#0a5ea8;--c1d:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
+body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px}
+.card{max-width:820px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
+h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
+.small{font-size:.9rem;color:var(--mut)}
+fieldset{border:1px solid #e5e7eb;border-radius:12px;padding:.8rem;margin-bottom:.9rem}
+legend{padding:0 .4rem;color:#334155;font-weight:700}
+label{display:flex;gap:.6rem;align-items:flex-start;margin:.35rem 0}
+label span{display:block}
+input[type=radio]{transform:scale(1.1);margin-top:.15rem}
+.actions{display:flex;gap:.6rem;margin-top:.9rem;flex-wrap:wrap;align-items:center}
+.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
+.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1d)}
+.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}
+.result{margin-top:1rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;white-space:pre-wrap;color:var(--tx)}
+.badge{display:inline-block;padding:.2rem .5rem;border-radius:999px;font-weight:600}
+.good{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+.mod{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
+.sev{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+
+*{box-sizing:border-box}
+select{max-width:100%}
+.actions .spacer{flex:1 1 auto}
+.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
+.btn.close:hover{filter:brightness(1.05)}</style>
+</head>
+<body>
+<div class="card">
+  <h1>mRS – Modified Rankin Scale</h1>
+  <p class="small">Evalúa la discapacidad tras ictus (0–6). Orientativo; no sustituye el juicio clínico.</p>
+
+  <form id="f">
+    <fieldset>
+      <legend>Selecciona el grado que mejor describa la situación del paciente</legend>
+
+      <label><input type="radio" name="mrs" value="0">
+        <span><strong>0 – Sin síntomas</strong><br>Sin síntomas en absoluto.</span>
+      </label>
+
+      <label><input type="radio" name="mrs" value="1">
+        <span><strong>1 – Sin discapacidad significativa</strong><br>Sintomático pero capaz de realizar todas las tareas y actividades habituales.</span>
+      </label>
+
+      <label><input type="radio" name="mrs" value="2">
+        <span><strong>2 – Discapacidad leve</strong><br>Incapaz de realizar alguna actividad previa, pero independiente en sus propias actividades.</span>
+      </label>
+
+      <label><input type="radio" name="mrs" value="3">
+        <span><strong>3 – Discapacidad moderada</strong><br>Requiere alguna ayuda, pero camina sin asistencia.</span>
+      </label>
+
+      <label><input type="radio" name="mrs" value="4">
+        <span><strong>4 – Moderadamente grave</strong><br>Incapaz de caminar sin ayuda y de atender sus necesidades corporales sin asistencia.</span>
+      </label>
+
+      <label><input type="radio" name="mrs" value="5">
+        <span><strong>5 – Grave</strong><br>Encamado, incontinente y requiere cuidados de enfermería continuos y atención constante.</span>
+      </label>
+
+      <label><input type="radio" name="mrs" value="6">
+        <span><strong>6 – Fallecido</strong></span>
+      </label>
+    </fieldset>
+
+    <div class="actions">
+      <button type="button" class="btn primary" onclick="calc()">Calcular</button>
+      <button type="button" class="btn secondary" onclick="copyRes()">Copiar</button>
+      <button type="reset"  class="btn secondary" onclick="resetRes()">Limpiar</button>
+    
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+</div>
+  </form>
+
+  <div id="res" class="result" aria-live="polite">Selecciona un grado y pulsa Calcular.</div>
+    <p class="muted"><strong>Nota clínica:</strong> mRS 0–6: 0–2 buen resultado funcional; 3–5 grados crecientes de dependencia; 6 fallecido. Úsese siempre en contexto clínico.</p>
+
+</div>
+
+<script>
+function desc(n){
+  switch(n){
+    case 0:return 'Sin síntomas';
+    case 1:return 'Síntomas sin discapacidad significativa';
+    case 2:return 'Discapacidad leve';
+    case 3:return 'Discapacidad moderada';
+    case 4:return 'Moderadamente grave';
+    case 5:return 'Grave (dependencia total)';
+    case 6:return 'Fallecido';
+    default:return '';
+  }
+}
+function cat(n){
+  if(n<=2) return {cls:'good',txt:'Buen pronóstico funcional (orientativo)'};
+  if(n<=3) return {cls:'mod', txt:'Discapacidad moderada (orientativo)'};
+  if(n<=5) return {cls:'sev', txt:'Alta dependencia (orientativo)'};
+  return {cls:'sev', txt:'Fallecido'};
+}
+function calc(){
+  const sel = document.querySelector('input[name="mrs"]:checked');
+  if(!sel){ document.getElementById('res').textContent='Selecciona un grado.'; return; }
+  const n = parseInt(sel.value,10);
+  const c = cat(n);
+  document.getElementById('res').innerHTML =
+    `mRS = <strong>${n}</strong> – ${desc(n)}\n`+
+    `<span class="badge ${c.cls}">${c.txt}</span>`;
+}
+function copyRes(){
+  const t=document.getElementById('res').innerText||'';
+  if(!t.trim()) return alert('No hay resultado.');
+  navigator.clipboard.writeText(t);
+}
+function resetRes(){
+  document.getElementById('res').textContent='Selecciona un grado y pulsa Calcular.';
+}
+
+// Cierre inteligente
+function smartClose(){
+  try{
+    if(window.opener && !window.opener.closed){ window.close(); return; }
+  }catch(e){}
+  if(history.length>1){ history.back(); }
+  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
+}
+var _cb = document.getElementById('closeBtn');
+if(_cb){ _cb.addEventListener('click', smartClose); }
+
+</script>
+</body>
+</html>

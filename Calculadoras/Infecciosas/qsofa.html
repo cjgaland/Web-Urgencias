@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>qSOFA – Cribado rápido de sepsis</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{--c1:#0a5ea8;--c1d:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
+body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px}
+.card{max-width:720px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
+h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)} .small{font-size:.9rem;color:var(--mut)}
+label{display:flex;gap:.55rem;align-items:center;margin:.35rem 0}
+input[type=checkbox]{transform:scale(1.1)}
+.actions{display:flex;gap:.6rem;margin-top:.8rem;flex-wrap:wrap;align-items:center}
+.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
+.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1d)}
+.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}
+.result{margin-top:.9rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;white-space:pre-wrap;color:var(--tx)}
+.badge{display:inline-block;padding:.2rem .5rem;border-radius:999px;font-weight:700}
+.low{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+.high{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+
+*{box-sizing:border-box}
+
+select{max-width:100%}
+.actions .spacer{flex:1 1 auto}
+.btn.close{margin-left:auto;background:var(--c1d,#08406a);color:#fff;border-color:#083554}
+.btn.close:hover{filter:brightness(1.05)}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>qSOFA – Cribado rápido de sepsis</h1>
+  <p class="small">Al menos 2 de 3 sugiere mayor riesgo: vigilar, ampliar estudio y considerar sepsis.</p>
+
+  <form onsubmit="return false;">
+    <label><input type="checkbox" id="rr"> FR ≥ 22/min (1)</label>
+    <label><input type="checkbox" id="pas"> PAS ≤ 100 mmHg (1)</label>
+    <label><input type="checkbox" id="glasgow"> Alteración mental (GCS &lt; 15) (1)</label>
+
+    <div class="actions">
+      <button class="btn primary" onclick="calc()">Calcular</button>
+      <button class="btn secondary" onclick="copyRes()">Copiar</button>
+      <button class="btn secondary" type="reset" onclick="resetRes()">Limpiar</button>
+    
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+</div>
+  </form>
+
+  <div id="res" class="result" aria-live="polite">Marca criterios y pulsa Calcular.</div>
+</div>
+
+<script>
+function v(id){return document.getElementById(id).checked?1:0}
+function calc(){
+  const total = v('rr')+v('pas')+v('glasgow');
+  const high = total>=2;
+  document.getElementById('res').innerHTML =
+    `qSOFA = <strong>${total}</strong>\n`+
+    `<span class="badge ${high?'high':'low'}">${high?'Riesgo ↑: evalúa sepsis, lactato, SOFA/ingreso':'Riesgo bajo: continuar vigilancia clínica'}</span>`;
+}
+function copyRes(){ const t=document.getElementById('res').innerText||''; if(!t.trim()) return alert('Sin resultado.'); navigator.clipboard.writeText('qSOFA:\n'+t); }
+function resetRes(){ document.getElementById('res').textContent='Marca criterios y pulsa Calcular.'; }
+
+// Cierre inteligente
+function smartClose(){
+  try{
+    if(window.opener && !window.opener.closed){ window.close(); return; }
+  }catch(e){}
+  if(history.length>1){ history.back(); }
+  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
+}
+var _cb = document.getElementById('closeBtn');
+if(_cb){ _cb.addEventListener('click', smartClose); }
+
+</script>
+</body>
+</html>

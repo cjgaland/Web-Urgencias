@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Reposición hídrica en trastornos de Na⁺</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px}
+.card{max-width:820px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
+h1{font-size:1.25rem;margin-bottom:1rem;color:#0a4c84}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+label{display:flex;flex-direction:column;font-weight:600;color:#334155}
+input,select{border:1px solid #d1d9e6;border-radius:10px;padding:.55rem}
+.inline{display:flex;align-items:center;gap:.5rem}
+.small{font-size:.9rem;color:#667085}
+.actions{display:flex;gap:.6rem;margin-top:.8rem;flex-wrap:wrap;align-items:center}
+.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid #d9e2ec;background:#eef2f7;color:#0a4c84;cursor:pointer}
+.btn.primary{background:#0a5ea8;color:#fff;border-color:transparent}
+.result{margin-top:1rem;padding:.9rem;border:1px solid #e1eefc;background:#f7fbff;border-radius:10px;white-space:pre-wrap;color:#0a4c84}
+.warn{color:#9a3412;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:.6rem .8rem;margin-top:.6rem}
+.note{color:#065f46;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:.5rem .7rem;margin-top:.6rem}
+@media(max-width:780px){.grid{grid-template-columns:1fr}}
+
+*{box-sizing:border-box}
+select{max-width:100%}
+.actions .spacer{flex:1 1 auto}
+.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
+.btn.close:hover{filter:brightness(1.05)}</style>
+</head>
+<body>
+<div class="card">
+  <h1>Reposición hídrica (hipo/hipernatremias)</h1>
+
+  <div class="grid">
+    <label>Sexo
+      <select id="sex">
+        <option value="M">Varón</option>
+        <option value="F">Mujer</option>
+      </select>
+    </label>
+
+    <label>Edad
+      <select id="agecat">
+        <option value="adult">Adulto</option>
+        <option value="anciano">Anciano</option>
+      </select>
+    </label>
+
+    <label>Peso (kg)
+      <input type="number" id="weight" step="0.1">
+    </label>
+
+    <label>Na⁺ sérico actual (mEq/L)
+      <input type="number" id="na" step="0.1">
+    </label>
+
+    <label>Na⁺ objetivo (mEq/L)
+      <input type="number" id="naTarget" step="0.1" placeholder="Ej. 124">
+    </label>
+
+    <label>Horas para alcanzar el objetivo
+      <input type="number" id="hours" step="1" value="24">
+    </label>
+
+    <label>Fluido de infusión
+      <select id="fluid">
+        <option value="154">Suero salino 0.9% (Na≈154)</option>
+        <option value="513">Salino hipertónico 3% (Na≈513)</option>
+        <option value="77">Salino 0.45% (Na≈77)</option>
+        <option value="0">Agua libre (D5W, Na≈0)</option>
+      </select>
+    </label>
+
+    <label>Incluye K⁺ en el cálculo (mEq/L) <span class="small">(opcional; por defecto 0)</span>
+      <input type="number" id="k" step="1" value="0">
+    </label>
+  </div>
+
+  <fieldset style="margin-top:.8rem;border:1px solid #e5e7eb;border-radius:10px;padding:.7rem">
+    <legend style="padding:0 .4rem;color:#334155;font-weight:600">Límite de seguridad</legend>
+    <div class="grid">
+      <label class="inline" style="gap:.6rem">
+        <input type="checkbox" id="safetyOn">
+        <span>Aplicar límite de seguridad de corrección</span>
+      </label>
+      <label>Máx. mEq/L por 24 h
+        <input type="number" id="limitPer24" step="0.5" min="4" max="12" value="8">
+        <span class="small">Ej.: 8 mEq/L/24h en Alto riesgo; 10 mEq/L/24h Estándar y 12 mEq/L/24h en Bajo riesgo.</span>
+      </label>
+    </div>
+  </fieldset>
+
+  <p class="small" style="margin-top:.6rem">
+    Método de Adrogué–Madias: ΔNa por litro ≈ ((Na<sub>inf</sub> + K<sub>inf</sub>) − Na<sub>p</sub>) / (TBW + 1).  
+    TBW (L): varón adulto 0.6·peso, mujer 0.5·peso; varón anciano 0.5·peso, mujer anciana 0.45·peso.
+  </p>
+
+  <div class="actions">
+    <button class="btn primary" onclick="calc()">Calcular</button>
+    <button class="btn" onclick="copyRes()">Copiar</button>
+    <button class="btn" onclick="clearForm()">Limpiar</button>
+  
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+</div>
+
+  <div id="res" class="result" aria-live="polite">Introduce los datos y pulsa Calcular.</div>
+    <p class="muted"><strong>Nota clínica:</strong> Planificar tipo y ritmo de fluidos según objetivo y límites de seguridad de corrección. Re-evaluar clínicamente y con analítica seriada.</p>
+
+  <div id="note" class="note" style="display:none"></div>
+  <div id="warn" class="warn" style="display:none"></div>
+
+  <p class="small" style="margin-top:.8rem">
+    ⚠️ Orientación general: en hiponatremia, evitar correcciones &gt;10–12 mEq/L en 24 h (≤8 mEq/L/24 h si alto riesgo).  
+    En hipernatremia, no exceder ~10–12 mEq/L por día. Ajusta según contexto clínico.
+  </p>
+</div>
+
+<script>
+function r(v,d=2){return Math.round((v+Number.EPSILON)*10**d)/10**d}
+function TBW(sex, agecat, w){
+  if(agecat==='anciano') return (sex==='M'?0.50:0.45)*w;
+  return (sex==='M'?0.60:0.50)*w;
+}
+
+function calc(){
+  const sex = document.getElementById('sex').value;
+  const agecat = document.getElementById('agecat').value;
+  const w = parseFloat(document.getElementById('weight').value);
+  const Na = parseFloat(document.getElementById('na').value);
+  const NaTarget = parseFloat(document.getElementById('naTarget').value);
+  const hours = parseFloat(document.getElementById('hours').value||'24');
+  const NaInf = parseFloat(document.getElementById('fluid').value);
+  const KInf = parseFloat(document.getElementById('k').value||'0');
+
+  const safetyOn = document.getElementById('safetyOn').checked;
+  const limitPer24 = parseFloat(document.getElementById('limitPer24').value||'8');
+
+  const res = document.getElementById('res');
+  const warn = document.getElementById('warn');
+  const note = document.getElementById('note');
+  warn.style.display='none'; warn.textContent='';
+  note.style.display='none'; note.textContent='';
+
+  if(!(w>0 && isFinite(Na) && isFinite(NaTarget))){
+    res.textContent = 'Revisa peso, Na actual y Na objetivo.'; return;
+  }
+
+  const desiredDelta = NaTarget - Na; // ΔNa deseado desde valor absoluto
+  const tbw = TBW(sex, agecat, w); // L
+  const deltaPerL = ((NaInf + KInf) - Na) / (tbw + 1); // mEq/L por litro
+
+  let texto = `TBW ≈ ${r(tbw)} L\nΔNa por litro (Adrogué–Madias) ≈ ${r(deltaPerL,3)} mEq/L·L⁻¹`;
+
+  if (Math.abs(deltaPerL) < 1e-6){
+    texto += `\n\nEl fluido elegido apenas modificaría el Na (Δ≈0 por litro). Revisa datos o elige otro fluido.`;
+    res.textContent = texto; return;
+  }
+
+  // Comprobar dirección del cambio
+  if (desiredDelta * deltaPerL < 0){
+    texto += `\n\n⚠️ El fluido elegido movería el Na en dirección opuesta al objetivo (Na ${r(Na,1)} → objetivo ${r(NaTarget,1)}).`;
+  }
+
+  let effDelta = desiredDelta;
+  let effTarget = NaTarget;
+
+  // Límite de seguridad opcional
+  if (safetyOn && limitPer24>0 && hours>0){
+    const maxDeltaForHours = limitPer24 * (hours/24); // mEq/L permitidos en ese tiempo
+    if (Math.abs(desiredDelta) > maxDeltaForHours){
+      effDelta = Math.sign(desiredDelta) * maxDeltaForHours;
+      effTarget = Na + effDelta;
+      const minHours = Math.abs(desiredDelta) * 24 / limitPer24;
+      note.style.display='block';
+      note.textContent = `Límite activo: se ha capado la corrección a ${r(effDelta,2)} mEq/L en ${hours} h (máx ${limitPer24} mEq/L/24 h).
+Na objetivo efectivo: ${r(effTarget,1)} mEq/L. Para llegar al objetivo original cumpliendo el límite, se precisarían ≈ ${r(minHours,1)} h.`;
+    }
+  }
+
+  const litrosNecesarios = effDelta / deltaPerL;
+  const volumenMl = litrosNecesarios * 1000;
+  const ritmo = (hours>0) ? (volumenMl / hours) : NaN;
+
+  texto += `\n\nNa actual: ${r(Na,1)} mEq/L  →  Na objetivo: ${r(effTarget,1)} mEq/L`;
+  texto += `\nΔNa planificado: ${r(effDelta,2)} mEq/L en ${hours} h`;
+  texto += `\nVolumen estimado: ${r(litrosNecesarios,2)} L (${r(volumenMl,0)} ml)`;
+  if (isFinite(ritmo)) texto += `\nRitmo orientativo: ${r(ritmo,0)} ml/h`;
+
+  // Aviso si sin límite supera 12/24h
+  const ratePer24 = desiredDelta * (24 / (hours>0?hours:24));
+  if (!safetyOn && Math.abs(ratePer24) > 12){
+    warn.style.display='block';
+    warn.textContent = 'Advertencia: la corrección planificada supera ~12 mEq/L en 24 h. Considera ralentizar (≤8 mEq/L/24 h si alto riesgo) o activa el límite.';
+  }
+
+  res.textContent = texto;
+}
+
+function copyRes(){
+  const t = document.getElementById('res').textContent || '';
+  if (!t.trim()) return alert('No hay resultado.');
+  navigator.clipboard.writeText(t);
+}
+
+function clearForm(){
+  document.querySelectorAll('input').forEach(i=>{ if(i.type==='number') i.value=''; });
+  document.getElementById('sex').value='M';
+  document.getElementById('agecat').value='adult';
+  document.getElementById('fluid').value='154';
+  document.getElementById('k').value='0';
+  document.getElementById('hours').value='24';
+  document.getElementById('limitPer24').value='8';
+  document.getElementById('safetyOn').checked=false;
+  document.getElementById('res').textContent='Introduce los datos y pulsa Calcular.';
+  document.getElementById('warn').style.display='none';
+  document.getElementById('note').style.display='none';
+}
+
+// Cierre inteligente
+function smartClose(){
+  try{
+    if(window.opener && !window.opener.closed){ window.close(); return; }
+  }catch(e){}
+  if(history.length>1){ history.back(); }
+  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
+}
+var _cb = document.getElementById('closeBtn');
+if(_cb){ _cb.addEventListener('click', smartClose); }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>NIHSS – Escala de ictus</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{--c1:#0a5ea8;--c1d:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
+body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px;background:#fff;color:#222}
+.card{max-width:1000px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
+h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
+.small{font-size:.9rem;color:var(--mut)}
+fieldset{border:1px solid #e5e7eb;border-radius:12px;padding:.8rem;margin-bottom:.9rem}
+legend{padding:0 .4rem;color:#334155;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+label{display:flex;flex-direction:column;gap:.4rem;margin:.2rem 0}
+select{border:1px solid var(--bx);border-radius:10px;padding:.55rem}
+.help{font-size:.85rem;color:#475569}
+.actions{display:flex;gap:.6rem;margin-top:.9rem;flex-wrap:wrap;align-items:center}
+.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
+.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1d)}
+.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}
+.result{margin-top:1rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;white-space:pre-wrap;color:var(--tx)}
+.badge{display:inline-block;padding:.2rem .5rem;border-radius:999px;font-weight:600}
+.low{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+.mod{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
+.high{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+@media(max-width:980px){.grid{grid-template-columns:1fr}}
+
+*{box-sizing:border-box}
+select{max-width:100%}
+.actions .spacer{flex:1 1 auto}
+.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
+.btn.close:hover{filter:brightness(1.05)}</style>
+</head>
+<body>
+<div class="card">
+  <h1>NIHSS – National Institutes of Health Stroke Scale</h1>
+  <p class="small">
+    Calculadora de los 15 ítems (1a–11) con total 0–42. Uso clínico orientativo; no sustituye el juicio clínico.
+  </p>
+
+  <form id="f">
+    <fieldset>
+      <legend>1. Nivel de conciencia</legend>
+      <div class="grid">
+        <label>1a. Estado global
+          <select id="i1a">
+            <option value="0">0 · Alerta</option>
+            <option value="1">1 · Somnoliento, responde a estímulos mínimos</option>
+            <option value="2">2 · Responde sólo a estímulo vigoroso</option>
+            <option value="3">3 · No responde / coma</option>
+          </select>
+        </label>
+        <label>1b. Preguntas (mes y edad)
+          <select id="i1b">
+            <option value="0">0 · Ambas correctas</option>
+            <option value="1">1 · Una correcta</option>
+            <option value="2">2 · Ninguna</option>
+          </select>
+        </label>
+        <label>1c. Órdenes (abrir/cerrar ojos; cerrar/abrir mano)
+          <select id="i1c">
+            <option value="0">0 · Ambas correctas</option>
+            <option value="1">1 · Una correcta</option>
+            <option value="2">2 · Ninguna</option>
+          </select>
+        </label>
+      </div>
+      <p class="help">Sugerencia: realizar 1b antes que 1c si el paciente está somnoliento.</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>2–4. Pares craneales y cara</legend>
+      <div class="grid">
+        <label>2. Mejor mirada conjugada
+          <select id="i2">
+            <option value="0">0 · Normal</option>
+            <option value="1">1 · Parálisis parcial</option>
+            <option value="2">2 · Parálisis forzada / desviación tónica</option>
+          </select>
+        </label>
+        <label>3. Campos visuales
+          <select id="i3">
+            <option value="0">0 · Completo</option>
+            <option value="1">1 · Cuadrantanopsia parcial</option>
+            <option value="2">2 · Hemianopsia</option>
+            <option value="3">3 · Ceguera bilateral</option>
+          </select>
+        </label>
+        <label>4. Paresia facial
+          <select id="i4">
+            <option value="0">0 · Normal</option>
+            <option value="1">1 · Leve (pliegues apenas aplanados)</option>
+            <option value="2">2 · Parcial</option>
+            <option value="3">3 · Completa (parálisis central/periférica)</option>
+          </select>
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>5–6. Motor – Brazos (10 s en cama)</legend>
+      <div class="grid">
+        <label>5a. Brazo izquierdo
+          <select id="i5a">
+            <option value="0">0 · Mantiene 10 s</option>
+            <option value="1">1 · Desciende &lt;10 s, no toca cama</option>
+            <option value="2">2 · Desciende, toca cama</option>
+            <option value="3">3 · Caída inmediata</option>
+            <option value="4">4 · Sin movimiento</option>
+            <option value="0">UN · No evaluable (amput./artrodesis)</option>
+          </select>
+        </label>
+        <label>5b. Brazo derecho
+          <select id="i5b">
+            <option value="0">0 · Mantiene 10 s</option>
+            <option value="1">1 · Desciende &lt;10 s, no toca cama</option>
+            <option value="2">2 · Desciende, toca cama</option>
+            <option value="3">3 · Caída inmediata</option>
+            <option value="4">4 · Sin movimiento</option>
+            <option value="0">UN · No evaluable (amput./artrodesis)</option>
+          </select>
+        </label>
+      </div>
+      <p class="help">UN (no evaluable) no suma puntos; se documenta en texto libre.</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>7–8. Motor – Piernas (5 s en cama)</legend>
+      <div class="grid">
+        <label>6a. Pierna izquierda
+          <select id="i6a">
+            <option value="0">0 · Mantiene 5 s</option>
+            <option value="1">1 · Desciende &lt;5 s, no toca cama</option>
+            <option value="2">2 · Desciende, toca cama</option>
+            <option value="3">3 · Caída inmediata</option>
+            <option value="4">4 · Sin movimiento</option>
+            <option value="0">UN · No evaluable</option>
+          </select>
+        </label>
+        <label>6b. Pierna derecha
+          <select id="i6b">
+            <option value="0">0 · Mantiene 5 s</option>
+            <option value="1">1 · Desciende &lt;5 s, no toca cama</option>
+            <option value="2">2 · Desciende, toca cama</option>
+            <option value="3">3 · Caída inmediata</option>
+            <option value="4">4 · Sin movimiento</option>
+            <option value="0">UN · No evaluable</option>
+          </select>
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>9–11. Coordinación, sensibilidad, lenguaje</legend>
+      <div class="grid">
+        <label>7. Ataxia de extremidades
+          <select id="i7">
+            <option value="0">0 · Ausente</option>
+            <option value="1">1 · En 1 extremidad</option>
+            <option value="2">2 · En 2 extremidades</option>
+            <option value="0">UN · No evaluable (hemiparesia completa, etc.)</option>
+          </select>
+        </label>
+        <label>8. Sensibilidad
+          <select id="i8">
+            <option value="0">0 · Normal</option>
+            <option value="1">1 · Hipoestesia leve-moderada</option>
+            <option value="2">2 · Pérdida grave o anestesia</option>
+          </select>
+        </label>
+        <label>9. Lenguaje (afasia)
+          <select id="i9">
+            <option value="0">0 · Normal</option>
+            <option value="1">1 · Afasia leve-moderada</option>
+            <option value="2">2 · Afasia grave</option>
+            <option value="3">3 · Muda/afasia global</option>
+          </select>
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>12–13. Disartria y negligencia</legend>
+      <div class="grid">
+        <label>10. Disartria
+          <select id="i10">
+            <option value="0">0 · Normal</option>
+            <option value="1">1 · Leve-moderada</option>
+            <option value="2">2 · Severa / ininteligible o muda</option>
+            <option value="0">UN · No evaluable (intubación, barreras)</option>
+          </select>
+        </label>
+        <label>11. Extinción / Inatención (neglect)
+          <select id="i11">
+            <option value="0">0 · Ausente</option>
+            <option value="1">1 · Leve</option>
+            <option value="2">2 · Clara/inatención franca</option>
+          </select>
+        </label>
+      </div>
+    </fieldset>
+
+    <div class="actions">
+      <button type="button" class="btn primary" onclick="calc()">Calcular</button>
+      <button type="button" class="btn secondary" onclick="copyRes()">Copiar</button>
+      <button type="reset" class="btn secondary">Limpiar</button>
+    
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+</div>
+  </form>
+
+  <div id="res" class="result" aria-live="polite">Selecciona las opciones y pulsa Calcular.</div>
+    <p class="muted"><strong>Nota clínica:</strong> NIHSS 0–42: ≤4 menor, 5–15 moderado, 16–20 moderado–severo, &gt;20 severo (orientativo). No sustituye el juicio clínico ni el protocolo de reperfusión.</p>
+
+</div>
+
+<script>
+function n(id){ return parseInt(document.getElementById(id).value,10) || 0; }
+
+function interpretar(total){
+  // Categorías habituales orientativas
+  if(total<=4)  return {txt:'Ictus menor', badge:'low'};
+  if(total<=15) return {txt:'Ictus moderado', badge:'mod'};
+  if(total<=20) return {txt:'Ictus moderado–severo', badge:'mod'};
+  return {txt:'Ictus severo', badge:'high'};
+}
+
+function calc(){
+  const vals = [
+    'i1a','i1b','i1c','i2','i3','i4',
+    'i5a','i5b','i6a','i6b','i7','i8','i9','i10','i11'
+  ].map(n);
+
+  const total = vals.reduce((a,b)=>a+b,0);
+  const cat = interpretar(total);
+
+  // Desglose bonito EJM:
+  const itemsTxt = [
+    `1a:${n('i1a')}`,`1b:${n('i1b')}`,`1c:${n('i1c')}`,`2:${n('i2')}`,`3:${n('i3')}`,`4:${n('i4')}`,
+    `5a:${n('i5a')}`,`5b:${n('i5b')}`,`6a:${n('i6a')}`,`6b:${n('i6b')}`,
+    `7:${n('i7')}`,`8:${n('i8')}`,`9:${n('i9')}`,`10:${n('i10')}`,`11:${n('i11')}`
+  ].join(' · ');
+
+  document.getElementById('res').innerHTML =
+    `NIHSS total = <strong>${total}</strong> → `+
+    `<span class="badge ${cat.badge}">${cat.txt}</span>\n`+
+    `Desglose: ${itemsTxt}`;
+}
+
+function copyRes(){
+  const t = document.getElementById('res').innerText || '';
+  if(!t.trim()) return alert('No hay resultado.');
+  navigator.clipboard.writeText(t);
+}
+
+// Cierre inteligente
+function smartClose(){
+  try{
+    if(window.opener && !window.opener.closed){ window.close(); return; }
+  }catch(e){}
+  if(history.length>1){ history.back(); }
+  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
+}
+var _cb = document.getElementById('closeBtn');
+if(_cb){ _cb.addEventListener('click', smartClose); }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Déficit de agua libre (hipernatremia)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px}
+.card{max-width:680px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
+h1{font-size:1.25rem;margin-bottom:1rem;color:#0a4c84}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+label{display:flex;flex-direction:column;font-weight:600;color:#334155}
+input,select{border:1px solid #d1d9e6;border-radius:10px;padding:.55rem}
+.actions{display:flex;gap:.6rem;margin-top:.8rem}
+.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid #d9e2ec;background:#eef2f7;color:#0a4c84;cursor:pointer}
+.btn.primary{background:#0a5ea8;color:#fff;border-color:transparent}
+.result{margin-top:1rem;padding:.9rem;border:1px solid #e1eefc;background:#f7fbff;border-radius:10px;white-space:pre-wrap;color:#0a4c84}
+.small{font-size:.9rem;color:#667085}
+@media(max-width:640px){.grid{grid-template-columns:1fr}}
+
+*{box-sizing:border-box}
+select{max-width:100%}
+.actions .spacer{flex:1 1 auto}
+.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
+.btn.close:hover{filter:brightness(1.05)}</style>
+</head>
+<body>
+<div class="card">
+  <h1>Déficit de agua libre (hipernatremia)</h1>
+  <div class="grid">
+    <label>Sexo
+      <select id="sex"><option value="M">Varón</option><option value="F">Mujer</option></select>
+    </label>
+    <label>Edad
+      <select id="agecat">
+        <option value="adult">Adulto</option>
+        <option value="anciano">Anciano</option>
+      </select>
+    </label>
+    <label>Peso (kg)
+      <input type="number" id="weight" step="0.1">
+    </label>
+    <label>Na⁺ sérico actual (mEq/L)
+      <input type="number" id="na" step="0.1">
+    </label>
+  </div>
+  <div class="actions">
+    <button class="btn primary" onclick="calc()">Calcular</button>
+    <button class="btn" onclick="copiar()">Copiar</button>
+    <button class="btn" onclick="limpiar()">Limpiar</button>
+  
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+</div>
+  <div id="res" class="result" aria-live="polite">Introduce datos y pulsa Calcular.</div>
+    <p class="muted"><strong>Nota clínica:</strong> Estima el déficit de agua libre en hipernatremia; corregir lentamente para evitar edema cerebral. Monitorizar sodio seriado y balance hídrico.</p>
+
+  <p class="small">Fórmula: Déficit ≈ TBW × (Na/140 − 1). TBW: varón 0.6, mujer 0.5; ancianos varón 0.5, mujer 0.45.</p>
+</div>
+
+<script>
+function r(v,d=2){return Math.round((v+Number.EPSILON)*10**d)/10**d}
+function TBW(sex, agecat, w){
+  if(agecat==='anciano') return (sex==='M'?0.50:0.45)*w;
+  return (sex==='M'?0.60:0.50)*w;
+}
+function calc(){
+  const sex=document.getElementById('sex').value, agecat=document.getElementById('agecat').value, w=+document.getElementById('weight').value, na=+document.getElementById('na').value;
+  if(!(w>0&&na>0)) return alert('Revisa peso y Na.');
+  const tbw = TBW(sex,agecat,w);
+  const deficit = tbw*(na/140 - 1);
+  document.getElementById('res').textContent = `TBW ≈ ${r(tbw)} L\nDéficit de agua ≈ ${r(deficit)} L`;
+}
+function copiar(){navigator.clipboard.writeText(document.getElementById('res').textContent||'')}
+function limpiar(){document.querySelectorAll('input').forEach(i=>i.value='');document.getElementById('res').textContent='Introduce datos y pulsa Calcular.'}
+
+// Cierre inteligente
+function smartClose(){
+  try{
+    if(window.opener && !window.opener.closed){ window.close(); return; }
+  }catch(e){}
+  if(history.length>1){ history.back(); }
+  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
+}
+var _cb = document.getElementById('closeBtn');
+if(_cb){ _cb.addEventListener('click', smartClose); }
+
+</script>
+</body>
+</html>
