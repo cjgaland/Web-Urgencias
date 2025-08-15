@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal de Urgencias - AGS Sur de Córdoba</title>
+
+  <!-- Estilos del proyecto -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Menú lateral -->
+  <aside class="sidebar" aria-label="Navegación principal">
+    <div class="sidebar-header">
+      <img src="images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba" />
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html" class="active"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+        <li><a href="Algoritmos/index.html"><i class="fas fa-sitemap"></i> <span>Algoritmos diagnósticos</span></a></li>
+        <li><a href="Calculadoras/index.html"><i class="fas fa-calculator"></i> <span>Calculadoras médicas</span></a></li>
+        <li><a href="Formacion/index.html"><i class="fas fa-graduation-cap"></i> <span>Formación</span></a></li>       
+		 <li><a href="Enlaces/index.html"><i class="fas fa-link"></i> <span>Enlaces útiles</span></a></li>
+      <li><a href="Documentos/index.html"><i class="fas fa-file-lines"></i> <span>Documentos y plantillas</span></a></li>
+        <li><a href="Calidad/index.html"><i class="fas fa-shield-heart"></i> <span>Calidad y Seguridad del Paciente</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Cabecera superior con dos logos -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <img src="images/Logo-Salud2.png" alt="Junta de Andalucía · Consejería de Salud y Consumo" />
+    </div>
+    <div class="masthead-right">
+      <img src="images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Servicio de Urgencias · Hospital de Montilla" />
+    </div>
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="main-content" role="main">
+
+    <!-- BUSCADOR GLOBAL -->
+    <section class="site-search" aria-label="Buscador global">
+      <div class="search-input-wrap">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <input id="q" type="search" placeholder="Buscar en algoritmos, calculadoras, enlaces, documentos y calidad..." autocomplete="off" />
+        <button id="clearBtn" type="button" title="Limpiar búsqueda" aria-label="Limpiar búsqueda">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div id="results" class="search-results" role="listbox" aria-label="Resultados de búsqueda"></div>
+    </section>
+
+    <!-- BIENVENIDA -->
+    <section class="hero">
+      <div class="hero-icon" aria-hidden="true">
+        <i class="fa-solid fa-heart-pulse"></i>
+      </div>
+      <div class="hero-text">
+        <h1>Bienvenido/a al Portal del Servicio de Urgencias</h1>
+        <p>
+          Este portal reúne en un único lugar los <strong>algoritmos diagnósticos</strong>, 
+          <strong>calculadoras médicas</strong>, <strong>enlaces útiles</strong>, 
+          <strong>documentos y plantillas</strong>, así como recursos de <strong>formación</strong> y 
+          <strong>calidad y seguridad del paciente</strong> del Área de Gestión Sanitaria Sur de Córdoba.
+        </p>
+        <p>
+          Está pensado para ser <strong>rápido</strong>, <strong>práctico</strong> y 
+          <strong>fácil de ampliar</strong>, facilitando el trabajo diario en la atención urgente.
+          Usa el menú de la izquierda para acceder a cada sección.
+        </p>
+      </div>
+    </section>
+
+    <p class="disclaimer strong">
+      Esta herramienta de apoyo clínico está destinada exclusivamente a uso profesional y <em>no sustituye</em> el juicio clínico.
+    </p>
+
+    <!-- Autoría / contacto -->
+    <div class="autor-info">
+      <img src="images/buzon.png" alt="Buzón de sugerencias" class="icono-buzon" />
+      <p>
+        Utilidad creada por la <strong>Unidad de Calidad y Seguridad del Paciente</strong> del 
+        <strong>Área de Gestión Sanitaria Sur de Córdoba</strong>.
+      </p>
+      <p>
+        Para cualquier duda o sugerencia, puede contactar en:
+        <a href="mailto:calidadareasurcordoba@gmail.com">calidadareasurcordoba@gmail.com</a>
+      </p>
+    </div>
+  </main>
+
+  <!-- =========================
+       LÓGICA DEL BUSCADOR
+       ========================= -->
+  <script>
+  // Índice de búsqueda inicial (edítalo libremente).
+  // Puedes añadir más entradas cuando crees nuevo contenido.
+  const SEARCH_INDEX = [
+    // Páginas principales
+     { title: "Algoritmos diagnósticos", url: "Algoritmos/index.html", section: "Algoritmos", tags: ["algoritmos","protocolos","decisión"], desc: "IAM, ictus, sepsis, EPOC, dolor, TEP..." },
+  { title: "Calculadoras médicas", url: "Calculadoras/index.html", section: "Calculadoras", tags: ["calculadoras","escalas","dosificación"], desc: "IMC, BSA, osmolaridad, CURB-65, Wells, PESI..." },
+  { title: "Enlaces útiles", url: "Enlaces/index.html", section: "Enlaces", tags: ["accesos","aplicaciones","herramientas"], desc: "Correo, Portal TIC, visor de imágenes, intranet..." },
+  { title: "Formación", url: "Formacion/index.html", section: "Formación", tags: ["docencia","cursos","sesiones","protocolos"], desc: "Sesiones clínicas, protocolos y e-learning." },
+  { title: "Documentos y plantillas", url: "Documentos/documentos.html", section: "Documentos", tags: ["documentos","plantillas","formularios"], desc: "Consentimientos, checklists, plantillas de informe." },
+  { title: "Calidad y Seguridad del Paciente", url: "Calidad/calidad.html", section: "Calidad", tags: ["calidad","seguridad","indicadores"], desc: "Indicadores, notificación de incidentes, materiales." },
+
+  // Algoritmos → ejemplos directos ya creados (emergencias)
+  { title: "SVB Instrumentalizado · Adulto", url: "Algoritmos/Emergencias/SVAB/index.html", section: "Algoritmos > Emergencias", tags: ["rcp","parada","svb","adulto"], desc: "Algoritmo visual + PDF." },
+  { title: "SVA · Adulto", url: "Algoritmos/Emergencias/SVAA/index.html", section: "Algoritmos > Emergencias", tags: ["rcp","parada","sva","adulto"], desc: "Algoritmo visual + PDF." },
+  { title: "SVB · Infantil", url: "Algoritmos/Emergencias/SVIB/index.html", section: "Algoritmos > Emergencias", tags: ["rcp","pediatría","svb"], desc: "Secuencia pediátrica." },
+  { title: "SVA · Infantil", url: "Algoritmos/Emergencias/SVIA/index.html", section: "Algoritmos > Emergencias", tags: ["rcp","pediatría","sva"], desc: "Avanzado pediátrico." },
+  { title: "Código ICTUS", url: "Algoritmos/Emergencias/ICTUS/index.html", section: "Algoritmos > Emergencias", tags: ["ictus","código","neurología"], desc: "Ventanas terapéuticas y derivación." },
+  { title: "Código Sepsis", url: "Algoritmos/Emergencias/SEPSIS/index.html", section: "Algoritmos > Emergencias", tags: ["sepsis","shock séptico"], desc: "Bundle de la primera hora." },
+  { title: "Intoxicaciones", url: "Algoritmos/Emergencias/INTOX/index.html", section: "Algoritmos > Emergencias", tags: ["tóxicos","antídotos"], desc: "Evaluación ABC, antídotos y criterios de ingreso." },
+
+  // Calculadoras → ejemplos (añade más cuando quieras)
+  { title: "IMC (Índice de masa corporal)", url: "Calculadoras/Antropometricos/imc.html", section: "Calculadoras > Antropométricos", tags: ["imc","peso","talla"], desc: "Unidades convertibles y categorías." },
+  { title: "Osmolalidad plasmática", url: "Calculadoras/Nefrologia/osmolalidad.html", section: "Calculadoras > Nefrología", tags: ["osmolalidad","Na","glucosa","urea"], desc: "Fórmula estándar con conversión de unidades." },
+
+  // Formación → Sesiones Clínicas por años (crear esas páginas para listar ficheros)
+  { title: "Sesiones clínicas ≤2019", url: "Formacion/Sesiones/<=2019/index.html", section: "Formación > Sesiones", tags: ["sesiones","histórico"], desc: "Documentos históricos." },
+  { title: "Sesiones clínicas 2020", url: "Formacion/Sesiones/2020/index.html", section: "Formación > Sesiones", tags: ["sesiones","2020"], desc: "PDF/PPT/DOC del año 2020." },
+  { title: "Sesiones clínicas 2021", url: "Formacion/Sesiones/2021/index.html", section: "Formación > Sesiones", tags: ["sesiones","2021"], desc: "Yearbook 2021." },
+  { title: "Sesiones clínicas 2022", url: "Formacion/Sesiones/2022/index.html", section: "Formación > Sesiones", tags: ["sesiones","2022"], desc: "Yearbook 2022." },
+  { title: "Sesiones clínicas 2023", url: "Formacion/Sesiones/2023/index.html", section: "Formación > Sesiones", tags: ["sesiones","2023"], desc: "Yearbook 2023." },
+  { title: "Sesiones clínicas 2024", url: "Formacion/Sesiones/2024/index.html", section: "Formación > Sesiones", tags: ["sesiones","2024"], desc: "Yearbook 2024." },
+  { title: "Sesiones clínicas 2025", url: "Formacion/Sesiones/2025/index.html", section: "Formación > Sesiones", tags: ["sesiones","2025"], desc: "Yearbook 2025." },
+
+  // Formación → Protocolos y E-learning (internos + externos)
+  { title: "Protocolos / Procedimientos (Formación)", url: "Formacion/Protocolos/index.html", section: "Formación > Protocolos", tags: ["protocolos","procedimientos"], desc: "Repositorio interno." },
+  { title: "E-learning · Enlaces útiles", url: "Formacion/ELearning/index.html", section: "Formación > E-learning", tags: ["elearning","recursos"], desc: "Selección interna de plataformas." },
+  { title: "GESFORMA", url: "https://web.sas.junta-andalucia.es/servicioandaluzdesalud/profesionales/formacion/gesforma", section: "Formación > E-learning", tags: ["gesforma","formación"], desc: "Gestión de formación continuada." },
+  { title: "EASP", url: "https://www.easp.es/", section: "Formación > E-learning", tags: ["easp","cursos"], desc: "Escuela Andaluza de Salud Pública." },
+  { title: "Fisterra", url: "https://www.fisterra.com/", section: "Formación > E-learning", tags: ["fisterra","consulta clínica"], desc: "Recursos clínicos." },
+
+  // Documentos y Calidad → atajos frecuentes
+  { title: "Consentimientos informados", url: "Documentos/documentos.html", section: "Documentos", tags: ["consentimientos","formularios"], desc: "Modelos oficiales/adaptados." },
+  { title: "Notificación de incidentes", url: "Calidad/calidad.html", section: "Calidad", tags: ["seguridad","incidentes"], desc: "Sistema de registro y aprendizaje." }
+];
+
+  // Utilidades
+  const $ = (sel, ctx=document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+
+  const input = $('#q');
+  const clearBtn = $('#clearBtn');
+  const resultsBox = $('#results');
+
+  function normalize(str){
+    return (str || "").toString().toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu,"");
+  }
+
+  function scoreItem(item, q){
+    // Pondera: título (3), tags (2), desc (1), sección (1)
+    const nq = normalize(q);
+    const inTitle = normalize(item.title).includes(nq) ? 3 : 0;
+    const inTags = (item.tags || []).some(t => normalize(t).includes(nq)) ? 2 : 0;
+    const inDesc = normalize(item.desc).includes(nq) ? 1 : 0;
+    const inSection = normalize(item.section).includes(nq) ? 1 : 0;
+    return inTitle + inTags + inDesc + inSection;
+  }
+
+  function highlight(text, q){
+    if(!q) return text;
+    const nq = normalize(q);
+    // resaltado simple sin romper acentos: busca posiciones en string original
+    const lower = text.toLowerCase();
+    const idx = lower.indexOf(q.toLowerCase());
+    if(idx === -1) return text;
+    return text.substring(0, idx) + "<mark>" + text.substring(idx, idx+q.length) + "</mark>" + text.substring(idx+q.length);
+  }
+
+  function renderResults(items, q){
+    if(!q || items.length === 0){
+      resultsBox.innerHTML = "";
+      resultsBox.classList.remove('visible');
+      return;
+    }
+    const html = items.slice(0, 12).map(it => `
+      <a class="result-item" href="${it.url}" role="option">
+        <div class="result-title">${highlight(it.title, q)}</div>
+        <div class="result-meta">
+          <span class="badge">${it.section}</span>
+          <span class="desc">${it.desc || ""}</span>
+        </div>
+      </a>
+    `).join("");
+    resultsBox.innerHTML = html;
+    resultsBox.classList.add('visible');
+  }
+
+  let debounceTimer = null;
+  function onSearch(){
+    const q = input.value.trim();
+    if(!q){
+      renderResults([], "");
+      return;
+    }
+    const ranked = SEARCH_INDEX
+      .map(item => ({ item, s: scoreItem(item, q) }))
+      .filter(x => x.s > 0)
+      .sort((a,b) => b.s - a.s)
+      .map(x => x.item);
+    renderResults(ranked, q);
+  }
+
+  input.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(onSearch, 140);
+  });
+
+  input.addEventListener('focus', onSearch);
+  clearBtn.addEventListener('click', () => {
+    input.value = "";
+    input.focus();
+    renderResults([], "");
+  });
+
+  // Cerrar resultados al hacer clic fuera
+  document.addEventListener('click', (e) => {
+    if(!$('.site-search').contains(e.target)){
+      renderResults([], "");
+    }
+  });
+
+  // Enter abre primer resultado
+  input.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter'){
+      const first = $('.result-item', resultsBox);
+      if(first){ window.location.href = first.getAttribute('href'); }
+    }
+  });
+  </script>
+
+</body>
+</html>
