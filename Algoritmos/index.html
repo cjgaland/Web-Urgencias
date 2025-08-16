@@ -207,75 +207,39 @@
       </article>
 
       <!-- 3. Cardiovascular -->
-      <article class="accordion-item" id="cardiovascular">
-        <h2 class="accordion-header">
-          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-cardio" id="btn-cardio">
-            <i class="fa-solid fa-heart-pulse"></i>
-            Cardiovascular
-          </button>
-        </h2>
-        <div class="accordion-panel" id="panel-cardio" role="region" aria-labelledby="btn-cardio" hidden>
-          <div class="links-grid">
+<!-- 3. Cardiovascular (solo 2 tarjetas) -->
+<article class="accordion-item" id="cardiovascular">
+  <h2 class="accordion-header">
+    <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-cardio" id="btn-cardio">
+      <i class="fa-solid fa-heart-pulse"></i>
+      Cardiovascular
+    </button>
+  </h2>
+  <div class="accordion-panel" id="panel-cardio" role="region" aria-labelledby="btn-cardio" hidden>
+    <div class="links-grid">
 
-            <!-- SCA → enlaza a Emergencias -->
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-heart"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Emergencias/sindrome-coronario-agudo.html')">Síndrome Coronario Agudo</a>
-                <p class="link-description">Atajo al algoritmo de SCA en Emergencias.</p>
-              </div>
-            </div>
-
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-heart-circle-exclamation"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Cardiovascular/insuficiencia-cardiaca-aguda.html')">Insuficiencia cardiaca aguda</a>
-                <p class="link-description">Congestión, perfil hemodinámico y tratamiento.</p>
-              </div>
-            </div>
-
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-water"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Cardiovascular/edema-agudo-pulmon.html')">Edema agudo de pulmón</a>
-                <p class="link-description">Oxigenoterapia, diuréticos y vasodilatadores.</p>
-              </div>
-            </div>
-
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-ruler-vertical"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Cardiovascular/sindrome-aortico-agudo.html')">Síndrome aórtico agudo</a>
-                <p class="link-description">Clínica de alarma, D-dímero, TC y control de PA/FC.</p>
-              </div>
-            </div>
-
-            <!-- Arritmias -->
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-wave-square"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Cardiovascular/bradiarritmias.html')">Bradiarritmias</a>
-                <p class="link-description">Inestabilidad, atropina, marcapasos transitorio.</p>
-              </div>
-            </div>
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-bolt"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Cardiovascular/taquiarritmias-complejo-ancho.html')">Taquiarritmias de QRS ancho</a>
-                <p class="link-description">TV estable/inestable, amiodarona, cardioversión.</p>
-              </div>
-            </div>
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-regular fa-square"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Cardiovascular/taquiarritmias-complejo-estrecho.html')">Taquiarritmias de QRS estrecho</a>
-                <p class="link-description">Maniobras vagales, adenosina, control de frecuencia.</p>
-              </div>
-            </div>
-
-          </div>
+      <!-- Patología cardiaca -->
+      <div class="link-card">
+        <div class="link-icon"><i class="fa-solid fa-heart-circle-exclamation"></i></div>
+        <div class="link-content">
+          <a href="#" onclick="abrirAlgoritmo('Cardiovascular/index.html#cardiaco')">Patología cardiaca</a>
+          <p class="link-description">12 algoritmos: congénitas, EAP, ICA, pericardio, S. aórtico, síncope, trasplante, SCA, taponamiento, bradi/tauiqarrítmias…</p>
         </div>
-      </article>
+      </div>
+
+      <!-- Patología vascular -->
+      <div class="link-card">
+        <div class="link-icon"><i class="fa-solid fa-diagram-project"></i></div>
+        <div class="link-content">
+          <a href="#" onclick="abrirAlgoritmo('Cardiovascular/index.html#vascular')">Patología vascular</a>
+          <p class="link-description">3 algoritmos: EAP periférica, síndrome varicoso complicado y úlceras vasculares.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</article>
+
 
       <!-- 4. Respiratorio -->
       <article class="accordion-item" id="respiratorio">
