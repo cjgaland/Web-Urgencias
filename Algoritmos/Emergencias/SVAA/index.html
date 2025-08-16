@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>SVA · Adulto</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --c1:#0a5ea8; --c1d:#0a4c84; --bd:#e1eefc; --bg:#f7fbff; --bx:#d1d9e6; --tx:#0a4c84;
+}
+*{box-sizing:border-box}
+body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px;background:#fff;color:#0f172a}
+.container{max-width:1100px;margin:auto}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;box-shadow:0 8px 24px rgba(2,6,23,.05);overflow:hidden}
+.header{display:flex;align-items:center;gap:.75rem;padding:16px 18px;border-bottom:1px solid #eef2f7}
+.header i{font-size:1.25rem;color:var(--c1)}
+.header h1{font-size:1.15rem;margin:0;color:var(--tx);font-weight:700}
+.badge{margin-left:auto;background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0;padding:.2rem .55rem;border-radius:999px;font-weight:600;font-size:.85rem}
+
+.content{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;padding:16px}
+@media (max-width:980px){.content{grid-template-columns:1fr}}
+.panel{border:1px solid #eef2f7;border-radius:12px;padding:12px;background:#fff}
+
+.figure{display:flex;flex-direction:column;gap:.65rem}
+.figure img{max-width:100%;border:1px solid #e5e7eb;border-radius:12px}
+.figure .caption{font-size:.9rem;color:#475569}
+
+.actions{display:flex;flex-wrap:wrap;gap:.5rem}
+.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid #d9e2ec;background:#eef2f7;color:var(--tx);cursor:pointer;font-weight:500}
+.btn.primary{background:var(--c1);color:#fff;border-color:transparent}
+.btn:hover{filter:brightness(.98)}
+
+.kpoints h2,.steps h2{font-size:1rem;margin:.1rem 0 .5rem;color:var(--c1d)}
+ul.klist{margin:.25rem 0 0 1rem}
+ul.klist li{margin:.25rem 0}
+
+.steps details{border:1px solid #e5e7eb;border-radius:10px;padding:.6rem .8rem;background:#fafbfd;margin:.45rem 0}
+.steps summary{cursor:pointer;color:var(--c1d);font-weight:600}
+.steps ol{margin:.4rem 0 0 1.1rem}
+.note{margin:12px 0;padding:.7rem .8rem;background:var(--bg);border:1px solid var(--bd);border-radius:10px;color:var(--tx)}
+.small{font-size:.9rem;color:#667085}
+.footer{padding:12px 16px;border-top:1px solid #eef2f7}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+<div class="container">
+  <div class="card">
+    <div class="header">
+      <i class="fa-solid fa-heart-circle-bolt" aria-hidden="true"></i>
+      <h1>Soporte Vital Avanzado · Adulto</h1>
+      <span class="badge">Adulto</span>
+    </div>
+
+    <div class="content">
+      <!-- Panel izquierdo: diagrama + acciones -->
+      <section class="panel figure" aria-labelledby="titulo-diagrama">
+        <h2 id="titulo-diagrama" class="small" style="margin:0;color:#0f172a">Algoritmo visual</h2>
+        <img src="img/SVAA.png" alt="Algoritmo SVA Adulto" />
+        <p class="caption">Diagrama resumen de SVA en adulto. Revisión local según protocolos del Área.</p>
+
+        <div class="actions">
+          <a class="btn primary" href="docs/SVAA.pdf" target="_blank" rel="noopener">
+            <i class="fa-solid fa-file-pdf"></i> Descargar PDF
+          </a>
+          <a class="btn" href="img/SVAA.jpg" target="_blank" rel="noopener">
+            <i class="fa-solid fa-up-right-from-square"></i> Abrir imagen grande
+          </a>
+        </div>
+        <p class="note small">
+          Mantén una copia offline del PDF en los equipos de Urgencias por si falla la red interna.
+        </p>
+      </section>
+
+      <!-- Panel derecho: puntos clave + pasos -->
+      <section class="panel">
+        <div class="kpoints">
+          <h2>Puntos clave (resumen operativo)</h2>
+          <ul class="klist">
+            <li>Confirmar PCR, iniciar RCP de alta calidad inmediatamente.</li>
+            <li>Monitorización y acceso IV/IO rápido.</li>
+            <li>Administrar fármacos según ritmo (adrenalina, amiodarona...).</li>
+            <li>Desfibrilación precoz en ritmos desfibrilables.</li>
+            <li>Reevaluar cada 2 min, minimizar interrupciones.</li>
+            <li>Identificar y tratar causas reversibles (H y T).</li>
+          </ul>
+        </div>
+
+        <div class="steps" style="margin-top:.8rem">
+          <h2>Vista paso a paso</h2>
+
+          <details>
+            <summary>1) RCP inicial y monitorización</summary>
+            <ol>
+              <li>Comenzar compresiones 30:2 mientras se prepara equipo.</li>
+              <li>Conectar monitor/DEA, analizar ritmo.</li>
+              <li>Oxigenar al 100% y asegurar vía aérea avanzada cuando sea posible.</li>
+            </ol>
+          </details>
+
+          <details>
+            <summary>2) Ritmo desfibrilable (FV/TV sin pulso)</summary>
+            <ol>
+              <li>Descarga inmediata, reanudar compresiones.</li>
+              <li>Adrenalina cada 3-5 min, amiodarona tras 3ª descarga.</li>
+              <li>Continuar ciclos RCP–descarga según protocolo.</li>
+            </ol>
+          </details>
+
+          <details>
+            <summary>3) Ritmo no desfibrilable (AESP/Asistolia)</summary>
+            <ol>
+              <li>Adrenalina lo antes posible, continuar RCP.</li>
+              <li>Reevaluar ritmo cada 2 min.</li>
+              <li>Buscar y tratar causas reversibles.</li>
+            </ol>
+          </details>
+
+          <details>
+            <summary>4) Causas reversibles</summary>
+            <ol>
+              <li>Hipoxia, hipovolemia, hipotermia, hidrogeniones (acidosis), hipo/hiperpotasemia.</li>
+              <li>Neumotórax a tensión, taponamiento cardíaco, trombosis coronaria/pulmonar, tóxicos.</li>
+            </ol>
+          </details>
+
+          <details>
+            <summary>5) Tras recuperación de pulso</summary>
+            <ol>
+              <li>Estabilizar vía aérea, ventilación y hemodinamia.</li>
+              <li>Control de temperatura y glucemia.</li>
+              <li>Derivación a cuidados intensivos según protocolo.</li>
+            </ol>
+          </details>
+
+          <p class="note small">
+            Esta guía es de apoyo. Prioriza siempre protocolos del centro y formación vigente.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <div class="footer small">
+      <span class="small">Versión 1.0 · Identidad visual del portal (Roboto, paleta azul) · Última revisión: <!-- fecha --></span>
+    </div>
+  </div>
+</div>
+</body>
+</html>
