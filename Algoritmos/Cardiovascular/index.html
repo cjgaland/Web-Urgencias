@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cardiovascular · Algoritmos – AGS Sur de Córdoba</title>
+
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" aria-label="Navegación principal">
+    <div class="sidebar-header">
+      <img src="../../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba" />
+    </div>
+    <nav>
+      <ul>
+        <li><a href="../../index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+        <li><a href="../index.html" class="active"><i class="fas fa-sitemap"></i> <span>Algoritmos diagnósticos</span></a></li>
+        <li><a href="../../Calculadoras/index.html"><i class="fas fa-calculator"></i> <span>Calculadoras médicas</span></a></li>
+        <li><a href="../../Formacion/index.html"><i class="fas fa-graduation-cap"></i> <span>Formación</span></a></li>
+        <li><a href="../../Enlaces/index.html"><i class="fas fa-link"></i> <span>Enlaces útiles</span></a></li>
+        <li><a href="../../Documentos/index.html"><i class="fas fa-file-lines"></i> <span>Documentos y plantillas</span></a></li>
+        <li><a href="../../Calidad/index.html"><i class="fas fa-shield-heart"></i> <span>Calidad y Seguridad del Paciente</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Cabecera -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <img src="../../images/Logo-Salud2.png" alt="Junta de Andalucía · Consejería de Salud y Consumo" />
+    </div>
+    <div class="masthead-right">
+      <img src="../../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Servicio de Urgencias · Hospital de Montilla" />
+    </div>
+  </header>
+
+  <main class="main-content" role="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-icon" aria-hidden="true">
+        <i class="fa-solid fa-heart-pulse"></i>
+      </div>
+      <div class="hero-text">
+        <h1>Cardiovascular · Algoritmos</h1>
+        <p>Selecciona un bloque y abre el algoritmo (PDF) en una ventana nueva.</p>
+      </div>
+    </section>
+
+    <!-- TOC local -->
+    <nav class="calc-toc" aria-label="Índice de bloques">
+      <a href="#cardiaco">Patología cardiaca</a>
+      <a href="#vascular">Patología vascular</a>
+    </nav>
+
+    <!-- Contenedor con dos bloques -->
+    <section class="accordion">
+
+      <!-- Patología cardiaca -->
+      <article class="accordion-item" id="cardiaco">
+        <h2 class="accordion-header">
+          <button class="accordion-toggle" aria-expanded="true" aria-controls="panel-card" id="btn-card">
+            <i class="fa-solid fa-heart-circle-exclamation"></i>
+            Patología cardiaca
+          </button>
+        </h2>
+        <div class="accordion-panel" id="panel-card" role="region" aria-labelledby="btn-card">
+          <div class="links-grid">
+            <!-- 12 algoritmos -->
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-baby"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirPDF('Cardiaco/Card-Congenita.pdf')">Patologías congénitas</a>
+                <p class="link-description">Card-Congenita.pdf</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-water"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirPDF('Cardiaco/Card-EAP.pdf')">Edema agudo de pulmón</a>
+                <p class="link-description">Card-EAP.pdf</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-heart-circle-bolt"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirPDF('Cardiaco/Card-InfCard.pdf')">Insuficiencia cardiaca aguda</a>
+                <p class="link-description">Card-InfCard.pdf</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-regular fa-square-plus"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirPDF('Cardiaco/Card-Pericardio.pdf')">Enfermedades del pericardio</a>
+                <p class="link-description">Card-Pericardio.pdf</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-ruler-vertical"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirPDF('Cardiaco/Card-SAortico.pdf')">Síndrome aórtico agudo</a>
+                <p class="link-description">Card-SAortico.pdf</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-regular fa-face-dizzy"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirPDF('Cardiaco/Card-Sincope.pdf')">Síncope</a>
+                <p class="link-description">Card-Sincop.pdf</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-hands-holding-child"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirPDF('Cardiaco/Card-Tx.pdf')">Enfermedades del paciente trasplantado</a>
+                <p class="link-description">Card-Tx.pdf</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-heart"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirPDF('Cardiaco/Card-SCA.pdf')">Síndrome coronario agudo</a>
+                <p class="link-description">Card-SCA.pdf</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-kit-medical"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirPDF('Cardiaco/Card-Taponamiento.pdf')">Taponamiento cardiaco</a>
+                <p class="link-description">Card-Taponamiento.pdf</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-wave-square"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirPDF('Cardiaco/Card-Bradiarrimias.pdf')">Bradicardias</a>
+                <p class="link-description">Card-Bradiarrimias.pdf</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-regular fa-square"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirPDF('Cardiaco/Card-TaquiQRSest.pdf')">Taquicardias QRS estrecho</a>
+                <p class="link-description">Card-TaquiQRSest.pdf</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-bolt"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirPDF('Cardiaco/Card-TaquiQRSanc.pdf')">Taquicardias QRS ancho</a>
+                <p class="link-description">Card-TaquiQRSanc.pdf</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </article>
+
+      <!-- Patología vascular -->
+      <article class="accordion-item" id="vascular">
+        <h2 class="accordion-header">
+          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-vasc" id="btn-vasc">
+            <i class="fa-solid fa-diagram-project"></i>
+            Patología vascular
+          </button>
+        </h2>
+        <div class="accordion-panel" id="panel-vasc" role="region" aria-labelledby="btn-vasc" hidden>
+          <div class="links-grid">
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-person-walking"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirPDF('Vascular/Vasc-EnfArtPer.pdf')">Enfermedad arterial periférica</a>
+                <p class="link-description">Vasc-EnfArtPer.pdf</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-regular fa-square-minus"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirPDF('Vascular/Vasc-SVaricoso.pdf')">Síndrome varicoso complicado</a>
+                <p class="link-description">Vasc-SVaricoso.pdf</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-regular fa-hospital"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirPDF('Vascular/Vasc-Ulc.pdf')">Úlceras vasculares</a>
+                <p class="link-description">Vasc-Ulc.pdf</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <p class="disclaimer strong" style="margin-top:1.25rem">
+      Esta herramienta de apoyo clínico está destinada exclusivamente a uso profesional y <em>no sustituye</em> el juicio clínico.
+    </p>
+  </main>
+
+  <!-- JS: interacción simple (abrir secciones y PDFs) -->
+  <script>
+    // Alterna acordeón local
+    document.querySelectorAll('.accordion-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const panel = document.getElementById(btn.getAttribute('aria-controls'));
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+        if (expanded) panel.setAttribute('hidden',''); else panel.removeAttribute('hidden');
+      });
+    });
+
+    // TOC interno
+    document.querySelectorAll('.calc-toc a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const art = document.getElementById(id);
+        if (!art) return;
+        // abre la sección si está cerrada
+        const btn = art.querySelector('.accordion-toggle');
+        const panel = art.querySelector('.accordion-panel');
+        btn.setAttribute('aria-expanded','true');
+        panel.removeAttribute('hidden');
+        art.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', '#' + id);
+      });
+    });
+
+    // Abrir PDF en ventana nueva (deja el modal para HTML)
+    function abrirPDF(ruta){
+      window.open(ruta, '_blank', 'noopener');
+    }
+
+    // Si venimos con hash, abrir sección correspondiente
+    if (location.hash) {
+      const id = location.hash.slice(1);
+      const art = document.getElementById(id);
+      if (art) {
+        const btn = art.querySelector('.accordion-toggle');
+        const panel = art.querySelector('.accordion-panel');
+        btn.setAttribute('aria-expanded','true');
+        panel.removeAttribute('hidden');
+      }
+    }
+  </script>
+
+  <!-- (opcional) si quieres reutilizar tu modal para HTML -->
+  <script src="../../Calculadoras/js/modal.js"></script>
+</body>
+</html>
