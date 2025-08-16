@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Algoritmos diagnósticos · Urgencias – AGS Sur de Córdoba</title>
+
+  <!-- Estilos globales del proyecto -->
+  <link rel="stylesheet" href="../css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" aria-label="Navegación principal">
+    <div class="sidebar-header">
+      <img src="../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba" />
+    </div>
+    <nav>
+      <ul>
+        <li><a href="../index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+        <li><a href="../Algoritmos/index.html" class="active"><i class="fas fa-sitemap"></i> <span>Algoritmos diagnósticos</span></a></li>
+        <li><a href="../Calculadoras/index.html"><i class="fas fa-calculator"></i> <span>Calculadoras médicas</span></a></li>
+        <li><a href="../Formacion/index.html"><i class="fas fa-graduation-cap"></i> <span>Formación</span></a></li>		
+        <li><a href="../Enlaces/index.html"><i class="fas fa-link"></i> <span>Enlaces útiles</span></a></li>
+        <li><a href="../Documentos/index.html"><i class="fas fa-file-lines"></i> <span>Documentos y plantillas</span></a></li>
+        <li><a href="../Calidad/index.html"><i class="fas fa-shield-heart"></i> <span>Calidad y Seguridad del Paciente</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Cabecera con logos -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <img src="../images/Logo-Salud2.png" alt="Junta de Andalucía · Consejería de Salud y Consumo" />
+    </div>
+    <div class="masthead-right">
+      <img src="../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Servicio de Urgencias · Hospital de Montilla" />
+    </div>
+  </header>
+
+  <!-- Contenido -->
+  <main class="main-content" role="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-icon" aria-hidden="true">
+        <i class="fa-solid fa-sitemap"></i>
+      </div>
+      <div class="hero-text">
+        <h1>Algoritmos diagnósticos</h1>
+        <p>
+          <strong>Árboles de decisión</strong> y <strong>guías operativas</strong> para el manejo en Urgencias. 
+          Abre cada algoritmo en una ventana emergente para consultarlo rápido y con la misma identidad visual.
+        </p>
+      </div>
+    </section>
+
+    <!-- Índice (TOC) -->
+    <nav class="calc-toc" aria-label="Índice de bloques">
+      <a href="#emergencias">Emergencias</a>
+      <a href="#generales">Generales</a>
+      <a href="#cardiovascular">Cardiovascular</a>
+      <a href="#respiratorio">Respiratorio</a>
+      <a href="#neurologicos">Neurológicos</a>
+      <a href="#nefrologia">Nefrología</a>
+      <a href="#endocrino">Endocrino / Metabólicas</a>
+      <a href="#traumatologico">Traumatológicas</a>
+      <a href="#ObsGin">Obstétricas / Ginecológicas</a>
+      <a href="#pediatria">Pediátricas</a>      
+    </nav>
+
+    <!-- Acordeón de bloques (cerrado por defecto) -->
+    <section class="accordion" id="algo-accordion">
+
+      <!-- 1. Emergencias -->
+      <article class="accordion-item" id="emergencias">
+        <h2 class="accordion-header">
+          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-emerg" id="btn-emerg">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            Emergencias
+          </button>
+        </h2>
+        <div class="accordion-panel" id="panel-emerg" role="region" aria-labelledby="btn-emerg" hidden>
+          <div class="links-grid">
+
+            <!-- Soporte Vital > Adulto -->
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Emergencias/SVAB/index.html')">
+                  Soporte Vital Adulto – Básico instrumentalizado
+                </a>
+                <p class="link-description">Secuencia ABCD, DEA, ventilación, maniobras y dispositivos.</p>
+              </div>
+            </div>
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-heart-circle-bolt"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Emergencias/SVAA/index.html')">
+                  Soporte Vital Adulto – Avanzado
+                </a>
+                <p class="link-description">Ritmos desfibrilables/no desfibrilables, fármacos y vía aérea avanzada.</p>
+              </div>
+            </div>
+
+            <!-- Soporte Vital > Infantil -->
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-baby"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Emergencias/SVIB/index.html')">
+                  Soporte Vital Infantil – Básico
+                </a>
+                <p class="link-description">RCP pediátrica básica, desfibrilación y ventilación.</p>
+              </div>
+            </div>
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-baby-carriage"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Emergencias/SVIA/index.html')">
+                  Soporte Vital Infantil – Avanzado
+                </a>
+                <p class="link-description">Algoritmo avanzado pediátrico, fármacos y ritmos.</p>
+              </div>
+            </div>
+
+            <!-- SCA / ICTUS / Sepsis / Intoxicaciones -->
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-heart"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Emergencias/SCA/index.html')">Síndrome Coronario Agudo</a>
+                <p class="link-description">Vía rápida SCA, ECG, troponinas y manejo inicial.</p>
+              </div>
+            </div>
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-brain"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Emergencias/ICTUS/index.html')">Código ICTUS</a>
+                <p class="link-description">Detección, ventanas y derivación a Trombólisis/Trombectomía.</p>
+              </div>
+            </div>
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-bacteria"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Emergencias/SEPSIS/index.html')">Código Sepsis</a>
+                <p class="link-description">Reconocimiento precoz, bundle 1 hora, fluidos y antibióticos.</p>
+              </div>
+            </div>
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-skull-crossbones"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Emergencias/INTOX/index.html')">Intoxicaciones</a>
+                <p class="link-description">ABC, descontaminación, antídotos y criterios de derivación.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </article>
+
+      <!-- 2. Generales -->
+      <article class="accordion-item" id="generales">
+        <h2 class="accordion-header">
+          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-gen" id="btn-gen">
+            <i class="fa-solid fa-stethoscope"></i>
+            Generales
+          </button>
+        </h2>
+        <div class="accordion-panel" id="panel-gen" role="region" aria-labelledby="btn-gen" hidden>
+          <div class="links-grid">
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-burst"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Generales/dolor-agudo.html')">Dolor agudo</a>
+                <p class="link-description">Evaluación, analgesia escalonada y reevaluación.</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-needle"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Generales/analgesia-en-procedimientos.html')">Analgesia en procedimientos</a>
+                <p class="link-description">Sedación mínima, bloqueo local y monitorización.</p>
+              </div>
+            </div>
+
+            <!-- Intoxicaciones → enlaza al de Emergencias -->
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-skull-crossbones"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Emergencias/intoxicaciones.html')">Intoxicaciones</a>
+                <p class="link-description">Atajo al algoritmo de Emergencias.</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-prescription-bottle-medical"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Generales/sueroterapia.html')">Sueroterapia</a>
+                <p class="link-description">Indicaciones, tipo de suero y plan de reposición.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </article>
+
+      <!-- 3. Cardiovascular -->
+      <article class="accordion-item" id="cardiovascular">
+        <h2 class="accordion-header">
+          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-cardio" id="btn-cardio">
+            <i class="fa-solid fa-heart-pulse"></i>
+            Cardiovascular
+          </button>
+        </h2>
+        <div class="accordion-panel" id="panel-cardio" role="region" aria-labelledby="btn-cardio" hidden>
+          <div class="links-grid">
+
+            <!-- SCA → enlaza a Emergencias -->
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-heart"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Emergencias/sindrome-coronario-agudo.html')">Síndrome Coronario Agudo</a>
+                <p class="link-description">Atajo al algoritmo de SCA en Emergencias.</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-heart-circle-exclamation"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Cardiovascular/insuficiencia-cardiaca-aguda.html')">Insuficiencia cardiaca aguda</a>
+                <p class="link-description">Congestión, perfil hemodinámico y tratamiento.</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-water"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Cardiovascular/edema-agudo-pulmon.html')">Edema agudo de pulmón</a>
+                <p class="link-description">Oxigenoterapia, diuréticos y vasodilatadores.</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-ruler-vertical"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Cardiovascular/sindrome-aortico-agudo.html')">Síndrome aórtico agudo</a>
+                <p class="link-description">Clínica de alarma, D-dímero, TC y control de PA/FC.</p>
+              </div>
+            </div>
+
+            <!-- Arritmias -->
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-wave-square"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Cardiovascular/bradiarritmias.html')">Bradiarritmias</a>
+                <p class="link-description">Inestabilidad, atropina, marcapasos transitorio.</p>
+              </div>
+            </div>
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-bolt"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Cardiovascular/taquiarritmias-complejo-ancho.html')">Taquiarritmias de QRS ancho</a>
+                <p class="link-description">TV estable/inestable, amiodarona, cardioversión.</p>
+              </div>
+            </div>
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-regular fa-square"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Cardiovascular/taquiarritmias-complejo-estrecho.html')">Taquiarritmias de QRS estrecho</a>
+                <p class="link-description">Maniobras vagales, adenosina, control de frecuencia.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </article>
+
+      <!-- 4. Respiratorio -->
+      <article class="accordion-item" id="respiratorio">
+        <h2 class="accordion-header">
+          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-resp" id="btn-resp">
+            <i class="fa-solid fa-lungs"></i>
+            Respiratorio
+          </button>
+        </h2>
+        <div class="accordion-panel" id="panel-resp" role="region" aria-labelledby="btn-resp" hidden>
+          <div class="links-grid">
+
+            <!-- EAP → enlaza a Cardiovascular -->
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-water"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Cardiovascular/edema-agudo-pulmon.html')">Edema agudo de pulmón</a>
+                <p class="link-description">Atajo al algoritmo de Cardiovascular.</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-smoking"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Respiratorio/epoc-agudizacion.html')">EPOC – agudización</a>
+                <p class="link-description">Oxígeno, broncodilatadores, corticoides y antibiótico.</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-stethoscope"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Respiratorio/neumonia.html')">Neumonía</a>
+                <p class="link-description">Severidad, antibiótico empírico y criterios de ingreso.</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-regular fa-square-minus"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Respiratorio/neumotorax.html')">Neumotórax</a>
+                <p class="link-description">Tensión/espontáneo, drenaje y observación.</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-lungs"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Respiratorio/tep.html')">TEP</a>
+                <p class="link-description">Riesgo, imagen y anticoagulación.</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-wind"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Respiratorio/vmni.html')">VMNI</a>
+                <p class="link-description">Indicaciones, ajustes iniciales y seguimiento.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </article>
+
+      <!-- 5. Neurológicos -->
+      <article class="accordion-item" id="neurologicos">
+        <h2 class="accordion-header">
+          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-neuro" id="btn-neuro">
+            <i class="fa-solid fa-brain"></i>
+            Neurológicos
+          </button>
+        </h2>
+        <div class="accordion-panel" id="panel-neuro" role="region" aria-labelledby="btn-neuro" hidden>
+          <div class="links-grid">
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-bed-pulse"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Neurologico/alteracion-nivel-conciencia.html')">Alteración del nivel de conciencia / Coma</a>
+                <p class="link-description">ABCD, causas reversibles, pruebas y manejo.</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-bolt"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Neurologico/crisis-comicial.html')">Crisis comicial</a>
+                <p class="link-description">Status, benzodiacepinas y anticomiciales.</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-regular fa-face-grimace"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Neurologico/cefalea.html')">Cefalea</a>
+                <p class="link-description">Banderas rojas, TAC/PL y tratamiento.</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-regular fa-face-meh-blank"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Neurologico/sindrome-confusional-agudo.html')">Síndrome confusional agudo</a>
+                <p class="link-description">Delirium: detección, causas y abordaje.</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-virus-covid"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Neurologico/meningitis-meningoencefalitis.html')">Meningitis/Meningoencefalitis</a>
+                <p class="link-description">Aislamiento, antibioterapia y pruebas urgentes.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </article>
+
+      <!-- 6. Nefrología -->
+      <article class="accordion-item" id="nefrologia">
+        <h2 class="accordion-header">
+          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-nefro" id="btn-nefro">
+            <i class="fa-solid fa-droplet"></i>
+            Nefrología
+          </button>
+        </h2>
+        <div class="accordion-panel" id="panel-nefro" role="region" aria-labelledby="btn-nefro" hidden>
+          <div class="links-grid">
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-droplet"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Nefrologico/fracaso-renal-agudo.html')">Fracaso renal agudo</a>
+                <p class="link-description">Prerrenal/renal/postrenal, pruebas y manejo.</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-stone"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Nefrologico/colico-nefritico.html')">Cólico nefrítico</a>
+                <p class="link-description">Analgesia, imagen y criterios de derivación.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </article>
+
+      <!-- 7. Endocrino / Metabólicas -->
+      <article class="accordion-item" id="endocrino">
+        <h2 class="accordion-header">
+          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-endo" id="btn-endo">
+            <i class="fa-solid fa-flask"></i>
+            Endocrino / Metabólicas
+          </button>
+        </h2>
+        <div class="accordion-panel" id="panel-endo" role="region" aria-labelledby="btn-endo" hidden>
+          <div class="links-grid">
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-droplet"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Generales/EndocrinoMetabolicas/hipoglucemia.html')">Hipoglucemia</a>
+                <p class="link-description">Reconocimiento y corrección escalonada.</p>
+              </div>
+            </div>
+
+            <!-- Hiperglucemia (tres rutas) -->
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-syringe"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Generales/EndocrinoMetabolicas/hiperglucemia-cetoacidosis.html')">Cetoacidosis diabética</a>
+                <p class="link-description">Fluidoterapia, insulina y potasio.</p>
+              </div>
+            </div>
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-regular fa-hospital"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Generales/EndocrinoMetabolicas/hiperglucemia-hiperosmolar.html')">Situación hiperosmolar</a>
+                <p class="link-description">Corrección cuidadosa y monitorización.</p>
+              </div>
+            </div>
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-regular fa-square-plus"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Generales/EndocrinoMetabolicas/hiperglucemia-simple.html')">Hiperglucemia simple</a>
+                <p class="link-description">Manejo en Urgencias y criterios de alta.</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-vial-circle-check"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Generales/EndocrinoMetabolicas/equilibrio-acido-base.html')">Trastornos del equilibrio Ácido–Base</a>
+                <p class="link-description">Enfoque paso a paso y anion gap.</p>
+              </div>
+            </div>
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-bolt"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Generales/EndocrinoMetabolicas/hiperpotasemia.html')">Hiperpotasemia</a>
+                <p class="link-description">Membranestabilización, shift y eliminación.</p>
+              </div>
+            </div>
+
+            <!-- Na+ -->
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-glass-water"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Generales/EndocrinoMetabolicas/hiponatremia.html')">Hiponatremia</a>
+                <p class="link-description">Gravedad, etiología y corrección segura.</p>
+              </div>
+            </div>
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-regular fa-sun"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirAlgoritmo('Generales/EndocrinoMetabolicas/hipernatremia.html')">Hipernatremia</a>
+                <p class="link-description">Déficit hídrico y ritmo de corrección.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </article>
+
+      <!-- 8. Traumatológicas -->
+      <article class="accordion-item" id="traumatologico">
+        <h2 class="accordion-header">
+          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-trauma" id="btn-trauma">
+            <i class="fa-solid fa-bandage"></i>
+            Traumatológicas
+          </button>
+        </h2>
+        <div class="accordion-panel" id="panel-trauma" role="region" aria-labelledby="btn-trauma" hidden>
+          <div class="links-grid">
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-circle-info"></i></div>
+              <div class="link-content">
+                <span class="link-description">Contenido en preparación.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 9. Obstétricas / Ginecológicas -->
+      <article class="accordion-item" id="ObsGin">
+        <h2 class="accordion-header">
+          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-obsgin" id="btn-obsgin">
+            <i class="fa-solid fa-venus"></i>
+            Obstétricas / Ginecológicas
+          </button>
+        </h2>
+        <div class="accordion-panel" id="panel-obsgin" role="region" aria-labelledby="btn-obsgin" hidden>
+          <div class="links-grid">
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-circle-info"></i></div>
+              <div class="link-content">
+                <span class="link-description">Contenido en preparación.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 10. Pediátricas -->
+      <article class="accordion-item" id="pediatria">
+        <h2 class="accordion-header">
+          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-ped" id="btn-ped">
+            <i class="fa-solid fa-baby"></i>
+            Pediátricas
+          </button>
+        </h2>
+        <div class="accordion-panel" id="panel-ped" role="region" aria-labelledby="btn-ped" hidden>
+          <div class="links-grid">
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-circle-info"></i></div>
+              <div class="link-content">
+                <span class="link-description">Contenido en preparación.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <p class="disclaimer strong" style="margin-top:1.25rem">
+      Esta herramienta de apoyo clínico está destinada exclusivamente a uso profesional y <em>no sustituye</em> el juicio clínico.
+    </p>
+  </main>
+
+  <!-- JS: acordeón + TOC (mismo patrón que Calculadoras) -->
+  <script>
+    const toggles = document.querySelectorAll('.accordion-toggle');
+
+    function closeAllExcept(exceptBtn){
+      document.querySelectorAll('.accordion-toggle[aria-expanded="true"]').forEach(openBtn => {
+        if (openBtn !== exceptBtn) {
+          openBtn.setAttribute('aria-expanded', 'false');
+          const other = document.getElementById(openBtn.getAttribute('aria-controls'));
+          other.setAttribute('hidden', '');
+        }
+      });
+    }
+    function openById(id){
+      const article = document.getElementById(id);
+      if(!article) return;
+      const btn = article.querySelector('.accordion-toggle');
+      const panel = article.querySelector('.accordion-panel');
+
+      if(btn.getAttribute('aria-expanded') !== 'true'){
+        closeAllExcept(btn);
+        btn.setAttribute('aria-expanded', 'true');
+        panel.removeAttribute('hidden');
+      }
+      article.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    toggles.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const panel = document.getElementById(btn.getAttribute('aria-controls'));
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        closeAllExcept(btn);
+        btn.setAttribute('aria-expanded', String(!expanded));
+        if (expanded) panel.setAttribute('hidden',''); else panel.removeAttribute('hidden');
+      });
+    });
+    document.querySelectorAll('.calc-toc a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        openById(id);
+        history.replaceState(null, '', '#' + id);
+      });
+    });
+    if (location.hash) setTimeout(() => openById(location.hash.slice(1)), 50);
+
+    // Reutiliza la misma función de modal que en Calculadoras
+    function abrirAlgoritmo(ruta){ window.abrirCalculadora ? abrirCalculadora(ruta) : window.open(ruta, '_blank', 'noopener'); }
+  </script>
+
+  <!-- Reutilizamos tu modal.js desde Calculadoras -->
+  <script src="../Calculadoras/js/modal.js"></script>
+</body>
+</html>
