@@ -40,21 +40,31 @@
     </div>
   </header>
 
-  <!-- Contenido -->
-  <main class="main-content" role="main">
-    <!-- Hero -->
-    <section class="hero">
-      <div class="hero-icon" aria-hidden="true">
-        <i class="fa-solid fa-sitemap"></i>
-      </div>
-      <div class="hero-text">
-        <h1>Algoritmos diagnósticos</h1>
-        <p>
-          <strong>Árboles de decisión</strong> y <strong>guías operativas</strong> para el manejo en Urgencias. 
-          Abre cada algoritmo en una ventana emergente para consultarlo rápido y con la misma identidad visual.
+<!-- Contenido -->
+<main class="main-content" role="main">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-icon" aria-hidden="true">
+      <i class="fa-solid fa-sitemap"></i>
+    </div>
+    <div class="hero-text">
+      <h1>Algoritmos diagnósticos</h1>
+      <p>
+        <strong>Árboles de decisión</strong> y <strong>guías operativas</strong> para el manejo en Urgencias. 
+        Abre cada algoritmo en una ventana emergente para consultarlo rápido y con la misma identidad visual.
+      </p>
+      <div style="text-align: center; margin-top: 1em;">
+        <p style="color: #b22222; font-weight: 500; margin-bottom: 0.5em;">
+          La mayoría de los algoritmos provienen del Área de Urgencias del 
+          <strong>Hospital Virgen del Rocío</strong>, al cual atribuimos su autoría. 
+          Agradecemos su difusión en espera de realizar y adaptar los nuestros propios.
         </p>
+        <img src="../images/LogoHVR.png" alt="Logo Hospital Virgen del Rocío" style="height: 60px; opacity: 0.9;">
       </div>
-    </section>
+    </div>
+  </section>
+
+
 
     <!-- Índice (TOC) -->
     <nav class="calc-toc" aria-label="Índice de bloques">
@@ -62,12 +72,12 @@
       <a href="#generales">Generales</a>
       <a href="#cardiovascular">Cardiovascular</a>
       <a href="#respiratorio">Respiratorio</a>
-      <a href="#neurologicos">Neurológicos</a>
-      <a href="#nefrologia">Nefrología</a>
+      <a href="#neurologico">Neurológicos</a>
+      <a href="#nefrologico">Nefrológicos</a>
       <a href="#endocrino">Endocrino / Metabólicas</a>
       <a href="#traumatologico">Traumatológicas</a>
       <a href="#ObsGin">Obstétricas / Ginecológicas</a>
-      <a href="#pediatria">Pediátricas</a>      
+      <a href="#pediatrico">Pediátricas</a>      
     </nav>
 
     <!-- Acordeón de bloques (cerrado por defecto) -->
@@ -242,292 +252,169 @@
 
 
       <!-- 4. Respiratorio -->
-      <article class="accordion-item" id="respiratorio">
-        <h2 class="accordion-header">
-          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-resp" id="btn-resp">
-            <i class="fa-solid fa-lungs"></i>
-            Respiratorio
-          </button>
-        </h2>
-        <div class="accordion-panel" id="panel-resp" role="region" aria-labelledby="btn-resp" hidden>
-          <div class="links-grid">
+<article class="accordion-item" id="respiratorio">
+  <h2 class="accordion-header">
+    <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-resp" id="btn-resp">
+      <i class="fa-solid fa-lungs"></i> Respiratorio
+    </button>
+  </h2>
+  <div class="accordion-panel" id="panel-resp" role="region" aria-labelledby="btn-resp" hidden>
+    <div class="links-grid">
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-wind"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Respiratorio/RespAsma.pdf')">Asma</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-smoking"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Respiratorio/RespEPOC.pdf')">EPOC</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-lungs"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Respiratorio/RespTEPTVP.pdf')">TEP / TVP</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-stethoscope"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Respiratorio/RespNeumonia.pdf')">Neumonía</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-regular fa-square-minus"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Respiratorio/RespNeumotorax.pdf')">Neumotórax</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-kit-medical"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Respiratorio/RespHemoptisis.pdf')">Hemoptisis</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-droplet"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Respiratorio/RespDerrPle.pdf')">Derrame pleural</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-lungs-virus"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Respiratorio/RespCancer.pdf')">Cáncer de pulmón</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-ventilator"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Respiratorio/RespVMNI.pdf')">VMNI</a></div></div>
+    </div>
+  </div>
+</article>
 
-            <!-- EAP → enlaza a Cardiovascular -->
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-water"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Cardiovascular/edema-agudo-pulmon.html')">Edema agudo de pulmón</a>
-                <p class="link-description">Atajo al algoritmo de Cardiovascular.</p>
-              </div>
-            </div>
-
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-smoking"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Respiratorio/epoc-agudizacion.html')">EPOC – agudización</a>
-                <p class="link-description">Oxígeno, broncodilatadores, corticoides y antibiótico.</p>
-              </div>
-            </div>
-
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-stethoscope"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Respiratorio/neumonia.html')">Neumonía</a>
-                <p class="link-description">Severidad, antibiótico empírico y criterios de ingreso.</p>
-              </div>
-            </div>
-
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-regular fa-square-minus"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Respiratorio/neumotorax.html')">Neumotórax</a>
-                <p class="link-description">Tensión/espontáneo, drenaje y observación.</p>
-              </div>
-            </div>
-
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-lungs"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Respiratorio/tep.html')">TEP</a>
-                <p class="link-description">Riesgo, imagen y anticoagulación.</p>
-              </div>
-            </div>
-
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-wind"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Respiratorio/vmni.html')">VMNI</a>
-                <p class="link-description">Indicaciones, ajustes iniciales y seguimiento.</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </article>
 
       <!-- 5. Neurológicos -->
-      <article class="accordion-item" id="neurologicos">
-        <h2 class="accordion-header">
-          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-neuro" id="btn-neuro">
-            <i class="fa-solid fa-brain"></i>
-            Neurológicos
-          </button>
-        </h2>
-        <div class="accordion-panel" id="panel-neuro" role="region" aria-labelledby="btn-neuro" hidden>
-          <div class="links-grid">
+ <article class="accordion-item" id="neurologico">
+  <h2 class="accordion-header">
+    <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-neuro" id="btn-neuro">
+      <i class="fa-solid fa-brain"></i> Neurológico
+    </button>
+  </h2>
+  <div class="accordion-panel" id="panel-neuro" role="region" aria-labelledby="btn-neuro" hidden>
+    <div class="links-grid">
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-bed-pulse"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Neurologico/AlteracionComa.pdf')">Alteraciones de consciencia y coma</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-head-side-virus"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Neurologico/Cefalea.pdf')">Cefalea</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-bolt"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Neurologico/CrisisComicial.pdf')">Crisis comiciales</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-brain"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Neurologico/ACVA.pdf')">ACV / AIT</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-regular fa-eye"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Neurologico/Diplopia.pdf')">Diplopía</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-dna"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Neurologico/Desmielinizante.pdf')">Patología desmielinizante</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-person-walking-with-cane"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Neurologico/GuillainBarre.pdf')">Guillain-Barré</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-vial-circle-check"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Neurologico/Miastenia.pdf')">Miastenia gravis</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-regular fa-circle-question"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Neurologico/SConfusional.pdf')">Síndrome confusional agudo</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-person-running"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Neurologico/TrastMovim.pdf')">Trastornos del movimiento</a></div></div>
+    </div>
+  </div>
+</article>
 
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-bed-pulse"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Neurologico/alteracion-nivel-conciencia.html')">Alteración del nivel de conciencia / Coma</a>
-                <p class="link-description">ABCD, causas reversibles, pruebas y manejo.</p>
-              </div>
-            </div>
-
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-bolt"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Neurologico/crisis-comicial.html')">Crisis comicial</a>
-                <p class="link-description">Status, benzodiacepinas y anticomiciales.</p>
-              </div>
-            </div>
-
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-regular fa-face-grimace"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Neurologico/cefalea.html')">Cefalea</a>
-                <p class="link-description">Banderas rojas, TAC/PL y tratamiento.</p>
-              </div>
-            </div>
-
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-regular fa-face-meh-blank"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Neurologico/sindrome-confusional-agudo.html')">Síndrome confusional agudo</a>
-                <p class="link-description">Delirium: detección, causas y abordaje.</p>
-              </div>
-            </div>
-
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-virus-covid"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Neurologico/meningitis-meningoencefalitis.html')">Meningitis/Meningoencefalitis</a>
-                <p class="link-description">Aislamiento, antibioterapia y pruebas urgentes.</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </article>
 
       <!-- 6. Nefrología -->
-      <article class="accordion-item" id="nefrologia">
-        <h2 class="accordion-header">
-          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-nefro" id="btn-nefro">
-            <i class="fa-solid fa-droplet"></i>
-            Nefrología
-          </button>
-        </h2>
-        <div class="accordion-panel" id="panel-nefro" role="region" aria-labelledby="btn-nefro" hidden>
-          <div class="links-grid">
+<article class="accordion-item" id="nefrologico">
+  <h2 class="accordion-header">
+    <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-nefro" id="btn-nefro">
+      <i class="fa-solid fa-kidneys"></i> Nefrológico
+    </button>
+  </h2>
+  <div class="accordion-panel" id="panel-nefro" role="region" aria-labelledby="btn-nefro" hidden>
+    <div class="links-grid">
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-droplet"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Nefrologico/FracRenAgudo.pdf')">Fracaso renal agudo</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-prescription-bottle-medical"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Nefrologico/Dialisis.pdf')">Diálisis</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-vial"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Nefrologico/Glomerulopatias.pdf')">Glomerulopatías</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-bottle-water"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Nefrologico/EnfRenCronica.pdf')">Enfermedad renal crónica</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-person-running"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Nefrologico/Rabdomiolisis.pdf')">Rabdomiólisis</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-hand-holding-medical"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Nefrologico/TxRenal.pdf')">Trasplante renal</a></div></div>
+    </div>
+  </div>
+</article>
 
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-droplet"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Nefrologico/fracaso-renal-agudo.html')">Fracaso renal agudo</a>
-                <p class="link-description">Prerrenal/renal/postrenal, pruebas y manejo.</p>
-              </div>
-            </div>
-
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-stone"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Nefrologico/colico-nefritico.html')">Cólico nefrítico</a>
-                <p class="link-description">Analgesia, imagen y criterios de derivación.</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </article>
 
       <!-- 7. Endocrino / Metabólicas -->
-      <article class="accordion-item" id="endocrino">
-        <h2 class="accordion-header">
-          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-endo" id="btn-endo">
-            <i class="fa-solid fa-flask"></i>
-            Endocrino / Metabólicas
-          </button>
-        </h2>
-        <div class="accordion-panel" id="panel-endo" role="region" aria-labelledby="btn-endo" hidden>
-          <div class="links-grid">
+<article class="accordion-item" id="endocrino">
+  <h2 class="accordion-header">
+    <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-endo" id="btn-endo">
+      <i class="fa-solid fa-flask"></i> Endocrino / Metabólicas
+    </button>
+  </h2>
+  <div class="accordion-panel" id="panel-endo" role="region" aria-labelledby="btn-endo" hidden>
+    <div class="links-grid">
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-droplet"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Endocrino-Metabolicas/Hipoglucemia.pdf')">Hipoglucemia</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-syringe"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Endocrino-Metabolicas/Cetoacidosis.pdf')">Cetoacidosis diabética</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-regular fa-hospital"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Endocrino-Metabolicas/Hiperosmolar.pdf')">Estado hiperosmolar</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-droplet"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Endocrino-Metabolicas/DebutDiabetico.pdf')">Debut diabético</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-vial-circle-check"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Endocrino-Metabolicas/AltpH.pdf')">Alteraciones del pH</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-bolt"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Endocrino-Metabolicas/HiperK.pdf')">HiperK</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-bolt"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Endocrino-Metabolicas/HipoK.pdf')">HipoK</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-glass-water"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Endocrino-Metabolicas/HipoNa.pdf')">Hiponatremia</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-regular fa-sun"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Endocrino-Metabolicas/HiperNa.pdf')">Hipernatremia</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-prescription-bottle-medical"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Endocrino-Metabolicas/Calcio.pdf')">Calcio</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-vial"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Endocrino-Metabolicas/Magnesio.pdf')">Magnesio</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-vials"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Endocrino-Metabolicas/Fosforo.pdf')">Fósforo</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-exclamation-triangle"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Endocrino-Metabolicas/CrisisAdison.pdf')">Crisis addisoniana</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-ribbon"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Endocrino-Metabolicas/Tiroides.pdf')">Tiroides</a></div></div>
+    </div>
+  </div>
+</article>
 
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-droplet"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Generales/EndocrinoMetabolicas/hipoglucemia.html')">Hipoglucemia</a>
-                <p class="link-description">Reconocimiento y corrección escalonada.</p>
-              </div>
-            </div>
+            <!-- 8. Traumatologico -->
+<article class="accordion-item" id="traumatologico">
+  <h2 class="accordion-header">
+    <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-trauma" id="btn-trauma">
+      <i class="fa-solid fa-bandage"></i> Traumatológico
+    </button>
+  </h2>
+  <div class="accordion-panel" id="panel-trauma" role="region" aria-labelledby="btn-trauma" hidden>
+    <div class="links-grid">
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-truck-medical"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Traumatologico/TrEme.pdf')">Emergencias</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-circle-info"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Traumatologico/TrGen.pdf')">Generalidades</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-regular fa-user"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Traumatologico/TrCabyTro.pdf')">Cabeza y tronco</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-regular fa-face-smile"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Traumatologico/TrFac.pdf')">Macizo facial / cavidad oral</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-bone"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Traumatologico/TrFrAb.pdf')">Fracturas abiertas</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-regular fa-hand-back-fist"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Traumatologico/TrMSup.pdf')">Miembro superior</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-regular fa-shoe-prints"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Traumatologico/TrMInf.pdf')">Miembro inferior</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-brain"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Traumatologico/TrNeur.pdf')">Neuroquirúrgica no traumática</a></div></div>
+    </div>
+  </div>
+</article>
 
-            <!-- Hiperglucemia (tres rutas) -->
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-syringe"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Generales/EndocrinoMetabolicas/hiperglucemia-cetoacidosis.html')">Cetoacidosis diabética</a>
-                <p class="link-description">Fluidoterapia, insulina y potasio.</p>
-              </div>
-            </div>
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-regular fa-hospital"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Generales/EndocrinoMetabolicas/hiperglucemia-hiperosmolar.html')">Situación hiperosmolar</a>
-                <p class="link-description">Corrección cuidadosa y monitorización.</p>
-              </div>
-            </div>
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-regular fa-square-plus"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Generales/EndocrinoMetabolicas/hiperglucemia-simple.html')">Hiperglucemia simple</a>
-                <p class="link-description">Manejo en Urgencias y criterios de alta.</p>
-              </div>
-            </div>
-
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-vial-circle-check"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Generales/EndocrinoMetabolicas/equilibrio-acido-base.html')">Trastornos del equilibrio Ácido–Base</a>
-                <p class="link-description">Enfoque paso a paso y anion gap.</p>
-              </div>
-            </div>
-
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-bolt"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Generales/EndocrinoMetabolicas/hiperpotasemia.html')">Hiperpotasemia</a>
-                <p class="link-description">Membranestabilización, shift y eliminación.</p>
-              </div>
-            </div>
-
-            <!-- Na+ -->
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-glass-water"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Generales/EndocrinoMetabolicas/hiponatremia.html')">Hiponatremia</a>
-                <p class="link-description">Gravedad, etiología y corrección segura.</p>
-              </div>
-            </div>
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-regular fa-sun"></i></div>
-              <div class="link-content">
-                <a href="#" onclick="abrirAlgoritmo('Generales/EndocrinoMetabolicas/hipernatremia.html')">Hipernatremia</a>
-                <p class="link-description">Déficit hídrico y ritmo de corrección.</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </article>
-
-      <!-- 8. Traumatológicas -->
-      <article class="accordion-item" id="traumatologico">
-        <h2 class="accordion-header">
-          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-trauma" id="btn-trauma">
-            <i class="fa-solid fa-bandage"></i>
-            Traumatológicas
-          </button>
-        </h2>
-        <div class="accordion-panel" id="panel-trauma" role="region" aria-labelledby="btn-trauma" hidden>
-          <div class="links-grid">
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-circle-info"></i></div>
-              <div class="link-content">
-                <span class="link-description">Contenido en preparación.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
 
       <!-- 9. Obstétricas / Ginecológicas -->
-      <article class="accordion-item" id="ObsGin">
-        <h2 class="accordion-header">
-          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-obsgin" id="btn-obsgin">
-            <i class="fa-solid fa-venus"></i>
-            Obstétricas / Ginecológicas
-          </button>
-        </h2>
-        <div class="accordion-panel" id="panel-obsgin" role="region" aria-labelledby="btn-obsgin" hidden>
-          <div class="links-grid">
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-circle-info"></i></div>
-              <div class="link-content">
-                <span class="link-description">Contenido en preparación.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
+  <article class="accordion-item" id="ObsGin">
+  <h2 class="accordion-header">
+    <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-obsgin" id="btn-obsgin">
+      <i class="fa-solid fa-venus"></i> Obstétricas / Ginecológicas
+    </button>
+  </h2>
+  <div class="accordion-panel" id="panel-obsgin" role="region" aria-labelledby="btn-obsgin" hidden>
+    <div class="links-grid">
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-person-dress"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('ObsGin/GineAdultos.pdf')">Urgencias ginecológicas (adultos)</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-baby"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('ObsGin/ObsEme.pdf')">Emergencias del embarazo</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-regular fa-calendar-days"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('ObsGin/Obs1T.pdf')">1.º trimestre</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-regular fa-calendar-check"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('ObsGin/Obs23T.pdf')">2.º–3.º trimestre</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-virus"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('ObsGin/ObsInf.pdf')">Patología infecciosa</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-baby-carriage"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('ObsGin/ObsPuer.pdf')">Puerperio</a></div></div>
+    </div>
+  </div>
+</article>
+
 
       <!-- 10. Pediátricas -->
-      <article class="accordion-item" id="pediatria">
-        <h2 class="accordion-header">
-          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-ped" id="btn-ped">
-            <i class="fa-solid fa-baby"></i>
-            Pediátricas
-          </button>
-        </h2>
-        <div class="accordion-panel" id="panel-ped" role="region" aria-labelledby="btn-ped" hidden>
-          <div class="links-grid">
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-circle-info"></i></div>
-              <div class="link-content">
-                <span class="link-description">Contenido en preparación.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
+<article class="accordion-item" id="pediatrico">
+  <h2 class="accordion-header">
+    <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-ped" id="btn-ped">
+      <i class="fa-solid fa-baby"></i> Pediátrico
+    </button>
+  </h2>
+  <div class="accordion-panel" id="panel-ped" role="region" aria-labelledby="btn-ped" hidden>
+    <div class="links-grid">
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-truck-medical"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Pediatrico/PedEm.pdf')">Emergencias pediátricas</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Pediatrico/PedTecnicas.pdf')">Técnicas y procedimientos</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-shield-heart"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Pediatrico/PedAccIntox.pdf')">Accidentes e intoxicaciones</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-face-laugh-beam"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Pediatrico/PedAle.pdf')">Alergología</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-heart"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Pediatrico/PedCar.pdf')">Cardiología</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-heart-crack"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Pediatrico/PedDerm.pdf')">Dermatología</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-utensils"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Pediatrico/PedDig.pdf')">Digestivo</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-dna"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Pediatrico/PedEnd.pdf')">Endocrino y metabolismo</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-venus"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Pediatrico/PedGin.pdf')">Ginecología</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-kidneys"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Pediatrico/PedNefr.pdf')">Nefrología</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-droplet"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Pediatrico/PedHem.pdf')">Hematología</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-lungs"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Pediatrico/PedNeum.pdf')">Neumología</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-face-sad-tear"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Pediatrico/PedPsiq.pdf')">Psiquiatría / psicosocial</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-people-arrows"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Pediatrico/PedReum.pdf')">Reumatología</a></div></div>
+      <div class="link-card"><div class="link-icon"><i class="fa-solid fa-person-falling-burst"></i></div><div class="link-content"><a href="#" onclick="abrirAlgoritmo('Pediatrico/PedTra.pdf')">Traumatología</a></div></div>
+    </div>
+  </div>
+</article>
+
 
     </section>
 
