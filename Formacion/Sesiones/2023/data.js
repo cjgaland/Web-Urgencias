@@ -14,11 +14,7 @@ registerSessions('2023', [
         href: "docs/2023-06-26_Hiperpotasemias_Carlos.pdf",
         type: "pdf"
       },
-      {
-        label: "PPTX",
-        href: "docs/2023-06-26_Hiperpotasemias_Carlos.pptx",
-        type: "pptx"
-      },
+
       {
         label: "mp4 (vídeo)",
         href: "docs/2023-06-26_Hiperpotasemias_Carlos.mp4",
