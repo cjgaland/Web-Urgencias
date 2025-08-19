@@ -62,5 +62,30 @@ input[type="search"]{width:min(680px,92%);border:1px solid var(--bx);border-radi
 <script> 
 	window.addEventListener('DOMContentLoaded', () => renderSessions('2025')); /* cambia el año correspondiente */
 </script>
+  
+<script>
+/* Contador independiente: cuenta lo que ya está en #grid */
+window.addEventListener('load', () => {
+  // número de sesiones = número de tarjetas renderizadas
+  const n = document.querySelectorAll('#grid .link-card').length;
+
+  // localiza el <h1> (soporta .hero-top h1 y .hero h1)
+  const h1 = document.querySelector('.hero-top h1, .hero h1');
+  if (!h1) return;
+
+  // crea/actualiza el badge
+  let badge = h1.querySelector('.count-badge');
+  if (!badge) {
+    badge = document.createElement('span');
+    badge.className = 'count-badge';
+    h1.appendChild(badge);
+  }
+  badge.textContent = n === 1 ? '1 sesión' : `${n} sesiones`;
+  badge.classList.toggle('count-blue', n > 0);
+  badge.classList.toggle('count-gray', n === 0);
+});
+</script>
+
+  
 </body>
 </html>
