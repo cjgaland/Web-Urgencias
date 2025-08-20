@@ -152,29 +152,40 @@
       <!-- 2) Protocolos / Procedimientos -->
       <article class="accordion-item" id="protocolos">
         <h2 class="accordion-header">
-          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-protocolos" id="btn-protocolos">
+            <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-protocolos" id="btn-protocolos">
             <i class="fa-solid fa-list-check"></i>
             Protocolos / Procedimientos
           </button>
         </h2>
         <div class="accordion-panel" id="panel-protocolos" role="region" aria-labelledby="btn-protocolos" hidden>
-          <div class="links-grid">
-            <!-- Protocolos clínicos -->
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-stethoscope"></i></div>
-              <div class="link-content">
-                <a href="#" class="open-modal" data-url="Protocolos/Clinicos/index.html">Protocolos clínicos</a>
-                <p class="link-description">Vías clínicas, procedimientos asistenciales y guías operativas (PDF).</p>
-              </div>
-            </div>
-            <!-- Protocolos administrativos -->
-            <div class="link-card">
-              <div class="link-icon"><i class="fa-solid fa-clipboard-list"></i></div>
-              <div class="link-content">
-                <a href="#" class="open-modal" data-url="Protocolos/Administrativos/index.html">Protocolos administrativos</a>
-                <p class="link-description">Identificación, intimidad, circuitos y documentación (PDF).</p>
-              </div>
-            </div>
+<div class="links-grid">
+  
+<div class="links-grid">
+
+  <!-- Administrativos -->
+  <div class="link-card category-card" data-category="Administrativos">
+    <span class="category-count count--zero">0</span>
+    <div class="link-icon"><i class="fa-solid fa-folder-open"></i></div>
+    <div class="link-content">
+      <a href="Protocolos/Administrativos/index.html#Administrativos">Administrativos</a>
+      <p class="link-description">Modelos, circuitos y documentos administrativos.</p>
+    </div>
+  </div>
+
+  <!-- Clínicos -->
+  <div class="link-card category-card" data-category="Clinicos">
+    <span class="category-count count--zero">0</span>
+    <div class="link-icon"><i class="fa-solid fa-file-medical"></i></div>
+    <div class="link-content">
+      <a href="Protocolos/Clinicos/index.html#Clinicos">Clínicos</a>
+      <p class="link-description">Procedimientos y guías clínicas.</p>
+    </div>
+  </div>
+
+</div>
+
+
+            
           </div>
         </div>
       </article>
@@ -324,7 +335,7 @@
 
   
 <!-- Contadores automáticos Sesiones -->
-<script src="Sesiones/sessions-common.js"></script>
+<script src="Sesiones/sessions-common.js?v=20250819-1"></script>
 <script>
   Sessions.initYearCounters({
     years: ["hasta-2019","2020","2021","2022","2023","2024","2025"],
@@ -333,6 +344,20 @@
     badgeSelector: ".year-count"
   });
 </script>
+
+
+<!-- Contadores automáticos de Protocolos -->
+<script src="Protocolos/protocols-common.js?v=1"></script>
+<script>
+  Protocols.initCategoryCounters({
+    categories: ["Administrativos","Clinicos"],  // <-- EXACTAMENTE estos nombres
+    basePath: "Protocolos/",
+    cardSelector: ".category-card",
+    badgeSelector: ".category-count"
+  });
+</script>
+
+
 
 
   
