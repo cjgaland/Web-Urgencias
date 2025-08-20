@@ -189,27 +189,24 @@ mark{ background: #fff3a3; padding: 0 .1rem; }
 .drug-block h3 { font-size: 1rem; margin: 0 0 0.4rem 0; color: #0a4c84; }
 .drug-block p { margin: 0.3rem 0; font-size: 0.9rem; color: #374151; }
 
-/* ===== Contadores (tarjetas de año) ===== */
-.year-card { position: relative; }
-.year-count{
-  position:absolute; top:10px; right:12px;
-  font-size:.8rem; font-weight:600;
-  padding:2px 8px; border-radius:999px;
-  line-height:1.6; border:1px solid transparent;
-}
-.year-count.count--has  { background:#e9f2ff; color:#1e5fb0; border-color:#cfe3ff; } /* azul suave */
-.year-count.count--zero { background:#f2f3f5; color:#818a97; border-color:#e5e7eb; }  /* gris */
-
-/* ===== Contadores (tarjetas de categorías) ===== */
+/* ===== Contadores (tarjetas de año y de categoría) ===== */
+.link-card,
+.year-card,
 .category-card { position: relative; }
+
+.year-count,
 .category-count{
   position:absolute; top:10px; right:12px;
   font-size:.8rem; font-weight:600;
   padding:2px 8px; border-radius:999px;
   line-height:1.6; border:1px solid transparent;
 }
+
+.year-count.count--has,
 .category-count.count--has  { background:#e9f2ff; color:#1e5fb0; border-color:#cfe3ff; } /* azul suave */
+.year-count.count--zero,
 .category-count.count--zero { background:#f2f3f5; color:#818a97; border-color:#e5e7eb; }  /* gris */
+
 
 
 /* Badge contador (páginas internas) */
