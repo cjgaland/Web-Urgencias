@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ficha Profesional · Carlos J. Galán Doval</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Botón hamburguesa (móviles) -->
+  <button id="menuToggle" class="menu-toggle" aria-controls="sidebar" aria-expanded="false" aria-label="Abrir menú">☰</button>
+  <div id="backdrop" class="backdrop" hidden></div>
+
+  <!-- Menú lateral -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <img src="../../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba" />
+    </div>
+    <nav>
+      <ul>
+        <li><a href="../../index.html"><i class="fas fa-home"></i> Inicio</a></li>
+        <li><a href="../../Profesionales/index.html" class="active"><i class="fas fa-user-md"></i> Profesionales</a></li>
+        <li><a href="../../Cuadrantes/index.html"><i class="fas fa-calendar-alt"></i> Cuadrantes</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Cabecera -->
+  <header class="masthead">
+    <div class="masthead-left"><img src="../../images/Logo-Salud2.png" alt="Junta de Andalucía" /></div>
+    <div class="masthead-right"><img src="../../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Urgencias Montilla" /></div>
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="main-content">
+    <section class="hero">
+      <div class="hero-icon"><i class="fas fa-id-badge"></i></div>
+      <div class="hero-text">
+        <h1>Carlos J. Galán Doval</h1>
+        <p>Ficha profesional con datos de contacto, estado actual, actividades y acceso a cuadrantes de trabajo.</p>
+      </div>
+    </section>
+
+    <!-- Ficha -->
+    <div class="ficha-profesional">
+      <div class="ficha-header">
+        <img src="Carlos.png" alt="Foto Nombre Apellidos" class="foto-carnet">
+        <div class="ficha-info">
+          <h3>Carlos Galán</h3>
+          <p class="cargo">Facultativo Especialisa de Área</p>
+          <p><i class="fas fa-envelope"></i> carlosjavier.galan.sspa@juntadenandalucia.es</p>
+          <p><i class="fas fa-phone"></i> 649 003 421</p>
+        </div>
+      </div>
+
+      <!-- Estado actual -->
+      <div class="ficha-estado">
+        <div class="estado-linea">
+          <span class="badge-estado" id="badge-estado">Otros</span>
+          <button type="button" class="btn-estado-editar" id="btnEditarEstado" aria-expanded="false" aria-controls="formEstado">
+            Editar estado
+          </button>
+        </div>
+
+        <form id="formEstado" class="form-estado" hidden>
+          <label for="selectEstado">Estado actual</label>
+          <select id="selectEstado" name="estado">
+            <option value="activo" selected>Activo</option>
+            <option value="reduccion">Reducción</option>
+            <option value="baja">Baja laboral</option>
+            <option value="vacaciones">Vacaciones</option>
+            <option value="liberado">Liberado sindical</option>
+            <option value="otros">Otros</option>
+          </select>
+
+          <div class="campo-reduccion" id="campoReduccion" hidden>
+            <label for="porcentajeReduccion">% de reducción</label>
+            <input id="porcentajeReduccion" name="porcentaje" type="number" min="10" max="99" step="5" placeholder="Ej. 33">
+          </div>
+
+          <div class="acciones-estado">
+            <button type="button" class="btn-primario" id="btnGuardarEstado">Guardar</button>
+            <button type="button" class="btn-secundario" id="btnCancelarEstado">Cancelar</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="ficha-links">
+        <a href="../../Cuadrantes/2025/marzo.html"><i class="fas fa-calendar-alt"></i> Ver cuadrante</a>
+        <a href="actividades.html"><i class="fas fa-tasks"></i> Actividades</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- JS menú colapsable -->
+  <script>
+  (function(){
+    const btn=document.getElementById('menuToggle');
+    const sidebar=document.getElementById('sidebar');
+    const backdrop=document.getElementById('backdrop');
+    function abrir(){sidebar.classList.add('abierta');document.body.classList.add('menu-abierto');btn.setAttribute('aria-expanded','true');backdrop.hidden=false;}
+    function cerrar(){sidebar.classList.remove('abierta');document.body.classList.remove('menu-abierto');btn.setAttribute('aria-expanded','false');backdrop.hidden=true;}
+    function toggle(){sidebar.classList.contains('abierta')?cerrar():abrir();}
+    btn.addEventListener('click',toggle);
+    backdrop.addEventListener('click',cerrar);
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')cerrar();});
+    sidebar.addEventListener('click',e=>{if(e.target.closest('a'))cerrar();});
+  })();
+  </script>
+
+  <!-- JS estado actual -->
+  <script>
+  (function(){
+    const badge=document.getElementById('badge-estado');
+    const btnEditar=document.getElementById('btnEditarEstado');
+    const form=document.getElementById('formEstado');
+    const select=document.getElementById('selectEstado');
+    const campoReduccion=document.getElementById('campoReduccion');
+    const inputPct=document.getElementById('porcentajeReduccion');
+    const btnGuardar=document.getElementById('btnGuardarEstado');
+    const btnCancelar=document.getElementById('btnCancelarEstado');
+
+    function applyBadge(state,pct){
+      const clases=['badge--activo','badge--reduccion','badge--baja','badge--vacaciones','badge--liberado','badge--otros'];
+      badge.classList.remove(...clases);
+      switch(state){
+        case 'activo': badge.textContent='Activo'; badge.classList.add('badge--activo'); break;
+        case 'reduccion': badge.textContent='Reducción'+(pct?` ${pct}%`:''); badge.classList.add('badge--reduccion'); break;
+        case 'baja': badge.textContent='Baja laboral'; badge.classList.add('badge--baja'); break;
+        case 'vacaciones': badge.textContent='Vacaciones'; badge.classList.add('badge--vacaciones'); break;
+        case 'liberado': badge.textContent='Liberado sindical'; badge.classList.add('badge--liberado'); break;
+        default: badge.textContent='Otros'; badge.classList.add('badge--otros');
+      }
+    }
+    function toggleForm(show){
+      const open=(typeof show==='boolean')?show:form.hidden;
+      form.hidden=!open;
+      btnEditar.setAttribute('aria-expanded',String(open));
+    }
+    function onEstadoChange(){
+      const esReduccion=select.value==='reduccion';
+      campoReduccion.hidden=!esReduccion;
+      if(!esReduccion) inputPct.value='';
+    }
+    btnEditar.addEventListener('click',()=>toggleForm());
+    btnCancelar.addEventListener('click',()=>toggleForm(false));
+    select.addEventListener('change',onEstadoChange);
+    btnGuardar.addEventListener('click',()=>{
+      const estado=select.value;
+      const pct=(estado==='reduccion')?parseInt(inputPct.value||'0',10):0;
+      if(estado==='reduccion'&&(!pct||pct<1)){inputPct.focus();return;}
+      applyBadge(estado,pct);
+      toggleForm(false);
+    });
+    applyBadge('activo',0);
+    onEstadoChange();
+  })();
+  </script>
+
+</body>
+</html>
