@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cuadrante · Agosto 2025 – Urgencias · AGS Sur de Córdoba</title>
+  
+    <!-- Favicon general -->
+      <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+
+    <!-- Iconos móviles -->
+      <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon_transp-180.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon_transp-32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon_transp-16.png">
+
+  <!-- Rutas correctas desde /Cuadrantes/2025/ -->
+  <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+
+  <!-- Botón hamburguesa (móviles) -->
+  <button id="menuToggle" class="menu-toggle" aria-controls="sidebar" aria-expanded="false" aria-label="Abrir menú">☰</button>
+  <div id="backdrop" class="backdrop" hidden></div>
+
+  <!-- Menú lateral -->
+  <aside id="sidebar" class="sidebar" aria-label="Navegación principal">
+    <div class="sidebar-header">
+      <img src="../../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba" />
+    </div>
+    <nav>
+      <ul>
+        <li><a href="../../index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+        <li><a href="../../Algoritmos/index.html"><i class="fas fa-sitemap"></i> <span>Algoritmos diagnósticos</span></a></li>
+        <li><a href="../../Calculadoras/index.html"><i class="fas fa-calculator"></i> <span>Calculadoras médicas</span></a></li>
+        <li><a href="../../Formacion/index.html"><i class="fas fa-graduation-cap"></i> <span>Formación</span></a></li>
+        <li><a href="../../Enlaces/index.html"><i class="fas fa-link"></i> <span>Enlaces útiles</span></a></li>
+        <li><a href="../../Documentos/index.html"><i class="fas fa-file-lines"></i> <span>Documentos y plantillas</span></a></li>
+        <li><a href="../../Calidad/index.html"><i class="fas fa-shield-heart"></i> <span>Calidad y Seguridad del Paciente</span></a></li>
+      </ul>
+
+      <!-- Bloque adicional: Sala de Críticos -->
+      <ul class="submenu-criticos">
+        <li><a href="#"><i class="fas fa-procedures"></i> <span>Sala de Críticos</span></a></li>
+      </ul>
+
+      <!-- Bloque adicional: Equipo -->
+      <ul class="submenu-equipo">
+        <li><a href="../../Profesionales/index.html"><i class="fas fa-user-md"></i> <span>Ficha del personal</span></a></li>
+        <li><a href="../index.html" class="active"><i class="fas fa-calendar-alt"></i> <span>Cuadrantes de trabajo</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Cabecera superior -->
+  <header class="masthead">
+    <div class="masthead-left"><img src="../../images/Logo-Salud2.png" alt="Junta de Andalucía · Consejería de Salud y Consumo" /></div>
+    <div class="masthead-right"><img src="../../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Servicio de Urgencias · Hospital de Montilla" /></div>
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="main-content" role="main">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-icon" aria-hidden="true"><i class="fas fa-calendar-alt"></i></div>
+      <div class="hero-text">
+        <h1>Cuadrante · <span class="mes">Agosto</span> <span class="anio">2025</span></h1>
+        <p>Turnos del Servicio de Urgencias. Vista mensual con leyenda de turnos y acceso a meses adyacentes.</p>
+      </div>
+    </section>
+
+    <!-- Navegación entre meses -->
+    <nav class="calc-toc" aria-label="Navegación entre meses">
+      <a href="jul2025.html"><i class="fas fa-arrow-left"></i> Mes anterior</a>
+      <a href="../index.html"><i class="fas fa-list"></i> Índice de cuadrantes</a>
+      <a href="sep2025.html">Mes siguiente <i class="fas fa-arrow-right"></i></a>
+    </nav>
+
+    <!-- Leyenda de turnos -->
+    <section class="leyenda-turnos" aria-label="Leyenda de turnos">
+      <div class="badge turno-manana" title="Mañana">M</div>
+      <div class="badge turno-tarde" title="Tarde">T</div>
+      <div class="badge turno-noche" title="Noche">N</div>
+      <div class="badge turno-libre" title="Libre">L</div>
+      <div class="badge turno-guardia" title="Guardia">G</div>
+      <div class="badge turno-formacion" title="Formación">F</div>
+      <div class="badge turno-otros" title="Otros">O</div>
+    </section>
+
+    <!-- Cuadrante mensual (interactivo) -->
+    <section class="cuadrante" id="cuadrante" data-year="2025" data-month="8">
+      <h2><i class="fas fa-calendar-days"></i> <span class="mes">Agosto</span> <span class="anio">2025</span></h2>
+      <div id="tabla-cuadrante"></div>
+
+      <div class="cuadrante-tools">
+        <a class="btn" href="#" onclick="window.print(); return false;"><i class="fas fa-print"></i> Imprimir / PDF</a>
+      </div>
+    </section>
+
+    <!-- Observaciones -->
+    <section class="cuadrante-notas">
+      <h3><i class="fas fa-circle-info"></i> Observaciones</h3>
+      <ul>
+        <li>Los cambios de turno se comunicarán por el canal habitual y se reflejarán en esta página.</li>
+        <li>Los turnos de formación (F) y otros (O) pueden variar según necesidades del servicio.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- JS del menú colapsable (móviles) -->
+  <script>
+  (function(){
+    const btn = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+    const backdrop = document.getElementById('backdrop');
+    function abrir(){ sidebar.classList.add('abierta'); document.body.classList.add('menu-abierto'); btn.setAttribute('aria-expanded','true'); backdrop.hidden=false; }
+    function cerrar(){ sidebar.classList.remove('abierta'); document.body.classList.remove('menu-abierto'); btn.setAttribute('aria-expanded','false'); backdrop.hidden=true; }
+    function toggle(){ sidebar.classList.contains('abierta') ? cerrar() : abrir(); }
+    btn.addEventListener('click', toggle);
+    backdrop.addEventListener('click', cerrar);
+    document.addEventListener('keydown', e => { if(e.key==='Escape') cerrar(); });
+    sidebar.addEventListener('click', e => { if(e.target.closest('a')) cerrar(); });
+  })();
+  </script>
+
+  <!-- JS cuadrante interactivo: clic en el día para cambiar turno (M/T/N/L/G/F/O) -->
+  <script>
+  (function(){
+    const codes = ["","M","T","N","L","G","F","O"]; // ciclo de turnos
+    const monthNames = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+
+    const wrap = document.getElementById('cuadrante');
+    const cont = document.getElementById('tabla-cuadrante');
+    const year = parseInt(wrap.dataset.year,10);
+    const month = parseInt(wrap.dataset.month,10); // 1..12
+
+    // Pinta cabeceras de mes/año por si se reutiliza plantilla
+    document.querySelectorAll('.mes').forEach(el => el.textContent = monthNames[month-1]);
+    document.querySelectorAll('.anio').forEach(el => el.textContent = year);
+
+    const key = `cuadrante-${year}-${String(month).padStart(2,'0')}`;
+    let data = JSON.parse(localStorage.getItem(key) || "[]"); // array de 31 posiciones
+
+    function build(){
+      const first = new Date(year, month-1, 1);
+      const lastDay = new Date(year, month, 0).getDate();
+
+      let html = '<table><thead><tr><th>Día</th><th>Lun</th><th>Mar</th><th>Mié</th><th>Jue</th><th>Vie</th><th>Sáb</th><th>Dom</th></tr></thead><tbody>';
+
+      const start = new Date(first);
+      const wday = (start.getDay()+6)%7; // 0=lunes,…6=domingo
+      start.setDate(start.getDate() - wday);
+
+      let d = new Date(start);
+      let finished = false;
+
+      while (!finished){
+        html += '<tr><td>Semana</td>';
+        for (let i=0;i<7;i++){
+          const inMonth = (d.getMonth()===month-1);
+          const day = d.getDate();
+          const idx = day-1;
+          const code = inMonth ? (data[idx]||"") : "";
+          const disable = inMonth ? "" : " aria-disabled='true' class='off' ";
+          html += `<td ${disable} data-day="${inMonth?day:""}"><small>${inMonth?day:""}</small> <strong>${code}</strong></td>`;
+          d.setDate(d.getDate()+1);
+        }
+        html += '</tr>';
+
+        // hemos pasado del mes y hemos cerrado la semana que lo contiene
+        if (d.getMonth()!==month-1 && d.getDate()<=7) finished = true;
+      }
+
+      html += '</tbody></table>';
+      cont.innerHTML = html;
+
+      // Clic para ciclar códigos
+      cont.querySelectorAll('td[data-day]').forEach(td=>{
+        td.addEventListener('click', ()=>{
+          const day = parseInt(td.dataset.day,10);
+          const cur = (td.querySelector('strong').textContent || "");
+          const pos = Math.max(0, codes.indexOf(cur));
+          const next = codes[(pos+1)%codes.length];
+          td.querySelector('strong').textContent = next;
+          data[day-1] = next;
+          localStorage.setItem(key, JSON.stringify(data));
+        });
+      });
+    }
+
+    build();
+  })();
+  </script>
+
+</body>
+</html>
