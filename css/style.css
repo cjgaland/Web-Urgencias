@@ -239,57 +239,126 @@ mark{ background: #fff3a3; padding: 0 .1rem; }
   .masthead, .main-content { margin-left: 0; width: 100%; padding-left: 1rem; padding-right: 1rem; }
   .masthead-left img, .masthead-right img { height: 40px; }
 }
-/* ===== Menú colapsable en móviles ===== */
-.menu-toggle {
-  display: none;
-  position: fixed;
-  top: .8rem;
-  left: .8rem;
-  z-index: 1001;
-  background: #00457c;
-  color: #fff;
-  border: none;
-  border-radius: .6rem;
-  padding: .6rem .8rem;
-  font-size: 1.2rem;
-  line-height: 1;
-  box-shadow: 0 2px 8px rgba(0,0,0,.15);
-  cursor: pointer;
+/* ===== Submenús especiales ===== */
+.submenu-criticos, .submenu-equipo {
+  margin-top: 1.5rem; /* separación visual */
+  padding-top: .5rem;
+  border-top: 1px solid rgba(255,255,255,0.15); /* línea divisoria */
 }
 
-.backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.35);
-  z-index: 1000;
+/* ===== Submenús especiales con colores más claros ===== */
+.submenu-criticos, .submenu-equipo {
+  margin-top: 1.5rem;
+  padding-top: .5rem;
+  border-top: 1px solid rgba(255,255,255,0.15);
 }
 
-/* Estado cuando el menú está abierto */
-body.menu-abierto {
-  overflow: hidden; /* evita scroll del fondo */
+/* Sala de Críticos en rojo coral claro */
+.sidebar nav ul.submenu-criticos li a,
+.sidebar nav ul.submenu-criticos li a span,
+.sidebar nav ul.submenu-criticos li a i {
+  color: #ff6b6b !important;
+  font-weight: 600;
 }
 
-@media (max-width: 960px) {
-  .menu-toggle { display: block; }
-
-  /* Sidebar oculta a la izquierda y aparece con transición */
-  .sidebar {
-    transform: translateX(-100%);
-    transition: transform .25s ease;
-    z-index: 1002; /* por encima del backdrop */
-  }
-  .sidebar.abierta {
-    transform: translateX(0);
-  }
-
-  /* Asegura espacio arriba para el botón */
-  .masthead, .main-content {
-    padding-top: 3.2rem; /* ajusta si hace falta */
-  }
+/* Equipo en verde menta claro */
+.sidebar nav ul.submenu-equipo li a,
+.sidebar nav ul.submenu-equipo li a span,
+.sidebar nav ul.submenu-equipo li a i {
+  color: #7bed9f !important;
+  font-weight: 600;
+}
+/* ===== Estado actual en ficha ===== */
+.ficha-estado { margin-top: .8rem; }
+.estado-linea {
+  display:flex; align-items:center; gap:.6rem; flex-wrap:wrap;
+  margin:.4rem 0 .6rem;
+}
+.badge-estado{
+  display:inline-block; padding:.28rem .6rem; border-radius:999px;
+  font-weight:600; font-size:.85rem; line-height:1;
+  background:#e9f2ff; color:#003a6b; border:1px solid #cfe0ff;
 }
 
-/* Accesibilidad: foco visible en el botón */
-.menu-toggle:focus {
-  outline: 2px solid #ffca28;
-  outline-offset: 2px;
+/* Variantes de color (se aplican desde JS) */
+.badge--activo{ background:#eafaf1; color:#1e7e34; border:1px solid #bfe8cf; }
+.badge--reduccion{ background:#fff7e6; color:#ad6b00; border:1px solid #ffe1b3; }
+.badge--baja{ background:#fdecea; color:#a61d24; border:1px solid #fac2bd; }
+.badge--vacaciones{ background:#fff0e6; color:#c25400; border:1px solid #ffd9bf; }
+.badge--liberado{ background:#f3ecff; color:#5e35b1; border:1px solid #e0d3ff; }
+.badge--otros{ background:#edf2f7; color:#4a5568; border:1px solid #d6e0ea; }
+
+.btn-estado-editar{
+  background:#f1f5fb; color:#00457c; border:1px solid #dce6f4;
+  padding:.35rem .6rem; border-radius:.5rem; cursor:pointer; font-weight:600;
 }
+.btn-estado-editar:hover{ background:#e8f0fb; }
+
+.form-estado{
+  display:grid; gap:.6rem; grid-template-columns:1fr;
+  background:#f9fbff; padding:.8rem; border:1px solid #e6eefb; border-radius:.6rem;
+}
+.form-estado label{ font-size:.85rem; color:#334155; }
+.form-estado select, .form-estado input[type="number"]{
+  padding:.45rem .5rem; border:1px solid #cbd5e1; border-radius:.5rem; font-size:.95rem;
+}
+.campo-reduccion{ display:grid; gap:.3rem; }
+
+.acciones-estado{ display:flex; gap:.5rem; }
+.btn-primario{
+  background:#00457c; color:#fff; border:none; padding:.45rem .75rem; border-radius:.5rem; cursor:pointer;
+}
+.btn-primario:hover{ filter:brightness(1.05); }
+.btn-secundario{
+  background:#eef2f7; color:#1f2937; border:1px solid #d1d9e6; padding:.45rem .75rem; border-radius:.5rem; cursor:pointer;
+}
+.btn-secundario:hover{ background:#e6ebf3; }
+/* Leyenda de turnos */
+.leyenda-turnos{
+  display:flex; flex-wrap:wrap; gap:.4rem .6rem; align-items:center;
+  margin: .8rem 0 1rem;
+}
+.leyenda-turnos .badge{
+  display:inline-block; min-width: 2rem; text-align:center;
+  padding:.25rem .5rem; border-radius:.5rem; font-weight:700;
+  border:1px solid #e5e7eb; background:#fff;
+}
+.turno-manana{ background:#e8f7ff; border-color:#cfefff; color:#0b5a7a; }
+.turno-tarde{ background:#fff3d6; border-color:#ffe7ad; color:#7a4e00; }
+.turno-noche{ background:#efe8ff; border-color:#dfd2ff; color:#4b2a91; }
+.turno-libre{ background:#edf2f7; border-color:#d7e1ec; color:#475569; }
+.turno-guardia{ background:#ffe6ea; border-color:#ffc9d2; color:#a61d24; }
+.turno-formacion{ background:#e9fbe7; border-color:#c8f0c3; color:#1e7e34; }
+.turno-otros{ background:#f3f4f6; border-color:#e5e7eb; color:#374151; }
+
+/* Tabla del cuadrante */
+.cuadrante{
+  margin:1rem 0; padding:1rem; background:#fff; border-radius:.8rem;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+.cuadrante h2{ margin-bottom:.6rem; color:#00457c; }
+.cuadrante table{
+  width:100%; border-collapse:collapse; font-size:.95rem;
+}
+.cuadrante th, .cuadrante td{
+  border:1px solid #eef2f7; padding:.5rem .6rem; text-align:center;
+}
+.cuadrante th{
+  background:#f7f9fc; font-weight:600;
+}
+.cuadrante tbody tr:nth-child(even){
+  background:#fafbfd;
+}
+.cuadrante-tools{
+  margin-top:.8rem; display:flex; gap:.6rem; flex-wrap:wrap;
+}
+.cuadrante-tools .btn{
+  display:inline-block; padding:.45rem .75rem; border-radius:.5rem; text-decoration:none;
+  background:#e9f2ff; color:#003a6b; border:1px solid #cfe0ff; font-weight:600;
+}
+.cuadrante-tools .btn:hover{ background:#dcedff; }
+
+/* Notas */
+.cuadrante-notas{ margin:1rem 0; }
+.cuadrante-notas h3{ color:#00457c; margin-bottom:.4rem; }
+.cuadrante-notas ul{ margin:.2rem 0 0 1.2rem; }
