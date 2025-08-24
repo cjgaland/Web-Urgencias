@@ -239,3 +239,57 @@ mark{ background: #fff3a3; padding: 0 .1rem; }
   .masthead, .main-content { margin-left: 0; width: 100%; padding-left: 1rem; padding-right: 1rem; }
   .masthead-left img, .masthead-right img { height: 40px; }
 }
+/* ===== Menú colapsable en móviles ===== */
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: .8rem;
+  left: .8rem;
+  z-index: 1001;
+  background: #00457c;
+  color: #fff;
+  border: none;
+  border-radius: .6rem;
+  padding: .6rem .8rem;
+  font-size: 1.2rem;
+  line-height: 1;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  cursor: pointer;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+  z-index: 1000;
+}
+
+/* Estado cuando el menú está abierto */
+body.menu-abierto {
+  overflow: hidden; /* evita scroll del fondo */
+}
+
+@media (max-width: 960px) {
+  .menu-toggle { display: block; }
+
+  /* Sidebar oculta a la izquierda y aparece con transición */
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+    z-index: 1002; /* por encima del backdrop */
+  }
+  .sidebar.abierta {
+    transform: translateX(0);
+  }
+
+  /* Asegura espacio arriba para el botón */
+  .masthead, .main-content {
+    padding-top: 3.2rem; /* ajusta si hace falta */
+  }
+}
+
+/* Accesibilidad: foco visible en el botón */
+.menu-toggle:focus {
+  outline: 2px solid #ffca28;
+  outline-offset: 2px;
+}
