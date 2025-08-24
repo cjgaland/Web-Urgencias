@@ -16,8 +16,20 @@
 
 <body>
 
+	<!-- Botón hamburguesa (para móviles) -->
+<button id="menuToggle"
+        class="menu-toggle"
+        aria-controls="sidebar"
+        aria-expanded="false"
+        aria-label="Abrir menú">
+  ☰
+</button>
+
+<!-- Capa oscura al abrir el menú -->
+<div id="backdrop" class="backdrop" hidden></div>
+	
   <!-- Menú lateral -->
-  <aside class="sidebar" aria-label="Navegación principal">
+	<aside id="sidebar" class="sidebar" aria-label="Navegación principal">
     <div class="sidebar-header">
       <img src="images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba" />
     </div>
@@ -243,9 +255,41 @@
     }
   });
   </script>
+<script>
+  (function(){
+    const btn = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+    const backdrop = document.getElementById('backdrop');
+
+    function abrir(){
+      sidebar.classList.add('abierta');
+      document.body.classList.add('menu-abierto');
+      btn.setAttribute('aria-expanded', 'true');
+      backdrop.hidden = false;
+    }
+    function cerrar(){
+      sidebar.classList.remove('abierta');
+      document.body.classList.remove('menu-abierto');
+      btn.setAttribute('aria-expanded', 'false');
+      backdrop.hidden = true;
+    }
+    function toggle(){
+      const abierta = sidebar.classList.contains('abierta');
+      abierta ? cerrar() : abrir();
+    }
+
+    btn.addEventListener('click', toggle);
+    backdrop.addEventListener('click', cerrar);
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape'){ cerrar(); } });
+    sidebar.addEventListener('click', (e)=>{
+      const a = e.target.closest('a'); if(a){ cerrar(); }
+    });
+  })();
+</script>
 
 </body>
 </html>
+
 
 
 
