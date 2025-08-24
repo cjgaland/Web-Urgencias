@@ -6,9 +6,31 @@
   <title>Cuadrantes de trabajo · Urgencias – AGS Sur de Córdoba</title>
 
   <link rel="icon" href="../favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/style.css?v=20250824" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Estilos muy ligeros para el selector de año y el estado del CSV -->
+  <style>
+    .year-switch { display:flex; align-items:center; gap:.5rem; margin: 0 0 1rem 0; flex-wrap: wrap; }
+    .year-switch button {
+      border: none; border-radius: 999px; padding: .45rem .8rem; background: #fff;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08); cursor: pointer; font-weight: 600;
+    }
+    .year-switch input {
+      width: 6.5rem; border:1px solid #d9e1ec; border-radius: 8px; padding:.45rem .5rem; text-align:center;
+      font-weight:600;
+    }
+    .calc-toc { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: .6rem; }
+    .calc-toc a { display:flex; align-items:center; justify-content:space-between; gap:.5rem; }
+    .badge-estado {
+      font-size:.78rem; line-height:1; padding:.2rem .45rem; border-radius:999px;
+      background:#eef3f9; color:#0f1a2a; white-space:nowrap;
+    }
+    .badge-ok { background:#E6F4EA; }
+    .badge-ko { background:#FFECEC; }
+    .small-note { font-size:.9rem; color:#51607a; margin-top:.6rem; }
+  </style>
 </head>
 <body>
   <aside class="sidebar">
@@ -33,25 +55,117 @@
     <section class="hero">
       <div class="hero-icon"><i class="fas fa-calendar-alt"></i></div>
       <div class="hero-text">
-        <h1>Cuadrantes de trabajo</h1>
+        <h1 id="titulo">Cuadrantes de trabajo</h1>
         <p>Consulta los cuadrantes mensuales de turnos de trabajo del Servicio de Urgencias.</p>
       </div>
     </section>
 
-    <nav class="calc-toc">
-      <a href="2025/ene2025.html">Enero 2025</a>
-      <a href="2025/feb2025.html">Febrero 2025</a>
-      <a href="2025/mar2025.html">Marzo 2025</a>
-      <a href="2025/abr2025.html">Abril 2025</a>
-      <a href="2025/may2025.html">Mayo 2025</a>
-      <a href="2025/jun2025.html">Junio 2025</a>
-      <a href="2025/jul2025.html">Julio 2025</a>
-      <a href="2025/ago2025.html">Agosto 2025</a>
-      <a href="2025/sep2025.html">Septiembre 2025</a>
-      <a href="2025/oct2025.html">Octubre 2025</a>
-      <a href="2025/nov2025.html">Noviembre 2025</a>
-      <a href="2025/dic2025.html">Diciembre 2025</a>
-    </nav>
+    <!-- Selector de año -->
+    <div class="year-switch">
+      <button id="prevYear" title="Año anterior">⟵</button>
+      <label for="yearInput" class="visually-hidden">Año</label>
+      <input id="yearInput" type="number" min="2000" max="2100" step="1" />
+      <button id="nextYear" title="Año siguiente">⟶</button>
+    </div>
+
+    <!-- Lista de meses (se rellena por JS). Fallback noscript por si acaso -->
+    <nav class="calc-toc" id="monthList"></nav>
+
+    <noscript>
+      <nav class="calc-toc">
+        <a href="2025/ene2025.html">Enero 2025</a>
+        <a href="2025/feb2025.html">Febrero 2025</a>
+        <a href="2025/mar2025.html">Marzo 2025</a>
+        <a href="2025/abr2025.html">Abril 2025</a>
+        <a href="2025/may2025.html">Mayo 2025</a>
+        <a href="2025/jun2025.html">Junio 2025</a>
+        <a href="2025/jul2025.html">Julio 2025</a>
+        <a href="2025/ago2025.html">Agosto 2025</a>
+        <a href="2025/sep2025.html">Septiembre 2025</a>
+        <a href="2025/oct2025.html">Octubre 2025</a>
+        <a href="2025/nov2025.html">Noviembre 2025</a>
+        <a href="2025/dic2025.html">Diciembre 2025</a>
+      </nav>
+    </noscript>
+
+    <p class="small-note">
+      Nota: cada mes se enlaza a <code>Cuadrantes/&lt;año&gt;/&lt;mes&gt;&lt;año&gt;.html</code> y verifica si existe el CSV
+      <code>Cuadrantes/data/cuadrantes/AAAA-MM.csv</code> (&ldquo;✔ CSV&rdquo; cuando está disponible).
+    </p>
   </main>
+
+  <script>
+    // Config
+    const MESES = [
+      { nom: 'Enero',      pref: 'ene' },
+      { nom: 'Febrero',    pref: 'feb' },
+      { nom: 'Marzo',      pref: 'mar' },
+      { nom: 'Abril',      pref: 'abr' },
+      { nom: 'Mayo',       pref: 'may' },
+      { nom: 'Junio',      pref: 'jun' },
+      { nom: 'Julio',      pref: 'jul' },
+      { nom: 'Agosto',     pref: 'ago' },
+      { nom: 'Septiembre', pref: 'sep' },
+      { nom: 'Octubre',    pref: 'oct' },
+      { nom: 'Noviembre',  pref: 'nov' },
+      { nom: 'Diciembre',  pref: 'dic' }
+    ];
+
+    const titulo = document.getElementById('titulo');
+    const monthList = document.getElementById('monthList');
+    const yearInput = document.getElementById('yearInput');
+    const prevBtn = document.getElementById('prevYear');
+    const nextBtn = document.getElementById('nextYear');
+
+    // Año inicial = año actual del navegador
+    const hoy = new Date();
+    let currentYear = hoy.getFullYear();
+
+    function two(n){ return String(n).padStart(2,'0'); }
+
+    function buildYear(y){
+      yearInput.value = y;
+      titulo.textContent = `Cuadrantes de trabajo · ${y}`;
+      monthList.innerHTML = '';
+
+      MESES.forEach((m, i) => {
+        const mm = two(i+1);
+        const href = `${y}/${m.pref}${y}.html`;
+        const a = document.createElement('a');
+        a.href = href;
+        a.innerHTML = `<span>${m.nom} ${y}</span><span class="badge-estado">Comprobando…</span>`;
+        monthList.appendChild(a);
+
+        // Comprobar si existe el CSV para ese mes y año
+        const csvUrl = `data/cuadrantes/${y}-${mm}.csv?v=${Date.now()}`;
+        fetch(csvUrl, { cache: 'no-store' })
+          .then(r => {
+            const badge = a.querySelector('.badge-estado');
+            if (r.ok) {
+              badge.textContent = '✔ CSV';
+              badge.classList.add('badge-ok');
+            } else {
+              badge.textContent = 'Pendiente';
+              badge.classList.add('badge-ko');
+            }
+          })
+          .catch(() => {
+            const badge = a.querySelector('.badge-estado');
+            badge.textContent = 'Pendiente';
+            badge.classList.add('badge-ko');
+          });
+      });
+    }
+
+    prevBtn.addEventListener('click', () => { currentYear--; buildYear(currentYear); });
+    nextBtn.addEventListener('click', () => { currentYear++; buildYear(currentYear); });
+    yearInput.addEventListener('change', () => {
+      const v = parseInt(yearInput.value, 10);
+      if (!isNaN(v)) { currentYear = v; buildYear(currentYear); }
+    });
+
+    // Inicializar
+    buildYear(currentYear);
+  </script>
 </body>
 </html>
