@@ -4,20 +4,66 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cuadrante · Mayo 2025 – Urgencias · AGS Sur de Córdoba</title>
-  
-    <!-- Favicon general -->
-      <link rel="icon" href="../../favicon.ico" type="image/x-icon">
 
-    <!-- Iconos móviles -->
-      <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon_transp-180.png">
-      <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon_transp-32.png">
-      <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon_transp-16.png">
-
-  <!-- Rutas correctas desde /Cuadrantes/2025/ -->
+  <!-- Favicon e iconos -->
   <link rel="icon" href="../../favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon_transp-180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon_transp-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon_transp-16.png">
+
+  <!-- Estilos globales del sitio -->
+  <link rel="stylesheet" href="../../css/style.css?v=20250824" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <!-- Estilos específicos del cuadrante -->
+  <style>
+    :root { --gap:.5rem; --radius:12px; --shadow:0 2px 12px rgba(0,0,0,.08); }
+    body { background:#f4f7fb; }
+    .wrap { max-width:1200px; margin:2rem auto; padding:0 1rem; }
+    .toolbar { display:flex; gap:var(--gap); align-items:center; justify-content:space-between; margin-bottom:1rem; flex-wrap:wrap; }
+    .toolbar .left, .toolbar .right { display:flex; gap:var(--gap); align-items:center; }
+    .toolbar h1 { font-size:clamp(1.2rem,2vw,1.6rem); font-weight:600; }
+    .toolbar .badge { background:#00457c; color:#fff; padding:.35rem .6rem; border-radius:999px; font-size:.85rem; }
+    .toolbar button { border:none; border-radius:999px; padding:.55rem .9rem; cursor:pointer; box-shadow:var(--shadow); background:#fff; font-weight:600; }
+    .panel { background:#fff; border-radius:var(--radius); box-shadow:var(--shadow); padding:1rem; }
+
+    /* Tabla matriz Profesionales × Días */
+    table.cuadrante { width:100%; border-collapse:separate; border-spacing:0; font-size:.92rem; }
+    table.cuadrante thead th { position:sticky; top:0; background:#f7fafc; z-index:1; }
+    table.cuadrante th, table.cuadrante td { padding:.45rem .5rem; text-align:center; border-bottom:1px solid #eef2f7; }
+    table.cuadrante th:first-child, table.cuadrante td:first-child { text-align:left; position:sticky; left:0; background:#fff; }
+
+    /* Colores turnos */
+    .shift-M{background:#E6F4EA}
+    .shift-T{background:#E6ECFF}
+    .shift-G{background:#EAF7FF}
+    .shift-O{background:#FFF0F5}
+    .shift-F{background:#FFF5E6}
+    .shift-FO{background:#FFECEC}
+        .shift-R{background:#E0F7FA}
+.shift-V{background:#FDF4FF}
+    .shift-S{background:#F5F7FA;color:#99A3AD}
+    .shift-LD{background:#F0FDF4}
+    .shift-FR{background:#F3E8FF}
+    .shift-OT{background:#F2F2F2}
+
+    .legend { display:flex; flex-wrap:wrap; gap:.5rem .75rem; margin-top:.75rem; }
+    .legend .item { display:flex; align-items:center; gap:.35rem; font-size:.9rem; }
+    .legend .swatch { width:18px; height:14px; border-radius:4px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.06); }
+
+    .totales { margin-top:1rem; display:grid; gap:.5rem; grid-template-columns:repeat(auto-fit, minmax(160px,1fr)); }
+    .totales .card { background:#fff; border-radius:var(--radius); box-shadow:var(--shadow); padding:.75rem .9rem; }
+    .totales .card h3 { font-size:.9rem; font-weight:600; color:#00457c; }
+    .totales .card p { margin:.25rem 0 0; font-weight:700; font-size:1.1rem; }
+
+    @media print {
+      body { background:#fff; }
+      .toolbar, .legend { display:none; }
+      .panel { box-shadow:none; border:none; }
+      table.cuadrante th, table.cuadrante td { padding:.28rem .3rem; }
+    }
+  </style>
 </head>
 <body>
 
@@ -41,12 +87,10 @@
         <li><a href="../../Calidad/index.html"><i class="fas fa-shield-heart"></i> <span>Calidad y Seguridad del Paciente</span></a></li>
       </ul>
 
-      <!-- Bloque adicional: Sala de Críticos -->
       <ul class="submenu-criticos">
         <li><a href="#"><i class="fas fa-procedures"></i> <span>Sala de Críticos</span></a></li>
       </ul>
 
-      <!-- Bloque adicional: Equipo -->
       <ul class="submenu-equipo">
         <li><a href="../../Profesionales/index.html"><i class="fas fa-user-md"></i> <span>Ficha del personal</span></a></li>
         <li><a href="../index.html" class="active"><i class="fas fa-calendar-alt"></i> <span>Cuadrantes de trabajo</span></a></li>
@@ -62,13 +106,11 @@
 
   <!-- Contenido principal -->
   <main class="main-content" role="main">
-
-    <!-- Hero -->
     <section class="hero">
       <div class="hero-icon" aria-hidden="true"><i class="fas fa-calendar-alt"></i></div>
       <div class="hero-text">
-        <h1>Cuadrante · <span class="mes">Mayo</span> <span class="anio">2025</span></h1>
-        <p>Turnos del Servicio de Urgencias. Vista mensual con leyenda de turnos y acceso a meses adyacentes.</p>
+        <h1 id="titulo">Cuadrante · Mayo 2025</h1>
+        <p>Turnos del Servicio de Urgencias. Vista mensual tipo matriz (Profesionales × Días), con leyenda y totales.</p>
       </div>
     </section>
 
@@ -79,36 +121,31 @@
       <a href="jun2025.html">Mes siguiente <i class="fas fa-arrow-right"></i></a>
     </nav>
 
-    <!-- Leyenda de turnos -->
-    <section class="leyenda-turnos" aria-label="Leyenda de turnos">
-      <div class="badge turno-manana" title="Mañana">M</div>
-      <div class="badge turno-tarde" title="Tarde">T</div>
-      <div class="badge turno-noche" title="Noche">N</div>
-      <div class="badge turno-libre" title="Libre">L</div>
-      <div class="badge turno-guardia" title="Guardia">G</div>
-      <div class="badge turno-formacion" title="Formación">F</div>
-      <div class="badge turno-otros" title="Otros">O</div>
-    </section>
-
-    <!-- Cuadrante mensual (interactivo) -->
-    <section class="cuadrante" id="cuadrante" data-year="2025" data-month="5">
-      <h2><i class="fas fa-calendar-days"></i> <span class="mes">Mayo</span> <span class="anio">2025</span></h2>
-      <div id="tabla-cuadrante"></div>
-
-      <div class="cuadrante-tools">
-        <a class="btn" href="#" onclick="window.print(); return false;"><i class="fas fa-print"></i> Imprimir / PDF</a>
+    <!-- Visor de cuadrante -->
+    <div class="wrap">
+      <div class="toolbar">
+        <div class="left">
+          <h2 style="margin:0;">Matriz mensual</h2>
+          <span class="badge">Sólo lectura</span>
+        </div>
+        <div class="right">
+          <button id="btn-print" title="Imprimir / Guardar en PDF">🖨️ Imprimir</button>
+          <button id="btn-export" title="Exportar tabla a CSV">⬇️ Exportar CSV</button>
+        </div>
       </div>
-    </section>
 
-    <!-- Observaciones -->
-    <section class="cuadrante-notas">
-      <h3><i class="fas fa-circle-info"></i> Observaciones</h3>
-      <ul>
-        <li>Los cambios de turno se comunicarán por el canal habitual y se reflejarán en esta página.</li>
-        <li>Los turnos de formación (F) y otros (O) pueden variar según necesidades del servicio.</li>
-      </ul>
-    </section>
+      <div class="panel">
+        <div style="overflow:auto;">
+          <table class="cuadrante" id="tabla">
+            <thead id="thead"></thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
 
+        <div class="legend" id="leyenda"></div>
+        <div class="totales" id="totales"></div>
+      </div>
+    </div>
   </main>
 
   <!-- JS del menú colapsable (móviles) -->
@@ -127,74 +164,154 @@
   })();
   </script>
 
-  <!-- JS cuadrante interactivo: clic en el día para cambiar turno (M/T/N/L/G/F/O) -->
+  <!-- JS del visor mensual: lee CSV ../data/cuadrantes/2025-01.csv y pinta matriz -->
   <script>
   (function(){
-    const codes = ["","M","T","N","L","G","F","O"]; // ciclo de turnos
-    const monthNames = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+    // Año/mes fijos de esta página
+    const annoParam = 2025;
+    const mesParam  = 5; // enero
 
-    const wrap = document.getElementById('cuadrante');
-    const cont = document.getElementById('tabla-cuadrante');
-    const year = parseInt(wrap.dataset.year,10);
-    const month = parseInt(wrap.dataset.month,10); // 1..12
+    // Ajusta el título del documento por si se reutiliza
+    const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+    const DOW   = ['D','L','M','X','J','V','S']; // 0=Domingo
+    const tituloMes = `Cuadrante · ${MESES[mesParam-1]} ${annoParam}`;
+    document.getElementById('titulo').textContent = `Cuadrante · ${MESES[mesParam-1][0].toUpperCase()+MESES[mesParam-1].slice(1)} ${annoParam}`;
+    document.title = `${tituloMes[0].toUpperCase()+tituloMes.slice(1)} – Urgencias · AGS Sur de Córdoba`;
 
-    // Pinta cabeceras de mes/año por si se reutiliza plantilla
-    document.querySelectorAll('.mes').forEach(el => el.textContent = monthNames[month-1]);
-    document.querySelectorAll('.anio').forEach(el => el.textContent = year);
+    // Códigos de turno
+    const CODIGOS = {
+      M:{nombre:'Mañana 08–15', clase:'shift-M'},
+      T:{nombre:'Tarde 15–22', clase:'shift-T'},
+      G:{nombre:'Guardia laborable 15–08', clase:'shift-G'},
+      O:{nombre:'Guardia Observación 08–15 (día sig.)', clase:'shift-O'},
+      F:{nombre:'Guardia Festivo 09–09', clase:'shift-F'},
+      FO:{nombre:'Obs. Festivo 10–10', clase:'shift-FO'},
+            R:{nombre:'Refuerzo 10–22 (sólo findes/festivos)', clase:'shift-R'},
+V:{nombre:'Vacaciones', clase:'shift-V'},
+      S:{nombre:'Saliente', clase:'shift-S'},
+      LD:{nombre:'Libre disposición', clase:'shift-LD'},
+      FR:{nombre:'Formación', clase:'shift-FR'},
+      OT:{nombre:'Otros', clase:'shift-OT'}
+    };
 
-    const key = `cuadrante-${year}-${String(month).padStart(2,'0')}`;
-    let data = JSON.parse(localStorage.getItem(key) || "[]"); // array de 31 posiciones
+    function daysInMonth(y,m){ return new Date(y, m, 0).getDate(); } // m=1..12
+    function labelDia(y,m,d){ const dow=new Date(y, m-1, d).getDay(); return `${DOW[dow]} ${d}`; }
+    const numDias = daysInMonth(annoParam, mesParam);
 
-    function build(){
-      const first = new Date(year, month-1, 1);
-      const lastDay = new Date(year, month, 0).getDate();
+    // Encabezado de la tabla
+    const thead = document.getElementById('thead');
+    const trHead = document.createElement('tr');
+    const thNombre = document.createElement('th'); thNombre.textContent = 'Profesional'; trHead.appendChild(thNombre);
+    for (let d=1; d<=numDias; d++){ const th=document.createElement('th'); th.textContent=labelDia(annoParam, mesParam, d); trHead.appendChild(th); }
+    const thObs = document.createElement('th'); thObs.textContent = 'Obs.'; trHead.appendChild(thObs);
+    thead.appendChild(trHead);
 
-      let html = '<table><thead><tr><th>Día</th><th>Lun</th><th>Mar</th><th>Mié</th><th>Jue</th><th>Vie</th><th>Sáb</th><th>Dom</th></tr></thead><tbody>';
+    // Leyenda
+    const leyenda = document.getElementById('leyenda');
+    Object.entries(CODIGOS).forEach(([k,v])=>{
+      const item = document.createElement('div'); item.className='item'; item.title=v.nombre;
+      const sw = document.createElement('span'); sw.className='swatch '+v.clase; item.appendChild(sw);
+      const txt = document.createElement('span'); txt.textContent = `${k} = ${v.nombre}`; item.appendChild(txt);
+      leyenda.appendChild(item);
+    });
 
-      const start = new Date(first);
-      const wday = (start.getDay()+6)%7; // 0=lunes,…6=domingo
-      start.setDate(start.getDate() - wday);
+    // Carga del CSV (desde Cuadrantes/data/cuadrantes/)
+    const csvId   = `${annoParam}-${String(mesParam).padStart(2,'0')}`;
+    const csvPath = `../data/cuadrantes/${csvId}.csv?v=${Date.now()}`;
 
-      let d = new Date(start);
-      let finished = false;
+    fetch(csvPath)
+      .then(r => { if (!r.ok) throw new Error('No se encontró el CSV: '+csvPath); return r.text(); })
+      .then(txt => { const rows = parseCSV(txt); renderTabla(rows); renderTotales(rows); })
+      .catch(err => {
+        console.error(err);
+        const tr = document.createElement('tr');
+        const td = document.createElement('td'); td.colSpan = numDias + 2; td.style.textAlign='left';
+        td.innerHTML = `⚠️ ${err.message}.<br>Comprueba la ruta y que el archivo exista.`;
+        tr.appendChild(td); document.getElementById('tbody').appendChild(tr);
+      });
 
-      while (!finished){
-        html += '<tr><td>Semana</td>';
-        for (let i=0;i<7;i++){
-          const inMonth = (d.getMonth()===month-1);
-          const day = d.getDate();
-          const idx = day-1;
-          const code = inMonth ? (data[idx]||"") : "";
-          const disable = inMonth ? "" : " aria-disabled='true' class='off' ";
-          html += `<td ${disable} data-day="${inMonth?day:""}"><small>${inMonth?day:""}</small> <strong>${code}</strong></td>`;
-          d.setDate(d.getDate()+1);
+    // Utilidades CSV
+    function parseCSV(input){
+      const lines = input.replace(/\r/g,'').split('\n').filter(l=>l.trim().length);
+      return lines.map(line=>{
+        const row=[]; let cur=''; let inQ=false;
+        for (let i=0;i<line.length;i++){
+          const ch=line[i], next=line[i+1];
+          if (ch=='"'){ if(inQ && next=='"'){ cur+='"'; i++; } else { inQ=!inQ; } }
+          else if (ch==',' && !inQ){ row.push(cur); cur=''; }
+          else { cur+=ch; }
+        } row.push(cur); return row;
+      });
+    }
+    function tokenizar(val){
+      const raw = val.toUpperCase().trim();
+      if (!raw) return [];
+      return raw.split(/[ \\/+\-]+/).filter(Boolean);
+    }
+
+    // Pintar tabla
+    function renderTabla(rows){
+      const tbody = document.getElementById('tbody');
+      for (let i=1; i<rows.length; i++){
+        const r = rows[i]; if (!r || !r.length) continue;
+        const tr = document.createElement('tr');
+        const tdNombre = document.createElement('td'); tdNombre.textContent = (r[0]||'').trim(); tr.appendChild(tdNombre);
+        for (let d=1; d<=numDias; d++){
+          const td = document.createElement('td');
+          const val = (r[d]||'').toString().trim();
+          if (val){
+            const tokens = tokenizar(val);
+            const firstKnown = tokens.find(t => CODIGOS[t]);
+            if (firstKnown) td.classList.add(CODIGOS[firstKnown].clase);
+            td.textContent = tokens.join('+');
+          }
+          tr.appendChild(td);
         }
-        html += '</tr>';
-
-        // hemos pasado del mes y hemos cerrado la semana que lo contiene
-        if (d.getMonth()!==month-1 && d.getDate()<=7) finished = true;
+        const tdObs = document.createElement('td'); tdObs.textContent = (r[numDias+1]||'').trim(); tr.appendChild(tdObs);
+        tbody.appendChild(tr);
       }
+    }
 
-      html += '</tbody></table>';
-      cont.innerHTML = html;
-
-      // Clic para ciclar códigos
-      cont.querySelectorAll('td[data-day]').forEach(td=>{
-        td.addEventListener('click', ()=>{
-          const day = parseInt(td.dataset.day,10);
-          const cur = (td.querySelector('strong').textContent || "");
-          const pos = Math.max(0, codes.indexOf(cur));
-          const next = codes[(pos+1)%codes.length];
-          td.querySelector('strong').textContent = next;
-          data[day-1] = next;
-          localStorage.setItem(key, JSON.stringify(data));
-        });
+    // Totales por profesional
+    function renderTotales(rows){
+      const tot = {}; // { nombre: {M:0,T:0,...} }
+      for (let i=1; i<rows.length; i++){
+        const r = rows[i]; const nombre = (r[0]||'').trim(); if (!nombre) continue;
+        if (!tot[nombre]) tot[nombre] = {M:0,T:0,G:0,O:0,F:0,FO:0,V:0,S:0,LD:0,FR:0,OT:0};
+        for (let d=1; d<=numDias; d++){
+          const val = (r[d]||'').toString().trim(); if (!val) continue;
+          const tokens = tokenizar(val);
+          for (const t of tokens){ if (tot[nombre][t] !== undefined) tot[nombre][t]++; }
+        }
+      }
+      const box = document.getElementById('totales'); box.innerHTML = '';
+      Object.entries(tot).forEach(([nombre,counts])=>{
+        const c = document.createElement('div'); c.className='card';
+        const totalJornadas = Object.values(counts).reduce((a,b)=>a+b,0);
+        c.innerHTML = `<h3>${nombre}</h3><p>${totalJornadas} turnos</p>` +
+          `<div style="margin-top:.35rem; display:flex; flex-wrap:wrap; gap:.35rem .6rem; font-size:.85rem;">`+
+          Object.entries(counts).filter(([k,v])=>v>0).map(([k,v])=>`<span class="badge ${CODIGOS[k]?.clase||''}" style="display:inline-block; padding:.18rem .45rem; border-radius:999px;">${k}: ${v}</span>`).join(' ')
+          + `</div>`;
+        box.appendChild(c);
       });
     }
 
-    build();
+    // Acciones
+    document.getElementById('btn-print').addEventListener('click',()=>window.print());
+    document.getElementById('btn-export').addEventListener('click',()=>exportTableToCSV());
+
+    function exportTableToCSV(filename = `cuadrante-${annoParam}-${String(mesParam).padStart(2,'0')}.csv`){
+      const table = document.getElementById('tabla');
+      const rows = Array.from(table.querySelectorAll('tr'));
+      const csv = rows.map(tr => Array.from(tr.children).map(td => {
+        const raw = td.textContent.replace(/^([DLXJVS])\s+/,'').replaceAll('"','""'); // limpia prefijo día-semana
+        return /[",\n]/.test(raw) ? `"${raw}"` : raw;
+      }).join(',')).join('\n');
+      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+      const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = filename; link.click();
+      URL.revokeObjectURL(link.href);
+    }
   })();
   </script>
-
 </body>
 </html>
