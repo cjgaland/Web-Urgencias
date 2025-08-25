@@ -3,27 +3,51 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ficha Profesional · Rafael Romero de Castilla Gil</title>
+  <title>Ficha Profesional · Rafael J. Romero de Castilla Gil</title>
 
-  <!-- Favicon -->
   <link rel="icon" href="../../favicon.ico" type="image/x-icon">
-
-  <!-- Estilos -->
   <link rel="stylesheet" href="../../css/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    .ficha-grid{display:grid; grid-template-columns: 260px 1fr; gap:1.2rem; align-items:flex-start; margin-top:.5rem;}
+    .foto-carnet{ width:100%; height:auto; border-radius:12px; border:1px solid #e6eef8; background:#fff; }
+    .datos-card{ background:#fff; border:1px solid #e6eef8; border-radius:12px; padding:1rem; box-shadow:0 2px 12px rgba(0,0,0,.05);}
+    .datos-grid{ display:grid; grid-template-columns: 160px 1fr; gap:.55rem .9rem; align-items:center;}
+    .label{ color:#5b6b85; font-size:.92rem; }
+    .valor{ font-weight:500; }
+    .valor a{ color:#0a4c84; text-decoration:underline; }
+    .obs-wrap{ grid-column: 1 / -1; display:grid; gap:.35rem; margin-top:.4rem; }
+    .obs-wrap textarea{ width:100%; min-height:92px; resize:vertical; border:1px solid #d1d9e6; border-radius:8px; padding:.6rem; font-family:inherit; font-size:.95rem; }
+    .obs-actions{ display:flex; gap:.5rem; }
+    .obs-actions .btn{ border:1px solid #d1d9e6; background:#eef3f9; border-radius:8px; padding:.4rem .7rem; font-weight:500; }
+    .ficha-links{ margin-top:.9rem; display:flex; justify-content:space-between; gap:1rem; align-items:center; }
+    .ficha-links a{ display:inline-flex; gap:.5rem; align-items:center; font-weight:600; text-decoration:none; background:#fff; border:1px solid #e5ecf5; border-radius:999px; padding:.5rem .9rem; box-shadow:0 2px 10px rgba(0,0,0,.05); }
+    .ficha-links a:hover{ background:#f7fbff }
+    .panel-personal{ margin-top:1rem; background:#fff; border:1px solid #e6eef8; border-radius:12px; padding:1rem; box-shadow:0 2px 12px rgba(0,0,0,.05); }
+    .panel-head{ display:flex; gap:.75rem; align-items:center; justify-content:space-between; flex-wrap:wrap; margin-bottom:.5rem; }
+    .panel-head h3{ margin:0; font-size:1.05rem; }
+    .panel-head .acciones{ display:flex; gap:.5rem; }
+    .panel-head button{ border:none; border-radius:999px; padding:.45rem .75rem; font-weight:600; cursor:pointer; }
+    .btn-sec{ background:#eef3f9 }
+    .tabla-personal{ overflow:auto }
+    .tabla-personal table{ width:100%; border-collapse:separate; border-spacing:0; font-size:.92rem }
+    .tabla-personal th,.tabla-personal td{ border-bottom:1px solid #eef2f7; text-align:center; padding:.4rem .45rem; white-space:nowrap }
+    .tabla-personal th.sticky,.tabla-personal td.sticky{ position:sticky; left:0; background:#fff; text-align:left }
+    .resumen{ display:flex; gap:.45rem .6rem; flex-wrap:wrap; margin-top:.5rem }
+    .resumen .tag{ background:#f2f6ff; border:1px solid #e0e9f7; border-radius:999px; padding:.2rem .5rem; font-size:.85rem; }
+    .msg{ font-size:.9rem; color:#52607a }
+    .shift-M{background:#E6F4EA}.shift-T{background:#E6ECFF}.shift-G{background:#EAF7FF}.shift-O{background:#FFF0F5}.shift-F{background:#FFF5E6}.shift-FO{background:#FFECEC}.shift-R{background:#E0F7FA}.shift-V{background:#FDF4FF}.shift-S{background:#F5F7FA;color:#99A3AD}.shift-LD{background:#F0FDF4}.shift-FR{background:#F3E8FF}.shift-OT{background:#F2F2F2}
+    [hidden]{display:none!important;}
+  </style>
 </head>
 <body>
-
-  <!-- Botón hamburguesa (móviles) -->
   <button id="menuToggle" class="menu-toggle" aria-controls="sidebar" aria-expanded="false" aria-label="Abrir menú">☰</button>
   <div id="backdrop" class="backdrop" hidden></div>
 
-  <!-- Menú lateral -->
   <aside id="sidebar" class="sidebar">
-    <div class="sidebar-header">
-      <img src="../../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba" />
-    </div>
+    <div class="sidebar-header"><img src="../../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba" /></div>
     <nav>
       <ul>
         <li><a href="../../index.html"><i class="fas fa-home"></i> Inicio</a></li>
@@ -33,13 +57,11 @@
     </nav>
   </aside>
 
-  <!-- Cabecera -->
   <header class="masthead">
     <div class="masthead-left"><img src="../../images/Logo-Salud2.png" alt="Junta de Andalucía" /></div>
     <div class="masthead-right"><img src="../../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Urgencias Montilla" /></div>
   </header>
 
-  <!-- Contenido principal -->
   <main class="main-content">
     <section class="hero">
       <div class="hero-icon"><i class="fas fa-id-badge"></i></div>
@@ -49,43 +71,66 @@
       </div>
     </section>
 
-    <!-- Ficha -->
     <div class="ficha-profesional">
-      <div class="ficha-header">
-        <img src="RafaRomero.png" alt="Foto Nombre Apellidos" class="foto-carnet">
-        <div class="ficha-info">
-          <h3>Rafael J. Romero de Castilla Gil</h3>
-          <p class="cargo">Facultativo Especialisa de Área</p>
-          <p><i class="fas fa-envelope"></i> rjavier.romero.sspa@juntadeandalucia.es</p>
-          <p><i class="fas fa-phone"></i> 630 417 771</p>
+      <div class="ficha-grid">
+        <!-- Foto -->
+        <div>
+          <img src="RafaRomero.png" alt="Foto Rafael Romero" class="foto-carnet">
+        </div>
+
+        <!-- Datos -->
+        <div class="datos-card">
+          <div class="datos-grid">
+            <div class="label">Nombre</div>
+            <div class="valor">Rafael J.</div>
+
+            <div class="label">Apellidos</div>
+            <div class="valor">Romero de Castilla Gil</div>
+            
+            <div class="label">Categoría</div>
+            <div class="valor">Facultativo Especialista de Área</div>
+
+            <div class="label">Cargo</div>
+            <div class="valor">Asistencial / Calidada y Seguridad del Paciente</div>
+
+            <div class="label">Correo electrónico</div>
+            <div class="valor"><i class="fas fa-envelope"></i> <a href="mailto:rjavier.romero.sspa@juntadeandalucia.es">rjavier.romero.sspa@juntadeandalucia.es</a></div>
+
+            <div class="label">Teléfono</div>
+            <div class="valor"><i class="fas fa-phone"></i> <a href="tel:+34630417771">630417771</a></div>
+
+            <div class="obs-wrap">
+              <label for="obs">Observaciones</label>
+              <textarea id="obs" placeholder="Espacio para texto."></textarea>
+              <div class="obs-actions">
+                <button id="btnSaveObs" class="btn">Guardar observaciones</button>
+                <span id="obsSavedMsg" class="msg" hidden>Guardado.</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Estado actual -->
+      <!-- Estado -->
       <div class="ficha-estado">
         <div class="estado-linea">
-          <span class="badge-estado" id="badge-estado">Baja laboral</span>
-          <button type="button" class="btn-estado-editar" id="btnEditarEstado" aria-expanded="false" aria-controls="formEstado">
-            Editar estado
-          </button>
+          <span class="badge-estado" id="badge-estado">Otros</span>
+          <button type="button" class="btn-estado-editar" id="btnEditarEstado" aria-expanded="false" aria-controls="formEstado">Editar estado</button>
         </div>
-
         <form id="formEstado" class="form-estado" hidden>
           <label for="selectEstado">Estado actual</label>
           <select id="selectEstado" name="estado">
-            <option value="activo" selected>Activo</option>
+            <option value="activo">Activo</option>
             <option value="reduccion">Reducción</option>
             <option value="baja">Baja laboral</option>
             <option value="vacaciones">Vacaciones</option>
             <option value="liberado">Liberado sindical</option>
             <option value="otros">Otros</option>
           </select>
-
           <div class="campo-reduccion" id="campoReduccion" hidden>
             <label for="porcentajeReduccion">% de reducción</label>
             <input id="porcentajeReduccion" name="porcentaje" type="number" min="10" max="99" step="5" placeholder="Ej. 33">
           </div>
-
           <div class="acciones-estado">
             <button type="button" class="btn-primario" id="btnGuardarEstado">Guardar</button>
             <button type="button" class="btn-secundario" id="btnCancelarEstado">Cancelar</button>
@@ -93,32 +138,46 @@
         </form>
       </div>
 
+      <!-- Enlaces -->
       <div class="ficha-links">
-        <a href="../../Cuadrantes/2025/marzo.html"><i class="fas fa-calendar-alt"></i> Ver cuadrante</a>
-        <a href="actividades.html"><i class="fas fa-tasks"></i> Actividades</a>
+        <a id="link-cuadrante" href="#"><i class="fas fa-calendar-alt"></i> Ver cuadrante</a>
+        <a id="link-actividades" href="#"><i class="fas fa-tasks"></i> Actividades</a>
+      </div>
+
+      <!-- Panel cuadrante -->
+      <div id="panel-personal" class="panel-personal" hidden>
+        <div class="panel-head">
+          <h3 id="panel-titulo">Cuadrante personal</h3>
+          <div class="acciones">
+            <button id="btn-acumulado" class="btn-sec" type="button">Acumulado anual</button>
+            <button id="btn-cerrar-panel" class="btn-sec" type="button">Cerrar</button>
+          </div>
+        </div>
+        <div class="msg" id="panel-msg"></div>
+        <div class="tabla-personal" id="tabla-personal"></div>
+        <div class="resumen" id="resumen-personal"></div>
       </div>
     </div>
   </main>
 
-  <!-- JS menú colapsable -->
+  <!-- JS (idéntico al de Carlos, con datos de Rafa) -->
   <script>
   (function(){
-    const btn=document.getElementById('menuToggle');
-    const sidebar=document.getElementById('sidebar');
-    const backdrop=document.getElementById('backdrop');
-    function abrir(){sidebar.classList.add('abierta');document.body.classList.add('menu-abierto');btn.setAttribute('aria-expanded','true');backdrop.hidden=false;}
-    function cerrar(){sidebar.classList.remove('abierta');document.body.classList.remove('menu-abierto');btn.setAttribute('aria-expanded','false');backdrop.hidden=true;}
-    function toggle(){sidebar.classList.contains('abierta')?cerrar():abrir();}
-    btn.addEventListener('click',toggle);
-    backdrop.addEventListener('click',cerrar);
-    document.addEventListener('keydown',e=>{if(e.key==='Escape')cerrar();});
-    sidebar.addEventListener('click',e=>{if(e.target.closest('a'))cerrar();});
-  })();
-  </script>
+    // Config
+    const PRO = {
+      slug: 'rafa-romero',
+      alias: ['Rafael Romero','Rafa Romero','Rafael J. Romero de Castilla Gil','Dr. Rafael J. Romero de Castilla Gil']
+    };
 
-  <!-- JS estado actual -->
-  <script>
-  (function(){
+    // Observaciones
+    const OBS_KEY = `profesional:${PRO.slug}:observaciones`;
+    const obsEl = document.getElementById('obs');
+    const obsBtn = document.getElementById('btnSaveObs');
+    const obsMsg = document.getElementById('obsSavedMsg');
+    (function(){ const v = localStorage.getItem(OBS_KEY); if(v) obsEl.value = v; })();
+    obsBtn.addEventListener('click',()=>{ localStorage.setItem(OBS_KEY, obsEl.value||''); obsMsg.hidden=false; setTimeout(()=>obsMsg.hidden=true,1500); });
+
+    // Estado con persistencia
     const badge=document.getElementById('badge-estado');
     const btnEditar=document.getElementById('btnEditarEstado');
     const form=document.getElementById('formEstado');
@@ -127,6 +186,7 @@
     const inputPct=document.getElementById('porcentajeReduccion');
     const btnGuardar=document.getElementById('btnGuardarEstado');
     const btnCancelar=document.getElementById('btnCancelarEstado');
+    const KEY=`profesional:${PRO.slug}:estado`;
 
     function applyBadge(state,pct){
       const clases=['badge--activo','badge--reduccion','badge--baja','badge--vacaciones','badge--liberado','badge--otros'];
@@ -140,30 +200,131 @@
         default: badge.textContent='Otros'; badge.classList.add('badge--otros');
       }
     }
-    function toggleForm(show){
-      const open=(typeof show==='boolean')?show:form.hidden;
-      form.hidden=!open;
-      btnEditar.setAttribute('aria-expanded',String(open));
-    }
-    function onEstadoChange(){
-      const esReduccion=select.value==='reduccion';
-      campoReduccion.hidden=!esReduccion;
-      if(!esReduccion) inputPct.value='';
-    }
+    function toggleForm(show){ const open=(typeof show==='boolean')?show:form.hidden; form.hidden=!open; btnEditar.setAttribute('aria-expanded',String(open)); }
+    function onEstadoChange(){ const esReduccion=select.value==='reduccion'; campoReduccion.hidden=!esReduccion; if(!esReduccion) inputPct.value=''; }
+    (function(){ const s=localStorage.getItem(KEY); if(s){ try{const o=JSON.parse(s); select.value=o.estado||'activo'; if(o.estado==='reduccion') inputPct.value=o.porcentaje||''; applyBadge(select.value,parseInt(inputPct.value||'0',10));}catch{} } else { select.value='activo'; applyBadge('activo',0);} onEstadoChange(); })();
     btnEditar.addEventListener('click',()=>toggleForm());
     btnCancelar.addEventListener('click',()=>toggleForm(false));
     select.addEventListener('change',onEstadoChange);
-    btnGuardar.addEventListener('click',()=>{
-      const estado=select.value;
-      const pct=(estado==='reduccion')?parseInt(inputPct.value||'0',10):0;
-      if(estado==='reduccion'&&(!pct||pct<1)){inputPct.focus();return;}
-      applyBadge(estado,pct);
-      toggleForm(false);
+    btnGuardar.addEventListener('click',()=>{ const estado=select.value; const pct=(estado==='reduccion')?parseInt(inputPct.value||'0',10):0; if(estado==='reduccion'&&(!pct||pct<1)){inputPct.focus();return;} localStorage.setItem(KEY,JSON.stringify({estado,porcentaje:pct,fecha:new Date().toISOString()})); applyBadge(estado,pct); toggleForm(false); });
+
+    // Ver cuadrante / panel personal
+    const linkCuadrante=document.getElementById('link-cuadrante');
+    (function(){ const now=new Date(); const y=now.getFullYear(); const m=now.getMonth()+1;
+      const keys=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+      const urlMes=`../../Cuadrantes/${y}/${keys[m-1]}${y}.html`;
+      linkCuadrante.setAttribute('href',urlMes);
+      linkCuadrante.addEventListener('click',(e)=>{ if(location.protocol==='file:') return; e.preventDefault(); mostrarCuadrantePersonal(y,m); });
+    })();
+
+    // Panel personal + acumulado
+    const panel=document.getElementById('panel-personal');
+    const tituloPanel=document.getElementById('panel-titulo');
+    const msg=document.getElementById('panel-msg');
+    const tabla=document.getElementById('tabla-personal');
+    const resumen=document.getElementById('resumen-personal');
+    document.getElementById('btn-cerrar-panel').addEventListener('click',()=>{ panel.hidden=true; });
+    document.getElementById('btn-acumulado').addEventListener('click',()=>{ if(location.protocol==='file:'){ msg.textContent='Para calcular el acumulado necesito http(s)://'; return; } acumuladoAnual(new Date().getFullYear()); });
+
+    function tokenizar(v){ return v.toUpperCase().trim().split(/[ \\/+\-]+/).filter(Boolean); }
+    const CODIGOS={ M:{clase:'shift-M'}, T:{clase:'shift-T'}, G:{clase:'shift-G'}, O:{clase:'shift-O'}, F:{clase:'shift-F'}, FO:{clase:'shift-FO'}, R:{clase:'shift-R'}, V:{clase:'shift-V'}, S:{clase:'shift-S'}, LD:{clase:'shift-LD'}, FR:{clase:'shift-FR'}, OT:{clase:'shift-OT'} };
+
+    function parseCSV(text){
+      const lines = text.replace(/\r/g,'').split('\n').filter(l=>l.trim().length);
+      return lines.map(line=>{
+        const row=[]; let cur=''; let inQ=false;
+        for(let i=0;i<line.length;i++){
+          const ch=line[i], next=line[i+1];
+          if(ch=='"'){ if(inQ && next=='"'){ cur+='"'; i++; } else { inQ=!inQ; } }
+          else if(ch==',' && !inQ){ row.push(cur); cur=''; }
+          else { cur+=ch; }
+        } row.push(cur); return row;
+      });
+    }
+    const coincideNombre = (celda) => {
+      const v=(celda||'').trim().toLowerCase();
+      return PRO.alias.some(a => a.toLowerCase()===v);
+    };
+
+    async function mostrarCuadrantePersonal(y,m){
+      const meses=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+      tituloPanel.textContent=`Cuadrante personal · ${meses[m-1][0].toUpperCase()+meses[m-1].slice(1)} ${y}`;
+      panel.hidden=false; msg.textContent='Cargando…'; tabla.innerHTML=''; resumen.innerHTML='';
+
+      const csv=`../../Cuadrantes/data/cuadrantes/${y}-${String(m).padStart(2,'0')}.csv?v=${Date.now()}`;
+      try{
+        const res=await fetch(csv);
+        if(!res.ok) throw new Error('No se encontró el CSV');
+        const rows=parseCSV(await res.text());
+        const header=rows[0]||[];
+        const index=rows.findIndex(r=>coincideNombre(r[0]));
+        if(index<0){ msg.textContent='No hay registros para este profesional en ese mes.'; return; }
+        msg.textContent='';
+        const data=rows[index];
+        const dmax=header.length-2;
+        let html='<div class="tabla-personal-inner"><table><thead><tr><th class="sticky">Día</th>';
+        for(let d=1; d<=dmax; d++) html+=`<th>${d}</th>`;
+        html+='</tr></thead><tbody><tr><td class="sticky">Turno</td>';
+        const counts={M:0,T:0,G:0,O:0,F:0,FO:0,R:0,V:0,S:0,LD:0,FR:0,OT:0};
+        for(let d=1; d<=dmax; d++){
+          const val=(data[d]||'').trim();
+          const tokens=tokenizar(val);
+          const first=tokens.find(t=>CODIGOS[t]);
+          const cls=first?CODIGOS[first].clase:'';
+          html+=`<td class="${cls}">${tokens.join('+')}</td>`;
+          tokens.forEach(t=>{ if(counts[t]!=null) counts[t]++; });
+        }
+        html+='</tr></tbody></table></div>';
+        tabla.innerHTML=html;
+        const tags=Object.entries(counts).filter(([k,v])=>v>0).map(([k,v])=>`<span class="tag ${CODIGOS[k]?.clase||''}">${k}: ${v}</span>`).join(' ');
+        resumen.innerHTML=`<strong>Resumen mensual:</strong> ${tags||'<span class="msg">Sin turnos</span>'}`;
+      }catch(err){ msg.textContent=`⚠️ ${err.message}. Recuerda abrir el sitio por http(s)://`; }
+    }
+
+    async function acumuladoAnual(y){
+      msg.textContent='Calculando acumulado…';
+      const counts={M:0,T:0,G:0,O:0,F:0,FO:0,R:0,V:0,S:0,LD:0,FR:0,OT:0};
+      for(let m=1;m<=12;m++){
+        const url=`../../Cuadrantes/data/cuadrantes/${y}-${String(m).padStart(2,'0')}.csv`;
+        try{
+          const r=await fetch(url); if(!r.ok) continue;
+          const rows=parseCSV(await r.text());
+          const idx=rows.findIndex(rw=>coincideNombre(rw[0])); if(idx<0) continue;
+          const dmax=rows[0].length-2;
+          for(let d=1; d<=dmax; d++){
+            const tokens=tokenizar((rows[idx][d]||'').trim());
+            tokens.forEach(t=>{ if(counts[t]!=null) counts[t]++; });
+          }
+        }catch{}
+      }
+      const tags=Object.entries(counts).filter(([k,v])=>v>0).map(([k,v])=>`<span class="tag ${CODIGOS[k]?.clase||''}">${k}: ${v}</span>`).join(' ');
+      resumen.innerHTML=`<strong>Acumulado ${y}:</strong> ${tags||'<span class="msg">Sin datos</span>'}`;
+      msg.textContent='';
+    }
+
+    // Actividades (alias + normalización)
+    document.getElementById('link-actividades').addEventListener('click', async (e)=>{
+      e.preventDefault();
+      const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+      const objetivos = [
+        '../../Formacion/index.html',
+        '../../Formacion/sesiones.html',
+        '../../Formacion/protocolos.html',
+        '../../Documentos%20y%20plantillas/index.html'
+      ];
+      const patrones = PRO.alias.map(norm);
+      const halladas=[];
+      for(const u of objetivos){
+        try{
+          const r=await fetch(u,{cache:'no-store'}); if(!r.ok) continue;
+          const t=norm(await r.text());
+          if(patrones.some(p=>t.includes(p))) halladas.push(u);
+        }catch{}
+      }
+      if(!halladas.length){ alert('No se encontraron coincidencias en Formación con este nombre.\n(Añade/ajusta URLs o alias si lo necesitas)'); }
+      else { alert('Coincidencias encontradas:\n\n'+halladas.join('\n')); window.open(halladas[0],'_blank'); }
     });
-    applyBadge('activo',0);
-    onEstadoChange();
   })();
   </script>
-
 </body>
 </html>
