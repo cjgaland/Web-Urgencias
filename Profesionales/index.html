@@ -1,47 +1,212 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Profesionales · Urgencias – AGS Sur de Córdoba</title>
 
   <link rel="icon" href="../favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="../css/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <style>
+    /* Tarjetas */
+    .grid{
+      display:grid;
+      gap:1.2rem;
+      grid-template-columns:repeat(auto-fill,minmax(380px,1fr)); /* más anchas */
+    }
+    .card{
+      background:#fff;border:1px solid #e6eef8;border-radius:14px;
+      box-shadow:0 2px 14px rgba(0,0,0,.06);
+      padding:1rem;display:flex;flex-direction:column;gap:.6rem
+    }
+    .card header{display:flex;gap:.8rem;align-items:center}
+    .card img{width:84px;height:84px;object-fit:cover;border-radius:10px;border:1px solid #e6eef8;background:#fff}
+    .card h3{margin:.1rem 0 .2rem 0;font-size:1.05rem}
+    .muted{color:#5b6b85;font-size:.92rem}
+    .actions{display:flex;gap:.6rem;align-items:center;justify-content:flex-start;margin-top:.4rem}
+    .btn{
+      border:none;border-radius:999px;padding:.5rem .85rem;
+      font-weight:400; /* texto normal */
+      cursor:pointer;display:inline-flex;gap:.45rem;align-items:center;text-decoration:none
+    }
+    .btn-prim{background:#00457c;color:#fff}
+    .btn-sec{background:#eef3f9;color:#0f1a2a}
+    .btn-ghost{background:#fff;border:1px solid #e5ecf5}
+
+    /* Cabecera */
+    .hero{display:flex;gap:.9rem;align-items:center;background:#fff;border:1px solid #e6eef8;border-radius:14px;padding:1rem;margin-bottom:1rem}
+    .hero .icon{font-size:1.6rem;background:#f1f6ff;border-radius:12px;padding:.6rem .7rem}
+    .toolbar{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+    .toolbar select{border:1px solid #dbe5f2;border-radius:8px;padding:.45rem .6rem}
+    .toolbar .link-cuad{display:inline-flex;gap:.45rem;align-items:center;text-decoration:none;border:1px solid #e5ecf5;border-radius:999px;padding:.5rem .85rem;background:#fff}
+    .search{margin:.5rem 0 1rem}
+    .search input{width:100%;max-width:420px;border:1px solid #dbe5f2;border-radius:999px;padding:.55rem .9rem}
+  </style>
 </head>
 <body>
-  <aside class="sidebar">
+
+  <!-- Botón hamburguesa (móviles) -->
+  <button id="menuToggle" class="menu-toggle" aria-controls="sidebar" aria-expanded="false" aria-label="Abrir menú">☰</button>
+  <div id="backdrop" class="backdrop" hidden></div>
+
+  <!-- Menú lateral -->
+  <aside id="sidebar" class="sidebar">
     <div class="sidebar-header">
-      <img src="../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba" />
+      <img src="../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba"/>
     </div>
-    <nav>
+      <nav>
       <ul>
-        <li><a href="../index.html"><i class="fas fa-home"></i> Inicio</a></li>
-        <li><a href="../Profesionales/index.html" class="active"><i class="fas fa-user-md"></i> Profesionales</a></li>
-        <li><a href="../Cuadrantes/index.html"><i class="fas fa-calendar-alt"></i> Cuadrantes</a></li>
+        <li><a href="../index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+        <li><a href="../Algoritmos/index.html"><i class="fas fa-sitemap"></i> <span>Algoritmos diagnósticos</span></a></li>
+        <li><a href="../Calculadoras/index.html" class="active"><i class="fas fa-calculator"></i> <span>Calculadoras médicas</span></a></li>
+        <li><a href="../Formacion/index.html"><i class="fas fa-graduation-cap"></i> <span>Formación</span></a></li>		
+        <li><a href="../Enlaces/index.html"><i class="fas fa-link"></i> <span>Enlaces útiles</span></a></li>
+        <li><a href="../Documentos/index.html"><i class="fas fa-file-lines"></i> <span>Documentos y plantillas</span></a></li>
+        <li><a href="../Calidad/index.html"><i class="fas fa-shield-heart"></i> <span>Calidad y Seguridad del Paciente</span></a></li>
+      </ul>
+      
+            <!-- Bloque adicional: Sala de Críticos -->
+      <ul class="submenu-criticos">
+        <li><a href="#"><i class="fas fa-procedures"></i> <span>Sala de Críticos</span></a></li>
+      </ul>
+
+      <!-- Bloque adicional: Equipo -->
+      <ul class="submenu-equipo">
+        <li><a href="../Profesionales/index.html"><i class="fas fa-user-md"></i> <span>Fichas del personal</span></a></li>
+        <li><a href="../Cuadrantes/index.html"><i class="fas fa-calendar-alt"></i> <span>Cuadrantes de trabajo</span></a></li>
       </ul>
     </nav>
   </aside>
 
+  <!-- Cabeceras -->
   <header class="masthead">
-    <div class="masthead-left"><img src="../images/Logo-Salud2.png" alt="Junta de Andalucía" /></div>
-    <div class="masthead-right"><img src="../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Urgencias Montilla" /></div>
+    <div class="masthead-left"><img src="../images/Logo-Salud2.png" alt="Junta de Andalucía"/></div>
+    <div class="masthead-right"><img src="../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Urgencias Montilla"/></div>
   </header>
 
+  <!-- Contenido -->
   <main class="main-content">
     <section class="hero">
-      <div class="hero-icon"><i class="fas fa-user-md"></i></div>
-      <div class="hero-text">
+      <div class="icon"><i class="fas fa-user-md"></i></div>
+      <div style="flex:1">
         <h1>Profesionales</h1>
-        <p>Accede a la ficha de cada profesional: datos de contacto, estado, actividades y acceso a sus cuadrantes de trabajo.</p>
+        <p class="muted">Directorio de profesionales con acceso a su ficha y a su cuadrante personal del mes actual.</p>
+      </div>
+      <div class="toolbar">
+        <label for="anio">Año</label>
+        <select id="anio"></select>
+        <label for="mes">Mes</label>
+        <select id="mes"></select>
+        <a id="linkCuadranteGeneral" class="link-cuad" href="../Cuadrantes/index.html" title="Abrir cuadrante mensual general">
+          <i class="fas fa-calendar-day"></i> Abrir cuadrante general
+        </a>
       </div>
     </section>
 
-    <nav class="calc-toc">
-      <a href="RafaelRomero/RafaRomero.html">Rafael Romero</a>
-      <a href="CarlosGalan/CarlosGalan.html">Carlos Galán</a>
-    </nav>
+    <div class="search">
+      <input id="buscador" type="search" placeholder="Buscar por nombre… (ej.: Carlos, Romero)"/>
+    </div>
+
+    <section class="grid" id="grid">
+      <!-- Carlos -->
+      <article class="card" data-nombre="carlos j galán doval carlos galán">
+        <header>
+          <img src="./CarlosGalan/Carlos.png" alt="Carlos Galán"/>
+          <div>
+            <h3>Carlos J. Galán Doval</h3>
+            <div class="muted">Facultativo Especialista de Área</div>
+          </div>
+        </header>
+        <div class="actions">
+          <a class="btn btn-ghost" href="./CarlosGalan/CarlosGalan.html"><i class="fas fa-id-badge"></i> Ver ficha</a>
+          <a class="btn btn-prim" id="btn-carlos-cuad" href="./CarlosGalan/CarlosGalan.html?cuadrante=1">
+            <i class="fas fa-calendar-check"></i> Cuadrante personal
+          </a>
+          <a class="btn btn-sec" href="./CarlosGalan/CarlosGalan.html#actividades"><i class="fas fa-list-check"></i> Actividades</a>
+        </div>
+      </article>
+
+      <!-- Rafa -->
+      <article class="card" data-nombre="rafael j romero de castilla gil rafa romero">
+        <header>
+          <img src="./RafaelRomero/RafaRomero.png" alt="Rafa Romero"/>
+          <div>
+            <h3>Rafael J. Romero de Castilla Gil</h3>
+            <div class="muted">Facultativo Especialista de Área</div>
+          </div>
+        </header>
+        <div class="actions">
+          <a class="btn btn-ghost" href="./RafaelRomero/RafaRomero.html"><i class="fas fa-id-badge"></i> Ver ficha</a>
+          <a class="btn btn-prim" id="btn-rafa-cuad" href="./RafaelRomero/RafaRomero.html?cuadrante=1">
+            <i class="fas fa-calendar-check"></i> Cuadrante personal
+          </a>
+          <a class="btn btn-sec" href="./RafaelRomero/RafaRomero.html#actividades"><i class="fas fa-list-check"></i> Actividades</a>
+        </div>
+      </article>
+    </section>
   </main>
+
+  <script>
+  // Menú responsive
+  (function(){
+    const btn=document.getElementById('menuToggle');
+    const sidebar=document.getElementById('sidebar');
+    const backdrop=document.getElementById('backdrop');
+    function abrir(){sidebar.classList.add('abierta');document.body.classList.add('menu-abierto');btn.setAttribute('aria-expanded','true');backdrop.hidden=false;}
+    function cerrar(){sidebar.classList.remove('abierta');document.body.classList.remove('menu-abierto');btn.setAttribute('aria-expanded','false');backdrop.hidden=true;}
+    btn.addEventListener('click',()=>sidebar.classList.contains('abierta')?cerrar():abrir());
+    backdrop.addEventListener('click',cerrar);
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')cerrar();});
+    sidebar.addEventListener('click',e=>{if(e.target.closest('a'))cerrar();});
+  })();
+  </script>
+
+  <script>
+  // Selector de año/mes + enlace rápido al cuadrante general de ese mes
+  (function(){
+    const now = new Date();
+    const selA = document.getElementById('anio');
+    const selM = document.getElementById('mes');
+    const link = document.getElementById('linkCuadranteGeneral');
+    const MESES = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+    const MESES_L = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+
+    const y0 = now.getFullYear()-1, y1 = now.getFullYear()+1;
+    for(let y=y0; y<=y1; y++){ const o=document.createElement('option'); o.value=y; o.textContent=y; selA.appendChild(o); }
+    selA.value = now.getFullYear();
+
+    MESES_L.forEach((m,i)=>{ const o=document.createElement('option'); o.value=i+1; o.textContent=m; selM.appendChild(o); });
+    selM.value = now.getMonth()+1;
+
+    function update(){
+      const y = selA.value;
+      const m = selM.value;
+      link.href = `../Cuadrantes/${y}/${MESES[m-1]}${y}.html`;
+      link.title = `Abrir cuadrante general: ${MESES_L[m-1]} ${y}`;
+    }
+    selA.addEventListener('change', update);
+    selM.addEventListener('change', update);
+    update();
+  })();
+  </script>
+
+  <script>
+  // Buscador por nombre
+  (function(){
+    const input = document.getElementById('buscador');
+    const items = Array.from(document.querySelectorAll('#grid .card'));
+    input.addEventListener('input', ()=>{
+      const q = input.value.trim().toLowerCase();
+      items.forEach(el=>{
+        const hay = !q || el.dataset.nombre.includes(q);
+        el.style.display = hay ? '' : 'none';
+      });
+    });
+  })();
+  </script>
+
 </body>
 </html>
