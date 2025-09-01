@@ -1,187 +1,363 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cuadrantes de trabajo · Urgencias – AGS Sur de Córdoba</title>
-
-  <link rel="icon" href="../favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="../css/style.css?v=20250824" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-  <!-- Estilos muy ligeros para el selector de año y el estado del CSV -->
-  <style>
-    .year-switch { display:flex; align-items:center; gap:.5rem; margin: 0 0 1rem 0; flex-wrap: wrap; }
-    .year-switch button {
-      border: none; border-radius: 999px; padding: .45rem .8rem; background: #fff;
-      box-shadow: 0 2px 12px rgba(0,0,0,.08); cursor: pointer; font-weight: 600;
-    }
-    .year-switch input {
-      width: 6.5rem; border:1px solid #d9e1ec; border-radius: 8px; padding:.45rem .5rem; text-align:center;
-      font-weight:600;
-    }
-    .calc-toc { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: .6rem; }
-    .calc-toc a { display:flex; align-items:center; justify-content:space-between; gap:.5rem; }
-    .badge-estado {
-      font-size:.78rem; line-height:1; padding:.2rem .45rem; border-radius:999px;
-      background:#eef3f9; color:#0f1a2a; white-space:nowrap;
-    }
-    .badge-ok { background:#E6F4EA; }
-    .badge-ko { background:#FFECEC; }
-    .small-note { font-size:.9rem; color:#51607a; margin-top:.6rem; }
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Editor de cuadrantes · Generador de CSV</title>
+<link rel="stylesheet" href="../../css/style.css?v=20250824"/>
+<style>
+  :root{--radius:12px;--shadow:0 4px 16px rgba(0,0,0,.08);--gap:.5rem;}
+  body{background:#f4f7fb;margin:0;padding:1rem;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
+  .wrap{max-width:1200px;margin:0 auto}
+  h1{font-size:1.4rem;margin:.2rem 0 1rem}
+  .panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:1rem;margin-bottom:1rem}
+  /* ✅ Mes/Año alineados arriba */
+  .row{display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-start}
+  label{font-size:.9rem;color:#333;display:block;margin-bottom:.25rem}
+  select,textarea,input[type=text]{border:1px solid #d9e1ec;border-radius:8px;padding:.5rem .6rem;font-size:.95rem;background:#fff}
+  textarea{min-width:280px;min-height:120px}
+  button{border:none;border-radius:999px;background:#00457c;color:#fff;padding:.55rem .9rem;font-weight:600;cursor:pointer}
+  button.secondary{background:#eef3f9;color:#0f1a2a}
+  .grid-wrap{overflow:auto}
+  table{border-collapse:separate;border-spacing:0;width:100%;font-size:.92rem}
+  th,td{border-bottom:1px solid #eef2f7;padding:.4rem .45rem;text-align:center;white-space:nowrap}
+  thead th{position:sticky;top:0;background:#f7fafc;z-index:1}
+  th.sticky,td.sticky{position:sticky;left:0;background:#fff;text-align:left}
+  td[contenteditable="true"]{background:#fff}
+  td:focus{outline:2px solid #99c2ff;outline-offset:-2px}
+  /* Colores turnos */
+  .shift-M{background:#E6F4EA}
+  .shift-T{background:#E6ECFF}
+  .shift-G{background:#EAF7FF}
+  .shift-O{background:#FFF0F5}
+  .shift-F{background:#FFF5E6}
+  .shift-FO{background:#FFECEC}
+  .shift-R{background:#E0F7FA}
+  .shift-V{background:#FDF4FF}
+  .shift-S{background:#F5F7FA;color:#99A3AD}
+  .shift-LD{background:#F0FDF4}
+  .shift-FR{background:#F3E8FF}
+  .shift-OT{background:#F2F2F2}
+  .legend{display:flex;flex-wrap:wrap;gap:.5rem .75rem;margin-top:.5rem}
+  .legend .item{display:flex;gap:.35rem;align-items:center}
+  .legend .sw{width:18px;height:14px;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+  .palette{position:fixed;inset:auto auto 1rem 1rem;background:#fff;border:1px solid #e3e9f3;border-radius:12px;box-shadow:var(--shadow);padding:.6rem .6rem .4rem;display:flex;flex-wrap:wrap;gap:.4rem;z-index:999}
+  .palette button{background:#fff;color:#111;border:1px solid #d9e1ec;border-radius:10px;padding:.3rem .5rem}
+  .palette button:hover{background:#f2f6ff}
+  .hint{font-size:.9rem;color:#51607a}
+  
+  /* === Estilos del bloqueo con contraseña === */
+  #editor-gate {
+    position: fixed; inset: 0; background: #ffffff; z-index: 9999;
+    display: grid; place-items: center; font-family: Roboto, system-ui, Arial, sans-serif;
+  }
+  #editor-gate .box{
+    width: min(92vw, 380px); background: #fff; border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.2); padding: 1.1rem;
+  }
+  #editor-gate h2{ margin:.2rem 0 .6rem; font-size:1.1rem; }
+  #editor-gate p{ color:#475569; margin:.2rem 0 .8rem; }
+  #editor-gate input{
+    width: 100%; border:1px solid #d9e1ec; border-radius: 10px;
+    padding:.55rem .7rem; font-size:1rem;
+  }
+  #editor-gate .actions{ display:flex; gap:.6rem; justify-content:flex-end; margin-top:.8rem; }
+  #editor-gate button{
+    border:none; border-radius: 999px; padding:.5rem .9rem; font-weight:600; cursor:pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+  }
+  #editor-gate .ok{ background:#00457c; color:#fff; }
+  #editor-gate .err{ color:#b91c1c; font-size:.9rem; margin-top:.5rem; display:none; }
+</style>
 </head>
 <body>
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <img src="../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba" />
+
+<!-- === Capa de bloqueo por contraseña === -->
+<div id="editor-gate" role="dialog" aria-modal="true" aria-labelledby="editorGateTitle">
+  <div class="box">
+    <h2 id="editorGateTitle">Acceso al editor</h2>
+    <p>Introduce la contraseña para continuar.</p>
+    <input type="password" id="editor-pass" placeholder="••••••••" autocomplete="current-password" />
+    <div class="actions">
+      <button type="button" id="editor-open" class="ok">Entrar</button>
     </div>
-        <nav>
-      <ul>
-        <li><a href="../index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
-        <li><a href="../Algoritmos/index.html"><i class="fas fa-sitemap"></i> <span>Algoritmos diagnósticos</span></a></li>
-        <li><a href="../Calculadoras/index.html" class="active"><i class="fas fa-calculator"></i> <span>Calculadoras médicas</span></a></li>
-        <li><a href="../Formacion/index.html"><i class="fas fa-graduation-cap"></i> <span>Formación</span></a></li>		
-        <li><a href="../Enlaces/index.html"><i class="fas fa-link"></i> <span>Enlaces útiles</span></a></li>
-        <li><a href="../Documentos/index.html"><i class="fas fa-file-lines"></i> <span>Documentos y plantillas</span></a></li>
-        <li><a href="../Calidad/index.html"><i class="fas fa-shield-heart"></i> <span>Calidad y Seguridad del Paciente</span></a></li>
-      </ul>
-      
-            <!-- Bloque adicional: Sala de Críticos -->
-      <ul class="submenu-criticos">
-        <li><a href="#"><i class="fas fa-procedures"></i> <span>Sala de Críticos</span></a></li>
-      </ul>
+    <div id="editor-err" class="err">Contraseña incorrecta.</div>
+  </div>
+</div>
+  
+  
+<div class="wrap">
+  <h1>Editor de cuadrantes · Generador de CSV</h1>
 
-      <!-- Bloque adicional: Equipo -->
-      <ul class="submenu-equipo">
-        <li><a href="../Profesionales/index.html"><i class="fas fa-user-md"></i> <span>Fichas del personal</span></a></li>
-        <li><a href="../Cuadrantes/index.html"><i class="fas fa-calendar-alt"></i> <span>Cuadrantes de trabajo</span></a></li>
-      </ul>
-
-    </nav>
-  </aside>
-
-  <header class="masthead">
-    <div class="masthead-left"><img src="../images/Logo-Salud2.png" alt="Junta de Andalucía" /></div>
-    <div class="masthead-right"><img src="../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Urgencias Montilla" /></div>
-  </header>
-
-  <main class="main-content">
-    <section class="hero">
-      <div class="hero-icon"><i class="fas fa-calendar-alt"></i></div>
-      <div class="hero-text">
-        <h1 id="titulo">Cuadrantes de trabajo</h1>
-        <p>Consulta los cuadrantes mensuales de turnos de trabajo del Servicio de Urgencias.</p>
+  <div class="panel">
+    <div class="row">
+      <div>
+        <label>Mes</label>
+        <select id="mes"></select>
       </div>
-    </section>
+      <div>
+        <label>Año</label>
+        <!-- 🔁 input → select -->
+        <select id="anno"></select>
+      </div>
 
-    <!-- Selector de año -->
-    <div class="year-switch">
-      <button id="prevYear" title="Año anterior">⟵</button>
-      <label for="yearInput" class="visually-hidden">Año</label>
-      <input id="yearInput" type="number" min="2000" max="2100" step="1" />
-      <button id="nextYear" title="Año siguiente">⟶</button>
+      <div>
+        <label>Profesionales (uno por línea)</label>
+        <textarea id="nombres" placeholder="Apellido, Nombre&#10;..."></textarea>
+      </div>
+      <div style="display:flex;gap:.5rem;align-items:flex-end">
+        <button id="btn-generar">Generar cuadrante</button>
+        <button class="secondary" id="btn-importar">Importar CSV…</button>
+        <input id="file" type="file" accept=".csv" hidden/>
+        <button class="secondary" id="btn-limpiar">Vaciar cuadrante</button>
+      </div>
     </div>
+    <p class="hint">Escribe directamente en las celdas. Usa el <strong>menú flotante</strong> (abajo izquierda) para insertar códigos o combínalos con <code>+</code> (ej.: <code>M+G</code>).</p>
+  </div>
 
-    <!-- Lista de meses (se rellena por JS). Fallback noscript por si acaso -->
-    <nav class="calc-toc" id="monthList"></nav>
+  <div class="panel">
+    <div class="grid-wrap">
+      <table id="tabla">
+        <thead id="thead"></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <div class="legend" id="leyenda"></div>
+    <div style="margin-top:.8rem;display:flex;gap:.5rem;flex-wrap:wrap">
+      <button id="btn-exportar">Exportar CSV</button>
+      <button class="secondary" id="btn-copiar">Copiar CSV al portapapeles</button>
+    </div>
+  </div>
+</div>
 
-    <noscript>
-      <nav class="calc-toc">
-        <a href="cuadrantes/2025/ene2025.html">Enero 2025</a>
-        <a href="2025/feb2025.html">Febrero 2025</a>
-        <a href="2025/mar2025.html">Marzo 2025</a>
-        <a href="2025/abr2025.html">Abril 2025</a>
-        <a href="2025/may2025.html">Mayo 2025</a>
-        <a href="2025/jun2025.html">Junio 2025</a>
-        <a href="2025/jul2025.html">Julio 2025</a>
-        <a href="2025/ago2025.html">Agosto 2025</a>
-        <a href="2025/sep2025.html">Septiembre 2025</a>
-        <a href="2025/oct2025.html">Octubre 2025</a>
-        <a href="2025/nov2025.html">Noviembre 2025</a>
-        <a href="2025/dic2025.html">Diciembre 2025</a>
-      </nav>
-    </noscript>
+<!-- Paleta -->
+<div class="palette" id="palette" aria-hidden="true"></div>
+  
+<script>
+(function(){
+  const PASSWORD = "Cuadrantes/Urgencias#"; // usa la misma que en el índice
 
-    <p class="small-note">
-      Nota: cada mes se enlaza a <code>Cuadrantes/&lt;año&gt;/&lt;mes&gt;&lt;año&gt;.html</code> y verifica si existe el CSV
-      <code>Cuadrantes/data/cuadrantes/AAAA-MM.csv</code> (&ldquo;✔ CSV&rdquo; cuando está disponible).
-    </p>
-  </main>
+  // Si venimos del índice y ya se validó, quitamos la capa
+  if (sessionStorage.getItem('editor_ok') === '1') {
+    document.getElementById('editor-gate').remove();
+    return;
+  }
 
-  <script>
-    // Config
-    const MESES = [
-      { nom: 'Enero',      pref: 'ene' },
-      { nom: 'Febrero',    pref: 'feb' },
-      { nom: 'Marzo',      pref: 'mar' },
-      { nom: 'Abril',      pref: 'abr' },
-      { nom: 'Mayo',       pref: 'may' },
-      { nom: 'Junio',      pref: 'jun' },
-      { nom: 'Julio',      pref: 'jul' },
-      { nom: 'Agosto',     pref: 'ago' },
-      { nom: 'Septiembre', pref: 'sep' },
-      { nom: 'Octubre',    pref: 'oct' },
-      { nom: 'Noviembre',  pref: 'nov' },
-      { nom: 'Diciembre',  pref: 'dic' }
-    ];
+  const gate   = document.getElementById('editor-gate');
+  const input  = document.getElementById('editor-pass');
+  const btn    = document.getElementById('editor-open');
+  const errBox = document.getElementById('editor-err');
 
-    const titulo = document.getElementById('titulo');
-    const monthList = document.getElementById('monthList');
-    const yearInput = document.getElementById('yearInput');
-    const prevBtn = document.getElementById('prevYear');
-    const nextBtn = document.getElementById('nextYear');
+  function unlock(){
+    sessionStorage.setItem('editor_ok','1'); // guarda sesión también aquí
+    gate.remove();
+  }
 
-    // Año inicial = año actual del navegador
-    const hoy = new Date();
-    let currentYear = hoy.getFullYear();
-
-    function two(n){ return String(n).padStart(2,'0'); }
-
-    function buildYear(y){
-      yearInput.value = y;
-      titulo.textContent = `Cuadrantes de trabajo · ${y}`;
-      monthList.innerHTML = '';
-
-      MESES.forEach((m, i) => {
-        const mm = two(i+1);
-        const href = `${y}/${m.pref}${y}.html`;
-        const a = document.createElement('a');
-        a.href = href;
-        a.innerHTML = `<span>${m.nom} ${y}</span><span class="badge-estado">Comprobando…</span>`;
-        monthList.appendChild(a);
-
-        // Comprobar si existe el CSV para ese mes y año
-        const csvUrl = `data/cuadrantes/${y}-${mm}.csv?v=${Date.now()}`;
-        fetch(csvUrl, { cache: 'no-store' })
-          .then(r => {
-            const badge = a.querySelector('.badge-estado');
-            if (r.ok) {
-              badge.textContent = '✔ CSV';
-              badge.classList.add('badge-ok');
-            } else {
-              badge.textContent = 'Pendiente';
-              badge.classList.add('badge-ko');
-            }
-          })
-          .catch(() => {
-            const badge = a.querySelector('.badge-estado');
-            badge.textContent = 'Pendiente';
-            badge.classList.add('badge-ko');
-          });
-      });
+  btn.addEventListener('click', () => {
+    const intento = input.value || "";
+    if (intento === PASSWORD) {
+      errBox.style.display = 'none';
+      unlock();
+    } else {
+      errBox.style.display = 'block';
+      input.select();
     }
+  });
 
-    prevBtn.addEventListener('click', () => { currentYear--; buildYear(currentYear); });
-    nextBtn.addEventListener('click', () => { currentYear++; buildYear(currentYear); });
-    yearInput.addEventListener('change', () => {
-      const v = parseInt(yearInput.value, 10);
-      if (!isNaN(v)) { currentYear = v; buildYear(currentYear); }
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') btn.click(); });
+  setTimeout(()=>input.focus(), 50);
+})();
+</script>
+
+<script>
+  const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  const DOW = ['D','L','M','X','J','V','S']; // 0=Dom
+  const CODIGOS = {
+    M:{nombre:'Mañana 08–15', clase:'shift-M'},
+    T:{nombre:'Tarde 15–22', clase:'shift-T'},
+    G:{nombre:'Guardia laborable 15–08', clase:'shift-G'},
+    O:{nombre:'Guardia Observación 08–15 (día sig.)', clase:'shift-O'},
+    F:{nombre:'Guardia Festivo 09–09', clase:'shift-F'},
+    FO:{nombre:'Obs. Festivo 10–10', clase:'shift-FO'},
+    R:{nombre:'Refuerzo 10–22 (sólo findes/festivos)', clase:'shift-R'},
+    V:{nombre:'Vacaciones', clase:'shift-V'},
+    S:{nombre:'Saliente', clase:'shift-S'},
+    LD:{nombre:'Libre disposición', clase:'shift-LD'},
+    FR:{nombre:'Formación', clase:'shift-FR'},
+    OT:{nombre:'Otros', clase:'shift-OT'}
+  };
+
+  // Meses en selector
+  const selMes = document.getElementById('mes');
+  MESES.forEach((m,i)=>{ const o=document.createElement('option'); o.value=i+1; o.textContent=m[0].toUpperCase()+m.slice(1); selMes.appendChild(o); });
+  selMes.value = new Date().getMonth()+1;
+
+  // ✅ Años 2024–2030 en selector
+  const selAnno = document.getElementById('anno');
+  (function fillYears(){
+    const actual = new Date().getFullYear();
+    for(let y=2024; y<=2030; y++){
+      const opt = document.createElement('option');
+      opt.value = y; opt.textContent = y;
+      if (y === actual) opt.selected = true;
+      selAnno.appendChild(opt);
+    }
+  })();
+
+  const thead = document.getElementById('thead');
+  const tbody = document.getElementById('tbody');
+  const leyenda = document.getElementById('leyenda');
+
+  function daysInMonth(y,m){ return new Date(y,m,0).getDate(); }
+  function labelDia(y,m,d){ const dow=new Date(y,m-1,d).getDay(); return `${DOW[dow]} ${d}`; }
+
+  function buildLegend(){
+    leyenda.innerHTML='';
+    for (const [k,v] of Object.entries(CODIGOS)){
+      const d=document.createElement('div'); d.className='item';
+      const sw=document.createElement('span'); sw.className='sw '+v.clase; d.appendChild(sw);
+      const tx=document.createElement('span'); tx.textContent=`${k} = ${v.nombre}`; d.appendChild(tx);
+      leyenda.appendChild(d);
+    }
+  }
+
+  function generar(){
+    const y = parseInt(document.getElementById('anno').value.trim())||new Date().getFullYear();
+    const m = parseInt(selMes.value);
+    const dmax = daysInMonth(y,m);
+    const nombres = document.getElementById('nombres').value.split(/\n+/).map(s=>s.trim()).filter(Boolean);
+
+    // header
+    thead.innerHTML='';
+    const tr=document.createElement('tr');
+    const th0=document.createElement('th'); th0.textContent='Profesional'; th0.className='sticky'; tr.appendChild(th0);
+    for(let d=1; d<=dmax; d++){ const th=document.createElement('th'); th.textContent=labelDia(y,m,d); tr.appendChild(th); }
+    const thObs=document.createElement('th'); thObs.textContent='Obs.'; tr.appendChild(thObs);
+    thead.appendChild(tr);
+
+    // body
+    tbody.innerHTML='';
+    nombres.forEach(n=>{
+      const tr=document.createElement('tr');
+      const tdN=document.createElement('td'); tdN.textContent=n; tdN.className='sticky'; tr.appendChild(tdN);
+      for(let d=1; d<=dmax; d++){
+        const td=document.createElement('td'); td.contentEditable='true'; td.dataset.day=d; td.addEventListener('input',()=>tint(td)); tr.appendChild(td);
+      }
+      const tdObs=document.createElement('td'); tdObs.contentEditable='true'; tr.appendChild(tdObs);
+      tbody.appendChild(tr);
     });
 
-    // Inicializar
-    buildYear(currentYear);
-  </script>
+    buildLegend();
+  }
+
+  function tokenize(v){ return v.toUpperCase().trim().split(/[ \\/+\-]+/).filter(Boolean); }
+  function tint(td){
+    td.className='';
+    const tokens = tokenize(td.textContent);
+    const first = tokens.find(t=>CODIGOS[t]);
+    if(first) td.classList.add(CODIGOS[first].clase);
+  }
+
+  // Exportar CSV
+  function exportCSV(){
+    const rows = [];
+    const head = Array.from(thead.querySelectorAll('th')).map(th=>th.textContent.replace(/^([DLXJVS])\s+/,'').replace('Profesional','Nombre'));
+    rows.push(head);
+    tbody.querySelectorAll('tr').forEach(tr=>{
+      const cols = Array.from(tr.children).map(td=>td.textContent.replaceAll('"','""'));
+      rows.push(cols);
+    });
+    const csv = rows.map(r=>r.map(c=>(/[",\n]/.test(c)?`"${c}"`:c)).join(',')).join('\n');
+    const y = document.getElementById('anno').value; const m = String(selMes.value).padStart(2,'0');
+    const blob = new Blob([csv],{type:'text/csv;charset=utf-8;'});
+    const link=document.createElement('a'); link.href=URL.createObjectURL(blob); link.download=`${y}-${m}.csv`; link.click(); URL.revokeObjectURL(link.href);
+  }
+
+  async function copyCSV(){
+    const head = Array.from(thead.querySelectorAll('th')).map(th=>th.textContent.replace(/^([DLXJVS])\s+/,'').replace('Profesional','Nombre'));
+    const rows = [head];
+    tbody.querySelectorAll('tr').forEach(tr=>{ rows.push(Array.from(tr.children).map(td=>td.textContent)); });
+    const csv = rows.map(r=>r.join(',')).join('\n');
+    await navigator.clipboard.writeText(csv);
+    alert('CSV copiado al portapapeles');
+  }
+
+  function importarCSV(text){
+    const lines = text.replace(/\r/g,'').split('\n').filter(l=>l.trim().length);
+    if(!lines.length) return;
+    const header = lines[0].split(',');
+    const dmax = header.length-2;
+    const nombres = [];
+    for(let i=1;i<lines.length;i++){ const cols = lines[i].split(','); nombres.push((cols[0]||'').trim()); }
+    document.getElementById('nombres').value = nombres.join('\n');
+    generar();
+    let r=1;
+    tbody.querySelectorAll('tr').forEach(tr=>{
+      const cols = (lines[r++]||'').split(',');
+      for(let c=1;c<=dmax;c++){ const td = tr.children[c]; td.textContent = (cols[c]||'').trim(); tint(td); }
+      tr.lastElementChild.textContent = cols[dmax+1]||'';
+    });
+  }
+
+  const palette = document.getElementById('palette'); let currentCell=null;
+  function buildPalette(){
+    palette.innerHTML='';
+    for (const k of Object.keys(CODIGOS)){
+      const b=document.createElement('button'); b.textContent=k; b.title=CODIGOS[k].nombre; b.addEventListener('click',()=>insertCode(k)); palette.appendChild(b);
+    }
+    const plus=document.createElement('button'); plus.textContent='+'; plus.title='Añadir + para combinaciones'; plus.addEventListener('click',()=>insertText('+')); palette.appendChild(plus);
+    const clear=document.createElement('button'); clear.textContent='Borrar'; clear.addEventListener('click',()=>insertText('')); palette.appendChild(clear);
+  }
+  document.addEventListener('focusin',e=>{ if(e.target.tagName==='TD' && e.target.isContentEditable){ currentCell=e.target; }});
+  function insertCode(k){ if(!currentCell) return; const t=currentCell.textContent.trim(); currentCell.textContent = t? (t.endsWith('+')? t+k : t+'+'+k) : k; tint(currentCell); }
+  function insertText(t){ if(!currentCell) return; if(t===''){ currentCell.textContent=''; tint(currentCell);} else { currentCell.textContent=(currentCell.textContent||'')+t; currentCell.focus(); } }
+
+  document.getElementById('btn-generar').addEventListener('click',generar);
+  document.getElementById('btn-exportar').addEventListener('click',exportCSV);
+  document.getElementById('btn-copiar').addEventListener('click',copyCSV);
+  document.getElementById('btn-limpiar').addEventListener('click',()=>{ tbody.querySelectorAll('td[contenteditable]').forEach(td=>{td.textContent=''; tint(td);}); });
+  document.getElementById('btn-importar').addEventListener('click',()=>document.getElementById('file').click());
+  document.getElementById('file').addEventListener('change',ev=>{
+    const f=ev.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>importarCSV(r.result); r.readAsText(f);
+  });
+
+// === Carga robusta de profesionales (anti-caché + varias rutas) ===
+(async function loadProfesionalesYArrancar(){
+  const destinos = [
+    '../data/profesionales.txt',                // relativo desde /Cuadrantes/Editor/
+    '/Cuadrantes/data/profesionales.txt',       // absoluto (por si el index se sirve con mayúscula)
+    '/cuadrantes/data/profesionales.txt'        // absoluto en minúsculas (por si hubo cambio de carpeta)
+  ];
+
+  let cargado = false, contenido = '';
+
+  for (const base of destinos){
+    const url = `${base}?v=${Date.now()}`;
+    try{
+      const res = await fetch(url, { cache: 'no-store' });
+      if (res.ok){
+        contenido = (await res.text()).replace(/\r/g,'').trim();
+        if (contenido){
+          cargado = true;
+          break;
+        }
+      }
+    }catch(_){ /* probar siguiente */ }
+  }
+
+  if (cargado){
+    document.getElementById('nombres').value = contenido;
+  } else {
+    // Si no carga, deja el textarea vacío y avisa en consola para ver el motivo (404/403/etc.)
+    console.warn('No se pudo cargar profesionales.txt desde ninguna ruta probada.');
+  }
+
+  // Continúa la inicialización del editor
+  buildPalette(); 
+  buildLegend(); 
+  generar();
+})();
+
+</script>
 </body>
 </html>

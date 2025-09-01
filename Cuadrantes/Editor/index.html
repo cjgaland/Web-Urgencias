@@ -11,7 +11,8 @@
   .wrap{max-width:1200px;margin:0 auto}
   h1{font-size:1.4rem;margin:.2rem 0 1rem}
   .panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:1rem;margin-bottom:1rem}
-  .row{display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end}
+  /* ✅ Mes/Año alineados arriba */
+  .row{display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-start}
   label{font-size:.9rem;color:#333;display:block;margin-bottom:.25rem}
   select,textarea,input[type=text]{border:1px solid #d9e1ec;border-radius:8px;padding:.5rem .6rem;font-size:.95rem;background:#fff}
   textarea{min-width:280px;min-height:120px}
@@ -44,9 +45,47 @@
   .palette button{background:#fff;color:#111;border:1px solid #d9e1ec;border-radius:10px;padding:.3rem .5rem}
   .palette button:hover{background:#f2f6ff}
   .hint{font-size:.9rem;color:#51607a}
+  
+  /* === Estilos del bloqueo con contraseña === */
+  #editor-gate {
+    position: fixed; inset: 0; background: #ffffff; z-index: 9999;
+    display: grid; place-items: center; font-family: Roboto, system-ui, Arial, sans-serif;
+  }
+  #editor-gate .box{
+    width: min(92vw, 380px); background: #fff; border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.2); padding: 1.1rem;
+  }
+  #editor-gate h2{ margin:.2rem 0 .6rem; font-size:1.1rem; }
+  #editor-gate p{ color:#475569; margin:.2rem 0 .8rem; }
+  #editor-gate input{
+    width: 100%; border:1px solid #d9e1ec; border-radius: 10px;
+    padding:.55rem .7rem; font-size:1rem;
+  }
+  #editor-gate .actions{ display:flex; gap:.6rem; justify-content:flex-end; margin-top:.8rem; }
+  #editor-gate button{
+    border:none; border-radius: 999px; padding:.5rem .9rem; font-weight:600; cursor:pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+  }
+  #editor-gate .ok{ background:#00457c; color:#fff; }
+  #editor-gate .err{ color:#b91c1c; font-size:.9rem; margin-top:.5rem; display:none; }
 </style>
 </head>
 <body>
+
+<!-- === Capa de bloqueo por contraseña === -->
+<div id="editor-gate" role="dialog" aria-modal="true" aria-labelledby="editorGateTitle">
+  <div class="box">
+    <h2 id="editorGateTitle">Acceso al editor</h2>
+    <p>Introduce la contraseña para continuar.</p>
+    <input type="password" id="editor-pass" placeholder="••••••••" autocomplete="current-password" />
+    <div class="actions">
+      <button type="button" id="editor-open" class="ok">Entrar</button>
+    </div>
+    <div id="editor-err" class="err">Contraseña incorrecta.</div>
+  </div>
+</div>
+  
+  
 <div class="wrap">
   <h1>Editor de cuadrantes · Generador de CSV</h1>
 
@@ -58,8 +97,10 @@
       </div>
       <div>
         <label>Año</label>
-        <input id="anno" type="text" value="2025" size="6"/>
+        <!-- 🔁 input → select -->
+        <select id="anno"></select>
       </div>
+
       <div>
         <label>Profesionales (uno por línea)</label>
         <textarea id="nombres" placeholder="Apellido, Nombre&#10;..."></textarea>
@@ -91,6 +132,42 @@
 
 <!-- Paleta -->
 <div class="palette" id="palette" aria-hidden="true"></div>
+  
+<script>
+(function(){
+  const PASSWORD = "Cuadrantes/Urgencias#"; // usa la misma que en el índice
+
+  // Si venimos del índice y ya se validó, quitamos la capa
+  if (sessionStorage.getItem('editor_ok') === '1') {
+    document.getElementById('editor-gate').remove();
+    return;
+  }
+
+  const gate   = document.getElementById('editor-gate');
+  const input  = document.getElementById('editor-pass');
+  const btn    = document.getElementById('editor-open');
+  const errBox = document.getElementById('editor-err');
+
+  function unlock(){
+    sessionStorage.setItem('editor_ok','1'); // guarda sesión también aquí
+    gate.remove();
+  }
+
+  btn.addEventListener('click', () => {
+    const intento = input.value || "";
+    if (intento === PASSWORD) {
+      errBox.style.display = 'none';
+      unlock();
+    } else {
+      errBox.style.display = 'block';
+      input.select();
+    }
+  });
+
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') btn.click(); });
+  setTimeout(()=>input.focus(), 50);
+})();
+</script>
 
 <script>
   const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
@@ -114,6 +191,18 @@
   const selMes = document.getElementById('mes');
   MESES.forEach((m,i)=>{ const o=document.createElement('option'); o.value=i+1; o.textContent=m[0].toUpperCase()+m.slice(1); selMes.appendChild(o); });
   selMes.value = new Date().getMonth()+1;
+
+  // ✅ Años 2024–2030 en selector
+  const selAnno = document.getElementById('anno');
+  (function fillYears(){
+    const actual = new Date().getFullYear();
+    for(let y=2024; y<=2030; y++){
+      const opt = document.createElement('option');
+      opt.value = y; opt.textContent = y;
+      if (y === actual) opt.selected = true;
+      selAnno.appendChild(opt);
+    }
+  })();
 
   const thead = document.getElementById('thead');
   const tbody = document.getElementById('tbody');
@@ -161,7 +250,7 @@
     buildLegend();
   }
 
-  function tokenize(v){ return v.toUpperCase().trim().split(/[ \\/+\\-]+/).filter(Boolean); }
+  function tokenize(v){ return v.toUpperCase().trim().split(/[ \\/+\-]+/).filter(Boolean); }
   function tint(td){
     td.className='';
     const tokens = tokenize(td.textContent);
@@ -172,7 +261,7 @@
   // Exportar CSV
   function exportCSV(){
     const rows = [];
-    const head = Array.from(thead.querySelectorAll('th')).map(th=>th.textContent.replace(/^([DLXJVS])\\s+/,'').replace('Profesional','Nombre'));
+    const head = Array.from(thead.querySelectorAll('th')).map(th=>th.textContent.replace(/^([DLXJVS])\s+/,'').replace('Profesional','Nombre'));
     rows.push(head);
     tbody.querySelectorAll('tr').forEach(tr=>{
       const cols = Array.from(tr.children).map(td=>td.textContent.replaceAll('"','""'));
@@ -185,7 +274,7 @@
   }
 
   async function copyCSV(){
-    const head = Array.from(thead.querySelectorAll('th')).map(th=>th.textContent.replace(/^([DLXJVS])\\s+/,'').replace('Profesional','Nombre'));
+    const head = Array.from(thead.querySelectorAll('th')).map(th=>th.textContent.replace(/^([DLXJVS])\s+/,'').replace('Profesional','Nombre'));
     const rows = [head];
     tbody.querySelectorAll('tr').forEach(tr=>{ rows.push(Array.from(tr.children).map(td=>td.textContent)); });
     const csv = rows.map(r=>r.join(',')).join('\n');
@@ -232,11 +321,43 @@
     const f=ev.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>importarCSV(r.result); r.readAsText(f);
   });
 
-  // Carga del listado de profesionales (data cuelga de Cuadrantes/)
-  fetch('../data/profesionales.txt').then(r=>r.ok?r.text():'').then(t=>{
-    if(t){ document.getElementById('nombres').value = t.trim(); }
-    buildPalette(); buildLegend(); generar();
-  }).catch(()=>{ buildPalette(); buildLegend(); generar(); });
+// === Carga robusta de profesionales (anti-caché + varias rutas) ===
+(async function loadProfesionalesYArrancar(){
+  const destinos = [
+    '../data/profesionales.txt',                // relativo desde /Cuadrantes/Editor/
+    '/Cuadrantes/data/profesionales.txt',       // absoluto (por si el index se sirve con mayúscula)
+    '/cuadrantes/data/profesionales.txt'        // absoluto en minúsculas (por si hubo cambio de carpeta)
+  ];
+
+  let cargado = false, contenido = '';
+
+  for (const base of destinos){
+    const url = `${base}?v=${Date.now()}`;
+    try{
+      const res = await fetch(url, { cache: 'no-store' });
+      if (res.ok){
+        contenido = (await res.text()).replace(/\r/g,'').trim();
+        if (contenido){
+          cargado = true;
+          break;
+        }
+      }
+    }catch(_){ /* probar siguiente */ }
+  }
+
+  if (cargado){
+    document.getElementById('nombres').value = contenido;
+  } else {
+    // Si no carga, deja el textarea vacío y avisa en consola para ver el motivo (404/403/etc.)
+    console.warn('No se pudo cargar profesionales.txt desde ninguna ruta probada.');
+  }
+
+  // Continúa la inicialización del editor
+  buildPalette(); 
+  buildLegend(); 
+  generar();
+})();
+
 </script>
 </body>
 </html>
