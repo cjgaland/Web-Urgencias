@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Diagnóstico cuadrante personal</title>
+<style>
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif;padding:16px;background:#f6f8fb;color:#112}
+  .panel{background:#fff;border:1px solid #e6eef8;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.06);padding:16px;margin-bottom:16px}
+  code{background:#f0f4fa;padding:2px 6px;border-radius:6px}
+  ul{columns:2;margin:0;padding-left:18px}
+  li{margin:2px 0}
+  .err{color:#b00}
+</style>
+</head>
+<body>
+<h1>Diagnóstico de rutas · Cuadrante personal</h1>
+<div class="panel">
+  <p>Este comprobador intenta cargar el CSV de ejemplo y listar la primera columna (<em>Nombre</em>). Si lo consigue, podrás abrir cada profesional en <code>cuadrante-personal.html</code> con un clic.</p>
+</div>
+
+<div class="panel">
+  <div><strong>Año/Mes:</strong>
+    <select id="anio"></select>
+    <select id="mes"></select>
+    <button id="btn">Cargar CSV</button>
+  </div>
+  <p>Probando ruta: <code id="ruta"></code></p>
+  <p id="status">Estado: —</p>
+</div>
+
+<div class="panel" id="lista" style="display:none;">
+  <h3>Profesionales encontrados</h3>
+  <ul id="ul"></ul>
+</div>
+
+<script>
+(function(){
+  const selA = document.getElementById('anio');
+  const selM = document.getElementById('mes');
+  const ruta = document.getElementById('ruta');
+  const status = document.getElementById('status');
+  const ul = document.getElementById('ul');
+  const panelLista = document.getElementById('lista');
+
+  const now = new Date();
+  for(let y=now.getFullYear()-1; y<=now.getFullYear()+1; y++){
+    const o = document.createElement('option'); o.value=y; o.textContent=y; selA.appendChild(o);
+  }
+  selA.value = 2025;
+
+  const meses = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+  meses.forEach((m,i)=>{ const o=document.createElement('option'); o.value=m; o.textContent=(i+1)+' ('+m+')'; selM.appendChild(o); });
+  selM.value = '09';
+
+  function csvPath(){
+    const y = selA.value, m = selM.value;
+    return `../Cuadrantes/data/cuadrantes/${y}-${m}.csv`;
+  }
+
+  function parseCSV(input){
+    const lines = input.replace(/\r/g,'').split('\n').filter(l=>l.trim().length);
+    return lines.map(line=>{
+      const row=[]; let cur=''; let inQ=false;
+      for (let i=0;i<line.length;i++){
+        const ch=line[i], next=line[i+1];
+        if (ch=='"'){ if(inQ && next=='"'){ cur+='"'; i++; } else { inQ=!inQ; } }
+        else if (ch==',' && !inQ){ row.push(cur); cur=''; }
+        else { cur+=ch; }
+      } row.push(cur); return row;
+    });
+  }
+
+  function deriveCsvname(fullName){
+    const clean = (fullName||'').trim().replace(/\s+/g,' ');
+    if (!clean) return '';
+    const parts = clean.split(' ');
+    if (parts.length === 1) return parts[0];
+    if (parts.length === 2){ const [nombre,a1]=parts; return `${a1}, ${nombre}`; }
+    const a1 = parts[parts.length-2], a2 = parts[parts.length-1];
+    const nombres = parts.slice(0, parts.length-2).join(' ');
+    return `${a1}, ${nombres}`;
+  }
+
+  function buildLink(nombreUI, csvname, y, m){
+    return `cuadrante-personal.html?nombre=${encodeURIComponent(nombreUI)}&csvname=${encodeURIComponent(csvname)}&anio=${y}&mes=${m}`;
+  }
+
+  function load(){
+    const y = selA.value, m = selM.value;
+    const path = csvPath();
+    ruta.textContent = path;
+    status.textContent = 'Estado: cargando…';
+    fetch(path+'?v='+Date.now())
+      .then(r=>{ if(!r.ok) throw new Error('No se pudo cargar el CSV'); return r.text(); })
+      .then(txt=>{
+        const rows = parseCSV(txt);
+        if (!rows.length){ throw new Error('CSV vacío'); }
+        const header = rows[0];
+        const col0 = header[0] || 'Nombre';
+        status.textContent = `Estado: OK · Cabecera[0] = ${col0} · Filas = ${rows.length-1}`;
+        ul.innerHTML = '';
+        const frag = document.createDocumentFragment();
+        for (let i=1;i<rows.length;i++){
+          const n = (rows[i][0]||'').trim();
+          if (!n) continue;
+          const li = document.createElement('li');
+          const nombreUI = n.replace(/^([^,]+),\s*(.+)$/,'$2 $1'); // "Apellido, Nombre" -> "Nombre Apellido"
+          const link = buildLink(nombreUI, n, y, m);
+          li.innerHTML = `<a href="${link}">${nombreUI}</a> <small style="opacity:.6">(${n})</small>`;
+          frag.appendChild(li);
+        }
+        ul.appendChild(frag);
+        panelLista.style.display = '';
+      })
+      .catch(err=>{
+        status.innerHTML = 'Estado: <span class="err">'+err.message+'</span>';
+        panelLista.style.display = 'none';
+      });
+  }
+
+  document.getElementById('btn').addEventListener('click', load);
+  load();
+})();
+</script>
+</body>
+</html>

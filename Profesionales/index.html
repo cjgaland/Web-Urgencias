@@ -44,6 +44,8 @@
     .toolbar .link-cuad{display:inline-flex;gap:.45rem;align-items:center;text-decoration:none;border:1px solid #e5ecf5;border-radius:999px;padding:.5rem .85rem;background:#fff}
     .search{margin:.5rem 0 1rem}
     .search input{width:100%;max-width:420px;border:1px solid #dbe5f2;border-radius:999px;padding:.55rem .9rem}
+    
+    
   </style>
 </head>
 <body>
@@ -578,6 +580,69 @@
     });
   })();
   </script>
+  
+<script>
+(function(){
+  // refs a los selects de la cabecera
+  var selA = document.getElementById('anio');
+  var selM = document.getElementById('mes');
+
+  // Devuelve "Apellido1 Apellido2, Nombre(s)"
+  // Ej: "Manuel Aguilera Peña" -> "Aguilera Peña, Manuel"
+  function deriveCsvname(fullName){
+    var clean = (fullName||'').trim().replace(/\s+/g,' ');
+    if (!clean) return '';
+
+    var parts = clean.split(' ');
+    if (parts.length === 1) return parts[0]; // p.ej. "Silvia"
+
+    if (parts.length === 2){
+      // "Nombre Apellido1" -> "Apellido1, Nombre"
+      var nombre = parts[0], a1 = parts[1];
+      return a1 + ', ' + nombre;
+    }
+
+    // "Nombre(s) Apellido1 Apellido2"
+    var a1 = parts[parts.length - 2];       // penúltimo = Apellido1
+    var a2 = parts[parts.length - 1];       // último   = Apellido2
+    var nombres = parts.slice(0, parts.length - 2).join(' ');
+
+    return a1 + (a2 ? (' ' + a2) : '') + ', ' + nombres;  // clave que usa tu CSV
+  }
+
+  function pad2(n){ return String(n).padStart(2,'0'); }
+
+  function actualizarLinks(){
+    var anio = (selA && selA.value) ? selA.value : (new Date().getFullYear());
+    var mes  = (selM && selM.value) ? pad2(selM.value) : pad2(new Date().getMonth()+1);
+
+    document.querySelectorAll('#grid .card').forEach(function(card){
+      var h3  = card.querySelector('h3');
+      var btn = card.querySelector('.btn.btn-prim'); // "Cuadrante personal"
+      if (!h3 || !btn) return;
+
+      var nombreUI = h3.textContent.trim();      // para mostrar en el badge
+      var csvname  = deriveCsvname(nombreUI);    // para buscar en el CSV
+
+      var url = 'cuadrante-personal.html?nombre=' +
+                encodeURIComponent(nombreUI) +
+                '&csvname=' + encodeURIComponent(csvname) +
+                '&anio=' + anio +
+                '&mes=' + mes;
+
+      btn.setAttribute('href', url);
+    });
+  }
+
+  // Ejecuta al cargar y cuando cambian año/mes
+  actualizarLinks();
+  if (selA) selA.addEventListener('change', actualizarLinks);
+  if (selM) selM.addEventListener('change', actualizarLinks);
+})();
+</script>
+
+
+
 
 </body>
 </html>

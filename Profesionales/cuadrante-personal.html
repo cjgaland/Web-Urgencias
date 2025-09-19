@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Cuadrante personal</title>
+<style>
+  :root{
+    --bg:#f6f8fb;--card:#fff;--muted:#64748b;--border:#e6eef8;--ink:#0f172a;
+    --pill-bg:#e9f2ff;--pill-ink:#003a70;
+    --wknd:#fff6f6;
+  }
+  *{box-sizing:border-box}
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif;background:var(--bg);margin:0;padding:1rem;color:var(--ink)}
+  h1{margin:0 0 .25rem 0;font-size:1.5rem;text-align:center}
+  .pill{display:inline-block;border-radius:999px;background:var(--pill-bg);color:var(--pill-ink);padding:.25rem .6rem;font-weight:600;margin-left:.5rem}
+  .month-nav{
+    display:flex;align-items:center;justify-content:center;
+    gap:.75rem;margin:.4rem 0 1rem 0;
+  }
+  .month-nav button{
+    border:1px solid var(--border);background:#fff;border-radius:999px;
+    padding:.4rem .6rem;cursor:pointer;font-size:1.2rem
+  }
+  .month-nav button:hover{box-shadow:0 1px 4px rgba(0,0,0,.06)}
+  .panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1rem;margin-top:.75rem}
+  .legend{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.2rem;font-size:.85rem}
+  .legend .item{display:flex;align-items:center;gap:.35rem;border:1px solid var(--border);border-radius:999px;padding:.25rem .5rem}
+  .badge{width:14px;height:14px;border-radius:4px;border:1px solid rgba(0,0,0,.06)}
+  table{border-collapse:collapse;width:100%;margin-top:.5rem}
+  th,td{border:1px solid #dde5f0;padding:.4rem .35rem;text-align:center;font-size:.95rem}
+  thead th{background:#f0f4f9;font-weight:600}
+  thead .mes-head{min-width:110px}
+  .muted{color:var(--muted)}
+  .section-title{font-weight:600;margin-top:1.5rem;margin-bottom:.4rem;text-align:left}
+  .totales{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.5rem;margin-top:.4rem}
+  .chip{display:flex;align-items:center;gap:.4rem;border:1px solid var(--border);border-radius:12px;padding:.35rem .6rem}
+  .wknd{background:var(--wknd)}
+  .print-toolbar{display:flex;gap:.6rem;margin-top:1.2rem;flex-wrap:wrap}
+  .print-toolbar .btn{
+    border:1px solid var(--border);background:#fff;border-radius:999px;
+    padding:.45rem .85rem;cursor:pointer
+  }
+  .print-toolbar .btn:hover{box-shadow:0 1px 4px rgba(0,0,0,.06)}
+  /* Colores turnos */
+  .shift-M{background:#E6F4EA}
+  .shift-T{background:#E6ECFF}
+  .shift-G{background:#EAF7FF}
+  .shift-O{background:#FFF0F5}
+  .shift-F{background:#FFF5E6}
+  .shift-FO{background:#FFECEC}
+  .shift-R{background:#E0F7FA}
+  .shift-V{background:#FDF4FF}
+  .shift-S{background:#F5F7FA;color:#99A3AD}
+  .shift-LD{background:#F0FDF4}
+  .shift-FR{background:#F3E8FF}
+  .shift-OT{background:#F2F2F2}
+  .shift-SD{background:#F5F7FA;color:#6b7280}
+  .shift-LS{background:#E8F0FE}
+  .shift-BL{background:#FFE4E6}
+  .shift-BM{background:#FFE4F1}
+  /* Imprimir en A4 apaisado */
+  @media print{
+    body{background:#fff}
+    .month-nav button, .print-toolbar{display:none!important}
+    .panel{border:none;box-shadow:none}
+  }
+  @page{ size:A4 landscape; margin:12mm; }
+</style>
+</head>
+<body>
+
+  <h1>Cuadrante personal <span id="pill-nombre" class="pill"></span></h1>
+  <div class="month-nav">
+    <button id="prevMonth" aria-label="Mes anterior" title="Mes anterior">◀</button>
+    <div id="sub-fecha" class="sub"></div>
+    <button id="nextMonth" aria-label="Mes siguiente" title="Mes siguiente">▶</button>
+  </div>
+
+  <div class="panel">
+    <div id="tabla"></div>
+
+    <div id="leyenda" class="legend"></div>
+
+    <div class="section-title">Resumen mensual</div>
+    <div id="totales" class="totales"></div>
+
+    <div class="print-toolbar">
+      <button class="btn" onclick="imprimir()">🖨️ Imprimir</button>
+      <button class="btn" onclick="descargarPDF()">⬇️ Descargar PDF A4</button>
+    </div>
+  </div>
+
+<script>
+(function(){
+  // utilidades
+  function $(id){ return document.getElementById(id); }
+  function pad2(n){ return String(n).padStart(2,'0'); }
+  function normalize(s){ return (s||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim(); }
+
+  const MESES_L = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+  const DOW_L = ['D','L','M','X','J','V','S']; // 0=Dom
+
+  // Códigos y nombres
+  const CODIGOS = {
+    M:{nombre:'Mañana 08–15', clase:'shift-M'},
+    T:{nombre:'Tarde 15–22', clase:'shift-T'},
+    G:{nombre:'Guardia laborable 15–08', clase:'shift-G'},
+    O:{nombre:'Guardia Observación 08–15 (día sig.)', clase:'shift-O'},
+    F:{nombre:'Guardia Festivo 09–09', clase:'shift-F'},
+    FO:{nombre:'Obs. Festivo 10–10', clase:'shift-FO'},
+    R:{nombre:'Refuerzo 10–22 (sólo findes/festivos)', clase:'shift-R'},
+    V:{nombre:'Vacaciones', clase:'shift-V'},
+    S:{nombre:'Saliente', clase:'shift-S'},
+    LD:{nombre:'Libre disposición', clase:'shift-LD'},
+    FR:{nombre:'Formación', clase:'shift-FR'},
+    OT:{nombre:'Otros', clase:'shift-OT'},
+    SD:{nombre:'Saliente diferido', clase:'shift-SD'},
+    LS:{nombre:'Liberación sindical', clase:'shift-LS'},
+    BL:{nombre:'Baja laboral', clase:'shift-BL'},
+    BM:{nombre:'Baja maternal', clase:'shift-BM'}
+  };
+
+  // Parámetros
+  const params = new URLSearchParams(location.search);
+  const nombreParam   = decodeURIComponent(params.get('nombre') || '');
+  const csvnameParam  = decodeURIComponent(params.get('csvname') || '');
+  const anioParam     = params.get('anio') || String(new Date().getFullYear());
+  const mesParam      = pad2(params.get('mes') || (new Date().getMonth()+1));
+
+  $('pill-nombre').textContent = nombreParam || 'Profesional';
+  $('sub-fecha').textContent = MESES_L[parseInt(mesParam,10)-1] + ' ' + anioParam;
+
+  const csvPath = `../Cuadrantes/data/cuadrantes/${anioParam}-${mesParam}.csv`;
+
+  function parseCSV(text){
+    const lines = text.replace(/\r/g,'').split('\n').filter(l=>l.trim().length);
+    return lines.map(line=>{
+      const cells=[];let cur='',inQ=false;
+      for(let i=0;i<line.length;i++){
+        const ch=line[i],next=line[i+1];
+        if(ch=='"'){ if(inQ && next=='"'){cur+='"';i++;} else {inQ=!inQ;} }
+        else if(ch==',' && !inQ){ cells.push(cur); cur=''; }
+        else{ cur+=ch; }
+      } cells.push(cur); return cells;
+    });
+  }
+
+  function buscarFila(rows){
+    const prefer = csvnameParam || nombreParam || '';
+    const pref = normalize(prefer);
+    // exactas
+    for(let i=1;i<rows.length;i++){
+      const n = (rows[i][0]||'').trim();
+      if (n===prefer || n.toLowerCase()===prefer.toLowerCase() || normalize(n)===pref) return rows[i];
+    }
+    // inclusión
+    const tokens = pref.split(/\s+/).filter(t=>t.length>2);
+    for(let i=1;i<rows.length;i++){
+      const n = (rows[i][0]||'').trim();
+      if (tokens.some(t=>normalize(n).includes(t))) return rows[i];
+    }
+    return null;
+  }
+
+  function daysInMonth(y,m){ return new Date(parseInt(y,10), parseInt(m,10), 0).getDate(); }
+  const ndays = daysInMonth(anioParam, mesParam);
+
+  function render(header, fila){
+    const cont = $('tabla');
+    if (!fila){
+      cont.innerHTML = '<p style="color:#b00"><b>No se encontró profesional en el CSV</b></p>';
+      return;
+    }
+
+    let html = '<table><thead>';
+    // Fila de números de día
+    html += '<tr><th class="mes-head">Mes</th>';
+    for(let d=1; d<=ndays; d++){ html += `<th>${d}</th>`; }
+    html += '<th>Obs.</th></tr>';
+    // Fila de días de la semana
+    html += '<tr><th class="mes-head">Turno</th>';
+    for(let d=1; d<=ndays; d++){
+      const dow = new Date(parseInt(anioParam,10), parseInt(mesParam,10)-1, d).getDay();
+      const lab = DOW_L[dow];
+      const wk = (dow===0 || dow===6) ? ' class="wknd"' : '';
+      html += `<th${wk}>${lab}</th>`;
+    }
+    html += '<th></th></tr>';
+    html += '</thead><tbody>';
+
+    // Fila de códigos de turno
+    html += '<tr><td class="mes-head">'+ MESES_L[parseInt(mesParam,10)-1] +'</td>';
+    const colIndex = {};
+    for(let i=0;i<header.length;i++){ colIndex[header[i]] = i; }
+
+    const totales = {};
+    for(let d=1; d<=ndays; d++){
+      const idx = colIndex[String(d)];
+      let val = (idx!=null ? (fila[idx]||'').trim() : '');
+      let token = val.split(/[+\-\/]/)[0].trim();
+      if (token){ totales[token] = (totales[token]||0) + 1; }
+      const info = CODIGOS[token];
+      const cls = info ? info.clase : '';
+      html += `<td class="${cls}">${val}</td>`;
+    }
+    const idxObs = colIndex['Obs.'];
+    html += `<td>${idxObs!=null ? (fila[idxObs]||'') : ''}</td>`;
+    html += '</tr></tbody></table>';
+
+    cont.innerHTML = html;
+
+    // Leyenda
+    const ley = $('leyenda');
+    ley.innerHTML = '';
+    Object.entries(CODIGOS).forEach(([k,def])=>{
+      const el = document.createElement('div');
+      el.className = 'item';
+      el.innerHTML = `<span class="badge ${def.clase}"></span><b>${k}</b> <span class="muted">${def.nombre}</span>`;
+      ley.appendChild(el);
+    });
+
+    // Totales
+    const tot = $('totales');
+    tot.innerHTML = '';
+    Object.keys(totales).sort().forEach(k=>{
+      const def = CODIGOS[k];
+      const box = document.createElement('div');
+      box.className = 'chip';
+      box.innerHTML = `<span class="badge ${def?def.clase:''}"></span><b>${k}</b> · ${totales[k]} día(s)`;
+      tot.appendChild(box);
+    });
+  }
+
+  // Cargar CSV
+  fetch(csvPath + '?v=' + Date.now())
+    .then(r => { if(!r.ok) throw new Error('CSV no encontrado: '+csvPath); return r.text(); })
+    .then(text => {
+      const rows = parseCSV(text);
+      if(!rows.length) throw new Error('CSV vacío');
+      const header = rows[0];
+      const fila = buscarFila(rows);
+      render(header, fila);
+    })
+    .catch(err=>{
+      $('tabla').innerHTML = "<p style='color:#b00'><b>Error:</b> " + err.message + "</p>";
+    });
+
+  // Cambiar de mes con flechas
+  function desplazarMes(delta){
+    let y = parseInt(anioParam,10);
+    let m = parseInt(mesParam,10);
+    m += delta;
+    if (m === 0){ m = 12; y--; }
+    if (m === 13){ m = 1;  y++; }
+    const q = new URLSearchParams(location.search);
+    q.set('anio', String(y));
+    q.set('mes', pad2(m));
+    if (nombreParam)  q.set('nombre', nombreParam);
+    if (csvnameParam) q.set('csvname', csvnameParam);
+    location.search = '?' + q.toString();
+  }
+  document.getElementById('prevMonth')?.addEventListener('click', ()=>desplazarMes(-1));
+  document.getElementById('nextMonth')?.addEventListener('click', ()=>desplazarMes(+1));
+
+  // Imprimir / PDF
+  window.imprimir = function(){ window.print(); };
+  window.descargarPDF = function(){ window.print(); };
+})();
+</script>
+</body>
+</html>
