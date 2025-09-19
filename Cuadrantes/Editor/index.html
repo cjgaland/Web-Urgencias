@@ -25,19 +25,23 @@
   th.sticky,td.sticky{position:sticky;left:0;background:#fff;text-align:left}
   td[contenteditable="true"]{background:#fff}
   td:focus{outline:2px solid #99c2ff;outline-offset:-2px}
-  /* Colores turnos */
-  .shift-M{background:#E6F4EA}
-  .shift-T{background:#E6ECFF}
-  .shift-G{background:#EAF7FF}
-  .shift-O{background:#FFF0F5}
-  .shift-F{background:#FFF5E6}
-  .shift-FO{background:#FFECEC}
-  .shift-R{background:#E0F7FA}
-  .shift-V{background:#FDF4FF}
-  .shift-S{background:#F5F7FA;color:#99A3AD}
-  .shift-LD{background:#F0FDF4}
-  .shift-FR{background:#F3E8FF}
-  .shift-OT{background:#F2F2F2}
+    /* Colores turnos */
+    .shift-M{background:#E6F4EA}    /* Mañana */
+    .shift-T{background:#E6ECFF}    /* Tarde */
+    .shift-G{background:#EAF7FF}    /* Guardia Laboral */
+    .shift-O{background:#FFF0F5}    /* Observación Laboral */
+    .shift-F{background:#FFF5E6}    /* Guardia Festivo */
+    .shift-FO{background:#FFECEC}   /* Observación Festivo */
+    .shift-R{background:#E0F7FA}    /* Refuerzo Fin de Semana */
+    .shift-V{background:#FDF4FF}    /* Vacaciones */
+    .shift-S{background:#F5F7FA;color:#99A3AD}    /* Saliente */
+    .shift-LD{background:#F0FDF4}   /* Libre disposición: Asuntos Propios */
+    .shift-FR{background:#F3E8FF}   /* Formación */
+    .shift-OT{background:#F2F2F2}   /* Otros */
+    .shift-sd{background:#E8F5E9}   /* Saliente diferido */
+    .shift-LS{background:#FFFDE7}   /* Liberación sindical */
+    .shift-BL{background:#FFEBEE}   /* Baja laboral */
+    .shift-BM{background:#E1F5FE}   /* Baja maternal */
   .legend{display:flex;flex-wrap:wrap;gap:.5rem .75rem;margin-top:.5rem}
   .legend .item{display:flex;gap:.35rem;align-items:center}
   .legend .sw{width:18px;height:14px;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
@@ -172,20 +176,25 @@
 <script>
   const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
   const DOW = ['D','L','M','X','J','V','S']; // 0=Dom
+    // Códigos de turno
   const CODIGOS = {
-    M:{nombre:'Mañana 08–15', clase:'shift-M'},
-    T:{nombre:'Tarde 15–22', clase:'shift-T'},
-    G:{nombre:'Guardia laborable 15–08', clase:'shift-G'},
-    O:{nombre:'Guardia Observación 08–15 (día sig.)', clase:'shift-O'},
-    F:{nombre:'Guardia Festivo 09–09', clase:'shift-F'},
-    FO:{nombre:'Obs. Festivo 10–10', clase:'shift-FO'},
-    R:{nombre:'Refuerzo 10–22 (sólo findes/festivos)', clase:'shift-R'},
-    V:{nombre:'Vacaciones', clase:'shift-V'},
-    S:{nombre:'Saliente', clase:'shift-S'},
-    LD:{nombre:'Libre disposición', clase:'shift-LD'},
-    FR:{nombre:'Formación', clase:'shift-FR'},
-    OT:{nombre:'Otros', clase:'shift-OT'}
-  };
+      M:{nombre:'Mañana 08–15', clase:'shift-M'},
+      T:{nombre:'Tarde 15–22', clase:'shift-T'},
+      G:{nombre:'Guardia laborable 15–08', clase:'shift-G'},
+      O:{nombre:'Guardia Observación 08–15 (día sig.)', clase:'shift-O'},
+      F:{nombre:'Guardia Festivo 09–09', clase:'shift-F'},
+      FO:{nombre:'Obs. Festivo 10–10', clase:'shift-FO'},
+      R:{nombre:'Refuerzo 10–22 (sólo findes/festivos)', clase:'shift-R'},
+      V:{nombre:'Vacaciones', clase:'shift-V'},
+      S:{nombre:'Saliente', clase:'shift-S'},
+      LD:{nombre:'Libre disposición', clase:'shift-LD'},
+      FR:{nombre:'Formación', clase:'shift-FR'},
+      OT:{nombre:'Otros', clase:'shift-OT'},
+      SD:{nombre:'Saliente diferido', clase:'shift-sd'},
+      LS:{nombre:'Liberación sindical', clase:'shift-LS'},
+      BL:{nombre:'Baja laboral', clase:'shift-BL'},
+      BM:{nombre:'Baja maternal', clase:'shift-BM'}
+    };
 
   // Meses en selector
   const selMes = document.getElementById('mes');
