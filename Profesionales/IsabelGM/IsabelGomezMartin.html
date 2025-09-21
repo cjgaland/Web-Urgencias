@@ -115,33 +115,94 @@
     </div>
   </div>
 </main>
+
 <script>
 (function(){
-  const PRO = { slug: 'isabelgomez' };
+  /* ===== Observaciones (localStorage) ===== */
+  const PRO = { slug: 'isabelgm' };
   const OBS_KEY = `profesional:${PRO.slug}:observaciones`;
-  const obsEl = document.getElementById('obs'); const obsBtn = document.getElementById('btnSaveObs'); const obsMsg=document.getElementById('obsSavedMsg');
-  (function(){ const v = localStorage.getItem(OBS_KEY); if(v) obsEl.value = v; })();
-  obsBtn.addEventListener('click',()=>{ localStorage.setItem(OBS_KEY, obsEl.value||''); obsMsg.hidden=false; setTimeout(()=>obsMsg.hidden=true,1500); });
-  const badge=document.getElementById('badge-estado'); const btnEditar=document.getElementById('btnEditarEstado');
-  const form=document.getElementById('formEstado'); const select=document.getElementById('selectEstado');
-  const campoReduccion=document.getElementById('campoReduccion'); const inputPct=document.getElementById('porcentajeReduccion');
-  const btnGuardar=document.getElementById('btnGuardarEstado'); const btnCancelar=document.getElementById('btnCancelarEstado');
+  const obsEl = document.getElementById('obs');
+  const obsBtn = document.getElementById('btnSaveObs');
+  const obsMsg = document.getElementById('obsSavedMsg');
+  (function(){
+    const v = localStorage.getItem(OBS_KEY);
+    if(v) obsEl.value = v;
+  })();
+  obsBtn.addEventListener('click',()=>{
+    localStorage.setItem(OBS_KEY, obsEl.value||'');
+    obsMsg.hidden=false; setTimeout(()=>obsMsg.hidden=true,1500);
+  });
+
+  /* ===== Estado (localStorage) ===== */
+  const badge=document.getElementById('badge-estado');
+  const btnEditar=document.getElementById('btnEditarEstado');
+  const form=document.getElementById('formEstado');
+  const select=document.getElementById('selectEstado');
+  const campoReduccion=document.getElementById('campoReduccion');
+  const inputPct=document.getElementById('porcentajeReduccion');
+  const btnGuardar=document.getElementById('btnGuardarEstado');
+  const btnCancelar=document.getElementById('btnCancelarEstado');
   const KEY=`profesional:${PRO.slug}:estado`;
-  function applyBadge(state,pct){ const clases=['badge--activo','badge--reduccion','badge--baja','badge--vacaciones','badge--liberado','badge--otros']; badge.classList.remove(...clases);
-    switch(state){ case 'activo': badge.textContent='Activo'; badge.classList.add('badge--activo'); break;
-      case 'reduccion': badge.textContent='Reducción'+(pct?` ${pct}%`:''); badge.classList.add('badge--reduccion'); break;
-      case 'baja': badge.textContent='Baja laboral'; badge.classList.add('badge--baja'); break;
-      case 'vacaciones': badge.textContent='Vacaciones'; badge.classList.add('badge--vacaciones'); break;
-      case 'liberado': badge.textContent='Liberado sindical'; badge.classList.add('badge--liberado'); break;
-      default: badge.textContent='Otros'; badge.classList.add('badge--otros'); } }
-  function toggleForm(show){ const open=(typeof show==='boolean')?show:form.hidden; form.hidden=!open; btnEditar.setAttribute('aria-expanded',String(open)); }
-  function onEstadoChange(){ const esReduccion=select.value==='reduccion'; campoReduccion.hidden=!esReduccion; if(!esReduccion) inputPct.value=''; }
-  (function(){ const s=localStorage.getItem(KEY); if(s){ try{const o=JSON.parse(s); select.value=o.estado||'activo'; if(o.estado==='reduccion') inputPct.value=o.porcentaje||''; applyBadge(select.value,parseInt(inputPct.value||'0',10));}catch{} } else { select.value='activo'; applyBadge('activo',0);}
-    onEstadoChange(); })();
-  btnEditar.addEventListener('click',()=>toggleForm()); btnCancelar.addEventListener('click',()=>toggleForm(false));
+
+  function applyBadge(state,pct){
+    const clases=['badge--activo','badge--reduccion','badge--baja','badge--vacaciones','badge--liberado','badge--otros'];
+    badge.classList.remove(...clases);
+    switch(state){
+      case 'activo':     badge.textContent='Activo';                     badge.classList.add('badge--activo');     break;
+      case 'reduccion':  badge.textContent='Reducción'+(pct?` ${pct}%`:''); badge.classList.add('badge--reduccion');  break;
+      case 'baja':       badge.textContent='Baja laboral';               badge.classList.add('badge--baja');       break;
+      case 'vacaciones': badge.textContent='Vacaciones';                 badge.classList.add('badge--vacaciones'); break;
+      case 'liberado':   badge.textContent='Liberado sindical';          badge.classList.add('badge--liberado');   break;
+      default:           badge.textContent='Otros';                       badge.classList.add('badge--otros');
+    }
+  }
+  function toggleForm(show){
+    const open=(typeof show==='boolean')?show:form.hidden;
+    form.hidden=!open; btnEditar.setAttribute('aria-expanded',String(open));
+  }
+  function onEstadoChange(){
+    const esReduccion=select.value==='reduccion';
+    campoReduccion.hidden=!esReduccion; if(!esReduccion) inputPct.value='';
+  }
+  (function(){
+    const s=localStorage.getItem(KEY);
+    if(s){
+      try{
+        const o=JSON.parse(s);
+        select.value=o.estado||'activo';
+        if(o.estado==='reduccion') inputPct.value=o.porcentaje||'';
+        applyBadge(select.value,parseInt(inputPct.value||'0',10));
+      }catch{}
+    } else { select.value='activo'; applyBadge('activo',0); }
+    onEstadoChange();
+  })();
+  btnEditar.addEventListener('click',()=>toggleForm());
+  btnCancelar.addEventListener('click',()=>toggleForm(false));
   select.addEventListener('change',onEstadoChange);
-  btnGuardar.addEventListener('click',()=>{ const estado=select.value; const pct=(estado==='reduccion')?parseInt(inputPct.value||'0',10):0; if(estado==='reduccion'&&(!pct||pct<1)){inputPct.focus();return;}
-    localStorage.setItem(KEY,JSON.stringify({estado,porcentaje:pct,fecha:new Date().toISOString()})); applyBadge(estado,pct); toggleForm(false); });
+  btnGuardar.addEventListener('click',()=>{
+    const estado=select.value;
+    const pct=(estado==='reduccion')?parseInt(inputPct.value||'0',10):0;
+    if(estado==='reduccion'&&(!pct||pct<1)){inputPct.focus();return;}
+    localStorage.setItem(KEY,JSON.stringify({estado,porcentaje:pct,fecha:new Date().toISOString()}));
+    applyBadge(estado,pct); toggleForm(false);
+  });
+
+  /* ===== Enlace dinámico: Ver cuadrante =====
+     - Apunta a Profesionales/cuadrante-personal.html
+     - Usa nombre completo y la clave del CSV para este profesional
+     - Respeta ?anio=&mes= si llegan en la URL; si no, usa el mes/año actuales
+  ================================================= */
+  function pad2(n){ return String(n).padStart(2,'0'); }
+
+  const params = new URLSearchParams(location.search);
+  const anio   = params.get('anio') || String(new Date().getFullYear());
+  const mes    = params.get('mes')  || pad2(new Date().getMonth()+1);
+
+  const nombre  = 'Isabel Gómez Martín'; // lo que mostramos en la pastilla del visor
+  const csvname = 'Gómez Martín';             // clave de la 1ª columna en tu CSV para Isabel GM
+
+  const hrefCuad = `../cuadrante-personal.html?nombre=${encodeURIComponent(nombre)}&csvname=${encodeURIComponent(csvname)}&anio=${anio}&mes=${mes}`;
+  document.getElementById('link-cuadrante').href = hrefCuad;
 })();
 </script>
 </body>
