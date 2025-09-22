@@ -12,6 +12,9 @@
   *{box-sizing:border-box}
   body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif;background:var(--bg);margin:0;padding:1rem;color:var(--ink)}
   h1{margin:0 0 .25rem 0;font-size:1.5rem;text-align:center}
+  /* títulos de sección como en el anual */
+  h3{margin:.9rem 0 .4rem;font-weight:600}
+
   .sub{color:var(--muted);margin:.1rem 0 .8rem 0;text-align:center}
   .pill{display:inline-block;border-radius:999px;background:var(--pill-bg);color:var(--pill-ink);padding:.25rem .6rem;font-weight:600;margin-left:.5rem}
 
@@ -61,12 +64,12 @@
   @media print{
     .print-toolbar,.nav-month{display:none!important}
     .panel{border:none}
-    @page { size: A4 landscape; margin: 12mm; }
+    @page { size: A4 landscape; margin: 10mm; }
   }
 </style>
 </head>
 <body>
-  <h1>Cuadrante personal <span id="pill-nombre" class="pill"></span></h1>
+  <h1>Cuadrante personal Mensual <span id="pill-nombre" class="pill"></span></h1>
 
   <div class="nav-month">
     <button class="navbtn" id="prevM" aria-label="Mes anterior">◀</button>
@@ -76,9 +79,13 @@
 
   <div class="panel">
     <div id="tabla"></div>
+
+    <!-- NUEVO: título como en el anual -->
+    <h3>Leyenda</h3>
     <div id="leyenda" class="legend"></div>
 
-    <div class="section-title" style="font-weight:600;margin-top:1rem;text-align:center;">Resumen mensual</div>
+    <!-- NUEVO: mismo título que en el anual -->
+    <h3>Totales acumulados</h3>
     <div id="totales" class="totales"></div>
 
     <div class="print-toolbar">
@@ -167,6 +174,7 @@
   }
 
   function daysInMonth(y,m){ return new Date(parseInt(y,10), parseInt(m,10), 0).getDate(); }
+
   function render(header, fila){
     const cont = $('tabla');
     if (!fila){ cont.innerHTML = '<p style="color:#b00"><b>No se encontró profesional en el CSV</b></p>'; return; }
@@ -244,7 +252,6 @@
     if(m<1){m=12;y--;} if(m>12){m=1;y++;}
     anioParam=String(y); mesParam=pad2(m);
     renderSubFecha();
-    // Actualiza la URL (para mantener compatibilidad y poder recargar)
     const q = new URLSearchParams(location.search);
     q.set('anio', anioParam); q.set('mes', mesParam);
     history.replaceState(null,'','?'+q.toString());
@@ -263,7 +270,6 @@
 
   // Carga inicial
   loadAndRender();
-  
 })();
 </script>
 </body>

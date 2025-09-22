@@ -8,6 +8,8 @@
 :root{
   --bg:#f6f8fb;--card:#fff;--muted:#64748b;--border:#e6eef8;--ink:#0f172a;--wknd:#fff6f6;
   --pill-bg:#e9f2ff;--pill-ink:#003a70;--accent:#0ea5e9;--accent-ink:#0b4a6e;
+  /* escala que se aplicará SOLO en impresión (la ajusta JS antes de imprimir) */
+  --print-scale: 1;
 }
 *{box-sizing:border-box}
 body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;background:var(--bg);margin:0;padding:1rem;color:var(--ink)}
@@ -48,6 +50,50 @@ th,td{border:1px solid #eef2f7;text-align:center;padding:.3rem .4rem;white-space
 .shift-S{background:#F5F7FA;color:#99A3AD}.shift-LD{background:#F0FDF4}.shift-FR{background:#F3E8FF}.shift-OT{background:#F2F2F2}
 .shift-SD{background:#F8FAFF}.shift-LS{background:#F0F7FF}.shift-BL{background:#FFF0F0}.shift-BM{background:#FFF7FA}
 .muted{color:#6b7280}
+
+/* ===== Impresión / PDF ===== */
+@media print{
+  /* A4 horizontal; top right bottom left */
+  @page { size: A4 landscape; margin: 10mm 12mm 10mm 10mm; }
+
+  /* Oculta controles y quita límites/padding para aprovechar ancho */
+  .actions-bottom, .toolbar, .year-nav { display:none !important; }
+  .panel { border:none; max-width:none; padding:0; }
+
+  /* SIN transform ni zoom: que @page mande */
+  html, body { width:auto; height:auto; }
+
+  /* La tabla ocupa todo el ancho imprimible, sin scroll horizontal */
+  .table-wrap { overflow:visible !important; }
+  table {
+    width:100% !important;
+    table-layout:fixed;         /* reparte el ancho entre columnas */
+    border-collapse:collapse;
+  }
+
+  /* Cabeceras repetidas en cada página */
+  thead { display:table-header-group; }
+  tfoot { display:table-footer-group; }
+
+  /* Celdas: varias líneas, pero NO partir “M+G” */
+  th, td {
+    white-space:normal;
+    word-break:normal;          /* evita partir códigos cortos */
+    overflow-wrap:break-word;   /* rompe en espacios/guiones si hace falta */
+    padding:.24rem .22rem;
+  }
+
+  /* Evitar cortar filas entre páginas */
+  tr { page-break-inside:avoid; }
+
+  /* Ajuste fino de anchos para ganar espacio en la tabla */
+  th.mes-head, td.mes-head { width:22mm; }        /* columna “Mes” un poco más estrecha */
+  thead th:last-child, tbody td:last-child { width:34mm; } /* “Obs.” algo más compacta */
+
+  /* Si quieres aún un pelín más de densidad, descomenta: */
+  * table { font-size: .65rem; } */
+}
+
 </style>
 </head>
 <body>
