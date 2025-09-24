@@ -1,4 +1,4 @@
-Unnamed: 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
+Nombre,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
 "Aguilera, Manuel",,,,,M+O,M,,,,FO,,,L1,,,,R,,,M+G,,T,,,F,,,,
 "Molina, Ángel",,,,,M+G,,,T,M,F,,,T,M,M+O,M,,,M,M+G,,,T,,FO,M,,,FR
 "Soto, Esperanza",,,,,M+G,,,T,FR,F,,,T,M,M+G,,,,T,M+O,M,,T,,F,,,,T
@@ -19,8 +19,8 @@ Unnamed: 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,
 "López, Raquel",,T,,F,,,T,FR,M+G,,,T,M,M+O,M,,,,M+G,,,T,M,F,,,T,,M+G
 "Gómez Martín, Isabel",,T,,F,,,,,M+G,,,,,M+G,,,,,M+O,M,,,,F,,,,,FR
 "Espino, Rafael",,L1,,FO,M,,T,,M+G,,,T,M,M+G,,,,,M+G,,,T,M,,,M+G,L1,,M+O
-María Isabel,,,,,,G,,,,,F,,,T,M,G,,R,,,,,,,,,,,G
-Nazaret,G,,R,,,,G,,,,,,,,,M+G,,,,,G,,,F,,,,R,
+"María Isabel",,,,,,G,,,,,F,,,T,M,G,,R,,,,,,,,,,,G
+"Nazaret",G,,R,,,,G,,,,,,,,,M+G,,,,,G,,,F,,,,R,
 "Rico, Manuel",,,,,,,M+G,M,FOR,,,M+G,,T,,M+O,,F,,,M,M+G,,,,M+G,,,M
 "Pablo, Lola",LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS
 "Galán, Carlos",OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT
