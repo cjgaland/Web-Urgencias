@@ -9,7 +9,7 @@ Guerrero, Aurora M.
 Gutierrez Soto, Miguel
 Gómez Bruque, Isabel
 Gómez Martín, Isabel
-JR, Isabel
+Jiménez Ruíz, Isabel
 Lomas, Marta
 Luna Zamora, Rosa
 López Latorre, Raquel
@@ -25,3 +25,6 @@ Rico Rivas, Manuel
 Romero de Castilla Gil, Rafael Javier
 Salas, Elena
 Soto Rueda, Esperanza
+Espino Pérez, Rafael
+Doblas, Concha
+Nazaret
