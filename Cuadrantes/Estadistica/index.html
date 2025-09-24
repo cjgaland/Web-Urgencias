@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Estadística de cuadrantes · Urgencias – AGS Sur de Córdoba</title>
+
+<link rel="icon" href="../../favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/style.css?v=20250824"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<style>
+/* ===== Layout / filtros ===== */
+.panel-personal{ overflow:visible; }
+.filtros{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;margin:.5rem 0 1rem}
+.filtros .group{display:flex;gap:.4rem;align-items:center}
+.filtros .group.push{margin-left:auto}
+.filtros .month-grid{display:grid;grid-template-columns:repeat(6,minmax(110px,1fr));gap:.4rem;width:100%}
+.month-btn{border:1px solid #e6eef8;background:#fff;border-radius:999px;padding:.35rem .6rem;cursor:pointer}
+.month-btn.active{background:#edf5ff;border-color:#cfe0fb;color:#0a4c84;font-weight:700}
+#topN{position:relative;z-index:10}
+
+/* ===== Pestañas y botones mejorados ===== */
+.tabs{margin-top:.25rem}
+.tab-head{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:.6rem}
+.tab-left{display:flex;gap:.4rem;flex-wrap:wrap}
+/* NUEVO estilo para los botones de pestaña */
+.tab-head button {
+  background: #f2f4f7;           /* gris suave */
+  color: #333;
+  font-weight: 700;              /* negrita */
+  border: none;
+  border-radius: 999px;          /* forma ovalada */
+  padding: 0.5rem 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  text-transform: none;          /* o uppercase si prefieres todo en mayúsculas */
+}
+.tab-head button:hover {
+  background: #e1e5eb;           /* gris más oscuro al pasar */
+  transform: translateY(-1px);
+}
+.tab-head button[aria-selected="true"] {
+  background: #d0d4db;           /* tono más marcado para el activo */
+  color: #000;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,.15);
+}
+
+.view-switch{display:flex;align-items:center;gap:.6rem;color:#5b6b85;font-weight:600}
+.view-switch label{display:inline-flex;align-items:center;gap:.35rem;cursor:pointer}
+
+[role="tabpanel"]{display:none}
+[role="tabpanel"].active{display:block}
+
+/* ===== Tablas ===== */
+.table-wrap{overflow:auto;border:1px solid #e6eef8;background:#fff;border-radius:12px}
+table{width:100%;border-collapse:separate;border-spacing:0}
+th,td{padding:.55rem .6rem;border-bottom:1px solid #eef2f7;white-space:nowrap;text-align:right;font-size:.95rem}
+th.sticky,td.sticky{position:sticky;left:0;background:#fff;text-align:left}
+th{font-weight:800;color:#2b3a55}
+th.sortable{cursor:pointer}
+th.sortable:hover{background:#f7fbff}
+tfoot td{font-weight:800;background:#fafcff}
+
+/* ===== Botonera ===== */
+.actions{display:flex;gap:.6rem;justify-content:center;margin:1rem 0 .3rem}
+.btn{border:1px solid #e6eef8;background:#fff;border-radius:999px;padding:.55rem .9rem;font-weight:700;cursor:pointer}
+.btn.primary{background:#0a4c84;color:#fff;border-color:#0a4c84}
+.badge-tip{display:inline-flex;gap:.35rem;align-items:center;border:1px solid #e6eef8;background:#f5f8ff;color:#0a4c84;border-radius:999px;padding:.25rem .55rem;font-size:.85rem}
+
+/* ===== Códigos ===== */
+.code{display:inline-block;min-width:2ch;text-align:center;border-radius:6px;border:1px solid #e6eef8;padding:.05rem .3rem;background:#f8fafc}
+.code.M{background:#E6F4EA}.code.T{background:#E6ECFF}.code.G{background:#EAF7FF}.code.O{background:#FFF0F5}
+.code.F{background:#FFF5E6}.code.FO{background:#FFECEC}.code.R{background:#E0F7FA}
+.code.LD{background:#F0FDF4}.code.FR{background:#F3E8FF}.code.V{background:#FDF4FF}
+.code.SD{background:#F5F7FA}.code.LS{background:#F5F7FA}.code.OT{background:#F2F2F2}
+.code.BL{background:#F2F2F2}.code.BM{background:#F2F2F2}
+
+/* ===== Subtítulo bajo H1 ===== */
+.subtitle{ margin:.2rem 0 0; color:#5b6b85; font-weight:600; }
+
+/* ===== Cabecera simple SOLO impresión ===== */
+.print-only{ display:none; }
+.print-header{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 6mm 0}
+.print-header .title{font-weight:800;font-size:1.1rem}
+.print-header .meta{color:#5b6b85;font-weight:600}
+
+/* ===== Impresión A4 apaisado ===== */
+@media print{
+  @page{ size: A4 landscape; margin: 8mm; }
+  html, body{ width:100%; margin:0 !important; padding:0 !important; background:#fff !important; }
+  .sidebar, .masthead, .filtros, .actions, .small-note { display:none !important; }
+
+  /* Cabecera visual *no* imprime: usamos la simple */
+  .hero{ display:none !important; }
+
+  /* Layout a todo el ancho */
+  .main-content{ max-width:none !important; width:100% !important; padding:0 !important; margin:0 !important; }
+  .panel-personal{ border:none; box-shadow:none; padding:0 !important; margin:0 !important; }
+  .table-wrap{ border:none; box-shadow:none; overflow:visible !important; }
+
+  /* Tipografía compacta para que quepan todas las columnas */
+  table{ font-size:12px !important; }
+  th, td{ padding:.3rem .35rem !important; }
+
+  /* Mostrar cabecera de impresión */
+  .print-only{ display:block !important; }
+  .tabs .tab-head{ display:none !important; }
+  [role="tabpanel"]{ display:none !important; }
+  [role="tabpanel"].active{ display:block !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Sidebar reducido -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <img src="../../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba"/>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="../../index.html"><i class="fas fa-home"></i> Inicio</a></li>
+      <li><a href="../index.html" class="active"><i class="fas fa-calendar-alt"></i> Cuadrantes de trabajo</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<header class="masthead">
+  <div class="masthead-left"><img src="../../images/Logo-Salud2.png" alt="Junta de Andalucía"/></div>
+  <div class="masthead-right"><img src="../../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Urgencias Montilla"/></div>
+</header>
+
+<main class="main-content">
+  <!-- Cabecera simple para impresión -->
+  <div class="print-only" style="margin-bottom:4mm">
+    <div class="print-header">
+      <div class="title"><i class="fa-solid fa-chart-line"></i> Estadística de cuadrantes</div>
+      <div class="meta" id="print-meta-right"></div>
+    </div>
+    <div class="meta" id="print-meta-below"></div>
+  </div>
+
+  <!-- Cabecera de pantalla -->
+  <section class="hero">
+    <div class="hero-icon"><i class="fa-solid fa-chart-line"></i></div>
+    <div class="hero-text">
+      <h1><i class="fa-solid fa-chart-line"></i> Estadística de cuadrantes</h1>
+      <p id="subtitulo" class="subtitle"></p>
+      <p>Agregados por profesional a partir de los CSV mensuales.</p>
+    </div>
+  </section>
+
+  <!-- Panel -->
+  <div class="panel-personal" style="padding:1rem">
+    <div class="filtros">
+      <div class="group">
+        <label for="anio"><strong>Año</strong></label>
+        <input id="anio" type="number" min="2000" max="2100" step="1" style="width:6.5rem;text-align:center" />
+      </div>
+
+      <div class="group">
+        <label for="filtroNombre"><strong>Profesional</strong></label>
+        <input id="filtroNombre" type="text" placeholder="Buscar nombre…" style="width:16rem;padding:.45rem .6rem;border:1px solid #e6eef8;border-radius:8px">
+      </div>
+
+      <div class="group">
+        <label for="topN"><strong>Top-N</strong></label>
+        <select id="topN" size="1" style="padding:.45rem .6rem;border:1px solid #e6eef8;border-radius:8px">
+          <option value="0" selected>Todos</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
+      </div>
+
+      <!-- Calcular a la derecha -->
+      <div class="group push">
+        <button class="btn primary" id="btnCalcular"><i class="fa-solid fa-rotate"></i> Calcular</button>
+      </div>
+
+      <div class="group" style="flex:1 1 100%"></div>
+      <div class="group">
+        <button class="btn" id="selTodo">Todo el año</button>
+        <button class="btn" id="selHastaHoy">Hasta mes actual</button>
+        <button class="btn" id="selNinguno">Ninguno</button>
+        <button class="btn" id="selInvertir">Invertir</button>
+        <span class="badge-tip"><i class="fa-regular fa-circle-question"></i> Pulsa los meses para alternar</span>
+      </div>
+      <div class="group month-grid" id="meses"></div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab-head" role="tablist" aria-label="Bloques">
+        <div class="tab-left">
+          <button id="tab-asist" role="tab" aria-controls="panel-asist" aria-selected="true">Actividad asistencial</button>
+          <button id="tab-otros" role="tab" aria-controls="panel-otros" aria-selected="false">Otros conceptos</button>
+        </div>
+        <!-- conmutador Turnos / Horas -->
+        <div class="view-switch">
+          <span>Ver como:</span>
+          <label><input type="radio" name="vista" value="turnos" checked> Turnos</label>
+          <label><input type="radio" name="vista" value="horas"> Horas</label>
+        </div>
+      </div>
+
+      <section id="panel-asist" role="tabpanel" class="active">
+        <div class="table-wrap">
+          <table id="tablaAsist">
+            <thead>
+              <tr>
+                <th class="sticky sortable" data-k="nombre">Profesional</th>
+                <th class="sortable" data-k="total">Total</th>
+                <th title="Mañana 08–15"><span class="code M">M</span></th>
+                <th title="Tarde 15–22"><span class="code T">T</span></th>
+                <th title="Guardia laborable 15–08"><span class="code G">G</span></th>
+                <th title="Guardia Observación 08–15 (día sig.)"><span class="code O">O</span></th>
+                <th title="Guardia Festivo 09–09"><span class="code F">F</span></th>
+                <th title="Obs. Festivo 10–10"><span class="code FO">FO</span></th>
+                <th title="Refuerzo 10–22"><span class="code R">R</span></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+              <tr>
+                <td class="sticky">Totales</td>
+                <td id="ast-total"></td>
+                <td id="ast-M"></td>
+                <td id="ast-T"></td>
+                <td id="ast-G"></td>
+                <td id="ast-O"></td>
+                <td id="ast-F"></td>
+                <td id="ast-FO"></td>
+                <td id="ast-R"></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </section>
+
+      <section id="panel-otros" role="tabpanel">
+        <div class="table-wrap">
+          <table id="tablaOtros">
+            <thead>
+              <tr>
+                <th class="sticky sortable" data-k="nombre">Profesional</th>
+                <th class="sortable" data-k="total">Total</th>
+                <th><span class="code LD">LD</span></th>
+                <th><span class="code V">V</span></th>
+                <th><span class="code FR">FR</span></th>
+                <th><span class="code SD">SD</span></th>
+                <th><span class="code LS">LS</span></th>
+                <th><span class="code OT">OT</span></th>
+                <th><span class="code BL">BL</span></th>
+                <th><span class="code BM">BM</span></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+              <tr>
+                <td class="sticky">Totales</td>
+                <td id="otr-total"></td>
+                <td id="otr-LD"></td>
+                <td id="otr-V"></td>
+                <td id="otr-FR"></td>
+                <td id="otr-SD"></td>
+                <td id="otr-LS"></td>
+                <td id="otr-OT"></td>
+                <td id="otr-BL"></td>
+                <td id="otr-BM"></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <div class="actions">
+      <button class="btn" id="btnPDF"><i class="fa-solid fa-file-pdf"></i> PDF (A4)</button>
+      <button class="btn" id="btnImprimir"><i class="fa-solid fa-print"></i> Imprimir</button>
+    </div>
+  </div>
+
+  <p class="small-note">Consejo: usa “Todo el año” o “Hasta mes actual”, y luego ajusta meses manualmente si lo necesitas.</p>
+</main>
+
+<script>
+/* ===== Config ===== */
+const ASIST = ["M","T","G","O","F","FO","R"];
+const OTROS = ["LD","V","FR","SD","LS","OT","BL","BM"];
+const ALL_CODES = [...ASIST, ...OTROS];
+const HORAS = { M:8, T:8, G:17, O:17, F:24, FO:24, R:12 };   // turnos→horas
+
+const mesesN     = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+const mesesShort = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+
+const $  = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+
+/* ===== Año y meses ===== */
+const hoy = new Date();
+$("#anio").value = hoy.getFullYear();
+
+function buildMonthsGrid(){
+  const cont = $("#meses");
+  cont.innerHTML = "";
+  mesesN.forEach((n,i)=>{
+    const b = document.createElement("button");
+    b.type="button"; b.className="month-btn active";
+    b.dataset.m = String(i+1).padStart(2,"0");
+    b.textContent = n;
+    b.onclick = ()=> b.classList.toggle("active");
+    cont.appendChild(b);
+  });
+}
+buildMonthsGrid();
+
+function selectAllMonths(){ $$(".month-btn").forEach(b=>b.classList.add("active")); }
+function selectNone(){     $$(".month-btn").forEach(b=>b.classList.remove("active")); }
+function invertMonths(){   $$(".month-btn").forEach(b=>b.classList.toggle("active")); }
+function selectUntilNow(){
+  const a = parseInt($("#anio").value,10);
+  const mNow = (a===hoy.getFullYear()) ? hoy.getMonth()+1 : 12;
+  $$(".month-btn").forEach((b,i)=>{ b.classList.toggle("active", i<mNow); });
+}
+$("#selTodo").onclick = selectAllMonths;
+$("#selNinguno").onclick = selectNone;
+$("#selInvertir").onclick = invertMonths;
+$("#selHastaHoy").onclick = selectUntilNow;
+
+/* ===== Tabs ===== */
+function selectTab(id){
+  $$("#panel-asist, #panel-otros").forEach(p=>p.classList.remove("active"));
+  $$("#tab-asist, #tab-otros").forEach(b=>b.setAttribute("aria-selected","false"));
+  $("#panel-"+id).classList.add("active");
+  $("#tab-"+id).setAttribute("aria-selected","true");
+}
+$("#tab-asist").onclick = ()=>selectTab("asist");
+$("#tab-otros").onclick = ()=>selectTab("otros");
+
+/* ===== Utilidades ===== */
+function rangoMeses(mSel){
+  if(!mSel.length) return "";
+  const idx = mSel.map(m=>parseInt(m,10)-1).sort((a,b)=>a-b);
+  const consecutivos = idx.every((v,i,a)=> i===0 || v===a[i-1]+1 );
+  if(consecutivos){
+    const first = mesesShort[idx[0]], last = mesesShort[idx[idx.length-1]];
+    return (first===last)? first : `${first}–${last}`;
+  }
+  const nombres = idx.map(i=>mesesShort[i]);
+  return (nombres.length>8) ? `${nombres.slice(0,8).join(", ")}…` : nombres.join(", ");
+}
+function fechaHoraAhora(){ return new Date().toLocaleString('es-ES',{hour12:false}); }
+function parseCSV(text){
+  const lines = text.replace(/\uFEFF/g,'').replace(/\r/g,"").split("\n").filter(l=>l.trim().length);
+  return lines.map(line=>{
+    const row=[]; let cur=""; let inQ=false;
+    for(let i=0;i<line.length;i++){
+      const ch=line[i], nx=line[i+1];
+      if(ch=='"'){ if(inQ && nx=='"'){ cur+='"'; i++; } else { inQ=!inQ; } }
+      else if(ch=="," && !inQ){ row.push(cur); cur=""; }
+      else cur+=ch;
+    }
+    row.push(cur); return row;
+  });
+}
+const tokenizar = v => v.toUpperCase().trim().split(/[ \\/+\-]+/).filter(Boolean);
+
+/* ===== Carga y agregación ===== */
+async function cargarDatos(anio, meses){
+  const acc = {}; // { nombre: {M:0,...} }
+  for(const m of meses){
+    try{
+      const r = await fetch(`../data/cuadrantes/${anio}-${m}.csv?v=${Date.now()}`, {cache:'no-store'});
+      if(!r.ok) continue;
+      const rows = parseCSV(await r.text());
+      const dmax = (rows[0]||[]).length - 2;
+      for(let i=1;i<rows.length;i++){
+        const nombre = (rows[i][0]||"").trim(); if(!nombre) continue;
+        acc[nombre] = acc[nombre] || Object.fromEntries(ALL_CODES.map(c=>[c,0]));
+        for(let d=1; d<=dmax; d++){
+          tokenizar(rows[i][d]||"").forEach(t=>{ if(ALL_CODES.includes(t)) acc[nombre][t]++; });
+        }
+      }
+    }catch(e){}
+  }
+  const asist=[], otros=[];
+  for(const [nombre, obj] of Object.entries(acc)){
+    const totalA = ASIST.reduce((s,c)=>s+(obj[c]||0),0);
+    const totalO = OTROS.reduce((s,c)=>s+(obj[c]||0),0);
+    asist.push({ nombre, total: totalA, ...Object.fromEntries(ASIST.map(c=>[c,obj[c]||0])) });
+    otros.push({ nombre, total: totalO, ...Object.fromEntries(OTROS.map(c=>[c,obj[c]||0])) });
+  }
+  return { asist, otros };
+}
+
+/* ===== Render ===== */
+function renderTabla(tblId, data, cols, footIds, transform=null){
+  const view = transform ? data.map(transform) : data;
+  const tbody = document.querySelector(`#${tblId} tbody`);
+  tbody.innerHTML = view.length
+    ? view.map(r=>`<tr><td class="sticky">${r.nombre}</td>${cols.map(k=>`<td>${(r[k]||0).toLocaleString('es-ES')}</td>`).join("")}</tr>`).join("")
+    : `<tr><td class="sticky" colspan="${cols.length+1}">Sin datos para el filtro seleccionado.</td></tr>`;
+  const totals = cols.reduce((o,k)=>{o[k]=view.reduce((s,x)=>s+(x[k]||0),0);return o;}, {});
+  for(const [k,id] of Object.entries(footIds)){ const el=document.getElementById(id); if(el) el.textContent = (totals[k]||0).toLocaleString('es-ES'); }
+}
+
+/* ===== Ordenable (desc por defecto) ===== */
+function makeSortable(tableId, initialKey='total'){
+  const tbl = document.getElementById(tableId);
+  let dir = -1; // descendente
+  let key = initialKey;
+
+  const head = tbl.tHead.rows[0];
+  const mapIdx = {};
+  Array.from(head.cells).forEach((th,i)=>{ if(th.dataset.k) mapIdx[th.dataset.k]=i+1; });
+
+  function cellVal(row, k){
+    if(k==='nombre') return row.cells[0].textContent;
+    const idx = mapIdx[k];
+    const txt = row.querySelector(`td:nth-child(${idx})`)?.textContent || '0';
+    return parseInt(txt.replace(/\./g,''),10) || 0;
+  }
+
+  function sort(){
+    const tbody = tbl.tBodies[0];
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    rows.sort((A,B)=>{
+      const a = cellVal(A,key), b = cellVal(B,key);
+      if(key==='nombre') return a.localeCompare(b,'es') * (dir===-1?-1:1);
+      return (b-a) * (dir===-1?1:-1);
+    });
+    rows.forEach(r=>tbody.appendChild(r));
+  }
+
+  tbl.querySelectorAll('th.sortable').forEach(th=>{
+    th.addEventListener('click', ()=>{
+      key = th.dataset.k;
+      dir = (dir===-1)?1:-1;
+      sort();
+    });
+  });
+
+  return { sort };
+}
+
+/* ===== Estado global ===== */
+let baseAsist = [];  // turnos
+let baseOtros = [];
+
+/* ===== Conmutador Turnos/Horas ===== */
+function aHoras(row){
+  const r = { nombre: row.nombre };
+  let totalH = 0;
+  for(const k of ASIST){
+    const h = (row[k]||0) * (HORAS[k]||0);
+    r[k] = h;
+    totalH += h;
+  }
+  r.total = totalH;
+  return r;
+}
+function pintarSegunVista(){
+  const vista = (document.querySelector('input[name="vista"]:checked')?.value)||'turnos';
+  const transform = (vista==='horas') ? aHoras : null;
+
+  renderTabla("tablaAsist", baseAsist, ["total", ...ASIST],
+    { total:"ast-total", M:"ast-M", T:"ast-T", G:"ast-G", O:"ast-O", F:"ast-F", FO:"ast-FO", R:"ast-R" },
+    transform
+  );
+
+  renderTabla("tablaOtros", baseOtros, ["total", ...OTROS],
+    { total:"otr-total", LD:"otr-LD", V:"otr-V", FR:"otr-FR", SD:"otr-SD", LS:"otr-LS", OT:"otr-OT", BL:"otr-BL", BM:"otr-BM" }
+  );
+
+  makeSortable("tablaAsist").sort();
+  makeSortable("tablaOtros").sort();
+}
+
+/* ===== Calcular ===== */
+async function calcular(){
+  const anio = parseInt($("#anio").value, 10);
+  const mesesSel = $$(".month-btn.active").map(b=>b.dataset.m);
+  if(!mesesSel.length){ alert("Selecciona al menos un mes."); return; }
+
+  const rango = rangoMeses(mesesSel);
+  $("#subtitulo").textContent = `Año ${anio} · ${rango} (${mesesSel.length} mes${mesesSel.length>1?'es':''})`;
+  document.getElementById('print-meta-right').textContent = fechaHoraAhora();
+  document.getElementById('print-meta-below').textContent = `Año ${anio} · ${rango} (${mesesSel.length} mes${mesesSel.length>1?'es':''})`;
+
+  const filtro = ($("#filtroNombre").value||"").trim().toLowerCase();
+  const topN = parseInt($("#topN").value||"0",10);
+
+  let { asist, otros } = await cargarDatos(anio, mesesSel);
+
+  if(filtro){
+    const match = s => s.toLowerCase().includes(filtro);
+    asist = asist.filter(r=>match(r.nombre));
+    otros = otros.filter(r=>match(r.nombre));
+  }
+
+  asist.sort((a,b)=> (b.total - a.total) || a.nombre.localeCompare(b.nombre,'es'));
+  otros.sort((a,b)=> (b.total - a.total) || a.nombre.localeCompare(b.nombre,'es'));
+
+  if(topN>0){ asist = asist.slice(0,topN); otros = otros.slice(0,topN); }
+
+  baseAsist = asist;  // turnos base
+  baseOtros = otros;
+
+  pintarSegunVista();
+}
+
+$$('input[name="vista"]').forEach(r=>r.addEventListener('change', pintarSegunVista));
+
+/* ===== PDF/Imprimir ===== */
+document.getElementById('btnPDF').onclick = ()=>window.print();
+document.getElementById('btnImprimir').onclick = ()=>window.print();
+
+/* Auto-calcular al abrir */
+selectUntilNow();
+calcular();
+
+// 🔧 Eventos de interacción
+document.getElementById('btnCalcular').addEventListener('click', calcular);
+
+// (opcionales, pero útiles)
+document.getElementById('topN').addEventListener('change', calcular);
+document.getElementById('anio').addEventListener('change', () => {
+  // si cambias de año y quieres mantener “hasta mes actual” cuando toca
+  selectUntilNow();
+});
+document.getElementById('filtroNombre').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') { e.preventDefault(); calcular(); }
+});
+
+
+</script>
+</body>
+</html>
