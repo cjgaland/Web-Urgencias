@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ficha Profesional · Isabel JR</title>
+<title>Ficha Profesional · Isabel Jiménez Ruiz</title>
 <link rel="icon" href="../../favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="../../css/style.css" />
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -61,17 +61,17 @@
   <section class="hero">
     <div class="hero-icon"><i class="fas fa-id-badge"></i></div>
     <div class="hero-text">
-      <h1>Isabel JR</h1>
+      <h1>Isabel Jiménez Ruíz</h1>
       <p>Ficha profesional con datos de contacto, estado actual, actividades y acceso a cuadrantes de trabajo.</p>
     </div>
   </section>
   <div class="ficha-profesional">
     <div class="ficha-grid">
-      <div><img src="IsabelGM.png" alt="Foto Isabel JR" class="foto-carnet"></div>
+      <div><img src="IsabelJR.png" alt="Foto Isabel Jiménez Ruiz" class="foto-carnet"></div>
       <div class="datos-card">
         <div class="datos-grid">
           <div class="label">Nombre</div><div class="valor">Isabel</div>
-          <div class="label">Apellidos</div><div class="valor">JR</div>
+          <div class="label">Apellidos</div><div class="valor">Jiménez Ruíz</div>
           <div class="label">Categoría</div><div class="valor">Especialista en Medicina Familiar y Comunitaria</div>
           <div class="label">Cargo</div><div class="valor">FEA Urgencias</div>
           <div class="label">Correo electrónico</div><div class="valor"><i class="fas fa-envelope"></i> <a href="mailto:isabeljr_1992@hotmail.com">isabeljr_1992@hotmail.com</a></div>
@@ -198,8 +198,8 @@
   const anio   = params.get('anio') || String(new Date().getFullYear());
   const mes    = params.get('mes')  || pad2(new Date().getMonth()+1);
 
-  const nombre  = 'Isabel JR'; // lo que mostramos en la pastilla del visor
-  const csvname = 'JR';             // clave de la 1ª columna en tu CSV para Isabel JR
+  const nombre  = 'Isabel Jiménez Ruíz'; // lo que mostramos en la pastilla del visor
+  const csvname = 'Jiménez Ruíz';             // clave de la 1ª columna en tu CSV para Isabel JR
 
   const hrefCuad = `../cuadrante-personal.html?nombre=${encodeURIComponent(nombre)}&csvname=${encodeURIComponent(csvname)}&anio=${anio}&mes=${mes}`;
   document.getElementById('link-cuadrante').href = hrefCuad;
