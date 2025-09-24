@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gráficas de cuadrantes · Urgencias – AGS Sur de Córdoba</title>
+
+<link rel="icon" href="../../favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/style.css?v=20250824"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+<style>
+/* ——— Ajustes de layout para integrarse con tu estilo ——— */
+.panel{background:#fff;border:1px solid #e6eef8;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.05);padding:1rem}
+.filtros{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;margin:.5rem 0 1rem}
+.filtros .group{display:flex;gap:.4rem;align-items:center}
+.filtros .group.push{margin-left:auto}
+.filtros .month-grid{display:grid;grid-template-columns:repeat(6,minmax(110px,1fr));gap:.4rem;width:100%}
+.month-btn{border:1px solid #e6eef8;background:#fff;border-radius:999px;padding:.35rem .6rem;cursor:pointer}
+.month-btn.active{background:#edf5ff;border-color:#cfe0fb;color:#0a4c84;font-weight:700}
+
+.btn{border:1px solid #e6eef8;background:#fff;border-radius:999px;padding:.55rem .9rem;font-weight:700;cursor:pointer}
+.btn.primary{background:#0a4c84;color:#fff;border-color:#0a4c84}
+.btn.blue{background:#1e88e5;color:#fff;border-color:#1e88e5}
+.btn.blue:hover{background:#1565c0;border-color:#1565c0}
+
+.header-actions{display:flex;gap:.6rem;flex-wrap:wrap}
+.hstack{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.vstack{display:flex;flex-direction:column;gap:.6rem}
+
+/* Botón Volver flotante arriba-derecha */
+.btn-back{
+  position:fixed; right:16px; top:12px; z-index:1000;
+  display:inline-flex; align-items:center; gap:.4rem;
+  border:1px solid #e6eef8; background:#fff; border-radius:999px;
+  padding:.45rem .8rem; font-weight:700; cursor:pointer;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+.btn-back:hover{background:#f7f9fc}
+
+/* Tabs muy ligeras (igual que estadística) */
+.tabs{margin-top:.25rem}
+.tab-head{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:.6rem}
+.tab-left{display:flex;gap:.4rem;flex-wrap:wrap}
+.tab-head button{
+  background:#f2f4f7;color:#333;font-weight:700;border:none;border-radius:999px;
+  padding:.5rem 1.2rem;cursor:pointer;transition:background .2s ease,transform .2s ease;
+}
+.tab-head button:hover{background:#e1e5eb;transform:translateY(-1px)}
+.tab-head button[aria-selected="true"]{background:#d0d4db;color:#000;box-shadow:inset 0 2px 6px rgba(0,0,0,.15)}
+
+.view-switch{display:flex;align-items:center;gap:.6rem;color:#5b6b85;font-weight:600}
+.view-switch label{display:inline-flex;align-items:center;gap:.35rem;cursor:pointer}
+
+.canvas-wrap{position:relative;min-height:360px}
+.chart-toolbar{display:flex;gap:.6rem;justify-content:flex-end;margin:.4rem 0}
+
+/* Impresión: quepan bien las gráficas en A4 apaisado */
+@media print{
+  @page{ size: A4 landscape; margin: 8mm; }
+  .sidebar, .masthead, .header-actions, .filtros, .tab-head, .chart-toolbar, .btn-back { display:none !important; }
+  .panel{ border:none; box-shadow:none; padding:0 }
+}
+</style>
+</head>
+<body>
+<!-- Botón Volver (flotante arriba-derecha) -->
+<button class="btn-back" id="btnVolver"><i class="fa-solid fa-arrow-left"></i> Volver</button>
+
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <img src="../../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba"/>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="../../index.html"><i class="fas fa-home"></i> Inicio</a></li>
+      <li><a href="../index.html"><i class="fas fa-calendar-alt"></i> Cuadrantes</a></li>
+      <li><a href="./index.html"><i class="fas fa-table"></i> Estadística</a></li>
+      <li><a href="#" class="active"><i class="fas fa-chart-column"></i> Gráficas</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<header class="masthead">
+  <div class="masthead-left"><img src="../../images/Logo-Salud2.png" alt="Junta de Andalucía"/></div>
+  <div class="masthead-right"><img src="../../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Urgencias Montilla"/></div>
+</header>
+
+<main class="main-content">
+  <section class="hero">
+    <div class="hero-icon"><i class="fa-solid fa-chart-column"></i></div>
+    <div class="hero-text">
+      <h1>Gráficas de cuadrantes</h1>
+      <p id="subtitulo" style="color:#5b6b85;font-weight:600;margin:.2rem 0 0"></p>
+    </div>
+  </section>
+
+  <div class="panel">
+    <div class="filtros">
+      <div class="group">
+        <label for="anio"><strong>Año</strong></label>
+        <input id="anio" type="number" min="2000" max="2100" step="1" style="width:6.5rem;text-align:center" />
+      </div>
+
+      <div class="group">
+        <label for="filtroNombre"><strong>Profesional</strong></label>
+        <input id="filtroNombre" type="text" placeholder="Buscar nombre…" style="width:16rem;padding:.45rem .6rem;border:1px solid #e6eef8;border-radius:8px">
+      </div>
+
+      <div class="group">
+        <label for="topN"><strong>Top-N</strong></label>
+        <select id="topN" size="1" style="padding:.45rem .6rem;border:1px solid #e6eef8;border-radius:8px">
+          <option value="0" selected>Todos</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
+      </div>
+
+      <div class="group push">
+        <button class="btn primary" id="btnCalcular2"><i class="fa-solid fa-rotate"></i> Calcular</button>
+      </div>
+
+      <div class="group" style="flex:1 1 100%"></div>
+      <div class="group">
+        <button class="btn" id="selTodo">Todo el año</button>
+        <button class="btn" id="selHastaHoy">Hasta mes actual</button>
+        <button class="btn" id="selNinguno">Ninguno</button>
+        <button class="btn" id="selInvertir">Invertir</button>
+      </div>
+      <div class="group month-grid" id="meses"></div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab-head">
+        <div class="tab-left">
+          <button id="tab-asist" aria-selected="true">Actividad asistencial</button>
+          <button id="tab-otros" aria-selected="false">Otros conceptos</button>
+        </div>
+        <div class="view-switch">
+          <span>Ver Asistencial como:</span>
+          <label><input type="radio" name="vista" value="turnos" checked> Turnos</label>
+          <label><input type="radio" name="vista" value="horas"> Horas</label>
+        </div>
+      </div>
+
+      <section id="panel-asist">
+        <div class="chart-toolbar">
+          <button class="btn" id="pngAsist"><i class="fa-solid fa-image"></i> PNG Asistencial (turnos)</button>
+        </div>
+        <div class="canvas-wrap"><canvas id="chartAsist"></canvas></div>
+      </section>
+
+      <section id="panel-otros" style="display:none">
+        <div class="chart-toolbar">
+          <button class="btn" id="pngOtros"><i class="fa-solid fa-image"></i> PNG Otros</button>
+        </div>
+        <div class="canvas-wrap"><canvas id="chartOtros"></canvas></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<script>
+/* ===== Config ===== */
+const ASIST = ["M","T","G","O","F","FO","R"];
+const OTROS = ["LD","V","FR","SD","LS","OT","BL","BM"];
+const ALL_CODES = [...ASIST, ...OTROS];
+const HORAS = { M:8, T:8, G:17, O:17, F:24, FO:24, R:12 };
+
+const mesesN     = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+const mesesShort = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+
+const $  = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+
+const hoy = new Date();
+document.addEventListener('DOMContentLoaded', ()=>{
+  document.getElementById('anio').value = hoy.getFullYear();
+});
+
+function buildMonthsGrid(){
+  const cont = $("#meses");
+  cont.innerHTML = "";
+  mesesN.forEach((n,i)=>{
+    const b = document.createElement("button");
+    b.type="button"; b.className="month-btn active";
+    b.dataset.m = String(i+1).padStart(2,"0");
+    b.textContent = n;
+    b.onclick = ()=> b.classList.toggle("active");
+    cont.appendChild(b);
+  });
+}
+buildMonthsGrid();
+
+function selectAllMonths(){ $$(".month-btn").forEach(b=>b.classList.add("active")); }
+function selectNone(){     $$(".month-btn").forEach(b=>b.classList.remove("active")); }
+function invertMonths(){   $$(".month-btn").forEach(b=>b.classList.toggle("active")); }
+function selectUntilNow(){
+  const a = parseInt($("#anio").value,10);
+  const mNow = (a===hoy.getFullYear()) ? hoy.getMonth()+1 : 12;
+  $$(".month-btn").forEach((b,i)=>{ b.classList.toggle("active", i<mNow); });
+}
+$("#selTodo").onclick = selectAllMonths;
+$("#selNinguno").onclick = selectNone;
+$("#selInvertir").onclick = invertMonths;
+$("#selHastaHoy").onclick = selectUntilNow;
+
+function rangoMeses(mSel){
+  if(!mSel.length) return "";
+  const idx = mSel.map(m=>parseInt(m,10)-1).sort((a,b)=>a-b);
+  const consecutivos = idx.every((v,i,a)=> i===0 || v===a[i-1]+1 );
+  if(consecutivos){
+    const first = mesesShort[idx[0]], last = mesesShort[idx[idx.length-1]];
+    return (first===last)? first : `${first}–${last}`;
+  }
+  const nombres = idx.map(i=>mesesShort[i]);
+  return (nombres.length>8) ? `${nombres.slice(0,8).join(", ")}…` : nombres.join(", ");
+}
+function parseCSV(text){
+  const lines = text.replace(/\uFEFF/g,'').replace(/\r/g,"").split("\n").filter(l=>l.trim().length);
+  return lines.map(line=>{
+    const row=[]; let cur=""; let inQ=false;
+    for(let i=0;i<line.length;i++){
+      const ch=line[i], nx=line[i+1];
+      if(ch=='"'){ if(inQ && nx=='"'){ cur+='"'; i++; } else { inQ=!inQ; } }
+      else if(ch=="," && !inQ){ row.push(cur); cur=""; }
+      else cur+=ch;
+    }
+    row.push(cur); return row;
+  });
+}
+const tokenizar = v => v.toUpperCase().trim().split(/[ \\/+\-]+/).filter(Boolean);
+
+async function cargarDatos(anio, meses){
+  const acc = {};
+  for(const m of meses){
+    try{
+      const r = await fetch(`../data/cuadrantes/${anio}-${m}.csv?v=${Date.now()}`, {cache:'no-store'});
+      if(!r.ok) continue;
+      const rows = parseCSV(await r.text());
+      const dmax = (rows[0]||[]).length - 2;
+      for(let i=1;i<rows.length;i++){
+        const nombre = (rows[i][0]||"").trim(); if(!nombre) continue;
+        acc[nombre] = acc[nombre] || Object.fromEntries(ALL_CODES.map(c=>[c,0]));
+        for(let d=1; d<=dmax; d++){
+          tokenizar(rows[i][d]||"").forEach(t=>{ if(ALL_CODES.includes(t)) acc[nombre][t]++; });
+        }
+      }
+    }catch(e){}
+  }
+  const asist=[], otros=[];
+  for(const [nombre, obj] of Object.entries(acc)){
+    const totalA = ASIST.reduce((s,c)=>s+(obj[c]||0),0);
+    const totalO = OTROS.reduce((s,c)=>s+(obj[c]||0),0);
+    asist.push({ nombre, total: totalA, ...Object.fromEntries(ASIST.map(c=>[c,obj[c]||0])) });
+    otros.push({ nombre, total: totalO, ...Object.fromEntries(OTROS.map(c=>[c,obj[c]||0])) });
+  }
+  return { asist, otros };
+}
+
+let baseAsist = [];
+let baseOtros = [];
+
+let chartAsist = null;
+let chartOtros = null;
+
+function destroyCharts(){
+  if(chartAsist){ chartAsist.destroy(); chartAsist=null; }
+  if(chartOtros){ chartOtros.destroy(); chartOtros=null; }
+}
+
+function aHoras(row){
+  const r = { nombre: row.nombre };
+  let totalH = 0;
+  for(const k of ASIST){
+    const h = (row[k]||0) * (HORAS[k]||0);
+    r[k] = h;
+    totalH += h;
+  }
+  r.total = totalH;
+  return r;
+}
+
+function buildAsistentialChart(vista='turnos'){
+  const data = (vista==='horas') ? baseAsist.map(aHoras) : baseAsist;
+
+  const labels = data.map(r=>r.nombre);
+  const datasets = ASIST.map((k)=>({
+    label: k,
+    data: data.map(r=>r[k]||0),
+    borderWidth: 1
+  }));
+
+  const ctx = document.getElementById('chartAsist').getContext('2d');
+  chartAsist = new Chart(ctx, {
+    type: 'bar',
+    data: { labels, datasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top' },
+        title: {
+          display: true,
+          text: vista==='horas' ? 'Actividad asistencial (horas)' : 'Actividad asistencial (turnos)'
+        },
+        tooltip: {
+          callbacks: {
+            footer: (items)=>{
+              const idx = items[0].dataIndex;
+              const total = ASIST.reduce((s,k)=>s+(data[idx][k]||0),0);
+              return 'Total: '+total.toLocaleString('es-ES');
+            }
+          }
+        }
+      },
+      scales: {
+        x: { stacked: true, ticks: { autoSkip: false, maxRotation: 45, minRotation: 0 } },
+        y: { stacked: true, beginAtZero: true }
+      }
+    }
+  });
+
+  const btn = document.getElementById('pngAsist');
+  btn.textContent = `PNG Asistencial (${vista})`;
+  btn.prepend(Object.assign(document.createElement('i'), { className:'fa-solid fa-image', style:'margin-right:.4rem' }));
+}
+
+function buildOtrosChart(){
+  const data = baseOtros;
+  const labels = data.map(r=>r.nombre);
+  const datasets = OTROS.map(k=>({
+    label: k,
+    data: data.map(r=>r[k]||0),
+    borderWidth: 1
+  }));
+
+  const ctx = document.getElementById('chartOtros').getContext('2d');
+  chartOtros = new Chart(ctx, {
+    type: 'bar',
+    data: { labels, datasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top' },
+        title: { display: true, text: 'Otros conceptos (turnos)' }
+      },
+      scales: {
+        x: { stacked: true, ticks: { autoSkip: false, maxRotation: 45, minRotation: 0 } },
+        y: { stacked: true, beginAtZero: true }
+      }
+    }
+  });
+}
+
+/* ===== Tabs ===== */
+function showTab(id){
+  if(id==='asist'){
+    document.getElementById('panel-asist').style.display = '';
+    document.getElementById('panel-otros').style.display = 'none';
+    document.getElementById('tab-asist').setAttribute('aria-selected','true');
+    document.getElementById('tab-otros').setAttribute('aria-selected','false');
+  }else{
+    document.getElementById('panel-asist').style.display = 'none';
+    document.getElementById('panel-otros').style.display = '';
+    document.getElementById('tab-asist').setAttribute('aria-selected','false');
+    document.getElementById('tab-otros').setAttribute('aria-selected','true');
+  }
+}
+document.getElementById('tab-asist').addEventListener('click', ()=>showTab('asist'));
+document.getElementById('tab-otros').addEventListener('click', ()=>showTab('otros'));
+
+/* ===== Calcular ===== */
+async function calcular(){
+  const anio = parseInt($("#anio").value, 10);
+  const mesesSel = $$(".month-btn.active").map(b=>b.dataset.m);
+  if(!mesesSel.length){ alert("Selecciona al menos un mes."); return; }
+
+  const filtro = ($("#filtroNombre").value||"").trim().toLowerCase();
+  const topN = parseInt($("#topN").value||"0",10);
+  const rango = rangoMeses(mesesSel);
+  document.getElementById('subtitulo').textContent = `Año ${anio} · ${rango} (${mesesSel.length} mes${mesesSel.length>1?'es':''})`;
+
+  let { asist, otros } = await cargarDatos(anio, mesesSel);
+
+  if(filtro){
+    const match = s => s.toLowerCase().includes(filtro);
+    asist = asist.filter(r=>match(r.nombre));
+    otros = otros.filter(r=>match(r.nombre));
+  }
+
+  asist.sort((a,b)=> (b.total - a.total) || a.nombre.localeCompare(b.nombre,'es'));
+  otros.sort((a,b)=> (b.total - a.total) || a.nombre.localeCompare(b.nombre,'es'));
+
+  if(topN>0){ asist = asist.slice(0,topN); otros = otros.slice(0,topN); }
+
+  baseAsist = asist;
+  baseOtros = otros;
+
+  destroyCharts();
+  const vista = (document.querySelector('input[name="vista"]:checked')?.value)||'turnos';
+  buildAsistentialChart(vista);
+  buildOtrosChart();
+}
+
+/* ===== Descargar PNG (por gráfica) ===== */
+function descargarPNG(chart, nombre){
+  const url = chart.toBase64Image('image/png', 1);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = nombre + '.png';
+  a.click();
+}
+document.getElementById('pngAsist').addEventListener('click', ()=>{
+  if(!chartAsist) return;
+  const vista = (document.querySelector('input[name="vista"]:checked')?.value)||'turnos';
+  descargarPNG(chartAsist, `asistencial-${vista}`);
+});
+document.getElementById('pngOtros').addEventListener('click', ()=>{
+  if(chartOtros) descargarPNG(chartOtros, 'otros-conceptos');
+});
+
+/* ===== Listeners ===== */
+document.getElementById('btnVolver').addEventListener('click', ()=>{ window.location.href = './index.html'; });
+document.getElementById('btnCalcular2').addEventListener('click', calcular);
+document.getElementById('topN').addEventListener('change', calcular);
+document.getElementById('anio').addEventListener('change', ()=>{ selectUntilNow(); });
+document.getElementById('filtroNombre').addEventListener('keydown', (e)=>{
+  if(e.key==='Enter'){ e.preventDefault(); calcular(); }
+});
+$$('input[name="vista"]').forEach(r=>r.addEventListener('change', ()=>{
+  if(!baseAsist.length) return;
+  destroyCharts();
+  const vista = (document.querySelector('input[name="vista"]:checked')?.value)||'turnos';
+  buildAsistentialChart(vista);
+  buildOtrosChart();
+}));
+
+/* ===== Auto ===== */
+selectUntilNow();
+calcular();
+</script>
+</body>
+</html>
