@@ -77,6 +77,18 @@ tfoot td{font-weight:800;background:#fafcff}
   background: #1565c0;
   border-color: #1565c0;
 }
+  
+.btn.parametro {
+  background: #1e88e5;          /* azul diferente */
+  color: #fff;
+  border-color: #1e88e5;
+  font-weight: 700;
+}
+.btn.graf:hover {
+  background: #1565c0;
+  border-color: #1565c0;
+}
+  
 .badge-tip{display:inline-flex;gap:.35rem;align-items:center;border:1px solid #e6eef8;background:#f5f8ff;color:#0a4c84;border-radius:999px;padding:.25rem .55rem;font-size:.85rem}
 
 /* ===== Códigos ===== */
@@ -194,11 +206,19 @@ tfoot td{font-weight:800;background:#fafcff}
     
       <!-- Botón Graficas -->
       <div class="group push">
+        <button class="btn parametro" id="btnparametro">
+        <i class="fa-solid fa-sliders"></i> Parámetros
+        </button>
+      </div>
+
+            <!-- Botón Graficas -->
+      <div class="group push">
         <button class="btn graf blue" id="btnGraficas">
         <i class="fa-solid fa-chart-column"></i> Gráficas
         </button>
       </div>
 
+      
 
       <div class="group" style="flex:1 1 100%"></div>
       <div class="group">
@@ -554,7 +574,11 @@ document.getElementById('filtroNombre').addEventListener('keydown', (e) => {
   if (e.key === 'Enter') { e.preventDefault(); calcular(); }
 });
 
- document.getElementById('btnGraficas').addEventListener('click', ()=>{
+ document.getElementById('btnparametro').addEventListener('click', ()=>{
+  window.location.href = './parametros.html';
+});
+  
+  document.getElementById('btnGraficas').addEventListener('click', ()=>{
   window.location.href = './graficas.html';
 });
  
