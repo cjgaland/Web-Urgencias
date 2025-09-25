@@ -10,9 +10,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-  <!-- Estilos muy ligeros para el selector de año y el estado del CSV -->
+  <!-- Estilos muy ligeros para el selector de año, estado del CSV y botón de gráficas -->
   <style>
-    .year-switch { display:flex; align-items:center; gap:.5rem; margin: 0 0 1rem 0; flex-wrap: wrap; }
+    .year-switch {
+      display:flex; align-items:center; gap:.5rem; margin:0 0 1rem 0; flex-wrap:wrap;
+      justify-content:center;                 /* ✅ centrado */
+    }
     .year-switch button {
       border: none; border-radius: 999px; padding: .45rem .8rem; background: #fff;
       box-shadow: 0 2px 12px rgba(0,0,0,.08); cursor: pointer; font-weight: 600;
@@ -29,7 +32,17 @@
     }
     .badge-ok { background:#E6F4EA; }
     .badge-ko { background:#FFECEC; }
-    .small-note { font-size:.9rem; color:#51607a; margin-top:.6rem; }
+    .small-note { font-size:.9rem; color:#51607a; margin-top:.6rem; text-align:center; }
+
+    /* === Botón de GRÁFICAS centrado y oscuro === */
+    .actions.center { display:flex; justify-content:center; margin:.6rem 0 0; }
+    .btn-dark {
+      display:inline-flex; align-items:center; gap:.5rem;
+      border:1px solid #1e88e5; background:#1e88e5; color:#fff; text-decoration:none;
+      border-radius:999px; padding:.6rem 1rem; font-weight:700; box-shadow:0 2px 12px rgba(0,0,0,.08);
+    }
+    .btn-dark:hover { filter:brightness(1.05); transform:translateY(-1px); }
+    .btn-dark i { font-size: .95em; }
 
     /* === Botón flotante discreto para acceso al editor === */
     #btn-editor{
@@ -40,7 +53,6 @@
     }
     #btn-editor:hover{ transform: translateY(-1px); }
     #btn-editor:active{ transform: translateY(0); }
-    /* (Opcional) Ocúltalo en impresión */
     @media print { #btn-editor { display:none; } }
   </style>
 </head>
@@ -49,18 +61,18 @@
     <div class="sidebar-header">
       <img src="../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba" />
     </div>
-        <nav>
+    <nav>
       <ul>
         <li><a href="../index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
         <li><a href="../Algoritmos/index.html"><i class="fas fa-sitemap"></i> <span>Algoritmos diagnósticos</span></a></li>
         <li><a href="../Calculadoras/index.html" class="active"><i class="fas fa-calculator"></i> <span>Calculadoras médicas</span></a></li>
-        <li><a href="../Formacion/index.html"><i class="fas fa-graduation-cap"></i> <span>Formación</span></a></li>		
+        <li><a href="../Formacion/index.html"><i class="fas fa-graduation-cap"></i> <span>Formación</span></a></li>
         <li><a href="../Enlaces/index.html"><i class="fas fa-link"></i> <span>Enlaces útiles</span></a></li>
         <li><a href="../Documentos/index.html"><i class="fas fa-file-lines"></i> <span>Documentos y plantillas</span></a></li>
         <li><a href="../Calidad/index.html"><i class="fas fa-shield-heart"></i> <span>Calidad y Seguridad del Paciente</span></a></li>
       </ul>
-      
-            <!-- Bloque adicional: Sala de Críticos -->
+
+      <!-- Bloque adicional: Sala de Críticos -->
       <ul class="submenu-criticos">
         <li><a href="../Criticos/index.html"><i class="fas fa-procedures"></i> <span>Sala de Críticos</span></a></li>
       </ul>
@@ -70,7 +82,6 @@
         <li><a href="../Profesionales/index.html"><i class="fas fa-user-md"></i> <span>Fichas del personal</span></a></li>
         <li><a href="../Cuadrantes/index.html"><i class="fas fa-calendar-alt"></i> <span>Cuadrantes de trabajo</span></a></li>
       </ul>
-
     </nav>
   </aside>
 
@@ -88,7 +99,7 @@
       </div>
     </section>
 
-    <!-- Selector de año -->
+    <!-- Selector de año centrado -->
     <div class="year-switch">
       <button id="prevYear" title="Año anterior">⟵</button>
       <label for="yearInput" class="visually-hidden">Año</label>
@@ -96,7 +107,7 @@
       <button id="nextYear" title="Año siguiente">⟶</button>
     </div>
 
-    <!-- Lista de meses (se rellena por JS). Fallback noscript por si acaso -->
+    <!-- Lista de meses -->
     <nav class="calc-toc" id="monthList"></nav>
 
     <noscript>
@@ -119,6 +130,13 @@
     <p class="small-note">
       Nota: Podrá acceder a los cuadrantes que estén en verde.
     </p>
+
+    <!-- Botón GRÁFICAS centrado, justo debajo de la nota -->
+    <div class="actions center">
+      <a class="btn-dark" href="./Estadistica/index.html">
+        <i class="fa-solid fa-chart-line"></i> Estadística
+      </a>
+    </div>
   </main>
 
   <script>
@@ -207,8 +225,8 @@
       const intento = prompt('Introduce la contraseña del editor:');
       if (intento === null) return; // cancelado
       if (intento === PASSWORD){
-      sessionStorage.setItem('editor_ok','1');  // ⭐ guarda marca de sesión
-      window.location.href = "./Editor/index.html";
+        sessionStorage.setItem('editor_ok','1');  // ⭐ guarda marca de sesión
+        window.location.href = "./Editor/index.html";
       } else {
         alert('Contraseña incorrecta');
       }
