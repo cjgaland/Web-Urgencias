@@ -1,512 +1,564 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cuadrante – Urgencias · AGS Sur de Córdoba</title>
-  <link rel="stylesheet" href="../css/style.css?v=20250824" />
-  <style>
-    :root { --gap:.5rem; --radius:12px; --shadow:0 2px 12px rgba(0,0,0,.08); }
-    body { background:#f4f7fb; }
-    .wrap { max-width:1200px; margin:2rem auto; padding:0 1rem; }
-    .toolbar { display:flex; gap:var(--gap); align-items:center; justify-content:space-between; margin-bottom:1rem; flex-wrap:wrap; }
-    .toolbar .left, .toolbar .right { display:flex; gap:var(--gap); align-items:center; }
-    .toolbar h1 { font-size:clamp(1.2rem,2vw,1.6rem); font-weight:600; }
-    .toolbar .badge { background:#00457c; color:#fff; padding:.35rem .6rem; border-radius:999px; font-size:.85rem; }
-    .toolbar button { border:none; border-radius:999px; padding:.55rem .9rem; cursor:pointer; box-shadow:var(--shadow); background:#fff; font-weight:600; }
-    .panel { background:#fff; border-radius:var(--radius); box-shadow:var(--shadow); padding:1rem; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Parámetros · Cuadrantes – Urgencias AGS Sur de Córdoba</title>
 
-    table.cuadrante { width:100%; border-collapse:separate; border-spacing:0; font-size:.92rem; }
-    table.cuadrante thead th { position:sticky; top:0; background:#f7fafc; z-index:1; }
-    table.cuadrante th, table.cuadrante td { padding:.45rem .5rem; text-align:center; border-bottom:1px solid #eef2f7; }
-    table.cuadrante th:first-child, table.cuadrante td:first-child { text-align:left; position:sticky; left:0; background:#fff; }
-    
-    /* Selección de profesional */
-    .selected-professional { background:#e6f3ff !important; font-weight:600; }
-    .professional-info { margin:1rem 0; padding:1rem; background:#f0f8ff; border-radius:var(--radius); border-left:4px solid #00457c; }
-    .professional-info h3 { margin:0 0 .5rem; color:#00457c; }
-    .deviation { font-weight:600; }
-    .deviation.positive { color:#2e7d32; }
-    .deviation.negative { color:#c62828; }
+<link rel="icon" href="../../favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/style.css?v=20250824"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<!-- Librería para exportar a PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-    /* Colores de turnos */
-    .shift-M{background:#E6F4EA}
-    .shift-T{background:#E6ECFF}
-    .shift-G{background:#EAF7FF}
-    .shift-O{background:#FFF0F5}
-    .shift-F{background:#FFF5E6}
-    .shift-FO{background:#FFECEC}
-    .shift-R{background:#E0F7FA}
-    .shift-V{background:#FDF4FF}
-    .shift-S{background:#F5F7FA;color:#99A3AD}
-    .shift-LD{background:#F0FDF4}
-    .shift-FR{background:#F3E8FF}
-    .shift-OT{background:#F2F2F2}
-
-    .legend { display:flex; flex-wrap:wrap; gap:.5rem .75rem; margin-top:.75rem; }
-    .legend .item { display:flex; align-items:center; gap:.35rem; font-size:.9rem; }
-    .legend .swatch { width:18px; height:14px; border-radius:4px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.06); }
-
-    .totales { margin-top:1rem; display:grid; gap:.5rem; grid-template-columns:repeat(auto-fit, minmax(160px,1fr)); }
-    .totales .card { background:#fff; border-radius:var(--radius); box-shadow:var(--shadow); padding:.75rem .9rem; cursor:pointer; transition:transform .2s, box-shadow .2s; }
-    .totales .card:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0,0,0,.12); }
-    .totales .card h3 { font-size:.9rem; font-weight:600; color:#00457c; }
-    .totales .card p { margin:.25rem 0 0; font-weight:700; font-size:1.1rem; }
-    
-    .filter-options { display:flex; align-items:center; gap:.5rem; margin-left:auto; }
-    .filter-options label { display:flex; align-items:center; gap:.3rem; font-size:.9rem; cursor:pointer; }
-
-    @media print {
-      body { background:#fff; }
-      .toolbar, .legend, .professional-info, .filter-options { display:none; }
-      .panel { box-shadow:none; border:none; }
-      table.cuadrante th, table.cuadrante td { padding:.28rem .3rem; }
-      @page { size: landscape; }
-    }
-  </style>
+<style>
+.panel{background:#fff;border:1px solid #e6eef8;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.05);padding:1rem}
+.filtros{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;margin:.5rem 0 1rem}
+.filtros .group{display:flex;gap:.4rem;align-items:center}
+.filtros .group.push{margin-left:auto}
+.filtros .month-grid{display:grid;grid-template-columns:repeat(6,minmax(110px,1fr));gap:.4rem;width:100%}
+.month-btn{border:1px solid #e6eef8;background:#fff;border-radius:999px;padding:.35rem .6rem;cursor:pointer}
+.month-btn.active{background:#edf5ff;border-color:#cfe0fb;color:#0a4c84;font-weight:700}
+.btn{border:1px solid #e6eef8;background:#fff;border-radius:999px;padding:.55rem .9rem;font-weight:700;cursor:pointer}
+.btn.primary{background:#0a4c84;color:#fff;border-color:#0a4c84}
+.btn.blue{background:#1e88e5;color:#fff;border-color:#1e88e5}
+.btn.blue:hover{background:#1565c0;border-color:#1565c0}
+.btn-back{
+  position:fixed; right:16px; top:12px; z-index:1000;
+  display:inline-flex; align-items:center; gap:.4rem;
+  border:1px solid #e6eef8; background:#fff; border-radius:999px;
+  padding:.45rem .8rem; font-weight:700; cursor:pointer;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+.btn-back:hover{background:#f7f9fc}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(220px,1fr));gap:1rem;margin:.6rem 0 1rem}
+.kpi{border:1px solid #e6eef8;border-radius:12px;padding:.9rem 1rem;background:#fafcff}
+.kpi .label{font-weight:700;color:#2b3a55}
+.kpi .val{font-size:1.6rem;font-weight:800;margin-top:.2rem}
+.table-wrap{overflow:auto;border:1px solid #e6eef8;background:#fff;border-radius:12px}
+table{width:100%;border-collapse:separate;border-spacing:0}
+th,td{padding:.55rem .6rem;border-bottom:1px solid #eef2f7;white-space:nowrap;text-align:right;font-size:.95rem}
+th.sticky,td.sticky{position:sticky;left:0;background:#fff;text-align:left}
+th{font-weight:800;color:#2b3a55}
+.var-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:1rem}
+.canvas-wrap{position:relative;min-height:280px}
+.toolbar-final{display:flex;gap:.6rem;justify-content:flex-end;margin-top:1rem}
+@media print{
+  @page{ size: A4 landscape; margin: 8mm; }
+  .sidebar, .masthead, .filtros, .btn-back { display:none !important; }
+  .panel{ border:none; box-shadow:none; padding:0 }
+  .kpis{ grid-template-columns:repeat(4,1fr); }
+}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="toolbar">
-      <div class="left">
-        <h1 id="titulo"></h1>
-        <span class="badge" id="badge-equipo" title="Área de Urgencias y Observación">Urgencias</span>
+<button class="btn-back" id="btnVolver"><i class="fa-solid fa-arrow-left"></i> Volver</button>
+
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <img src="../../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba"/>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="../../index.html"><i class="fas fa-home"></i> Inicio</a></li>
+      <li><a href="../index.html"><i class="fas fa-calendar-alt"></i> Cuadrantes</a></li>
+      <li><a href="./index.html"><i class="fas fa-table"></i> Estadística</a></li>
+      <li><a href="./graficas.html"><i class="fas fa-chart-column"></i> Gráficas</a></li>
+      <li><a href="#" class="active"><i class="fas fa-sliders"></i> Parámetros</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<header class="masthead">
+  <div class="masthead-left"><img src="../../images/Logo-Salud2.png" alt="Junta de Andalucía"/></div>
+  <div class="masthead-right"><img src="../../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Urgencias Montilla"/></div>
+</header>
+
+<main class="main-content" id="areaExport">
+  <section class="hero">
+    <div class="hero-icon"><i class="fa-solid fa-sliders"></i></div>
+    <div class="hero-text">
+      <h1>Parámetros de cuadrantes</h1>
+      <p id="subtitulo" style="color:#5b6b85;font-weight:600;margin:.2rem 0 0"></p>
+      <p>Resumen de profesionales y estadísticos (media, mediana, moda, desviación típica, rango y cuartiles) sobre el parámetro elegido.</p>
+    </div>
+  </section>
+
+  <div class="panel">
+    <div class="filtros">
+      <div class="group">
+        <label for="anio"><strong>Año</strong></label>
+        <input id="anio" type="number" min="2000" max="2100" step="1" style="width:6.5rem;text-align:center" />
       </div>
-      <div class="right">
-        <div class="filter-options">
-          <label>
-            <input type="checkbox" id="filter-active" checked />
-            Solo profesionales con actividad
-          </label>
-        </div>
-        <button id="btn-print">🖨️ Imprimir</button>
-        <button id="btn-pdf">📄 Exportar PDF</button>
-        <button id="btn-export">⬇️ Exportar CSV</button>
+
+      <div class="group">
+        <label for="filtroNombre"><strong>Profesional</strong></label>
+        <input id="filtroNombre" type="text" placeholder="Buscar nombre…" style="width:16rem;padding:.45rem .6rem;border:1px solid #e6eef8;border-radius:8px">
+      </div>
+
+      <div class="group">
+        <label for="topN"><strong>Top-N</strong></label>
+        <select id="topN" size="1" style="padding:.45rem .6rem;border:1px solid #e6eef8;border-radius:8px">
+          <option value="0" selected>Todos</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
+      </div>
+
+      <div class="group">
+        <label for="parametro"><strong>Parámetro</strong></label>
+        <select id="parametro" size="1" style="padding:.45rem .6rem;border:1px solid #e6eef8;border-radius:8px">
+          <optgroup label="Actividad asistencial · turnos">
+            <option value="A_total_turnos" selected>Total asistencial (turnos)</option>
+            <option value="A_M">M</option>
+            <option value="A_T">T</option>
+            <option value="A_G">G</option>
+            <option value="A_O">O</option>
+            <option value="A_F">F</option>
+            <option value="A_FO">FO</option>
+            <option value="A_R">R</option>
+          </optgroup>
+          <optgroup label="Actividad asistencial · horas">
+            <option value="A_total_horas">Total asistencial (horas)</option>
+          </optgroup>
+          <optgroup label="Otros conceptos">
+            <option value="O_total">Total otros</option>
+            <option value="O_LD">LD</option>
+            <option value="O_V">V</option>
+            <option value="O_FR">FR</option>
+            <option value="O_SD">SD</option>
+            <option value="O_LS">LS</option>
+            <option value="O_OT">OT</option>
+            <option value="O_BL">BL</option>
+            <option value="O_BM">BM</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="group push">
+        <button class="btn primary" id="btnCalcular"><i class="fa-solid fa-rotate"></i> Calcular</button>
+      </div>
+
+      <div class="group" style="flex:1 1 100%"></div>
+
+      <div class="group">
+        <button class="btn" id="selTodo">Todo el año</button>
+        <button class="btn" id="selHastaHoy">Hasta mes actual</button>
+        <button class="btn" id="selNinguno">Ninguno</button>
+        <button class="btn" id="selInvertir">Invertir</button>
+      </div>
+
+      <!-- NUEVO: casilla a la derecha de “Invertir” -->
+      <div class="group" title="Excluir de los cálculos a los profesionales sin actividad asistencial">
+        <input type="checkbox" id="excluirInactivos" />
+        <label for="excluirInactivos"><strong>Excluir sin actividad</strong></label>
+      </div>
+
+      <div class="group month-grid" id="meses"></div>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi">
+        <div class="label"><i class="fa-solid fa-users"></i> Profesionales (total)</div>
+        <div class="val" id="k_total">–</div>
+      </div>
+      <div class="kpi">
+        <div class="label"><i class="fa-solid fa-user-nurse"></i> Con labor asistencial</div>
+        <div class="val" id="k_asist">–</div>
+      </div>
+      <div class="kpi">
+        <div class="label"><i class="fa-regular fa-user"></i> Sin labor asistencial</div>
+        <div class="val" id="k_noasist">–</div>
+      </div>
+      <div class="kpi">
+        <div class="label"><i class="fa-solid fa-layer-group"></i> Param. seleccionado – Suma (selección)</div>
+        <div class="val" id="k_suma">–</div>
       </div>
     </div>
 
-    <div class="panel">
-      <div id="professional-info-container" style="display:none;">
-        <div class="professional-info">
-          <h3 id="selected-professional-name"></h3>
-          <div id="selected-professional-stats"></div>
-        </div>
-      </div>
-      
-      <div style="overflow:auto;">
-        <table class="cuadrante" id="tabla">
-          <thead id="thead"></thead>
-          <tbody id="tbody"></tbody>
+    <div class="table-wrap" style="margin-bottom:1rem">
+      <table>
+        <thead>
+          <tr>
+            <th class="sticky">Estadístico</th>
+            <th>Valor</th>
+            <th>Notas</th>
+          </tr>
+        </thead>
+        <tbody id="statsBody">
+          <tr><td class="sticky">Media</td><td id="st_media">–</td><td>Promedio por profesional</td></tr>
+          <tr><td class="sticky">Mediana</td><td id="st_mediana">–</td><td>P50</td></tr>
+          <tr><td class="sticky">Moda</td><td id="st_moda">–</td><td>Puede ser multimodal</td></tr>
+          <tr><td class="sticky">Desv. típica (muestral)</td><td id="st_sd">–</td><td>n−1</td></tr>
+          <tr><td class="sticky">Mín / Máx</td><td id="st_minmax">–</td><td>Rango</td></tr>
+          <tr><td class="sticky">P25 / P75</td><td id="st_p2575">–</td><td>Cuartiles</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Avisos -->
+    <div id="warns" class="panel" style="display:none; margin-top:1rem">
+      <strong><i class="fa-solid fa-circle-exclamation"></i> Avisos de carga:</strong>
+      <ul id="warnList" style="margin:.4rem 0 0 .9rem"></ul>
+    </div>
+
+    <div class="var-grid">
+      <div class="table-wrap">
+        <table id="tablaMeses">
+          <thead>
+            <tr>
+              <th class="sticky">Mes</th>
+              <th>Total (suma)</th>
+              <th>Media por profesional</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
         </table>
       </div>
-
-      <div class="legend" id="leyenda"></div>
-      <div class="totales" id="totales"></div>
+      <div class="canvas-wrap">
+        <canvas id="chartVar"></canvas>
+      </div>
     </div>
+
+    <!-- NUEVO: barra final con acciones -->
+    <div class="toolbar-final">
+      <button class="btn" id="btnImprimir"><i class="fa-solid fa-print"></i> Imprimir (A4 apaisado)</button>
+      <button class="btn blue" id="btnPDF"><i class="fa-regular fa-file-pdf"></i> Exportar PDF (A4 apaisado)</button>
+    </div>
+
   </div>
+</main>
 
-  <script>
-    // Parámetros (?csv=AAAA-MM&mes=M&anno=AAAA). Si faltan, usa mes/año actuales.
-    const params = new URLSearchParams(window.location.search);
-    const mesParam = parseInt(params.get('mes') || '') || (new Date().getMonth() + 1);
-    const annoParam = parseInt(params.get('anno') || '') || (new Date().getFullYear());
-    const csvId = params.get('csv') || `${annoParam}-${String(mesParam).padStart(2,'0')}`;
+<script>
+const ASIST = ["M","T","G","O","F","FO","R","MO"];
+const OTROS = ["LD","V","FR","SD","LS","OT","BL","BM"];
+const ALL_CODES = [...ASIST, ...OTROS];
+const HORAS = { M:8, T:8, G:17, O:17, F:24, FO:24, R:12, MO:8 };
 
-    const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-    const DOW = ['D','L','M','X','J','V','S'];
-    const CODIGOS = {
-      M:{nombre:'Mañana 08–15', clase:'shift-M'},
-      T:{nombre:'Tarde 15–22', clase:'shift-T'},
-      G:{nombre:'Guardia laborable 15–08', clase:'shift-G'},
-      O:{nombre:'Guardia Observación 08–15 (día sig.)', clase:'shift-O'},
-      F:{nombre:'Guardia Festivo 09–09', clase:'shift-F'},
-      FO:{nombre:'Obs. Festivo 10–10', clase:'shift-FO'},
-      R:{nombre:'Refuerzo 10–22 (sólo findes/festivos)', clase:'shift-R'},
-      V:{nombre:'Vacaciones', clase:'shift-V'},
-      S:{nombre:'Saliente', clase:'shift-S'},
-      LD:{nombre:'Libre disposición', clase:'shift-LD'},
-      FR:{nombre:'Formación', clase:'shift-FR'},
-      OT:{nombre:'Otros', clase:'shift-OT'}
-    };
+const mesesN     = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+const mesesShort = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
 
-    const tituloMes = `Cuadrante · ${MESES[mesParam-1]} ${annoParam}`;
-    document.getElementById('titulo').textContent = tituloMes;
-    document.title = `${tituloMes} – Urgencias · AGS Sur de Córdoba`;
+const $  = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
 
-    function daysInMonth(y,m){ 
-        return new Date(y, m, 0).getDate(); 
+const hoy = new Date();
+document.addEventListener('DOMContentLoaded', ()=>{ $("#anio").value = hoy.getFullYear(); });
+
+function buildMonthsGrid(){
+  const cont = $("#meses");
+  cont.innerHTML = "";
+  mesesN.forEach((n,i)=>{
+    const b = document.createElement("button");
+    b.type="button"; b.className="month-btn active";
+    b.dataset.m = String(i+1).padStart(2,"0");
+    b.textContent = n;
+    b.onclick = ()=> b.classList.toggle("active");
+    cont.appendChild(b);
+  });
+}
+buildMonthsGrid();
+
+function selectAllMonths(){ $$(".month-btn").forEach(b=>b.classList.add("active")); }
+function selectNone(){     $$(".month-btn").forEach(b=>b.classList.remove("active")); }
+function invertMonths(){   $$(".month-btn").forEach(b=>b.classList.toggle("active")); }
+function selectUntilNow(){
+  const a = parseInt($("#anio").value,10);
+  const mNow = (a===hoy.getFullYear()) ? hoy.getMonth()+1 : 12;
+  $$(".month-btn").forEach((b,i)=>{ b.classList.toggle("active", i<mNow); });
+}
+$("#selTodo").onclick = selectAllMonths;
+$("#selNinguno").onclick = selectNone;
+$("#selInvertir").onclick = invertMonths;
+$("#selHastaHoy").onclick = selectUntilNow;
+
+function rangoMeses(mSel){
+  if(!mSel.length) return "";
+  const idx = mSel.map(m=>parseInt(m,10)-1).sort((a,b)=>a-b);
+  const consecutivos = idx.every((v,i,a)=> i===0 || v===a[i-1]+1 );
+  if(consecutivos){
+    const first = mesesShort[idx[0]], last = mesesShort[idx[idx.length-1]];
+    return (first===last)? first : `${first}–${last}`;
+  }
+  const nombres = idx.map(i=>mesesShort[i]);
+  return (nombres.length>8) ? `${nombres.slice(0,8).join(", ")}…` : nombres.join(", ");
+}
+
+// CSV robusto
+function parseCSV(text){
+  const lines = text.replace(/\uFEFF/g,'').replace(/\r/g,"").split("\n").filter(l=>l.trim().length);
+  return lines.map(line=>{
+    const row=[]; let cur=""; let inQ=false;
+    for(let i=0;i<line.length;i++){
+      const ch=line[i], nx=line[i+1];
+      if(ch=='"'){ if(inQ && nx=='"'){ cur+='"'; i++; } else { inQ=!inQ; } }
+      else if(ch=="," && !inQ){ row.push(cur); cur=""; }
+      else cur+=ch;
     }
-    
-    function labelDia(y,m,d){ 
-        const dow = new Date(y, m-1, d).getDay(); 
-        return `${DOW[dow]} ${d}`; 
+    row.push(cur); return row;
+  });
+}
+
+const tokenizar = v => v.toUpperCase().trim().split(/[ \\/+\-]+/).filter(Boolean);
+
+let fullProf = [];   // TODOS los profesionales (para KPIs globales)
+let baseProf = [];   // Profesionales tras aplicar filtros/TopN/exclusión
+let porMesCache = {};
+let BASE_PATH = null;
+let chartVar = null;
+let warnBuf = [];
+function pushWarn(msg){ warnBuf.push(msg); }
+function flushWarns(){
+  const panel = document.getElementById('warns');
+  const ul = document.getElementById('warnList');
+  if(!warnBuf.length){ panel.style.display='none'; ul.innerHTML=''; return; }
+  panel.style.display='block';
+  ul.innerHTML = warnBuf.map(w=>`<li>${w}</li>`).join('');
+  warnBuf = [];
+}
+
+async function resolveBasePath(anio, mesesSel){
+  if(BASE_PATH) return BASE_PATH;
+  const candidates = [
+    '../data/cuadrantes',
+    '../../data/cuadrantes',
+    '../../Cuadrantes/data/cuadrantes',
+    './data/cuadrantes',
+    '/Cuadrantes/data/cuadrantes'
+  ];
+  const testMonth = mesesSel[0];
+  for(const base of candidates){
+    try{
+      const testUrl = `${base}/${anio}-${testMonth}.csv?v=${Date.now()}`;
+      const r = await fetch(testUrl, {cache:'no-store'});
+      if(r.ok){ BASE_PATH = base; return BASE_PATH; }
+    }catch(e){}
+  }
+  // Aviso genérico (sin ruta)
+  pushWarn('No se ha podido resolver la ubicación de los CSV. Revisa la carpeta data/cuadrantes.');
+  return null;
+}
+
+async function cargarMes(anio, m){
+  const acc = { porProf:{}, totalMes:{}, totalAsistMes:0, totalOtrosMes:0 };
+  try{
+    const base = BASE_PATH || '../data/cuadrantes';
+    const url = `${base}/${anio}-${m}.csv?v=${Date.now()}`;
+    const r = await fetch(url, {cache:'no-store'});
+    if(!r.ok){
+      // Aviso SIN ruta
+      pushWarn(`No se ha encontrado el CSV para ${mesesN[parseInt(m,10)-1]} (${anio}).`);
+      return acc;
     }
-    
-    const numDias = daysInMonth(annoParam, mesParam);
-
-    // Variables globales para almacenar datos
-    let csvData = [];
-    let selectedProfessional = null;
-    let showOnlyActive = true;
-
-    // Encabezado
-    const thead = document.getElementById('thead');
-    const trHead = document.createElement('tr');
-    const thNombre = document.createElement('th'); 
-    thNombre.textContent = 'Profesional'; 
-    trHead.appendChild(thNombre);
-    
-    for (let d=1; d<=numDias; d++){ 
-        const th = document.createElement('th'); 
-        th.textContent = labelDia(annoParam, mesParam, d); 
-        trHead.appendChild(th); 
+    const text = await r.text();
+    const rows = parseCSV(text);
+    if(!rows.length){
+      pushWarn(`CSV vacío en ${mesesN[parseInt(m,10)-1]} (${anio}).`);
+      return acc;
     }
-    
-    const thObs = document.createElement('th'); 
-    thObs.textContent = 'Obs.'; 
-    trHead.appendChild(thObs);
-    thead.appendChild(trHead);
-
-    // Leyenda
-    const leyenda = document.getElementById('leyenda');
-    Object.entries(CODIGOS).forEach(([k,v])=>{
-        const item = document.createElement('div'); 
-        item.className = 'item'; 
-        item.title = v.nombre;
-        const sw = document.createElement('span'); 
-        sw.className = 'swatch ' + v.clase; 
-        item.appendChild(sw);
-        const txt = document.createElement('span'); 
-        txt.textContent = `${k} = ${v.nombre}`; 
-        item.appendChild(txt);
-        leyenda.appendChild(item);
-    });
-
-    // Cargar CSV
-    const csvPath = `data/cuadrantes/${csvId}.csv?v=${Date.now()}`;
-    fetch(csvPath)
-        .then(r => { 
-            if(!r.ok) throw new Error('No se encontró el archivo CSV para el periodo seleccionado.'); 
-            return r.text(); 
-        })
-        .then(txt => { 
-            csvData = parseCSV(txt); 
-            renderTabla(csvData); 
-            renderTotales(csvData); 
-        })
-        .catch(err => {
-            console.error(err);
-            const tbody = document.getElementById('tbody');
-            const tr = document.createElement('tr');
-            const td = document.createElement('td'); 
-            td.colSpan = numDias + 2; 
-            td.style.textAlign = 'left';
-            td.innerHTML = `⚠️ ${err.message}`;
-            tr.appendChild(td); 
-            tbody.appendChild(tr);
+    const dmax = (rows[0]||[]).length - 2;
+    for(let i=1;i<rows.length;i++){
+      const nombre = (rows[i][0]||"").trim(); if(!nombre) continue;
+      acc.porProf[nombre] = acc.porProf[nombre] || Object.fromEntries(ALL_CODES.map(c=>[c,0]));
+      for(let d=1; d<=dmax; d++){
+        tokenizar(rows[i][d]||"").forEach(t=>{
+          if(ALL_CODES.includes(t)){
+            acc.porProf[nombre][t]++;
+            acc.totalMes[t] = (acc.totalMes[t]||0)+1;
+          }
         });
-
-    function parseCSV(input){
-        const lines = input.replace(/\r/g,'').split('\n').filter(l => l.trim().length);
-        return lines.map(line => {
-            const row = []; 
-            let cur = ''; 
-            let inQ = false;
-            for (let i=0; i<line.length; i++){
-                const ch = line[i], next = line[i+1];
-                if (ch === '"'){ 
-                    if(inQ && next === '"'){ 
-                        cur += '"'; 
-                        i++; 
-                    } else { 
-                        inQ = !inQ; 
-                    } 
-                }
-                else if (ch === ',' && !inQ){ 
-                    row.push(cur); 
-                    cur = ''; 
-                }
-                else { 
-                    cur += ch; 
-                }
-            } 
-            row.push(cur); 
-            return row;
-        });
+      }
     }
+    acc.totalAsistMes = ASIST.reduce((s,c)=>s+(acc.totalMes[c]||0),0);
+    acc.totalOtrosMes  = OTROS.reduce((s,c)=>s+(acc.totalMes[c]||0),0);
+  }catch(e){
+    pushWarn(`Error leyendo CSV de ${mesesN[parseInt(m,10)-1]} (${anio}).`);
+  }
+  return acc;
+}
 
-    function tokenizar(val){
-        const raw = val.toUpperCase().trim();
-        if (!raw) return [];
-        return raw.split(/[ \\/+\-]+/).filter(Boolean);
+async function cargarDatos(anio, meses){
+  const porMes = {};
+  const accProf = {};
+  for(const m of meses){
+    porMes[m] = await cargarMes(anio, m);
+    for(const [nombre, obj] of Object.entries(porMes[m].porProf)){
+      accProf[nombre] = accProf[nombre] || Object.fromEntries(ALL_CODES.map(c=>[c,0]));
+      for(const c of ALL_CODES){ accProf[nombre][c] += (obj[c]||0); }
     }
+  }
+  return { porMes, accProf };
+}
 
-    function renderTabla(rows){
-        const tbody = document.getElementById('tbody');
-        tbody.innerHTML = '';
-        
-        for (let i=1; i<rows.length; i++){
-            const r = rows[i]; 
-            if (!r || !r.length) continue;
-            const nombre = (r[0]||'').trim();
-            if (!nombre) continue;
-            
-            // Filtrar profesionales sin actividad si está activado el filtro
-            if (showOnlyActive) {
-                let hasActivity = false;
-                for (let d=1; d<=numDias; d++){
-                    const val = (r[d]||'').toString().trim();
-                    if (val) {
-                        hasActivity = true;
-                        break;
-                    }
-                }
-                if (!hasActivity) continue;
-            }
-            
-            const tr = document.createElement('tr');
-            tr.dataset.professional = nombre;
-            if (selectedProfessional === nombre) {
-                tr.classList.add('selected-professional');
-            }
-            
-            const tdNombre = document.createElement('td'); 
-            tdNombre.textContent = nombre; 
-            tdNombre.style.cursor = 'pointer';
-            tdNombre.addEventListener('click', () => selectProfessional(nombre));
-            tr.appendChild(tdNombre);
-            
-            for (let d=1; d<=numDias; d++){
-                const td = document.createElement('td');
-                const val = (r[d]||'').toString().trim();
-                if (val){
-                    const tokens = tokenizar(val);
-                    const firstKnown = tokens.find(t => CODIGOS[t]);
-                    if (firstKnown) td.classList.add(CODIGOS[firstKnown].clase);
-                    td.textContent = tokens.join('+');
-                }
-                tr.appendChild(td);
-            }
-            const tdObs = document.createElement('td'); 
-            tdObs.textContent = (r[numDias+1]||'').trim(); 
-            tr.appendChild(tdObs);
-            tbody.appendChild(tr);
-        }
+function statsBasicos(vals){
+  const n = vals.length;
+  if(n===0) return { n:0 };
+  const s = vals.reduce((a,b)=>a+b,0);
+  const media = s/n;
+  const sorted = [...vals].sort((a,b)=>a-b);
+  const mediana = (n%2? sorted[(n-1)/2] : (sorted[n/2-1]+sorted[n/2])/2);
+  const frec = new Map();
+  sorted.forEach(v=>frec.set(v,(frec.get(v)||0)+1));
+  const maxF = Math.max(...frec.values());
+  const modas = [...frec.entries()].filter(([v,f])=>f===maxF).map(([v])=>v);
+  const var_muestral = n>1 ? vals.reduce((a,b)=>a+(b-media)**2,0)/(n-1) : 0;
+  const sd = Math.sqrt(var_muestral);
+  const min = sorted[0], max = sorted[n-1];
+  const q = p => {
+    if(n===1) return sorted[0];
+    const pos = (n-1)*p;
+    const base = Math.floor(pos);
+    const rest = pos - base;
+    return sorted[base] + (sorted[base+1] - sorted[base]) * rest;
+  };
+  const p25 = q(0.25), p75 = q(0.75);
+  return { n, suma:s, media, mediana, modas, sd, min, max, p25, p75 };
+}
+
+function totalAsist(row){ return ASIST.reduce((s,c)=>s+(row[c]||0),0); }
+function totalAsistHoras(row){ return ASIST.reduce((s,c)=>s + (row[c]||0) * (HORAS[c]||0), 0); }
+function totalOtros(row){ return OTROS.reduce((s,c)=>s+(row[c]||0),0); }
+
+function valorParametro(row, key){
+  if(key==='A_total_turnos') return totalAsist(row);
+  if(key==='A_total_horas')  return totalAsistHoras(row);
+  if(key==='O_total')        return totalOtros(row);
+  if(key.startsWith('A_')){ const code = key.split('_')[1]; return (row[code]||0); }
+  if(key.startsWith('O_')){ const code = key.split('_')[1]; return (row[code]||0); }
+  return 0;
+}
+
+// KPIs: cuentan SIEMPRE sobre fullProf (global), la suma del parámetro sobre baseProf (selección)
+function renderKPIs(paramKey){
+  const total = fullProf.length;
+  const conAsist = fullProf.filter(x=> totalAsist(x.data) > 0 ).length;
+  const sinAsist = total - conAsist;
+  const sumaSel = baseProf.reduce((s,x)=> s + valorParametro(x.data, paramKey), 0);
+
+  $("#k_total").textContent  = total.toLocaleString('es-ES');
+  $("#k_asist").textContent  = conAsist.toLocaleString('es-ES');
+  $("#k_noasist").textContent= sinAsist.toLocaleString('es-ES');
+  $("#k_suma").textContent   = sumaSel.toLocaleString('es-ES');
+}
+
+function renderStats(paramKey){
+  const vals = baseProf.map(x=> valorParametro(x.data, paramKey) );
+  const st = statsBasicos(vals);
+  if(!st.n){ ["st_media","st_mediana","st_moda","st_sd","st_minmax","st_p2575"].forEach(id=>$("#"+id).textContent='–'); return; }
+  $("#st_media").textContent   = st.media.toLocaleString('es-ES',{maximumFractionDigits:2});
+  $("#st_mediana").textContent = st.mediana.toLocaleString('es-ES',{maximumFractionDigits:2});
+  $("#st_moda").textContent    = st.modas.join(', ');
+  $("#st_sd").textContent      = st.sd.toLocaleString('es-ES',{maximumFractionDigits:2});
+  $("#st_minmax").textContent  = `${st.min} / ${st.max}`;
+  $("#st_p2575").textContent   = `${st.p25.toLocaleString('es-ES',{maximumFractionDigits:2})} / ${st.p75.toLocaleString('es-ES',{maximumFractionDigits:2})}`;
+}
+
+function renderVariacion(paramKey, anio, mesesSel){
+  const tbody = $("#tablaMeses tbody");
+  const filas = [];
+  const labels = [];
+  const datos  = [];
+  mesesSel.forEach(m=>{
+    const info = porMesCache[m] || { porProf:{}, totalMes:{} };
+    // aplicar exclusión/salida coherente con baseProf (nombres filtrados)
+    const nombresIncluidos = new Set(baseProf.map(x=>x.nombre));
+    const vals = Object.entries(info.porProf)
+      .filter(([nombre])=> nombresIncluidos.has(nombre))
+      .map(([,row])=> valorParametro(row, paramKey));
+    const n = vals.length;
+    const suma = vals.reduce((a,b)=>a+b,0);
+    const media = n? (suma/n) : 0;
+    const idx = parseInt(m,10)-1;
+    labels.push(mesesShort[idx]);
+    datos.push(suma);
+    filas.push(`<tr><td class="sticky">${mesesN[idx]}</td><td>${suma.toLocaleString('es-ES')}</td><td>${media.toLocaleString('es-ES',{maximumFractionDigits:2})}</td></tr>`);
+  });
+  tbody.innerHTML = filas.join('');
+
+  if(chartVar){ chartVar.destroy(); chartVar = null; }
+  const ctx = document.getElementById('chartVar').getContext('2d');
+  chartVar = new Chart(ctx, {
+    type:'line',
+    data:{ labels, datasets:[{ label:'Suma mensual', data:datos, tension:.25, fill:false }]},
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ position:'top' }, title:{ display:true, text:`Variación mensual ${anio}` } },
+      scales:{ y:{ beginAtZero:true } }
     }
+  });
+}
 
-    function renderTotales(rows){
-        const tot = {};
-        for (let i=1; i<rows.length; i++){
-            const r = rows[i]; 
-            const nombre = (r[0]||'').trim(); 
-            if (!nombre) continue;
-            if (!tot[nombre]) {
-                tot[nombre] = {M:0,T:0,G:0,O:0,F:0,FO:0,R:0,V:0,S:0,LD:0,FR:0,OT:0};
-            }
-            for (let d=1; d<=numDias; d++){
-                const val = (r[d]||'').toString().trim(); 
-                if (!val) continue;
-                const tokens = tokenizar(val);
-                for (const t of tokens){ 
-                    if (tot[nombre][t] !== undefined) tot[nombre][t]++; 
-                }
-            }
-        }
-        
-        // Calcular media de turnos para profesionales con actividad
-        let totalTurnos = 0;
-        let profesionalesConActividad = 0;
-        
-        Object.values(tot).forEach(counts => {
-            const totalJornadas = Object.values(counts).reduce((a,b) => a+b, 0);
-            if (totalJornadas > 0) {
-                totalTurnos += totalJornadas;
-                profesionalesConActividad++;
-            }
-        });
-        
-        const mediaTurnos = profesionalesConActividad > 0 ? totalTurnos / profesionalesConActividad : 0;
-        
-        const box = document.getElementById('totales'); 
-        box.innerHTML = '';
-        
-        Object.entries(tot).forEach(([nombre,counts]) => {
-            const totalJornadas = Object.values(counts).reduce((a,b) => a+b, 0);
-            
-            // Filtrar profesionales sin actividad si está activado el filtro
-            if (showOnlyActive && totalJornadas === 0) return;
-            
-            const c = document.createElement('div'); 
-            c.className = 'card';
-            if (selectedProfessional === nombre) {
-                c.classList.add('selected-professional');
-            }
-            c.dataset.professional = nombre;
-            c.addEventListener('click', () => selectProfessional(nombre));
-            
-            // Calcular desviación respecto a la media
-            const desviacion = totalJornadas - mediaTurnos;
-            const desviacionFormatted = desviacion.toFixed(1);
-            const desviacionClass = desviacion > 0 ? 'positive' : desviacion < 0 ? 'negative' : '';
-            
-            c.innerHTML = `<h3>${nombre}</h3><p>${totalJornadas} turnos</p>` +
-                `<div style="margin-top:.35rem; display:flex; flex-wrap:wrap; gap:.35rem .6rem; font-size:.85rem;">` +
-                Object.entries(counts).filter(([k,v]) => v>0).map(([k,v]) => 
-                    `<span class="badge ${CODIGOS[k] ? CODIGOS[k].clase : ''}" style="display:inline-block; padding:.18rem .45rem; border-radius:999px;">${k}: ${v}</span>`
-                ).join(' ') +
-                `</div>` +
-                (mediaTurnos > 0 ? `<div style="margin-top:.5rem; font-size:.85rem;">Desv. media: <span class="deviation ${desviacionClass}">${desviacion > 0 ? '+' : ''}${desviacionFormatted}</span></div>` : '');
-            
-            box.appendChild(c);
-        });
-    }
+function aplicarFiltrosYOrden(lista, topN, filtroNombre, excluirInactivos){
+  let res = lista;
+  if(excluirInactivos){
+    res = res.filter(x=> totalAsist(x.data) > 0 ); // excluir sin actividad asistencial
+  }
+  if(filtroNombre){
+    const f = filtroNombre.toLowerCase();
+    res = res.filter(x=> x.nombre.toLowerCase().includes(f) );
+  }
+  res.sort((a,b)=> a.nombre.localeCompare(b.nombre, 'es'));
+  if(topN>0) res = res.slice(0, topN);
+  return res;
+}
 
-    function selectProfessional(nombre) {
-        // Limpiar selección anterior
-        if (selectedProfessional) {
-            const prevSelected = document.querySelectorAll('.selected-professional');
-            prevSelected.forEach(el => el.classList.remove('selected-professional'));
-        }
-        
-        // Establecer nueva selección
-        selectedProfessional = nombre;
-        
-        // Resaltar fila y tarjeta del profesional seleccionado
-        const professionalRow = document.querySelector(`tr[data-professional="${nombre}"]`);
-        const professionalCard = document.querySelector(`.card[data-professional="${nombre}"]`);
-        
-        if (professionalRow) professionalRow.classList.add('selected-professional');
-        if (professionalCard) professionalCard.classList.add('selected-professional');
-        
-        // Mostrar información del profesional
-        showProfessionalInfo(nombre);
-    }
+async function calcular(){
+  const anio = parseInt($("#anio").value, 10);
+  const mesesSel = $$(".month-btn.active").map(b=>b.dataset.m);
+  if(!mesesSel.length){ alert("Selecciona al menos un mes."); return; }
 
-    function showProfessionalInfo(nombre) {
-        const container = document.getElementById('professional-info-container');
-        const nameElement = document.getElementById('selected-professional-name');
-        const statsElement = document.getElementById('selected-professional-stats');
-        
-        if (!nombre) {
-            container.style.display = 'none';
-            return;
-        }
-        
-        // Calcular estadísticas del profesional
-        const tot = {};
-        if (!tot[nombre]) {
-            tot[nombre] = {M:0,T:0,G:0,O:0,F:0,FO:0,R:0,V:0,S:0,LD:0,FR:0,OT:0};
-        }
-        
-        for (let i=1; i<csvData.length; i++){
-            const r = csvData[i]; 
-            const currentNombre = (r[0]||'').trim(); 
-            if (currentNombre !== nombre) continue;
-            
-            for (let d=1; d<=numDias; d++){
-                const val = (r[d]||'').toString().trim(); 
-                if (!val) continue;
-                const tokens = tokenizar(val);
-                for (const t of tokens){ 
-                    if (tot[nombre][t] !== undefined) tot[nombre][t]++; 
-                }
-            }
-        }
-        
-        const counts = tot[nombre];
-        const totalJornadas = Object.values(counts).reduce((a,b) => a+b, 0);
-        
-        // Calcular media de turnos para profesionales con actividad
-        let totalTurnos = 0;
-        let profesionalesConActividad = 0;
-        
-        for (let i=1; i<csvData.length; i++){
-            const r = csvData[i]; 
-            const currentNombre = (r[0]||'').trim(); 
-            if (!currentNombre) continue;
-            
-            let hasActivity = false;
-            let currentTotal = 0;
-            for (let d=1; d<=numDias; d++){
-                const val = (r[d]||'').toString().trim(); 
-                if (val) {
-                    hasActivity = true;
-                    const tokens = tokenizar(val);
-                    currentTotal += tokens.length;
-                }
-            }
-            
-            if (hasActivity) {
-                totalTurnos += currentTotal;
-                profesionalesConActividad++;
-            }
-        }
-        
-        const mediaTurnos = profesionalesConActividad > 0 ? totalTurnos / profesionalesConActividad : 0;
-        const desviacion = totalJornadas - mediaTurnos;
-        const desviacionFormatted = desviacion.toFixed(1);
-        const desviacionClass = desviacion > 0 ? 'positive' : desviacion < 0 ? 'negative' : '';
-        
-        nameElement.textContent = nombre;
-        statsElement.innerHTML = `
-            <div><strong>Total de turnos:</strong> ${totalJornadas}</div>
-            <div><strong>Media del equipo:</strong> ${mediaTurnos.toFixed(1)}</div>
-            <div><strong>Desviación:</strong> <span class="deviation ${desviacionClass}">${desviacion > 0 ? '+' : ''}${desviacionFormatted}</span></div>
-            <div style="margin-top:.5rem;"><strong>Distribución:</strong></div>
-            <div style="display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.25rem;">
-                ${Object.entries(counts).filter(([k,v]) => v>0).map(([k,v]) => 
-                    `<span class="badge ${CODIGOS[k] ? CODIGOS[k].clase : ''}" style="display:inline-block; padding:.2rem .5rem; border-radius:999px;">${k}: ${v}</span>`
-                ).join(' ')}
-            </div>
-        `;
-        
-        container.style.display = 'block';
-    }
+  const rango = rangoMeses(mesesSel);
+  // Subtítulo SIN ruta
+  $("#subtitulo").textContent = `Año ${anio} · ${rango} (${mesesSel.length} mes${mesesSel.length>1?'es':''})`;
 
-    // Botones
-    document.getElementById('btn-print').addEventListener('click', () => {
-        // Configurar orientación horizontal para impresión
-        const style = document.createElement('style');
-        style.innerHTML = '@page { size: landscape; }';
-        document.head.appendChild(style);
-        window.print();
-        // Eliminar el estilo después de imprimir
-        setTimeout(() => style.remove(), 100);
-    });
-    
-    document.getElementById('btn-pdf').addEventListener('click', () => {
-        alert('La funcionalidad de exportación a PDF requiere una librería adicional como jsPDF. Esta funcionalidad se implementaría en una versión más avanzada.');
-    });
-    
-    document.getElementById('btn-export').addEventListener('click', () => exportTableToCSV());
-    
-    document.getElementById('filter-active').addEventListener('change', function() {
-        showOnlyActive = this.checked;
-        renderTabla(csvData);
-        renderTotales(csvData);
-        if (selectedProfessional) {
-            selectProfessional(selectedProfessional);
-        }
-    });
+  const filtro = ($("#filtroNombre").value||"").trim();
+  const topN = parseInt($("#topN").value||"0",10);
+  const paramKey = $("#parametro").value;
+  const excluirInactivos = $("#excluirInactivos").checked;
 
-    function exportTableToCSV(filename = `cuadrante-${annoParam}-${String(mesParam).padStart(2,'0')}.csv`){
-        const table = document.getElementById('tabla');
-        const rows = Array.from(table.querySelectorAll('tr'));
-        const csv = rows.map(tr => {
-            const cells = Array.from(tr.children).map(td => {
-                const raw = td.textContent.replace(/^([DLXJVS])\s+/,'').replace(/"/g, '""');
-                return /[",\n]/.test(raw) ? `"${raw}"` : raw;
-            });
-            return cells.join(',');
-        }).join('\n');
-        
-        const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
-        const link = document.createElement('a'); 
-        link.href = URL.createObjectURL(blob); 
-        link.download = filename; 
-        link.click();
-        URL.revokeObjectURL(link.href);
-    }
-  </script>
+  await resolveBasePath(anio, mesesSel);
+  const { porMes, accProf } = await cargarDatos(anio, mesesSel);
+  porMesCache = porMes;
+
+  // Construir listas
+  fullProf = Object.entries(accProf).map(([nombre, data])=>({nombre, data}));
+  baseProf = aplicarFiltrosYOrden(fullProf, topN, filtro, excluirInactivos);
+
+  renderKPIs(paramKey);
+  renderStats(paramKey);
+  renderVariacion(paramKey, anio, mesesSel);
+  flushWarns();
+}
+
+// Eventos UI
+$("#btnCalcular").addEventListener('click', calcular);
+$("#parametro").addEventListener('change', calcular);
+$("#topN").addEventListener('change', calcular);
+$("#excluirInactivos").addEventListener('change', calcular);
+$("#anio").addEventListener('change', ()=>{ selectUntilNow(); });
+$("#filtroNombre").addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); calcular(); }});
+document.getElementById('btnVolver').addEventListener('click', ()=>{ window.location.href = './index.html'; });
+
+// Acciones imprimir / PDF
+document.getElementById('btnImprimir').addEventListener('click', ()=> window.print());
+document.getElementById('btnPDF').addEventListener('click', ()=>{
+  const elem = document.getElementById('areaExport');
+  const opt = {
+    margin:       [0.8, 0.8, 0.8, 0.8], // ~8 mm
+    filename:     `Parametros_${new Date().toISOString().slice(0,10)}.pdf`,
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2, useCORS: true },
+    jsPDF:        { unit: 'cm', format: 'a4', orientation: 'landscape' }
+  };
+  html2pdf().set(opt).from(elem).save();
+});
+
+// Inicial
+selectUntilNow();
+calcular();
+</script>
 </body>
 </html>
