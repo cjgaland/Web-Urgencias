@@ -132,10 +132,32 @@ tfoot td{font-weight:800;background:#fafcff}
   [role="tabpanel"]{ display:none !important; }
   [role="tabpanel"].active{ display:block !important; }
 }
+  
+/* Botón flotante Volver */
+.btn-back{
+  position:fixed; right:16px; top:12px; z-index:1000;
+  display:inline-flex; align-items:center; gap:.4rem;
+  border:1px solid #e6eef8; background:#fff; border-radius:999px;
+  padding:.45rem .8rem; font-weight:700; cursor:pointer;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+.btn-back:hover{ background:#f7f9fc; }
+
+/* Ocultar en impresión */
+@media print{
+  .btn-back{ display:none !important; }
+}
+  
+  
 </style>
 </head>
 <body>
 
+<button class="btn-back" id="btnVolver" title="Volver">
+  <i class="fa-solid fa-arrow-left"></i> Volver
+</button>
+ 
+    
 <!-- Sidebar reducido -->
 <aside class="sidebar">
   <div class="sidebar-header">
@@ -144,7 +166,9 @@ tfoot td{font-weight:800;background:#fafcff}
   <nav>
     <ul>
       <li><a href="../../index.html"><i class="fas fa-home"></i> Inicio</a></li>
-      <li><a href="../index.html" class="active"><i class="fas fa-calendar-alt"></i> Cuadrantes de trabajo</a></li>
+      <li><a href="../index.html"><i class="fas fa-calendar-alt"></i> Cuadrantes</a></li>
+      <li><a href="./graficas.html"><i class="fas fa-chart-column"></i> Gráficas</a></li>
+      <li><a href="./parametros.html"><i class="fas fa-sliders"></i> Parámetros</a></li>
     </ul>
   </nav>
 </aside>
@@ -582,7 +606,12 @@ document.getElementById('filtroNombre').addEventListener('keydown', (e) => {
   window.location.href = './graficas.html';
 });
  
+// Botón Volver: vuelve a Cuadrantes
+document.getElementById('btnVolver').addEventListener('click', ()=>{
+  window.location.href = '../index.html';   // o usa: window.history.back();
+});
 
+  
 </script>
 </body>
 </html>
