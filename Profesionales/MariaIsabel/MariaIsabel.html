@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ficha Profesional · María Isabel</title>
+<title>Ficha Profesional · María Isabel López Estepa</title>
 <link rel="icon" href="../../favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="../../css/style.css" />
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -67,7 +67,7 @@
   </section>
   <div class="ficha-profesional">
     <div class="ficha-grid">
-      <div><img src="Foto" alt="Foto María Isabel" class="foto-carnet"></div>
+      <div><img src="MariaIsabel.png" alt="Foto María Isabel López Estepa" class="foto-carnet"></div>
       <div class="datos-card">
         <div class="datos-grid">
           <div class="label">Nombre</div><div class="valor">María Isabel</div>
@@ -198,8 +198,8 @@
   const anio   = params.get('anio') || String(new Date().getFullYear());
   const mes    = params.get('mes')  || pad2(new Date().getMonth()+1);
 
-  const nombre  = 'María Isabel'; // lo que mostramos en la pastilla del visor
-  const csvname = 'María Isabel';             // clave de la 1ª columna en tu CSV para María Isabel
+  const nombre  = 'María Isabel López Estepa'; // lo que mostramos en la pastilla del visor
+  const csvname = 'López Estepa';             // clave de la 1ª columna en tu CSV para María Isabel López Estepa
 
   const hrefCuad = `../cuadrante-personal.html?nombre=${encodeURIComponent(nombre)}&csvname=${encodeURIComponent(csvname)}&anio=${anio}&mes=${mes}`;
   document.getElementById('link-cuadrante').href = hrefCuad;
