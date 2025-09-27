@@ -77,30 +77,91 @@ td .ellipsis{
   vertical-align: bottom;
 }
 
-/* ===== Exportación PDF basada en clon ===== */
-#pdf-clone-root{ position: fixed; inset: 0; z-index: -1; visibility: hidden; }
-#pdf-clone-root .canvas-wrap{ display: none !important; } /* opcional: oculta gráfica en PDF */
-#pdf-clone-root th.sticky, 
-#pdf-clone-root td.sticky{ position: static !important; }
-#pdf-clone-root .table-wrap{ overflow: visible !important; }
+/* ——— Pantalla: asegurar layout correcto (sin afectar impresión) ——— */
+@media screen {
+  .filtros.screen-only { display:flex; }
+  .kpis.screen-only{ display:grid; grid-template-columns:repeat(4, minmax(220px,1fr)); }
+}
 
-/* ===== IMPRESIÓN CENTRADA ===== */
+/* ——— Impresión: UI fuera, solo cabecera export + tablas + gráfica ——— */
+@media print{
+  @page{ size: A4 landscape; margin: 8mm; }
+  .sidebar, .masthead, .btn-back { display:none !important; }
+
+  .export-only { display:block !important; }
+  .screen-only { display:none !important; }
+
+  .kpis, .toolbar-final, .filtros { display:none !important; }
+  th.sticky, td.sticky { position: static !important; }
+  .table-wrap{ overflow: visible !important; border-radius:12px; }
+  .panel{ border:none; box-shadow:none; }
+}
+
+/* ——— Clon para PDF: mismo resultado que imprimir ——— */
+#pdf-clone-root .export-only { display:block !important; }
+#pdf-clone-root .screen-only { display:none !important; }
+#pdf-clone-root .kpis, #pdf-clone-root .toolbar-final, #pdf-clone-root .filtros,
+#pdf-clone-root .sidebar, #pdf-clone-root .masthead, #pdf-clone-root .btn-back { display:none !important; }
+#pdf-clone-root th.sticky, #pdf-clone-root td.sticky{ position: static !important; }
+#pdf-clone-root .table-wrap{ overflow: visible !important; }
+#pdf-clone-root .panel{ border:none !important; box-shadow:none !important; }
+#pdf-clone-root .canvas-wrap { display:block !important; }
+
+/* Estética cabecera exportación */
+.export-header{ margin-bottom: .6rem; }
+.export-header h2 { margin: 0 0 .25rem 0; }
+.export-summary { display:flex; flex-wrap:wrap; gap:.4rem .6rem; }
+.export-summary .chip{
+  background:#f0f4ff; border:1px solid #d6e4ff; border-radius:8px;
+  padding:.25rem .5rem; font-weight:600;
+}
+
+/* Contenedor temporal PDF */
+#pdf-clone-root{ position: fixed; inset: 0; z-index: -1; visibility: hidden; }
+
+/* === Bloque añadido por unificación UI+Impresión === */
+/* Base: ocultar export-only en pantalla */
+.export-only{display:none !important;}
+
+/* ——— Impresión: UI fuera, solo cabecera export + tablas + gráfica ——— */
 @media print{
   @page{ size: A4 landscape; margin: 8mm; }
 
-  .sidebar, .masthead, .filtros, .btn-back { display:none !important; }
+  .sidebar, .masthead, .btn-back { display:none !important; }
 
+  /* Forzamos que el área imprimible ocupe todo el ancho de la hoja */
   #areaExport, .main-content, .panel{
     margin: 0 !important;
     padding: 0 !important;
     width: 100% !important;
     max-width: none !important;
+    box-shadow: none !important;
+    border: none !important;
   }
+
+  .export-only { display:block !important; }
+  .screen-only { display:none !important; }
+
+  /* Ocultar controles de UI para no forzar saltos y márgenes raros */
+  .kpis, .toolbar-final, .filtros { display:none !important; }
+
+  /* Quitar sticky en tablas al imprimir */
   th.sticky, td.sticky { position: static !important; }
+
+  /* Dejar fluir las tablas sin scrolls */
   .table-wrap{ overflow: visible !important; border-radius:12px; }
-  .panel{ border:none; box-shadow:none; }
-  .kpis{ grid-template-columns:repeat(4,1fr); }
 }
+
+/* ——— Clon para PDF: mismo resultado que imprimir ——— */
+#pdf-clone-root .export-only { display:block !important; }
+#pdf-clone-root .screen-only { display:none !important; }
+#pdf-clone-root .kpis, #pdf-clone-root .toolbar-final, #pdf-clone-root .filtros,
+#pdf-clone-root .sidebar, #pdf-clone-root .masthead, #pdf-clone-root .btn-back { display:none !important; }
+#pdf-clone-root th.sticky, #pdf-clone-root td.sticky{ position: static !important; }
+#pdf-clone-root .table-wrap{ overflow: visible !important; }
+#pdf-clone-root .panel{ border:none !important; box-shadow:none !important; }
+#pdf-clone-root .canvas-wrap { display:block !important; }
+/* === Fin bloque añadido === */
 </style>
 </head>
 <body>
@@ -127,7 +188,8 @@ td .ellipsis{
 </header>
 
 <main class="main-content" id="areaExport">
-  <section class="hero">
+  <!-- Cabecera de pantalla -->
+  <section class="hero screen-only">
     <div class="hero-icon"><i class="fa-solid fa-sliders"></i></div>
     <div class="hero-text">
       <h1>Parámetros de cuadrantes</h1>
@@ -137,8 +199,15 @@ td .ellipsis{
     </div>
   </section>
 
+  <!-- Cabecera para impresión/PDF -->
+  <section id="exportHeader" class="export-only panel export-header" aria-hidden="true">
+    <h2>Parámetros del Cuadrante</h2>
+    <div id="exportPeriodo" style="font-weight:700;margin-bottom:.35rem"></div>
+    <div id="exportSel" class="export-summary"></div>
+  </section>
+
   <div class="panel">
-    <div class="filtros">
+    <div class="filtros screen-only">
       <div class="group">
         <label for="anio"><strong>Año</strong></label>
         <input id="anio" type="number" min="2000" max="2100" step="1" style="width:6.5rem;text-align:center" />
@@ -166,7 +235,7 @@ td .ellipsis{
       </div>
 
       <div class="group push">
-        <button class="btn primary" id="btnCalcular"><i class="fa-solid fa-rotate"></i> Calcular</button>
+        <button class="btn primary" id="btnCalcular" type="button"><i class="fa-solid fa-rotate"></i> Calcular</button>
       </div>
 
       <div class="group" style="flex:1 1 100%"></div>
@@ -212,7 +281,7 @@ td .ellipsis{
       </div>
     </div>
 
-    <div class="kpis">
+    <div class="kpis screen-only">
       <div class="kpi"><div class="label"><i class="fa-solid fa-users"></i> Profesionales (total)</div><div class="val" id="k_total">–</div></div>
       <div class="kpi"><div class="label"><i class="fa-solid fa-user-nurse"></i> Con labor asistencial</div><div class="val" id="k_asist">–</div></div>
       <div class="kpi"><div class="label"><i class="fa-regular fa-user"></i> Sin labor asistencial</div><div class="val" id="k_noasist">–</div></div>
@@ -255,13 +324,13 @@ td .ellipsis{
               <th>Media por profesional (grupo)</th>
             </tr>
           </thead>
-            <tbody></tbody>
+          <tbody></tbody>
         </table>
       </div>
       <div class="canvas-wrap"><canvas id="chartVar"></canvas></div>
     </div>
 
-    <div class="toolbar-final">
+    <div class="toolbar-final screen-only">
       <button class="btn" id="btnImprimir" type="button"><i class="fa-solid fa-print"></i> Imprimir</button>
       <button class="btn blue" id="btnPDF" type="button"><i class="fa-regular fa-file-pdf"></i> Exportar PDF</button>
     </div>
@@ -291,6 +360,32 @@ const fmtModasCompact = (modas, maxShown = 3) => {
   return `<span class="ellipsis" title="${title}">${shown}${extra}</span>`;
 };
 
+/* Cabecera exportación: periodo + selección */
+function rangoMeses(mSel){
+  if(!mSel.length) return "";
+  const idx=mSel.map(m=>parseInt(m,10)-1).sort((a,b)=>a-b);
+  const consecutivos=idx.every((v,i,a)=> i===0 || v===a[i-1]+1 );
+  if(consecutivos){
+    const first=mesesShort[idx[0]], last=mesesShort[idx[idx.length-1]];
+    return (first===last)? first : `${first}–${last}`;
+  }
+  const nombres=idx.map(i=>mesesShort[i]);
+  return (nombres.length>8) ? `${nombres.slice(0,8).join(", ")}…` : nombres.join(", ");
+}
+
+function updateExportHeader(anio, mesesSel, sel, nombreFocus){
+  const periodo = `Periodo: Año ${anio} · ${rangoMeses(mesesSel)} (${mesesSel.length} mes${mesesSel.length>1?'es':''})`;
+  const ambito  = nombreFocus ? `Profesional: ${nombreFocus}` : 'Ámbito: Grupo completo';
+  const modo    = sel.asist.codes.size ? `Modo asistencial: ${sel.asist.mode==='horas'?'Por horas':'Por turnos'}` : 'Modo asistencial: —';
+  const asist   = `Asistencial: ${sel.asist.codes.size ? [...sel.asist.codes].join(', ') : '—'}`;
+  const otros   = `No asistencial: ${sel.otros.codes.size ? [...sel.otros.codes].join(', ') : '—'}`;
+  const chips = [ambito, modo, asist, otros].map(t=>`<span class="chip">${t}</span>`).join('');
+  const p = $("#exportPeriodo"); const s=$("#exportSel");
+  if (p) p.textContent = periodo;
+  if (s) s.innerHTML   = chips;
+}
+
+/* ====== DOM inicial ====== */
 document.addEventListener('DOMContentLoaded',()=>{$("#anio").value=hoy.getFullYear();});
 function buildMonthsGrid(){const cont=$("#meses");cont.innerHTML="";mesesN.forEach((n,i)=>{const b=document.createElement("button");b.type="button";b.className="month-btn active";b.dataset.m=String(i+1).padStart(2,"0");b.textContent=n;b.onclick=()=>b.classList.toggle("active");cont.appendChild(b);});}
 buildMonthsGrid();
@@ -299,7 +394,8 @@ function selectNone(){$$(".month-btn").forEach(b=>b.classList.remove("active"));
 function invertMonths(){$$(".month-btn").forEach(b=>b.classList.toggle("active"));}
 function selectUntilNow(){const a=parseInt($("#anio").value,10);const mNow=(a===hoy.getFullYear())?hoy.getMonth()+1:12;$$(".month-btn").forEach((b,i)=>{b.classList.toggle("active",i<mNow);});}
 $("#selTodo").onclick=selectAllMonths;$("#selNinguno").onclick=selectNone;$("#selInvertir").onclick=invertMonths;$("#selHastaHoy").onclick=selectUntilNow;
-function rangoMeses(mSel){if(!mSel.length)return"";const idx=mSel.map(m=>parseInt(m,10)-1).sort((a,b)=>a-b);const consecutivos=idx.every((v,i,a)=>i===0||v===a[i-1]+1);if(consecutivos){const first=mesesShort[idx[0]],last=mesesShort[idx[idx.length-1]];return(first===last)?first:`${first}–${last}`;}const nombres=idx.map(i=>mesesShort[i]);return(nombres.length>8)?`${nombres.slice(0,8).join(", ")}…`:nombres.join(", ");}
+
+/* CSV robusto */
 function parseCSV(text){const lines=text.replace(/\uFEFF/g,'').replace(/\r/g,"").split("\n").filter(l=>l.trim().length);return lines.map(line=>{const row=[];let cur="";let inQ=false;for(let i=0;i<line.length;i++){const ch=line[i],nx=line[i+1];if(ch=='"'){if(inQ&&nx=='"'){cur+='"';i++;}else{inQ=!inQ;}}else if(ch==","&&!inQ){row.push(cur);cur="";}else cur+=ch;}row.push(cur);return row;});}
 const tokenizar=v=>v.toUpperCase().trim().split(/[ \\/+\-]+/).filter(Boolean);
 
@@ -308,7 +404,7 @@ let fullProf=[]; let baseProf=[]; let porMesCache={}; let BASE_PATH=null; let ch
 function pushWarn(msg){warnBuf.push(msg);}
 function flushWarns(){const panel=$("#warns"),ul=$("#warnList");if(!warnBuf.length){panel.style.display='none';ul.innerHTML='';return;}panel.style.display='block';ul.innerHTML=warnBuf.map(w=>`<li>${w}</li>`).join('');warnBuf=[];}
 
-/* ====== UI de casillas ====== */
+/* ====== UI checks ====== */
 function buildChecks(){
   const mk = (codes, contId) => {
     const c = $(contId); c.innerHTML="";
@@ -321,10 +417,9 @@ function buildChecks(){
   };
   mk(ASIST, '#asistChecks');
   mk(OTROS, '#otrosChecks');
-  // Por defecto: solo Guardias (G,O,F,FO) marcadas en Asistencial
-  const defaultGuardias = ["G","O","F","FO"];
+  // Por defecto: Guardias (G,O,F,FO) marcadas
+  const defaultGuardias=["G","O","F","FO"];
   ASIST.forEach(code=> $(`#chk_asistChecks_${code}`).checked = defaultGuardias.includes(code));
-  // No asistencial: sin marcar por defecto (queda como está)
 }
 buildChecks();
 
@@ -343,7 +438,7 @@ function leerSeleccion(){
   return { asist:{ mode:modo, codes:new Set(asistCodes) }, otros:{ codes:new Set(otrosCodes) } };
 }
 
-/* ====== Localización de CSV ====== */
+/* ====== Localización CSV ====== */
 async function resolveBasePath(anio, mesesSel){
   if(BASE_PATH) return BASE_PATH;
   const candidates=['../data/cuadrantes','../../data/cuadrantes','../../Cuadrantes/data/cuadrantes','./data/cuadrantes','/Cuadrantes/data/cuadrantes'];
@@ -443,7 +538,7 @@ function nombresActivosPeriodo(porMes,meses){
 function claseDelta(a,b){if(a>b) return 'pos'; if(a<b) return 'neg'; return 'eq';}
 const fmtDelta = (a,b) => `<span class="delta ${claseDelta(a,b)}">${fmt2(a)}</span> <small class="badge-note">(${fmt2(b)})</small>`;
 
-/* ====== Render KPIs ====== */
+/* ====== Render KPIs (solo pantalla) ====== */
 function renderKPIs(sel){
   const total=fullProf.length;
   const conAsist=fullProf.filter(x=>totalAsist(x.data)>0).length;
@@ -455,7 +550,7 @@ function renderKPIs(sel){
   $("#k_suma").textContent=sumaSel.toLocaleString('es-ES');
 }
 
-/* ====== Render de estadísticos (periodo + anual) ====== */
+/* ====== Render tabla estadísticos (grupo/profesional) ====== */
 function renderStatsTabla(anio,porMes,mesesSel,sel,nombreFocus){
   const mHasta=(anio===hoy.getFullYear())?(hoy.getMonth()+1):12;
   const mesesAnual=Array.from({length:mHasta},(_,i)=>String(i+1).padStart(2,"0"));
@@ -463,11 +558,9 @@ function renderStatsTabla(anio,porMes,mesesSel,sel,nombreFocus){
   const activosPeriodo=nombresActivosPeriodo(porMes,mesesSel);
   const activosAnual=nombresActivosPeriodo(porMes,mesesAnual);
 
-  // Vectores del profesional (si hay uno seleccionado)
   const proVecPer = nombreFocus ? vectorMensualDe(porMes,nombreFocus,sel,mesesSel) : [];
   const proVecAnu = nombreFocus ? vectorMensualDe(porMes,nombreFocus,sel,mesesAnual) : [];
 
-  // Para el grupo calculamos, para cada profesional, su promedio mensual del periodo / año
   const promsGrupoPer=[...activosPeriodo].map(n=>{
     const v=vectorMensualDe(porMes,n,sel,mesesSel);
     return v.reduce((a,b)=>a+b,0)/mesesSel.length;
@@ -482,7 +575,6 @@ function renderStatsTabla(anio,porMes,mesesSel,sel,nombreFocus){
   const stGrpPer = statsBasicos(promsGrupoPer);
   const stGrpAnu = statsBasicos(promsGrupoAnu);
 
-  // Helper para mostrar/ocultar la columna "Valor anual"
   const toggleAnual = (show)=>{
     const disp = show ? '' : 'none';
     const thA = document.getElementById('th_valor_anual');
@@ -494,7 +586,7 @@ function renderStatsTabla(anio,porMes,mesesSel,sel,nombreFocus){
   };
 
   if (nombreFocus) {
-    // === MODO PROFESIONAL: 4 columnas (periodo + anual) con comparación al grupo ===
+    // === PROFESIONAL: 4 columnas
     toggleAnual(true);
 
     const set = (idP, idA, getVal, getGrp)=>{
@@ -525,11 +617,9 @@ function renderStatsTabla(anio,porMes,mesesSel,sel,nombreFocus){
       (stProAnu.n? `${fmt2(stProAnu.p25??0)} / ${fmt2(stProAnu.p75??0)} <small class="badge-note">(${fmt2(stGrpPer.p25??0)} / ${fmt2(stGrpPer.p75??0)})</small>`:'–');
 
   } else {
-    // === MODO GRUPO: 3 columnas (ocultamos "Valor anual") y mostramos los estadísticos del grupo ===
+    // === GRUPO: 3 columnas (ocultamos "Valor anual")
     toggleAnual(false);
-
     const put = (id, valHtml)=>{ document.getElementById(id).innerHTML = valHtml; };
-
     if (stGrpPer.n) {
       put('st_media_p',   fmt2(stGrpPer.media||0));
       put('st_mediana_p', fmt2(stGrpPer.mediana??0));
@@ -616,7 +706,7 @@ async function calcular(){
   const filtradaReal = aplicarFiltrosYOrden(fullProf,topN,filtro,excluirInactivos);
   const nombreFocus = (filtradaReal.length===1) ? filtradaReal[0].nombre : null;
 
-  // Mostrar nombre destacado + placeholder dinámico + visibilidad del botón borrar
+  // Nombre destacado + placeholder + botón borrar
   const nameTag=$("#nombreProfesional");
   const inp = $("#filtroNombre");
   const clearBtn = $("#btnClearFiltro");
@@ -628,6 +718,9 @@ async function calcular(){
     inp.placeholder = 'Buscar nombre…';
   }
   clearBtn.hidden = !(inp.value && inp.value.length);
+
+  // Cabecera exportación
+  updateExportHeader(anio, mesesSel, sel, nombreFocus);
 
   renderKPIs(sel);
   renderStatsTabla(anio,porMesCache,mesesSel,sel,nombreFocus);
@@ -656,24 +749,20 @@ document.getElementById('btnVolver').addEventListener('click',()=>{ window.locat
 /* Imprimir */
 document.getElementById('btnImprimir').addEventListener('click',()=>window.print());
 
-/* Exportar PDF (vía clon oculto, robusto) */
+/* Exportar PDF (clon oculto: misma salida que print) */
 document.getElementById('btnPDF').addEventListener('click', async (e)=>{
   e.preventDefault(); e.stopPropagation();
   if (typeof html2pdf === 'undefined') { alert('No se ha podido cargar html2pdf.'); return; }
 
-  // 1) Clonar el área a un contenedor oculto y aplanar
   const src = document.getElementById('areaExport');
   const rootId = 'pdf-clone-root';
   let root = document.getElementById(rootId);
   if (!root){ root = document.createElement('div'); root.id = rootId; document.body.appendChild(root); }
-  root.innerHTML = '';                         // limpia anteriores
+  root.innerHTML = '';
+
   const clone = src.cloneNode(true);
   clone.id = 'areaExportClone';
   root.appendChild(clone);
-
-  // 2) Eliminar elementos no deseados del clon
-  const kill = sel => clone.querySelectorAll(sel).forEach(el=>el.remove());
-  kill('.masthead'); kill('.sidebar'); kill('.btn-back'); kill('.filtros'); // quita navegación
 
   const opt = {
     margin: [8,8,8,8],
@@ -697,7 +786,7 @@ document.getElementById('btnPDF').addEventListener('click', async (e)=>{
     console.error(err);
     alert('Error al generar el PDF. Como alternativa, usa Imprimir → Guardar como PDF.');
   } finally {
-    root.innerHTML = '';  // limpia el clon
+    root.innerHTML = '';
   }
 });
 
@@ -706,17 +795,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
   // Año actual
   document.getElementById('anio').value = new Date().getFullYear();
 
-  // 1) Excluir sin actividad por defecto
+  // Excluir sin actividad por defecto
   document.getElementById('excluirInactivos').checked = true;
 
-  // 2) Meses: hasta el mes actual
+  // Meses hasta el mes actual
   selectUntilNow();
 
-  // 3) Asegurar “Por turnos”
+  // Asegurar “Por turnos”
   const rbTurnos = document.querySelector('input[name="modoAsist"][value="turnos"]');
   if (rbTurnos) rbTurnos.checked = true;
 
-  // 4) Calcular automáticamente
+  // Calcular automáticamente (Guardias ya marcadas en buildChecks)
   calcular();
 });
 </script>
