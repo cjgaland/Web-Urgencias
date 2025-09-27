@@ -83,43 +83,6 @@ td .ellipsis{
   .kpis.screen-only{ display:grid; grid-template-columns:repeat(4, minmax(220px,1fr)); }
 }
 
-/* ——— Impresión: UI fuera, solo cabecera export + tablas + gráfica ——— */
-@media print{
-  @page{ size: A4 landscape; margin: 8mm; }
-  .sidebar, .masthead, .btn-back { display:none !important; }
-
-  .export-only { display:block !important; }
-  .screen-only { display:none !important; }
-
-  .kpis, .toolbar-final, .filtros { display:none !important; }
-  th.sticky, td.sticky { position: static !important; }
-  .table-wrap{ overflow: visible !important; border-radius:12px; }
-  .panel{ border:none; box-shadow:none; }
-}
-
-/* ——— Clon para PDF: mismo resultado que imprimir ——— */
-#pdf-clone-root .export-only { display:block !important; }
-#pdf-clone-root .screen-only { display:none !important; }
-#pdf-clone-root .kpis, #pdf-clone-root .toolbar-final, #pdf-clone-root .filtros,
-#pdf-clone-root .sidebar, #pdf-clone-root .masthead, #pdf-clone-root .btn-back { display:none !important; }
-#pdf-clone-root th.sticky, #pdf-clone-root td.sticky{ position: static !important; }
-#pdf-clone-root .table-wrap{ overflow: visible !important; }
-#pdf-clone-root .panel{ border:none !important; box-shadow:none !important; }
-#pdf-clone-root .canvas-wrap { display:block !important; }
-
-/* Estética cabecera exportación */
-.export-header{ margin-bottom: .6rem; }
-.export-header h2 { margin: 0 0 .25rem 0; }
-.export-summary { display:flex; flex-wrap:wrap; gap:.4rem .6rem; }
-.export-summary .chip{
-  background:#f0f4ff; border:1px solid #d6e4ff; border-radius:8px;
-  padding:.25rem .5rem; font-weight:600;
-}
-
-/* Contenedor temporal PDF */
-#pdf-clone-root{ position: fixed; inset: 0; z-index: -1; visibility: hidden; }
-
-/* === Bloque añadido por unificación UI+Impresión === */
 /* Base: ocultar export-only en pantalla */
 .export-only{display:none !important;}
 
@@ -152,16 +115,13 @@ td .ellipsis{
   .table-wrap{ overflow: visible !important; border-radius:12px; }
 }
 
-/* ——— Clon para PDF: mismo resultado que imprimir ——— */
-#pdf-clone-root .export-only { display:block !important; }
-#pdf-clone-root .screen-only { display:none !important; }
-#pdf-clone-root .kpis, #pdf-clone-root .toolbar-final, #pdf-clone-root .filtros,
-#pdf-clone-root .sidebar, #pdf-clone-root .masthead, #pdf-clone-root .btn-back { display:none !important; }
-#pdf-clone-root th.sticky, #pdf-clone-root td.sticky{ position: static !important; }
-#pdf-clone-root .table-wrap{ overflow: visible !important; }
-#pdf-clone-root .panel{ border:none !important; box-shadow:none !important; }
-#pdf-clone-root .canvas-wrap { display:block !important; }
-/* === Fin bloque añadido === */
+/* Estética cabecera exportación */
+.export-header{ margin-bottom: .6rem; }
+.export-header h2 { margin: 0 0 .25rem 0; }
+.export-summary { display:flex; flex-wrap:wrap; gap:.4rem .6rem; }
+.export-summary .chip{
+  background:#f0f4ff; border:1px solid #d6e4ff; border-radius:8px;
+  padding:.25rem .5rem; font-weight:600;
 </style>
 </head>
 <body>
