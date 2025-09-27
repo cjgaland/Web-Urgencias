@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<!-- Librería PDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
@@ -45,6 +46,18 @@ th{font-weight:800;color:#2b3a55}
 .delta{font-weight:700}
 .delta.pos{color:var(--verde)} .delta.eq{color:var(--azul)} .delta.neg{color:var(--rojo)}
 
+/* Campo Profesional con botón borrar */
+.input-with-clear{ display:flex; align-items:center; gap:.4rem; }
+.input-with-clear input{
+  width:16rem; padding:.45rem .6rem; border:1px solid #e6eef8; border-radius:8px;
+}
+.clear-btn{
+  border:1px solid #e6eef8; background:#fff; border-radius:8px;
+  padding:.35rem .55rem; cursor:pointer;
+}
+.clear-btn:hover{ background:#f3f6fb; }
+.clear-btn[hidden]{ display:none; }
+
 /* Caja de parámetros (checks) */
 .param-box{flex:1 1 100%; background:var(--bgsoft); border:1px solid #d5e2f5; padding: .8rem .9rem; border-radius:16px}
 .param-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem}
@@ -56,7 +69,7 @@ th{font-weight:800;color:#2b3a55}
 
 /* Compactar “moda” con tooltip y elipsis */
 td .ellipsis{
-  max-width: 220px;        /* ajusta si quieres más/menos ancho */
+  max-width: 220px;
   display: inline-block;
   white-space: nowrap;
   overflow: hidden;
@@ -64,10 +77,28 @@ td .ellipsis{
   vertical-align: bottom;
 }
 
+/* ===== Exportación PDF basada en clon ===== */
+#pdf-clone-root{ position: fixed; inset: 0; z-index: -1; visibility: hidden; }
+#pdf-clone-root .canvas-wrap{ display: none !important; } /* opcional: oculta gráfica en PDF */
+#pdf-clone-root th.sticky, 
+#pdf-clone-root td.sticky{ position: static !important; }
+#pdf-clone-root .table-wrap{ overflow: visible !important; }
+
+/* ===== IMPRESIÓN CENTRADA ===== */
 @media print{
   @page{ size: A4 landscape; margin: 8mm; }
+
   .sidebar, .masthead, .filtros, .btn-back { display:none !important; }
-  .panel{ border:none; box-shadow:none; padding:0 }
+
+  #areaExport, .main-content, .panel{
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+  }
+  th.sticky, td.sticky { position: static !important; }
+  .table-wrap{ overflow: visible !important; border-radius:12px; }
+  .panel{ border:none; box-shadow:none; }
   .kpis{ grid-template-columns:repeat(4,1fr); }
 }
 </style>
@@ -115,7 +146,12 @@ td .ellipsis{
 
       <div class="group">
         <label for="filtroNombre"><strong>Profesional</strong></label>
-        <input id="filtroNombre" type="text" placeholder="Buscar nombre…" style="width:16rem;padding:.45rem .6rem;border:1px solid #e6eef8;border-radius:8px">
+        <div class="input-with-clear">
+          <input id="filtroNombre" type="text" placeholder="Buscar nombre…">
+          <button id="btnClearFiltro" type="button" class="clear-btn" title="Borrar" hidden>
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
       </div>
 
       <div class="group">
@@ -136,10 +172,10 @@ td .ellipsis{
       <div class="group" style="flex:1 1 100%"></div>
 
       <div class="group">
-        <button class="btn" id="selTodo">Todo el año</button>
-        <button class="btn" id="selHastaHoy">Hasta mes actual</button>
-        <button class="btn" id="selNinguno">Ninguno</button>
-        <button class="btn" id="selInvertir">Invertir</button>
+        <button class="btn" id="selTodo" type="button">Todo el año</button>
+        <button class="btn" id="selHastaHoy" type="button">Hasta mes actual</button>
+        <button class="btn" id="selNinguno" type="button">Ninguno</button>
+        <button class="btn" id="selInvertir" type="button">Invertir</button>
       </div>
 
       <div class="group" title="Excluir de los cálculos a los profesionales sin actividad asistencial">
@@ -160,9 +196,9 @@ td .ellipsis{
         </div>
         <div class="param-grid" id="asistChecks"></div>
         <div style="margin-top:.5rem; display:flex; gap:.6rem; justify-content:flex-end">
-          <button class="btn small" id="btnAllAsist">Marcar todo</button>
-          <button class="btn small" id="btnNoneAsist">Quitar todo</button>
-          <button class="btn small" id="btnGuardias">Guardias (G+O+F+FO)</button>
+          <button class="btn small" id="btnAllAsist" type="button">Marcar todo</button>
+          <button class="btn small" id="btnNoneAsist" type="button">Quitar todo</button>
+          <button class="btn small" id="btnGuardias" type="button">Guardias (G+O+F+FO)</button>
         </div>
       </div>
 
@@ -170,8 +206,8 @@ td .ellipsis{
         <div class="param-head"><h3>No asistencial</h3></div>
         <div class="param-grid" id="otrosChecks"></div>
         <div style="margin-top:.5rem; display:flex; gap:.6rem; justify-content:flex-end">
-          <button class="btn small" id="btnAllOtros">Marcar todo</button>
-          <button class="btn small" id="btnNoneOtros">Quitar todo</button>
+          <button class="btn small" id="btnAllOtros" type="button">Marcar todo</button>
+          <button class="btn small" id="btnNoneOtros" type="button">Quitar todo</button>
         </div>
       </div>
     </div>
@@ -189,7 +225,7 @@ td .ellipsis{
           <tr>
             <th class="sticky">Estadístico</th>
             <th>Valor (periodo)</th>
-            <th>Valor anual</th>
+            <th id="th_valor_anual">Valor anual</th>
             <th>Notas</th>
           </tr>
         </thead>
@@ -219,17 +255,16 @@ td .ellipsis{
               <th>Media por profesional (grupo)</th>
             </tr>
           </thead>
-          <tbody></tbody>
+            <tbody></tbody>
         </table>
       </div>
       <div class="canvas-wrap"><canvas id="chartVar"></canvas></div>
     </div>
 
     <div class="toolbar-final">
-      <button class="btn" id="btnImprimir"><i class="fa-solid fa-print"></i> Imprimir</button>
-      <button class="btn blue" id="btnPDF"><i class="fa-regular fa-file-pdf"></i> Exportar PDF</button>
+      <button class="btn" id="btnImprimir" type="button"><i class="fa-solid fa-print"></i> Imprimir</button>
+      <button class="btn blue" id="btnPDF" type="button"><i class="fa-regular fa-file-pdf"></i> Exportar PDF</button>
     </div>
-
   </div>
 </main>
 
@@ -286,15 +321,17 @@ function buildChecks(){
   };
   mk(ASIST, '#asistChecks');
   mk(OTROS, '#otrosChecks');
-  // Por defecto: todo asistencial marcado, otros sin marcar
-  ASIST.forEach(code=> $(`#chk_asistChecks_${code}`).checked = true);
+  // Por defecto: solo Guardias (G,O,F,FO) marcadas en Asistencial
+  const defaultGuardias = ["G","O","F","FO"];
+  ASIST.forEach(code=> $(`#chk_asistChecks_${code}`).checked = defaultGuardias.includes(code));
+  // No asistencial: sin marcar por defecto (queda como está)
 }
 buildChecks();
 
 /* helpers seleccionar/deseleccionar/preset */
 $("#btnAllAsist").onclick=()=>{ASIST.forEach(c=>$(`#chk_asistChecks_${c}`).checked=true);};
 $("#btnNoneAsist").onclick=()=>{ASIST.forEach(c=>$(`#chk_asistChecks_${c}`).checked=false);};
-$("#btnGuardias").onclick=()=>{ASIST.forEach(c=>$(`#chk_asistChecks_${c}`).checked=false);["G","O","F","FO"].forEach(c=>$(`#chk_asistChecks_${c}`).checked=true);};
+$("#btnGuardias").onclick=()=>{ASIST.forEach(c=>$(`#chk_asistChecks_${c}`).checked=false);["G","O","F","FO"].forEach(c=>$(`#chk_asistChecks_${c}`).checked=true);}; 
 $("#btnAllOtros").onclick=()=>{OTROS.forEach(c=>$(`#chk_otrosChecks_${c}`).checked=true);};
 $("#btnNoneOtros").onclick=()=>{OTROS.forEach(c=>$(`#chk_otrosChecks_${c}`).checked=false);};
 
@@ -380,7 +417,7 @@ function statsBasicos(vals){
   const sorted=[...vals].sort((a,b)=>a-b);
   const mediana=(n%2?sorted[(n-1)/2]:(sorted[n/2-1]+sorted[n/2])/2);
 
-  // Moda: si maxF=1 (todos distintos), devolvemos lista vacía => “Sin moda”
+  // Moda: si maxF=1 (todos distintos), lista vacía => “Sin moda”
   const frec=new Map(); sorted.forEach(v=>frec.set(v,(frec.get(v)||0)+1));
   const maxF=Math.max(...frec.values());
   const modas = (maxF > 1)
@@ -426,9 +463,11 @@ function renderStatsTabla(anio,porMes,mesesSel,sel,nombreFocus){
   const activosPeriodo=nombresActivosPeriodo(porMes,mesesSel);
   const activosAnual=nombresActivosPeriodo(porMes,mesesAnual);
 
+  // Vectores del profesional (si hay uno seleccionado)
   const proVecPer = nombreFocus ? vectorMensualDe(porMes,nombreFocus,sel,mesesSel) : [];
   const proVecAnu = nombreFocus ? vectorMensualDe(porMes,nombreFocus,sel,mesesAnual) : [];
 
+  // Para el grupo calculamos, para cada profesional, su promedio mensual del periodo / año
   const promsGrupoPer=[...activosPeriodo].map(n=>{
     const v=vectorMensualDe(porMes,n,sel,mesesSel);
     return v.reduce((a,b)=>a+b,0)/mesesSel.length;
@@ -443,32 +482,66 @@ function renderStatsTabla(anio,porMes,mesesSel,sel,nombreFocus){
   const stGrpPer = statsBasicos(promsGrupoPer);
   const stGrpAnu = statsBasicos(promsGrupoAnu);
 
-  const set = (idP, idA, getVal, getGrp)=>{
-    const vp = getVal(stProPer); const vg = getGrp(stGrpPer);
-    const va = getVal(stProAnu); const vgA= getGrp(stGrpAnu);
-    document.getElementById(idP).innerHTML = (nombreFocus && stProPer.n) ? fmtDelta(vp, vg) : '–';
-    document.getElementById(idA).innerHTML = (nombreFocus && stProAnu.n) ? fmtDelta(va, vgA) : '–';
+  // Helper para mostrar/ocultar la columna "Valor anual"
+  const toggleAnual = (show)=>{
+    const disp = show ? '' : 'none';
+    const thA = document.getElementById('th_valor_anual');
+    if (thA) thA.style.display = disp;
+    ['media','mediana','moda','sd','minmax','p2575'].forEach(k=>{
+      const td = document.getElementById(`st_${k}_a`);
+      if (td) td.style.display = disp;
+    });
   };
 
-  set('st_media_p','st_media_a', s=>s.media||0,   s=>s.media||0);
-  set('st_mediana_p','st_mediana_a', s=>s.mediana??0, s=>s.mediana??0);
+  if (nombreFocus) {
+    // === MODO PROFESIONAL: 4 columnas (periodo + anual) con comparación al grupo ===
+    toggleAnual(true);
 
-  document.getElementById('st_moda_p').innerHTML =
-    (stProPer.n? `${fmtModasCompact(stProPer.modas)} <small class="badge-note">(${fmtModasCompact(stGrpPer.modas)})</small>`:'–');
-  document.getElementById('st_moda_a').innerHTML =
-    (stProAnu.n? `${fmtModasCompact(stProAnu.modas)} <small class="badge-note">(${fmtModasCompact(stGrpAnu.modas)})</small>`:'–');
+    const set = (idP, idA, getVal, getGrp)=>{
+      const vp = getVal(stProPer); const vg = getGrp(stGrpPer);
+      const va = getVal(stProAnu); const vgA= getGrp(stGrpAnu);
+      document.getElementById(idP).innerHTML = (stProPer.n) ? fmtDelta(vp, vg) : '–';
+      document.getElementById(idA).innerHTML = (stProAnu.n) ? fmtDelta(va, vgA) : '–';
+    };
 
-  set('st_sd_p','st_sd_a', s=>s.sd??0, s=>s.sd??0);
+    set('st_media_p','st_media_a', s=>s.media||0,   s=>s.media||0);
+    set('st_mediana_p','st_mediana_a', s=>s.mediana??0, s=>s.mediana??0);
 
-  document.getElementById('st_minmax_p').innerHTML =
-    (stProPer.n? `${fmt2(stProPer.min??0)} / ${fmt2(stProPer.max??0)} <small class="badge-note">(${fmt2(stGrpPer.min??0)} / ${fmt2(stGrpPer.max??0)})</small>`:'–');
-  document.getElementById('st_minmax_a').innerHTML =
-    (stProAnu.n? `${fmt2(stProAnu.min??0)} / ${fmt2(stProAnu.max??0)} <small class="badge-note">(${fmt2(stGrpAnu.min??0)} / ${fmt2(stGrpAnu.max??0)})</small>`:'–');
+    document.getElementById('st_moda_p').innerHTML =
+      (stProPer.n? `${fmtModasCompact(stProPer.modas)} <small class="badge-note">(${fmtModasCompact(stGrpPer.modas)})</small>`:'–');
+    document.getElementById('st_moda_a').innerHTML =
+      (stProAnu.n? `${fmtModasCompact(stProAnu.modas)} <small class="badge-note">(${fmtModasCompact(stGrpAnu.modas)})</small>`:'–');
 
-  document.getElementById('st_p2575_p').innerHTML =
-    (stProPer.n? `${fmt2(stProPer.p25??0)} / ${fmt2(stProPer.p75??0)} <small class="badge-note">(${fmt2(stGrpPer.p25??0)} / ${fmt2(stGrpPer.p75??0)})</small>`:'–');
-  document.getElementById('st_p2575_a').innerHTML =
-    (stProAnu.n? `${fmt2(stProAnu.p25??0)} / ${fmt2(stProAnu.p75??0)} <small class="badge-note">(${fmt2(stGrpAnu.p25??0)} / ${fmt2(stGrpAnu.p75??0)})</small>`:'–');
+    set('st_sd_p','st_sd_a', s=>s.sd??0, s=>s.sd??0);
+
+    document.getElementById('st_minmax_p').innerHTML =
+      (stProPer.n? `${fmt2(stProPer.min??0)} / ${fmt2(stProPer.max??0)} <small class="badge-note">(${fmt2(stGrpPer.min??0)} / ${fmt2(stGrpPer.max??0)})</small>`:'–');
+    document.getElementById('st_minmax_a').innerHTML =
+      (stProAnu.n? `${fmt2(stProAnu.min??0)} / ${fmt2(stProAnu.max??0)} <small class="badge-note">(${fmt2(stGrpAnu.min??0)} / ${fmt2(stGrpAnu.max??0)})</small>`:'–');
+
+    document.getElementById('st_p2575_p').innerHTML =
+      (stProPer.n? `${fmt2(stProPer.p25??0)} / ${fmt2(stProPer.p75??0)} <small class="badge-note">(${fmt2(stGrpPer.p25??0)} / ${fmt2(stGrpPer.p75??0)})</small>`:'–');
+    document.getElementById('st_p2575_a').innerHTML =
+      (stProAnu.n? `${fmt2(stProAnu.p25??0)} / ${fmt2(stProAnu.p75??0)} <small class="badge-note">(${fmt2(stGrpPer.p25??0)} / ${fmt2(stGrpPer.p75??0)})</small>`:'–');
+
+  } else {
+    // === MODO GRUPO: 3 columnas (ocultamos "Valor anual") y mostramos los estadísticos del grupo ===
+    toggleAnual(false);
+
+    const put = (id, valHtml)=>{ document.getElementById(id).innerHTML = valHtml; };
+
+    if (stGrpPer.n) {
+      put('st_media_p',   fmt2(stGrpPer.media||0));
+      put('st_mediana_p', fmt2(stGrpPer.mediana??0));
+      put('st_moda_p',    fmtModasCompact(stGrpPer.modas));
+      put('st_sd_p',      fmt2(stGrpPer.sd??0));
+      put('st_minmax_p',  `${fmt2(stGrpPer.min??0)} / ${fmt2(stGrpPer.max??0)}`);
+      put('st_p2575_p',   `${fmt2(stGrpPer.p25??0)} / ${fmt2(stGrpPer.p75??0)}`);
+    } else {
+      ['st_media_p','st_mediana_p','st_moda_p','st_sd_p','st_minmax_p','st_p2575_p']
+        .forEach(id=> document.getElementById(id).textContent = '–');
+    }
+  }
 }
 
 /* ====== Tabla inferior + Gráfica ====== */
@@ -542,9 +615,19 @@ async function calcular(){
 
   const filtradaReal = aplicarFiltrosYOrden(fullProf,topN,filtro,excluirInactivos);
   const nombreFocus = (filtradaReal.length===1) ? filtradaReal[0].nombre : null;
+
+  // Mostrar nombre destacado + placeholder dinámico + visibilidad del botón borrar
   const nameTag=$("#nombreProfesional");
-  if(nombreFocus){ nameTag.textContent = nombreFocus.toUpperCase(); nameTag.style.display='block'; }
-  else { nameTag.style.display='none'; }
+  const inp = $("#filtroNombre");
+  const clearBtn = $("#btnClearFiltro");
+  if(nombreFocus){
+    nameTag.textContent = nombreFocus.toUpperCase(); nameTag.style.display='block';
+    inp.placeholder = `Mostrando: ${nombreFocus}`;
+  }else{
+    nameTag.style.display='none';
+    inp.placeholder = 'Buscar nombre…';
+  }
+  clearBtn.hidden = !(inp.value && inp.value.length);
 
   renderKPIs(sel);
   renderStatsTabla(anio,porMesCache,mesesSel,sel,nombreFocus);
@@ -558,28 +641,84 @@ $("#topN").addEventListener('change',calcular);
 $("#excluirInactivos").addEventListener('change',calcular);
 $("#anio").addEventListener('change',()=>{ selectUntilNow(); });
 $("#filtroNombre").addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); calcular(); }});
+$("#filtroNombre").addEventListener('input',()=>{
+  const clearBtn = $("#btnClearFiltro");
+  clearBtn.hidden = !(filtroNombre.value && filtroNombre.value.length);
+});
+document.getElementById('btnClearFiltro').addEventListener('click', ()=>{
+  const inp = document.getElementById('filtroNombre');
+  inp.value = '';
+  inp.focus();
+  calcular();
+});
 document.getElementById('btnVolver').addEventListener('click',()=>{ window.location.href='./index.html'; });
 
-/* Recalcular al cambiar casillas o modo (opcional: si quieres en vivo, descomenta la llamada) */
-document.addEventListener('change', (e)=>{
-  if(e.target.closest('#asistChecks') || e.target.closest('#otrosChecks') || e.target.name==='modoAsist'){
-    // calcular(); // activar si quieres recálculo inmediato
+/* Imprimir */
+document.getElementById('btnImprimir').addEventListener('click',()=>window.print());
+
+/* Exportar PDF (vía clon oculto, robusto) */
+document.getElementById('btnPDF').addEventListener('click', async (e)=>{
+  e.preventDefault(); e.stopPropagation();
+  if (typeof html2pdf === 'undefined') { alert('No se ha podido cargar html2pdf.'); return; }
+
+  // 1) Clonar el área a un contenedor oculto y aplanar
+  const src = document.getElementById('areaExport');
+  const rootId = 'pdf-clone-root';
+  let root = document.getElementById(rootId);
+  if (!root){ root = document.createElement('div'); root.id = rootId; document.body.appendChild(root); }
+  root.innerHTML = '';                         // limpia anteriores
+  const clone = src.cloneNode(true);
+  clone.id = 'areaExportClone';
+  root.appendChild(clone);
+
+  // 2) Eliminar elementos no deseados del clon
+  const kill = sel => clone.querySelectorAll(sel).forEach(el=>el.remove());
+  kill('.masthead'); kill('.sidebar'); kill('.btn-back'); kill('.filtros'); // quita navegación
+
+  const opt = {
+    margin: [8,8,8,8],
+    image: { type:'jpeg', quality:0.98 },
+    html2canvas: { scale:2, useCORS:true, scrollY:0 },
+    jsPDF: { unit:'mm', format:'a4', orientation:'landscape' },
+    pagebreak: { mode:['avoid-all','css','legacy'] }
+  };
+
+  try {
+    const worker = html2pdf().set(opt).from(clone).toPdf();
+    const pdf = await worker.get('pdf');
+    const blob = pdf.output('blob');
+    const url = URL.createObjectURL(blob);
+
+    const win = window.open('', '_blank');
+    if (win) win.location = url;
+    else { const a=document.createElement('a'); a.href=url; a.download=`Parametros_${new Date().toISOString().slice(0,10)}.pdf`; a.click(); }
+    setTimeout(()=>URL.revokeObjectURL(url), 30000);
+  } catch (err){
+    console.error(err);
+    alert('Error al generar el PDF. Como alternativa, usa Imprimir → Guardar como PDF.');
+  } finally {
+    root.innerHTML = '';  // limpia el clon
   }
 });
 
-/* Imprimir / PDF */
-document.getElementById('btnImprimir').addEventListener('click',()=>window.print());
-document.getElementById('btnPDF').addEventListener('click',()=>{
-  const elem=document.getElementById('areaExport');
-  const opt={margin:[0.8,0.8,0.8,0.8],filename:`Parametros_${new Date().toISOString().slice(0,10)}.pdf`,
-             image:{type:'jpeg',quality:0.98},html2canvas:{scale:2,useCORS:true},
-             jsPDF:{unit:'cm',format:'a4',orientation:'landscape'}};
-  html2pdf().set(opt).from(elem).save();
-});
+/* ====== Inicio (defaults solicitados) ====== */
+document.addEventListener('DOMContentLoaded', ()=>{
+  // Año actual
+  document.getElementById('anio').value = new Date().getFullYear();
 
-/* ====== Inicio ====== */
-selectUntilNow();
-calcular();
+  // 1) Excluir sin actividad por defecto
+  document.getElementById('excluirInactivos').checked = true;
+
+  // 2) Meses: hasta el mes actual
+  selectUntilNow();
+
+  // 3) Asegurar “Por turnos”
+  const rbTurnos = document.querySelector('input[name="modoAsist"][value="turnos"]');
+  if (rbTurnos) rbTurnos.checked = true;
+
+  // 4) Calcular automáticamente
+  calcular();
+});
 </script>
 </body>
 </html>
