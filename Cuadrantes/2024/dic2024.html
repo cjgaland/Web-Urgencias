@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cuadrante · Diciembre 2024 – Urgencias · AGS Sur de Córdoba</title>
+  <title>Cuadrante ·Diciembre 2024 – Urgencias · AGS Sur de Córdoba</title>
 
   <!-- Favicon e iconos -->
   <link rel="icon" href="../../favicon.ico" type="image/x-icon">
@@ -61,12 +61,73 @@
     .totales .card h3 { font-size:.9rem; font-weight:600; color:#00457c; }
     .totales .card p { margin:.25rem 0 0; font-weight:700; font-size:1.1rem; }
 
-    @media print {
-      body { background:#fff; }
-      .toolbar, .legend { display:none; }
-      .panel { box-shadow:none; border:none; }
-      table.cuadrante th, table.cuadrante td { padding:.28rem .3rem; }
-    }
+@media print {
+  /* Página y color */
+  @page { size: A4 landscape; margin: 5mm; } /* márgenes un poco menores */
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  /* Ocultar navegación/ornamentos */
+  .masthead, .sidebar, .menu-toggle, .calc-toc, .toolbar { display:none !important; }
+
+  /* Quitar rellenos que desplazaban a la derecha */
+  html, body { background:#fff; }
+  .wrap, .main-content, .panel, .hero { margin:0 !important; padding:0 !important; box-shadow:none !important; border:none !important; }
+
+  /* CABECERA: compacta (sólo título) */
+  .hero .hero-icon { display:none !important; }
+  .hero .hero-text p { display:none !important; }
+  .hero #titulo { font-size:1rem !important; margin:0 0 .25rem 0 !important; }
+
+  /* TABLA PRINCIPAL: muy compacta para 31 días */
+  table.cuadrante { 
+    width:100% !important; min-width:auto !important; 
+    table-layout: fixed !important; 
+    font-size:.74rem !important;   /* ← perilla #1: baja/ sube si hace falta (.70 – .80) */
+    line-height:1.05 !important;
+  }
+  table.cuadrante thead th { 
+    font-size:.68rem !important;   /* cabecera un pelín menor */
+    font-weight:600 !important; 
+  }
+  table.cuadrante th, 
+  table.cuadrante td { 
+    padding:.16rem .20rem !important;  /* ← perilla #2: altura de fila */
+    border-bottom:1px solid #eef2f7;
+    overflow:hidden; text-overflow:ellipsis;
+  }
+
+  /* Primera columna (nombres) más estrecha y tipografía algo menor */
+  table.cuadrante th:first-child, 
+  table.cuadrante td:first-child {
+    width: 115px !important;         /* ← perilla #3: ancho nombre (100–140px) */
+    max-width:115px !important;
+    font-size:.70rem !important;
+    white-space:nowrap !important;
+    position: static !important;     /* sin sticky en impresión */
+    left:auto !important; top:auto !important; 
+    background:#fff !important;
+  }
+
+  /* Quitar sticky de cabecera también */
+  table.cuadrante thead th { position: static !important; }
+
+  /* Evitar recortes por el contenedor con overflow */
+  .panel > div[style*="overflow"] { overflow: visible !important; }
+
+  /* LEYENDA: “en hilera continua” y pequeña */
+  .legend { display:block !important; margin:.35rem 0 0 !important; }
+  .legend .item { 
+    display:inline-flex !important; align-items:center; gap:.20rem;
+    margin:0 .28rem .20rem 0; font-size:.75rem !important; padding:0;
+  }
+  .legend .swatch { width:11px; height:9px; box-shadow:inset 0 0 0 1px rgba(0,0,0,.06); }
+
+  /* TARJETAS: en la cara posterior (página nueva) */
+  .totales { break-before: page; page-break-before: always; margin-top:.2rem !important; }
+  .totales .card { box-shadow:none !important; border:1px solid #eee; }
+}
+
+
   </style>
 </head>
 <body>
@@ -133,14 +194,14 @@
           <span class="badge">Sólo lectura</span>
         </div>
         <div class="right">
-          <button id="btn-print" title="Imprimir / Guardar en PDF">🖨️ Imprimir</button>
-          <button id="btn-export" title="Exportar tabla a CSV">⬇️ Exportar CSV</button>
+          <button id="btn-print" type="button" title="Imprimir / Guardar en PDF">🖨️ Imprimir</button>
+          <button id="btn-pdf"   type="button" title="Descargar PDF">⬇️ Descargar PDF</button>
         </div>
       </div>
 
       <div class="panel">
         <div style="overflow:auto;">
-          <table class="cuadrante" id="tabla">
+          <table class="cuadrante" id="tabla" aria-describedby="titulo">
             <thead id="thead"></thead>
             <tbody id="tbody"></tbody>
           </table>
@@ -168,12 +229,12 @@
   })();
   </script>
 
-  <!-- JS del visor mensual: lee CSV ../data/cuadrantes/2024-01.csv y pinta matriz -->
+  <!-- JS del visor mensual -->
   <script>
   (function(){
     // Año/mes fijos de esta página
     const annoParam = 2024;
-    const mesParam  = 12; // enero
+    const mesParam  = 1; // Diciembre
 
     // Ajusta el título del documento por si se reutiliza
     const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
@@ -196,11 +257,12 @@
       LD:{nombre:'Libre disposición', clase:'shift-LD'},
       FR:{nombre:'Formación', clase:'shift-FR'},
       OT:{nombre:'Otros', clase:'shift-OT'},
-      SD:{nombre:'Saliente diferido', clase:'shift-sd'},
+      SD:{nombre:'Saliente diferido', clase:'shift-SD'},
       LS:{nombre:'Liberación sindical', clase:'shift-LS'},
       BL:{nombre:'Baja laboral', clase:'shift-BL'},
       BM:{nombre:'Baja maternal', clase:'shift-BM'}
     };
+    const KEYS = Object.keys(CODIGOS);
 
     function daysInMonth(y,m){ return new Date(y, m, 0).getDate(); } // m=1..12
     function labelDia(y,m,d){ const dow=new Date(y, m-1, d).getDay(); return `${DOW[dow]} ${d}`; }
@@ -209,9 +271,9 @@
     // Encabezado de la tabla
     const thead = document.getElementById('thead');
     const trHead = document.createElement('tr');
-    const thNombre = document.createElement('th'); thNombre.textContent = 'Profesional'; trHead.appendChild(thNombre);
-    for (let d=1; d<=numDias; d++){ const th=document.createElement('th'); th.textContent=labelDia(annoParam, mesParam, d); trHead.appendChild(th); }
-    const thObs = document.createElement('th'); thObs.textContent = 'Obs.'; trHead.appendChild(thObs);
+    const thNombre = document.createElement('th'); thNombre.scope='col'; thNombre.textContent = 'Profesional'; trHead.appendChild(thNombre);
+    for (let d=1; d<=numDias; d++){ const th = document.createElement('th'); th.scope='col'; th.textContent=labelDia(annoParam, mesParam, d); trHead.appendChild(th); }
+    const thObs = document.createElement('th'); thObs.scope='col'; thObs.textContent = 'Obs.'; trHead.appendChild(thObs);
     thead.appendChild(trHead);
 
     // Leyenda
@@ -263,7 +325,7 @@
       for (let i=1; i<rows.length; i++){
         const r = rows[i]; if (!r || !r.length) continue;
         const tr = document.createElement('tr');
-        const tdNombre = document.createElement('td'); tdNombre.textContent = (r[0]||'').trim(); tr.appendChild(tdNombre);
+        const tdNombre = document.createElement('td'); tdNombre.setAttribute('role','rowheader'); tdNombre.textContent = (r[0]||'').trim(); tr.appendChild(tdNombre);
         for (let d=1; d<=numDias; d++){
           const td = document.createElement('td');
           const val = (r[d]||'').toString().trim();
@@ -285,7 +347,7 @@
       const tot = {}; // { nombre: {M:0,T:0,...} }
       for (let i=1; i<rows.length; i++){
         const r = rows[i]; const nombre = (r[0]||'').trim(); if (!nombre) continue;
-        if (!tot[nombre]) tot[nombre] = {M:0,T:0,G:0,O:0,F:0,FO:0,V:0,S:0,LD:0,FR:0,OT:0};
+        if (!tot[nombre]) tot[nombre] = Object.fromEntries(KEYS.map(k => [k, 0]));
         for (let d=1; d<=numDias; d++){
           const val = (r[d]||'').toString().trim(); if (!val) continue;
           const tokens = tokenizar(val);
@@ -304,21 +366,9 @@
       });
     }
 
-    // Acciones
-    document.getElementById('btn-print').addEventListener('click',()=>window.print());
-    document.getElementById('btn-export').addEventListener('click',()=>exportTableToCSV());
-
-    function exportTableToCSV(filename = `cuadrante-${annoParam}-${String(mesParam).padStart(2,'0')}.csv`){
-      const table = document.getElementById('tabla');
-      const rows = Array.from(table.querySelectorAll('tr'));
-      const csv = rows.map(tr => Array.from(tr.children).map(td => {
-        const raw = td.textContent.replace(/^([DLXJVS])\s+/,'').replaceAll('"','""'); // limpia prefijo día-semana
-        return /[",\n]/.test(raw) ? `"${raw}"` : raw;
-      }).join(',')).join('\n');
-      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
-      const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = filename; link.click();
-      URL.revokeObjectURL(link.href);
-    }
+    // Acciones (Imprimir / Descargar PDF → ambos usan window.print)
+    document.getElementById('btn-print').addEventListener('click', ()=>window.print());
+    document.getElementById('btn-pdf').addEventListener('click',   ()=>window.print());
   })();
   </script>
 </body>
