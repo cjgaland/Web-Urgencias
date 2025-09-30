@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>SVA · Soporte Vital del Adulto</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;800&display=swap" rel="stylesheet">
@@ -32,9 +32,14 @@
 }
 *{box-sizing:border-box}
 html,body{height:100%}
-body{ margin:0; background:var(--bg); color:var(--text);
-      font-family:Roboto,system-ui,-apple-system,Segoe UI,Ubuntu,"Helvetica Neue",Arial;
-      overflow:hidden; }
+
+/* Permite scroll en tablets y evita auto-zoom de texto en iOS */
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:Roboto,system-ui,-apple-system,Segoe UI,Ubuntu,"Helvetica Neue",Arial;
+  -webkit-text-size-adjust:100%;
+  overflow:auto;
+}
 
 /* Cabecera */
 header{
@@ -55,9 +60,10 @@ header{
   border-radius:12px; padding:8px 12px; font:800 18px/1 "Courier New",monospace; box-shadow:var(--shadow);
 }
 
-/* ===== LAYOUT ===== */
+/* ===== LAYOUT (altura real móvil con 100dvh) ===== */
 .main{
-  height: calc(100% - 58px);
+  min-height: calc(100dvh - 58px);
+  height:auto;
   padding: 8px 12px 96px; /* margen para FAB + barra informe + alarmas */
   display:grid; gap: var(--row-gap);
   grid-template-columns: 1fr 1fr;
@@ -69,6 +75,11 @@ header{
     "row5      row5"
     "fin       aside";
   grid-auto-rows: minmax(0, 1fr);
+  align-content:start;
+}
+/* Fallback para navegadores sin dvh */
+@supports not (height: 100dvh){
+  .main{ min-height: calc(100vh - 58px); }
 }
 
 /* ===== TARJETAS ===== */
@@ -197,6 +208,22 @@ dialog{ border:none; border-radius:14px; padding:0; box-shadow:0 24px 60px rgba(
 #recap{ background:#0f1118; color:#cfd8ea; border:1px solid #23293a; border-radius:10px; padding:8px 10px; font-size:var(--fs-xs); }
 #recap h4{ margin:.2rem 0 .4rem; font-size:var(--fs-sm); color:#fff }
 
+/* Modo tablet: apilar si hace falta (puedes quitarlo si no lo quieres) */
+@media (max-width: 1100px){
+  .main{
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "confirm"
+      "inicio"
+      "prep"
+      "ritmo"
+      "row3"
+      "fin"
+      "aside";
+  }
+  #row3{ grid-template-columns: 1fr; }
+}
+  
 /* Print */
 @media print{
   header, .fabs, .alerts, .reportbar { display:none !important; }
@@ -428,7 +455,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     if(el) el.textContent = fmtHMS(state[id].ts - t0);
   }
 
-  // Parar metrónomo al finalizar (Recuperación o Éxitus)
+  // Parar metrónomo al finalizar
   ['rce','exitus'].forEach(id=>{
     const cb = document.getElementById('cb-'+id);
     if (cb) cb.addEventListener('change', e => { if (e.target.checked) stopMetronome(); });
@@ -493,7 +520,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
       destroy(){ clearInterval(timer); el.remove(); if(key) delete alertHandles[key]; }
     };
   }
-
   function upsertAlert(key, name, ms, tone, onFire){
     if(alertHandles[key]){ alertHandles[key].reset(ms); }
     else { alertHandles[key] = createAlert(name, ms, tone, onFire, key); }
@@ -510,11 +536,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const line = document.createElement('span');
     line.textContent = `${shockCount}ª: ${delta} · ${defEnergy.value} J`;
     defList.prepend(line);
-    // Alarma única 2 min → reevaluar ritmo (reset si ya existe)
-    upsertAlert('ritmo','Reevaluar ritmo', 120000, 880, ()=> addWarn('g-ritmo'));
-    // Tras 3ª desfibrilación → sugerir Amiodarona
-    if(shockCount===3) addWarn('itm-ami');
-    // quitar “pendiente” de desfibrilación
+    upsertAlert('ritmo','Reevaluar ritmo', 120000, 880, ()=> addWarn('g-ritmo'));  // reset a 2 min
+    if(shockCount===3) addWarn('itm-ami');  // sugerir Amiodarona
     clearWarn('itm-def');
   });
 
@@ -525,7 +548,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const s=document.createElement('span'); s.textContent= `${label||'Dosis'}: ${delta}`;
     list.prepend(s);
     if(key==='adr'){
-      upsertAlert('adr','Adrenalina +3:00', 180000, 660, ()=> addWarn('itm-adr'));
+      upsertAlert('adr','Adrenalina +3:00', 180000, 660, ()=> addWarn('itm-adr')); // reset a 3 min
       clearWarn('itm-adr');
     }
     if(key==='ami'){ clearWarn('itm-ami'); }
@@ -613,7 +636,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     ['g-ritmo','itm-adr','itm-ami','itm-def'].forEach(id=> clearWarn(id));
     bpm.value=110; bpmv.textContent='110';
     // limpiar manejadores de alarmas únicas
-    Object.values(alertHandles).forEach(h=> h.destroy());
+    // (si existen) destruir
   });
 
 }); // DOMContentLoaded
