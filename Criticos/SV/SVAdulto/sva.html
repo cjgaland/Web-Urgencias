@@ -25,7 +25,6 @@
   --fs-md: clamp(13px,1.1vw,15px);
   --fs-lg: clamp(16px,1.5vw,20px);
 
-  --h-row3: 260px;
   --h-ritmo: 120px;
   --h-fin:   120px;
   --row-gap: 18px;
@@ -33,7 +32,6 @@
 *{box-sizing:border-box}
 html,body{height:100%}
 
-/* Permite scroll en tablets y evita auto-zoom de texto en iOS */
 body{
   margin:0; background:var(--bg); color:var(--text);
   font-family:Roboto,system-ui,-apple-system,Segoe UI,Ubuntu,"Helvetica Neue",Arial;
@@ -60,43 +58,44 @@ header{
   border-radius:12px; padding:8px 12px; font:800 18px/1 "Courier New",monospace; box-shadow:var(--shadow);
 }
 
-/* ===== LAYOUT (altura real móvil con 100dvh) ===== */
+/* ===== LAYOUT (3 columnas) ===== */
 .main{
   min-height: calc(100dvh - 58px);
   height:auto;
-  padding: 8px 12px 96px; /* margen para FAB + barra informe + alarmas */
-  display:grid; gap: var(--row-gap);
-  grid-template-columns: 1fr 1fr;
+  padding: 8px 12px 96px; /* margen FAB + barra informe + alarmas */
+  display:grid;
+  gap: var(--row-gap);
+  grid-template-columns: 1.4fr 1fr 1fr;
   grid-template-areas:
-    "confirm   inicio"
-    "prep      ritmo"
-    "row3      row3"
-    "row4      row4"  
-    "row5      row5"
-    "fin       aside";
-  grid-auto-rows: minmax(0, 1fr);
+    "confirm confirm inicio"   /* Fila 1 */
+    "prep    ritmo   via"      /* Fila 2 */
+    "med     med     desf"     /* Fila 3 */
+    "fin     fin     aside";   /* Fila 4 */
+  grid-auto-rows: auto;        /* que cada fila mida lo que necesite */
   align-content:start;
 }
-/* Fallback para navegadores sin dvh */
 @supports not (height: 100dvh){
   .main{ min-height: calc(100vh - 58px); }
 }
 
-/* ===== TARJETAS ===== */
+/* Áreas */
+#g-confirm{ grid-area:confirm; }
+#g-inicio { grid-area:inicio;  }
+#g-prep   { grid-area:prep;    }
+#g-ritmo  { grid-area:ritmo;   min-height:var(--h-ritmo); }
+#g-via    { grid-area:via;     }
+#g-med    { grid-area:med;     }
+#g-desf   { grid-area:desf;    }
+#g-fin    { grid-area:fin;     min-height:var(--h-fin); }
+#g-aside  { grid-area:aside;   display:grid; }
+
+/* Tarjetas */
 .group{
   background:var(--card); color:var(--ink);
   border:1px solid var(--stroke); border-radius:var(--radius);
   padding:8px; display:grid; grid-template-rows:auto 1fr; gap:6px; box-shadow:var(--shadow);
 }
 .group h3{ margin:0; font-size:var(--fs-md); font-weight:800; }
-
-#g-confirm{ grid-area:confirm; }
-#g-inicio { grid-area:inicio;  }
-#g-prep   { grid-area:prep;    }
-#g-ritmo  { grid-area:ritmo;   min-height:var(--h-ritmo); }
-#row3     { grid-area:row3;    display:grid; gap:var(--gap); grid-template-columns: 0.75fr 1.5fr 0.75fr; min-height:var(--h-row3); }
-#g-fin    { grid-area:fin;     min-height:var(--h-fin); }
-#g-aside  { grid-area:aside;   display:grid; }
 
 .row{ display:grid; grid-auto-flow:column; grid-auto-columns:1fr; gap: var(--gap); }
 .item{
@@ -126,7 +125,7 @@ header{
 .energy{ display:flex; align-items:center; gap:8px; font-size:var(--fs-xs) }
 .energy input{ width:86px; background:#0b0d14; color:#e8eefb; border:1px solid #283149; border-radius:8px; padding:3px 6px; }
 
-/* AVISOS: borde gordo + tinte de fondo + parpadeo */
+/* AVISOS: borde gordo + tinte + parpadeo */
 .warn-strong{
   outline:4px solid var(--warn);
   box-shadow:
@@ -155,15 +154,24 @@ header{
 .inline-list{ font-size:var(--fs-xs); line-height:1.3; max-height:96px; overflow:auto; padding-right:2px; }
 .inline-list span{ display:block; white-space:nowrap; }
 
-/* Medicación en una sola fila */
-.med-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); }
-.med-item{ min-width: 0; }
+/* Medicación (6 huecos) */
+.med-grid{ 
+  display:grid; 
+  grid-template-columns: repeat(6, minmax(160px,1fr)); 
+  gap: var(--gap); 
+}
+.med-item{ min-width:0; }
+.med-select{ width:100%; background:#0b0d14; color:#e8eefb; border:1px solid #283149; border-radius:8px; padding:4px 6px; }
 
-/* Desfibrilación: botón bajo energía */
-#itm-def .energy{ margin-bottom: 6px; }
-#itm-def .btn-ghost{ width: max-content; }
+/* Responsivo medicación */
+@media (max-width: 1400px){
+  .med-grid{ grid-template-columns: repeat(3, minmax(160px,1fr)); }
+}
+@media (max-width: 900px){
+  .med-grid{ grid-template-columns: repeat(2, minmax(160px,1fr)); }
+}
 
-/* Alarmas centradas abajo (amarillo huevo) */
+/* Alarmas centradas abajo */
 .alerts{
   position:fixed; left:50%; transform:translateX(-50%);
   bottom:64px;
@@ -178,14 +186,14 @@ header{
 .alert i{ color:#111 }
 .alert .t{ font-family:"Courier New",monospace; font-weight:800; }
 
-/* Barra de informe + PDF por encima de las alarmas */
+/* Barra de informe + PDF */
 .reportbar{
   position:fixed; right:12px; bottom:12px; display:flex; gap:8px; z-index:90;
 }
 .reportbar .btn{ background:var(--blue); }
 .reportbar .btn:hover{ background:var(--blue2); }
 
-/* FABs horizontales (abajo izq) */
+/* FABs horizontales */
 .fabs{ position:fixed; left:12px; bottom:12px; display:flex; gap:8px; z-index:95; }
 .fab{
   width:44px; height:44px; border-radius:50%; display:grid; place-items:center; text-decoration:none;
@@ -208,7 +216,7 @@ dialog{ border:none; border-radius:14px; padding:0; box-shadow:0 24px 60px rgba(
 #recap{ background:#0f1118; color:#cfd8ea; border:1px solid #23293a; border-radius:10px; padding:8px 10px; font-size:var(--fs-xs); }
 #recap h4{ margin:.2rem 0 .4rem; font-size:var(--fs-sm); color:#fff }
 
-/* Modo tablet: apilar si hace falta (puedes quitarlo si no lo quieres) */
+/* Modo tablet apilado (opcional) */
 @media (max-width: 1100px){
   .main{
     grid-template-columns: 1fr;
@@ -217,18 +225,39 @@ dialog{ border:none; border-radius:14px; padding:0; box-shadow:0 24px 60px rgba(
       "inicio"
       "prep"
       "ritmo"
-      "row3"
+      "via"
+      "med"
+      "desf"
       "fin"
       "aside";
   }
-  #row3{ grid-template-columns: 1fr; }
 }
-  
-/* Print */
 @media print{
   header, .fabs, .alerts, .reportbar { display:none !important; }
   body{ background:#fff; color:#000 }
 }
+  
+ /* ===== Distribución vertical para que no quede hueco abajo ===== */
+@media (min-width: 1200px) and (min-height: 800px){
+  .main{
+    align-content: space-between;           /* reparte la altura disponible entre filas */
+    gap: clamp(14px, 1.6vh, 28px);          /* separa un poco más las filas */
+  }
+  /* Alturas mínimas suaves por fila (ajústalas si quieres) */
+  #g-confirm, #g-inicio{ min-height: 140px; }
+  #g-prep, #g-ritmo, #g-via{ min-height: 150px; }
+  #g-med, #g-desf{ min-height: 220px; }
+  #g-fin, #g-aside{ min-height: 130px; }
+}
+
+/* En tablet/móvil mantenemos el comportamiento normal (sin “estirado”) */
+@media (max-width: 1100px){
+  .main{ align-content: start; }
+}
+ 
+  
+  
+  
 </style>
 </head>
 <body>
@@ -243,7 +272,7 @@ dialog{ border:none; border-radius:14px; padding:0; box-shadow:0 24px 60px rgba(
 </header>
 
 <main class="main">
-  <!-- 1ª fila -->
+  <!-- Fila 1 -->
   <section class="group" id="g-confirm">
     <h3>Confirmar PCR <span class="small">· Δ desde inicio</span></h3>
     <div class="row">
@@ -268,7 +297,7 @@ dialog{ border:none; border-radius:14px; padding:0; box-shadow:0 24px 60px rgba(
     </div>
   </section>
 
-  <!-- 2ª fila -->
+  <!-- Fila 2 -->
   <section class="group" id="g-prep">
     <h3>Preparación</h3>
     <div class="row">
@@ -296,61 +325,95 @@ dialog{ border:none; border-radius:14px; padding:0; box-shadow:0 24px 60px rgba(
     <div class="ritmo-log" id="ritmo-list"></div>
   </section>
 
-  <!-- 3ª fila -->
-  <div id="row3">
-    <section class="group" id="g-via">
-      <h3>Vía aérea</h3>
-      <div class="row">
-        <div class="item" id="itm-iot"><div class="top"><input type="checkbox" id="cb-iot"><label for="cb-iot">IOT / Mascarilla</label></div><div class="delta" id="tm-iot">00:00:00</div></div>
-        <div class="item" id="itm-etco2"><div class="top"><input type="checkbox" id="cb-etco2"><label for="cb-etco2">ETCO₂</label></div><div class="delta" id="tm-etco2">00:00:00</div></div>
-      </div>
-    </section>
+  <section class="group" id="g-via">
+    <h3>Vía aérea</h3>
+    <div class="row">
+      <div class="item" id="itm-iot"><div class="top"><input type="checkbox" id="cb-iot"><label for="cb-iot">IOT / Mascarilla</label></div><div class="delta" id="tm-iot">00:00:00</div></div>
+      <div class="item" id="itm-etco2"><div class="top"><input type="checkbox" id="cb-etco2"><label for="cb-etco2">ETCO₂</label></div><div class="delta" id="tm-etco2">00:00:00</div></div>
+    </div>
+  </section>
 
-    <section class="group" id="g-med">
-      <h3>Medicación</h3>
-      <div class="med-grid">
-        <div class="item med-item" id="itm-adr">
-          <div class="top"><input type="checkbox" id="cb-adr"><label for="cb-adr">Adrenalina</label></div>
-          <div class="delta" id="tm-adr">00:00:00</div>
-          <div class="inline-list" id="list-adr"></div>
-          <button class="btn btn-ghost" id="btn-adr">+ Dosis</button>
-        </div>
-        <div class="item med-item" id="itm-ami">
-          <div class="top"><input type="checkbox" id="cb-ami"><label for="cb-ami">Amiodarona</label></div>
-          <div class="delta" id="tm-ami">00:00:00</div>
-          <div class="inline-list" id="list-ami"></div>
-          <button class="btn btn-ghost" id="btn-ami">+ Dosis</button>
-        </div>
-        <div class="item med-item" id="itm-atr">
-          <div class="top"><input type="checkbox" id="cb-atr"><label for="cb-atr">Atropina</label></div>
-          <div class="delta" id="tm-atr">00:00:00</div>
-          <div class="inline-list" id="list-atr"></div>
-          <button class="btn btn-ghost" id="btn-atr">+ Dosis</button>
-        </div>
-        <div class="item med-item" id="itm-mg">
-          <div class="top"><input type="checkbox" id="cb-mg"><label for="cb-mg">Magnesio</label></div>
-          <div class="delta" id="tm-mg">00:00:00</div>
-          <div class="inline-list" id="list-mg"></div>
-          <button class="btn btn-ghost" id="btn-mg">+ Dosis</button>
-        </div>
+  <!-- Fila 3 -->
+  <section class="group" id="g-med">
+    <h3>Medicación</h3>
+    <div class="med-grid">
+      <!-- 1 Adrenalina -->
+      <div class="item med-item" id="itm-adr">
+        <div class="top"><input type="checkbox" id="cb-adr"><label for="cb-adr">Adrenalina</label></div>
+        <div class="delta" id="tm-adr">00:00:00</div>
+        <div class="inline-list" id="list-adr"></div>
+        <button class="btn btn-ghost" id="btn-adr">+ Dosis</button>
       </div>
-    </section>
-
-    <section class="group" id="g-desf">
-      <h3>Desfibrilación</h3>
-      <div class="item" id="itm-def">
-        <div class="top"><i class="fa-solid fa-bolt"></i><strong>Registro de descargas</strong></div>
-        <div class="energy">
-          <span>Energía</span>
-          <input type="number" id="def-energy" step="50" min="150" max="360" value="200"> J
-        </div>
-        <button class="btn btn-ghost" id="btn-def">+ Desfibrilación</button>
-        <div class="inline-list" id="def-list"></div>
+      <!-- 2 Amiodarona -->
+      <div class="item med-item" id="itm-ami">
+        <div class="top"><input type="checkbox" id="cb-ami"><label for="cb-ami">Amiodarona</label></div>
+        <div class="delta" id="tm-ami">00:00:00</div>
+        <div class="inline-list" id="list-ami"></div>
+        <button class="btn btn-ghost" id="btn-ami">+ Dosis</button>
       </div>
-    </section>
-  </div>
+      <!-- 3 Atropina -->
+      <div class="item med-item" id="itm-atr">
+        <div class="top"><input type="checkbox" id="cb-atr"><label for="cb-atr">Atropina</label></div>
+        <div class="delta" id="tm-atr">00:00:00</div>
+        <div class="inline-list" id="list-atr"></div>
+        <button class="btn btn-ghost" id="btn-atr">+ Dosis</button>
+      </div>
+      <!-- 4 Magnesio -->
+      <div class="item med-item" id="itm-mg">
+        <div class="top"><input type="checkbox" id="cb-mg"><label for="cb-mg">Magnesio</label></div>
+        <div class="delta" id="tm-mg">00:00:00</div>
+        <div class="inline-list" id="list-mg"></div>
+        <button class="btn btn-ghost" id="btn-mg">+ Dosis</button>
+      </div>
+      <!-- 5 IOT/RSI -->
+      <div class="item med-item" id="itm-rsi">
+        <div class="top">
+          <input type="checkbox" id="cb-rsi">
+          <label for="cb-rsi">IOT / RSI</label>
+        </div>
+        <select id="sel-rsi" class="med-select" aria-label="Fármaco IOT/RSI">
+          <option selected>Etomidato</option>
+          <option>Ketamina</option><option>Midazolam</option>
+          <option>Fentanilo</option><option>Propofol</option>
+          <option>Rocuronio</option><option>Succinilcolina</option>
+          <option>Lidocaína</option><option>Bicarbonato</option>
+        </select>
+        <div class="delta" id="tm-rsi">00:00:00</div>
+        <div class="inline-list" id="list-rsi"></div>
+        <button class="btn btn-ghost" id="btn-rsi">+ Dosis</button>
+      </div>
+      <!-- 6 Antídotos -->
+      <div class="item med-item" id="itm-ant">
+        <div class="top">
+          <input type="checkbox" id="cb-ant">
+          <label for="cb-ant">Antídotos</label>
+        </div>
+        <select id="sel-ant" class="med-select" aria-label="Antídoto">
+          <option selected>Naloxona</option>
+          <option>Flumazenilo</option>
+        </select>
+        <div class="delta" id="tm-ant">00:00:00</div>
+        <div class="inline-list" id="list-ant"></div>
+        <button class="btn btn-ghost" id="btn-ant">+ Dosis</button>
+      </div>
+    </div>
+  </section>
 
-  <!-- 4ª fila -->
+  <!-- Desfibrilación (SIN cambios de comportamiento) -->
+  <section class="group" id="g-desf">
+    <h3>Desfibrilación</h3>
+    <div class="item" id="itm-def">
+      <div class="top"><i class="fa-solid fa-bolt"></i><strong>Registro de descargas</strong></div>
+      <div class="energy">
+        <span>Energía</span>
+        <input type="number" id="def-energy" step="50" min="150" max="360" value="200"> J
+      </div>
+      <button class="btn btn-ghost" id="btn-def">+ Desfibrilación</button>
+      <div class="inline-list" id="def-list"></div>
+    </div>
+  </section>
+
+  <!-- Fila 4 -->
   <section class="group" id="g-fin">
     <h3>Fin del proceso</h3>
     <div class="row">
@@ -362,7 +425,7 @@ dialog{ border:none; border-radius:14px; padding:0; box-shadow:0 24px 60px rgba(
   <section class="group" id="g-aside">
     <div id="recap">
       <h4>Recordatorio rápido</h4>
-      <ul style="margin:.2rem 0 0; padding-left:1.1rem; font-size:var(--fs-xs);">
+      <ul style="margin:.2rem 0 0; padding-left:1.1rem;">
         <li>Desfibrilación bifásica: 200 J → RCP 2 min → reevaluar.</li>
         <li>Adrenalina 1 mg IV/IO cada 3–5 min (alarma 3:00 por dosis).</li>
         <li>Amiodarona 300 mg → 150 mg si VF/TV refractaria.</li>
@@ -373,7 +436,7 @@ dialog{ border:none; border-radius:14px; padding:0; box-shadow:0 24px 60px rgba(
   </section>
 </main>
 
-<!-- Barra Informe + PDF (sobre las alarmas) -->
+<!-- Barra Informe + PDF -->
 <div class="reportbar">
   <button class="btn" id="btnInforme"><i class="fa-solid fa-file-lines"></i> Informe</button>
   <button class="btn" id="btnPDF"><i class="fa-solid fa-file-arrow-down"></i> Exportar PDF</button>
@@ -446,7 +509,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   bpm.addEventListener('input', e=>{ bpmv.textContent=e.target.value; setBPM(+e.target.value); });
 
   /* ===== estado & sellado ===== */
-  const ids=['inc','resp','pulso','rcp','llamada','via','ox','monitor','iot','etco2','adr','ami','atr','mg','rce','exitus'];
+  const ids=['inc','resp','pulso','rcp','llamada','via','ox','monitor','iot','etco2','adr','ami','atr','mg','rsi','ant','rce','exitus'];
   const state={}; ids.forEach(id=>state[id]={ts:null});
   function marcar(id){
     if(state[id].ts) return;
@@ -485,6 +548,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       const row=document.createElement('div'); row.textContent = `${r.value} · ${delta}`; ritmoList.prepend(row);
       if(!tmRitmo.dataset.set){ tmRitmo.dataset.set=1; tmRitmo.textContent = delta; }
       clearWarn('g-ritmo');
+      // si ritmo desfibrilable, resalto desfibrilación (pendiente)
       if(r.value==='FV' || r.value==='TVSP'){ addWarn('itm-def'); } else { clearWarn('itm-def'); }
     }));
   });
@@ -525,7 +589,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     else { alertHandles[key] = createAlert(name, ms, tone, onFire, key); }
   }
 
-  /* ===== Desfibrilación dinámica ===== */
+  /* ===== Desfibrilación (igual que antes) ===== */
   let shockCount=0;
   const defEnergy = document.getElementById('def-energy');
   const defList   = document.getElementById('def-list');
@@ -536,49 +600,77 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const line = document.createElement('span');
     line.textContent = `${shockCount}ª: ${delta} · ${defEnergy.value} J`;
     defList.prepend(line);
-    upsertAlert('ritmo','Reevaluar ritmo', 120000, 880, ()=> addWarn('g-ritmo'));  // reset a 2 min
-    if(shockCount===3) addWarn('itm-ami');  // sugerir Amiodarona
+    // reevaluación de ritmo a los 2 min (reset si ya existe)
+    upsertAlert('ritmo','Reevaluar ritmo', 120000, 880, ()=> addWarn('g-ritmo'));
+    // sugerir amiodarona tras la 3ª descarga
+    if(shockCount===3) addWarn('itm-ami');
+    // se atendió la "pendiente de desfibrilar"
     clearWarn('itm-def');
   });
 
   /* ===== Medicación ===== */
-  function addDoseFor(key, label){
+  function addDoseFor(key, label, displayName){
     const list=document.getElementById('list-'+key);
     const ts = new Date(); const delta = fmtHMS(ts - t0);
-    const s=document.createElement('span'); s.textContent= `${label||'Dosis'}: ${delta}`;
+    const tag = displayName ? `${displayName}` : (label || 'Dosis');
+    const s=document.createElement('span'); s.textContent= `${tag}: ${delta}`;
     list.prepend(s);
     if(key==='adr'){
-      upsertAlert('adr','Adrenalina +3:00', 180000, 660, ()=> addWarn('itm-adr')); // reset a 3 min
+      upsertAlert('adr','Adrenalina +3:00', 180000, 660, ()=> addWarn('itm-adr'));
       clearWarn('itm-adr');
     }
     if(key==='ami'){ clearWarn('itm-ami'); }
   }
+  // Fijos
   [['adr','Adrenalina'],['ami','Amiodarona'],['atr','Atropina'],['mg','Magnesio']].forEach(([key,_name])=>{
     const cb=document.getElementById('cb-'+key), btn=document.getElementById('btn-'+key);
     cb.addEventListener('change', e=>{ if(e.target.checked){ marcar(key); addDoseFor(key,'1ª dosis'); } });
     btn.addEventListener('click', ()=> addDoseFor(key));
   });
 
+  // Dinámicos: IOT/RSI y Antídotos
+  function setupDyn(key, selId, labelFallback){
+    const sel = document.getElementById(selId);
+    const cb  = document.getElementById('cb-'+key);
+    const btn = document.getElementById('btn-'+key);
+    const name = ()=> sel.value || labelFallback;
+
+    cb.addEventListener('change', e=>{
+      if(e.target.checked){ marcar(key); addDoseFor(key,'1ª dosis', name()); }
+    });
+    btn.addEventListener('click', ()=> addDoseFor(key, null, name()));
+  }
+  setupDyn('rsi','sel-rsi','IOT/RSI');
+  setupDyn('ant','sel-ant','Antídoto');
+
   /* ===== Informe + PDF ===== */
   function buildRows(){
     const rows=[];
     const map={inc:'Inconsciencia',resp:'Respiración anormal',pulso:'Sin pulso',rcp:'Masaje cardíaco',llamada:'Llamada 88',
       via:'Vía/Muestras',ox:'Oxígeno',monitor:'Monitor ECG',iot:'IOT/Mascarilla',etco2:'ETCO₂',
-      adr:'Adrenalina',ami:'Amiodarona',atr:'Atropina',mg:'Magnesio',rce:'Recuperación',exitus:'Éxitus'};
+      adr:'Adrenalina',ami:'Amiodarona',atr:'Atropina',mg:'Magnesio',rsi:'IOT/RSI',ant:'Antídotos',
+      rce:'Recuperación',exitus:'Éxitus'};
 
+    // Ritmo (historial)
     const ritmos=[...document.querySelectorAll('#ritmo-list div')].reverse();
     ritmos.forEach(it=> rows.push({id:'Ritmo', delta: it.textContent.split('·').pop().trim(), det: it.textContent.split('·')[0].trim()}));
 
+    // Actuaciones con Δ
     Object.keys(map).forEach(id=>{
       if(state[id].ts){ rows.push({id:map[id], delta: fmtHMS(state[id].ts - t0), det:'—'}); }
     });
 
+    // Desfibrilaciones
     const defLines=[...document.querySelectorAll('#def-list span')].reverse();
     defLines.forEach(x=> rows.push({id:'Desfibrilación', delta: x.textContent.split('·')[0].split(': ').pop().trim(), det:x.textContent.split('·')[1]?.trim()||'—'}));
 
-    ;['adr','ami','atr','mg'].forEach(key=>{
+    // Dosis de medicación (incluidos dinámicos)
+    ['adr','ami','atr','mg','rsi','ant'].forEach(key=>{
       [...document.querySelectorAll('#list-'+key+' span')].reverse().forEach(x=>{
-        rows.push({id:key.toUpperCase(), delta:x.textContent.split(': ').pop(), det:'Dosis'});
+        // si es dinámico, usa el nombre visible (antes de ":")
+        const [det, delta] = x.textContent.split(': ');
+        const label = (key==='rsi' || key==='ant') ? det : key.toUpperCase();
+        rows.push({id:label, delta:delta, det:'Dosis'});
       });
     });
     return rows;
@@ -630,13 +722,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
     document.querySelectorAll('#g-ritmo input').forEach(r=> r.checked=false);
     document.getElementById('tm-ritmo').removeAttribute('data-set');
     document.getElementById('ritmo-list').textContent='';
-    ['adr','ami','atr','mg'].forEach(k=>{ document.getElementById('list-'+k).textContent=''; });
+    ['adr','ami','atr','mg','rsi','ant'].forEach(k=>{ document.getElementById('list-'+k).textContent=''; });
     document.getElementById('def-energy').value=200; document.getElementById('def-list').textContent=''; 
     document.querySelectorAll('.alerts .alert').forEach(a=>a.remove());
     ['g-ritmo','itm-adr','itm-ami','itm-def'].forEach(id=> clearWarn(id));
     bpm.value=110; bpmv.textContent='110';
-    // limpiar manejadores de alarmas únicas
-    // (si existen) destruir
   });
 
 }); // DOMContentLoaded
