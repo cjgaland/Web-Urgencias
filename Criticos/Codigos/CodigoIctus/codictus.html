@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Código Ictus · SAS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #0b0c0f;
+            --card: #0f1118;
+            --ink: #eef1f7;
+            --stroke: #23293a;
+            --blue: #0d6efd;
+            --blue2: #0b5ed7;
+            --red: #dc3545;
+            --red2: #b02a37;
+            --orange: #fd7e14;
+            --orange2: #e65c00;
+            --green: #198754;
+            --green2: #157347;
+            --purple: #6f42c1;
+            --purple2: #5a2d9c;
+            --cyan: #0dcaf0;
+            --cyan2: #0baccc;
+            --chip-blue: #10243c;
+            --chip-blue-b: #264a73;
+            --chip-red: #33151a;
+            --chip-red-b: #682a34;
+            --chip-orange: #3d2a14;
+            --chip-orange-b: #7a5528;
+            --chip-green: #0f2a1c;
+            --chip-green-b: #1e5534;
+            --chip-purple: #2a1a3d;
+            --chip-purple-b: #54348b;
+            --warn: #ffd23f;
+            --warn-dark: #c9a305;
+            --gap: clamp(6px, .9vw, 12px);
+            --radius: 12px;
+            --shadow: 0 10px 30px rgba(0, 0, 0, .25);
+            --fs-xs: clamp(10px, .8vw, 12px);
+            --fs-sm: clamp(11px, .95vw, 13px);
+            --fs-md: clamp(13px, 1.1vw, 15px);
+            --fs-lg: clamp(16px, 1.5vw, 20px);
+            --row-gap: 18px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Roboto, system-ui, -apple-system, Segoe UI, Ubuntu, "Helvetica Neue", Arial;
+            -webkit-text-size-adjust: 100%;
+            overflow: auto;
+        }
+
+        /* Cabecera */
+        header {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-bottom: 1px solid #e6e9f0;
+            background: #fff;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 12px;
+            padding: 8px 12px;
+            font-weight: 800;
+            background: var(--red);
+            color: #fff;
+            font-size: var(--fs-sm);
+            box-shadow: var(--shadow);
+        }
+
+        .btn:hover {
+            background: var(--red2);
+        }
+
+        .btn-orange {
+            background: var(--orange);
+        }
+
+        .btn-orange:hover {
+            background: var(--orange2);
+        }
+
+        .btn-green {
+            background: var(--green);
+        }
+
+        .btn-green:hover {
+            background: var(--green2);
+        }
+
+        .btn-purple {
+            background: var(--purple);
+        }
+
+        .btn-purple:hover {
+            background: var(--purple2);
+        }
+
+        .center {
+            text-align: center;
+            line-height: 1.1
+        }
+
+        .center .dt {
+            font-size: var(--fs-sm);
+            color: #000
+        }
+
+        .center .title {
+            margin-top: 2px;
+            font-size: var(--fs-lg);
+            font-weight: 800;
+            color: #000
+        }
+
+        .clock {
+            min-width: 130px;
+            text-align: center;
+            color: #fff;
+            background: var(--red);
+            border-radius: 12px;
+            padding: 8px 12px;
+            font: 800 18px/1 "Courier New", monospace;
+            box-shadow: var(--shadow);
+        }
+
+        /* ===== LAYOUT (3 columnas) ===== */
+        .main {
+            min-height: calc(100dvh - 58px);
+            height: auto;
+            padding: 8px 12px 96px;
+            display: grid;
+            gap: var(--row-gap);
+            grid-template-columns: 1.4fr 1fr 1fr;
+            grid-template-areas:
+                "alerta alerta alerta"
+                "evaluacion evaluacion escala"
+                "trombectomia fibrinolisis neuroimagen"
+                "monitorizacion tratamiento complicaciones";
+            grid-auto-rows: auto;
+            align-content: start;
+        }
+
+        @supports not (height: 100dvh) {
+            .main {
+                min-height: calc(100vh - 58px);
+            }
+        }
+
+        /* Áreas */
+        #g-alerta {
+            grid-area: alerta;
+        }
+
+        #g-evaluacion {
+            grid-area: evaluacion;
+        }
+
+        #g-escala {
+            grid-area: escala;
+        }
+
+        #g-trombectomia {
+            grid-area: trombectomia;
+        }
+
+        #g-fibrinolisis {
+            grid-area: fibrinolisis;
+        }
+
+        #g-neuroimagen {
+            grid-area: neuroimagen;
+        }
+
+        #g-monitorizacion {
+            grid-area: monitorizacion;
+        }
+
+        #g-tratamiento {
+            grid-area: tratamiento;
+        }
+
+        #g-complicaciones {
+            grid-area: complicaciones;
+        }
+
+        /* Tarjetas */
+        .group {
+            background: var(--card);
+            color: var(--ink);
+            border: 1px solid var(--stroke);
+            border-radius: var(--radius);
+            padding: 8px;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            gap: 6px;
+            box-shadow: var(--shadow);
+        }
+
+        .group h3 {
+            margin: 0;
+            font-size: var(--fs-md);
+            font-weight: 800;
+        }
+
+        .row {
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: 1fr;
+            gap: var(--gap);
+        }
+
+        .item {
+            background: linear-gradient(180deg, #121521, #0e1118 60%);
+            border: 1px solid var(--stroke);
+            border-radius: 10px;
+            padding: 8px;
+            display: grid;
+            grid-template-rows: auto auto;
+            gap: 6px;
+            min-width: 0;
+            min-height: 92px;
+        }
+
+        .top {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: var(--fs-sm)
+        }
+
+        .top input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .top label {
+            cursor: pointer;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .delta {
+            justify-self: start;
+            font: 800 14px/1 "Courier New", monospace;
+            background: #0b0d14;
+            border: 1px solid #242a39;
+            border-radius: 8px;
+            padding: 4px 8px;
+            color: #e8eefb;
+        }
+
+        /* Chips */
+        .chips-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid #2a3146;
+            background: #0f1320;
+            color: #e7edff;
+            font-size: var(--fs-xs);
+            cursor: pointer;
+        }
+
+        .chip-red {
+            background: var(--chip-red);
+            border-color: var(--chip-red-b);
+        }
+
+        .chip-orange {
+            background: var(--chip-orange);
+            border-color: var(--chip-orange-b);
+        }
+
+        .chip-green {
+            background: var(--chip-green);
+            border-color: var(--chip-green-b);
+        }
+
+        .chip-purple {
+            background: var(--chip-purple);
+            border-color: var(--chip-purple-b);
+        }
+
+        .chip.active {
+            outline: 2px solid #e7edff;
+            outline-offset: 2px
+        }
+
+        /* Controles comunes */
+        .slider {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: var(--fs-xs)
+        }
+
+        .slider input[type="range"] {
+            width: 120px;
+        }
+
+        .select {
+            width: 100%;
+            background: #0b0d14;
+            color: #e8eefb;
+            border: 1px solid #283149;
+            border-radius: 8px;
+            padding: 4px 6px;
+        }
+
+        .small-note {
+            font-size: var(--fs-xs);
+            color: #aeb7cc
+        }
+
+        /* AVISOS: borde gordo + tinte + parpadeo */
+        .warn-strong {
+            outline: 4px solid var(--warn);
+            box-shadow: 0 0 0 6px rgba(255, 210, 63, .30), inset 0 0 0 9999px rgba(255, 210, 63, .10), var(--shadow);
+            border-color: var(--warn-dark);
+        }
+
+        @keyframes twinkleStrong {
+            0% {
+                box-shadow: 0 0 0 6px rgba(255, 210, 63, .45), inset 0 0 0 9999px rgba(255, 210, 63, .18), var(--shadow);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 210, 63, 0), inset 0 0 0 9999px rgba(255, 210, 63, .06), var(--shadow);
+            }
+        }
+
+        .blink-strong {
+            animation: twinkleStrong 900ms infinite alternate;
+        }
+
+        /* Alarmas centradas abajo */
+        .alerts {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 64px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 84vw;
+            z-index: 80;
+        }
+
+        .alert {
+            background: var(--warn);
+            color: #111;
+            border: 1px solid var(--warn-dark);
+            border-radius: 999px;
+            padding: 8px 12px;
+            font-size: var(--fs-sm);
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .25);
+        }
+
+        .alert i {
+            color: #111
+        }
+
+        .alert .t {
+            font-family: "Courier New", monospace;
+            font-weight: 800;
+        }
+
+        /* Barra de informe + PDF */
+        .reportbar {
+            position: fixed;
+            right: 12px;
+            bottom: 12px;
+            display: flex;
+            gap: 8px;
+            z-index: 90;
+        }
+
+        .reportbar .btn {
+            background: var(--blue);
+        }
+
+        .reportbar .btn:hover {
+            background: var(--blue2);
+        }
+
+        /* FABs horizontales */
+        .fabs {
+            position: fixed;
+            left: 12px;
+            bottom: 12px;
+            display: flex;
+            gap: 8px;
+            z-index: 95;
+        }
+
+        .fab {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            text-decoration: none;
+            color: #fff;
+            border: 1px solid #1e2433;
+            box-shadow: var(--shadow);
+            background: #151823;
+        }
+
+        .fab.home {
+            background: var(--blue);
+        }
+
+        .fab.crit {
+            background: var(--red);
+        }
+
+        .fab:hover {
+            filter: brightness(1.1);
+        }
+
+        /* Diálogo Informe */
+        dialog {
+            border: none;
+            border-radius: 14px;
+            padding: 0;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, .5);
+            width: min(980px, 92vw);
+            color: #0b0c0f;
+        }
+
+        .dialog-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            border-bottom: 1px solid #e7eef7;
+            background: #f7f9ff;
+        }
+
+        .dialog-body {
+            padding: 10px 14px 14px;
+            background: #fff;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 13px;
+        }
+
+        .table th,
+        .table td {
+            border-bottom: 1px solid #eef2f7;
+            padding: 6px 8px;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .dialog-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            padding: 0 14px 12px;
+            background: #fff;
+        }
+
+        .btn-ghost {
+            background: #fff;
+            border: 1px solid #e3eaf6;
+            color: #0b0c0f;
+            font-weight: 700;
+            border-radius: 10px;
+            padding: 8px 12px;
+        }
+
+        /* Modo tablet apilado */
+        @media (max-width: 1100px) {
+            .main {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "alerta"
+                    "evaluacion"
+                    "escala"
+                    "trombectomia"
+                    "fibrinolisis"
+                    "neuroimagen"
+                    "monitorizacion"
+                    "tratamiento"
+                    "complicaciones";
+            }
+        }
+
+        @media print {
+
+            header,
+            .fabs,
+            .alerts,
+            .reportbar {
+                display: none !important;
+            }
+
+            body {
+                background: #fff;
+                color: #000
+            }
+        }
+
+        /* Distribución vertical agradable en pantallas grandes */
+        @media (min-width: 1200px) and (min-height: 800px) {
+            .main {
+                align-content: space-between;
+                gap: clamp(14px, 1.6vh, 28px);
+            }
+
+            #g-alerta {
+                min-height: 140px;
+            }
+
+            #g-evaluacion,
+            #g-escala,
+            #g-trombectomia,
+            #g-fibrinolisis,
+            #g-neuroimagen,
+            #g-monitorizacion,
+            #g-tratamiento,
+            #g-complicaciones {
+                min-height: 150px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <button class="btn" id="btnReset" title="Reiniciar"><i class="fa-solid fa-rotate"></i> Reiniciar</button>
+        <div class="center">
+            <div class="dt" id="fechaHora">--/--/---- --:--:--</div>
+            <div class="title">Código Ictus · Protocolo SAS</div>
+            <div class="slider" style="justify-content:center; margin-top:4px;">
+                <i class="fa-solid fa-user"></i> Edad: <input type="range" id="edad" min="1" max="100" step="1" value="68" style="width:220px">
+                <strong><span id="edadv">68</span> años</strong>
+            </div>
+        </div>
+        <div class="clock" id="clock">00:00:00</div>
+    </header>
+
+    <main class="main">
+        <!-- Alerta y Tiempos -->
+        <section class="group" id="g-alerta">
+            <h3>Alerta Ictus · Tiempos Críticos</h3>
+            <div class="row">
+                <div class="item" id="itm-alerta">
+                    <div class="top"><input type="checkbox" id="cb-alerta"><label for="cb-alerta">Alerta Ictus Activada</label></div>
+                    <div class="delta" id="tm-alerta">00:00:00</div>
+                    <div class="chips-wrap">
+                        <button class="chip chip-red" data-tipo="isquemico">Ictus Isquémico</button>
+                        <button class="chip chip-orange" data-tipo="hemorragico">Ictus Hemorrágico</button>
+                        <button class="chip chip-green" data-tipo="ataque">Ataque Isquémico Transitorio</button>
+                    </div>
+                </div>
+                <div class="item" id="itm-tiempos">
+                    <div class="top"><i class="fa-solid fa-clock"></i><strong>Ventanas Terapéuticas</strong></div>
+                    <div class="small-note" style="margin-top: 8px;">
+                        <div><i class="fa-solid fa-syringe" style="color: var(--warn);"></i> 4.5h: Fibrinolisis IV</div>
+                        <div><i class="fa-solid fa-catheter" style="color: var(--warn);"></i> 6h: Trombectomía</div>
+                        <div><i class="fa-solid fa-brain" style="color: var(--warn);"></i> 24h: Unidad Ictus</div>
+                    </div>
+                    <div class="delta" id="tm-tiempos">00:00:00</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Evaluación Neurológica -->
+        <section class="group" id="g-evaluacion">
+            <h3>Evaluación Neurológica</h3>
+            <div class="row">
+                <div class="item" id="itm-inicio">
+                    <div class="top"><input type="checkbox" id="cb-inicio"><label for="cb-inicio">Hora Inicio Síntomas</label></div>
+                    <div class="slider">
+                        <span>Hora estimada:</span>
+                        <input type="time" id="hora-inicio" style="background:#0b0d14; color:#e8eefb; border:1px solid #283149; border-radius:8px; padding:4px 6px;">
+                    </div>
+                    <div class="delta" id="tm-inicio">00:00:00</div>
+                </div>
+                <div class="item" id="itm-examen">
+                    <div class="top"><input type="checkbox" id="cb-examen"><label for="cb-examen">Examen Neurológico</label></div>
+                    <select id="sel-examen" class="select" multiple style="height: 80px; font-size: var(--fs-xs);">
+                        <option>Nivel de conciencia</option>
+                        <option>Paresia/Plegia</option>
+                        <option>Alteración sensitiva</option>
+                        <option>Afasia</option>
+                        <option>Disartria</option>
+                        <option>Hemianopsia</option>
+                        <option>Ataxia</option>
+                    </select>
+                    <div class="delta" id="tm-examen">00:00:00</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Escala NIHSS -->
+        <section class="group" id="g-escala">
+            <h3>Escala NIHSS</h3>
+            <div class="row">
+                <div class="item" id="itm-nihss">
+                    <div class="top"><input type="checkbox" id="cb-nihss"><label for="cb-nihss">NIHSS Calculada</label></div>
+                    <div class="slider">
+                        <span>Puntuación:</span>
+                        <input type="range" id="nihss" min="0" max="42" step="1" value="8">
+                        <strong><span id="nihssv">8</span></strong>
+                    </div>
+                    <div class="small-note" style="margin-top: 4px;">
+                        <div>0-4: Leve</div>
+                        <div>5-15: Moderado</div>
+                        <div>16-20: Moderado-Grave</div>
+                        <div>21-42: Grave</div>
+                    </div>
+                    <div class="delta" id="tm-nihss">00:00:00</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trombectomía Mecánica -->
+        <section class="group" id="g-trombectomia">
+            <h3>Trombectomía Mecánica</h3>
+            <div class="row">
+                <div class="item" id="itm-trombectomia">
+                    <div class="top"><input type="checkbox" id="cb-trombectomia"><label for="cb-trombectomia">Candidato Trombectomía</label></div>
+                    <div class="chips-wrap">
+                        <button class="chip" data-criterio="nihss">NIHSS ≥ 6</button>
+                        <button class="chip" data-criterio="tiempo">≤ 6h desde inicio</button>
+                        <button class="chip" data-criterio="oclusion">Oclusión grande vaso</button>
+                    </div>
+                    <div class="delta" id="tm-trombectomia">00:00:00</div>
+                    <button class="btn btn-ghost" id="btn-trombectomia">+ Derivar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fibrinolisis Intravenosa -->
+        <section class="group" id="g-fibrinolisis">
+            <h3>Fibrinolisis IV</h3>
+            <div class="row">
+                <div class="item" id="itm-fibrinolisis">
+                    <div class="top"><input type="checkbox" id="cb-fibrinolisis"><label for="cb-fibrinolisis">Candidato Fibrinolisis</label></div>
+                    <div class="chips-wrap">
+                        <button class="chip" data-criterio="tiempo">≤ 4.5h desde inicio</button>
+                        <button class="chip" data-criterio="edad">18-80 años</button>
+                        <button class="chip" data-criterio="nihss">NIHSS ≥ 4</button>
+                    </div>
+                    <div class="delta" id="tm-fibrinolisis">00:00:00</div>
+                    <button class="btn btn-ghost" id="btn-fibrinolisis">+ Administrar r-tPA</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Neuroimagen -->
+        <section class="group" id="g-neuroimagen">
+            <h3>Neuroimagen</h3>
+            <div class="row">
+                <div class="item" id="itm-tac">
+                    <div class="top"><input type="checkbox" id="cb-tac"><label for="cb-tac">TAC Craneal</label></div>
+                    <select id="sel-tac" class="select">
+                        <option selected>Sin signos de isquemia</option>
+                        <option>Signos precoces de isquemia</option>
+                        <option>Hemorragia intracraneal</option>
+                        <option>Otros hallazgos</option>
+                    </select>
+                    <div class="delta" id="tm-tac">00:00:00</div>
+                </div>
+                <div class="item" id="itm-angio">
+                    <div class="top"><input type="checkbox" id="cb-angio"><label for="cb-angio">Angio-TAC/RNM</label></div>
+                    <select id="sel-angio" class="select">
+                        <option selected>No realizada</option>
+                        <option>Oclusión ACM</option>
+                        <option>Oclusión ACC</option>
+                        <option>Oclusión tronco basilar</option>
+                        <option>Otras oclusiones</option>
+                    </select>
+                    <div class="delta" id="tm-angio">00:00:00</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Monitorización -->
+        <section class="group" id="g-monitorizacion">
+            <h3>Monitorización</h3>
+            <div class="row">
+                <div class="item" id="itm-presion">
+                    <div class="top"><input type="checkbox" id="cb-presion"><label for="cb-presion">Control Tensión Arterial</label></div>
+                    <div class="slider">
+                        <span>TAS Objetivo:</span>
+                        <input type="range" id="tas" min="100" max="220" step="5" value="180">
+                        <strong><span id="tasv">180</span> mmHg</strong>
+                    </div>
+                    <div class="delta" id="tm-presion">00:00:00</div>
+                </div>
+                <div class="item" id="itm-glucemia">
+                    <div class="top"><input type="checkbox" id="cb-glucemia"><label for="cb-glucemia">Control Glucémico</label></div>
+                    <div class="slider">
+                        <span>Glucemia:</span>
+                        <input type="range" id="glucemia" min="50" max="400" step="5" value="120">
+                        <strong><span id="glucemiav">120</span> mg/dL</strong>
+                    </div>
+                    <div class="delta" id="tm-glucemia">00:00:00</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tratamiento Médico -->
+        <section class="group" id="g-tratamiento">
+            <h3>Tratamiento Médico</h3>
+            <div class="row">
+                <div class="item" id="itm-antiagregacion">
+                    <div class="top"><input type="checkbox" id="cb-antiagregacion"><label for="cb-antiagregacion">Antiagregación</label></div>
+                    <select id="sel-antiagregacion" class="select">
+                        <option selected>Ácido Acetilsalicílico</option>
+                        <option>Clopidogrel</option>
+                        <option>AAS + Clopidogrel</option>
+                        <option>Otros</option>
+                    </select>
+                    <div class="delta" id="tm-antiagregacion">00:00:00</div>
+                    <button class="btn btn-ghost" id="btn-antiagregacion">+ Administrar</button>
+                </div>
+                <div class="item" id="itm-anticoagulacion">
+                    <div class="top"><input type="checkbox" id="cb-anticoagulacion"><label for="cb-anticoagulacion">Anticoagulación</label></div>
+                    <select id="sel-anticoagulacion" class="select">
+                        <option selected>Heparina</option>
+                        <option>Enoxaparina</option>
+                        <option>ACODs</option>
+                        <option>Otros</option>
+                    </select>
+                    <div class="delta" id="tm-anticoagulacion">00:00:00</div>
+                    <button class="btn btn-ghost" id="btn-anticoagulacion">+ Administrar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Complicaciones -->
+        <section class="group" id="g-complicaciones">
+            <h3>Complicaciones</h3>
+            <div class="row">
+                <div class="item" id="itm-complicaciones">
+                    <div class="top"><input type="checkbox" id="cb-complicaciones"><label for="cb-complicaciones">Complicaciones Detectadas</label></div>
+                    <select id="sel-complicaciones" class="select" multiple style="height: 80px; font-size: var(--fs-xs);">
+                        <option>Hemorragia intracraneal</option>
+                        <option>Edema cerebral</option>
+                        <option>Crisis comiciales</option>
+                        <option>Hipertensión intracraneal</option>
+                        <option>Hidrocefalia</option>
+                        <option>Infección respiratoria</option>
+                        <option>TVP/TEP</option>
+                    </select>
+                    <div class="delta" id="tm-complicaciones">00:00:00</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Barra Informe + PDF -->
+    <div class="reportbar">
+        <button class="btn" id="btnInforme"><i class="fa-solid fa-file-lines"></i> Informe</button>
+        <button class="btn" id="btnPDF"><i class="fa-solid fa-file-arrow-down"></i> Exportar PDF</button>
+    </div>
+
+    <!-- Alarmas -->
+    <div class="alerts" id="alerts"></div>
+
+    <!-- FABs -->
+    <nav class="fabs" aria-label="Accesos">
+        <a class="fab home" href="#" title="Inicio"><i class="fa-solid fa-house"></i></a>
+        <a class="fab crit" href="#" title="Críticos"><i class="fa-solid fa-procedures"></i></a>
+        <a class="fab" href="#" onclick="history.back();return false;" title="Atrás"><i class="fa-solid fa-arrow-left-long"></i></a>
+    </nav>
+
+    <!-- Diálogo Informe -->
+    <dialog id="dlg">
+        <div class="dialog-head">
+            <h3>Informe · Código Ictus</h3>
+            <button class="btn-ghost" id="dlgClose" title="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="dialog-body">
+            <table class="table" id="tablaInforme">
+                <thead>
+                    <tr>
+                        <th>Actuación</th>
+                        <th>Δ desde inicio</th>
+                        <th>Detalle</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="dialog-actions">
+            <button class="btn-ghost" onclick="window.print()"><i class="fa-solid fa-print"></i> Imprimir</button>
+            <button class="btn" id="dlgOk">Cerrar</button>
+        </div>
+    </dialog>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            /* ===== util tiempo ===== */
+            const pad2 = n => String(n).padStart(2, '0');
+            const fmtHMS = ms => {
+                const s = Math.max(0, Math.floor(ms / 1000));
+                const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), ss = s % 60;
+                return `${pad2(h)}:${pad2(m)}:${pad2(ss)}`;
+            };
+
+            /* ===== cabecera ===== */
+            const fechaHoraEl = document.getElementById('fechaHora');
+            const pintaFecha = () => {
+                const a = new Date();
+                fechaHoraEl.textContent = `${pad2(a.getDate())}/${pad2(a.getMonth() + 1)}/${a.getFullYear()} ${pad2(a.getHours())}:${pad2(a.getMinutes())}:${pad2(a.getSeconds())}`;
+            };
+            setInterval(pintaFecha, 1000);
+            pintaFecha();
+
+            let t0 = new Date();
+            const clockEl = document.getElementById('clock');
+            const tick = () => clockEl.textContent = fmtHMS(Date.now() - t0.getTime());
+            setInterval(tick, 1000);
+            tick();
+
+            /* ===== edad ===== */
+            let EDAD = 68;
+            const edad = document.getElementById('edad'), edadv = document.getElementById('edadv');
+            edadv.textContent = edad.value;
+            EDAD = +edad.value;
+            edad.addEventListener('input', e => {
+                EDAD = +e.target.value;
+                edadv.textContent = EDAD;
+            });
+
+            /* ===== estado & sellado ===== */
+            const ids = ['alerta', 'tiempos', 'inicio', 'examen', 'nihss', 'trombectomia', 'fibrinolisis', 'tac', 'angio', 'presion', 'glucemia', 'antiagregacion', 'anticoagulacion', 'complicaciones'];
+            const state = {};
+            ids.forEach(id => state[id] = { ts: null });
+
+            function marcar(id) {
+                if (state[id].ts) return;
+                state[id].ts = new Date();
+                const el = document.getElementById('tm-' + id);
+                if (el) el.textContent = fmtHMS(state[id].ts - t0);
+            }
+
+            /* ===== checkboxes generales ===== */
+            ids.forEach(id => {
+                const cb = document.getElementById('cb-' + id);
+                if (!cb) return;
+                cb.addEventListener('change', e => {
+                    if (!e.target.checked) {
+                        e.target.checked = true;
+                        return;
+                    }
+                    marcar(id);
+                });
+            });
+
+            /* ===== tipo de ictus ===== */
+            document.querySelectorAll('#g-alerta .chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    document.querySelectorAll('#g-alerta .chip').forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    marcar('alerta');
+                });
+            });
+
+            /* ===== criterios trombectomía ===== */
+            document.querySelectorAll('#itm-trombectomia .chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    chip.classList.toggle('active');
+                });
+            });
+
+            /* ===== criterios fibrinolisis ===== */
+            document.querySelectorAll('#itm-fibrinolisis .chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    chip.classList.toggle('active');
+                });
+            });
+
+            /* ===== escalas ===== */
+            const nihss = document.getElementById('nihss'), nihssv = document.getElementById('nihssv');
+            nihss.addEventListener('input', e => {
+                nihssv.textContent = e.target.value;
+                if (e.target.value >= 4) {
+                    document.getElementById('cb-nihss').checked = true;
+                    marcar('nihss');
+                }
+            });
+
+            /* ===== parámetros de control ===== */
+            const tas = document.getElementById('tas'), tasv = document.getElementById('tasv');
+            tas.addEventListener('input', e => {
+                tasv.textContent = e.target.value;
+            });
+
+            const glucemia = document.getElementById('glucemia'), glucemiav = document.getElementById('glucemiav');
+            glucemia.addEventListener('input', e => {
+                glucemiav.textContent = e.target.value;
+            });
+
+            /* ===== tratamientos ===== */
+            document.getElementById('btn-trombectomia').addEventListener('click', () => {
+                marcar('trombectomia');
+                addLog('trombectomia', 'Paciente derivado para trombectomía');
+            });
+
+            document.getElementById('btn-fibrinolisis').addEventListener('click', () => {
+                marcar('fibrinolisis');
+                addLog('fibrinolisis', 'r-tPA administrado');
+            });
+
+            document.getElementById('btn-antiagregacion').addEventListener('click', () => {
+                marcar('antiagregacion');
+                const tratamiento = document.getElementById('sel-antiagregacion').value;
+                addLog('antiagregacion', `${tratamiento} administrado`);
+            });
+
+            document.getElementById('btn-anticoagulacion').addEventListener('click', () => {
+                marcar('anticoagulacion');
+                const tratamiento = document.getElementById('sel-anticoagulacion').value;
+                addLog('anticoagulacion', `${tratamiento} administrado`);
+            });
+
+            /* ===== logs ===== */
+            function addLog(key, message) {
+                console.log(`${key}: ${message}`);
+            }
+
+            /* ===== Informe + PDF ===== */
+            function buildRows() {
+                const rows = [];
+                const map = {
+                    alerta: 'Alerta ictus activada',
+                    tiempos: 'Ventanas terapéuticas establecidas',
+                    inicio: 'Hora inicio síntomas registrada',
+                    examen: 'Examen neurológico realizado',
+                    nihss: 'Escala NIHSS calculada',
+                    trombectomia: 'Evaluación trombectomía',
+                    fibrinolisis: 'Evaluación fibrinolisis',
+                    tac: 'TAC craneal realizado',
+                    angio: 'Angiografía realizada',
+                    presion: 'Control tensión arterial',
+                    glucemia: 'Control glucémico',
+                    antiagregacion: 'Antiagregación iniciada',
+                    anticoagulacion: 'Anticoagulación iniciada',
+                    complicaciones: 'Complicaciones evaluadas'
+                };
+
+                // Actuaciones con Δ
+                Object.keys(map).forEach(id => {
+                    if (state[id].ts) {
+                        let detalle = '—';
+                        
+                        // Detalles específicos
+                        if (id === 'alerta') {
+                            const tipo = document.querySelector('#g-alerta .chip.active');
+                            detalle = tipo ? tipo.textContent : '—';
+                        } else if (id === 'nihss') {
+                            detalle = `Puntuación: ${nihss.value}`;
+                        } else if (id === 'tac') {
+                            detalle = document.getElementById('sel-tac').value;
+                        } else if (id === 'antiagregacion') {
+                            detalle = document.getElementById('sel-antiagregacion').value;
+                        }
+                        
+                        rows.push({ id: map[id], delta: fmtHMS(state[id].ts - t0), det: detalle });
+                    }
+                });
+
+                // Datos adicionales
+                rows.unshift({ id: 'Edad', delta: `${EDAD} años`, det: '—' });
+                rows.unshift({ id: 'NIHSS', delta: `${nihss.value}`, det: '—' });
+                rows.unshift({ id: 'TAS Objetivo', delta: `${tas.value} mmHg`, det: '—' });
+
+                return rows;
+            }
+
+            const dlg = document.getElementById('dlg');
+            document.getElementById('btnInforme').addEventListener('click', () => {
+                const rows = buildRows();
+                const tb = document.querySelector('#tablaInforme tbody');
+                tb.innerHTML = '';
+                rows.forEach(r => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `<td>${r.id}</td><td>${r.delta}</td><td>${r.det}</td>`;
+                    tb.appendChild(tr);
+                });
+                dlg.showModal();
+            });
+
+            document.getElementById('dlgClose').addEventListener('click', () => dlg.close());
+            document.getElementById('dlgOk').addEventListener('click', () => dlg.close());
+
+            document.getElementById('btnPDF').addEventListener('click', () => {
+                alert('En una implementación completa, aquí se generaría el PDF');
+            });
+
+            /* ===== Reiniciar ===== */
+            document.getElementById('btnReset').addEventListener('click', () => {
+                t0 = new Date();
+                tick();
+                ids.forEach(id => {
+                    state[id] = { ts: null };
+                    const cb = document.getElementById('cb-' + id);
+                    if (cb) {
+                        cb.checked = false;
+                    }
+                    const tm = document.getElementById('tm-' + id);
+                    if (tm) {
+                        tm.textContent = '00:00:00';
+                    }
+                });
+
+                // Reset chips
+                document.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
+                
+                // Reset sliders
+                nihss.value = 8;
+                nihssv.textContent = '8';
+                tas.value = 180;
+                tasv.textContent = '180';
+                glucemia.value = 120;
+                glucemiav.textContent = '120';
+                
+                // Reset edad
+                edad.value = 68;
+                edadv.textContent = '68';
+                EDAD = 68;
+                
+                // Reset hora inicio
+                document.getElementById('hora-inicio').value = '';
+            });
+        });
+    </script>
+</body>
+</html>
