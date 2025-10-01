@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Código Sepsis · SAS</title>
+    <title>Código Infarto · SAS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -156,9 +156,10 @@
             grid-template-columns: 1.4fr 1fr 1fr;
             grid-template-areas:
                 "alerta alerta alerta"
-                "criterios criterios hemodinamica"
-                "microbiologia tratamiento escalas"
-                "monitorizacion monitorizacion fluidos";
+                "evaluacion evaluacion escala"
+                "ecg ecg marcadores"
+                "reperfusion reperfusion tratamiento"
+                "monitorizacion complicaciones hemodinamica";
             grid-auto-rows: auto;
             align-content: start;
         }
@@ -174,32 +175,40 @@
             grid-area: alerta;
         }
 
-        #g-criterios {
-            grid-area: criterios;
+        #g-evaluacion {
+            grid-area: evaluacion;
         }
 
-        #g-hemodinamica {
-            grid-area: hemodinamica;
+        #g-escala {
+            grid-area: escala;
         }
 
-        #g-microbiologia {
-            grid-area: microbiologia;
+        #g-ecg {
+            grid-area: ecg;
+        }
+
+        #g-marcadores {
+            grid-area: marcadores;
+        }
+
+        #g-reperfusion {
+            grid-area: reperfusion;
         }
 
         #g-tratamiento {
             grid-area: tratamiento;
         }
 
-        #g-escalas {
-            grid-area: escalas;
-        }
-
         #g-monitorizacion {
             grid-area: monitorizacion;
         }
 
-        #g-fluidos {
-            grid-area: fluidos;
+        #g-complicaciones {
+            grid-area: complicaciones;
+        }
+
+        #g-hemodinamica {
+            grid-area: hemodinamica;
         }
 
         /* Tarjetas */
@@ -269,7 +278,7 @@
             color: #e8eefb;
         }
 
-        /* Chips de criterios SOFA/qSOFA */
+        /* Chips */
         .chips-wrap {
             display: flex;
             flex-wrap: wrap;
@@ -302,6 +311,11 @@
         .chip-green {
             background: var(--chip-green);
             border-color: var(--chip-green-b);
+        }
+
+        .chip-purple {
+            background: var(--chip-purple);
+            border-color: var(--chip-purple-b);
         }
 
         .chip.active {
@@ -507,13 +521,15 @@
                 grid-template-columns: 1fr;
                 grid-template-areas:
                     "alerta"
-                    "criterios"
-                    "hemodinamica"
-                    "microbiologia"
+                    "evaluacion"
+                    "escala"
+                    "ecg"
+                    "marcadores"
+                    "reperfusion"
                     "tratamiento"
-                    "escalas"
                     "monitorizacion"
-                    "fluidos";
+                    "complicaciones"
+                    "hemodinamica";
             }
         }
 
@@ -543,13 +559,15 @@
                 min-height: 140px;
             }
 
-            #g-criterios,
-            #g-hemodinamica,
-            #g-microbiologia,
+            #g-evaluacion,
+            #g-escala,
+            #g-ecg,
+            #g-marcadores,
+            #g-reperfusion,
             #g-tratamiento,
-            #g-escalas,
             #g-monitorizacion,
-            #g-fluidos {
+            #g-complicaciones,
+            #g-hemodinamica {
                 min-height: 150px;
             }
         }
@@ -561,10 +579,10 @@
         <button class="btn" id="btnReset" title="Reiniciar"><i class="fa-solid fa-rotate"></i> Reiniciar</button>
         <div class="center">
             <div class="dt" id="fechaHora">--/--/---- --:--:--</div>
-            <div class="title">Código Sepsis · Protocolo SAS</div>
+            <div class="title">Código Infarto · Protocolo SAS</div>
             <div class="slider" style="justify-content:center; margin-top:4px;">
-                <i class="fa-solid fa-user"></i> Edad: <input type="range" id="edad" min="1" max="100" step="1" value="65" style="width:220px">
-                <strong><span id="edadv">65</span> años</strong>
+                <i class="fa-solid fa-user"></i> Edad: <input type="range" id="edad" min="1" max="100" step="1" value="62" style="width:220px">
+                <strong><span id="edadv">62</span> años</strong>
             </div>
         </div>
         <div class="clock" id="clock">00:00:00</div>
@@ -573,196 +591,257 @@
     <main class="main">
         <!-- Alerta y Tiempos -->
         <section class="group" id="g-alerta">
-            <h3>Alerta Sepsis · Tiempos Críticos</h3>
+            <h3>Alerta Infarto · Tiempos Críticos</h3>
             <div class="row">
                 <div class="item" id="itm-alerta">
-                    <div class="top"><input type="checkbox" id="cb-alerta"><label for="cb-alerta">Alerta Sepsis Activada</label></div>
+                    <div class="top"><input type="checkbox" id="cb-alerta"><label for="cb-alerta">Alerta Infarto Activada</label></div>
                     <div class="delta" id="tm-alerta">00:00:00</div>
                     <div class="chips-wrap">
-                        <button class="chip chip-red" data-severidad="shock">Shock Séptico</button>
-                        <button class="chip chip-orange" data-severidad="sepsis">Sepsis Grave</button>
-                        <button class="chip chip-green" data-severidad="sospecha">Sospecha Sepsis</button>
+                        <button class="chip chip-red" data-tipo="st">SCACEST</button>
+                        <button class="chip chip-orange" data-tipo="nest">SCACENEST</button>
+                        <button class="chip chip-green" data-tipo="angina">Angina Inestable</button>
                     </div>
                 </div>
                 <div class="item" id="itm-tiempos">
                     <div class="top"><i class="fa-solid fa-clock"></i><strong>Objetivos Temporales</strong></div>
                     <div class="small-note" style="margin-top: 8px;">
-                        <div><i class="fa-solid fa-bolt" style="color: var(--warn);"></i> 1ª hora: Reconocimiento</div>
-                        <div><i class="fa-solid fa-vial" style="color: var(--warn);"></i> 3 horas: Cultivos + ATB</div>
-                        <div><i class="fa-solid fa-tint" style="color: var(--warn);"></i> 6 horas: Reevaluación</div>
+                        <div><i class="fa-solid fa-heart-pulse" style="color: var(--warn);"></i> 10 min: 1er ECG</div>
+                        <div><i class="fa-solid fa-door-open" style="color: var(--warn);"></i> 30 min: Puerta-Balón</div>
+                        <div><i class="fa-solid fa-syringe" style="color: var(--warn);"></i> 90 min: Fibrinolisis</div>
                     </div>
                     <div class="delta" id="tm-tiempos">00:00:00</div>
                 </div>
             </div>
         </section>
 
-        <!-- Criterios Sepsis -->
-        <section class="group" id="g-criterios">
-            <h3>Criterios SOFA / qSOFA</h3>
+        <!-- Evaluación Inicial -->
+        <section class="group" id="g-evaluacion">
+            <h3>Evaluación Inicial</h3>
             <div class="row">
-                <div class="item" id="itm-sofa">
-                    <div class="top"><input type="checkbox" id="cb-sofa"><label for="cb-sofa">Escala SOFA</label></div>
+                <div class="item" id="itm-inicio">
+                    <div class="top"><input type="checkbox" id="cb-inicio"><label for="cb-inicio">Hora Inicio Dolor</label></div>
                     <div class="slider">
-                        <span>Puntuación:</span>
-                        <input type="range" id="sofa" min="0" max="24" step="1" value="0">
-                        <strong><span id="sofav">0</span></strong>
+                        <span>Hora estimada:</span>
+                        <input type="time" id="hora-inicio" style="background:#0b0d14; color:#e8eefb; border:1px solid #283149; border-radius:8px; padding:4px 6px;">
                     </div>
-                    <div class="delta" id="tm-sofa">00:00:00</div>
+                    <div class="delta" id="tm-inicio">00:00:00</div>
                 </div>
-                <div class="item" id="itm-qsofa">
-                    <div class="top"><input type="checkbox" id="cb-qsofa"><label for="cb-qsofa">qSOFA ≥ 2</label></div>
-                    <div class="chips-wrap">
-                        <button class="chip" data-criterio="ta">TA ≤ 100 mmHg</button>
-                        <button class="chip" data-criterio="fr">FR ≥ 22 rpm</button>
-                        <button class="chip" data-criterio="glasgow">GCS &lt; 15</button>
-                    </div>
-                    <div class="delta" id="tm-qsofa">00:00:00</div>
+                <div class="item" id="itm-sintomas">
+                    <div class="top"><input type="checkbox" id="cb-sintomas"><label for="cb-sintomas">Síntomas Presentes</label></div>
+                    <select id="sel-sintomas" class="select" multiple style="height: 80px; font-size: var(--fs-xs);">
+                        <option>Dolor torácico típico</option>
+                        <option>Dolor epigástrico</option>
+                        <option>Disfnea</option>
+                        <option>Sudoración</option>
+                        <option>Náuseas/vómitos</option>
+                        <option>Síncope</option>
+                        <option>Palpitaciones</option>
+                    </select>
+                    <div class="delta" id="tm-sintomas">00:00:00</div>
                 </div>
             </div>
         </section>
 
-        <!-- Hemodinámica -->
-        <section class="group" id="g-hemodinamica">
-            <h3>Estabilidad Hemodinámica</h3>
+        <!-- Escala GRACE -->
+        <section class="group" id="g-escala">
+            <h3>Escala GRACE</h3>
             <div class="row">
-                <div class="item" id="itm-presion">
-                    <div class="top"><input type="checkbox" id="cb-presion"><label for="cb-presion">Presión Arterial</label></div>
+                <div class="item" id="itm-grace">
+                    <div class="top"><input type="checkbox" id="cb-grace"><label for="cb-grace">Riesgo GRACE</label></div>
                     <div class="slider">
-                        <span>TAS:</span>
-                        <input type="range" id="tas" min="40" max="200" step="5" value="120">
-                        <strong><span id="tasv">120</span> mmHg</strong>
+                        <span>Puntuación:</span>
+                        <input type="range" id="grace" min="0" max="250" step="1" value="120">
+                        <strong><span id="gracev">120</span></strong>
                     </div>
-                    <div class="delta" id="tm-presion">00:00:00</div>
+                    <div class="small-note" style="margin-top: 4px;">
+                        <div>&lt; 109: Bajo riesgo</div>
+                        <div>109-140: Riesgo intermedio</div>
+                        <div>&gt; 140: Alto riesgo</div>
+                    </div>
+                    <div class="delta" id="tm-grace">00:00:00</div>
                 </div>
-                <div class="item" id="itm-lactato">
-                    <div class="top"><input type="checkbox" id="cb-lactato"><label for="cb-lactato">Lactato</label></div>
+            </div>
+        </section>
+
+        <!-- ECG -->
+        <section class="group" id="g-ecg">
+            <h3>Electrocardiograma</h3>
+            <div class="row">
+                <div class="item" id="itm-ecg">
+                    <div class="top"><input type="checkbox" id="cb-ecg"><label for="cb-ecg">ECG Realizado</label></div>
+                    <select id="sel-ecg" class="select">
+                        <option selected>Supradesnivel ST</option>
+                        <option>Infradesnivel ST</option>
+                        <option>Onda T negativa</option>
+                        <option>Bloqueo rama izquierda</option>
+                        <option>Arritmia</option>
+                        <option>Normal</option>
+                    </select>
+                    <div class="delta" id="tm-ecg">00:00:00</div>
+                </div>
+                <div class="item" id="itm-localizacion">
+                    <div class="top"><input type="checkbox" id="cb-localizacion"><label for="cb-localizacion">Localización</label></div>
+                    <select id="sel-localizacion" class="select">
+                        <option selected>Anterior</option>
+                        <option>Inferior</option>
+                        <option>Lateral</option>
+                        <option>Posterior</option>
+                        <option>Extenso</option>
+                    </select>
+                    <div class="delta" id="tm-localizacion">00:00:00</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marcadores de Daño Miocárdico -->
+        <section class="group" id="g-marcadores">
+            <h3>Marcadores de Daño Miocárdico</h3>
+            <div class="row">
+                <div class="item" id="itm-troponina">
+                    <div class="top"><input type="checkbox" id="cb-troponina"><label for="cb-troponina">Troponina</label></div>
                     <div class="slider">
                         <span>Valor:</span>
-                        <input type="range" id="lactato" min="0" max="10" step="0.1" value="1.0">
-                        <strong><span id="lactatov">1.0</span> mmol/L</strong>
+                        <input type="range" id="troponina" min="0" max="100" step="0.1" value="0.5">
+                        <strong><span id="troponinav">0.5</span> ng/mL</strong>
                     </div>
-                    <div class="delta" id="tm-lactato">00:00:00</div>
+                    <div class="delta" id="tm-troponina">00:00:00</div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Microbiología -->
-        <section class="group" id="g-microbiologia">
-            <h3>Microbiología y Foco</h3>
-            <div class="row">
-                <div class="item" id="itm-cultivos">
-                    <div class="top"><input type="checkbox" id="cb-cultivos"><label for="cb-cultivos">Cultivos Extraídos</label></div>
-                    <select id="sel-cultivos" class="select" multiple style="height: 80px; font-size: var(--fs-xs);">
-                        <option>Hemcultivos (2 sets)</option>
-                        <option>Urocultivo</option>
-                        <option>Cultivo esputo</option>
-                        <option>LCR</option>
-                        <option>Otros fluidos</option>
-                    </select>
-                    <div class="delta" id="tm-cultivos">00:00:00</div>
-                </div>
-                <div class="item" id="itm-foco">
-                    <div class="top"><input type="checkbox" id="cb-foco"><label for="cb-foco">Foco Infeccioso</label></div>
-                    <select id="sel-foco" class="select">
-                        <option selected>Respiratorio</option>
-                        <option>Urinario</option>
-                        <option>Abdominal</option>
-                        <option>Piel/Tejidos blandos</option>
-                        <option>Catéter</option>
-                        <option>SNC</option>
-                        <option>Otro</option>
-                    </select>
-                    <div class="delta" id="tm-foco">00:00:00</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tratamiento Antibiótico -->
-        <section class="group" id="g-tratamiento">
-            <h3>Tratamiento Antibiótico</h3>
-            <div class="row">
-                <div class="item" id="itm-atb">
-                    <div class="top"><input type="checkbox" id="cb-atb"><label for="cb-atb">ATB Empírico Iniciado</label></div>
-                    <select id="sel-atb" class="select">
-                        <option selected>Piperacilina/Tazobactam</option>
-                        <option>Meropenem</option>
-                        <option>Ceftriaxona + Levofloxacino</option>
-                        <option>Vancomicina + Meropenem</option>
-                        <option>Amoxicilina/Clavulánico</option>
-                    </select>
-                    <div class="delta" id="tm-atb">00:00:00</div>
-                    <button class="btn btn-ghost" id="btn-atb">+ Administrar</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Escalas de Gravedad -->
-        <section class="group" id="g-escalas">
-            <h3>Escalas de Gravedad</h3>
-            <div class="row">
-                <div class="item" id="itm-apache">
-                    <div class="top"><input type="checkbox" id="cb-apache"><label for="cb-apache">APACHE II</label></div>
+                <div class="item" id="itm-ckmb">
+                    <div class="top"><input type="checkbox" id="cb-ckmb"><label for="cb-ckmb">CK-MB</label></div>
                     <div class="slider">
-                        <span>Puntuación:</span>
-                        <input type="range" id="apache" min="0" max="71" step="1" value="10">
-                        <strong><span id="apachev">10</span></strong>
+                        <span>Valor:</span>
+                        <input type="range" id="ckmb" min="0" max="500" step="1" value="25">
+                        <strong><span id="ckmbv">25</span> U/L</strong>
                     </div>
-                    <div class="delta" id="tm-apache">00:00:00</div>
+                    <div class="delta" id="tm-ckmb">00:00:00</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Estrategia de Reperfusión -->
+        <section class="group" id="g-reperfusion">
+            <h3>Estrategia de Reperfusión</h3>
+            <div class="row">
+                <div class="item" id="itm-icp">
+                    <div class="top"><input type="checkbox" id="cb-icp"><label for="cb-icp">ICP Primaria</label></div>
+                    <div class="chips-wrap">
+                        <button class="chip" data-criterio="tiempo">≤ 12h desde inicio</button>
+                        <button class="chip" data-criterio="contraindicaciones">Sin contraindicaciones</button>
+                        <button class="chip" data-criterio="centro">Centro con hemodinámica</button>
+                    </div>
+                    <div class="delta" id="tm-icp">00:00:00</div>
+                    <button class="btn btn-ghost" id="btn-icp">+ Derivar ICP</button>
+                </div>
+                <div class="item" id="itm-fibrinolisis">
+                    <div class="top"><input type="checkbox" id="cb-fibrinolisis"><label for="cb-fibrinolisis">Fibrinolisis</label></div>
+                    <div class="chips-wrap">
+                        <button class="chip" data-criterio="tiempo">≤ 12h desde inicio</button>
+                        <button class="chip" data-criterio="st">Supradesnivel ST</button>
+                        <button class="chip" data-criterio="brd">Bloqueo rama nueva</button>
+                    </div>
+                    <div class="delta" id="tm-fibrinolisis">00:00:00</div>
+                    <button class="btn btn-ghost" id="btn-fibrinolisis">+ Administrar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tratamiento Médico -->
+        <section class="group" id="g-tratamiento">
+            <h3>Tratamiento Médico</h3>
+            <div class="row">
+                <div class="item" id="itm-antiagregacion">
+                    <div class="top"><input type="checkbox" id="cb-antiagregacion"><label for="cb-antiagregacion">Doble Antiagregación</label></div>
+                    <select id="sel-antiagregacion" class="select">
+                        <option selected>ASA + Clopidogrel</option>
+                        <option>ASA + Ticagrelor</option>
+                        <option>ASA + Prasugrel</option>
+                        <option>Otros</option>
+                    </select>
+                    <div class="delta" id="tm-antiagregacion">00:00:00</div>
+                    <button class="btn btn-ghost" id="btn-antiagregacion">+ Administrar</button>
+                </div>
+                <div class="item" id="itm-anticoagulacion">
+                    <div class="top"><input type="checkbox" id="cb-anticoagulacion"><label for="cb-anticoagulacion">Anticoagulación</label></div>
+                    <select id="sel-anticoagulacion" class="select">
+                        <option selected>Heparina no fraccionada</option>
+                        <option>Enoxaparina</option>
+                        <option>Bivalirudina</option>
+                        <option>Otros</option>
+                    </select>
+                    <div class="delta" id="tm-anticoagulacion">00:00:00</div>
+                    <button class="btn btn-ghost" id="btn-anticoagulacion">+ Administrar</button>
                 </div>
             </div>
         </section>
 
         <!-- Monitorización -->
         <section class="group" id="g-monitorizacion">
-            <h3>Monitorización y Soporte</h3>
+            <h3>Monitorización</h3>
             <div class="row">
-                <div class="item" id="itm-monitor">
-                    <div class="top"><input type="checkbox" id="cb-monitor"><label for="cb-monitor">Monitorización Avanzada</label></div>
-                    <select id="sel-monitor" class="select" multiple style="height: 80px; font-size: var(--fs-xs);">
-                        <option>ECG continua</option>
-                        <option>Pulsioximetría</option>
-                        <option>Presión arterial invasiva</option>
-                        <option>Gases arteriales seriados</option>
-                        <option>PVC</option>
-                        <option>ECO bedside</option>
-                    </select>
-                    <div class="delta" id="tm-monitor">00:00:00</div>
+                <div class="item" id="itm-presion">
+                    <div class="top"><input type="checkbox" id="cb-presion"><label for="cb-presion">Control Tensión Arterial</label></div>
+                    <div class="slider">
+                        <span>TAS:</span>
+                        <input type="range" id="tas" min="60" max="200" step="5" value="130">
+                        <strong><span id="tasv">130</span> mmHg</strong>
+                    </div>
+                    <div class="delta" id="tm-presion">00:00:00</div>
                 </div>
-                <div class="item" id="itm-soporte">
-                    <div class="top"><input type="checkbox" id="cb-soporte"><label for="cb-soporte">Soporte Orgánico</label></div>
-                    <select id="sel-soporte" class="select" multiple style="height: 80px; font-size: var(--fs-xs);">
-                        <option>Vasopresores</option>
-                        <option>Ventilación mecánica</option>
-                        <option>Terapia renal sustitutiva</option>
-                        <option>Nutrición enteral</option>
-                    </select>
-                    <div class="delta" id="tm-soporte">00:00:00</div>
+                <div class="item" id="itm-fc">
+                    <div class="top"><input type="checkbox" id="cb-fc"><label for="cb-fc">Frecuencia Cardíaca</label></div>
+                    <div class="slider">
+                        <span>FC:</span>
+                        <input type="range" id="fc" min="40" max="180" step="5" value="75">
+                        <strong><span id="fcv">75</span> lpm</strong>
+                    </div>
+                    <div class="delta" id="tm-fc">00:00:00</div>
                 </div>
             </div>
         </section>
 
-        <!-- Fluidoterapia -->
-        <section class="group" id="g-fluidos">
-            <h3>Fluidoterapia y Respuesta</h3>
+        <!-- Complicaciones -->
+        <section class="group" id="g-complicaciones">
+            <h3>Complicaciones</h3>
             <div class="row">
-                <div class="item" id="itm-fluidos">
-                    <div class="top"><input type="checkbox" id="cb-fluidos"><label for="cb-fluidos">Bolo de Cristaloides</label></div>
-                    <div class="slider">
-                        <span>Volumen:</span>
-                        <input type="range" id="volumen" min="500" max="3000" step="100" value="1000">
-                        <strong><span id="volumenv">1000</span> mL</strong>
-                    </div>
-                    <div class="delta" id="tm-fluidos">00:00:00</div>
-                    <button class="btn btn-ghost" id="btn-fluidos">+ Administrar</button>
+                <div class="item" id="itm-complicaciones">
+                    <div class="top"><input type="checkbox" id="cb-complicaciones"><label for="cb-complicaciones">Complicaciones Detectadas</label></div>
+                    <select id="sel-complicaciones" class="select" multiple style="height: 80px; font-size: var(--fs-xs);">
+                        <option>Shock cardiogénico</option>
+                        <option>Edema agudo de pulmón</option>
+                        <option>Arritmias ventriculares</option>
+                        <option>Bloqueo AV</option>
+                        <option>Rotura cardiaca</option>
+                        <option>Taponamiento cardíaco</option>
+                        <option>Isquemia recurrente</option>
+                    </select>
+                    <div class="delta" id="tm-complicaciones">00:00:00</div>
                 </div>
-                <div class="item" id="itm-respuesta">
-                    <div class="top"><input type="checkbox" id="cb-respuesta"><label for="cb-respuesta">Respuesta a Fluidos</label></div>
+            </div>
+        </section>
+
+        <!-- Hemodinámica -->
+        <section class="group" id="g-hemodinamica">
+            <h3>Hemodinámica</h3>
+            <div class="row">
+                <div class="item" id="itm-fracaso">
+                    <div class="top"><input type="checkbox" id="cb-fracaso"><label for="cb-fracaso">Fracaso Reperfusión</label></div>
                     <div class="chips-wrap">
-                        <button class="chip chip-green" data-respuesta="buena">Buena</button>
-                        <button class="chip chip-orange" data-respuesta="parcial">Parcial</button>
-                        <button class="chip chip-red" data-respuesta="mala">Mala</button>
+                        <button class="chip chip-red" data-fracaso="dolor">Dolor persistente</button>
+                        <button class="chip chip-red" data-fracaso="st">ST persistente</button>
+                        <button class="chip chip-red" data-fracaso="arritmia">Arritmias</button>
                     </div>
-                    <div class="delta" id="tm-respuesta">00:00:00</div>
+                    <div class="delta" id="tm-fracaso">00:00:00</div>
+                </div>
+                <div class="item" id="itm-eco">
+                    <div class="top"><input type="checkbox" id="cb-eco"><label for="cb-eco">Ecocardiograma</label></div>
+                    <select id="sel-eco" class="select">
+                        <option selected>Función VI conservada</option>
+                        <option>Disfunción VI leve</option>
+                        <option>Disfunción VI moderada</option>
+                        <option>Disfunción VI grave</option>
+                        <option>Complicaciones mecánicas</option>
+                    </select>
+                    <div class="delta" id="tm-eco">00:00:00</div>
                 </div>
             </div>
         </section>
@@ -787,7 +866,7 @@
     <!-- Diálogo Informe -->
     <dialog id="dlg">
         <div class="dialog-head">
-            <h3>Informe · Código Sepsis</h3>
+            <h3>Informe · Código Infarto</h3>
             <button class="btn-ghost" id="dlgClose" title="Cerrar"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="dialog-body">
@@ -834,7 +913,7 @@
             tick();
 
             /* ===== edad ===== */
-            let EDAD = 65;
+            let EDAD = 62;
             const edad = document.getElementById('edad'), edadv = document.getElementById('edadv');
             edadv.textContent = edad.value;
             EDAD = +edad.value;
@@ -844,7 +923,7 @@
             });
 
             /* ===== estado & sellado ===== */
-            const ids = ['alerta', 'tiempos', 'sofa', 'qsofa', 'presion', 'lactato', 'cultivos', 'foco', 'atb', 'apache', 'monitor', 'soporte', 'fluidos', 'respuesta'];
+            const ids = ['alerta', 'tiempos', 'inicio', 'sintomas', 'grace', 'ecg', 'localizacion', 'troponina', 'ckmb', 'icp', 'fibrinolisis', 'antiagregacion', 'anticoagulacion', 'presion', 'fc', 'complicaciones', 'fracaso', 'eco'];
             const state = {};
             ids.forEach(id => state[id] = { ts: null });
 
@@ -868,7 +947,7 @@
                 });
             });
 
-            /* ===== severidad sepsis ===== */
+            /* ===== tipo de síndrome coronario ===== */
             document.querySelectorAll('#g-alerta .chip').forEach(chip => {
                 chip.addEventListener('click', () => {
                     document.querySelectorAll('#g-alerta .chip').forEach(c => c.classList.remove('active'));
@@ -877,83 +956,97 @@
                 });
             });
 
-            /* ===== criterios qSOFA ===== */
-            document.querySelectorAll('#itm-qsofa .chip').forEach(chip => {
+            /* ===== criterios ICP ===== */
+            document.querySelectorAll('#itm-icp .chip').forEach(chip => {
                 chip.addEventListener('click', () => {
                     chip.classList.toggle('active');
-                    // Contar criterios activos
-                    const activos = document.querySelectorAll('#itm-qsofa .chip.active').length;
-                    if (activos >= 2) {
-                        document.getElementById('cb-qsofa').checked = true;
-                        marcar('qsofa');
-                    }
+                });
+            });
+
+            /* ===== criterios fibrinolisis ===== */
+            document.querySelectorAll('#itm-fibrinolisis .chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    chip.classList.toggle('active');
                 });
             });
 
             /* ===== escalas ===== */
-            const sofa = document.getElementById('sofa'), sofav = document.getElementById('sofav');
-            sofa.addEventListener('input', e => {
-                sofav.textContent = e.target.value;
-                if (e.target.value >= 2) {
-                    document.getElementById('cb-sofa').checked = true;
-                    marcar('sofa');
+            const grace = document.getElementById('grace'), gracev = document.getElementById('gracev');
+            grace.addEventListener('input', e => {
+                gracev.textContent = e.target.value;
+                if (e.target.value > 109) {
+                    document.getElementById('cb-grace').checked = true;
+                    marcar('grace');
                 }
             });
 
-            const apache = document.getElementById('apache'), apachev = document.getElementById('apachev');
-            apache.addEventListener('input', e => {
-                apachev.textContent = e.target.value;
+            /* ===== marcadores ===== */
+            const troponina = document.getElementById('troponina'), troponinav = document.getElementById('troponinav');
+            troponina.addEventListener('input', e => {
+                troponinav.textContent = e.target.value;
+                if (e.target.value > 0.1) {
+                    document.getElementById('cb-troponina').checked = true;
+                    marcar('troponina');
+                }
             });
 
-            /* ===== parámetros hemodinámicos ===== */
+            const ckmb = document.getElementById('ckmb'), ckmbv = document.getElementById('ckmbv');
+            ckmb.addEventListener('input', e => {
+                ckmbv.textContent = e.target.value;
+                if (e.target.value > 25) {
+                    document.getElementById('cb-ckmb').checked = true;
+                    marcar('ckmb');
+                }
+            });
+
+            /* ===== parámetros de control ===== */
             const tas = document.getElementById('tas'), tasv = document.getElementById('tasv');
             tas.addEventListener('input', e => {
                 tasv.textContent = e.target.value;
-                if (e.target.value <= 90) {
-                    document.getElementById('cb-presion').checked = true;
-                    marcar('presion');
-                }
             });
 
-            const lactato = document.getElementById('lactato'), lactatov = document.getElementById('lactatov');
-            lactato.addEventListener('input', e => {
-                lactatov.textContent = e.target.value;
-                if (e.target.value > 2) {
-                    document.getElementById('cb-lactato').checked = true;
-                    marcar('lactato');
-                }
+            const fc = document.getElementById('fc'), fcv = document.getElementById('fcv');
+            fc.addEventListener('input', e => {
+                fcv.textContent = e.target.value;
             });
 
-            /* ===== fluidos ===== */
-            const volumen = document.getElementById('volumen'), volumenv = document.getElementById('volumenv');
-            volumen.addEventListener('input', e => {
-                volumenv.textContent = e.target.value;
+            /* ===== tratamientos ===== */
+            document.getElementById('btn-icp').addEventListener('click', () => {
+                marcar('icp');
+                addLog('icp', 'Paciente derivado para ICP primaria');
             });
 
-            document.getElementById('btn-fluidos').addEventListener('click', () => {
-                marcar('fluidos');
-                addLog('fluidos', `Bolo de ${volumen.value} mL administrado`);
+            document.getElementById('btn-fibrinolisis').addEventListener('click', () => {
+                marcar('fibrinolisis');
+                addLog('fibrinolisis', 'Fibrinolítico administrado');
             });
 
-            /* ===== respuesta a fluidos ===== */
-            document.querySelectorAll('#itm-respuesta .chip').forEach(chip => {
+            document.getElementById('btn-antiagregacion').addEventListener('click', () => {
+                marcar('antiagregacion');
+                const tratamiento = document.getElementById('sel-antiagregacion').value;
+                addLog('antiagregacion', `${tratamiento} administrado`);
+            });
+
+            document.getElementById('btn-anticoagulacion').addEventListener('click', () => {
+                marcar('anticoagulacion');
+                const tratamiento = document.getElementById('sel-anticoagulacion').value;
+                addLog('anticoagulacion', `${tratamiento} administrado`);
+            });
+
+            /* ===== fracaso reperfusión ===== */
+            document.querySelectorAll('#itm-fracaso .chip').forEach(chip => {
                 chip.addEventListener('click', () => {
-                    document.querySelectorAll('#itm-respuesta .chip').forEach(c => c.classList.remove('active'));
-                    chip.classList.add('active');
-                    marcar('respuesta');
+                    chip.classList.toggle('active');
+                    const activos = document.querySelectorAll('#itm-fracaso .chip.active').length;
+                    if (activos > 0) {
+                        document.getElementById('cb-fracaso').checked = true;
+                        marcar('fracaso');
+                    }
                 });
-            });
-
-            /* ===== antibioticos ===== */
-            document.getElementById('btn-atb').addEventListener('click', () => {
-                marcar('atb');
-                const antibiotico = document.getElementById('sel-atb').value;
-                addLog('atb', `${antibiotico} administrado`);
             });
 
             /* ===== logs ===== */
             function addLog(key, message) {
-                // En una implementación completa, aquí se guardarían los logs
                 console.log(`${key}: ${message}`);
             }
 
@@ -961,20 +1054,24 @@
             function buildRows() {
                 const rows = [];
                 const map = {
-                    alerta: 'Alerta sepsis activada',
+                    alerta: 'Alerta infarto activada',
                     tiempos: 'Objetivos temporales establecidos',
-                    sofa: 'Escala SOFA',
-                    qsofa: 'Criterios qSOFA',
-                    presion: 'Monitorización presión arterial',
-                    lactato: 'Lactato medido',
-                    cultivos: 'Cultivos extraídos',
-                    foco: 'Foco infeccioso identificado',
-                    atb: 'Antibiótico administrado',
-                    apache: 'Escala APACHE II',
-                    monitor: 'Monitorización avanzada',
-                    soporte: 'Soporte orgánico',
-                    fluidos: 'Fluidoterapia',
-                    respuesta: 'Respuesta a fluidos'
+                    inicio: 'Hora inicio dolor registrada',
+                    sintomas: 'Síntomas evaluados',
+                    grace: 'Escala GRACE calculada',
+                    ecg: 'ECG realizado',
+                    localizacion: 'Localización del infarto',
+                    troponina: 'Troponina medida',
+                    ckmb: 'CK-MB medido',
+                    icp: 'Evaluación ICP primaria',
+                    fibrinolisis: 'Evaluación fibrinolisis',
+                    antiagregacion: 'Doble antiagregación',
+                    anticoagulacion: 'Anticoagulación',
+                    presion: 'Control tensión arterial',
+                    fc: 'Control frecuencia cardíaca',
+                    complicaciones: 'Complicaciones evaluadas',
+                    fracaso: 'Fracaso reperfusión',
+                    eco: 'Ecocardiograma realizado'
                 };
 
                 // Actuaciones con Δ
@@ -984,14 +1081,16 @@
                         
                         // Detalles específicos
                         if (id === 'alerta') {
-                            const severidad = document.querySelector('#g-alerta .chip.active');
-                            detalle = severidad ? severidad.textContent : '—';
-                        } else if (id === 'sofa') {
-                            detalle = `Puntuación: ${sofa.value}`;
-                        } else if (id === 'lactato') {
-                            detalle = `${lactato.value} mmol/L`;
-                        } else if (id === 'atb') {
-                            detalle = document.getElementById('sel-atb').value;
+                            const tipo = document.querySelector('#g-alerta .chip.active');
+                            detalle = tipo ? tipo.textContent : '—';
+                        } else if (id === 'grace') {
+                            detalle = `Puntuación: ${grace.value}`;
+                        } else if (id === 'ecg') {
+                            detalle = document.getElementById('sel-ecg').value;
+                        } else if (id === 'troponina') {
+                            detalle = `${troponina.value} ng/mL`;
+                        } else if (id === 'antiagregacion') {
+                            detalle = document.getElementById('sel-antiagregacion').value;
                         }
                         
                         rows.push({ id: map[id], delta: fmtHMS(state[id].ts - t0), det: detalle });
@@ -1000,8 +1099,9 @@
 
                 // Datos adicionales
                 rows.unshift({ id: 'Edad', delta: `${EDAD} años`, det: '—' });
-                rows.unshift({ id: 'APACHE II', delta: `${apache.value}`, det: '—' });
+                rows.unshift({ id: 'GRACE', delta: `${grace.value}`, det: '—' });
                 rows.unshift({ id: 'TAS', delta: `${tas.value} mmHg`, det: '—' });
+                rows.unshift({ id: 'FC', delta: `${fc.value} lpm`, det: '—' });
 
                 return rows;
             }
@@ -1046,21 +1146,24 @@
                 document.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
                 
                 // Reset sliders
-                sofa.value = 0;
-                sofav.textContent = '0';
-                apache.value = 10;
-                apachev.textContent = '10';
-                tas.value = 120;
-                tasv.textContent = '120';
-                lactato.value = 1.0;
-                lactatov.textContent = '1.0';
-                volumen.value = 1000;
-                volumenv.textContent = '1000';
+                grace.value = 120;
+                gracev.textContent = '120';
+                troponina.value = 0.5;
+                troponinav.textContent = '0.5';
+                ckmb.value = 25;
+                ckmbv.textContent = '25';
+                tas.value = 130;
+                tasv.textContent = '130';
+                fc.value = 75;
+                fcv.textContent = '75';
                 
                 // Reset edad
-                edad.value = 65;
-                edadv.textContent = '65';
-                EDAD = 65;
+                edad.value = 62;
+                edadv.textContent = '62';
+                EDAD = 62;
+                
+                // Reset hora inicio
+                document.getElementById('hora-inicio').value = '';
             });
         });
     </script>
