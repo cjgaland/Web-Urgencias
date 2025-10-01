@@ -89,6 +89,7 @@
       <a href="#enfermeria">Enfermería</a>
       <a href="#neurologia">Neurología</a>
       <a href="#pediatria">Pediatría</a>
+      <a href="#uci">UCI</a>
     </nav>
 
     <!-- Acordeón de bloques (cerrado por defecto) -->
@@ -274,16 +275,16 @@
           <p class="link-description">TRI = FC × (edad/10)² / PAS; estratos orientativos.</p>
         </div>
       </div>
-
-	<!-- Grace Risk Index -->
+      
+      <!-- Escala Grace -->
       <div class="link-card">
-        <div class="link-icon"><i class="fas fa-heart-pulse icon-heart-crack"></i></div>
+        <div class="link-icon"><i class="fa-solid fa-heart-crack"></i></div>
         <div class="link-content">
-          <a href="#" onclick="abrirCalculadora('Cardiovascular/grace.html')">GRACE Risk Index (STEMI)</a>
-          <p class="link-description">Escala de Estratificación de Riesgo en pacientes con SCA.</p>
+          <a href="#" onclick="abrirCalculadora('Cardiovascular/grace.html')">Escala Grace Riesgo SCA</a>
+          <p class="link-description">Escala calculo riesgo mortalidad y eventos futuros en SCA</p>
         </div>
-      </div>   
-
+      </div>
+      
       <!-- Wells TVP -->
       <div class="link-card">
         <div class="link-icon"><i class="fa-solid fa-person-walking"></i></div>
@@ -810,6 +811,28 @@
   </div>
 </article>
 
+      <!-- UCI -->
+      <article class="accordion-item" id="uci">
+        <h2 class="accordion-header">
+          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-uci" id="btn-uci">
+            <i class="fa-solid fa-procedures"></i>
+            UCI
+          </button>
+        </h2>
+        <div class="accordion-panel" id="panel-uci" role="region" aria-labelledby="btn-uci" hidden>
+          <div class="links-grid">
+
+            <div class="link-card">
+              <div class="link-icon"><i class="fa-solid fa-list-check"></i></div>
+              <div class="link-content">
+                <a href="#" onclick="abrirCalculadora('UCI/apacheII.html')">Apache II</a>
+                <p class="link-description">Escala de riesgo de mortalidad en pacientes críticos</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </article>
     </section>
 
     <p class="disclaimer strong" style="margin-top:1.25rem">
@@ -869,5 +892,3 @@
   <script src="js/modal.js"></script>
 </body>
 </html>
-
-
