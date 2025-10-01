@@ -335,6 +335,35 @@
             color: #aeb7cc
         }
 
+        /* Listas de registros múltiples (como en SVA) */
+        .inline-list {
+            font-size: var(--fs-xs);
+            line-height: 1.3;
+            max-height: 96px;
+            overflow: auto;
+            padding-right: 2px;
+        }
+
+        .inline-list span {
+            display: block;
+            white-space: nowrap;
+        }
+
+        .btn-ghost {
+            background: #0b0d14;
+            border: 1px solid #283149;
+            color: #e8eefb;
+            font-weight: 700;
+            border-radius: 8px;
+            padding: 6px 10px;
+            font-size: var(--fs-xs);
+            cursor: pointer;
+        }
+
+        .btn-ghost:hover {
+            background: #151a28;
+        }
+
         /* AVISOS: borde gordo + tinte + parpadeo */
         .warn-strong {
             outline: 4px solid var(--warn);
@@ -492,13 +521,26 @@
             background: #fff;
         }
 
-        .btn-ghost {
+        .btn-ghost-light {
             background: #fff;
             border: 1px solid #e3eaf6;
             color: #0b0c0f;
             font-weight: 700;
             border-radius: 10px;
             padding: 8px 12px;
+        }
+
+        /* Modales para calculadoras */
+        .calculator-modal {
+            width: min(800px, 95vw);
+            height: min(600px, 90vh);
+        }
+
+        .calculator-modal iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 0 0 14px 14px;
         }
 
         /* Modo tablet apilado */
@@ -601,22 +643,30 @@
             <h3>Criterios SOFA / qSOFA</h3>
             <div class="row">
                 <div class="item" id="itm-sofa">
-                    <div class="top"><input type="checkbox" id="cb-sofa"><label for="cb-sofa">Escala SOFA</label></div>
+                    <div class="top">
+                        <input type="checkbox" id="cb-sofa">
+                        <label for="cb-sofa">Escala SOFA</label>
+                    </div>
                     <div class="slider">
                         <span>Puntuación:</span>
                         <input type="range" id="sofa" min="0" max="24" step="1" value="0">
                         <strong><span id="sofav">0</span></strong>
                     </div>
                     <div class="delta" id="tm-sofa">00:00:00</div>
+                    <button class="btn-ghost" id="btn-sofa-calc">Calculadora SOFA</button>
                 </div>
                 <div class="item" id="itm-qsofa">
-                    <div class="top"><input type="checkbox" id="cb-qsofa"><label for="cb-qsofa">qSOFA ≥ 2</label></div>
+                    <div class="top">
+                        <input type="checkbox" id="cb-qsofa">
+                        <label for="cb-qsofa">qSOFA ≥ 2</label>
+                    </div>
                     <div class="chips-wrap">
                         <button class="chip" data-criterio="ta">TA ≤ 100 mmHg</button>
                         <button class="chip" data-criterio="fr">FR ≥ 22 rpm</button>
                         <button class="chip" data-criterio="glasgow">GCS &lt; 15</button>
                     </div>
                     <div class="delta" id="tm-qsofa">00:00:00</div>
+                    <button class="btn-ghost" id="btn-qsofa-calc">Calculadora qSOFA</button>
                 </div>
             </div>
         </section>
@@ -631,6 +681,15 @@
                         <span>TAS:</span>
                         <input type="range" id="tas" min="40" max="200" step="5" value="120">
                         <strong><span id="tasv">120</span> mmHg</strong>
+                    </div>
+                    <div class="slider">
+                        <span>TAD:</span>
+                        <input type="range" id="tad" min="30" max="150" step="5" value="80">
+                        <strong><span id="tadv">80</span> mmHg</strong>
+                    </div>
+                    <div class="slider">
+                        <span>PAM:</span>
+                        <strong><span id="pamv">93.3</span> mmHg</strong>
                     </div>
                     <div class="delta" id="tm-presion">00:00:00</div>
                 </div>
@@ -652,13 +711,15 @@
             <div class="row">
                 <div class="item" id="itm-cultivos">
                     <div class="top"><input type="checkbox" id="cb-cultivos"><label for="cb-cultivos">Cultivos Extraídos</label></div>
-                    <select id="sel-cultivos" class="select" multiple style="height: 80px; font-size: var(--fs-xs);">
+                    <select id="sel-cultivos" class="select">
                         <option>Hemcultivos (2 sets)</option>
                         <option>Urocultivo</option>
                         <option>Cultivo esputo</option>
                         <option>LCR</option>
                         <option>Otros fluidos</option>
                     </select>
+                    <button class="btn-ghost" id="btn-cultivos">+ Extraer</button>
+                    <div class="inline-list" id="list-cultivos"></div>
                     <div class="delta" id="tm-cultivos">00:00:00</div>
                 </div>
                 <div class="item" id="itm-foco">
@@ -690,8 +751,9 @@
                         <option>Vancomicina + Meropenem</option>
                         <option>Amoxicilina/Clavulánico</option>
                     </select>
+                    <button class="btn-ghost" id="btn-atb">+ Administrar</button>
+                    <div class="inline-list" id="list-atb"></div>
                     <div class="delta" id="tm-atb">00:00:00</div>
-                    <button class="btn btn-ghost" id="btn-atb">+ Administrar</button>
                 </div>
             </div>
         </section>
@@ -701,13 +763,17 @@
             <h3>Escalas de Gravedad</h3>
             <div class="row">
                 <div class="item" id="itm-apache">
-                    <div class="top"><input type="checkbox" id="cb-apache"><label for="cb-apache">APACHE II</label></div>
+                    <div class="top">
+                        <input type="checkbox" id="cb-apache">
+                        <label for="cb-apache">APACHE II</label>
+                    </div>
                     <div class="slider">
                         <span>Puntuación:</span>
                         <input type="range" id="apache" min="0" max="71" step="1" value="10">
                         <strong><span id="apachev">10</span></strong>
                     </div>
                     <div class="delta" id="tm-apache">00:00:00</div>
+                    <button class="btn-ghost" id="btn-apache-calc">Calculadora APACHE II</button>
                 </div>
             </div>
         </section>
@@ -718,7 +784,7 @@
             <div class="row">
                 <div class="item" id="itm-monitor">
                     <div class="top"><input type="checkbox" id="cb-monitor"><label for="cb-monitor">Monitorización Avanzada</label></div>
-                    <select id="sel-monitor" class="select" multiple style="height: 80px; font-size: var(--fs-xs);">
+                    <select id="sel-monitor" class="select">
                         <option>ECG continua</option>
                         <option>Pulsioximetría</option>
                         <option>Presión arterial invasiva</option>
@@ -726,16 +792,20 @@
                         <option>PVC</option>
                         <option>ECO bedside</option>
                     </select>
+                    <button class="btn-ghost" id="btn-monitor">+ Activar</button>
+                    <div class="inline-list" id="list-monitor"></div>
                     <div class="delta" id="tm-monitor">00:00:00</div>
                 </div>
                 <div class="item" id="itm-soporte">
                     <div class="top"><input type="checkbox" id="cb-soporte"><label for="cb-soporte">Soporte Orgánico</label></div>
-                    <select id="sel-soporte" class="select" multiple style="height: 80px; font-size: var(--fs-xs);">
+                    <select id="sel-soporte" class="select">
                         <option>Vasopresores</option>
                         <option>Ventilación mecánica</option>
                         <option>Terapia renal sustitutiva</option>
                         <option>Nutrición enteral</option>
                     </select>
+                    <button class="btn-ghost" id="btn-soporte">+ Iniciar</button>
+                    <div class="inline-list" id="list-soporte"></div>
                     <div class="delta" id="tm-soporte">00:00:00</div>
                 </div>
             </div>
@@ -753,7 +823,8 @@
                         <strong><span id="volumenv">1000</span> mL</strong>
                     </div>
                     <div class="delta" id="tm-fluidos">00:00:00</div>
-                    <button class="btn btn-ghost" id="btn-fluidos">+ Administrar</button>
+                    <button class="btn-ghost" id="btn-fluidos">+ Administrar</button>
+                    <div class="inline-list" id="list-fluidos"></div>
                 </div>
                 <div class="item" id="itm-respuesta">
                     <div class="top"><input type="checkbox" id="cb-respuesta"><label for="cb-respuesta">Respuesta a Fluidos</label></div>
@@ -788,7 +859,7 @@
     <dialog id="dlg">
         <div class="dialog-head">
             <h3>Informe · Código Sepsis</h3>
-            <button class="btn-ghost" id="dlgClose" title="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+            <button class="btn-ghost-light" id="dlgClose" title="Cerrar"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="dialog-body">
             <table class="table" id="tablaInforme">
@@ -803,9 +874,18 @@
             </table>
         </div>
         <div class="dialog-actions">
-            <button class="btn-ghost" onclick="window.print()"><i class="fa-solid fa-print"></i> Imprimir</button>
+            <button class="btn-ghost-light" onclick="window.print()"><i class="fa-solid fa-print"></i> Imprimir</button>
             <button class="btn" id="dlgOk">Cerrar</button>
         </div>
+    </dialog>
+
+    <!-- Modal para calculadoras -->
+    <dialog id="calcModal" class="calculator-modal">
+        <div class="dialog-head">
+            <h3 id="calcModalTitle">Calculadora</h3>
+            <button class="btn-ghost-light" id="calcModalClose" title="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <iframe id="calcIframe" src="about:blank" title="Calculadora médica">
     </dialog>
 
     <script>
@@ -868,6 +948,132 @@
                 });
             });
 
+            /* ===== Calculadoras en modal ===== */
+            const calcModal = document.getElementById('calcModal');
+            const calcIframe = document.getElementById('calcIframe');
+            const calcModalTitle = document.getElementById('calcModalTitle');
+
+            document.getElementById('btn-sofa-calc').addEventListener('click', () => {
+                calcModalTitle.textContent = 'Calculadora SOFA';
+                calcIframe.src = '../../../Calculadoras/Infecciosas/sofa.html';
+                calcModal.showModal();
+            });
+
+            document.getElementById('btn-qsofa-calc').addEventListener('click', () => {
+                calcModalTitle.textContent = 'Calculadora qSOFA';
+                calcIframe.src = '../../../Calculadoras/Infecciosas/qsofa.html';
+                calcModal.showModal();
+            });
+
+            document.getElementById('btn-apache-calc').addEventListener('click', () => {
+                calcModalTitle.textContent = 'Calculadora APACHE II';
+                calcIframe.src = '../../../Calculadoras/UCI/apacheII.html';
+                calcModal.showModal();
+            });
+
+            document.getElementById('calcModalClose').addEventListener('click', () => calcModal.close());
+
+            /* ===== Presión arterial con PAM ===== */
+            const tas = document.getElementById('tas'), tasv = document.getElementById('tasv');
+            const tad = document.getElementById('tad'), tadv = document.getElementById('tadv');
+            const pamv = document.getElementById('pamv');
+
+            function calcularPAM() {
+                const tasVal = +tas.value;
+                const tadVal = +tad.value;
+                const pam = (tasVal + (2 * tadVal)) / 3;
+                pamv.textContent = pam.toFixed(1);
+                return pam;
+            }
+
+            tas.addEventListener('input', e => {
+                tasv.textContent = e.target.value;
+                calcularPAM();
+                if (e.target.value <= 90) {
+                    document.getElementById('cb-presion').checked = true;
+                    marcar('presion');
+                }
+            });
+
+            tad.addEventListener('input', e => {
+                tadv.textContent = e.target.value;
+                calcularPAM();
+            });
+
+            // Calcular PAM inicial
+            calcularPAM();
+
+            /* ===== lactato ===== */
+            const lactato = document.getElementById('lactato'), lactatov = document.getElementById('lactatov');
+            lactato.addEventListener('input', e => {
+                lactatov.textContent = e.target.value;
+                if (e.target.value > 2) {
+                    document.getElementById('cb-lactato').checked = true;
+                    marcar('lactato');
+                }
+            });
+
+            /* ===== Registros múltiples (como en SVA) ===== */
+            function addRegistro(key, selectorId, label, valueSelector = null) {
+                const list = document.getElementById('list-' + key);
+                const selector = document.getElementById(selectorId);
+                const ts = new Date();
+                const delta = fmtHMS(ts - t0);
+                
+                let valor = selector.value;
+                if (valueSelector) {
+                    const valueEl = document.getElementById(valueSelector);
+                    if (valueEl) valor += ` (${valueEl.textContent})`;
+                }
+
+                const registro = document.createElement('span');
+                registro.textContent = `${valor}: ${delta}`;
+                list.prepend(registro);
+
+                // Marcar timestamp principal si es la primera vez
+                if (!state[key].ts) {
+                    state[key].ts = ts;
+                    document.getElementById('tm-' + key).textContent = delta;
+                }
+            }
+
+            // Cultivos
+            document.getElementById('btn-cultivos').addEventListener('click', () => {
+                addRegistro('cultivos', 'sel-cultivos', 'Cultivo extraído');
+            });
+
+            // Antibióticos
+            document.getElementById('btn-atb').addEventListener('click', () => {
+                addRegistro('atb', 'sel-atb', 'ATB administrado');
+            });
+
+            // Monitorización
+            document.getElementById('btn-monitor').addEventListener('click', () => {
+                addRegistro('monitor', 'sel-monitor', 'Monitorización activada');
+            });
+
+            // Soporte orgánico
+            document.getElementById('btn-soporte').addEventListener('click', () => {
+                addRegistro('soporte', 'sel-soporte', 'Soporte iniciado');
+            });
+
+            // Fluidoterapia
+            document.getElementById('btn-fluidos').addEventListener('click', () => {
+                const list = document.getElementById('list-fluidos');
+                const ts = new Date();
+                const delta = fmtHMS(ts - t0);
+                const volumenVal = document.getElementById('volumen').value;
+
+                const registro = document.createElement('span');
+                registro.textContent = `Bolo ${volumenVal} mL: ${delta}`;
+                list.prepend(registro);
+
+                if (!state['fluidos'].ts) {
+                    state['fluidos'].ts = ts;
+                    document.getElementById('tm-fluidos').textContent = delta;
+                }
+            });
+
             /* ===== severidad sepsis ===== */
             document.querySelectorAll('#g-alerta .chip').forEach(chip => {
                 chip.addEventListener('click', () => {
@@ -881,7 +1087,6 @@
             document.querySelectorAll('#itm-qsofa .chip').forEach(chip => {
                 chip.addEventListener('click', () => {
                     chip.classList.toggle('active');
-                    // Contar criterios activos
                     const activos = document.querySelectorAll('#itm-qsofa .chip.active').length;
                     if (activos >= 2) {
                         document.getElementById('cb-qsofa').checked = true;
@@ -905,34 +1110,10 @@
                 apachev.textContent = e.target.value;
             });
 
-            /* ===== parámetros hemodinámicos ===== */
-            const tas = document.getElementById('tas'), tasv = document.getElementById('tasv');
-            tas.addEventListener('input', e => {
-                tasv.textContent = e.target.value;
-                if (e.target.value <= 90) {
-                    document.getElementById('cb-presion').checked = true;
-                    marcar('presion');
-                }
-            });
-
-            const lactato = document.getElementById('lactato'), lactatov = document.getElementById('lactatov');
-            lactato.addEventListener('input', e => {
-                lactatov.textContent = e.target.value;
-                if (e.target.value > 2) {
-                    document.getElementById('cb-lactato').checked = true;
-                    marcar('lactato');
-                }
-            });
-
-            /* ===== fluidos ===== */
+            /* ===== volumen fluidos ===== */
             const volumen = document.getElementById('volumen'), volumenv = document.getElementById('volumenv');
             volumen.addEventListener('input', e => {
                 volumenv.textContent = e.target.value;
-            });
-
-            document.getElementById('btn-fluidos').addEventListener('click', () => {
-                marcar('fluidos');
-                addLog('fluidos', `Bolo de ${volumen.value} mL administrado`);
             });
 
             /* ===== respuesta a fluidos ===== */
@@ -943,19 +1124,6 @@
                     marcar('respuesta');
                 });
             });
-
-            /* ===== antibioticos ===== */
-            document.getElementById('btn-atb').addEventListener('click', () => {
-                marcar('atb');
-                const antibiotico = document.getElementById('sel-atb').value;
-                addLog('atb', `${antibiotico} administrado`);
-            });
-
-            /* ===== logs ===== */
-            function addLog(key, message) {
-                // En una implementación completa, aquí se guardarían los logs
-                console.log(`${key}: ${message}`);
-            }
 
             /* ===== Informe + PDF ===== */
             function buildRows() {
@@ -990,18 +1158,48 @@
                             detalle = `Puntuación: ${sofa.value}`;
                         } else if (id === 'lactato') {
                             detalle = `${lactato.value} mmol/L`;
-                        } else if (id === 'atb') {
-                            detalle = document.getElementById('sel-atb').value;
+                        } else if (id === 'presion') {
+                            detalle = `TAS: ${tas.value} mmHg, TAD: ${tad.value} mmHg, PAM: ${pamv.textContent} mmHg`;
                         }
                         
                         rows.push({ id: map[id], delta: fmtHMS(state[id].ts - t0), det: detalle });
                     }
                 });
 
+                // Registros múltiples de cultivos
+                const cultivosRegistros = [...document.querySelectorAll('#list-cultivos span')].reverse();
+                cultivosRegistros.forEach(reg => {
+                    rows.push({ id: 'Cultivo extraído', delta: reg.textContent.split(': ')[1], det: reg.textContent.split(': ')[0] });
+                });
+
+                // Registros múltiples de ATB
+                const atbRegistros = [...document.querySelectorAll('#list-atb span')].reverse();
+                atbRegistros.forEach(reg => {
+                    rows.push({ id: 'ATB administrado', delta: reg.textContent.split(': ')[1], det: reg.textContent.split(': ')[0] });
+                });
+
+                // Registros múltiples de monitorización
+                const monitorRegistros = [...document.querySelectorAll('#list-monitor span')].reverse();
+                monitorRegistros.forEach(reg => {
+                    rows.push({ id: 'Monitorización', delta: reg.textContent.split(': ')[1], det: reg.textContent.split(': ')[0] });
+                });
+
+                // Registros múltiples de soporte
+                const soporteRegistros = [...document.querySelectorAll('#list-soporte span')].reverse();
+                soporteRegistros.forEach(reg => {
+                    rows.push({ id: 'Soporte orgánico', delta: reg.textContent.split(': ')[1], det: reg.textContent.split(': ')[0] });
+                });
+
+                // Registros múltiples de fluidos
+                const fluidosRegistros = [...document.querySelectorAll('#list-fluidos span')].reverse();
+                fluidosRegistros.forEach(reg => {
+                    rows.push({ id: 'Fluidoterapia', delta: reg.textContent.split(': ')[1], det: reg.textContent.split(': ')[0] });
+                });
+
                 // Datos adicionales
                 rows.unshift({ id: 'Edad', delta: `${EDAD} años`, det: '—' });
                 rows.unshift({ id: 'APACHE II', delta: `${apache.value}`, det: '—' });
-                rows.unshift({ id: 'TAS', delta: `${tas.value} mmHg`, det: '—' });
+                rows.unshift({ id: 'TAS/TAD/PAM', delta: `${tas.value}/${tad.value}/${pamv.textContent} mmHg`, det: '—' });
 
                 return rows;
             }
@@ -1052,6 +1250,9 @@
                 apachev.textContent = '10';
                 tas.value = 120;
                 tasv.textContent = '120';
+                tad.value = 80;
+                tadv.textContent = '80';
+                calcularPAM();
                 lactato.value = 1.0;
                 lactatov.textContent = '1.0';
                 volumen.value = 1000;
@@ -1061,6 +1262,15 @@
                 edad.value = 65;
                 edadv.textContent = '65';
                 EDAD = 65;
+
+                // Limpiar listas de registros múltiples
+                ['cultivos', 'atb', 'monitor', 'soporte', 'fluidos'].forEach(key => {
+                    document.getElementById('list-' + key).innerHTML = '';
+                });
+
+                // Cerrar modales
+                dlg.close();
+                calcModal.close();
             });
         });
     </script>
