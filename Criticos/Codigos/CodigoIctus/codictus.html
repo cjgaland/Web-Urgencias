@@ -156,7 +156,7 @@
             grid-template-columns: 1.4fr 1fr 1fr;
             grid-template-areas:
                 "alerta alerta alerta"
-                "evaluacion evaluacion escala"
+                "evaluacion evaluacion escalas"
                 "trombectomia fibrinolisis neuroimagen"
                 "monitorizacion tratamiento complicaciones";
             grid-auto-rows: auto;
@@ -178,8 +178,8 @@
             grid-area: evaluacion;
         }
 
-        #g-escala {
-            grid-area: escala;
+        #g-escalas {
+            grid-area: escalas;
         }
 
         #g-trombectomia {
@@ -510,6 +510,80 @@
             padding: 8px 12px;
         }
 
+        /* Control de TA */
+        .ta-control {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 8px;
+            align-items: center;
+            font-size: var(--fs-xs);
+        }
+
+        .ta-value {
+            font-weight: 800;
+            font-size: var(--fs-md);
+            text-align: center;
+        }
+
+        /* Selector de sexo */
+        .sex-selector {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 4px;
+        }
+
+        .sex-option {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: var(--fs-xs);
+            font-weight: 600;
+        }
+
+        /* Complicaciones seleccionadas */
+        .complicaciones-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .complicacion-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background: var(--chip-red);
+            border: 1px solid var(--chip-red-b);
+            color: #fff;
+            font-size: var(--fs-xs);
+        }
+
+        .complicacion-tag button {
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 10px;
+            padding: 0;
+            width: 14px;
+            height: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Botón fin proceso */
+        .btn-fin {
+            background: var(--green) !important;
+        }
+
+        .btn-fin:hover {
+            background: var(--green2) !important;
+        }
+
         /* Modo tablet apilado */
         @media (max-width: 1100px) {
             .main {
@@ -517,7 +591,7 @@
                 grid-template-areas:
                     "alerta"
                     "evaluacion"
-                    "escala"
+                    "escalas"
                     "trombectomia"
                     "fibrinolisis"
                     "neuroimagen"
@@ -554,7 +628,7 @@
             }
 
             #g-evaluacion,
-            #g-escala,
+            #g-escalas,
             #g-trombectomia,
             #g-fibrinolisis,
             #g-neuroimagen,
@@ -576,6 +650,16 @@
             <div class="slider" style="justify-content:center; margin-top:4px;">
                 <i class="fa-solid fa-user"></i> Edad: <input type="range" id="edad" min="1" max="100" step="1" value="68" style="width:220px">
                 <strong><span id="edadv">68</span> años</strong>
+            </div>
+            <div class="sex-selector">
+                <div class="sex-option">
+                    <input type="radio" id="sex-m" name="sex" value="M" checked>
+                    <label for="sex-m">Hombre</label>
+                </div>
+                <div class="sex-option">
+                    <input type="radio" id="sex-f" name="sex" value="F">
+                    <label for="sex-f">Mujer</label>
+                </div>
             </div>
         </div>
         <div class="clock" id="clock">00:00:00</div>
@@ -602,7 +686,6 @@
                         <div><i class="fa-solid fa-catheter" style="color: var(--warn);"></i> 6h: Trombectomía</div>
                         <div><i class="fa-solid fa-brain" style="color: var(--warn);"></i> 24h: Unidad Ictus</div>
                     </div>
-                    <div class="delta" id="tm-tiempos">00:00:00</div>
                 </div>
             </div>
         </section>
@@ -635,9 +718,9 @@
             </div>
         </section>
 
-        <!-- Escala NIHSS -->
-        <section class="group" id="g-escala">
-            <h3>Escala NIHSS</h3>
+        <!-- Escalas -->
+        <section class="group" id="g-escalas">
+            <h3>Escalas Neurológicas</h3>
             <div class="row">
                 <div class="item" id="itm-nihss">
                     <div class="top"><input type="checkbox" id="cb-nihss"><label for="cb-nihss">NIHSS Calculada</label></div>
@@ -653,6 +736,35 @@
                         <div>21-42: Grave</div>
                     </div>
                     <div class="delta" id="tm-nihss">00:00:00</div>
+                </div>
+                <div class="item" id="itm-gcs">
+                    <div class="top"><input type="checkbox" id="cb-gcs"><label for="cb-gcs">Escala de Coma de Glasgow</label></div>
+                    <div class="slider">
+                        <span>Puntuación:</span>
+                        <input type="range" id="gcs" min="3" max="15" step="1" value="15">
+                        <strong><span id="gcsv">15</span></strong>
+                    </div>
+                    <div class="small-note" style="margin-top: 4px;">
+                        <div>13-15: Leve</div>
+                        <div>9-12: Moderado</div>
+                        <div>3-8: Grave</div>
+                    </div>
+                    <div class="delta" id="tm-gcs">00:00:00</div>
+                </div>
+                <div class="item" id="itm-mrs">
+                    <div class="top"><input type="checkbox" id="cb-mrs"><label for="cb-mrs">Escala de Rankin Modificada</label></div>
+                    <div class="slider">
+                        <span>Puntuación:</span>
+                        <input type="range" id="mrs" min="0" max="6" step="1" value="0">
+                        <strong><span id="mrsv">0</span></strong>
+                    </div>
+                    <div class="small-note" style="margin-top: 4px;">
+                        <div>0: Sin síntomas</div>
+                        <div>1-2: Discapacidad leve</div>
+                        <div>3-5: Discapacidad moderada-grave</div>
+                        <div>6: Fallecimiento</div>
+                    </div>
+                    <div class="delta" id="tm-mrs">00:00:00</div>
                 </div>
             </div>
         </section>
@@ -725,10 +837,18 @@
             <div class="row">
                 <div class="item" id="itm-presion">
                     <div class="top"><input type="checkbox" id="cb-presion"><label for="cb-presion">Control Tensión Arterial</label></div>
-                    <div class="slider">
-                        <span>TAS Objetivo:</span>
-                        <input type="range" id="tas" min="100" max="220" step="5" value="180">
-                        <strong><span id="tasv">180</span> mmHg</strong>
+                    <div class="ta-control">
+                        <div>
+                            <div class="small-note">TAS</div>
+                            <input type="range" id="tas" min="100" max="220" step="5" value="180" style="width: 100%;">
+                            <div class="small-note"><span id="tasv">180</span> mmHg</div>
+                        </div>
+                        <div class="ta-value" id="ta-display">180/80</div>
+                        <div>
+                            <div class="small-note">TAD</div>
+                            <input type="range" id="tad" min="60" max="130" step="5" value="80" style="width: 100%;">
+                            <div class="small-note"><span id="tadv">80</span> mmHg</div>
+                        </div>
                     </div>
                     <div class="delta" id="tm-presion">00:00:00</div>
                 </div>
@@ -779,7 +899,7 @@
             <div class="row">
                 <div class="item" id="itm-complicaciones">
                     <div class="top"><input type="checkbox" id="cb-complicaciones"><label for="cb-complicaciones">Complicaciones Detectadas</label></div>
-                    <select id="sel-complicaciones" class="select" multiple style="height: 80px; font-size: var(--fs-xs);">
+                    <select id="sel-complicaciones" class="select" style="height: 80px; font-size: var(--fs-xs);">
                         <option>Hemorragia intracraneal</option>
                         <option>Edema cerebral</option>
                         <option>Crisis comiciales</option>
@@ -788,6 +908,8 @@
                         <option>Infección respiratoria</option>
                         <option>TVP/TEP</option>
                     </select>
+                    <button class="btn btn-ghost" id="btn-add-complicacion" style="margin-top: 6px;">+ Añadir Complicación</button>
+                    <div class="complicaciones-list" id="complicaciones-list"></div>
                     <div class="delta" id="tm-complicaciones">00:00:00</div>
                 </div>
             </div>
@@ -798,6 +920,7 @@
     <div class="reportbar">
         <button class="btn" id="btnInforme"><i class="fa-solid fa-file-lines"></i> Informe</button>
         <button class="btn" id="btnPDF"><i class="fa-solid fa-file-arrow-down"></i> Exportar PDF</button>
+        <button class="btn btn-fin" id="btnFin"><i class="fa-solid fa-flag-checkered"></i> Fin del Proceso</button>
     </div>
 
     <!-- Alarmas -->
@@ -806,271 +929,440 @@
     <!-- FABs -->
     <nav class="fabs" aria-label="Accesos">
       <a class="fab home" href="../../../index.html" title="Inicio"><i class="fa-solid fa-house"></i></a>
-      <a class="fab crit" href="../../index.html" title="Críticos"><i class="fa-solid fa-procedures"></i></a>
-      <a class="fab" href="#" onclick="history.back();return false;" title="Atrás"><i class="fa-solid fa-arrow-left-long"></i></a>
+      <a class="fab crit" href="../../../critico.html" title="Paciente Crítico"><i class="fa-solid fa-heart-pulse"></i></a>
+      <a class="fab" href="../../../Calculadoras/Neurologia/nihss.html" title="NIHSS"><i class="fa-solid fa-brain"></i></a>
+      <a class="fab" href="../../../Calculadoras/Neurologia/gcs-adulto.html" title="Glasgow"><i class="fa-solid fa-head-side-virus"></i></a>
+      <a class="fab" href="../../../Calculadoras/Neurologia/mrs.html" title="Rankin"><i class="fa-solid fa-wheelchair"></i></a>
     </nav>
 
     <!-- Diálogo Informe -->
-    <dialog id="dlg">
+    <dialog id="dialogInforme">
         <div class="dialog-head">
-            <h3>Informe · Código Ictus</h3>
-            <button class="btn-ghost" id="dlgClose" title="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+            <h2 style="margin:0; font-size: var(--fs-lg);">Informe Ictus</h2>
+            <button id="btnCerrarDialog" style="background:none; border:none; cursor:pointer; font-size:18px;"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="dialog-body">
-            <table class="table" id="tablaInforme">
+            <table class="table">
                 <thead>
                     <tr>
-                        <th>Actuación</th>
-                        <th>Δ desde inicio</th>
-                        <th>Detalle</th>
+                        <th>Parámetro</th>
+                        <th>Valor</th>
+                        <th>Tiempo</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody id="tablaInforme">
+                    <!-- Se llena dinámicamente -->
+                </tbody>
             </table>
         </div>
         <div class="dialog-actions">
-            <button class="btn-ghost" onclick="window.print()"><i class="fa-solid fa-print"></i> Imprimir</button>
-            <button class="btn" id="dlgOk">Cerrar</button>
+            <button class="btn-ghost" id="btnCerrarInforme">Cerrar</button>
+            <button class="btn" id="btnCopiarInforme"><i class="fa-solid fa-copy"></i> Copiar</button>
         </div>
     </dialog>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            /* ===== util tiempo ===== */
-            const pad2 = n => String(n).padStart(2, '0');
-            const fmtHMS = ms => {
-                const s = Math.max(0, Math.floor(ms / 1000));
-                const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), ss = s % 60;
-                return `${pad2(h)}:${pad2(m)}:${pad2(ss)}`;
+        // Variables globales
+        let startTime = new Date();
+        let timers = {};
+        let complicacionesSeleccionadas = [];
+        let tipoIctus = null;
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar reloj
+            updateClock();
+            setInterval(updateClock, 1000);
+
+            // Configurar fecha/hora
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+
+            // Configurar sliders
+            configurarSliders();
+
+            // Configurar eventos
+            configurarEventos();
+
+            // Inicializar timers
+            inicializarTimers();
+        });
+
+        // Actualizar reloj
+        function updateClock() {
+            const now = new Date();
+            const elapsed = new Date(now - startTime);
+            const hours = String(elapsed.getUTCHours()).padStart(2, '0');
+            const minutes = String(elapsed.getUTCMinutes()).padStart(2, '0');
+            const seconds = String(elapsed.getUTCSeconds()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        // Actualizar fecha y hora
+        function updateDateTime() {
+            const now = new Date();
+            const options = {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
             };
+            document.getElementById('fechaHora').textContent = now.toLocaleDateString('es-ES', options);
+        }
 
-            /* ===== cabecera ===== */
-            const fechaHoraEl = document.getElementById('fechaHora');
-            const pintaFecha = () => {
-                const a = new Date();
-                fechaHoraEl.textContent = `${pad2(a.getDate())}/${pad2(a.getMonth() + 1)}/${a.getFullYear()} ${pad2(a.getHours())}:${pad2(a.getMinutes())}:${pad2(a.getSeconds())}`;
-            };
-            setInterval(pintaFecha, 1000);
-            pintaFecha();
-
-            let t0 = new Date();
-            const clockEl = document.getElementById('clock');
-            const tick = () => clockEl.textContent = fmtHMS(Date.now() - t0.getTime());
-            setInterval(tick, 1000);
-            tick();
-
-            /* ===== edad ===== */
-            let EDAD = 68;
-            const edad = document.getElementById('edad'), edadv = document.getElementById('edadv');
-            edadv.textContent = edad.value;
-            EDAD = +edad.value;
-            edad.addEventListener('input', e => {
-                EDAD = +e.target.value;
-                edadv.textContent = EDAD;
+        // Configurar sliders
+        function configurarSliders() {
+            // Edad
+            const edadSlider = document.getElementById('edad');
+            const edadValue = document.getElementById('edadv');
+            edadSlider.addEventListener('input', function() {
+                edadValue.textContent = this.value;
             });
 
-            /* ===== estado & sellado ===== */
-            const ids = ['alerta', 'tiempos', 'inicio', 'examen', 'nihss', 'trombectomia', 'fibrinolisis', 'tac', 'angio', 'presion', 'glucemia', 'antiagregacion', 'anticoagulacion', 'complicaciones'];
-            const state = {};
-            ids.forEach(id => state[id] = { ts: null });
+            // NIHSS
+            const nihssSlider = document.getElementById('nihss');
+            const nihssValue = document.getElementById('nihssv');
+            nihssSlider.addEventListener('input', function() {
+                nihssValue.textContent = this.value;
+            });
 
-            function marcar(id) {
-                if (state[id].ts) return;
-                state[id].ts = new Date();
-                const el = document.getElementById('tm-' + id);
-                if (el) el.textContent = fmtHMS(state[id].ts - t0);
+            // GCS
+            const gcsSlider = document.getElementById('gcs');
+            const gcsValue = document.getElementById('gcsv');
+            gcsSlider.addEventListener('input', function() {
+                gcsValue.textContent = this.value;
+            });
+
+            // MRS
+            const mrsSlider = document.getElementById('mrs');
+            const mrsValue = document.getElementById('mrsv');
+            mrsSlider.addEventListener('input', function() {
+                mrsValue.textContent = this.value;
+            });
+
+            // TA
+            const tasSlider = document.getElementById('tas');
+            const tasValue = document.getElementById('tasv');
+            const tadSlider = document.getElementById('tad');
+            const tadValue = document.getElementById('tadv');
+            const taDisplay = document.getElementById('ta-display');
+
+            function updateTA() {
+                tasValue.textContent = tasSlider.value;
+                tadValue.textContent = tadSlider.value;
+                taDisplay.textContent = `${tasSlider.value}/${tadSlider.value}`;
             }
 
-            /* ===== checkboxes generales ===== */
-            ids.forEach(id => {
-                const cb = document.getElementById('cb-' + id);
-                if (!cb) return;
-                cb.addEventListener('change', e => {
-                    if (!e.target.checked) {
-                        e.target.checked = true;
-                        return;
-                    }
-                    marcar(id);
-                });
-            });
+            tasSlider.addEventListener('input', updateTA);
+            tadSlider.addEventListener('input', updateTA);
 
-            /* ===== tipo de ictus ===== */
-            document.querySelectorAll('#g-alerta .chip').forEach(chip => {
-                chip.addEventListener('click', () => {
-                    document.querySelectorAll('#g-alerta .chip').forEach(c => c.classList.remove('active'));
-                    chip.classList.add('active');
-                    marcar('alerta');
-                });
+            // Glucemia
+            const glucemiaSlider = document.getElementById('glucemia');
+            const glucemiaValue = document.getElementById('glucemiav');
+            glucemiaSlider.addEventListener('input', function() {
+                glucemiaValue.textContent = this.value;
             });
+        }
 
-            /* ===== criterios trombectomía ===== */
-            document.querySelectorAll('#itm-trombectomia .chip').forEach(chip => {
-                chip.addEventListener('click', () => {
-                    chip.classList.toggle('active');
-                });
-            });
-
-            /* ===== criterios fibrinolisis ===== */
-            document.querySelectorAll('#itm-fibrinolisis .chip').forEach(chip => {
-                chip.addEventListener('click', () => {
-                    chip.classList.toggle('active');
-                });
-            });
-
-            /* ===== escalas ===== */
-            const nihss = document.getElementById('nihss'), nihssv = document.getElementById('nihssv');
-            nihss.addEventListener('input', e => {
-                nihssv.textContent = e.target.value;
-                if (e.target.value >= 4) {
-                    document.getElementById('cb-nihss').checked = true;
-                    marcar('nihss');
+        // Configurar eventos
+        function configurarEventos() {
+            // Botón reiniciar
+            document.getElementById('btnReset').addEventListener('click', function() {
+                if (confirm('¿Está seguro de que desea reiniciar todo el proceso?')) {
+                    location.reload();
                 }
             });
 
-            /* ===== parámetros de control ===== */
-            const tas = document.getElementById('tas'), tasv = document.getElementById('tasv');
-            tas.addEventListener('input', e => {
-                tasv.textContent = e.target.value;
+            // Botón fin del proceso
+            document.getElementById('btnFin').addEventListener('click', function() {
+                if (confirm('¿Confirmar fin del proceso de Código Ictus?')) {
+                    alert('Proceso finalizado correctamente.');
+                    // Aquí iría la lógica para finalizar el proceso
+                }
             });
 
-            const glucemia = document.getElementById('glucemia'), glucemiav = document.getElementById('glucemiav');
-            glucemia.addEventListener('input', e => {
-                glucemiav.textContent = e.target.value;
+            // Botón informe
+            document.getElementById('btnInforme').addEventListener('click', function() {
+                generarInforme();
+                document.getElementById('dialogInforme').showModal();
             });
 
-            /* ===== tratamientos ===== */
-            document.getElementById('btn-trombectomia').addEventListener('click', () => {
-                marcar('trombectomia');
-                addLog('trombectomia', 'Paciente derivado para trombectomía');
+            // Botón cerrar diálogo
+            document.getElementById('btnCerrarDialog').addEventListener('click', function() {
+                document.getElementById('dialogInforme').close();
             });
 
-            document.getElementById('btn-fibrinolisis').addEventListener('click', () => {
-                marcar('fibrinolisis');
-                addLog('fibrinolisis', 'r-tPA administrado');
+            // Botón cerrar informe
+            document.getElementById('btnCerrarInforme').addEventListener('click', function() {
+                document.getElementById('dialogInforme').close();
             });
 
-            document.getElementById('btn-antiagregacion').addEventListener('click', () => {
-                marcar('antiagregacion');
-                const tratamiento = document.getElementById('sel-antiagregacion').value;
-                addLog('antiagregacion', `${tratamiento} administrado`);
+            // Botón copiar informe
+            document.getElementById('btnCopiarInforme').addEventListener('click', function() {
+                copiarInforme();
             });
 
-            document.getElementById('btn-anticoagulacion').addEventListener('click', () => {
-                marcar('anticoagulacion');
-                const tratamiento = document.getElementById('sel-anticoagulacion').value;
-                addLog('anticoagulacion', `${tratamiento} administrado`);
+            // Botón PDF
+            document.getElementById('btnPDF').addEventListener('click', function() {
+                alert('Función de exportación a PDF en desarrollo.');
             });
 
-            /* ===== logs ===== */
-            function addLog(key, message) {
-                console.log(`${key}: ${message}`);
-            }
+            // Botones tipo de ictus
+            document.querySelectorAll('.chip[data-tipo]').forEach(chip => {
+                chip.addEventListener('click', function() {
+                    tipoIctus = this.getAttribute('data-tipo');
+                    document.querySelectorAll('.chip[data-tipo]').forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    actualizarAlerta();
+                });
+            });
 
-            /* ===== Informe + PDF ===== */
-            function buildRows() {
-                const rows = [];
-                const map = {
-                    alerta: 'Alerta ictus activada',
-                    tiempos: 'Ventanas terapéuticas establecidas',
-                    inicio: 'Hora inicio síntomas registrada',
-                    examen: 'Examen neurológico realizado',
-                    nihss: 'Escala NIHSS calculada',
-                    trombectomia: 'Evaluación trombectomía',
-                    fibrinolisis: 'Evaluación fibrinolisis',
-                    tac: 'TAC craneal realizado',
-                    angio: 'Angiografía realizada',
-                    presion: 'Control tensión arterial',
-                    glucemia: 'Control glucémico',
-                    antiagregacion: 'Antiagregación iniciada',
-                    anticoagulacion: 'Anticoagulación iniciada',
-                    complicaciones: 'Complicaciones evaluadas'
+            // Botón añadir complicación
+            document.getElementById('btn-add-complicacion').addEventListener('click', function() {
+                const select = document.getElementById('sel-complicaciones');
+                const selectedOption = select.options[select.selectedIndex];
+                if (selectedOption && !complicacionesSeleccionadas.includes(selectedOption.text)) {
+                    complicacionesSeleccionadas.push(selectedOption.text);
+                    actualizarListaComplicaciones();
+                }
+            });
+
+            // Checkboxes para activar timers
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                cb.addEventListener('change', function() {
+                    if (this.checked) {
+                        iniciarTimer(this.id.replace('cb-', ''));
+                    }
+                });
+            });
+        }
+
+        // Inicializar timers
+        function inicializarTimers() {
+            const elementos = [
+                'alerta', 'inicio', 'examen', 'nihss', 'gcs', 'mrs', 'trombectomia', 
+                'fibrinolisis', 'tac', 'angio', 'presion', 'glucemia', 
+                'antiagregacion', 'anticoagulacion', 'complicaciones'
+            ];
+
+            elementos.forEach(id => {
+                timers[id] = {
+                    activo: false,
+                    inicio: null,
+                    tiempo: '00:00:00'
                 };
+            });
+        }
 
-                // Actuaciones con Δ
-                Object.keys(map).forEach(id => {
-                    if (state[id].ts) {
-                        let detalle = '—';
-                        
-                        // Detalles específicos
-                        if (id === 'alerta') {
-                            const tipo = document.querySelector('#g-alerta .chip.active');
-                            detalle = tipo ? tipo.textContent : '—';
-                        } else if (id === 'nihss') {
-                            detalle = `Puntuación: ${nihss.value}`;
-                        } else if (id === 'tac') {
-                            detalle = document.getElementById('sel-tac').value;
-                        } else if (id === 'antiagregacion') {
-                            detalle = document.getElementById('sel-antiagregacion').value;
-                        }
-                        
-                        rows.push({ id: map[id], delta: fmtHMS(state[id].ts - t0), det: detalle });
-                    }
-                });
+        // Iniciar timer
+        function iniciarTimer(id) {
+            if (!timers[id].activo) {
+                timers[id].activo = true;
+                timers[id].inicio = new Date();
+                actualizarTimer(id);
+            }
+        }
 
-                // Datos adicionales
-                rows.unshift({ id: 'Edad', delta: `${EDAD} años`, det: '—' });
-                rows.unshift({ id: 'NIHSS', delta: `${nihss.value}`, det: '—' });
-                rows.unshift({ id: 'TAS Objetivo', delta: `${tas.value} mmHg`, det: '—' });
+        // Actualizar timer
+        function actualizarTimer(id) {
+            if (timers[id].activo) {
+                const now = new Date();
+                const elapsed = new Date(now - timers[id].inicio);
+                const hours = String(elapsed.getUTCHours()).padStart(2, '0');
+                const minutes = String(elapsed.getUTCMinutes()).padStart(2, '0');
+                const seconds = String(elapsed.getUTCSeconds()).padStart(2, '0');
+                timers[id].tiempo = `${hours}:${minutes}:${seconds}`;
+                
+                const deltaElement = document.getElementById(`tm-${id}`);
+                if (deltaElement) {
+                    deltaElement.textContent = timers[id].tiempo;
+                }
+                
+                // Actualizar cada segundo
+                setTimeout(() => actualizarTimer(id), 1000);
+            }
+        }
 
-                return rows;
+        // Actualizar alertas
+        function actualizarAlerta() {
+            const alertsContainer = document.getElementById('alerts');
+            alertsContainer.innerHTML = '';
+
+            // Alerta por tipo de ictus
+            if (tipoIctus) {
+                let mensaje = '';
+                let color = '';
+
+                switch (tipoIctus) {
+                    case 'isquemico':
+                        mensaje = 'ICTUS ISQUÉMICO - Prioridad Fibrinolisis/Trombectomía';
+                        color = 'var(--red)';
+                        break;
+                    case 'hemorragico':
+                        mensaje = 'ICTUS HEMORRÁGICO - Control TA y Evaluación Neuroquirúrgica';
+                        color = 'var(--orange)';
+                        break;
+                    case 'ataque':
+                        mensaje = 'AIT - Evaluación y Prevención Secundaria';
+                        color = 'var(--green)';
+                        break;
+                }
+
+                const alert = document.createElement('div');
+                alert.className = 'alert';
+                alert.style.background = color;
+                alert.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> <span class="t">${mensaje}</span>`;
+                alertsContainer.appendChild(alert);
             }
 
-            const dlg = document.getElementById('dlg');
-            document.getElementById('btnInforme').addEventListener('click', () => {
-                const rows = buildRows();
-                const tb = document.querySelector('#tablaInforme tbody');
-                tb.innerHTML = '';
-                rows.forEach(r => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `<td>${r.id}</td><td>${r.delta}</td><td>${r.det}</td>`;
-                    tb.appendChild(tr);
+            // Alerta por tiempo desde inicio de síntomas
+            const horaInicio = document.getElementById('hora-inicio').value;
+            if (horaInicio) {
+                const ahora = new Date();
+                const inicio = new Date();
+                const [horas, minutos] = horaInicio.split(':');
+                inicio.setHours(horas, minutos, 0, 0);
+                
+                const diferenciaMs = ahora - inicio;
+                const diferenciaHoras = Math.floor(diferenciaMs / (1000 * 60 * 60));
+                
+                if (diferenciaHoras > 4.5) {
+                    const alert = document.createElement('div');
+                    alert.className = 'alert';
+                    alert.innerHTML = `<i class="fa-solid fa-clock"></i> <span class="t">TIEMPO CRÍTICO: ${diferenciaHoras}h desde inicio síntomas</span>`;
+                    alertsContainer.appendChild(alert);
+                }
+            }
+        }
+
+        // Actualizar lista de complicaciones
+        function actualizarListaComplicaciones() {
+            const lista = document.getElementById('complicaciones-list');
+            lista.innerHTML = '';
+
+            complicacionesSeleccionadas.forEach((complicacion, index) => {
+                const tag = document.createElement('div');
+                tag.className = 'complicacion-tag';
+                tag.innerHTML = `
+                    ${complicacion}
+                    <button type="button" data-index="${index}">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                `;
+                lista.appendChild(tag);
+            });
+
+            // Eventos para eliminar complicaciones
+            document.querySelectorAll('.complicacion-tag button').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    complicacionesSeleccionadas.splice(index, 1);
+                    actualizarListaComplicaciones();
                 });
-                dlg.showModal();
             });
+        }
 
-            document.getElementById('dlgClose').addEventListener('click', () => dlg.close());
-            document.getElementById('dlgOk').addEventListener('click', () => dlg.close());
+        // Generar informe
+        function generarInforme() {
+            const tabla = document.getElementById('tablaInforme');
+            tabla.innerHTML = '';
 
-            document.getElementById('btnPDF').addEventListener('click', () => {
-                alert('En una implementación completa, aquí se generaría el PDF');
-            });
+            // Información del paciente
+            const sexo = document.querySelector('input[name="sex"]:checked').value === 'M' ? 'Hombre' : 'Mujer';
+            const edad = document.getElementById('edad').value;
+            
+            agregarFilaInforme(tabla, 'Paciente', `${sexo}, ${edad} años`, '');
+            
+            // Tipo de ictus
+            if (tipoIctus) {
+                let tipoTexto = '';
+                switch (tipoIctus) {
+                    case 'isquemico': tipoTexto = 'Ictus Isquémico'; break;
+                    case 'hemorragico': tipoTexto = 'Ictus Hemorrágico'; break;
+                    case 'ataque': tipoTexto = 'Ataque Isquémico Transitorio'; break;
+                }
+                agregarFilaInforme(tabla, 'Tipo de Ictus', tipoTexto, '');
+            }
 
-            /* ===== Reiniciar ===== */
-            document.getElementById('btnReset').addEventListener('click', () => {
-                t0 = new Date();
-                tick();
-                ids.forEach(id => {
-                    state[id] = { ts: null };
-                    const cb = document.getElementById('cb-' + id);
-                    if (cb) {
-                        cb.checked = false;
+            // Tiempos
+            for (const [id, timer] of Object.entries(timers)) {
+                if (timer.activo) {
+                    let nombre = '';
+                    switch (id) {
+                        case 'alerta': nombre = 'Alerta Ictus'; break;
+                        case 'inicio': nombre = 'Inicio Síntomas'; break;
+                        case 'examen': nombre = 'Examen Neurológico'; break;
+                        case 'nihss': nombre = 'NIHSS'; break;
+                        case 'gcs': nombre = 'Escala de Glasgow'; break;
+                        case 'mrs': nombre = 'Escala de Rankin'; break;
+                        case 'trombectomia': nombre = 'Evaluación Trombectomía'; break;
+                        case 'fibrinolisis': nombre = 'Evaluación Fibrinolisis'; break;
+                        case 'tac': nombre = 'TAC Craneal'; break;
+                        case 'angio': nombre = 'Angio-TAC/RNM'; break;
+                        case 'presion': nombre = 'Control TA'; break;
+                        case 'glucemia': nombre = 'Control Glucémico'; break;
+                        case 'antiagregacion': nombre = 'Antiagregación'; break;
+                        case 'anticoagulacion': nombre = 'Anticoagulación'; break;
+                        case 'complicaciones': nombre = 'Complicaciones'; break;
+                        default: nombre = id;
                     }
-                    const tm = document.getElementById('tm-' + id);
-                    if (tm) {
-                        tm.textContent = '00:00:00';
-                    }
-                });
+                    agregarFilaInforme(tabla, nombre, 'Completado', timer.tiempo);
+                }
+            }
 
-                // Reset chips
-                document.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
-                
-                // Reset sliders
-                nihss.value = 8;
-                nihssv.textContent = '8';
-                tas.value = 180;
-                tasv.textContent = '180';
-                glucemia.value = 120;
-                glucemiav.textContent = '120';
-                
-                // Reset edad
-                edad.value = 68;
-                edadv.textContent = '68';
-                EDAD = 68;
-                
-                // Reset hora inicio
-                document.getElementById('hora-inicio').value = '';
+            // Escalas
+            const nihss = document.getElementById('nihss').value;
+            const gcs = document.getElementById('gcs').value;
+            const mrs = document.getElementById('mrs').value;
+            
+            agregarFilaInforme(tabla, 'NIHSS', nihss, timers.nihss.tiempo);
+            agregarFilaInforme(tabla, 'Escala de Glasgow', gcs, timers.gcs.tiempo);
+            agregarFilaInforme(tabla, 'Escala de Rankin', mrs, timers.mrs.tiempo);
+
+            // TA
+            const tas = document.getElementById('tas').value;
+            const tad = document.getElementById('tad').value;
+            agregarFilaInforme(tabla, 'Tensión Arterial', `${tas}/${tad} mmHg`, timers.presion.tiempo);
+
+            // Glucemia
+            const glucemia = document.getElementById('glucemia').value;
+            agregarFilaInforme(tabla, 'Glucemia', `${glucemia} mg/dL`, timers.glucemia.tiempo);
+
+            // Complicaciones
+            if (complicacionesSeleccionadas.length > 0) {
+                agregarFilaInforme(tabla, 'Complicaciones', complicacionesSeleccionadas.join(', '), timers.complicaciones.tiempo);
+            }
+        }
+
+        // Agregar fila al informe
+        function agregarFilaInforme(tabla, parametro, valor, tiempo) {
+            const fila = document.createElement('tr');
+            fila.innerHTML = `
+                <td>${parametro}</td>
+                <td>${valor}</td>
+                <td>${tiempo}</td>
+            `;
+            tabla.appendChild(fila);
+        }
+
+        // Copiar informe al portapapeles
+        function copiarInforme() {
+            const tabla = document.getElementById('tablaInforme');
+            let texto = 'INFORME ICTUS\n\n';
+            
+            for (let fila of tabla.rows) {
+                const celdas = fila.cells;
+                texto += `${celdas[0].textContent}: ${celdas[1].textContent} (${celdas[2].textContent})\n`;
+            }
+            
+            navigator.clipboard.writeText(texto).then(() => {
+                alert('Informe copiado al portapapeles');
+            }).catch(err => {
+                console.error('Error al copiar: ', err);
             });
-        });
+        }
     </script>
 </body>
 </html>
