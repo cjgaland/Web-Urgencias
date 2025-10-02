@@ -94,30 +94,6 @@
             background: var(--red2);
         }
 
-        .btn-orange {
-            background: var(--orange);
-        }
-
-        .btn-orange:hover {
-            background: var(--orange2);
-        }
-
-        .btn-green {
-            background: var(--green);
-        }
-
-        .btn-green:hover {
-            background: var(--green2);
-        }
-
-        .btn-purple {
-            background: var(--purple);
-        }
-
-        .btn-purple:hover {
-            background: var(--purple2);
-        }
-
         .center {
             text-align: center;
             line-height: 1.1
@@ -146,7 +122,7 @@
             box-shadow: var(--shadow);
         }
 
-        /* ===== LAYOUT ===== */
+        /* ===== LAYOUT COMPACTO ===== */
         .main {
             min-height: calc(100dvh - 58px);
             height: auto;
@@ -157,10 +133,8 @@
             grid-template-areas:
                 "alerta alerta"
                 "evaluacion escalas"
-                "trombectomia fibrinolisis"
-                "neuroimagen neuroimagen"
-                "monitorizacion tratamiento"
-                "complicaciones complicaciones";
+                "procedimientos procedimientos"
+                "monitorizacion tratamiento";
             grid-auto-rows: auto;
             align-content: start;
         }
@@ -184,16 +158,8 @@
             grid-area: escalas;
         }
 
-        #g-trombectomia {
-            grid-area: trombectomia;
-        }
-
-        #g-fibrinolisis {
-            grid-area: fibrinolisis;
-        }
-
-        #g-neuroimagen {
-            grid-area: neuroimagen;
+        #g-procedimientos {
+            grid-area: procedimientos;
         }
 
         #g-monitorizacion {
@@ -202,10 +168,6 @@
 
         #g-tratamiento {
             grid-area: tratamiento;
-        }
-
-        #g-complicaciones {
-            grid-area: complicaciones;
         }
 
         /* Tarjetas */
@@ -375,61 +337,237 @@
             background: #151a28;
         }
 
-        /* AVISOS: borde gordo + tinte + parpadeo */
-        .warn-strong {
-            outline: 4px solid var(--warn);
-            box-shadow: 0 0 0 6px rgba(255, 210, 63, .30), inset 0 0 0 9999px rgba(255, 210, 63, .10), var(--shadow);
-            border-color: var(--warn-dark);
+        /* Control de TA */
+        .ta-control {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 8px;
+            align-items: center;
+            font-size: var(--fs-xs);
         }
 
-        @keyframes twinkleStrong {
-            0% {
-                box-shadow: 0 0 0 6px rgba(255, 210, 63, .45), inset 0 0 0 9999px rgba(255, 210, 63, .18), var(--shadow);
-            }
-
-            100% {
-                box-shadow: 0 0 0 0 rgba(255, 210, 63, 0), inset 0 0 0 9999px rgba(255, 210, 63, .06), var(--shadow);
-            }
+        .ta-value {
+            font-weight: 800;
+            font-size: var(--fs-md);
+            text-align: center;
         }
 
-        .blink-strong {
-            animation: twinkleStrong 900ms infinite alternate;
+        /* Selector de hora inicio */
+        .hora-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 6px;
         }
 
-        /* Alarmas centradas abajo */
-        .alerts {
+        .hora-slider {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .hora-slider label {
+            font-size: var(--fs-xs);
+            color: #aeb7cc;
+        }
+
+        .hora-display {
+            font-size: var(--fs-sm);
+            font-weight: 700;
+            text-align: center;
+            margin-top: 4px;
+        }
+
+        .retraso-display {
+            font-size: var(--fs-xs);
+            color: var(--warn);
+            font-weight: 600;
+            text-align: center;
+            margin-top: 4px;
+        }
+
+        /* Opciones excluyentes */
+        .opciones-excluyentes {
+            display: flex;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .opcion-btn {
+            flex: 1;
+            padding: 6px 8px;
+            border: 1px solid #283149;
+            border-radius: 6px;
+            background: #0b0d14;
+            color: #e8eefb;
+            font-size: var(--fs-xs);
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .opcion-btn.active {
+            background: var(--blue);
+            border-color: var(--blue2);
+        }
+
+        /* Complicaciones seleccionadas */
+        .complicaciones-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .complicacion-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background: var(--chip-red);
+            border: 1px solid var(--chip-red-b);
+            color: #fff;
+            font-size: var(--fs-xs);
+        }
+
+        .complicacion-tag button {
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 10px;
+            padding: 0;
+            width: 14px;
+            height: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Botón fin proceso */
+        .final-process {
             position: fixed;
             left: 50%;
             transform: translateX(-50%);
-            bottom: 64px;
+            bottom: 12px;
+            background: var(--card);
+            color: var(--ink);
+            border: 1px solid var(--stroke);
+            border-radius: var(--radius);
+            padding: 8px 12px;
             display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            max-width: 84vw;
-            z-index: 80;
+            align-items: center;
+            gap: 8px;
+            z-index: 85;
+            box-shadow: var(--shadow);
         }
 
-        .alert {
-            background: var(--warn);
-            color: #111;
-            border: 1px solid var(--warn-dark);
-            border-radius: 999px;
-            padding: 8px 12px;
+        .final-process input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .final-process label {
+            cursor: pointer;
+            font-weight: 700;
             font-size: var(--fs-sm);
+            color: #fff;
+        }
+
+        .final-process .delta {
+            font: 800 14px/1 "Courier New", monospace;
+            background: #0b0d14;
+            border: 1px solid #242a39;
+            border-radius: 8px;
+            padding: 4px 8px;
+            color: #e8eefb;
+        }
+
+        /* Registros de TA */
+        .ta-registro {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 0;
+            border-bottom: 1px solid #283149;
+        }
+
+        .ta-registro:last-child {
+            border-bottom: none;
+        }
+
+        .ta-registro .valores {
             display: flex;
             gap: 8px;
+            font-size: var(--fs-xs);
+        }
+
+        .ta-registro .tiempo {
+            font-size: var(--fs-xs);
+            color: #aeb7cc;
+        }
+
+        /* Recomendación en alerta */
+        .recomendacion {
+            font-size: var(--fs-xs);
+            color: var(--warn);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* Modal para calculadoras */
+        .calc-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 10000;
+            justify-content: center;
             align-items: center;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, .25);
         }
 
-        .alert i {
-            color: #111
+        .calc-modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px;
+            height: 80%;
+            max-height: 600px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
 
-        .alert .t {
-            font-family: "Courier New", monospace;
-            font-weight: 800;
+        .calc-modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--red);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .calc-modal-close:hover {
+            background: var(--red2);
+        }
+
+        .calc-modal iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 12px;
         }
 
         /* Barra de informe + PDF */
@@ -541,216 +679,6 @@
             padding: 8px 12px;
         }
 
-        /* Control de TA */
-        .ta-control {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 8px;
-            align-items: center;
-            font-size: var(--fs-xs);
-        }
-
-        .ta-value {
-            font-weight: 800;
-            font-size: var(--fs-md);
-            text-align: center;
-        }
-
-        /* Selector de sexo */
-        .sex-selector {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            margin-top: 4px;
-        }
-
-        .sex-option {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: var(--fs-xs);
-            font-weight: 600;
-        }
-
-        /* Complicaciones seleccionadas */
-        .complicaciones-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 6px;
-        }
-
-        .complicacion-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 4px 8px;
-            border-radius: 999px;
-            background: var(--chip-red);
-            border: 1px solid var(--chip-red-b);
-            color: #fff;
-            font-size: var(--fs-xs);
-        }
-
-        .complicacion-tag button {
-            background: none;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            font-size: 10px;
-            padding: 0;
-            width: 14px;
-            height: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Botón fin proceso */
-        .final-process {
-            position: fixed;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 12px;
-            background: var(--card);
-            color: var(--ink);
-            border: 1px solid var(--stroke);
-            border-radius: var(--radius);
-            padding: 8px 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            z-index: 85;
-            box-shadow: var(--shadow);
-        }
-
-        .final-process input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-
-        .final-process label {
-            cursor: pointer;
-            font-weight: 700;
-            font-size: var(--fs-sm);
-            color: #fff;
-        }
-
-        .final-process .delta {
-            font: 800 14px/1 "Courier New", monospace;
-            background: #0b0d14;
-            border: 1px solid #242a39;
-            border-radius: 8px;
-            padding: 4px 8px;
-            color: #e8eefb;
-        }
-
-        /* Registros de TA */
-        .ta-registro {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 4px 0;
-            border-bottom: 1px solid #283149;
-        }
-
-        .ta-registro:last-child {
-            border-bottom: none;
-        }
-
-        .ta-registro .valores {
-            display: flex;
-            gap: 8px;
-            font-size: var(--fs-xs);
-        }
-
-        .ta-registro .tiempo {
-            font-size: var(--fs-xs);
-            color: #aeb7cc;
-        }
-
-        /* Selector de hora */
-        .hora-selector {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-top: 6px;
-        }
-
-        .hora-slider {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .hora-slider label {
-            font-size: var(--fs-xs);
-            color: #aeb7cc;
-        }
-
-        /* Recomendación en alerta */
-        .recomendacion {
-            font-size: var(--fs-xs);
-            color: var(--warn);
-            font-weight: 600;
-            margin-top: 4px;
-        }
-
-        /* Modal para calculadoras */
-        .calc-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 10000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .calc-modal-content {
-            background: white;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 800px;
-            height: 80%;
-            max-height: 600px;
-            position: relative;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        .calc-modal-close {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: var(--red);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            cursor: pointer;
-            z-index: 10001;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-        }
-
-        .calc-modal-close:hover {
-            background: var(--red2);
-        }
-
-        .calc-modal iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 12px;
-        }
-
         /* Modo tablet apilado */
         @media (max-width: 1100px) {
             .main {
@@ -759,12 +687,9 @@
                     "alerta"
                     "evaluacion"
                     "escalas"
-                    "trombectomia"
-                    "fibrinolisis"
-                    "neuroimagen"
+                    "procedimientos"
                     "monitorizacion"
-                    "tratamiento"
-                    "complicaciones";
+                    "tratamiento";
             }
         }
 
@@ -781,29 +706,6 @@
             body {
                 background: #fff;
                 color: #000
-            }
-        }
-
-        /* Distribución vertical agradable en pantallas grandes */
-        @media (min-width: 1200px) and (min-height: 800px) {
-            .main {
-                align-content: space-between;
-                gap: clamp(14px, 1.6vh, 28px);
-            }
-
-            #g-alerta {
-                min-height: 140px;
-            }
-
-            #g-evaluacion,
-            #g-escalas,
-            #g-trombectomia,
-            #g-fibrinolisis,
-            #g-neuroimagen,
-            #g-monitorizacion,
-            #g-tratamiento,
-            #g-complicaciones {
-                min-height: 150px;
             }
         }
     </style>
@@ -830,7 +732,7 @@
     </header>
 
     <main class="main">
-        <!-- Alerta y Tiempos -->
+        <!-- FILA 1: Alerta y Tiempos -->
         <section class="group" id="g-alerta">
             <h3>Alerta Activada por Sospecha de Ictus</h3>
             <div class="row">
@@ -857,13 +759,21 @@
             </div>
         </section>
 
-        <!-- Evaluación Neurológica -->
+        <!-- FILA 2: Evaluación Neurológica y Escalas -->
         <section class="group" id="g-evaluacion">
             <h3>Evaluación Neurológica</h3>
             <div class="row">
                 <div class="item" id="itm-inicio">
                     <div class="top"><input type="checkbox" id="cb-inicio"><label for="cb-inicio">Hora Inicio Síntomas</label></div>
-                    <div class="hora-selector">
+                    
+                    <!-- Opciones excluyentes -->
+                    <div class="opciones-excluyentes">
+                        <button class="opcion-btn" id="btn-hora-inicio" data-tipo="hora">Hora de Inicio</button>
+                        <button class="opcion-btn" id="btn-despertar" data-tipo="despertar">Ictus del Despertar</button>
+                    </div>
+                    
+                    <!-- Selector de hora para inicio normal -->
+                    <div id="selector-hora-normal" class="hora-selector" style="display: none;">
                         <div class="hora-slider">
                             <label>Horas:</label>
                             <input type="range" id="hora-h" min="0" max="23" value="12">
@@ -875,11 +785,25 @@
                             <span id="hora-m-v">00</span>
                         </div>
                     </div>
-                    <div class="small-note" id="retraso-inicio" style="margin-top: 6px;"></div>
-                    <div class="chips-wrap" style="margin-top: 6px;">
-                        <button class="chip chip-orange" id="btn-despertar">Ictus del Despertar</button>
+                    
+                    <!-- Selector de hora para ictus del despertar -->
+                    <div id="selector-despertar" class="hora-selector" style="display: none;">
+                        <div class="hora-slider">
+                            <label>Horas (última vez normal):</label>
+                            <input type="range" id="despertar-h" min="0" max="23" value="22">
+                            <span id="despertar-h-v">22</span>
+                        </div>
+                        <div class="hora-slider">
+                            <label>Minutos:</label>
+                            <input type="range" id="despertar-m" min="0" max="59" value="0">
+                            <span id="despertar-m-v">00</span>
+                        </div>
                     </div>
-                    <div class="inline-list" id="list-inicio"></div>
+                    
+                    <!-- Display de información -->
+                    <div class="hora-display" id="hora-display"></div>
+                    <div class="retraso-display" id="retraso-display"></div>
+                    
                     <div class="delta" id="tm-inicio">00:00:00</div>
                 </div>
                 <div class="item" id="itm-examen">
@@ -900,7 +824,6 @@
             </div>
         </section>
 
-        <!-- Escalas -->
         <section class="group" id="g-escalas">
             <h3>Escalas Neurológicas</h3>
             <div class="row">
@@ -911,28 +834,17 @@
                         <input type="range" id="nihss" min="0" max="42" step="1" value="8">
                         <strong><span id="nihssv">8</span></strong>
                     </div>
-                    <div class="small-note" style="margin-top: 4px;">
-                        <div>0-4: Leve</div>
-                        <div>5-15: Moderado</div>
-                        <div>16-20: Moderado-Grave</div>
-                        <div>21-42: Grave</div>
-                    </div>
                     <button class="btn-ghost" onclick="abrirCalculadora('../../../Calculadoras/Neurologia/nihss.html')">
                         <i class="fa-solid fa-calculator"></i> Calculadora NIHSS
                     </button>
                     <div class="delta" id="tm-nihss">00:00:00</div>
                 </div>
                 <div class="item" id="itm-gcs">
-                    <div class="top"><input type="checkbox" id="cb-gcs"><label for="cb-gcs">Escala de Coma de Glasgow</label></div>
+                    <div class="top"><input type="checkbox" id="cb-gcs"><label for="cb-gcs">Escala de Glasgow</label></div>
                     <div class="slider">
                         <span>Puntuación:</span>
                         <input type="range" id="gcs" min="3" max="15" step="1" value="15">
                         <strong><span id="gcsv">15</span></strong>
-                    </div>
-                    <div class="small-note" style="margin-top: 4px;">
-                        <div>13-15: Leve</div>
-                        <div>9-12: Moderado</div>
-                        <div>3-8: Grave</div>
                     </div>
                     <button class="btn-ghost" onclick="abrirCalculadora('../../../Calculadoras/Neurologia/gcs-adulto.html')">
                         <i class="fa-solid fa-calculator"></i> Calculadora Glasgow
@@ -940,17 +852,11 @@
                     <div class="delta" id="tm-gcs">00:00:00</div>
                 </div>
                 <div class="item" id="itm-mrs">
-                    <div class="top"><input type="checkbox" id="cb-mrs"><label for="cb-mrs">Escala de Rankin Modificada</label></div>
+                    <div class="top"><input type="checkbox" id="cb-mrs"><label for="cb-mrs">Escala de Rankin</label></div>
                     <div class="slider">
                         <span>Puntuación:</span>
                         <input type="range" id="mrs" min="0" max="6" step="1" value="0">
                         <strong><span id="mrsv">0</span></strong>
-                    </div>
-                    <div class="small-note" style="margin-top: 4px;">
-                        <div>0: Sin síntomas</div>
-                        <div>1-2: Discapacidad leve</div>
-                        <div>3-5: Discapacidad moderada-grave</div>
-                        <div>6: Fallecimiento</div>
                     </div>
                     <button class="btn-ghost" onclick="abrirCalculadora('../../../Calculadoras/Neurologia/mrs.html')">
                         <i class="fa-solid fa-calculator"></i> Calculadora Rankin
@@ -960,10 +866,11 @@
             </div>
         </section>
 
-        <!-- Trombectomía y Fibrinolisis -->
-        <section class="group" id="g-trombectomia">
-            <h3>Trombectomía Mecánica</h3>
+        <!-- FILA 3: Procedimientos (Trombectomía, Fibrinolisis, Neuroimagen) -->
+        <section class="group" id="g-procedimientos">
+            <h3>Procedimientos</h3>
             <div class="row">
+                <!-- Trombectomía -->
                 <div class="item" id="itm-trombectomia">
                     <div class="top"><input type="checkbox" id="cb-trombectomia"><label for="cb-trombectomia">Candidato Trombectomía</label></div>
                     <div class="chips-wrap">
@@ -974,12 +881,8 @@
                     <div class="delta" id="tm-trombectomia">00:00:00</div>
                     <button class="btn btn-ghost" id="btn-trombectomia">+ Derivar</button>
                 </div>
-            </div>
-        </section>
 
-        <section class="group" id="g-fibrinolisis">
-            <h3>Fibrinolisis IV</h3>
-            <div class="row">
+                <!-- Fibrinolisis -->
                 <div class="item" id="itm-fibrinolisis">
                     <div class="top"><input type="checkbox" id="cb-fibrinolisis"><label for="cb-fibrinolisis">Candidato Fibrinolisis</label></div>
                     <div class="chips-wrap">
@@ -990,13 +893,8 @@
                     <div class="delta" id="tm-fibrinolisis">00:00:00</div>
                     <button class="btn btn-ghost" id="btn-fibrinolisis">+ Administrar r-tPA</button>
                 </div>
-            </div>
-        </section>
 
-        <!-- Neuroimagen -->
-        <section class="group" id="g-neuroimagen">
-            <h3>Neuroimagen</h3>
-            <div class="row">
+                <!-- TAC Craneal -->
                 <div class="item" id="itm-tac">
                     <div class="top"><input type="checkbox" id="cb-tac"><label for="cb-tac">TAC Craneal</label></div>
                     <select id="sel-tac" class="select">
@@ -1007,6 +905,8 @@
                     </select>
                     <div class="delta" id="tm-tac">00:00:00</div>
                 </div>
+
+                <!-- Angio-TAC/RNM -->
                 <div class="item" id="itm-angio">
                     <div class="top"><input type="checkbox" id="cb-angio"><label for="cb-angio">Angio-TAC/RNM</label></div>
                     <select id="sel-angio" class="select">
@@ -1021,7 +921,7 @@
             </div>
         </section>
 
-        <!-- Monitorización y Tratamiento -->
+        <!-- FILA 4: Monitorización y Tratamiento (incluye Complicaciones) -->
         <section class="group" id="g-monitorizacion">
             <h3>Monitorización</h3>
             <div class="row">
@@ -1057,7 +957,7 @@
         </section>
 
         <section class="group" id="g-tratamiento">
-            <h3>Tratamiento Médico</h3>
+            <h3>Tratamiento y Complicaciones</h3>
             <div class="row">
                 <div class="item" id="itm-antiagregacion">
                     <div class="top"><input type="checkbox" id="cb-antiagregacion"><label for="cb-antiagregacion">Antiagregación</label></div>
@@ -1081,13 +981,6 @@
                     <div class="delta" id="tm-anticoagulacion">00:00:00</div>
                     <button class="btn btn-ghost" id="btn-anticoagulacion">+ Administrar</button>
                 </div>
-            </div>
-        </section>
-
-        <!-- Complicaciones -->
-        <section class="group" id="g-complicaciones">
-            <h3>Complicaciones</h3>
-            <div class="row">
                 <div class="item" id="itm-complicaciones">
                     <div class="top"><input type="checkbox" id="cb-complicaciones"><label for="cb-complicaciones">Complicaciones Detectadas</label></div>
                     <select id="sel-complicaciones" class="select" style="height: 80px; font-size: var(--fs-xs);">
@@ -1119,9 +1012,6 @@
         <button class="btn" id="btnInforme"><i class="fa-solid fa-file-lines"></i> Informe</button>
         <button class="btn" id="btnPDF"><i class="fa-solid fa-file-arrow-down"></i> Exportar PDF</button>
     </div>
-
-    <!-- Alarmas -->
-    <div class="alerts" id="alerts"></div>
 
     <!-- FABs -->
     <nav class="fabs" aria-label="Accesos">
@@ -1169,14 +1059,70 @@
     <script>
         // Variables globales
         let t0 = new Date();
-        let timers = {};
         let complicacionesSeleccionadas = [];
         let sintomasExamen = [];
         let tipoIctus = null;
+        let tipoInicioSeleccionado = null; // 'hora' o 'despertar'
+
+        // ===== SISTEMA DE TIEMPOS IDÉNTICO AL DE SEPSIS =====
+        const ids = ['alerta', 'inicio', 'examen', 'nihss', 'gcs', 'mrs', 'trombectomia', 'fibrinolisis', 'tac', 'angio', 'presion', 'glucemia', 'antiagregacion', 'anticoagulacion', 'complicaciones', 'final'];
+        const state = {};
+        ids.forEach(id => state[id] = { ts: null });
+
+        // Función para formatear tiempo (idéntica a Sepsis)
+        const pad2 = n => String(n).padStart(2, '0');
+        const fmtHMS = ms => {
+            const s = Math.max(0, Math.floor(ms / 1000));
+            const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), ss = s % 60;
+            return `${pad2(h)}:${pad2(m)}:${pad2(ss)}`;
+        };
+
+        // Función para marcar tiempos (idéntica a Sepsis)
+        function marcar(id) {
+            if (state[id].ts) return;
+            state[id].ts = new Date();
+            const el = document.getElementById('tm-' + id);
+            if (el) el.textContent = fmtHMS(state[id].ts - t0);
+        }
+
+        // Función para establecer hora actual en los sliders
+        function establecerHoraActual(tipo) {
+            const ahora = new Date();
+            const horas = ahora.getHours();
+            const minutos = ahora.getMinutes();
+            
+            if (tipo === 'hora') {
+                // Para hora de inicio: usar hora actual
+                document.getElementById('hora-h').value = horas;
+                document.getElementById('hora-m').value = minutos;
+                // Disparar evento para actualizar display
+                const event = new Event('input');
+                document.getElementById('hora-h').dispatchEvent(event);
+            } else if (tipo === 'despertar') {
+                // Para ictus del despertar: calcular hora razonable de "anoche"
+                let horaDespertar;
+                if (horas >= 6 && horas < 12) {
+                    // Si es mañana (6am-12pm), asumir que se durmió entre 22-24h
+                    horaDespertar = 22;
+                } else if (horas >= 12 && horas < 18) {
+                    // Si es tarde (12pm-6pm), asumir que se durmió entre 20-22h  
+                    horaDespertar = 20;
+                } else {
+                    // Si es noche (6pm-6am), asumir que se durmió entre 18-20h
+                    horaDespertar = 18;
+                }
+                
+                document.getElementById('despertar-h').value = horaDespertar;
+                document.getElementById('despertar-m').value = 0;
+                // Disparar evento para actualizar display
+                const event = new Event('input');
+                document.getElementById('despertar-h').dispatchEvent(event);
+            }
+        }
 
         // Inicialización
         document.addEventListener('DOMContentLoaded', function() {
-            // Configurar reloj
+            // Configurar reloj (usando t0 como referencia)
             updateClock();
             setInterval(updateClock, 1000);
 
@@ -1184,24 +1130,30 @@
             updateDateTime();
             setInterval(updateDateTime, 1000);
 
+            // Configurar sistema de checkboxes (idéntico a Sepsis)
+            ids.forEach(id => {
+                const cb = document.getElementById('cb-' + id);
+                if (!cb) return;
+                cb.addEventListener('change', e => {
+                    if (!e.target.checked) {
+                        e.target.checked = true;
+                        return;
+                    }
+                    marcar(id);
+                });
+            });
+
             // Configurar sliders
             configurarSliders();
 
             // Configurar eventos
             configurarEventos();
-
-            // Inicializar timers
-            inicializarTimers();
         });
 
-        // Actualizar reloj
+        // Actualizar reloj (referenciando t0)
         function updateClock() {
-            const now = new Date();
-            const elapsed = new Date(now - t0);
-            const hours = String(elapsed.getUTCHours()).padStart(2, '0');
-            const minutes = String(elapsed.getUTCMinutes()).padStart(2, '0');
-            const seconds = String(elapsed.getUTCSeconds()).padStart(2, '0');
-            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+            const elapsed = Date.now() - t0.getTime();
+            document.getElementById('clock').textContent = fmtHMS(elapsed);
         }
 
         // Actualizar fecha y hora
@@ -1218,25 +1170,27 @@
             document.getElementById('fechaHora').textContent = now.toLocaleDateString('es-ES', options);
         }
 
-        // Formatear tiempo
-        function fmtHMS(ms) {
-            const s = Math.max(0, Math.floor(ms / 1000));
-            const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), ss = s % 60;
-            return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(ss).padStart(2, '0')}`;
-        }
-
-        // Calcular diferencia de tiempo en horas y minutos
+        // Calcular diferencia de tiempo en horas y minutos desde una hora específica
         function calcularRetraso(horaInicio) {
             const ahora = new Date();
             const inicio = new Date();
             const [horas, minutos] = horaInicio.split(':');
-            inicio.setHours(horas, minutos, 0, 0);
+            inicio.setHours(parseInt(horas), parseInt(minutos), 0, 0);
+            
+            // Si la hora de inicio es mayor que la actual, asumimos que fue ayer
+            if (inicio > ahora) {
+                inicio.setDate(inicio.getDate() - 1);
+            }
             
             const diferenciaMs = ahora - inicio;
             const diferenciaHoras = Math.floor(diferenciaMs / (1000 * 60 * 60));
             const diferenciaMinutos = Math.floor((diferenciaMs % (1000 * 60 * 60)) / (1000 * 60));
             
-            return `${diferenciaHoras}h ${diferenciaMinutos}m`;
+            return {
+                horas: diferenciaHoras,
+                minutos: diferenciaMinutos,
+                texto: `${diferenciaHoras}h ${diferenciaMinutos}m`
+            };
         }
 
         // Configurar sliders
@@ -1248,14 +1202,13 @@
                 edadValue.textContent = this.value;
             });
 
-            // Hora inicio síntomas
+            // Sliders para hora normal
             const horaHSlider = document.getElementById('hora-h');
             const horaHValue = document.getElementById('hora-h-v');
             const horaMSlider = document.getElementById('hora-m');
             const horaMValue = document.getElementById('hora-m-v');
-            const retrasoElement = document.getElementById('retraso-inicio');
 
-            function actualizarHora() {
+            function actualizarHoraNormal() {
                 const horas = String(horaHSlider.value).padStart(2, '0');
                 const minutos = String(horaMSlider.value).padStart(2, '0');
                 horaHValue.textContent = horas;
@@ -1263,15 +1216,47 @@
                 
                 const horaCompleta = `${horas}:${minutos}`;
                 const retraso = calcularRetraso(horaCompleta);
-                retrasoElement.textContent = `Retraso: ${retraso}`;
                 
-                // Activar casilla
-                document.getElementById('cb-inicio').checked = true;
-                marcar('inicio');
+                document.getElementById('hora-display').textContent = `Hora inicio: ${horaCompleta}`;
+                document.getElementById('retraso-display').textContent = `Retraso: ${retraso.texto}`;
+                
+                // Activar casilla automáticamente
+                if (tipoInicioSeleccionado === 'hora') {
+                    document.getElementById('cb-inicio').checked = true;
+                    marcar('inicio');
+                }
             }
 
-            horaHSlider.addEventListener('input', actualizarHora);
-            horaMSlider.addEventListener('input', actualizarHora);
+            horaHSlider.addEventListener('input', actualizarHoraNormal);
+            horaMSlider.addEventListener('input', actualizarHoraNormal);
+
+            // Sliders para ictus del despertar
+            const despertarHSlider = document.getElementById('despertar-h');
+            const despertarHValue = document.getElementById('despertar-h-v');
+            const despertarMSlider = document.getElementById('despertar-m');
+            const despertarMValue = document.getElementById('despertar-m-v');
+
+            function actualizarDespertar() {
+                const horas = String(despertarHSlider.value).padStart(2, '0');
+                const minutos = String(despertarMSlider.value).padStart(2, '0');
+                despertarHValue.textContent = horas;
+                despertarMValue.textContent = minutos;
+                
+                const horaCompleta = `${horas}:${minutos}`;
+                const retraso = calcularRetraso(horaCompleta);
+                
+                document.getElementById('hora-display').textContent = `Última vez normal: ${horaCompleta}`;
+                document.getElementById('retraso-display').textContent = `Retraso estimado: ${retraso.texto}`;
+                
+                // Activar casilla automáticamente
+                if (tipoInicioSeleccionado === 'despertar') {
+                    document.getElementById('cb-inicio').checked = true;
+                    marcar('inicio');
+                }
+            }
+
+            despertarHSlider.addEventListener('input', actualizarDespertar);
+            despertarMSlider.addEventListener('input', actualizarDespertar);
 
             // NIHSS - activar automáticamente
             const nihssSlider = document.getElementById('nihss');
@@ -1347,13 +1332,6 @@
                 }
             });
 
-            // Botón fin del proceso
-            document.getElementById('cb-final').addEventListener('change', function() {
-                if (this.checked) {
-                    marcar('final');
-                }
-            });
-
             // Botón informe
             document.getElementById('btnInforme').addEventListener('click', function() {
                 generarInforme();
@@ -1401,19 +1379,31 @@
                 });
             });
 
-            // Ictus del despertar
-            document.getElementById('btn-despertar').addEventListener('click', function() {
-                const list = document.getElementById('list-inicio');
-                const ts = new Date();
-                const delta = fmtHMS(ts - t0);
+            // Opciones excluyentes para hora inicio
+            document.getElementById('btn-hora-inicio').addEventListener('click', function() {
+                tipoInicioSeleccionado = 'hora';
+                document.querySelectorAll('.opcion-btn').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
                 
-                const registro = document.createElement('span');
-                registro.textContent = `Ictus del despertar - ${delta}`;
-                list.innerHTML = '';
-                list.appendChild(registro);
+                // Mostrar selector de hora normal, ocultar despertar
+                document.getElementById('selector-hora-normal').style.display = 'grid';
+                document.getElementById('selector-despertar').style.display = 'none';
+                
+                // ESTABLECER HORA ACTUAL automáticamente
+                establecerHoraActual('hora');
+            });
 
-                document.getElementById('cb-inicio').checked = true;
-                marcar('inicio');
+            document.getElementById('btn-despertar').addEventListener('click', function() {
+                tipoInicioSeleccionado = 'despertar';
+                document.querySelectorAll('.opcion-btn').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Mostrar selector despertar, ocultar hora normal
+                document.getElementById('selector-despertar').style.display = 'grid';
+                document.getElementById('selector-hora-normal').style.display = 'none';
+                
+                // ESTABLECER HORA DE ANOCHE automáticamente
+                establecerHoraActual('despertar');
             });
 
             // Síntoma/Signo
@@ -1491,48 +1481,6 @@
                     this.classList.toggle('active');
                 });
             });
-        }
-
-        // Inicializar timers
-        function inicializarTimers() {
-            const elementos = [
-                'alerta', 'inicio', 'examen', 'nihss', 'gcs', 'mrs', 'trombectomia', 
-                'fibrinolisis', 'tac', 'angio', 'presion', 'glucemia', 
-                'antiagregacion', 'anticoagulacion', 'complicaciones', 'final'
-            ];
-
-            elementos.forEach(id => {
-                timers[id] = {
-                    activo: false,
-                    inicio: null,
-                    tiempo: '00:00:00'
-                };
-            });
-        }
-
-        // Marcar timer
-        function marcar(id) {
-            if (!timers[id].activo) {
-                timers[id].activo = true;
-                timers[id].inicio = new Date();
-                actualizarTimer(id);
-            }
-        }
-
-        // Actualizar timer
-        function actualizarTimer(id) {
-            if (timers[id].activo) {
-                const now = new Date();
-                timers[id].tiempo = fmtHMS(now - timers[id].inicio);
-                
-                const deltaElement = document.getElementById(`tm-${id}`);
-                if (deltaElement) {
-                    deltaElement.textContent = timers[id].tiempo;
-                }
-                
-                // Actualizar cada segundo
-                setTimeout(() => actualizarTimer(id), 1000);
-            }
         }
 
         // Actualizar recomendación
@@ -1613,12 +1561,27 @@
                     case 'hemorragico': tipoTexto = 'Ictus Hemorrágico'; break;
                     case 'ataque': tipoTexto = 'Ataque Isquémico Transitorio'; break;
                 }
-                agregarFilaInforme(tabla, 'Tipo de Ictus', tipoTexto, '');
+                agregarFilaInforme(tabla, 'Tipo de Ictus', tipoTexto, state.alerta.ts ? fmtHMS(state.alerta.ts - t0) : '');
             }
 
-            // Tiempos
-            for (const [id, timer] of Object.entries(timers)) {
-                if (timer.activo) {
+            // Información de inicio de síntomas
+            if (tipoInicioSeleccionado) {
+                let textoInicio = '';
+                if (tipoInicioSeleccionado === 'hora') {
+                    const horas = String(document.getElementById('hora-h').value).padStart(2, '0');
+                    const minutos = String(document.getElementById('hora-m').value).padStart(2, '0');
+                    textoInicio = `Hora inicio: ${horas}:${minutos}`;
+                } else {
+                    const horas = String(document.getElementById('despertar-h').value).padStart(2, '0');
+                    const minutos = String(document.getElementById('despertar-m').value).padStart(2, '0');
+                    textoInicio = `Ictus despertar - Última normal: ${horas}:${minutos}`;
+                }
+                agregarFilaInforme(tabla, 'Inicio Síntomas', textoInicio, state.inicio.ts ? fmtHMS(state.inicio.ts - t0) : '');
+            }
+
+            // Tiempos de los diferentes eventos
+            for (const id of ids) {
+                if (state[id] && state[id].ts) {
                     let nombre = '';
                     switch (id) {
                         case 'alerta': nombre = 'Alerta Ictus'; break;
@@ -1639,7 +1602,9 @@
                         case 'final': nombre = 'Final del Proceso'; break;
                         default: nombre = id;
                     }
-                    agregarFilaInforme(tabla, nombre, 'Completado', timer.tiempo);
+                    if (nombre && id !== 'inicio') { // Ya incluimos inicio arriba
+                        agregarFilaInforme(tabla, nombre, 'Completado', fmtHMS(state[id].ts - t0));
+                    }
                 }
             }
 
@@ -1648,19 +1613,19 @@
             const gcs = document.getElementById('gcs').value;
             const mrs = document.getElementById('mrs').value;
             
-            agregarFilaInforme(tabla, 'NIHSS', nihss, timers.nihss.tiempo);
-            agregarFilaInforme(tabla, 'Escala de Glasgow', gcs, timers.gcs.tiempo);
-            agregarFilaInforme(tabla, 'Escala de Rankin', mrs, timers.mrs.tiempo);
+            if (state.nihss.ts) {
+                agregarFilaInforme(tabla, 'NIHSS', nihss, fmtHMS(state.nihss.ts - t0));
+            }
+            if (state.gcs.ts) {
+                agregarFilaInforme(tabla, 'Escala de Glasgow', gcs, fmtHMS(state.gcs.ts - t0));
+            }
+            if (state.mrs.ts) {
+                agregarFilaInforme(tabla, 'Escala de Rankin', mrs, fmtHMS(state.mrs.ts - t0));
+            }
 
             // Síntomas del examen neurológico
             if (sintomasExamen.length > 0) {
-                agregarFilaInforme(tabla, 'Síntomas Neurológicos', sintomasExamen.join(', '), timers.examen.tiempo);
-            }
-
-            // Hora inicio síntomas
-            const inicioRegistros = document.getElementById('list-inicio').innerHTML;
-            if (inicioRegistros) {
-                agregarFilaInforme(tabla, 'Inicio Síntomas', inicioRegistros, timers.inicio.tiempo);
+                agregarFilaInforme(tabla, 'Síntomas Neurológicos', sintomasExamen.join(', '), state.examen.ts ? fmtHMS(state.examen.ts - t0) : '');
             }
 
             // TA actual
@@ -1677,23 +1642,33 @@
 
             // Glucemia
             const glucemia = document.getElementById('glucemia').value;
-            agregarFilaInforme(tabla, 'Glucemia', `${glucemia} mg/dL`, timers.glucemia.tiempo);
+            if (state.glucemia.ts) {
+                agregarFilaInforme(tabla, 'Glucemia', `${glucemia} mg/dL`, fmtHMS(state.glucemia.ts - t0));
+            }
 
             // Neuroimagen
             const tac = document.getElementById('sel-tac').value;
             const angio = document.getElementById('sel-angio').value;
-            agregarFilaInforme(tabla, 'TAC Craneal', tac, timers.tac.tiempo);
-            agregarFilaInforme(tabla, 'Angio-TAC/RNM', angio, timers.angio.tiempo);
+            if (state.tac.ts) {
+                agregarFilaInforme(tabla, 'TAC Craneal', tac, fmtHMS(state.tac.ts - t0));
+            }
+            if (state.angio.ts) {
+                agregarFilaInforme(tabla, 'Angio-TAC/RNM', angio, fmtHMS(state.angio.ts - t0));
+            }
 
             // Tratamientos
             const antiagregacion = document.getElementById('sel-antiagregacion').value;
             const anticoagulacion = document.getElementById('sel-anticoagulacion').value;
-            agregarFilaInforme(tabla, 'Antiagregación', antiagregacion, timers.antiagregacion.tiempo);
-            agregarFilaInforme(tabla, 'Anticoagulación', anticoagulacion, timers.anticoagulacion.tiempo);
+            if (state.antiagregacion.ts) {
+                agregarFilaInforme(tabla, 'Antiagregación', antiagregacion, fmtHMS(state.antiagregacion.ts - t0));
+            }
+            if (state.anticoagulacion.ts) {
+                agregarFilaInforme(tabla, 'Anticoagulación', anticoagulacion, fmtHMS(state.anticoagulacion.ts - t0));
+            }
 
             // Complicaciones
             if (complicacionesSeleccionadas.length > 0) {
-                agregarFilaInforme(tabla, 'Complicaciones', complicacionesSeleccionadas.join(', '), timers.complicaciones.tiempo);
+                agregarFilaInforme(tabla, 'Complicaciones', complicacionesSeleccionadas.join(', '), state.complicaciones.ts ? fmtHMS(state.complicaciones.ts - t0) : '');
             }
         }
 
@@ -1727,6 +1702,19 @@
                     case 'ataque': tipoTexto = 'Ataque Isquémico Transitorio'; break;
                 }
                 contenido += `Tipo de Ictus: ${tipoTexto}\n`;
+            }
+
+            // Información de inicio
+            if (tipoInicioSeleccionado) {
+                if (tipoInicioSeleccionado === 'hora') {
+                    const horas = String(document.getElementById('hora-h').value).padStart(2, '0');
+                    const minutos = String(document.getElementById('hora-m').value).padStart(2, '0');
+                    contenido += `Hora inicio síntomas: ${horas}:${minutos}\n`;
+                } else {
+                    const horas = String(document.getElementById('despertar-h').value).padStart(2, '0');
+                    const minutos = String(document.getElementById('despertar-m').value).padStart(2, '0');
+                    contenido += `Ictus del despertar - Última vez normal: ${horas}:${minutos}\n`;
+                }
             }
 
             // Escalas
@@ -1765,8 +1753,8 @@
 
             // Tiempos
             contenido += '\nTIEMPOS:\n';
-            for (const [id, timer] of Object.entries(timers)) {
-                if (timer.activo) {
+            for (const id of ids) {
+                if (state[id] && state[id].ts) {
                     let nombre = '';
                     switch (id) {
                         case 'alerta': nombre = 'Alerta Ictus'; break;
@@ -1787,7 +1775,7 @@
                         case 'final': nombre = 'Final del Proceso'; break;
                     }
                     if (nombre) {
-                        contenido += `${nombre}: ${timer.tiempo}\n`;
+                        contenido += `${nombre}: ${fmtHMS(state[id].ts - t0)}\n`;
                     }
                 }
             }
