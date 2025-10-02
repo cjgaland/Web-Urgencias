@@ -358,6 +358,11 @@
             padding: 6px 10px;
             font-size: var(--fs-xs);
             cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
         }
 
         .btn-ghost:hover {
@@ -530,19 +535,6 @@
             padding: 8px 12px;
         }
 
-        /* Modales para calculadoras */
-        .calculator-modal {
-            width: min(800px, 95vw);
-            height: min(600px, 90vh);
-        }
-
-        .calculator-modal iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 0 0 14px 14px;
-        }
-
         /* Modo tablet apilado */
         @media (max-width: 1100px) {
             .main {
@@ -653,7 +645,9 @@
                         <strong><span id="sofav">0</span></strong>
                     </div>
                     <div class="delta" id="tm-sofa">00:00:00</div>
-                    <button class="btn-ghost" id="btn-sofa-calc">Calculadora SOFA</button>
+                    <a class="btn-ghost" href="../../../Calculadoras/Infecciosas/sofa.html" target="_blank">
+                        <i class="fa-solid fa-calculator"></i> Calculadora SOFA
+                    </a>
                 </div>
                 <div class="item" id="itm-qsofa">
                     <div class="top">
@@ -666,7 +660,9 @@
                         <button class="chip" data-criterio="glasgow">GCS &lt; 15</button>
                     </div>
                     <div class="delta" id="tm-qsofa">00:00:00</div>
-                    <button class="btn-ghost" id="btn-qsofa-calc">Calculadora qSOFA</button>
+                    <a class="btn-ghost" href="../../../Calculadoras/Infecciosas/qsofa.html" target="_blank">
+                        <i class="fa-solid fa-calculator"></i> Calculadora qSOFA
+                    </a>
                 </div>
             </div>
         </section>
@@ -773,7 +769,9 @@
                         <strong><span id="apachev">10</span></strong>
                     </div>
                     <div class="delta" id="tm-apache">00:00:00</div>
-                    <button class="btn-ghost" id="btn-apache-calc">Calculadora APACHE II</button>
+                    <a class="btn-ghost" href="../../../Calculadoras/UCI/apacheII.html" target="_blank">
+                        <i class="fa-solid fa-calculator"></i> Calculadora APACHE II
+                    </a>
                 </div>
             </div>
         </section>
@@ -879,15 +877,6 @@
         </div>
     </dialog>
 
-    <!-- Modal para calculadoras -->
-    <dialog id="calcModal" class="calculator-modal">
-        <div class="dialog-head">
-            <h3 id="calcModalTitle">Calculadora</h3>
-            <button class="btn-ghost-light" id="calcModalClose" title="Cerrar"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <iframe id="calcIframe" src="about:blank" title="Calculadora médica">
-    </dialog>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             /* ===== util tiempo ===== */
@@ -947,31 +936,6 @@
                     marcar(id);
                 });
             });
-
-            /* ===== Calculadoras en modal ===== */
-            const calcModal = document.getElementById('calcModal');
-            const calcIframe = document.getElementById('calcIframe');
-            const calcModalTitle = document.getElementById('calcModalTitle');
-
-            document.getElementById('btn-sofa-calc').addEventListener('click', () => {
-                calcModalTitle.textContent = 'Calculadora SOFA';
-                calcIframe.src = '../../../Calculadoras/Infecciosas/sofa.html';
-                calcModal.showModal();
-            });
-
-            document.getElementById('btn-qsofa-calc').addEventListener('click', () => {
-                calcModalTitle.textContent = 'Calculadora qSOFA';
-                calcIframe.src = '../../../Calculadoras/Infecciosas/qsofa.html';
-                calcModal.showModal();
-            });
-
-            document.getElementById('btn-apache-calc').addEventListener('click', () => {
-                calcModalTitle.textContent = 'Calculadora APACHE II';
-                calcIframe.src = '../../../Calculadoras/UCI/apacheII.html';
-                calcModal.showModal();
-            });
-
-            document.getElementById('calcModalClose').addEventListener('click', () => calcModal.close());
 
             /* ===== Presión arterial con PAM ===== */
             const tas = document.getElementById('tas'), tasv = document.getElementById('tasv');
@@ -1268,9 +1232,8 @@
                     document.getElementById('list-' + key).innerHTML = '';
                 });
 
-                // Cerrar modales
+                // Cerrar modal
                 dlg.close();
-                calcModal.close();
             });
         });
     </script>
