@@ -94,30 +94,6 @@
             background: var(--red2);
         }
 
-        .btn-orange {
-            background: var(--orange);
-        }
-
-        .btn-orange:hover {
-            background: var(--orange2);
-        }
-
-        .btn-green {
-            background: var(--green);
-        }
-
-        .btn-green:hover {
-            background: var(--green2);
-        }
-
-        .btn-purple {
-            background: var(--purple);
-        }
-
-        .btn-purple:hover {
-            background: var(--purple2);
-        }
-
         .center {
             text-align: center;
             line-height: 1.1
@@ -146,7 +122,7 @@
             box-shadow: var(--shadow);
         }
 
-        /* ===== LAYOUT (3 columnas) ===== */
+        /* ===== LAYOUT ===== */
         .main {
             min-height: calc(100dvh - 58px);
             height: auto;
@@ -156,9 +132,9 @@
             grid-template-columns: 1.4fr 1fr 1fr;
             grid-template-areas:
                 "alerta alerta alerta"
-                "evaluacion evaluacion escala"
-                "ecg ecg marcadores"
-                "reperfusion reperfusion tratamiento"
+                "evaluacion escala escala"
+                "ecg marcadores marcadores"
+                "reperfusion tratamiento tratamiento"
                 "monitorizacion complicaciones hemodinamica";
             grid-auto-rows: auto;
             align-content: start;
@@ -313,11 +289,6 @@
             border-color: var(--chip-green-b);
         }
 
-        .chip-purple {
-            background: var(--chip-purple);
-            border-color: var(--chip-purple-b);
-        }
-
         .chip.active {
             outline: 2px solid #e7edff;
             outline-offset: 2px
@@ -349,6 +320,56 @@
             color: #aeb7cc
         }
 
+        /* Listas de registros múltiples (igual que en Sepsis) */
+        .inline-list {
+            font-size: var(--fs-xs);
+            line-height: 1.3;
+            max-height: 96px;
+            overflow: auto;
+            padding-right: 2px;
+        }
+
+        .inline-list span {
+            display: block;
+            white-space: nowrap;
+        }
+
+        .btn-ghost {
+            background: #0b0d14;
+            border: 1px solid #283149;
+            color: #e8eefb;
+            font-weight: 700;
+            border-radius: 8px;
+            padding: 6px 10px;
+            font-size: var(--fs-xs);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .btn-ghost:hover {
+            background: #151a28;
+        }
+
+        /* Botones de calculadoras */
+        .calc-btn {
+            margin-left: auto;
+            padding: 2px 6px;
+            font-size: var(--fs-xs);
+            background: var(--purple);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .calc-btn:hover {
+            background: var(--purple2);
+        }
+
         /* AVISOS: borde gordo + tinte + parpadeo */
         .warn-strong {
             outline: 4px solid var(--warn);
@@ -368,6 +389,46 @@
 
         .blink-strong {
             animation: twinkleStrong 900ms infinite alternate;
+        }
+
+        /* Final del proceso (igual que en Sepsis) */
+        .final-process {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 12px;
+            background: var(--card);
+            color: var(--ink);
+            border: 1px solid var(--stroke);
+            border-radius: var(--radius);
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 85;
+            box-shadow: var(--shadow);
+        }
+
+        .final-process input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .final-process label {
+            cursor: pointer;
+            font-weight: 700;
+            font-size: var(--fs-sm);
+            color: #fff;
+        }
+
+        .final-process .delta {
+            font: 800 14px/1 "Courier New", monospace;
+            background: #0b0d14;
+            border: 1px solid #242a39;
+            border-radius: 8px;
+            padding: 4px 8px;
+            color: #e8eefb;
         }
 
         /* Alarmas centradas abajo */
@@ -506,13 +567,67 @@
             background: #fff;
         }
 
-        .btn-ghost {
+        .btn-ghost-light {
             background: #fff;
             border: 1px solid #e3eaf6;
             color: #0b0c0f;
             font-weight: 700;
             border-radius: 10px;
             padding: 8px 12px;
+        }
+
+        /* Modal para calculadoras */
+        .calc-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .calc-modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px;
+            height: 80%;
+            max-height: 600px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .calc-modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--red);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .calc-modal-close:hover {
+            background: var(--red2);
+        }
+
+        .calc-modal iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 12px;
         }
 
         /* Modo tablet apilado */
@@ -538,37 +653,14 @@
             header,
             .fabs,
             .alerts,
-            .reportbar {
+            .reportbar,
+            .final-process {
                 display: none !important;
             }
 
             body {
                 background: #fff;
                 color: #000
-            }
-        }
-
-        /* Distribución vertical agradable en pantallas grandes */
-        @media (min-width: 1200px) and (min-height: 800px) {
-            .main {
-                align-content: space-between;
-                gap: clamp(14px, 1.6vh, 28px);
-            }
-
-            #g-alerta {
-                min-height: 140px;
-            }
-
-            #g-evaluacion,
-            #g-escala,
-            #g-ecg,
-            #g-marcadores,
-            #g-reperfusion,
-            #g-tratamiento,
-            #g-monitorizacion,
-            #g-complicaciones,
-            #g-hemodinamica {
-                min-height: 150px;
             }
         }
     </style>
@@ -581,8 +673,14 @@
             <div class="dt" id="fechaHora">--/--/---- --:--:--</div>
             <div class="title">Código Infarto · Protocolo SAS</div>
             <div class="slider" style="justify-content:center; margin-top:4px;">
-                <i class="fa-solid fa-user"></i> Edad: <input type="range" id="edad" min="1" max="100" step="1" value="62" style="width:220px">
+                <i class="fa-solid fa-user"></i> Edad: <input type="range" id="edad" min="1" max="100" step="1" value="62" style="width:120px">
                 <strong><span id="edadv">62</span> años</strong>
+                <span style="margin-left: 12px;"></span>
+                <i class="fa-solid fa-venus-mars"></i> Sexo: 
+                <select id="sexo" style="background: #0b0d14; color: #e8eefb; border: 1px solid #283149; border-radius: 8px; padding: 4px 6px;">
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                </select>
             </div>
         </div>
         <div class="clock" id="clock">00:00:00</div>
@@ -609,7 +707,6 @@
                         <div><i class="fa-solid fa-door-open" style="color: var(--warn);"></i> 30 min: Puerta-Balón</div>
                         <div><i class="fa-solid fa-syringe" style="color: var(--warn);"></i> 90 min: Fibrinolisis</div>
                     </div>
-                    <div class="delta" id="tm-tiempos">00:00:00</div>
                 </div>
             </div>
         </section>
@@ -628,7 +725,7 @@
                 </div>
                 <div class="item" id="itm-sintomas">
                     <div class="top"><input type="checkbox" id="cb-sintomas"><label for="cb-sintomas">Síntomas Presentes</label></div>
-                    <select id="sel-sintomas" class="select" multiple style="height: 80px; font-size: var(--fs-xs);">
+                    <select id="sel-sintomas" class="select">
                         <option>Dolor torácico típico</option>
                         <option>Dolor epigástrico</option>
                         <option>Disfnea</option>
@@ -637,17 +734,22 @@
                         <option>Síncope</option>
                         <option>Palpitaciones</option>
                     </select>
+                    <button class="btn-ghost" id="btn-sintomas">+ Registrar</button>
+                    <div class="inline-list" id="list-sintomas"></div>
                     <div class="delta" id="tm-sintomas">00:00:00</div>
                 </div>
             </div>
         </section>
 
-        <!-- Escala GRACE -->
+        <!-- Escalas de Riesgo -->
         <section class="group" id="g-escala">
-            <h3>Escala GRACE</h3>
+            <h3>Escalas de Riesgo</h3>
             <div class="row">
                 <div class="item" id="itm-grace">
-                    <div class="top"><input type="checkbox" id="cb-grace"><label for="cb-grace">Riesgo GRACE</label></div>
+                    <div class="top">
+                        <input type="checkbox" id="cb-grace"><label for="cb-grace">GRACE Score</label>
+                        <button class="calc-btn" onclick="abrirCalculadora('../../../Calculadoras/Cardiovascular/grace.html')">Calculadora</button>
+                    </div>
                     <div class="slider">
                         <span>Puntuación:</span>
                         <input type="range" id="grace" min="0" max="250" step="1" value="120">
@@ -660,6 +762,23 @@
                     </div>
                     <div class="delta" id="tm-grace">00:00:00</div>
                 </div>
+                <div class="item" id="itm-timi">
+                    <div class="top">
+                        <input type="checkbox" id="cb-timi"><label for="cb-timi">TIMI Risk Index</label>
+                        <button class="calc-btn" onclick="abrirCalculadora('../../../Calculadoras/Cardiovascular/timi-risk-index.html')">Calculadora</button>
+                    </div>
+                    <div class="slider">
+                        <span>Puntuación:</span>
+                        <input type="range" id="timi" min="0" max="50" step="0.1" value="15.2">
+                        <strong><span id="timiv">15.2</span></strong>
+                    </div>
+                    <div class="small-note" style="margin-top: 4px;">
+                        <div>&lt; 12: Bajo riesgo</div>
+                        <div>12-24: Riesgo intermedio</div>
+                        <div>&gt; 24: Alto riesgo</div>
+                    </div>
+                    <div class="delta" id="tm-timi">00:00:00</div>
+                </div>
             </div>
         </section>
 
@@ -670,13 +789,16 @@
                 <div class="item" id="itm-ecg">
                     <div class="top"><input type="checkbox" id="cb-ecg"><label for="cb-ecg">ECG Realizado</label></div>
                     <select id="sel-ecg" class="select">
-                        <option selected>Supradesnivel ST</option>
+                        <option>Supradesnivel ST</option>
                         <option>Infradesnivel ST</option>
                         <option>Onda T negativa</option>
                         <option>Bloqueo rama izquierda</option>
+                        <option>Bloqueo rama derecha</option>
                         <option>Arritmia</option>
                         <option>Normal</option>
                     </select>
+                    <button class="btn-ghost" id="btn-ecg">+ Registrar</button>
+                    <div class="inline-list" id="list-ecg"></div>
                     <div class="delta" id="tm-ecg">00:00:00</div>
                 </div>
                 <div class="item" id="itm-localizacion">
@@ -695,7 +817,7 @@
 
         <!-- Marcadores de Daño Miocárdico -->
         <section class="group" id="g-marcadores">
-            <h3>Marcadores de Daño Miocárdico</h3>
+            <h3>Marcadores de Daño Miocárdico e Inflamación</h3>
             <div class="row">
                 <div class="item" id="itm-troponina">
                     <div class="top"><input type="checkbox" id="cb-troponina"><label for="cb-troponina">Troponina</label></div>
@@ -706,14 +828,23 @@
                     </div>
                     <div class="delta" id="tm-troponina">00:00:00</div>
                 </div>
-                <div class="item" id="itm-ckmb">
-                    <div class="top"><input type="checkbox" id="cb-ckmb"><label for="cb-ckmb">CK-MB</label></div>
+                <div class="item" id="itm-bnp">
+                    <div class="top"><input type="checkbox" id="cb-bnp"><label for="cb-bnp">BNP / NT-proBNP</label></div>
                     <div class="slider">
                         <span>Valor:</span>
-                        <input type="range" id="ckmb" min="0" max="500" step="1" value="25">
-                        <strong><span id="ckmbv">25</span> U/L</strong>
+                        <input type="range" id="bnp" min="0" max="5000" step="10" value="150">
+                        <strong><span id="bnpv">150</span> pg/mL</strong>
                     </div>
-                    <div class="delta" id="tm-ckmb">00:00:00</div>
+                    <div class="delta" id="tm-bnp">00:00:00</div>
+                </div>
+                <div class="item" id="itm-pcr">
+                    <div class="top"><input type="checkbox" id="cb-pcr"><label for="cb-pcr">Proteína C Reactiva</label></div>
+                    <div class="slider">
+                        <span>Valor:</span>
+                        <input type="range" id="pcr" min="0" max="200" step="0.1" value="2.5">
+                        <strong><span id="pcrv">2.5</span> mg/L</strong>
+                    </div>
+                    <div class="delta" id="tm-pcr">00:00:00</div>
                 </div>
             </div>
         </section>
@@ -730,7 +861,7 @@
                         <button class="chip" data-criterio="centro">Centro con hemodinámica</button>
                     </div>
                     <div class="delta" id="tm-icp">00:00:00</div>
-                    <button class="btn btn-ghost" id="btn-icp">+ Derivar ICP</button>
+                    <button class="btn-ghost" id="btn-icp">+ Derivar ICP</button>
                 </div>
                 <div class="item" id="itm-fibrinolisis">
                     <div class="top"><input type="checkbox" id="cb-fibrinolisis"><label for="cb-fibrinolisis">Fibrinolisis</label></div>
@@ -740,7 +871,7 @@
                         <button class="chip" data-criterio="brd">Bloqueo rama nueva</button>
                     </div>
                     <div class="delta" id="tm-fibrinolisis">00:00:00</div>
-                    <button class="btn btn-ghost" id="btn-fibrinolisis">+ Administrar</button>
+                    <button class="btn-ghost" id="btn-fibrinolisis">+ Administrar</button>
                 </div>
             </div>
         </section>
@@ -757,8 +888,9 @@
                         <option>ASA + Prasugrel</option>
                         <option>Otros</option>
                     </select>
+                    <button class="btn-ghost" id="btn-antiagregacion">+ Administrar</button>
+                    <div class="inline-list" id="list-antiagregacion"></div>
                     <div class="delta" id="tm-antiagregacion">00:00:00</div>
-                    <button class="btn btn-ghost" id="btn-antiagregacion">+ Administrar</button>
                 </div>
                 <div class="item" id="itm-anticoagulacion">
                     <div class="top"><input type="checkbox" id="cb-anticoagulacion"><label for="cb-anticoagulacion">Anticoagulación</label></div>
@@ -768,8 +900,9 @@
                         <option>Bivalirudina</option>
                         <option>Otros</option>
                     </select>
+                    <button class="btn-ghost" id="btn-anticoagulacion">+ Administrar</button>
+                    <div class="inline-list" id="list-anticoagulacion"></div>
                     <div class="delta" id="tm-anticoagulacion">00:00:00</div>
-                    <button class="btn btn-ghost" id="btn-anticoagulacion">+ Administrar</button>
                 </div>
             </div>
         </section>
@@ -785,6 +918,15 @@
                         <input type="range" id="tas" min="60" max="200" step="5" value="130">
                         <strong><span id="tasv">130</span> mmHg</strong>
                     </div>
+                    <div class="slider">
+                        <span>TAD:</span>
+                        <input type="range" id="tad" min="40" max="120" step="5" value="80">
+                        <strong><span id="tadv">80</span> mmHg</strong>
+                    </div>
+                    <div class="slider">
+                        <span>PAM:</span>
+                        <strong><span id="pamv">96.7</span> mmHg</strong>
+                    </div>
                     <div class="delta" id="tm-presion">00:00:00</div>
                 </div>
                 <div class="item" id="itm-fc">
@@ -793,6 +935,11 @@
                         <span>FC:</span>
                         <input type="range" id="fc" min="40" max="180" step="5" value="75">
                         <strong><span id="fcv">75</span> lpm</strong>
+                    </div>
+                    <div class="slider">
+                        <span>Lactato:</span>
+                        <input type="range" id="lactato" min="0" max="10" step="0.1" value="1.2">
+                        <strong><span id="lactatov">1.2</span> mmol/L</strong>
                     </div>
                     <div class="delta" id="tm-fc">00:00:00</div>
                 </div>
@@ -805,7 +952,7 @@
             <div class="row">
                 <div class="item" id="itm-complicaciones">
                     <div class="top"><input type="checkbox" id="cb-complicaciones"><label for="cb-complicaciones">Complicaciones Detectadas</label></div>
-                    <select id="sel-complicaciones" class="select" multiple style="height: 80px; font-size: var(--fs-xs);">
+                    <select id="sel-complicaciones" class="select">
                         <option>Shock cardiogénico</option>
                         <option>Edema agudo de pulmón</option>
                         <option>Arritmias ventriculares</option>
@@ -813,7 +960,11 @@
                         <option>Rotura cardiaca</option>
                         <option>Taponamiento cardíaco</option>
                         <option>Isquemia recurrente</option>
+                        <option>Insuficiencia mitral aguda</option>
+                        <option>Aneurisma ventricular</option>
                     </select>
+                    <button class="btn-ghost" id="btn-complicaciones">+ Registrar</button>
+                    <div class="inline-list" id="list-complicaciones"></div>
                     <div class="delta" id="tm-complicaciones">00:00:00</div>
                 </div>
             </div>
@@ -847,6 +998,13 @@
         </section>
     </main>
 
+    <!-- Final del proceso (igual que en Sepsis) -->
+    <div class="final-process">
+        <input type="checkbox" id="cb-final">
+        <label for="cb-final">Final del Proceso</label>
+        <div class="delta" id="tm-final">00:00:00</div>
+    </div>
+
     <!-- Barra Informe + PDF -->
     <div class="reportbar">
         <button class="btn" id="btnInforme"><i class="fa-solid fa-file-lines"></i> Informe</button>
@@ -867,14 +1025,14 @@
     <dialog id="dlg">
         <div class="dialog-head">
             <h3>Informe · Código Infarto</h3>
-            <button class="btn-ghost" id="dlgClose" title="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+            <button class="btn-ghost-light" id="dlgClose" title="Cerrar"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="dialog-body">
             <table class="table" id="tablaInforme">
                 <thead>
                     <tr>
-                        <th>Actuación</th>
-                        <th>Δ desde inicio</th>
+                        <th>Parámetro</th>
+                        <th>Valor</th>
                         <th>Detalle</th>
                     </tr>
                 </thead>
@@ -882,10 +1040,20 @@
             </table>
         </div>
         <div class="dialog-actions">
-            <button class="btn-ghost" onclick="window.print()"><i class="fa-solid fa-print"></i> Imprimir</button>
+            <button class="btn-ghost-light" onclick="window.print()"><i class="fa-solid fa-print"></i> Imprimir</button>
             <button class="btn" id="dlgOk">Cerrar</button>
         </div>
     </dialog>
+
+    <!-- Modal para calculadoras -->
+    <div id="calcModal" class="calc-modal">
+        <div class="calc-modal-content">
+            <button class="calc-modal-close" onclick="cerrarCalculadora()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <iframe id="calcIframe" src="about:blank" title="Calculadora médica"></iframe>
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -912,18 +1080,27 @@
             setInterval(tick, 1000);
             tick();
 
-            /* ===== edad ===== */
+            /* ===== edad y sexo ===== */
             let EDAD = 62;
+            let SEXO = 'M';
             const edad = document.getElementById('edad'), edadv = document.getElementById('edadv');
+            const sexo = document.getElementById('sexo');
+            
             edadv.textContent = edad.value;
             EDAD = +edad.value;
+            SEXO = sexo.value;
+            
             edad.addEventListener('input', e => {
                 EDAD = +e.target.value;
                 edadv.textContent = EDAD;
             });
+            
+            sexo.addEventListener('change', e => {
+                SEXO = e.target.value;
+            });
 
             /* ===== estado & sellado ===== */
-            const ids = ['alerta', 'tiempos', 'inicio', 'sintomas', 'grace', 'ecg', 'localizacion', 'troponina', 'ckmb', 'icp', 'fibrinolisis', 'antiagregacion', 'anticoagulacion', 'presion', 'fc', 'complicaciones', 'fracaso', 'eco'];
+            const ids = ['alerta', 'inicio', 'sintomas', 'grace', 'timi', 'ecg', 'localizacion', 'troponina', 'bnp', 'pcr', 'icp', 'fibrinolisis', 'antiagregacion', 'anticoagulacion', 'presion', 'fc', 'complicaciones', 'fracaso', 'eco', 'final'];
             const state = {};
             ids.forEach(id => state[id] = { ts: null });
 
@@ -945,6 +1122,93 @@
                     }
                     marcar(id);
                 });
+            });
+
+            /* ===== Presión arterial con PAM ===== */
+            const tas = document.getElementById('tas'), tasv = document.getElementById('tasv');
+            const tad = document.getElementById('tad'), tadv = document.getElementById('tadv');
+            const pamv = document.getElementById('pamv');
+
+            function calcularPAM() {
+                const tasVal = +tas.value;
+                const tadVal = +tad.value;
+                const pam = tadVal + (tasVal - tadVal) / 3;
+                pamv.textContent = pam.toFixed(1);
+                return pam;
+            }
+
+            tas.addEventListener('input', e => {
+                tasv.textContent = e.target.value;
+                calcularPAM();
+            });
+
+            tad.addEventListener('input', e => {
+                tadv.textContent = e.target.value;
+                calcularPAM();
+            });
+
+            // Calcular PAM inicial
+            calcularPAM();
+
+            /* ===== Registros múltiples (igual que en Sepsis) ===== */
+            function addRegistro(key, selectorId, label, valueSelector = null) {
+                const list = document.getElementById('list-' + key);
+                const selector = document.getElementById(selectorId);
+                const ts = new Date();
+                const delta = fmtHMS(ts - t0);
+                
+                let valor = selector.value;
+                if (valueSelector) {
+                    const valueEl = document.getElementById(valueSelector);
+                    if (valueEl) valor += ` (${valueEl.textContent})`;
+                }
+
+                const registro = document.createElement('span');
+                registro.textContent = `${valor}: ${delta}`;
+                list.prepend(registro);
+
+                // Marcar timestamp principal si es la primera vez
+                if (!state[key].ts) {
+                    state[key].ts = ts;
+                    document.getElementById('tm-' + key).textContent = delta;
+                }
+            }
+
+            // Síntomas
+            document.getElementById('btn-sintomas').addEventListener('click', () => {
+                addRegistro('sintomas', 'sel-sintomas', 'Síntoma registrado');
+            });
+
+            // ECG
+            document.getElementById('btn-ecg').addEventListener('click', () => {
+                addRegistro('ecg', 'sel-ecg', 'Hallazgo ECG');
+            });
+
+            // Antiagregación
+            document.getElementById('btn-antiagregacion').addEventListener('click', () => {
+                addRegistro('antiagregacion', 'sel-antiagregacion', 'Antiagregación administrada');
+            });
+
+            // Anticoagulación
+            document.getElementById('btn-anticoagulacion').addEventListener('click', () => {
+                addRegistro('anticoagulacion', 'sel-anticoagulacion', 'Anticoagulación administrada');
+            });
+
+            // Complicaciones
+            document.getElementById('btn-complicaciones').addEventListener('click', () => {
+                addRegistro('complicaciones', 'sel-complicaciones', 'Complicación registrada');
+            });
+
+            // ICP
+            document.getElementById('btn-icp').addEventListener('click', () => {
+                marcar('icp');
+                addLog('icp', 'Paciente derivado para ICP primaria');
+            });
+
+            // Fibrinolisis
+            document.getElementById('btn-fibrinolisis').addEventListener('click', () => {
+                marcar('fibrinolisis');
+                addLog('fibrinolisis', 'Fibrinolítico administrado');
             });
 
             /* ===== tipo de síndrome coronario ===== */
@@ -980,6 +1244,15 @@
                 }
             });
 
+            const timi = document.getElementById('timi'), timiv = document.getElementById('timiv');
+            timi.addEventListener('input', e => {
+                timiv.textContent = e.target.value;
+                if (e.target.value > 12) {
+                    document.getElementById('cb-timi').checked = true;
+                    marcar('timi');
+                }
+            });
+
             /* ===== marcadores ===== */
             const troponina = document.getElementById('troponina'), troponinav = document.getElementById('troponinav');
             troponina.addEventListener('input', e => {
@@ -990,47 +1263,33 @@
                 }
             });
 
-            const ckmb = document.getElementById('ckmb'), ckmbv = document.getElementById('ckmbv');
-            ckmb.addEventListener('input', e => {
-                ckmbv.textContent = e.target.value;
-                if (e.target.value > 25) {
-                    document.getElementById('cb-ckmb').checked = true;
-                    marcar('ckmb');
+            const bnp = document.getElementById('bnp'), bnpv = document.getElementById('bnpv');
+            bnp.addEventListener('input', e => {
+                bnpv.textContent = e.target.value;
+                if (e.target.value > 100) {
+                    document.getElementById('cb-bnp').checked = true;
+                    marcar('bnp');
                 }
             });
 
-            /* ===== parámetros de control ===== */
-            const tas = document.getElementById('tas'), tasv = document.getElementById('tasv');
-            tas.addEventListener('input', e => {
-                tasv.textContent = e.target.value;
+            const pcr = document.getElementById('pcr'), pcrv = document.getElementById('pcrv');
+            pcr.addEventListener('input', e => {
+                pcrv.textContent = e.target.value;
+                if (e.target.value > 5) {
+                    document.getElementById('cb-pcr').checked = true;
+                    marcar('pcr');
+                }
             });
 
+            /* ===== frecuencia cardíaca y lactato ===== */
             const fc = document.getElementById('fc'), fcv = document.getElementById('fcv');
             fc.addEventListener('input', e => {
                 fcv.textContent = e.target.value;
             });
 
-            /* ===== tratamientos ===== */
-            document.getElementById('btn-icp').addEventListener('click', () => {
-                marcar('icp');
-                addLog('icp', 'Paciente derivado para ICP primaria');
-            });
-
-            document.getElementById('btn-fibrinolisis').addEventListener('click', () => {
-                marcar('fibrinolisis');
-                addLog('fibrinolisis', 'Fibrinolítico administrado');
-            });
-
-            document.getElementById('btn-antiagregacion').addEventListener('click', () => {
-                marcar('antiagregacion');
-                const tratamiento = document.getElementById('sel-antiagregacion').value;
-                addLog('antiagregacion', `${tratamiento} administrado`);
-            });
-
-            document.getElementById('btn-anticoagulacion').addEventListener('click', () => {
-                marcar('anticoagulacion');
-                const tratamiento = document.getElementById('sel-anticoagulacion').value;
-                addLog('anticoagulacion', `${tratamiento} administrado`);
+            const lactato = document.getElementById('lactato'), lactatov = document.getElementById('lactatov');
+            lactato.addEventListener('input', e => {
+                lactatov.textContent = e.target.value;
             });
 
             /* ===== fracaso reperfusión ===== */
@@ -1053,55 +1312,107 @@
             /* ===== Informe + PDF ===== */
             function buildRows() {
                 const rows = [];
-                const map = {
-                    alerta: 'Alerta infarto activada',
-                    tiempos: 'Objetivos temporales establecidos',
-                    inicio: 'Hora inicio dolor registrada',
-                    sintomas: 'Síntomas evaluados',
-                    grace: 'Escala GRACE calculada',
-                    ecg: 'ECG realizado',
-                    localizacion: 'Localización del infarto',
-                    troponina: 'Troponina medida',
-                    ckmb: 'CK-MB medido',
-                    icp: 'Evaluación ICP primaria',
-                    fibrinolisis: 'Evaluación fibrinolisis',
-                    antiagregacion: 'Doble antiagregación',
-                    anticoagulacion: 'Anticoagulación',
-                    presion: 'Control tensión arterial',
-                    fc: 'Control frecuencia cardíaca',
-                    complicaciones: 'Complicaciones evaluadas',
-                    fracaso: 'Fracaso reperfusión',
-                    eco: 'Ecocardiograma realizado'
-                };
+                
+                // Información del paciente y fecha
+                rows.push({ parametro: 'Fecha y hora inicio', valor: t0.toLocaleString('es-ES'), detalle: '—' });
+                rows.push({ parametro: 'Paciente', valor: `${SEXO === 'M' ? 'Masculino' : 'Femenino'}, ${EDAD} años`, detalle: '—' });
+                rows.push({ parametro: 'Duración total', valor: fmtHMS(Date.now() - t0.getTime()), detalle: '—' });
+                rows.push({ parametro: '', valor: '', detalle: '' }); // Línea separadora
 
-                // Actuaciones con Δ
-                Object.keys(map).forEach(id => {
-                    if (state[id].ts) {
-                        let detalle = '—';
-                        
-                        // Detalles específicos
-                        if (id === 'alerta') {
-                            const tipo = document.querySelector('#g-alerta .chip.active');
-                            detalle = tipo ? tipo.textContent : '—';
-                        } else if (id === 'grace') {
-                            detalle = `Puntuación: ${grace.value}`;
-                        } else if (id === 'ecg') {
-                            detalle = document.getElementById('sel-ecg').value;
-                        } else if (id === 'troponina') {
-                            detalle = `${troponina.value} ng/mL`;
-                        } else if (id === 'antiagregacion') {
-                            detalle = document.getElementById('sel-antiagregacion').value;
-                        }
-                        
-                        rows.push({ id: map[id], delta: fmtHMS(state[id].ts - t0), det: detalle });
+                // Síndrome coronario
+                const tipoSC = document.querySelector('#g-alerta .chip.active');
+                if (tipoSC) {
+                    rows.push({ parametro: 'SÍNDROME CORONARIO', valor: tipoSC.textContent, detalle: state.alerta.ts ? fmtHMS(state.alerta.ts - t0) : '—' });
+                    rows.push({ parametro: '', valor: '', detalle: '' });
+                }
+
+                // Síntomas
+                const sintomasRegistros = [...document.querySelectorAll('#list-sintomas span')].reverse();
+                if (sintomasRegistros.length > 0) {
+                    rows.push({ parametro: 'SÍNTOMAS', valor: '', detalle: '' });
+                    sintomasRegistros.forEach(reg => {
+                        rows.push({ parametro: 'Síntoma', valor: reg.textContent.split(': ')[0], detalle: reg.textContent.split(': ')[1] });
+                    });
+                    rows.push({ parametro: '', valor: '', detalle: '' });
+                }
+
+                // Escalas de riesgo
+                rows.push({ parametro: 'ESCALAS DE RIESGO', valor: '', detalle: '' });
+                rows.push({ parametro: 'GRACE Score', valor: grace.value, detalle: state.grace.ts ? fmtHMS(state.grace.ts - t0) : 'No calculado' });
+                rows.push({ parametro: 'TIMI Risk Index', valor: timi.value, detalle: state.timi.ts ? fmtHMS(state.timi.ts - t0) : 'No calculado' });
+                rows.push({ parametro: '', valor: '', detalle: '' });
+
+                // ECG
+                const ecgRegistros = [...document.querySelectorAll('#list-ecg span')].reverse();
+                if (ecgRegistros.length > 0) {
+                    rows.push({ parametro: 'ELECTROCARDIOGRAMA', valor: '', detalle: '' });
+                    ecgRegistros.forEach(reg => {
+                        rows.push({ parametro: 'Hallazgo ECG', valor: reg.textContent.split(': ')[0], detalle: reg.textContent.split(': ')[1] });
+                    });
+                    if (state.localizacion.ts) {
+                        rows.push({ parametro: 'Localización', valor: document.getElementById('sel-localizacion').value, detalle: fmtHMS(state.localizacion.ts - t0) });
                     }
+                    rows.push({ parametro: '', valor: '', detalle: '' });
+                }
+
+                // Marcadores
+                rows.push({ parametro: 'MARCADORES', valor: '', detalle: '' });
+                if (state.troponina.ts) {
+                    rows.push({ parametro: 'Troponina', valor: `${troponina.value} ng/mL`, detalle: fmtHMS(state.troponina.ts - t0) });
+                }
+                if (state.bnp.ts) {
+                    rows.push({ parametro: 'BNP/NT-proBNP', valor: `${bnp.value} pg/mL`, detalle: fmtHMS(state.bnp.ts - t0) });
+                }
+                if (state.pcr.ts) {
+                    rows.push({ parametro: 'PCR', valor: `${pcr.value} mg/L`, detalle: fmtHMS(state.pcr.ts - t0) });
+                }
+                rows.push({ parametro: '', valor: '', detalle: '' });
+
+                // Parámetros hemodinámicos
+                rows.push({ parametro: 'PARÁMETROS HEMODINÁMICOS', valor: '', detalle: '' });
+                rows.push({ parametro: 'TAS/TAD/PAM', valor: `${tas.value}/${tad.value}/${pamv.textContent} mmHg`, detalle: '—' });
+                rows.push({ parametro: 'Frecuencia Cardíaca', valor: `${fc.value} lpm`, detalle: '—' });
+                rows.push({ parametro: 'Lactato', valor: `${lactato.value} mmol/L`, detalle: '—' });
+                rows.push({ parametro: '', valor: '', detalle: '' });
+
+                // Tratamientos
+                rows.push({ parametro: 'TRATAMIENTOS', valor: '', detalle: '' });
+                
+                // Antiagregación
+                const antiagregacionRegistros = [...document.querySelectorAll('#list-antiagregacion span')].reverse();
+                antiagregacionRegistros.forEach(reg => {
+                    rows.push({ parametro: 'Antiagregación', valor: reg.textContent.split(': ')[0], detalle: reg.textContent.split(': ')[1] });
                 });
 
-                // Datos adicionales
-                rows.unshift({ id: 'Edad', delta: `${EDAD} años`, det: '—' });
-                rows.unshift({ id: 'GRACE', delta: `${grace.value}`, det: '—' });
-                rows.unshift({ id: 'TAS', delta: `${tas.value} mmHg`, det: '—' });
-                rows.unshift({ id: 'FC', delta: `${fc.value} lpm`, det: '—' });
+                // Anticoagulación
+                const anticoagulacionRegistros = [...document.querySelectorAll('#list-anticoagulacion span')].reverse();
+                anticoagulacionRegistros.forEach(reg => {
+                    rows.push({ parametro: 'Anticoagulación', valor: reg.textContent.split(': ')[0], detalle: reg.textContent.split(': ')[1] });
+                });
+
+                // Reperfusión
+                if (state.icp.ts) {
+                    rows.push({ parametro: 'ICP Primaria', valor: 'Derivado', detalle: fmtHMS(state.icp.ts - t0) });
+                }
+                if (state.fibrinolisis.ts) {
+                    rows.push({ parametro: 'Fibrinolisis', valor: 'Administrado', detalle: fmtHMS(state.fibrinolisis.ts - t0) });
+                }
+                rows.push({ parametro: '', valor: '', detalle: '' });
+
+                // Complicaciones
+                const complicacionesRegistros = [...document.querySelectorAll('#list-complicaciones span')].reverse();
+                if (complicacionesRegistros.length > 0) {
+                    rows.push({ parametro: 'COMPLICACIONES', valor: '', detalle: '' });
+                    complicacionesRegistros.forEach(reg => {
+                        rows.push({ parametro: 'Complicación', valor: reg.textContent.split(': ')[0], detalle: reg.textContent.split(': ')[1] });
+                    });
+                    rows.push({ parametro: '', valor: '', detalle: '' });
+                }
+
+                // Final del proceso
+                if (state.final.ts) {
+                    rows.push({ parametro: 'FINAL DEL PROCESO', valor: 'Completado', detalle: fmtHMS(state.final.ts - t0) });
+                }
 
                 return rows;
             }
@@ -1113,7 +1424,7 @@
                 tb.innerHTML = '';
                 rows.forEach(r => {
                     const tr = document.createElement('tr');
-                    tr.innerHTML = `<td>${r.id}</td><td>${r.delta}</td><td>${r.det}</td>`;
+                    tr.innerHTML = `<td>${r.parametro}</td><td>${r.valor}</td><td>${r.detalle}</td>`;
                     tb.appendChild(tr);
                 });
                 dlg.showModal();
@@ -1148,23 +1459,80 @@
                 // Reset sliders
                 grace.value = 120;
                 gracev.textContent = '120';
+                timi.value = 15.2;
+                timiv.textContent = '15.2';
                 troponina.value = 0.5;
                 troponinav.textContent = '0.5';
-                ckmb.value = 25;
-                ckmbv.textContent = '25';
+                bnp.value = 150;
+                bnpv.textContent = '150';
+                pcr.value = 2.5;
+                pcrv.textContent = '2.5';
                 tas.value = 130;
                 tasv.textContent = '130';
+                tad.value = 80;
+                tadv.textContent = '80';
+                calcularPAM();
                 fc.value = 75;
                 fcv.textContent = '75';
+                lactato.value = 1.2;
+                lactatov.textContent = '1.2';
                 
-                // Reset edad
+                // Reset edad y sexo
                 edad.value = 62;
                 edadv.textContent = '62';
                 EDAD = 62;
-                
+                sexo.value = 'M';
+                SEXO = 'M';
+
+                // Limpiar listas de registros múltiples
+                ['sintomas', 'ecg', 'antiagregacion', 'anticoagulacion', 'complicaciones'].forEach(key => {
+                    document.getElementById('list-' + key).innerHTML = '';
+                });
+
                 // Reset hora inicio
                 document.getElementById('hora-inicio').value = '';
+
+                // Cerrar modales
+                dlg.close();
+                cerrarCalculadora();
             });
+        });
+
+        // ===== FUNCIONES PARA CALCULADORAS EN MODAL =====
+        function abrirCalculadora(url) {
+            const modal = document.getElementById('calcModal');
+            const iframe = document.getElementById('calcIframe');
+            
+            iframe.src = url;
+            modal.style.display = 'flex';
+            
+            // Bloquear scroll del body
+            document.body.style.overflow = 'hidden';
+        }
+
+        function cerrarCalculadora() {
+            const modal = document.getElementById('calcModal');
+            const iframe = document.getElementById('calcIframe');
+            
+            modal.style.display = 'none';
+            iframe.src = '';
+            
+            // Restaurar scroll del body
+            document.body.style.overflow = 'auto';
+        }
+
+        // Cerrar modal con ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                cerrarCalculadora();
+            }
+        });
+
+        // Cerrar modal haciendo clic fuera del contenido
+        document.getElementById('calcModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                cerrarCalculadora();
+            }
         });
     </script>
 </body>
