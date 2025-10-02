@@ -153,12 +153,12 @@
             padding: 8px 12px 96px;
             display: grid;
             gap: var(--row-gap);
-            grid-template-columns: 1.4fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
             grid-template-areas:
-                "alerta alerta alerta"
-                "criterios criterios hemodinamica"
-                "microbiologia tratamiento escalas"
-                "monitorizacion monitorizacion fluidos";
+                "alerta alerta"
+                "criterios hemodinamica"
+                "microbiologia tratamiento"
+                "monitorizacion fluidos";
             grid-auto-rows: auto;
             align-content: start;
         }
@@ -188,10 +188,6 @@
 
         #g-tratamiento {
             grid-area: tratamiento;
-        }
-
-        #g-escalas {
-            grid-area: escalas;
         }
 
         #g-monitorizacion {
@@ -629,6 +625,57 @@
             color: #e8eefb;
         }
 
+        /* Registros de TA */
+        .ta-registro {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 0;
+            border-bottom: 1px solid #283149;
+        }
+
+        .ta-registro:last-child {
+            border-bottom: none;
+        }
+
+        .ta-registro .valores {
+            display: flex;
+            gap: 8px;
+            font-size: var(--fs-xs);
+        }
+
+        .ta-registro .tiempo {
+            font-size: var(--fs-xs);
+            color: #aeb7cc;
+        }
+
+        /* Respuestas a fluidos */
+        .respuestas-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .respuesta-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 8px;
+            background: #0f1320;
+            border-radius: 6px;
+            border: 1px solid #283149;
+        }
+
+        .respuesta-item .tipo {
+            font-size: var(--fs-xs);
+        }
+
+        .respuesta-item .tiempo {
+            font-size: var(--fs-xs);
+            color: #aeb7cc;
+        }
+
         /* Modo tablet apilado */
         @media (max-width: 1100px) {
             .main {
@@ -639,7 +686,6 @@
                     "hemodinamica"
                     "microbiologia"
                     "tratamiento"
-                    "escalas"
                     "monitorizacion"
                     "fluidos";
             }
@@ -676,7 +722,6 @@
             #g-hemodinamica,
             #g-microbiologia,
             #g-tratamiento,
-            #g-escalas,
             #g-monitorizacion,
             #g-fluidos {
                 min-height: 150px;
@@ -761,9 +806,7 @@
                         <button class="chip" data-criterio="glasgow">GCS &lt; 15</button>
                     </div>
                     <div class="delta" id="tm-qsofa">00:00:00</div>
-                    <button class="btn-ghost" onclick="abrirCalculadora('../../../Calculadoras/Infecciosas/qsofa.html')">
-                        <i class="fa-solid fa-calculator"></i> Calculadora qSOFA
-                    </button>
+                    <!-- Eliminado el botón de calculadora qSOFA -->
                 </div>
             </div>
         </section>
@@ -786,8 +829,10 @@
                     </div>
                     <div class="slider">
                         <span>PAM:</span>
-                        <strong><span id="pamv">93.3</span> mmHg</strong>
+                        <strong><span id="pamv">93.33</span> mmHg</strong>
                     </div>
+                    <button class="btn-ghost" id="btn-anotar-ta">+ Anotar TA</button>
+                    <div class="inline-list" id="list-ta"></div>
                     <div class="delta" id="tm-presion">00:00:00</div>
                 </div>
                 <div class="item" id="itm-lactato">
@@ -852,13 +897,6 @@
                     <div class="inline-list" id="list-atb"></div>
                     <div class="delta" id="tm-atb">00:00:00</div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Escalas de Gravedad -->
-        <section class="group" id="g-escalas">
-            <h3>Escalas de Gravedad</h3>
-            <div class="row">
                 <div class="item" id="itm-apache">
                     <div class="top">
                         <input type="checkbox" id="cb-apache">
@@ -940,6 +978,7 @@
                         <button class="chip chip-orange" data-respuesta="parcial">Parcial</button>
                         <button class="chip chip-red" data-respuesta="mala">Mala</button>
                     </div>
+                    <div class="respuestas-container" id="respuestas-container"></div>
                     <div class="delta" id="tm-respuesta">00:00:00</div>
                 </div>
             </div>
@@ -1072,6 +1111,18 @@
                 });
             });
 
+            /* ===== Alerta Sepsis - Activar automáticamente al seleccionar severidad ===== */
+            document.querySelectorAll('#g-alerta .chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    document.querySelectorAll('#g-alerta .chip').forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    
+                    // Activar automáticamente la casilla de alerta
+                    document.getElementById('cb-alerta').checked = true;
+                    marcar('alerta');
+                });
+            });
+
             /* ===== Presión arterial con PAM ===== */
             const tas = document.getElementById('tas'), tasv = document.getElementById('tasv');
             const tad = document.getElementById('tad'), tadv = document.getElementById('tadv');
@@ -1081,17 +1132,13 @@
                 const tasVal = +tas.value;
                 const tadVal = +tad.value;
                 const pam = (tasVal + (2 * tadVal)) / 3;
-                pamv.textContent = pam.toFixed(1);
+                pamv.textContent = pam.toFixed(2); // Dos decimales
                 return pam;
             }
 
             tas.addEventListener('input', e => {
                 tasv.textContent = e.target.value;
                 calcularPAM();
-                if (e.target.value <= 90) {
-                    document.getElementById('cb-presion').checked = true;
-                    marcar('presion');
-                }
             });
 
             tad.addEventListener('input', e => {
@@ -1102,6 +1149,32 @@
             // Calcular PAM inicial
             calcularPAM();
 
+            /* ===== Anotar TA múltiple ===== */
+            document.getElementById('btn-anotar-ta').addEventListener('click', () => {
+                const list = document.getElementById('list-ta');
+                const ts = new Date();
+                const delta = fmtHMS(ts - t0);
+                const tasVal = tas.value;
+                const tadVal = tad.value;
+                const pamVal = calcularPAM();
+
+                const registro = document.createElement('div');
+                registro.className = 'ta-registro';
+                registro.innerHTML = `
+                    <div class="valores">
+                        <span>TAS: ${tasVal}</span>
+                        <span>TAD: ${tadVal}</span>
+                        <span>PAM: ${pamVal}</span>
+                    </div>
+                    <div class="tiempo">${delta}</div>
+                `;
+                list.prepend(registro);
+
+                // Activar automáticamente la casilla de presión
+                document.getElementById('cb-presion').checked = true;
+                marcar('presion');
+            });
+
             /* ===== lactato ===== */
             const lactato = document.getElementById('lactato'), lactatov = document.getElementById('lactatov');
             lactato.addEventListener('input', e => {
@@ -1110,6 +1183,26 @@
                     document.getElementById('cb-lactato').checked = true;
                     marcar('lactato');
                 }
+            });
+
+            /* ===== criterios qSOFA - activar automáticamente cuando hay 2 o más ===== */
+            document.querySelectorAll('#itm-qsofa .chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    chip.classList.toggle('active');
+                    const activos = document.querySelectorAll('#itm-qsofa .chip.active').length;
+                    if (activos >= 2) {
+                        document.getElementById('cb-qsofa').checked = true;
+                        marcar('qsofa');
+                    }
+                });
+            });
+
+            /* ===== APACHE II - activar automáticamente al mover slider ===== */
+            const apache = document.getElementById('apache'), apachev = document.getElementById('apachev');
+            apache.addEventListener('input', e => {
+                apachev.textContent = e.target.value;
+                document.getElementById('cb-apache').checked = true;
+                marcar('apache');
             });
 
             /* ===== Registros múltiples (como en SVA) ===== */
@@ -1136,27 +1229,35 @@
                 }
             }
 
-            // Cultivos
+            // Cultivos - activar automáticamente
             document.getElementById('btn-cultivos').addEventListener('click', () => {
                 addRegistro('cultivos', 'sel-cultivos', 'Cultivo extraído');
+                document.getElementById('cb-cultivos').checked = true;
+                marcar('cultivos');
             });
 
-            // Antibióticos
+            // Antibióticos - activar automáticamente
             document.getElementById('btn-atb').addEventListener('click', () => {
                 addRegistro('atb', 'sel-atb', 'ATB administrado');
+                document.getElementById('cb-atb').checked = true;
+                marcar('atb');
             });
 
-            // Monitorización
+            // Monitorización - activar automáticamente
             document.getElementById('btn-monitor').addEventListener('click', () => {
                 addRegistro('monitor', 'sel-monitor', 'Monitorización activada');
+                document.getElementById('cb-monitor').checked = true;
+                marcar('monitor');
             });
 
-            // Soporte orgánico
+            // Soporte orgánico - activar automáticamente
             document.getElementById('btn-soporte').addEventListener('click', () => {
                 addRegistro('soporte', 'sel-soporte', 'Soporte iniciado');
+                document.getElementById('cb-soporte').checked = true;
+                marcar('soporte');
             });
 
-            // Fluidoterapia
+            // Fluidoterapia - activar automáticamente
             document.getElementById('btn-fluidos').addEventListener('click', () => {
                 const list = document.getElementById('list-fluidos');
                 const selector = document.getElementById('sel-fluidos');
@@ -1172,26 +1273,30 @@
                     state['fluidos'].ts = ts;
                     document.getElementById('tm-fluidos').textContent = delta;
                 }
+                
+                document.getElementById('cb-fluidos').checked = true;
+                marcar('fluidos');
             });
 
-            /* ===== severidad sepsis ===== */
-            document.querySelectorAll('#g-alerta .chip').forEach(chip => {
+            /* ===== Respuesta a fluidos múltiple ===== */
+            document.querySelectorAll('#itm-respuesta .chip').forEach(chip => {
                 chip.addEventListener('click', () => {
-                    document.querySelectorAll('#g-alerta .chip').forEach(c => c.classList.remove('active'));
-                    chip.classList.add('active');
-                    marcar('alerta');
-                });
-            });
+                    const container = document.getElementById('respuestas-container');
+                    const ts = new Date();
+                    const delta = fmtHMS(ts - t0);
+                    const tipo = chip.textContent;
 
-            /* ===== criterios qSOFA ===== */
-            document.querySelectorAll('#itm-qsofa .chip').forEach(chip => {
-                chip.addEventListener('click', () => {
-                    chip.classList.toggle('active');
-                    const activos = document.querySelectorAll('#itm-qsofa .chip.active').length;
-                    if (activos >= 2) {
-                        document.getElementById('cb-qsofa').checked = true;
-                        marcar('qsofa');
-                    }
+                    const respuesta = document.createElement('div');
+                    respuesta.className = 'respuesta-item';
+                    respuesta.innerHTML = `
+                        <div class="tipo">${tipo}</div>
+                        <div class="tiempo">${delta}</div>
+                    `;
+                    container.prepend(respuesta);
+
+                    // Activar automáticamente la casilla de respuesta
+                    document.getElementById('cb-respuesta').checked = true;
+                    marcar('respuesta');
                 });
             });
 
@@ -1205,24 +1310,10 @@
                 }
             });
 
-            const apache = document.getElementById('apache'), apachev = document.getElementById('apachev');
-            apache.addEventListener('input', e => {
-                apachev.textContent = e.target.value;
-            });
-
             /* ===== volumen fluidos ===== */
             const volumen = document.getElementById('volumen'), volumenv = document.getElementById('volumenv');
             volumen.addEventListener('input', e => {
                 volumenv.textContent = e.target.value;
-            });
-
-            /* ===== respuesta a fluidos ===== */
-            document.querySelectorAll('#itm-respuesta .chip').forEach(chip => {
-                chip.addEventListener('click', () => {
-                    document.querySelectorAll('#itm-respuesta .chip').forEach(c => c.classList.remove('active'));
-                    chip.classList.add('active');
-                    marcar('respuesta');
-                });
             });
 
             /* ===== Informe + PDF ===== */
@@ -1237,7 +1328,18 @@
 
                 // Parámetros hemodinámicos
                 rows.push({ parametro: 'PARÁMETROS HEMODINÁMICOS', valor: '', detalle: '' });
-                rows.push({ parametro: 'TAS/TAD/PAM', valor: `${tas.value}/${tad.value}/${pamv.textContent} mmHg`, detalle: '—' });
+                
+                // TA actual
+                rows.push({ parametro: 'TAS/TAD/PAM actual', valor: `${tas.value}/${tad.value}/${pamv.textContent} mmHg`, detalle: '—' });
+                
+                // Registros de TA
+                const taRegistros = [...document.querySelectorAll('#list-ta .ta-registro')].reverse();
+                taRegistros.forEach(reg => {
+                    const valores = reg.querySelector('.valores').textContent;
+                    const tiempo = reg.querySelector('.tiempo').textContent;
+                    rows.push({ parametro: 'TA registrada', valor: valores, detalle: tiempo });
+                });
+                
                 rows.push({ parametro: 'Lactato', valor: `${lactato.value} mmol/L`, detalle: '—' });
                 rows.push({ parametro: '', valor: '', detalle: '' });
 
@@ -1246,8 +1348,9 @@
                 rows.push({ parametro: 'SOFA', valor: sofa.value, detalle: state.sofa.ts ? fmtHMS(state.sofa.ts - t0) : 'No calculado' });
                 rows.push({ parametro: 'APACHE II', valor: apache.value, detalle: state.apache.ts ? fmtHMS(state.apache.ts - t0) : 'No calculado' });
                 
+                // qSOFA con valor exacto (2 o 3)
                 const qsofaActivos = document.querySelectorAll('#itm-qsofa .chip.active').length;
-                rows.push({ parametro: 'qSOFA', valor: qsofaActivos >= 2 ? 'Positivo (≥2)' : 'Negativo', detalle: state.qsofa.ts ? fmtHMS(state.qsofa.ts - t0) : 'No evaluado' });
+                rows.push({ parametro: 'qSOFA', valor: qsofaActivos >= 2 ? `Positivo (${qsofaActivos})` : 'Negativo', detalle: state.qsofa.ts ? fmtHMS(state.qsofa.ts - t0) : 'No evaluado' });
                 rows.push({ parametro: '', valor: '', detalle: '' });
 
                 // Severidad
@@ -1302,11 +1405,15 @@
                 }
 
                 // Respuesta a fluidos
-                if (state.respuesta.ts) {
-                    const respuesta = document.querySelector('#itm-respuesta .chip.active');
-                    if (respuesta) {
-                        rows.push({ parametro: 'RESPUESTA A FLUIDOS', valor: respuesta.textContent, detalle: fmtHMS(state.respuesta.ts - t0) });
-                    }
+                const respuestas = [...document.querySelectorAll('#respuestas-container .respuesta-item')].reverse();
+                if (respuestas.length > 0) {
+                    rows.push({ parametro: '', valor: '', detalle: '' });
+                    rows.push({ parametro: 'RESPUESTA A FLUIDOS', valor: '', detalle: '' });
+                    respuestas.forEach(resp => {
+                        const tipo = resp.querySelector('.tipo').textContent;
+                        const tiempo = resp.querySelector('.tiempo').textContent;
+                        rows.push({ parametro: 'Evaluación', valor: tipo, detalle: tiempo });
+                    });
                 }
 
                 // Final del proceso
@@ -1380,9 +1487,13 @@
                 SEXO = 'M';
 
                 // Limpiar listas de registros múltiples
-                ['cultivos', 'atb', 'monitor', 'soporte', 'fluidos'].forEach(key => {
-                    document.getElementById('list-' + key).innerHTML = '';
+                ['cultivos', 'atb', 'monitor', 'soporte', 'fluidos', 'ta'].forEach(key => {
+                    const element = document.getElementById('list-' + key);
+                    if (element) element.innerHTML = '';
                 });
+                
+                // Limpiar respuestas a fluidos
+                document.getElementById('respuestas-container').innerHTML = '';
 
                 // Cerrar modales
                 dlg.close();
