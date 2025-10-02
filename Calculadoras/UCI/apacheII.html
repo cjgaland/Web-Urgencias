@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Wells TVP</title>
+<title>Calculadora APACHE II (UCI)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 :root{--c1:#0a5ea8;--c1-600:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
@@ -10,10 +10,12 @@
 
 body{font-family:Roboto,Arial,Helvetica,sans-serif;margin:0;padding:20px;background:#fff;color:#222}
 h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
-.card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px 16px 18px;max-width:760px;margin:0 auto;box-shadow:0 4px 16px rgba(0,0,0,.05)}
-.grid{display:grid;gap:.7rem}
-label{display:flex;gap:.6rem;align-items:flex-start}
-input[type=checkbox]{transform:translateY(3px)}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px 16px 18px;max-width:720px;margin:0 auto;box-shadow:0 4px 16px rgba(0,0,0,.05)}
+.grid{display:grid;gap:.9rem}
+.row{display:grid;gap:.5rem;grid-template-columns:1fr 1fr;align-items:center}
+.ig{display:grid;grid-template-columns:1fr 120px;gap:.5rem}
+label{font-weight:600;color:#334155}
+input[type=number],select{border:1px solid var(--bx);border-radius:10px;padding:.6rem .65rem;font-size:1rem;width:100%}
 .actions{display:flex;gap:.6rem;margin-top:.4rem;flex-wrap:wrap;align-items:center}
 .actions .spacer{flex:1 1 auto}
 .btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
@@ -21,82 +23,468 @@ input[type=checkbox]{transform:translateY(3px)}
 .btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}.btn.secondary:hover{background:#e6ebf2}
 .result{margin-top:.9rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;color:var(--tx);white-space:pre-wrap}
 .muted{color:var(--mut);font-size:.9rem}
+@media (max-width:560px){.row{grid-template-columns:1fr}.ig{grid-template-columns:1fr}}
 
 select{max-width:100%}
 
 .btn.close{margin-left:auto;background:var(--c1-600);color:#fff;border-color:#083554}
 .btn.close:hover{filter:brightness(1.05)}
+
+/* Estilos específicos para APACHE II */
+.section-title{margin:1.5rem 0 0.5rem 0;padding-bottom:0.5rem;border-bottom:1px solid var(--bd);color:var(--tx);font-size:1.1rem}
+.parameter-group{background:var(--bg);padding:1rem;border-radius:8px;border:1px solid var(--bd);margin-bottom:1rem}
+.parameter-group h3{margin:0 0 0.75rem 0;color:var(--tx);font-size:1rem}
 </style>
 </head>
 <body>
 <div class="card">
-  <h1>Wells TVP</h1>
-  <form id="formWellsDVT" class="grid">
-    <label><input type="checkbox" id="cancer"> Cáncer activo (1)</label>
-    <label><input type="checkbox" id="paralisis"> Parálisis/paresia/yeso de MI (1)</label>
-    <label><input type="checkbox" id="cama"> Encama &gt;3 días o cirugía mayor &lt;12 semanas (1)</label>
-    <label><input type="checkbox" id="dolorVenas"> Dolor a lo largo del trayecto venoso profundo (1)</label>
-    <label><input type="checkbox" id="piernaHinchada"> Pierna entera hinchada (1)</label>
-    <label><input type="checkbox" id="pantorrilla"> Aumento de perímetro de pantorrilla &gt;3 cm (1)</label>
-    <label><input type="checkbox" id="fovea"> Edema con fóvea limitado a la pierna sintomática (1)</label>
-    <label><input type="checkbox" id="venasColaterales"> Venas superficiales colaterales (no varices) (1)</label>
-    <label><input type="checkbox" id="tvpPrev"> TVP previa documentada (1)</label>
-    <label><input type="checkbox" id="diagAlterna"> Diagnóstico alternativo al menos tan probable (-2)</label>
+  <h1>Calculadora APACHE II (Acute Physiology And Chronic Health Evaluation)</h1>
+  <p class="muted">Sistema de puntuación para evaluar la gravedad y predecir mortalidad en pacientes de UCI.</p>
+
+  <form id="formAPACHE" class="grid">
+    
+    <div class="section-title">Datos Demográficos</div>
+    
+    <div class="row">
+      <label for="age">Edad (años)</label>
+      <div class="ig">
+        <input id="age" type="number" min="0" max="120" step="1" placeholder="Ej. 65" required>
+        <span></span>
+      </div>
+    </div>
+
+    <div class="parameter-group">
+      <h3>Función Crónica de Órganos / Inmunosupresión</h3>
+      <div class="row">
+        <label for="chronicHealth">Estado de salud crónico</label>
+        <div class="ig">
+          <select id="chronicHealth" required>
+            <option value="0">Sin disfunción orgánica</option>
+            <option value="2">Cirugía programada</option>
+            <option value="5">Cirugía no programada o disfunción orgánica</option>
+          </select>
+          <span></span>
+        </div>
+      </div>
+      
+      <div class="row">
+        <label for="immunosuppression">Inmunosupresión</label>
+        <div class="ig">
+          <select id="immunosuppression" required>
+            <option value="0">No</option>
+            <option value="5">Sí</option>
+          </select>
+          <span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Parámetros Fisiológicos Agudos (peor valor en primeras 24h)</div>
+
+    <div class="parameter-group">
+      <h3>Función Neurológica</h3>
+      <div class="row">
+        <label for="gcs">Escala de Glasgow (3-15)</label>
+        <div class="ig">
+          <input id="gcs" type="number" min="3" max="15" step="1" placeholder="Ej. 12" required>
+          <span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="parameter-group">
+      <h3>Función Cardiovascular</h3>
+      <div class="row">
+        <label for="hr">Frecuencia cardiaca (lpm)</label>
+        <div class="ig">
+          <input id="hr" type="number" min="0" max="250" step="1" placeholder="Ej. 110" required>
+          <select disabled><option>lpm</option></select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="map">Presión Arterial Media (mmHg)</label>
+        <div class="ig">
+          <input id="map" type="number" min="0" max="200" step="1" placeholder="Ej. 70" required>
+          <select disabled><option>mmHg</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="parameter-group">
+      <h3>Función Respiratoria</h3>
+      <div class="row">
+        <label for="respiratoryRate">Frecuencia respiratoria (rpm)</label>
+        <div class="ig">
+          <input id="respiratoryRate" type="number" min="0" max="60" step="1" placeholder="Ej. 22" required>
+          <select disabled><option>rpm</option></select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="pao2">PaO₂ (mmHg) - Si FiO₂ ≥ 0.5 usar A-aDO₂</label>
+        <div class="ig">
+          <input id="pao2" type="number" min="0" max="600" step="1" placeholder="Ej. 85" required>
+          <select disabled><option>mmHg</option></select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="fio2">FiO₂ (0.21-1.0)</label>
+        <div class="ig">
+          <input id="fio2" type="number" min="0.21" max="1.0" step="0.01" placeholder="Ej. 0.4" required>
+          <span></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="aado2">A-aDO₂ (mmHg) - Solo si FiO₂ ≥ 0.5</label>
+        <div class="ig">
+          <input id="aado2" type="number" min="0" max="600" step="1" placeholder="Ej. 150" value="0">
+          <select disabled><option>mmHg</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="parameter-group">
+      <h3>Metabolismo y Función Renal</h3>
+      <div class="row">
+        <label for="temperature">Temperatura (°C)</label>
+        <div class="ig">
+          <input id="temperature" type="number" min="30" max="42" step="0.1" placeholder="Ej. 37.5" required>
+          <select disabled><option>°C</option></select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="hematocrit">Hematocrito (%)</label>
+        <div class="ig">
+          <input id="hematocrit" type="number" min="10" max="70" step="0.1" placeholder="Ej. 35" required>
+          <select disabled><option>%</option></select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="wbc">Leucocitos (x10³/μL)</label>
+        <div class="ig">
+          <input id="wbc" type="number" min="0" max="50" step="0.1" placeholder="Ej. 12.5" required>
+          <select disabled><option>x10³/μL</option></select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="creatinine">Creatinina (mg/dL)</label>
+        <div class="ig">
+          <input id="creatinine" type="number" min="0.1" max="15" step="0.1" placeholder="Ej. 1.2" required>
+          <select disabled><option>mg/dL</option></select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="sodium">Sodio (mEq/L)</label>
+        <div class="ig">
+          <input id="sodium" type="number" min="100" max="180" step="1" placeholder="Ej. 140" required>
+          <select disabled><option>mEq/L</option></select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="potassium">Potasio (mEq/L)</label>
+        <div class="ig">
+          <input id="potassium" type="number" min="1" max="9" step="0.1" placeholder="Ej. 4.2" required>
+          <select disabled><option>mEq/L</option></select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="bicarbonate">Bicarbonato (mEq/L)</label>
+        <div class="ig">
+          <input id="bicarbonate" type="number" min="5" max="50" step="1" placeholder="Ej. 24" required>
+          <select disabled><option>mEq/L</option></select>
+        </div>
+      </div>
+    </div>
 
     <div class="actions">
-      <button type="button" class="btn primary" id="calc">Calcular</button>
-      <button type="button" class="btn secondary" id="copyBtn">Copiar resultado</button>
+      <button type="submit" class="btn primary">Calcular APACHE II</button>
+      <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
       <button type="reset" class="btn secondary">Limpiar</button>
     
       <span class="spacer"></span>
       <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
-</div>
+    </div>
 
-    <div id="result" class="result" aria-live="polite">Selecciona criterios y pulsa “Calcular”.</div>
-    <p class="muted">Clasificación: 3 niveles → Alto ≥3, Moderado 1–2, Bajo ≤0. 2 niveles → Probable ≥2, Improbable &lt;2.</p>
+    <div id="result" class="result" aria-live="polite">Introduce valores y pulsa "Calcular APACHE II".</div>
+    <p class="muted">Interpretación: Puntuación APACHE II (0-71). Mayor puntuación indica mayor gravedad y riesgo de mortalidad.</p>
   </form>
 </div>
 
 <script>
 (function(){
-  const $=id=>document.getElementById(id);
-  const items = ['cancer','paralisis','cama','dolorVenas','piernaHinchada','pantorrilla','fovea','venasColaterales','tvpPrev'];
-  function score(){
-    let s = items.reduce((acc,id)=> acc + ($(id).checked?1:0), 0);
-    if($('diagAlterna').checked) s -= 2;
-    return s;
+  const $=id=>document.getElementById(id), r=(v,d=1)=>Math.round((v+Number.EPSILON)*(10**d))/(10**d);
+  
+  // Función para calcular puntuación por edad
+  function getAgeScore(age) {
+    if (age < 45) return 0;
+    if (age < 55) return 2;
+    if (age < 65) return 3;
+    if (age < 75) return 5;
+    return 6;
   }
-  function classif(s){
-    const three = (s>=3)?'Alto':(s>=1?'Moderado':'Bajo');
-    const two = (s>=2)?'Probable':'Improbable';
-    return {three,two};
+  
+  // Función para calcular puntuación por temperatura
+  function getTemperatureScore(temp) {
+    if (temp >= 41) return 4;
+    if (temp >= 39) return 3;
+    if (temp >= 38.5) return 1;
+    if (temp >= 36) return 0;
+    if (temp >= 34) return 1;
+    if (temp >= 32) return 2;
+    if (temp >= 30) return 3;
+    return 4;
   }
-  $('calc').addEventListener('click',()=>{
-    const s = score(); const {three,two} = classif(s);
-    $('result').textContent = `Wells TVP = ${s}\nClasificación (3 niveles): ${three}\nClasificación (2 niveles): ${two}`;
-  });
-  $('copyBtn').addEventListener('click',()=>{
-    const t=$('result').textContent||''; if(!t.trim()) return alert('No hay resultado.');
-    navigator.clipboard.writeText(t).then(()=>{ $('copyBtn').textContent='¡Copiado!'; setTimeout(()=>$('copyBtn').textContent='Copiar resultado',900); });
-  });
-})();
-  // Cierre inteligente
-  function smartClose(){
-    try{
-      if(window.opener && !window.opener.closed){
-        window.close();
-        return;
-      }
-    }catch(e){}
-    if(history.length > 1){
-      history.back();
-    }else{
-      location.href = '../index.html'; // Ajusta si tu índice está en otra ruta
+  
+  // Función para calcular puntuación por MAP
+  function getMAPScore(map) {
+    if (map >= 160) return 4;
+    if (map >= 130) return 3;
+    if (map >= 110) return 2;
+    if (map >= 70) return 0;
+    if (map >= 50) return 2;
+    return 4;
+  }
+  
+  // Función para calcular puntuación por frecuencia cardiaca
+  function getHRScore(hr) {
+    if (hr >= 180) return 4;
+    if (hr >= 140) return 3;
+    if (hr >= 110) return 2;
+    if (hr >= 70) return 0;
+    if (hr >= 55) return 2;
+    if (hr >= 40) return 3;
+    return 4;
+  }
+  
+  // Función para calcular puntuación por frecuencia respiratoria
+  function getRespiratoryRateScore(rr) {
+    if (rr >= 50) return 4;
+    if (rr >= 35) return 3;
+    if (rr >= 25) return 1;
+    if (rr >= 12) return 0;
+    if (rr >= 10) return 1;
+    return 4;
+  }
+  
+  // Función para calcular puntuación por oxigenación
+  function getOxygenationScore(pao2, fio2, aado2) {
+    if (fio2 >= 0.5) {
+      // Usar A-aDO₂
+      if (aado2 >= 500) return 4;
+      if (aado2 >= 350) return 3;
+      if (aado2 >= 200) return 2;
+      return 0;
+    } else {
+      // Usar PaO₂
+      if (pao2 < 55) return 4;
+      if (pao2 < 61) return 3;
+      if (pao2 < 71) return 1;
+      return 0;
     }
   }
-  var _closeBtn = document.getElementById('closeBtn');
-  if(_closeBtn){ _closeBtn.addEventListener('click', smartClose); }
+  
+  // Función para calcular puntuación por pH arterial
+  function getArterialpHScore(ph) {
+    if (ph >= 7.7) return 4;
+    if (ph >= 7.6) return 3;
+    if (ph >= 7.5) return 1;
+    if (ph >= 7.33) return 0;
+    if (ph >= 7.25) return 2;
+    if (ph >= 7.15) return 3;
+    return 4;
+  }
+  
+  // Función para calcular puntuación por sodio
+  function getSodiumScore(sodium) {
+    if (sodium >= 180) return 4;
+    if (sodium >= 160) return 3;
+    if (sodium >= 155) return 2;
+    if (sodium >= 150) return 1;
+    if (sodium >= 130) return 0;
+    if (sodium >= 120) return 2;
+    return 4;
+  }
+  
+  // Función para calcular puntuación por potasio
+  function getPotassiumScore(potassium) {
+    if (potassium >= 7) return 4;
+    if (potassium >= 6) return 3;
+    if (potassium >= 5.5) return 1;
+    if (potassium >= 3.5) return 0;
+    if (potassium >= 3) return 1;
+    if (potassium >= 2.5) return 2;
+    return 4;
+  }
+  
+  // Función para calcular puntuación por creatinina
+  function getCreatinineScore(creatinine) {
+    if (creatinine >= 3.5) return 4;
+    if (creatinine >= 2) return 3;
+    if (creatinine >= 1.5) return 2;
+    if (creatinine >= 0.6) return 0;
+    return 2;
+  }
+  
+  // Función para calcular puntuación por hematocrito
+  function getHematocritScore(hematocrit) {
+    if (hematocrit >= 60) return 4;
+    if (hematocrit >= 50) return 2;
+    if (hematocrit >= 46) return 1;
+    if (hematocrit >= 30) return 0;
+    if (hematocrit >= 20) return 2;
+    return 4;
+  }
+  
+  // Función para calcular puntuación por leucocitos
+  function getWBCScore(wbc) {
+    if (wbc >= 40) return 4;
+    if (wbc >= 20) return 2;
+    if (wbc >= 15) return 1;
+    if (wbc >= 3) return 0;
+    if (wbc >= 1) return 2;
+    return 4;
+  }
+  
+  // Función para calcular puntuación por Glasgow
+  function getGCSScore(gcs) {
+    return 15 - gcs; // APACHE II usa 15 - GCS
+  }
 
+  $('formAPACHE').addEventListener('submit', e=>{
+    e.preventDefault();
+    
+    // Obtener valores
+    const age = parseFloat($('age').value);
+    const chronicHealth = parseInt($('chronicHealth').value);
+    const immunosuppression = parseInt($('immunosuppression').value);
+    const gcs = parseFloat($('gcs').value);
+    const hr = parseFloat($('hr').value);
+    const map = parseFloat($('map').value);
+    const respiratoryRate = parseFloat($('respiratoryRate').value);
+    const pao2 = parseFloat($('pao2').value);
+    const fio2 = parseFloat($('fio2').value);
+    const aado2 = parseFloat($('aado2').value);
+    const temperature = parseFloat($('temperature').value);
+    const hematocrit = parseFloat($('hematocrit').value);
+    const wbc = parseFloat($('wbc').value);
+    const creatinine = parseFloat($('creatinine').value);
+    const sodium = parseFloat($('sodium').value);
+    const potassium = parseFloat($('potassium').value);
+    const bicarbonate = parseFloat($('bicarbonate').value);
+    
+    // Validar
+    if(!(age>=0)||!(gcs>=3)||!(hr>=0)||!(map>=0)||!(respiratoryRate>=0)||!(pao2>=0)||!(fio2>=0.21)||!(temperature>=30)||!(hematocrit>=10)||!(wbc>=0)||!(creatinine>=0.1)||!(sodium>=100)||!(potassium>=1)||!(bicarbonate>=5)) {
+      return $('result').textContent='Revisa todos los valores.';
+    }
+    
+    // Calcular puntuación APACHE II
+    let score = 0;
+    
+    // Puntuación por edad
+    score += getAgeScore(age);
+    
+    // Puntuación por salud crónica e inmunosupresión
+    score += chronicHealth;
+    score += immunosuppression;
+    
+    // Puntuación por parámetros fisiológicos agudos
+    score += getGCSScore(gcs);
+    score += getTemperatureScore(temperature);
+    score += getMAPScore(map);
+    score += getHRScore(hr);
+    score += getRespiratoryRateScore(respiratoryRate);
+    score += getOxygenationScore(pao2, fio2, aado2);
+    score += getSodiumScore(sodium);
+    score += getPotassiumScore(potassium);
+    score += getCreatinineScore(creatinine);
+    score += getHematocritScore(hematocrit);
+    score += getWBCScore(wbc);
+    
+    // Calcular pH arterial a partir del bicarbonato (aproximación)
+    const arterialPH = 7.4 + ((bicarbonate - 24) / 20); // Aproximación simplificada
+    score += getArterialpHScore(arterialPH);
+    
+    // Determinar categoría de riesgo
+    let riskCategory, mortalityEstimate;
+    
+    if (score <= 10) {
+      riskCategory = "BAJO";
+      mortalityEstimate = "≈ 4%";
+    } else if (score <= 20) {
+      riskCategory = "MODERADO";
+      mortalityEstimate = "≈ 15%";
+    } else if (score <= 30) {
+      riskCategory = "ALTO";
+      mortalityEstimate = "≈ 40%";
+    } else {
+      riskCategory = "MUY ALTO";
+      mortalityEstimate = "≈ 75%";
+    }
+    
+    // Mostrar resultado
+    const resultText = `Puntuación APACHE II: ${score}
+
+CATEGORÍA DE RIESGO: ${riskCategory}
+
+Mortalidad hospitalaria estimada: ${mortalityEstimate}
+
+Desglose por componentes:
+• Edad: ${getAgeScore(age)} puntos
+• Salud crónica/inmunosupresión: ${chronicHealth + immunosuppression} puntos
+• Escala de Glasgow: ${getGCSScore(gcs)} puntos
+• Parámetros fisiológicos agudos: ${score - getAgeScore(age) - chronicHealth - immunosuppression - getGCSScore(gcs)} puntos
+
+Interpretación:
+- Puntuación máxima posible: 71 puntos
+- Mayor puntuación indica mayor gravedad
+- Utilizar junto con evaluación clínica completa`;
+
+    $('result').textContent = resultText;
+  });
+  
+  $('copyBtn').addEventListener('click',()=>{
+    const t=$('result').textContent||''; 
+    if(!t.trim() || t === 'Introduce valores y pulsa "Calcular APACHE II".') 
+      return alert('No hay resultado para copiar.');
+    
+    navigator.clipboard.writeText(t).then(()=>{ 
+      $('copyBtn').textContent='¡Copiado!'; 
+      setTimeout(()=>$('copyBtn').textContent='Copiar resultado',900); 
+    });
+  });
+  
+  // Limpiar resultado al resetear formulario
+  $('formAPACHE').addEventListener('reset', ()=>{
+    $('result').textContent = 'Introduce valores y pulsa "Calcular APACHE II".';
+  });
+})();
+
+// Cierre inteligente
+function smartClose(){
+  try{
+    if(window.opener && !window.opener.closed){
+      window.close();
+      return;
+    }
+  }catch(e){}
+  if(history.length > 1){
+    history.back();
+  }else{
+    location.href = '../index.html';
+  }
+}
+
+var _closeBtn = document.getElementById('closeBtn');
+if(_closeBtn){ _closeBtn.addEventListener('click', smartClose); }
 </script>
 </body>
 </html>
