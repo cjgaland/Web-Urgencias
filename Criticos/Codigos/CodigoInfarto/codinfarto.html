@@ -354,6 +354,40 @@
             background: #151a28;
         }
 
+        /* Selector de hora inicio (igual que en Ictus) */
+        .hora-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .hora-slider {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .hora-slider label {
+            font-size: var(--fs-xs);
+            color: #aeb7cc;
+        }
+
+        .hora-display {
+            font-size: var(--fs-sm);
+            font-weight: 700;
+            text-align: center;
+            margin-top: 4px;
+        }
+
+        .retraso-display {
+            font-size: var(--fs-xs);
+            color: var(--warn);
+            font-weight: 600;
+            text-align: center;
+            margin-top: 4px;
+        }
+
         /* Botones de calculadoras */
         .calc-btn {
             margin-left: auto;
@@ -717,10 +751,25 @@
             <div class="row">
                 <div class="item" id="itm-inicio">
                     <div class="top"><input type="checkbox" id="cb-inicio"><label for="cb-inicio">Hora Inicio Dolor</label></div>
-                    <div class="slider">
-                        <span>Hora estimada:</span>
-                        <input type="time" id="hora-inicio" style="background:#0b0d14; color:#e8eefb; border:1px solid #283149; border-radius:8px; padding:4px 6px;">
+                    
+                    <!-- Selector de hora para inicio de dolor -->
+                    <div class="hora-selector">
+                        <div class="hora-slider">
+                            <label>Horas:</label>
+                            <input type="range" id="hora-h" min="0" max="23" value="12">
+                            <span id="hora-h-v">12</span>
+                        </div>
+                        <div class="hora-slider">
+                            <label>Minutos:</label>
+                            <input type="range" id="hora-m" min="0" max="59" value="0">
+                            <span id="hora-m-v">00</span>
+                        </div>
                     </div>
+                    
+                    <!-- Display de información -->
+                    <div class="hora-display" id="hora-display"></div>
+                    <div class="retraso-display" id="retraso-display"></div>
+                    
                     <div class="delta" id="tm-inicio">00:00:00</div>
                 </div>
                 <div class="item" id="itm-sintomas">
@@ -748,7 +797,9 @@
                 <div class="item" id="itm-grace">
                     <div class="top">
                         <input type="checkbox" id="cb-grace"><label for="cb-grace">GRACE Score</label>
-                        <button class="calc-btn" onclick="abrirCalculadora('../../../Calculadoras/Cardiovascular/grace.html')">Calculadora</button>
+                        <button class="btn-ghost" onclick="abrirCalculadora('../../../Calculadoras/Cardiovascular/grace.html')">
+                            <i class="fa-solid fa-calculator"></i> Calculadora
+                        </button>
                     </div>
                     <div class="slider">
                         <span>Puntuación:</span>
@@ -765,7 +816,9 @@
                 <div class="item" id="itm-timi">
                     <div class="top">
                         <input type="checkbox" id="cb-timi"><label for="cb-timi">TIMI Risk Index</label>
-                        <button class="calc-btn" onclick="abrirCalculadora('../../../Calculadoras/Cardiovascular/timi-risk-index.html')">Calculadora</button>
+                        <button class="btn-ghost" onclick="abrirCalculadora('../../../Calculadoras/Cardiovascular/timi-risk-index.html')">
+                            <i class="fa-solid fa-calculator"></i> Calculadora
+                        </button>
                     </div>
                     <div class="slider">
                         <span>Puntuación:</span>
@@ -809,7 +862,12 @@
                         <option>Lateral</option>
                         <option>Posterior</option>
                         <option>Extenso</option>
+                        <option>Anteroseptal</option>
+                        <option>Inferolateral</option>
+                        <option>Anterolateral</option>
                     </select>
+                    <button class="btn-ghost" id="btn-localizacion">+ Registrar</button>
+                    <div class="inline-list" id="list-localizacion"></div>
                     <div class="delta" id="tm-localizacion">00:00:00</div>
                 </div>
             </div>
@@ -925,8 +983,10 @@
                     </div>
                     <div class="slider">
                         <span>PAM:</span>
-                        <strong><span id="pamv">96.7</span> mmHg</strong>
+                        <strong><span id="pamv">97</span> mmHg</strong>
                     </div>
+                    <button class="btn-ghost" id="btn-anotar-ta">+ Anotar TA</button>
+                    <div class="inline-list" id="list-ta"></div>
                     <div class="delta" id="tm-presion">00:00:00</div>
                 </div>
                 <div class="item" id="itm-fc">
@@ -991,7 +1051,13 @@
                         <option>Disfunción VI moderada</option>
                         <option>Disfunción VI grave</option>
                         <option>Complicaciones mecánicas</option>
+                        <option>Acinesia segmentaria</option>
+                        <option>Hipocinesia global</option>
+                        <option>Derrame pericárdico</option>
+                        <option>Trombos intracavitarios</option>
                     </select>
+                    <button class="btn-ghost" id="btn-eco">+ Registrar</button>
+                    <div class="inline-list" id="list-eco"></div>
                     <div class="delta" id="tm-eco">00:00:00</div>
                 </div>
             </div>
@@ -1124,6 +1190,62 @@
                 });
             });
 
+            /* ===== Hora inicio dolor (igual que en Ictus) ===== */
+            const horaHSlider = document.getElementById('hora-h');
+            const horaHValue = document.getElementById('hora-h-v');
+            const horaMSlider = document.getElementById('hora-m');
+            const horaMValue = document.getElementById('hora-m-v');
+            const horaDisplay = document.getElementById('hora-display');
+            const retrasoDisplay = document.getElementById('retraso-display');
+
+            function calcularRetraso(horaInicio) {
+                const ahora = new Date();
+                const inicio = new Date();
+                const [horas, minutos] = horaInicio.split(':');
+                inicio.setHours(parseInt(horas), parseInt(minutos), 0, 0);
+                
+                // Si la hora de inicio es mayor que la actual, asumimos que fue ayer
+                if (inicio > ahora) {
+                    inicio.setDate(inicio.getDate() - 1);
+                }
+                
+                const diferenciaMs = ahora - inicio;
+                const diferenciaHoras = Math.floor(diferenciaMs / (1000 * 60 * 60));
+                const diferenciaMinutos = Math.floor((diferenciaMs % (1000 * 60 * 60)) / (1000 * 60));
+                
+                return {
+                    horas: diferenciaHoras,
+                    minutos: diferenciaMinutos,
+                    texto: `${diferenciaHoras}h ${diferenciaMinutos}m`
+                };
+            }
+
+            function actualizarHoraInicio() {
+                const horas = String(horaHSlider.value).padStart(2, '0');
+                const minutos = String(horaMSlider.value).padStart(2, '0');
+                horaHValue.textContent = horas;
+                horaMValue.textContent = minutos;
+                
+                const horaCompleta = `${horas}:${minutos}`;
+                const retraso = calcularRetraso(horaCompleta);
+                
+                horaDisplay.textContent = `Hora inicio dolor: ${horaCompleta}`;
+                retrasoDisplay.textContent = `Retraso: ${retraso.texto}`;
+                
+                // Activar casilla automáticamente
+                document.getElementById('cb-inicio').checked = true;
+                marcar('inicio');
+            }
+
+            horaHSlider.addEventListener('input', actualizarHoraInicio);
+            horaMSlider.addEventListener('input', actualizarHoraInicio);
+
+            // Establecer hora actual al cargar
+            const ahora = new Date();
+            horaHSlider.value = ahora.getHours();
+            horaMSlider.value = ahora.getMinutes();
+            actualizarHoraInicio();
+
             /* ===== Presión arterial con PAM ===== */
             const tas = document.getElementById('tas'), tasv = document.getElementById('tasv');
             const tad = document.getElementById('tad'), tadv = document.getElementById('tadv');
@@ -1132,8 +1254,8 @@
             function calcularPAM() {
                 const tasVal = +tas.value;
                 const tadVal = +tad.value;
-                const pam = tadVal + (tasVal - tadVal) / 3;
-                pamv.textContent = pam.toFixed(1);
+                const pam = Math.round(tadVal + (tasVal - tadVal) / 3); // Sin decimales
+                pamv.textContent = pam;
                 return pam;
             }
 
@@ -1172,6 +1294,10 @@
                     state[key].ts = ts;
                     document.getElementById('tm-' + key).textContent = delta;
                 }
+                
+                // Activar checkbox automáticamente
+                document.getElementById('cb-' + key).checked = true;
+                marcar(key);
             }
 
             // Síntomas
@@ -1182,6 +1308,11 @@
             // ECG
             document.getElementById('btn-ecg').addEventListener('click', () => {
                 addRegistro('ecg', 'sel-ecg', 'Hallazgo ECG');
+            });
+
+            // Localización
+            document.getElementById('btn-localizacion').addEventListener('click', () => {
+                addRegistro('localizacion', 'sel-localizacion', 'Localización registrada');
             });
 
             // Antiagregación
@@ -1197,6 +1328,28 @@
             // Complicaciones
             document.getElementById('btn-complicaciones').addEventListener('click', () => {
                 addRegistro('complicaciones', 'sel-complicaciones', 'Complicación registrada');
+            });
+
+            // Ecocardiograma
+            document.getElementById('btn-eco').addEventListener('click', () => {
+                addRegistro('eco', 'sel-eco', 'Hallazgo ecocardiográfico');
+            });
+
+            // Anotar TA múltiple (igual que en Sepsis)
+            document.getElementById('btn-anotar-ta').addEventListener('click', () => {
+                const list = document.getElementById('list-ta');
+                const ts = new Date();
+                const delta = fmtHMS(ts - t0);
+                const tasVal = tas.value;
+                const tadVal = tad.value;
+                const pamVal = calcularPAM();
+
+                const registro = document.createElement('span');
+                registro.textContent = `TA: ${tasVal}/${tadVal} (PAM: ${pamVal}) - ${delta}`;
+                list.prepend(registro);
+
+                document.getElementById('cb-presion').checked = true;
+                marcar('presion');
             });
 
             // ICP
@@ -1216,6 +1369,7 @@
                 chip.addEventListener('click', () => {
                     document.querySelectorAll('#g-alerta .chip').forEach(c => c.classList.remove('active'));
                     chip.classList.add('active');
+                    document.getElementById('cb-alerta').checked = true;
                     marcar('alerta');
                 });
             });
@@ -1238,58 +1392,52 @@
             const grace = document.getElementById('grace'), gracev = document.getElementById('gracev');
             grace.addEventListener('input', e => {
                 gracev.textContent = e.target.value;
-                if (e.target.value > 109) {
-                    document.getElementById('cb-grace').checked = true;
-                    marcar('grace');
-                }
+                document.getElementById('cb-grace').checked = true;
+                marcar('grace');
             });
 
             const timi = document.getElementById('timi'), timiv = document.getElementById('timiv');
             timi.addEventListener('input', e => {
                 timiv.textContent = e.target.value;
-                if (e.target.value > 12) {
-                    document.getElementById('cb-timi').checked = true;
-                    marcar('timi');
-                }
+                document.getElementById('cb-timi').checked = true;
+                marcar('timi');
             });
 
             /* ===== marcadores ===== */
             const troponina = document.getElementById('troponina'), troponinav = document.getElementById('troponinav');
             troponina.addEventListener('input', e => {
                 troponinav.textContent = e.target.value;
-                if (e.target.value > 0.1) {
-                    document.getElementById('cb-troponina').checked = true;
-                    marcar('troponina');
-                }
+                document.getElementById('cb-troponina').checked = true;
+                marcar('troponina');
             });
 
             const bnp = document.getElementById('bnp'), bnpv = document.getElementById('bnpv');
             bnp.addEventListener('input', e => {
                 bnpv.textContent = e.target.value;
-                if (e.target.value > 100) {
-                    document.getElementById('cb-bnp').checked = true;
-                    marcar('bnp');
-                }
+                document.getElementById('cb-bnp').checked = true;
+                marcar('bnp');
             });
 
             const pcr = document.getElementById('pcr'), pcrv = document.getElementById('pcrv');
             pcr.addEventListener('input', e => {
                 pcrv.textContent = e.target.value;
-                if (e.target.value > 5) {
-                    document.getElementById('cb-pcr').checked = true;
-                    marcar('pcr');
-                }
+                document.getElementById('cb-pcr').checked = true;
+                marcar('pcr');
             });
 
             /* ===== frecuencia cardíaca y lactato ===== */
             const fc = document.getElementById('fc'), fcv = document.getElementById('fcv');
             fc.addEventListener('input', e => {
                 fcv.textContent = e.target.value;
+                document.getElementById('cb-fc').checked = true;
+                marcar('fc');
             });
 
             const lactato = document.getElementById('lactato'), lactatov = document.getElementById('lactatov');
             lactato.addEventListener('input', e => {
                 lactatov.textContent = e.target.value;
+                document.getElementById('cb-fc').checked = true;
+                marcar('fc');
             });
 
             /* ===== fracaso reperfusión ===== */
@@ -1326,6 +1474,13 @@
                     rows.push({ parametro: '', valor: '', detalle: '' });
                 }
 
+                // Hora inicio dolor
+                if (state.inicio.ts) {
+                    rows.push({ parametro: 'Hora inicio dolor', valor: horaDisplay.textContent.split(': ')[1], detalle: fmtHMS(state.inicio.ts - t0) });
+                    rows.push({ parametro: 'Retraso desde inicio', valor: retrasoDisplay.textContent.split(': ')[1], detalle: '—' });
+                    rows.push({ parametro: '', valor: '', detalle: '' });
+                }
+
                 // Síntomas
                 const sintomasRegistros = [...document.querySelectorAll('#list-sintomas span')].reverse();
                 if (sintomasRegistros.length > 0) {
@@ -1349,9 +1504,16 @@
                     ecgRegistros.forEach(reg => {
                         rows.push({ parametro: 'Hallazgo ECG', valor: reg.textContent.split(': ')[0], detalle: reg.textContent.split(': ')[1] });
                     });
-                    if (state.localizacion.ts) {
-                        rows.push({ parametro: 'Localización', valor: document.getElementById('sel-localizacion').value, detalle: fmtHMS(state.localizacion.ts - t0) });
-                    }
+                    rows.push({ parametro: '', valor: '', detalle: '' });
+                }
+
+                // Localización
+                const localizacionRegistros = [...document.querySelectorAll('#list-localizacion span')].reverse();
+                if (localizacionRegistros.length > 0) {
+                    rows.push({ parametro: 'LOCALIZACIÓN', valor: '', detalle: '' });
+                    localizacionRegistros.forEach(reg => {
+                        rows.push({ parametro: 'Localización', valor: reg.textContent.split(': ')[0], detalle: reg.textContent.split(': ')[1] });
+                    });
                     rows.push({ parametro: '', valor: '', detalle: '' });
                 }
 
@@ -1371,8 +1533,15 @@
                 // Parámetros hemodinámicos
                 rows.push({ parametro: 'PARÁMETROS HEMODINÁMICOS', valor: '', detalle: '' });
                 rows.push({ parametro: 'TAS/TAD/PAM', valor: `${tas.value}/${tad.value}/${pamv.textContent} mmHg`, detalle: '—' });
-                rows.push({ parametro: 'Frecuencia Cardíaca', valor: `${fc.value} lpm`, detalle: '—' });
-                rows.push({ parametro: 'Lactato', valor: `${lactato.value} mmol/L`, detalle: '—' });
+                
+                // Registros de TA
+                const taRegistros = [...document.querySelectorAll('#list-ta span')].reverse();
+                taRegistros.forEach(reg => {
+                    rows.push({ parametro: 'TA registrada', valor: reg.textContent.split(' - ')[0], detalle: reg.textContent.split(' - ')[1] });
+                });
+                
+                rows.push({ parametro: 'Frecuencia Cardíaca', valor: `${fc.value} lpm`, detalle: state.fc.ts ? fmtHMS(state.fc.ts - t0) : '—' });
+                rows.push({ parametro: 'Lactato', valor: `${lactato.value} mmol/L`, detalle: state.fc.ts ? fmtHMS(state.fc.ts - t0) : '—' });
                 rows.push({ parametro: '', valor: '', detalle: '' });
 
                 // Tratamientos
@@ -1405,6 +1574,16 @@
                     rows.push({ parametro: 'COMPLICACIONES', valor: '', detalle: '' });
                     complicacionesRegistros.forEach(reg => {
                         rows.push({ parametro: 'Complicación', valor: reg.textContent.split(': ')[0], detalle: reg.textContent.split(': ')[1] });
+                    });
+                    rows.push({ parametro: '', valor: '', detalle: '' });
+                }
+
+                // Ecocardiograma
+                const ecoRegistros = [...document.querySelectorAll('#list-eco span')].reverse();
+                if (ecoRegistros.length > 0) {
+                    rows.push({ parametro: 'ECOCARDIOGRAMA', valor: '', detalle: '' });
+                    ecoRegistros.forEach(reg => {
+                        rows.push({ parametro: 'Hallazgo', valor: reg.textContent.split(': ')[0], detalle: reg.textContent.split(': ')[1] });
                     });
                     rows.push({ parametro: '', valor: '', detalle: '' });
                 }
@@ -1484,13 +1663,17 @@
                 sexo.value = 'M';
                 SEXO = 'M';
 
-                // Limpiar listas de registros múltiples
-                ['sintomas', 'ecg', 'antiagregacion', 'anticoagulacion', 'complicaciones'].forEach(key => {
-                    document.getElementById('list-' + key).innerHTML = '';
-                });
-
                 // Reset hora inicio
-                document.getElementById('hora-inicio').value = '';
+                const ahora = new Date();
+                horaHSlider.value = ahora.getHours();
+                horaMSlider.value = ahora.getMinutes();
+                actualizarHoraInicio();
+
+                // Limpiar listas de registros múltiples
+                ['sintomas', 'ecg', 'localizacion', 'antiagregacion', 'anticoagulacion', 'complicaciones', 'eco', 'ta'].forEach(key => {
+                    const element = document.getElementById('list-' + key);
+                    if (element) element.innerHTML = '';
+                });
 
                 // Cerrar modales
                 dlg.close();
