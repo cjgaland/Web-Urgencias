@@ -535,6 +535,100 @@
             padding: 8px 12px;
         }
 
+        /* Modal para calculadoras */
+        .calc-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .calc-modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px;
+            height: 80%;
+            max-height: 600px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .calc-modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--red);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .calc-modal-close:hover {
+            background: var(--red2);
+        }
+
+        .calc-modal iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 12px;
+        }
+
+        /* Checkbox final del proceso */
+        .final-process {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 12px;
+            background: var(--card);
+            color: var(--ink);
+            border: 1px solid var(--stroke);
+            border-radius: var(--radius);
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 85;
+            box-shadow: var(--shadow);
+        }
+
+        .final-process input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .final-process label {
+            cursor: pointer;
+            font-weight: 700;
+            font-size: var(--fs-sm);
+            color: #fff;
+        }
+
+        .final-process .delta {
+            font: 800 14px/1 "Courier New", monospace;
+            background: #0b0d14;
+            border: 1px solid #242a39;
+            border-radius: 8px;
+            padding: 4px 8px;
+            color: #e8eefb;
+        }
+
         /* Modo tablet apilado */
         @media (max-width: 1100px) {
             .main {
@@ -556,7 +650,8 @@
             header,
             .fabs,
             .alerts,
-            .reportbar {
+            .reportbar,
+            .final-process {
                 display: none !important;
             }
 
@@ -597,8 +692,14 @@
             <div class="dt" id="fechaHora">--/--/---- --:--:--</div>
             <div class="title">Código Sepsis · Protocolo SAS</div>
             <div class="slider" style="justify-content:center; margin-top:4px;">
-                <i class="fa-solid fa-user"></i> Edad: <input type="range" id="edad" min="1" max="100" step="1" value="65" style="width:220px">
+                <i class="fa-solid fa-user"></i> Edad: <input type="range" id="edad" min="1" max="100" step="1" value="65" style="width:120px">
                 <strong><span id="edadv">65</span> años</strong>
+                <span style="margin-left: 12px;"></span>
+                <i class="fa-solid fa-venus-mars"></i> Sexo: 
+                <select id="sexo" style="background: #0b0d14; color: #e8eefb; border: 1px solid #283149; border-radius: 8px; padding: 4px 6px;">
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                </select>
             </div>
         </div>
         <div class="clock" id="clock">00:00:00</div>
@@ -625,7 +726,7 @@
                         <div><i class="fa-solid fa-vial" style="color: var(--warn);"></i> 3 horas: Cultivos + ATB</div>
                         <div><i class="fa-solid fa-tint" style="color: var(--warn);"></i> 6 horas: Reevaluación</div>
                     </div>
-                    <div class="delta" id="tm-tiempos">00:00:00</div>
+                    <!-- Eliminado el delta de tiempos -->
                 </div>
             </div>
         </section>
@@ -645,9 +746,9 @@
                         <strong><span id="sofav">0</span></strong>
                     </div>
                     <div class="delta" id="tm-sofa">00:00:00</div>
-                    <a class="btn-ghost" href="../../../Calculadoras/Infecciosas/sofa.html" target="_blank">
+                    <button class="btn-ghost" onclick="abrirCalculadora('../../../Calculadoras/Infecciosas/sofa.html')">
                         <i class="fa-solid fa-calculator"></i> Calculadora SOFA
-                    </a>
+                    </button>
                 </div>
                 <div class="item" id="itm-qsofa">
                     <div class="top">
@@ -660,9 +761,9 @@
                         <button class="chip" data-criterio="glasgow">GCS &lt; 15</button>
                     </div>
                     <div class="delta" id="tm-qsofa">00:00:00</div>
-                    <a class="btn-ghost" href="../../../Calculadoras/Infecciosas/qsofa.html" target="_blank">
+                    <button class="btn-ghost" onclick="abrirCalculadora('../../../Calculadoras/Infecciosas/qsofa.html')">
                         <i class="fa-solid fa-calculator"></i> Calculadora qSOFA
-                    </a>
+                    </button>
                 </div>
             </div>
         </section>
@@ -769,9 +870,9 @@
                         <strong><span id="apachev">10</span></strong>
                     </div>
                     <div class="delta" id="tm-apache">00:00:00</div>
-                    <a class="btn-ghost" href="../../../Calculadoras/UCI/apacheII.html" target="_blank">
+                    <button class="btn-ghost" onclick="abrirCalculadora('../../../Calculadoras/UCI/apacheII.html')">
                         <i class="fa-solid fa-calculator"></i> Calculadora APACHE II
-                    </a>
+                    </button>
                 </div>
             </div>
         </section>
@@ -814,15 +915,23 @@
             <h3>Fluidoterapia y Respuesta</h3>
             <div class="row">
                 <div class="item" id="itm-fluidos">
-                    <div class="top"><input type="checkbox" id="cb-fluidos"><label for="cb-fluidos">Bolo de Cristaloides</label></div>
+                    <div class="top"><input type="checkbox" id="cb-fluidos"><label for="cb-fluidos">Fluidoterapia</label></div>
+                    <select id="sel-fluidos" class="select">
+                        <option selected>Suero Salino 0.9%</option>
+                        <option>Ringer Lactato</option>
+                        <option>Suero Glucosado 5%</option>
+                        <option>Gelafundina</option>
+                        <option>Voluven</option>
+                        <option>Albúmina 20%</option>
+                    </select>
                     <div class="slider">
                         <span>Volumen:</span>
-                        <input type="range" id="volumen" min="500" max="3000" step="100" value="1000">
-                        <strong><span id="volumenv">1000</span> mL</strong>
+                        <input type="range" id="volumen" min="250" max="2000" step="250" value="500">
+                        <strong><span id="volumenv">500</span> mL</strong>
                     </div>
-                    <div class="delta" id="tm-fluidos">00:00:00</div>
                     <button class="btn-ghost" id="btn-fluidos">+ Administrar</button>
                     <div class="inline-list" id="list-fluidos"></div>
+                    <div class="delta" id="tm-fluidos">00:00:00</div>
                 </div>
                 <div class="item" id="itm-respuesta">
                     <div class="top"><input type="checkbox" id="cb-respuesta"><label for="cb-respuesta">Respuesta a Fluidos</label></div>
@@ -836,6 +945,13 @@
             </div>
         </section>
     </main>
+
+    <!-- Final del proceso -->
+    <div class="final-process">
+        <input type="checkbox" id="cb-final">
+        <label for="cb-final">Final del Proceso</label>
+        <div class="delta" id="tm-final">00:00:00</div>
+    </div>
 
     <!-- Barra Informe + PDF -->
     <div class="reportbar">
@@ -863,8 +979,8 @@
             <table class="table" id="tablaInforme">
                 <thead>
                     <tr>
-                        <th>Actuación</th>
-                        <th>Δ desde inicio</th>
+                        <th>Parámetro</th>
+                        <th>Valor</th>
                         <th>Detalle</th>
                     </tr>
                 </thead>
@@ -876,6 +992,16 @@
             <button class="btn" id="dlgOk">Cerrar</button>
         </div>
     </dialog>
+
+    <!-- Modal para calculadoras -->
+    <div id="calcModal" class="calc-modal">
+        <div class="calc-modal-content">
+            <button class="calc-modal-close" onclick="cerrarCalculadora()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <iframe id="calcIframe" src="about:blank" title="Calculadora médica"></iframe>
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -902,18 +1028,27 @@
             setInterval(tick, 1000);
             tick();
 
-            /* ===== edad ===== */
+            /* ===== edad y sexo ===== */
             let EDAD = 65;
+            let SEXO = 'M';
             const edad = document.getElementById('edad'), edadv = document.getElementById('edadv');
+            const sexo = document.getElementById('sexo');
+            
             edadv.textContent = edad.value;
             EDAD = +edad.value;
+            SEXO = sexo.value;
+            
             edad.addEventListener('input', e => {
                 EDAD = +e.target.value;
                 edadv.textContent = EDAD;
             });
+            
+            sexo.addEventListener('change', e => {
+                SEXO = e.target.value;
+            });
 
             /* ===== estado & sellado ===== */
-            const ids = ['alerta', 'tiempos', 'sofa', 'qsofa', 'presion', 'lactato', 'cultivos', 'foco', 'atb', 'apache', 'monitor', 'soporte', 'fluidos', 'respuesta'];
+            const ids = ['alerta', 'sofa', 'qsofa', 'presion', 'lactato', 'cultivos', 'foco', 'atb', 'apache', 'monitor', 'soporte', 'fluidos', 'respuesta', 'final'];
             const state = {};
             ids.forEach(id => state[id] = { ts: null });
 
@@ -1024,12 +1159,13 @@
             // Fluidoterapia
             document.getElementById('btn-fluidos').addEventListener('click', () => {
                 const list = document.getElementById('list-fluidos');
+                const selector = document.getElementById('sel-fluidos');
                 const ts = new Date();
                 const delta = fmtHMS(ts - t0);
                 const volumenVal = document.getElementById('volumen').value;
 
                 const registro = document.createElement('span');
-                registro.textContent = `Bolo ${volumenVal} mL: ${delta}`;
+                registro.textContent = `${selector.value} ${volumenVal} mL: ${delta}`;
                 list.prepend(registro);
 
                 if (!state['fluidos'].ts) {
@@ -1092,78 +1228,92 @@
             /* ===== Informe + PDF ===== */
             function buildRows() {
                 const rows = [];
-                const map = {
-                    alerta: 'Alerta sepsis activada',
-                    tiempos: 'Objetivos temporales establecidos',
-                    sofa: 'Escala SOFA',
-                    qsofa: 'Criterios qSOFA',
-                    presion: 'Monitorización presión arterial',
-                    lactato: 'Lactato medido',
-                    cultivos: 'Cultivos extraídos',
-                    foco: 'Foco infeccioso identificado',
-                    atb: 'Antibiótico administrado',
-                    apache: 'Escala APACHE II',
-                    monitor: 'Monitorización avanzada',
-                    soporte: 'Soporte orgánico',
-                    fluidos: 'Fluidoterapia',
-                    respuesta: 'Respuesta a fluidos'
-                };
+                
+                // Información del paciente y fecha
+                rows.push({ parametro: 'Fecha y hora inicio', valor: t0.toLocaleString('es-ES'), detalle: '—' });
+                rows.push({ parametro: 'Paciente', valor: `${SEXO === 'M' ? 'Masculino' : 'Femenino'}, ${EDAD} años`, detalle: '—' });
+                rows.push({ parametro: 'Duración total', valor: fmtHMS(Date.now() - t0.getTime()), detalle: '—' });
+                rows.push({ parametro: '', valor: '', detalle: '' }); // Línea separadora
 
-                // Actuaciones con Δ
-                Object.keys(map).forEach(id => {
-                    if (state[id].ts) {
-                        let detalle = '—';
-                        
-                        // Detalles específicos
-                        if (id === 'alerta') {
-                            const severidad = document.querySelector('#g-alerta .chip.active');
-                            detalle = severidad ? severidad.textContent : '—';
-                        } else if (id === 'sofa') {
-                            detalle = `Puntuación: ${sofa.value}`;
-                        } else if (id === 'lactato') {
-                            detalle = `${lactato.value} mmol/L`;
-                        } else if (id === 'presion') {
-                            detalle = `TAS: ${tas.value} mmHg, TAD: ${tad.value} mmHg, PAM: ${pamv.textContent} mmHg`;
-                        }
-                        
-                        rows.push({ id: map[id], delta: fmtHMS(state[id].ts - t0), det: detalle });
-                    }
-                });
+                // Parámetros hemodinámicos
+                rows.push({ parametro: 'PARÁMETROS HEMODINÁMICOS', valor: '', detalle: '' });
+                rows.push({ parametro: 'TAS/TAD/PAM', valor: `${tas.value}/${tad.value}/${pamv.textContent} mmHg`, detalle: '—' });
+                rows.push({ parametro: 'Lactato', valor: `${lactato.value} mmol/L`, detalle: '—' });
+                rows.push({ parametro: '', valor: '', detalle: '' });
 
-                // Registros múltiples de cultivos
+                // Escalas de gravedad
+                rows.push({ parametro: 'ESCALAS DE GRAVEDAD', valor: '', detalle: '' });
+                rows.push({ parametro: 'SOFA', valor: sofa.value, detalle: state.sofa.ts ? fmtHMS(state.sofa.ts - t0) : 'No calculado' });
+                rows.push({ parametro: 'APACHE II', valor: apache.value, detalle: state.apache.ts ? fmtHMS(state.apache.ts - t0) : 'No calculado' });
+                
+                const qsofaActivos = document.querySelectorAll('#itm-qsofa .chip.active').length;
+                rows.push({ parametro: 'qSOFA', valor: qsofaActivos >= 2 ? 'Positivo (≥2)' : 'Negativo', detalle: state.qsofa.ts ? fmtHMS(state.qsofa.ts - t0) : 'No evaluado' });
+                rows.push({ parametro: '', valor: '', detalle: '' });
+
+                // Severidad
+                const severidad = document.querySelector('#g-alerta .chip.active');
+                if (severidad) {
+                    rows.push({ parametro: 'GRAVEDAD', valor: severidad.textContent, detalle: state.alerta.ts ? fmtHMS(state.alerta.ts - t0) : '—' });
+                    rows.push({ parametro: '', valor: '', detalle: '' });
+                }
+
+                // Foco infeccioso
+                if (state.foco.ts) {
+                    const foco = document.getElementById('sel-foco').value;
+                    rows.push({ parametro: 'FOCO INFECCIOSO', valor: foco, detalle: fmtHMS(state.foco.ts - t0) });
+                    rows.push({ parametro: '', valor: '', detalle: '' });
+                }
+
+                // Procedimientos realizados
+                rows.push({ parametro: 'PROCEDIMIENTOS REALIZADOS', valor: '', detalle: '' });
+                
+                // Cultivos
                 const cultivosRegistros = [...document.querySelectorAll('#list-cultivos span')].reverse();
                 cultivosRegistros.forEach(reg => {
-                    rows.push({ id: 'Cultivo extraído', delta: reg.textContent.split(': ')[1], det: reg.textContent.split(': ')[0] });
+                    rows.push({ parametro: 'Cultivo extraído', valor: reg.textContent.split(': ')[0], detalle: reg.textContent.split(': ')[1] });
                 });
 
-                // Registros múltiples de ATB
+                // Antibióticos
                 const atbRegistros = [...document.querySelectorAll('#list-atb span')].reverse();
                 atbRegistros.forEach(reg => {
-                    rows.push({ id: 'ATB administrado', delta: reg.textContent.split(': ')[1], det: reg.textContent.split(': ')[0] });
+                    rows.push({ parametro: 'ATB administrado', valor: reg.textContent.split(': ')[0], detalle: reg.textContent.split(': ')[1] });
                 });
 
-                // Registros múltiples de monitorización
+                // Monitorización
                 const monitorRegistros = [...document.querySelectorAll('#list-monitor span')].reverse();
                 monitorRegistros.forEach(reg => {
-                    rows.push({ id: 'Monitorización', delta: reg.textContent.split(': ')[1], det: reg.textContent.split(': ')[0] });
+                    rows.push({ parametro: 'Monitorización', valor: reg.textContent.split(': ')[0], detalle: reg.textContent.split(': ')[1] });
                 });
 
-                // Registros múltiples de soporte
+                // Soporte
                 const soporteRegistros = [...document.querySelectorAll('#list-soporte span')].reverse();
                 soporteRegistros.forEach(reg => {
-                    rows.push({ id: 'Soporte orgánico', delta: reg.textContent.split(': ')[1], det: reg.textContent.split(': ')[0] });
+                    rows.push({ parametro: 'Soporte orgánico', valor: reg.textContent.split(': ')[0], detalle: reg.textContent.split(': ')[1] });
                 });
 
-                // Registros múltiples de fluidos
+                // Fluidoterapia
                 const fluidosRegistros = [...document.querySelectorAll('#list-fluidos span')].reverse();
-                fluidosRegistros.forEach(reg => {
-                    rows.push({ id: 'Fluidoterapia', delta: reg.textContent.split(': ')[1], det: reg.textContent.split(': ')[0] });
-                });
+                if (fluidosRegistros.length > 0) {
+                    rows.push({ parametro: '', valor: '', detalle: '' });
+                    rows.push({ parametro: 'FLUIDOTERAPIA', valor: '', detalle: '' });
+                    fluidosRegistros.forEach(reg => {
+                        rows.push({ parametro: 'Bolo administrado', valor: reg.textContent.split(': ')[0], detalle: reg.textContent.split(': ')[1] });
+                    });
+                }
 
-                // Datos adicionales
-                rows.unshift({ id: 'Edad', delta: `${EDAD} años`, det: '—' });
-                rows.unshift({ id: 'APACHE II', delta: `${apache.value}`, det: '—' });
-                rows.unshift({ id: 'TAS/TAD/PAM', delta: `${tas.value}/${tad.value}/${pamv.textContent} mmHg`, det: '—' });
+                // Respuesta a fluidos
+                if (state.respuesta.ts) {
+                    const respuesta = document.querySelector('#itm-respuesta .chip.active');
+                    if (respuesta) {
+                        rows.push({ parametro: 'RESPUESTA A FLUIDOS', valor: respuesta.textContent, detalle: fmtHMS(state.respuesta.ts - t0) });
+                    }
+                }
+
+                // Final del proceso
+                if (state.final.ts) {
+                    rows.push({ parametro: '', valor: '', detalle: '' });
+                    rows.push({ parametro: 'FINAL DEL PROCESO', valor: 'Completado', detalle: fmtHMS(state.final.ts - t0) });
+                }
 
                 return rows;
             }
@@ -1175,7 +1325,7 @@
                 tb.innerHTML = '';
                 rows.forEach(r => {
                     const tr = document.createElement('tr');
-                    tr.innerHTML = `<td>${r.id}</td><td>${r.delta}</td><td>${r.det}</td>`;
+                    tr.innerHTML = `<td>${r.parametro}</td><td>${r.valor}</td><td>${r.detalle}</td>`;
                     tb.appendChild(tr);
                 });
                 dlg.showModal();
@@ -1219,22 +1369,62 @@
                 calcularPAM();
                 lactato.value = 1.0;
                 lactatov.textContent = '1.0';
-                volumen.value = 1000;
-                volumenv.textContent = '1000';
+                volumen.value = 500;
+                volumenv.textContent = '500';
                 
-                // Reset edad
+                // Reset edad y sexo
                 edad.value = 65;
                 edadv.textContent = '65';
                 EDAD = 65;
+                sexo.value = 'M';
+                SEXO = 'M';
 
                 // Limpiar listas de registros múltiples
                 ['cultivos', 'atb', 'monitor', 'soporte', 'fluidos'].forEach(key => {
                     document.getElementById('list-' + key).innerHTML = '';
                 });
 
-                // Cerrar modal
+                // Cerrar modales
                 dlg.close();
+                cerrarCalculadora();
             });
+        });
+
+        // ===== FUNCIONES PARA CALCULADORAS EN MODAL =====
+        function abrirCalculadora(url) {
+            const modal = document.getElementById('calcModal');
+            const iframe = document.getElementById('calcIframe');
+            
+            iframe.src = url;
+            modal.style.display = 'flex';
+            
+            // Bloquear scroll del body
+            document.body.style.overflow = 'hidden';
+        }
+
+        function cerrarCalculadora() {
+            const modal = document.getElementById('calcModal');
+            const iframe = document.getElementById('calcIframe');
+            
+            modal.style.display = 'none';
+            iframe.src = '';
+            
+            // Restaurar scroll del body
+            document.body.style.overflow = 'auto';
+        }
+
+        // Cerrar modal con ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                cerrarCalculadora();
+            }
+        });
+
+        // Cerrar modal haciendo clic fuera del contenido
+        document.getElementById('calcModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                cerrarCalculadora();
+            }
         });
     </script>
 </body>
