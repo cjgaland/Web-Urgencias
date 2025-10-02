@@ -129,7 +129,7 @@
             padding: 8px 12px 96px;
             display: grid;
             gap: var(--row-gap);
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 2fr;
             grid-template-areas:
                 "alerta alerta"
                 "evaluacion escalas"
@@ -865,6 +865,19 @@
                     </button>
                     <div class="delta" id="tm-mrs">00:00:00</div>
                 </div>
+                <!-- NUEVA ESCALA ASPECTS -->
+                <div class="item" id="itm-aspects">
+                    <div class="top"><input type="checkbox" id="cb-aspects"><label for="cb-aspects">Escala ASPECTS</label></div>
+                    <div class="slider">
+                        <span>Puntuación:</span>
+                        <input type="range" id="aspects" min="0" max="10" step="1" value="10">
+                        <strong><span id="aspectsv">10</span></strong>
+                    </div>
+                    <button class="btn-ghost" onclick="abrirCalculadora('../../../Calculadoras/Neurologia/aspect.html')">
+                        <i class="fa-solid fa-calculator"></i> Calculadora ASPECTS
+                    </button>
+                    <div class="delta" id="tm-aspects">00:00:00</div>
+                </div>
             </div>
         </section>
 
@@ -1067,7 +1080,7 @@
         let tipoInicioSeleccionado = null; // 'hora' o 'despertar'
 
         // ===== SISTEMA DE TIEMPOS IDÉNTICO AL DE SEPSIS =====
-        const ids = ['alerta', 'inicio', 'examen', 'nihss', 'gcs', 'mrs', 'trombectomia', 'fibrinolisis', 'tac', 'angio', 'presion', 'glucemia', 'antiagregacion', 'anticoagulacion', 'complicaciones', 'final'];
+        const ids = ['alerta', 'inicio', 'examen', 'nihss', 'gcs', 'mrs', 'aspects', 'trombectomia', 'fibrinolisis', 'tac', 'angio', 'presion', 'glucemia', 'antiagregacion', 'anticoagulacion', 'complicaciones', 'final'];
         const state = {};
         ids.forEach(id => state[id] = { ts: null });
 
@@ -1285,6 +1298,15 @@
                 mrsValue.textContent = this.value;
                 document.getElementById('cb-mrs').checked = true;
                 marcar('mrs');
+            });
+
+            // ASPECTS - activar automáticamente
+            const aspectsSlider = document.getElementById('aspects');
+            const aspectsValue = document.getElementById('aspectsv');
+            aspectsSlider.addEventListener('input', function() {
+                aspectsValue.textContent = this.value;
+                document.getElementById('cb-aspects').checked = true;
+                marcar('aspects');
             });
 
             // TA
@@ -1592,6 +1614,7 @@
                         case 'nihss': nombre = 'NIHSS'; break;
                         case 'gcs': nombre = 'Escala de Glasgow'; break;
                         case 'mrs': nombre = 'Escala de Rankin'; break;
+                        case 'aspects': nombre = 'Escala ASPECTS'; break;
                         case 'trombectomia': nombre = 'Evaluación Trombectomía'; break;
                         case 'fibrinolisis': nombre = 'Evaluación Fibrinolisis'; break;
                         case 'tac': nombre = 'TAC Craneal'; break;
@@ -1614,6 +1637,7 @@
             const nihss = document.getElementById('nihss').value;
             const gcs = document.getElementById('gcs').value;
             const mrs = document.getElementById('mrs').value;
+            const aspects = document.getElementById('aspects').value;
             
             if (state.nihss.ts) {
                 agregarFilaInforme(tabla, 'NIHSS', nihss, fmtHMS(state.nihss.ts - t0));
@@ -1623,6 +1647,9 @@
             }
             if (state.mrs.ts) {
                 agregarFilaInforme(tabla, 'Escala de Rankin', mrs, fmtHMS(state.mrs.ts - t0));
+            }
+            if (state.aspects.ts) {
+                agregarFilaInforme(tabla, 'Escala ASPECTS', aspects, fmtHMS(state.aspects.ts - t0));
             }
 
             // Síntomas del examen neurológico
@@ -1724,6 +1751,7 @@
             contenido += `NIHSS: ${document.getElementById('nihss').value}\n`;
             contenido += `Escala de Glasgow: ${document.getElementById('gcs').value}\n`;
             contenido += `Escala de Rankin: ${document.getElementById('mrs').value}\n`;
+            contenido += `Escala ASPECTS: ${document.getElementById('aspects').value}\n`;
 
             // Síntomas
             if (sintomasExamen.length > 0) {
@@ -1765,6 +1793,7 @@
                         case 'nihss': nombre = 'NIHSS'; break;
                         case 'gcs': nombre = 'Escala de Glasgow'; break;
                         case 'mrs': nombre = 'Escala de Rankin'; break;
+                        case 'aspects': nombre = 'Escala ASPECTS'; break;
                         case 'trombectomia': nombre = 'Evaluación Trombectomía'; break;
                         case 'fibrinolisis': nombre = 'Evaluación Fibrinolisis'; break;
                         case 'tac': nombre = 'TAC Craneal'; break;
