@@ -58,6 +58,36 @@ header{
 .center{ text-align:center; line-height:1.1 }
 .center .dt{ font-size:var(--fs-sm); color:#000 }
 .center .title{ margin-top:2px; font-size:var(--fs-lg); font-weight:800; color:#000 }
+
+/* NUEVO: Selector de edad y sexo */
+.selector-paciente {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 4px;
+  font-size: var(--fs-sm);
+}
+
+.selector-paciente .slider-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.selector-paciente input[type="range"] {
+  width: 100px;
+}
+
+.selector-paciente select {
+  background: #0b0d14;
+  color: #e8eefb;
+  border: 1px solid #283149;
+  border-radius: 8px;
+  padding: 4px 6px;
+  font-size: var(--fs-sm);
+}
+
 .clock{
   min-width:130px; text-align:center; color:#fff; background:var(--red);
   border-radius:12px; padding:8px 12px; font:800 18px/1 "Courier New",monospace; box-shadow:var(--shadow);
@@ -314,6 +344,12 @@ dialog{ border:none; border-radius:14px; padding:0; box-shadow:0 24px 60px rgba(
     grid-template-columns: 1fr;
     grid-auto-flow: row;
   }
+  
+  /* Ajuste responsive para selector de paciente */
+  .selector-paciente {
+    flex-direction: column;
+    gap: 6px;
+  }
 }
 @media print{
   header, .fabs, .alerts, .reportbar { display:none !important; }
@@ -328,6 +364,21 @@ dialog{ border:none; border-radius:14px; padding:0; box-shadow:0 24px 60px rgba(
   <div class="center">
     <div class="dt" id="fechaHora">--/--/---- --:--:--</div>
     <div class="title">Soporte Vital del Adulto</div>
+    <!-- NUEVO: Selector de edad y sexo -->
+    <div class="selector-paciente">
+      <div class="slider-item">
+        <i class="fa-solid fa-user"></i> Edad: 
+        <input type="range" id="edad" min="1" max="100" step="1" value="65" style="width:100px">
+        <strong><span id="edadv">65</span> años</strong>
+      </div>
+      <div class="slider-item">
+        <i class="fa-solid fa-venus-mars"></i> Sexo: 
+        <select id="sexo">
+          <option value="M">Masculino</option>
+          <option value="F">Femenino</option>
+        </select>
+      </div>
+    </div>
   </div>
   <div class="clock" id="clock">00:00:00</div>
 </header>
@@ -574,6 +625,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const tick = ()=> clockEl.textContent = fmtHMS(Date.now()-t0.getTime());
   setInterval(tick, 1000); tick();
 
+  /* ===== NUEVO: Configurar selector de edad ===== */
+  const edadSlider = document.getElementById('edad');
+  const edadValue = document.getElementById('edadv');
+  edadSlider.addEventListener('input', function() {
+    edadValue.textContent = this.value;
+  });
+
   /* ===== audio: metrónomo + avisos ===== */
   const msPerBeat = () => 60000 / BPM;
   const ensureAudio = () => { if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)(); };
@@ -729,6 +787,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const tabla = document.getElementById('tablaInforme');
     tabla.innerHTML = '';
 
+    // NUEVO: Información del paciente
+    const sexo = document.getElementById('sexo').value === 'M' ? 'Hombre' : 'Mujer';
+    const edad = document.getElementById('edad').value;
+    agregarFilaInforme(tabla, 'Paciente', `${sexo}, ${edad} años`, '');
+
     // Tiempos de los diferentes eventos
     for (const id of ids) {
       if (state[id] && state[id].ts) {
@@ -798,6 +861,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
     let contenido = 'INFORME SVA\n\n';
     contenido += `Fecha y hora: ${new Date().toLocaleString('es-ES')}\n`;
     contenido += `Duración total: ${fmtHMS(Date.now() - t0)}\n\n`;
+
+    // NUEVO: Información del paciente
+    const sexo = document.getElementById('sexo').value === 'M' ? 'Hombre' : 'Mujer';
+    const edad = document.getElementById('edad').value;
+    contenido += `Paciente: ${sexo}, ${edad} años\n\n`;
 
     // Actuaciones con Δ
     const map = {
