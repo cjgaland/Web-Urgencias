@@ -1,45 +1,58 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Calculadora APACHE II (UCI)</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Calculadora APACHE II (UCI) - Urgencias</title>
+
+<!-- Estilos comunes de calculadoras -->
+<link rel="stylesheet" href="../css/calculadoras-common.css">
+
+<!-- Estilos específicos para APACHE II -->
 <style>
-:root{--c1:#0a5ea8;--c1-600:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
-*{box-sizing:border-box}
-
-body{font-family:Roboto,Arial,Helvetica,sans-serif;margin:0;padding:20px;background:#fff;color:#222}
-h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
-.card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px 16px 18px;max-width:720px;margin:0 auto;box-shadow:0 4px 16px rgba(0,0,0,.05)}
-.grid{display:grid;gap:.9rem}
-.row{display:grid;gap:.5rem;grid-template-columns:1fr 1fr;align-items:center}
-.ig{display:grid;grid-template-columns:1fr 120px;gap:.5rem}
-label{font-weight:600;color:#334155}
-input[type=number],select{border:1px solid var(--bx);border-radius:10px;padding:.6rem .65rem;font-size:1rem;width:100%}
-.actions{display:flex;gap:.6rem;margin-top:.4rem;flex-wrap:wrap;align-items:center}
-.actions .spacer{flex:1 1 auto}
-.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
-.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1-600)}
-.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}.btn.secondary:hover{background:#e6ebf2}
-.result{margin-top:.9rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;color:var(--tx);white-space:pre-wrap}
-.muted{color:var(--mut);font-size:.9rem}
-@media (max-width:560px){.row{grid-template-columns:1fr}.ig{grid-template-columns:1fr}}
-
-select{max-width:100%}
-
-.btn.close{margin-left:auto;background:var(--c1-600);color:#fff;border-color:#083554}
-.btn.close:hover{filter:brightness(1.05)}
-
-/* Estilos específicos para APACHE II */
-.section-title{margin:1.5rem 0 0.5rem 0;padding-bottom:0.5rem;border-bottom:1px solid var(--bd);color:var(--tx);font-size:1.1rem}
-.parameter-group{background:var(--bg);padding:1rem;border-radius:8px;border:1px solid var(--bd);margin-bottom:1rem}
-.parameter-group h3{margin:0 0 0.75rem 0;color:var(--tx);font-size:1rem}
+.section-title{
+  margin:1.5rem 0 0.5rem 0;
+  padding-bottom:0.5rem;
+  border-bottom:1px solid var(--bd);
+  color:var(--tx);
+  font-size:1.1rem;
+  font-weight:600;
+}
+.parameter-group{
+  background:var(--bg);
+  padding:1rem;
+  border-radius:8px;
+  border:1px solid var(--bd);
+  margin-bottom:1rem;
+}
+.parameter-group h3{
+  margin:0 0 0.75rem 0;
+  color:var(--tx);
+  font-size:1rem;
+}
+details{margin-top:.4rem}
+details summary{cursor:pointer;color:#0a4c84;font-weight:600}
+.details-box{border:1px solid var(--bd);background:var(--bg);border-radius:10px;padding:.7rem .9rem;margin-top:.5rem;color:#374151}
+.criteria-list{margin:.5rem 0}
+.criteria-list li{margin-bottom:.3rem}
+.score-table{width:100%;border-collapse:collapse;margin:.5rem 0;font-size:0.9rem}
+.score-table th,.score-table td{padding:0.3rem;border:1px solid var(--bd);text-align:center}
+.score-table th{background:var(--bg);font-weight:600}
+.calculated-value{
+  background:#f0f9ff;
+  border:1px solid #bae6fd;
+  border-radius:6px;
+  padding:0.5rem;
+  margin:0.5rem 0;
+  font-weight:600;
+  color:#0369a1;
+}
 </style>
 </head>
 <body>
 <div class="card">
   <h1>Calculadora APACHE II (Acute Physiology And Chronic Health Evaluation)</h1>
-  <p class="muted">Sistema de puntuación para evaluar la gravedad y predecir mortalidad en pacientes de UCI.</p>
+  <p class="sub">Sistema de puntuación para evaluar la gravedad y predecir mortalidad en pacientes de UCI.</p>
 
   <form id="formAPACHE" class="grid">
     
@@ -95,18 +108,33 @@ select{max-width:100%}
     <div class="parameter-group">
       <h3>Función Cardiovascular</h3>
       <div class="row">
-        <label for="hr">Frecuencia cardiaca (lpm)</label>
+        <label for="pas">Presión Arterial Sistólica (mmHg)</label>
         <div class="ig">
-          <input id="hr" type="number" min="0" max="250" step="1" placeholder="Ej. 110" required>
-          <select disabled><option>lpm</option></select>
+          <input id="pas" type="number" min="0" max="300" step="1" placeholder="Ej. 120" required>
+          <select disabled><option>mmHg</option></select>
         </div>
       </div>
 
       <div class="row">
-        <label for="map">Presión Arterial Media (mmHg)</label>
+        <label for="pad">Presión Arterial Diastólica (mmHg)</label>
         <div class="ig">
-          <input id="map" type="number" min="0" max="200" step="1" placeholder="Ej. 70" required>
+          <input id="pad" type="number" min="0" max="200" step="1" placeholder="Ej. 80" required>
           <select disabled><option>mmHg</option></select>
+        </div>
+      </div>
+
+      <div id="pamDisplay" class="calculated-value" style="display:none">
+        PAM calculada: <span id="pamValue">-</span> mmHg
+        <div class="small" style="color:#0369a1; margin-top:0.25rem;">
+          Fórmula: PAM = [PAS + (2 × PAD)] / 3
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="hr">Frecuencia cardiaca (lpm)</label>
+        <div class="ig">
+          <input id="hr" type="number" min="0" max="250" step="1" placeholder="Ej. 110" required>
+          <select disabled><option>lpm</option></select>
         </div>
       </div>
     </div>
@@ -205,23 +233,121 @@ select{max-width:100%}
       </div>
     </div>
 
+    <details>
+      <summary>Ver criterios de puntuación</summary>
+      <div class="details-box">
+        <p><strong>Puntuación por Edad:</strong></p>
+        <table class="score-table">
+          <tr><th>Edad (años)</th><th>Puntos</th></tr>
+          <tr><td>&lt; 45</td><td>0</td></tr>
+          <tr><td>45-54</td><td>2</td></tr>
+          <tr><td>55-64</td><td>3</td></tr>
+          <tr><td>65-74</td><td>5</td></tr>
+          <tr><td>≥ 75</td><td>6</td></tr>
+        </table>
+
+        <p><strong>Salud Crónica (puntos se suman):</strong></p>
+        <ul class="criteria-list">
+          <li><strong>Cirugía programada:</strong> 2 puntos</li>
+          <li><strong>Cirugía no programada o disfunción orgánica:</strong> 5 puntos</li>
+          <li><strong>Inmunosupresión:</strong> 5 puntos adicionales</li>
+        </ul>
+
+        <p><strong>Escala de Glasgow:</strong> 15 - GCS (máximo 12 puntos)</p>
+
+        <p><strong>Parámetros Fisiológicos (0-4 puntos cada uno):</strong></p>
+        <ul class="criteria-list">
+          <li>Temperatura, FC, PAM, FR, sodio, potasio, creatinina</li>
+          <li>Hematocrito, leucocitos, equilibrio ácido-base</li>
+          <li>Oxigenación (PaO₂ o A-aDO₂ según FiO₂)</li>
+        </ul>
+
+        <p><strong>Puntuación por PAM (Presión Arterial Media):</strong></p>
+        <table class="score-table">
+          <tr><th>PAM (mmHg)</th><th>Puntos</th></tr>
+          <tr><td>≥ 160</td><td>4</td></tr>
+          <tr><td>130-159</td><td>3</td></tr>
+          <tr><td>110-129</td><td>2</td></tr>
+          <tr><td>70-109</td><td>0</td></tr>
+          <tr><td>50-69</td><td>2</td></tr>
+          <tr><td>&lt; 50</td><td>4</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details>
+      <summary>Ver interpretación y utilidad clínica</summary>
+      <div class="details-box">
+        <p><strong>Interpretación de la Puntuación APACHE II:</strong></p>
+        <table class="score-table">
+          <tr><th>Puntuación</th><th>Riesgo</th><th>Mortalidad Estimada</th></tr>
+          <tr><td>0-10</td><td>BAJO</td><td>≈ 4%</td></tr>
+          <tr><td>11-20</td><td>MODERADO</td><td>≈ 15%</td></tr>
+          <tr><td>21-30</td><td>ALTO</td><td>≈ 40%</td></tr>
+          <tr><td>31-71</td><td>MUY ALTO</td><td>≈ 75%</td></tr>
+        </table>
+
+        <p><strong>Utilidad Clínica:</strong></p>
+        <ul class="criteria-list">
+          <li><strong>Estratificación de riesgo:</strong> Identificar pacientes de alto riesgo</li>
+          <li><strong>Comparación de poblaciones:</strong> Para estudios y auditorías</li>
+          <li><strong>Toma de decisiones:</strong> Ayuda en decisiones de tratamiento</li>
+          <li><strong>Pronóstico:</strong> Estimación de mortalidad hospitalaria</li>
+        </ul>
+
+        <p><strong>Limitaciones:</strong></p>
+        <ul class="criteria-list">
+          <li>No predice mortalidad individual con precisión absoluta</li>
+          <li>Mejor para grupos de pacientes que para individuos</li>
+          <li>No considera diagnóstico específico ni tratamientos</li>
+          <li>Debe usarse junto con evaluación clínica completa</li>
+        </ul>
+
+        <p class="muted">APACHE II es una herramienta de evaluación, no sustituye el juicio clínico del médico.</p>
+      </div>
+    </details>
+
     <div class="actions">
       <button type="submit" class="btn primary">Calcular APACHE II</button>
       <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
       <button type="reset" class="btn secondary">Limpiar</button>
-    
       <span class="spacer"></span>
       <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
     </div>
 
     <div id="result" class="result" aria-live="polite">Introduce valores y pulsa "Calcular APACHE II".</div>
-    <p class="muted">Interpretación: Puntuación APACHE II (0-71). Mayor puntuación indica mayor gravedad y riesgo de mortalidad.</p>
+    <p class="muted">APACHE II evalúa gravedad en UCI usando edad, salud crónica y 12 parámetros fisiológicos agudos. Mayor puntuación indica mayor riesgo de mortalidad.</p>
   </form>
 </div>
 
+<!-- Scripts comunes -->
+<script src="../js/calculadoras-common.js"></script>
+
+<!-- Lógica específica de esta calculadora -->
 <script>
 (function(){
-  const $=id=>document.getElementById(id), r=(v,d=1)=>Math.round((v+Number.EPSILON)*(10**d))/(10**d);
+  const $ = (id) => document.getElementById(id);
+  const r = (v, d=1) => Math.round((v + Number.EPSILON) * (10 ** d)) / (10 ** d);
+  
+  // Función para calcular PAM automáticamente
+  function calculateMAP() {
+    const pas = parseFloat($('pas').value);
+    const pad = parseFloat($('pad').value);
+    
+    if (pas > 0 && pad > 0) {
+      const pam = (pas + (2 * pad)) / 3;
+      $('pamValue').textContent = r(pam, 1);
+      $('pamDisplay').style.display = 'block';
+      return pam;
+    } else {
+      $('pamDisplay').style.display = 'none';
+      return null;
+    }
+  }
+  
+  // Event listeners para calcular PAM automáticamente
+  $('pas').addEventListener('input', calculateMAP);
+  $('pad').addEventListener('input', calculateMAP);
   
   // Función para calcular puntuación por edad
   function getAgeScore(age) {
@@ -359,7 +485,7 @@ select{max-width:100%}
     return 15 - gcs; // APACHE II usa 15 - GCS
   }
 
-  $('formAPACHE').addEventListener('submit', e=>{
+  $('formAPACHE').addEventListener('submit', e => {
     e.preventDefault();
     
     // Obtener valores
@@ -367,8 +493,9 @@ select{max-width:100%}
     const chronicHealth = parseInt($('chronicHealth').value);
     const immunosuppression = parseInt($('immunosuppression').value);
     const gcs = parseFloat($('gcs').value);
+    const pas = parseFloat($('pas').value);
+    const pad = parseFloat($('pad').value);
     const hr = parseFloat($('hr').value);
-    const map = parseFloat($('map').value);
     const respiratoryRate = parseFloat($('respiratoryRate').value);
     const pao2 = parseFloat($('pao2').value);
     const fio2 = parseFloat($('fio2').value);
@@ -381,48 +508,49 @@ select{max-width:100%}
     const potassium = parseFloat($('potassium').value);
     const bicarbonate = parseFloat($('bicarbonate').value);
     
+    // Calcular PAM automáticamente
+    const map = calculateMAP();
+    
     // Validar
-    if(!(age>=0)||!(gcs>=3)||!(hr>=0)||!(map>=0)||!(respiratoryRate>=0)||!(pao2>=0)||!(fio2>=0.21)||!(temperature>=30)||!(hematocrit>=10)||!(wbc>=0)||!(creatinine>=0.1)||!(sodium>=100)||!(potassium>=1)||!(bicarbonate>=5)) {
+    if(!(age>=0)||!(gcs>=3)||!(pas>=0)||!(pad>=0)||!(hr>=0)||!(respiratoryRate>=0)||!(pao2>=0)||!(fio2>=0.21)||!(temperature>=30)||!(hematocrit>=10)||!(wbc>=0)||!(creatinine>=0.1)||!(sodium>=100)||!(potassium>=1)||!(bicarbonate>=5)) {
       return $('result').textContent='Revisa todos los valores.';
     }
     
-    // Calcular puntuación APACHE II
-    let score = 0;
-    
-    // Puntuación por edad
-    score += getAgeScore(age);
-    
-    // Puntuación por salud crónica e inmunosupresión
-    score += chronicHealth;
-    score += immunosuppression;
-    
-    // Puntuación por parámetros fisiológicos agudos
-    score += getGCSScore(gcs);
-    score += getTemperatureScore(temperature);
-    score += getMAPScore(map);
-    score += getHRScore(hr);
-    score += getRespiratoryRateScore(respiratoryRate);
-    score += getOxygenationScore(pao2, fio2, aado2);
-    score += getSodiumScore(sodium);
-    score += getPotassiumScore(potassium);
-    score += getCreatinineScore(creatinine);
-    score += getHematocritScore(hematocrit);
-    score += getWBCScore(wbc);
+    // Calcular puntuaciones individuales
+    const ageScore = getAgeScore(age);
+    const chronicScore = chronicHealth + immunosuppression;
+    const gcsScore = getGCSScore(gcs);
+    const tempScore = getTemperatureScore(temperature);
+    const mapScore = getMAPScore(map);
+    const hrScore = getHRScore(hr);
+    const rrScore = getRespiratoryRateScore(respiratoryRate);
+    const oxygenationScore = getOxygenationScore(pao2, fio2, aado2);
+    const sodiumScore = getSodiumScore(sodium);
+    const potassiumScore = getPotassiumScore(potassium);
+    const creatinineScore = getCreatinineScore(creatinine);
+    const hematocritScore = getHematocritScore(hematocrit);
+    const wbcScore = getWBCScore(wbc);
     
     // Calcular pH arterial a partir del bicarbonato (aproximación)
-    const arterialPH = 7.4 + ((bicarbonate - 24) / 20); // Aproximación simplificada
-    score += getArterialpHScore(arterialPH);
+    const arterialPH = 7.4 + ((bicarbonate - 24) / 20);
+    const phScore = getArterialpHScore(arterialPH);
+    
+    // Calcular puntuación total APACHE II
+    const totalScore = ageScore + chronicScore + gcsScore + tempScore + mapScore + 
+                      hrScore + rrScore + oxygenationScore + sodiumScore + 
+                      potassiumScore + creatinineScore + hematocritScore + 
+                      wbcScore + phScore;
     
     // Determinar categoría de riesgo
     let riskCategory, mortalityEstimate;
     
-    if (score <= 10) {
+    if (totalScore <= 10) {
       riskCategory = "BAJO";
       mortalityEstimate = "≈ 4%";
-    } else if (score <= 20) {
+    } else if (totalScore <= 20) {
       riskCategory = "MODERADO";
       mortalityEstimate = "≈ 15%";
-    } else if (score <= 30) {
+    } else if (totalScore <= 30) {
       riskCategory = "ALTO";
       mortalityEstimate = "≈ 40%";
     } else {
@@ -430,61 +558,37 @@ select{max-width:100%}
       mortalityEstimate = "≈ 75%";
     }
     
-    // Mostrar resultado
-    const resultText = `Puntuación APACHE II: ${score}
+    // Mostrar resultado detallado
+    const resultText = `PUNTUACIÓN APACHE II: ${totalScore}
 
 CATEGORÍA DE RIESGO: ${riskCategory}
 
-Mortalidad hospitalaria estimada: ${mortalityEstimate}
+MORTALIDAD HOSPITALARIA ESTIMADA: ${mortalityEstimate}
 
-Desglose por componentes:
-• Edad: ${getAgeScore(age)} puntos
-• Salud crónica/inmunosupresión: ${chronicHealth + immunosuppression} puntos
-• Escala de Glasgow: ${getGCSScore(gcs)} puntos
-• Parámetros fisiológicos agudos: ${score - getAgeScore(age) - chronicHealth - immunosuppression - getGCSScore(gcs)} puntos
+DESGLOSE POR COMPONENTES:
+• Edad (${age} años): ${ageScore} puntos
+• Salud crónica/inmunosupresión: ${chronicScore} puntos
+• Escala de Glasgow (${gcs}): ${gcsScore} puntos
+• Temperatura (${temperature}°C): ${tempScore} puntos
+• PAM (${r(map, 1)} mmHg): ${mapScore} puntos
+• FC (${hr} lpm): ${hrScore} puntos
+• FR (${respiratoryRate} rpm): ${rrScore} puntos
+• Oxigenación: ${oxygenationScore} puntos
+• Sodio (${sodium} mEq/L): ${sodiumScore} puntos
+• Potasio (${potassium} mEq/L): ${potassiumScore} puntos
+• Creatinina (${creatinine} mg/dL): ${creatinineScore} puntos
+• Hematocrito (${hematocrit}%): ${hematocritScore} puntos
+• Leucocitos (${wbc} x10³/μL): ${wbcScore} puntos
+• Equilibrio ácido-base: ${phScore} puntos
 
-Interpretación:
+INTERPRETACIÓN:
 - Puntuación máxima posible: 71 puntos
-- Mayor puntuación indica mayor gravedad
-- Utilizar junto con evaluación clínica completa`;
+- ${riskCategory} riesgo de mortalidad hospitalaria
+- Utilizar como herramienta complementaria a la evaluación clínica`;
 
     $('result').textContent = resultText;
   });
-  
-  $('copyBtn').addEventListener('click',()=>{
-    const t=$('result').textContent||''; 
-    if(!t.trim() || t === 'Introduce valores y pulsa "Calcular APACHE II".') 
-      return alert('No hay resultado para copiar.');
-    
-    navigator.clipboard.writeText(t).then(()=>{ 
-      $('copyBtn').textContent='¡Copiado!'; 
-      setTimeout(()=>$('copyBtn').textContent='Copiar resultado',900); 
-    });
-  });
-  
-  // Limpiar resultado al resetear formulario
-  $('formAPACHE').addEventListener('reset', ()=>{
-    $('result').textContent = 'Introduce valores y pulsa "Calcular APACHE II".';
-  });
 })();
-
-// Cierre inteligente
-function smartClose(){
-  try{
-    if(window.opener && !window.opener.closed){
-      window.close();
-      return;
-    }
-  }catch(e){}
-  if(history.length > 1){
-    history.back();
-  }else{
-    location.href = '../index.html';
-  }
-}
-
-var _closeBtn = document.getElementById('closeBtn');
-if(_closeBtn){ _closeBtn.addEventListener('click', smartClose); }
 </script>
 </body>
 </html>

@@ -1,101 +1,175 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Diferencia Alvéolo-Arterial de O₂</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px;background:#fff;color:#222}
-.card{background:#fff;border:1px solid #ddd;border-radius:12px;padding:16px;max-width:600px;margin:auto;box-shadow:0 4px 16px rgba(0,0,0,.05)}
-h1{font-size:1.25rem;color:#0a4c84;margin-bottom:1rem}
-label{display:block;margin:.5rem 0 .2rem}
-input{width:100%;padding:.5rem;border:1px solid #ccc;border-radius:8px}
-.actions{display:flex;gap:.5rem;margin-top:1rem;flex-wrap:wrap;align-items:center}
-.btn{padding:.5rem .8rem;border-radius:8px;border:1px solid transparent;cursor:pointer}
-.btn.primary{background:#0a5ea8;color:#fff}
-.btn.secondary{background:#eef2f7;color:#0a4c84;border:1px solid #d9e2ec}
-.result{margin-top:1rem;padding:.7rem;border:1px solid #ddd;background:#f7fbff;border-radius:8px;white-space:pre-wrap}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gradiente Alvéolo-Arterial - Urgencias</title>
 
-*{box-sizing:border-box}
-select{max-width:100%}
-.actions .spacer{flex:1 1 auto}
-.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
-.btn.close:hover{filter:brightness(1.05)}</style>
+<!-- Estilos comunes de calculadoras -->
+<link rel="stylesheet" href="../css/calculadoras-common.css">
+
+<!-- Estilos específicos -->
+<style>
+details{margin-top:.4rem}
+details summary{cursor:pointer;color:#0a4c84;font-weight:600}
+.details-box{border:1px solid var(--bd);background:var(--bg);border-radius:10px;padding:.7rem .9rem;margin-top:.5rem;color:#374151}
+</style>
 </head>
 <body>
 <div class="card">
-<h1>Diferencia Alvéolo-Arterial de O₂</h1>
+  <h1>Diferencia Alvéolo-Arterial de O₂</h1>
+  <p class="sub">Cálculo del gradiente A-a para evaluación de intercambio gaseoso.</p>
 
-<label>FiO₂ (%)</label>
-<input type="number" id="fio2" placeholder="Ej: 21 para aire ambiente">
+  <form id="formGradiente" class="grid">
+    
+    <div class="row">
+      <label for="fio2">FiO₂ (%)</label>
+      <div class="ig">
+        <input id="fio2" type="number" step="0.1" min="0" max="100" placeholder="Ej. 21 (aire ambiente)" required />
+        <span></span>
+      </div>
+    </div>
 
-<label>PaO₂ (mmHg)</label>
-<input type="number" id="pao2" placeholder="Ej: 80">
+    <div class="row">
+      <label for="pao2">PaO₂ (mmHg)</label>
+      <div class="ig">
+        <input id="pao2" type="number" step="0.1" min="0" placeholder="Ej. 80" required />
+        <span></span>
+      </div>
+    </div>
 
-<label>PaCO₂ (mmHg)</label>
-<input type="number" id="paco2" placeholder="Ej: 40">
+    <div class="row">
+      <label for="paco2">PaCO₂ (mmHg)</label>
+      <div class="ig">
+        <input id="paco2" type="number" step="0.1" min="0" placeholder="Ej. 40" required />
+        <span></span>
+      </div>
+    </div>
 
-<label>Presión atmosférica (mmHg)</label>
-<input type="number" id="patm" value="760">
+    <details>
+      <summary>Parámetros avanzados (opcional)</summary>
+      <div class="details-box">
+        <div class="row">
+          <label for="patm">Presión atmosférica (mmHg)</label>
+          <div class="ig">
+            <input id="patm" type="number" step="0.1" value="760" />
+            <span></span>
+          </div>
+        </div>
+        <div class="row">
+          <label for="ph2o">Presión vapor de agua (mmHg)</label>
+          <div class="ig">
+            <input id="ph2o" type="number" step="0.1" value="47" />
+            <span></span>
+          </div>
+        </div>
+        <div class="row">
+          <label for="rq">Cociente respiratorio (R)</label>
+          <div class="ig">
+            <input id="rq" type="number" step="0.01" value="0.8" />
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </details>
 
-<label>Presión vapor de agua (mmHg)</label>
-<input type="number" id="ph2o" value="47">
+    <details>
+      <summary>Ver fórmulas e interpretación</summary>
+      <div class="details-box">
+        <p><strong>Fórmula del gradiente A-a:</strong></p>
+        <p>PAO₂ = FiO₂ × (P<sub>atm</sub> - P<sub>H₂O</sub>) - (PaCO₂ / R)</p>
+        <p>Gradiente A-a = PAO₂ - PaO₂</p>
+        
+        <p><strong>Interpretación (en aire ambiente):</strong></p>
+        <ul>
+          <li><strong>Normal:</strong> &lt;10 mmHg en adultos jóvenes</li>
+          <li><strong>Ligeramente elevado:</strong> 10-20 mmHg</li>
+          <li><strong>Moderadamente elevado:</strong> 20-30 mmHg</li>
+          <li><strong>Marcadamente elevado:</strong> &gt;30 mmHg</li>
+        </ul>
+        
+        <p><strong>Causas de gradiente elevado:</strong></p>
+        <ul>
+          <li>Enfermedad pulmonar parenquimatosa</li>
+          <li>Alteraciones V/Q (EPOC, embolia pulmonar)</li>
+          <li>Shunt intrapulmonar</li>
+          <li>Fibrosis pulmonar</li>
+        </ul>
+        
+        <p><strong>Límite normal por edad:</strong> (Edad/4) + 4 mmHg</p>
+        <p class="muted">El gradiente aumenta con la edad y la FiO₂. Siempre interpretar en contexto clínico.</p>
+      </div>
+    </details>
 
-<label>Cociente respiratorio (R)</label>
-<input type="number" step="0.01" id="rq" value="0.8">
+    <div class="actions">
+      <button type="submit" class="btn primary">Calcular</button>
+      <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
+      <button type="reset" class="btn secondary">Limpiar</button>
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+    </div>
 
-<div class="actions">
-  <button class="btn primary" onclick="calc()">Calcular</button>
-  <button class="btn secondary" onclick="copyRes()">Copiar</button>
-  <button class="btn secondary" onclick="resetForm()">Limpiar</button>
-
-  <span class="spacer"></span>
-  <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+    <div id="result" class="result" aria-live="polite">Introduce valores y pulsa "Calcular".</div>
+    <p class="muted">Gradiente A-a elevado sugiere alteración V/Q o shunt intrapulmonar. Valores normales aumentan con la edad y FiO₂. Interpretar en contexto clínico completo.</p>
+  </form>
 </div>
 
-<div class="result" id="resultado">Introduce los valores y pulsa Calcular.</div>
-    <p class="muted"><strong>Nota clínica:</strong> Un gradiente A–a elevado sugiere alteración V/Q o shunt intrapulmonar. Interpretar con la <em>FiO₂</em> usada y el contexto clínico; los valores “normales” aumentan con la edad. No sustituye la evaluación gasométrica completa.</p>
+<!-- Scripts comunes -->
+<script src="../js/calculadoras-common.js"></script>
 
-</div>
-
+<!-- Lógica específica de esta calculadora -->
 <script>
-function calc(){
-  const FiO2 = parseFloat(document.getElementById('fio2').value)/100;
-  const PaO2 = parseFloat(document.getElementById('pao2').value);
-  const PaCO2 = parseFloat(document.getElementById('paco2').value);
-  const Patm = parseFloat(document.getElementById('patm').value);
-  const PH2O = parseFloat(document.getElementById('ph2o').value);
-  const RQ = parseFloat(document.getElementById('rq').value);
+(function() {
+  const $ = (id) => document.getElementById(id);
+  
+  const r = (value, decimals = 1) => Math.round((value + Number.EPSILON) * (10 ** decimals)) / (10 ** decimals);
 
-  if([FiO2,PaO2,PaCO2,Patm,PH2O,RQ].some(isNaN)){alert("Completa todos los campos");return;}
-
-  const PAO2 = FiO2*(Patm - PH2O) - (PaCO2/RQ);
-  const gradiente = PAO2 - PaO2;
-
-  document.getElementById('resultado').textContent =
-    `PAO₂ = ${PAO2.toFixed(1)} mmHg\nGradiente A-a = ${gradiente.toFixed(1)} mmHg`;
-}
-
-function copyRes(){
-  navigator.clipboard.writeText(document.getElementById('resultado').textContent);
-}
-
-function resetForm(){
-  document.querySelectorAll('input').forEach(e=>e.value="");
-  document.getElementById('resultado').textContent="Introduce los valores y pulsa Calcular.";
-}
-
-// Cierre inteligente
-function smartClose(){
-  try{
-    if(window.opener && !window.opener.closed){ window.close(); return; }
-  }catch(e){}
-  if(history.length>1){ history.back(); }
-  else{ location.href='../index.html'; }
-}
-var _cb = document.getElementById('closeBtn');
-if(_cb){ _cb.addEventListener('click', smartClose); }
-
+  $('formGradiente').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const fio2 = parseFloat($('fio2').value) / 100;
+    const pao2 = parseFloat($('pao2').value);
+    const paco2 = parseFloat($('paco2').value);
+    const patm = parseFloat($('patm').value) || 760;
+    const ph2o = parseFloat($('ph2o').value) || 47;
+    const rq = parseFloat($('rq').value) || 0.8;
+    
+    if (!(fio2 > 0) || !(pao2 >= 0) || !(paco2 >= 0)) {
+      $('result').textContent = 'Por favor, revisa los valores requeridos.';
+      return;
+    }
+    
+    // Fórmula del gradiente A-a
+    const PAO2 = fio2 * (patm - ph2o) - (paco2 / rq);
+    const gradiente = PAO2 - pao2;
+    
+    let resultado = `PAO₂ = ${r(PAO2, 1)} mmHg\n`;
+    resultado += `Gradiente A-a = ${r(gradiente, 1)} mmHg\n\n`;
+    
+    // Interpretación detallada
+    if (gradiente <= 10) {
+      resultado += '• Gradiente NORMAL\n';
+      resultado += 'Sugiere hipoventilación o baja FiO₂ como causa de hipoxemia';
+    } else if (gradiente <= 20) {
+      resultado += '• Gradiente LIGERAMENTE ELEVADO\n';
+      resultado += 'Posible alteración leve V/Q o enfermedad pulmonar incipiente';
+    } else if (gradiente <= 30) {
+      resultado += '• Gradiente MODERADAMENTE ELEVADO\n';
+      resultado += 'Sugiere enfermedad pulmonar parenquimatosa o alteración V/Q significativa';
+    } else {
+      resultado += '• Gradiente MARCADAMENTE ELEVADO\n';
+      resultado += 'Sugiere shunt intrapulmonar, enfermedad pulmonar avanzada o embolia';
+    }
+    
+    // Límite normal por edad (aproximado)
+    const limiteNormal = 10; // Para adultos jóvenes
+    if (gradiente > limiteNormal) {
+      resultado += `\n\nValor superior al límite normal esperado (${limiteNormal} mmHg en adultos jóvenes)`;
+    }
+    
+    $('result').textContent = resultado;
+  });
+})();
 </script>
 </body>
 </html>
