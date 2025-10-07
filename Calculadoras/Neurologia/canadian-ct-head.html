@@ -1,48 +1,34 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Canadian CT Head Rule (TCE leve, adulto)</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Canadian CT Head Rule - TCE leve - Urgencias</title>
+
+<!-- Estilos comunes de calculadoras -->
+<link rel="stylesheet" href="../css/calculadoras-common.css">
+
+<!-- Estilos específicos -->
 <style>
-:root{--c1:#0a5ea8;--c1d:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
-body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px;background:#fff;color:#222}
-.card{max-width:980px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
-h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
-.small{font-size:.9rem;color:var(--mut)}
-fieldset{border:1px solid #e5e7eb;border-radius:12px;padding:.8rem;margin-bottom:.9rem}
-legend{padding:0 .4rem;color:#334155;font-weight:700}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+details{margin-top:.4rem}
+details summary{cursor:pointer;color:#0a4c84;font-weight:600}
+.details-box{border:1px solid var(--bd);background:var(--bg);border-radius:10px;padding:.7rem .9rem;margin-top:.5rem;color:#374151}
+ul{margin:.3rem 0 .6rem 1rem}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
 label{display:flex;gap:.55rem;align-items:center;margin:.25rem 0}
 input[type=checkbox]{transform:scale(1.1)}
 .note{font-size:.85rem;color:#475569;margin:.25rem 0}
-.actions{display:flex;gap:.6rem;margin-top:.9rem;flex-wrap:wrap;align-items:center}
-.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
-.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1d)}
-.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}
-.result{margin-top:1rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;white-space:pre-wrap;color:var(--tx)}
-.badge{display:inline-block;padding:.2rem .5rem;border-radius:999px;font-weight:600}
-.high{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
-.mod{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
-.low{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
 .warn{color:#9a3412;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:.5rem .7rem;margin-top:.6rem}
-@media(max-width:900px){.grid{grid-template-columns:1fr}}
-
-*{box-sizing:border-box}
-select{max-width:100%}
-.actions .spacer{flex:1 1 auto}
-.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
-.btn.close:hover{filter:brightness(1.05)}</style>
+@media(max-width:900px){.grid-2{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <div class="card">
-  <h1>Canadian CT Head Rule (TCE leve, adulto)</h1>
-  <p class="small">
-    Aplicable a adultos con TCE leve (GCS 13–15) con pérdida de conciencia, amnesia o desorientación. No aplicable si anticoagulación,
-    crisis postrauma, coagulopatía conocida, o lesión penetrante. Usa tu protocolo local.
-  </p>
+  <h1>Canadian CT Head Rule - TCE leve</h1>
+  <p class="sub">Aplicable a adultos con TCE leve (GCS 13-15) con pérdida de conciencia, amnesia o desorientación. No aplicable si anticoagulación, crisis postrauma, coagulopatía conocida, o lesión penetrante. Usa tu protocolo local.</p>
 
-  <form id="f">
+  <form id="formCanadian" class="grid">
+    
     <fieldset>
       <legend>Factores de alto riesgo (neurocirugía)</legend>
       <label><input type="checkbox" id="gcs2h"> GCS &lt; 15 a las 2 horas del trauma</label>
@@ -60,89 +46,107 @@ select{max-width:100%}
 
     <fieldset>
       <legend>Comprobación de aplicabilidad</legend>
-      <div class="grid">
+      <div class="grid-2">
         <label><input type="checkbox" id="anticoag"> Anticoagulación/coagulopatía conocida</label>
         <label><input type="checkbox" id="seizure"> Crisis postrauma</label>
       </div>
       <div class="note">Si marcas alguno, la regla puede no ser aplicable; considera TC según clínica/protocolo.</div>
     </fieldset>
 
+    <details>
+      <summary>Ver criterios de aplicabilidad e interpretación</summary>
+      <div class="details-box">
+        <p><strong>Criterios de inclusión:</strong></p>
+        <ul>
+          <li>Edad ≥ 16 años</li>
+          <li>TCE con GCS 13-15</li>
+          <li>Pérdida de conciencia, amnesia o desorientación</li>
+          <li>Presentación &lt; 24 horas del trauma</li>
+        </ul>
+        <p><strong>Criterios de exclusión:</strong></p>
+        <ul>
+          <li>Anticoagulación o coagulopatía</li>
+          <li>Crisis postrauma</li>
+          <li>Lesión penetrante</li>
+          <li>TCE previo con shunt VP</li>
+        </ul>
+        <p><strong>Interpretación:</strong></p>
+        <ul>
+          <li><strong>Positiva:</strong> Recomienda TC craneal</li>
+          <li><strong>Negativa:</strong> Puede evitarse TC según clínica/protocolo</li>
+        </ul>
+      </div>
+    </details>
+
     <div class="actions">
-      <button type="button" class="btn primary" onclick="calc()">Calcular</button>
-      <button type="button" class="btn secondary" onclick="copyRes()">Copiar</button>
-      <button type="reset"  class="btn secondary" onclick="resetRes()">Limpiar</button>
-    
+      <button type="submit" class="btn primary">Calcular</button>
+      <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
+      <button type="reset" class="btn secondary">Limpiar</button>
       <span class="spacer"></span>
       <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
-</div>
+    </div>
+
+    <div id="result" class="result" aria-live="polite">Marca los criterios y pulsa "Calcular".</div>
+    <p class="muted">Regla aplicable en TCE leve (GCS 13-15) con pérdida de conciencia/amnesia/desorientación. Si es positiva, recomienda TC; si es negativa, puede evitarse TC según clínica y protocolo. No aplicable con anticoagulación, convulsiones postrauma o lesión penetrante.</p>
   </form>
-
-  <div id="res" class="result" aria-live="polite">Marca los criterios y pulsa Calcular.</div>
-    <p class="muted"><strong>Nota clínica:</strong> Regla aplicable en TCE leve (GCS 13–15) con pérdida de conciencia/amnesia/desorientación. Si es <em>positiva</em>, recomienda TC; si es negativa, puede evitarse TC según clínica y protocolo. No aplicable con anticoagulación, convulsiones postrauma o lesión penetrante.</p>
-
-  <div id="warn" class="warn" style="display:none">Resultado orientativo. Ajusta a protocolo y juicio clínico.</div>
 </div>
 
-<script>
-function v(id){return document.getElementById(id).checked}
-function calc(){
-  const high = ['gcs2h','openFx','basalSigns','vom2','age65'].some(v);
-  const modr = ['amnesia30','dangerMech'].some(v);
-  const notApplicable = v('anticoag') || v('seizure');
+<!-- Scripts comunes -->
+<script src="../js/calculadoras-common.js"></script>
 
-  let rec = '', badge='low', detalle=[];
-  if(high){
-    rec = 'Regla POSITIVA (alto riesgo) → Realizar TC craneal y valorar neurocirugía.';
-    badge='high';
-  } else if(modr){
-    rec = 'Regla POSITIVA (riesgo moderado) → Recomendada TC craneal para descartar lesión intracraneal clínicamente importante.';
-    badge='mod';
-  } else {
-    rec = 'Regla NEGATIVA → Baja probabilidad de lesión clínicamente importante; podría evitarse TC (según protocolo).';
-    badge='low';
+<!-- Lógica específica de esta calculadora -->
+<script>
+(function() {
+  const $ = (id) => document.getElementById(id);
+  
+  function isChecked(id) {
+    return $(id).checked;
   }
 
-  detalle.push(`Alto riesgo: ${high ? 'sí' : 'no'}`);
-  detalle.push(`Riesgo moderado: ${modr ? 'sí' : 'no'}`);
-  if(notApplicable) detalle.push(`⚠ Condiciones que limitan aplicabilidad (anticoagulación/crisis): sí`);
-
-  const sel = [
-    v('gcs2h')&&'GCS<15 a 2h',
-    v('openFx')&&'Fractura abierta/deprimida',
-    v('basalSigns')&&'Signos de base',
-    v('vom2')&&'≥2 vómitos',
-    v('age65')&&'Edad≥65',
-    v('amnesia30')&&'Amnesia≥30min',
-    v('dangerMech')&&'Mecanismo peligroso'
-  ].filter(Boolean).join(' · ') || 'Ninguno';
-
-  document.getElementById('res').innerHTML =
-    `<span class="badge ${badge}">${rec}</span>\n`+
-    `Criterios seleccionados: ${sel}\n`+
-    detalle.join(' · ');
-  document.getElementById('warn').style.display='block';
-}
-function copyRes(){
-  const t=document.getElementById('res').innerText||'';
-  if(!t.trim()) return alert('No hay resultado.');
-  navigator.clipboard.writeText(t);
-}
-function resetRes(){
-  document.getElementById('res').textContent='Marca los criterios y pulsa Calcular.';
-  document.getElementById('warn').style.display='none';
-}
-
-// Cierre inteligente
-function smartClose(){
-  try{
-    if(window.opener && !window.opener.closed){ window.close(); return; }
-  }catch(e){}
-  if(history.length>1){ history.back(); }
-  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
-}
-var _cb = document.getElementById('closeBtn');
-if(_cb){ _cb.addEventListener('click', smartClose); }
-
+  $('formCanadian').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const highRisk = ['gcs2h', 'openFx', 'basalSigns', 'vom2', 'age65'].some(isChecked);
+    const modRisk = ['amnesia30', 'dangerMech'].some(isChecked);
+    const notApplicable = isChecked('anticoag') || isChecked('seizure');
+    
+    let recomendacion, badge, detalles = [];
+    
+    if (highRisk) {
+      recomendacion = 'Regla POSITIVA (alto riesgo) → Realizar TC craneal y valorar neurocirugía.';
+      badge = 'sev';
+    } else if (modRisk) {
+      recomendacion = 'Regla POSITIVA (riesgo moderado) → Recomendada TC craneal para descartar lesión intracraneal clínicamente importante.';
+      badge = 'mod';
+    } else {
+      recomendacion = 'Regla NEGATIVA → Baja probabilidad de lesión clínicamente importante; podría evitarse TC (según protocolo).';
+      badge = 'good';
+    }
+    
+    detalles.push(`Alto riesgo: ${highRisk ? 'sí' : 'no'}`);
+    detalles.push(`Riesgo moderado: ${modRisk ? 'sí' : 'no'}`);
+    
+    if (notApplicable) {
+      detalles.push('⚠ Condiciones que limitan aplicabilidad (anticoagulación/crisis): sí');
+    }
+    
+    const seleccionados = [
+      isChecked('gcs2h') && 'GCS<15 a 2h',
+      isChecked('openFx') && 'Fractura abierta/deprimida',
+      isChecked('basalSigns') && 'Signos de base',
+      isChecked('vom2') && '≥2 vómitos',
+      isChecked('age65') && 'Edad≥65',
+      isChecked('amnesia30') && 'Amnesia≥30min',
+      isChecked('dangerMech') && 'Mecanismo peligroso'
+    ].filter(Boolean).join(' · ') || 'Ninguno';
+    
+    let resultado = `${recomendacion}\n\n`;
+    resultado += `Criterios seleccionados: ${seleccionados}\n`;
+    resultado += detalles.join(' · ');
+    
+    $('result').textContent = resultado;
+  });
+})();
 </script>
 </body>
 </html>

@@ -1,31 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>ICH Score – Hemorragia intracerebral</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ICH Score - Hemorragia Intracerebral - Urgencias</title>
+
+<!-- Estilos comunes de calculadoras -->
+<link rel="stylesheet" href="../css/calculadoras-common.css">
+
+<!-- Estilos específicos -->
 <style>
-:root{--c1:#0a5ea8;--c1d:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
-body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px;background:#fff;color:#222}
-.card{max-width:980px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
-h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
-.small{font-size:.9rem;color:var(--mut)}
-fieldset{border:1px solid #e5e7eb;border-radius:12px;padding:.8rem;margin-bottom:.95rem}
-legend{padding:0 .4rem;color:#334155;font-weight:700}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
-label{display:flex;flex-direction:column;gap:.35rem}
-input,select{border:1px solid var(--bx);border-radius:10px;padding:.55rem}
+details{margin-top:.4rem}
+details summary{cursor:pointer;color:#0a4c84;font-weight:600}
+.details-box{border:1px solid var(--bd);background:var(--bg);border-radius:10px;padding:.7rem .9rem;margin-top:.5rem;color:#374151}
+ul{margin:.3rem 0 .6rem 1rem}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
 .inline{display:flex;gap:.7rem;align-items:center;flex-wrap:wrap}
-.note{font-size:.85rem;color:#475569}
-.actions{display:flex;gap:.6rem;margin-top:.9rem;flex-wrap:wrap;align-items:center}
-.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
-.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1d)}
-.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}
-.result{margin-top:1rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;white-space:pre-wrap;color:var(--tx)}
-.badge{display:inline-block;padding:.2rem .5rem;border-radius:999px;font-weight:600}
-.good{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
-.mod{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
-.sev{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+.note{font-size:.85rem;color:#475569;margin-top:.3rem}
 .warn{color:#9a3412;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:.5rem .7rem;margin-top:.6rem}
 
 /* Tooltip minimalista */
@@ -34,23 +25,16 @@ input,select{border:1px solid var(--bx);border-radius:10px;padding:.55rem}
   font-size:.75rem;line-height:1;background:#eef2f7;color:#0a4c84;
   border:1px solid #d9e2ec;cursor:help;user-select:none}
 .help-tip:hover{background:#e9eef6}
-.help-tip[title]{/* nada: usamos tooltip nativo del navegador */}
-@media(max-width:900px){.grid{grid-template-columns:1fr}}
-
-*{box-sizing:border-box}
-select{max-width:100%}
-.actions .spacer{flex:1 1 auto}
-.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
-.btn.close:hover{filter:brightness(1.05)}</style>
+@media(max-width:900px){.grid-2{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <div class="card">
-  <h1>ICH Score – Hemorragia intracerebral</h1>
-  <p class="small">
-    Calcula el ICH Score (0–6) con volumen por <strong>ABC/2</strong> o volumen conocido. Uso orientativo; sigue el protocolo del centro.
-  </p>
+  <h1>ICH Score - Hemorragia Intracerebral</h1>
+  <p class="sub">Calcula el ICH Score (0-6) con volumen por ABC/2 o volumen conocido. Uso orientativo; sigue el protocolo del centro.</p>
 
-  <form id="f" onsubmit="return false;">
+  <form id="formICH" class="grid">
+    
     <fieldset>
       <legend>1) Volumen del hematoma</legend>
       <div class="inline" role="radiogroup" aria-label="Método de volumen">
@@ -60,184 +44,222 @@ select{max-width:100%}
 
       <!-- ABC/2 -->
       <div id="abc2-block">
-        <div class="grid">
-          <label>A – Diámetro máximo (cm)
-            <span class="inline">
-              <input type="number" id="A" step="0.1" min="0" placeholder="p. ej., 5.6" style="flex:1">
+        <div class="grid-2">
+          <div class="row">
+            <label for="A">A - Diámetro máximo (cm)
               <span class="help-tip" title="A: En el corte con mayor área del hematoma, mide el mayor diámetro en cm (línea mayor).">?</span>
-            </span>
-          </label>
+            </label>
+            <div class="ig">
+              <input type="number" id="A" step="0.1" min="0" placeholder="Ej. 5.6" />
+              <span></span>
+            </div>
+          </div>
 
-          <label>B – Diámetro perpendicular (cm)
-            <span class="inline">
-              <input type="number" id="B" step="0.1" min="0" placeholder="p. ej., 3.8" style="flex:1">
+          <div class="row">
+            <label for="B">B - Diámetro perpendicular (cm)
               <span class="help-tip" title="B: En el mismo corte, mide el diámetro perpendicular a A (en cm).">?</span>
-            </span>
-          </label>
+            </label>
+            <div class="ig">
+              <input type="number" id="B" step="0.1" min="0" placeholder="Ej. 3.8" />
+              <span></span>
+            </div>
+          </div>
 
-          <label>Nº de cortes con hematoma
-            <span class="inline">
-              <input type="number" id="slices" step="1" min="0" placeholder="p. ej., 8" style="flex:1">
+          <div class="row">
+            <label for="slices">Nº de cortes con hematoma
               <span class="help-tip" title="Nº de cortes: cantidad de cortes consecutivos donde aparece el hematoma.">?</span>
-            </span>
-          </label>
+            </label>
+            <div class="ig">
+              <input type="number" id="slices" step="1" min="0" placeholder="Ej. 8" />
+              <span></span>
+            </div>
+          </div>
 
-          <label>Grosor de corte (mm)
-            <span class="inline">
-              <input type="number" id="thick" step="0.1" min="0" placeholder="p. ej., 5" style="flex:1">
+          <div class="row">
+            <label for="thick">Grosor de corte (mm)
               <span class="help-tip" title="Grosor: espesor de cada corte en mm (p. ej., 5 mm). C = nº cortes × grosor (mm) ÷ 10 (para pasarlo a cm).">?</span>
-            </span>
-          </label>
+            </label>
+            <div class="ig">
+              <input type="number" id="thick" step="0.1" min="0" placeholder="Ej. 5" />
+              <span></span>
+            </div>
+          </div>
         </div>
         <p class="note">Volumen ≈ A × B × C ÷ 2, donde <strong>C = nº cortes × grosor (mm) ÷ 10</strong> (para pasar a cm).</p>
       </div>
 
       <!-- Volumen conocido -->
       <div id="known-block" style="display:none">
-        <label>Volumen (ml)
-          <input type="number" id="volKnown" step="0.1" min="0" placeholder="p. ej., 28">
-        </label>
+        <div class="row">
+          <label for="volKnown">Volumen (ml)</label>
+          <div class="ig">
+            <input type="number" id="volKnown" step="0.1" min="0" placeholder="Ej. 28" />
+            <span></span>
+          </div>
+        </div>
       </div>
     </fieldset>
 
     <fieldset>
       <legend>2) Ítems del ICH Score</legend>
-      <div class="grid">
-        <label>GCS (mejor respuesta)
-          <select id="gcs">
-            <option value="0">13–15 → 0 puntos</option>
-            <option value="1">5–12 → 1 punto</option>
-            <option value="2">3–4  → 2 puntos</option>
-          </select>
-        </label>
-        <label>IVH (hemorragia intraventricular)
-          <select id="ivh">
-            <option value="0">No</option>
-            <option value="1">Sí</option>
-          </select>
-        </label>
-        <label>Origen infratentorial
-          <select id="infra">
-            <option value="0">No</option>
-            <option value="1">Sí</option>
-          </select>
-        </label>
-        <label>Edad
-          <select id="age80">
-            <option value="0">&lt; 80 años</option>
-            <option value="1">≥ 80 años</option>
-          </select>
-        </label>
+      <div class="grid-2">
+        <div class="row">
+          <label for="gcs">GCS (mejor respuesta)</label>
+          <div class="ig">
+            <select id="gcs">
+              <option value="0">13-15 → 0 puntos</option>
+              <option value="1">5-12 → 1 punto</option>
+              <option value="2">3-4 → 2 puntos</option>
+            </select>
+            <span></span>
+          </div>
+        </div>
+
+        <div class="row">
+          <label for="ivh">IVH (hemorragia intraventricular)</label>
+          <div class="ig">
+            <select id="ivh">
+              <option value="0">No</option>
+              <option value="1">Sí</option>
+            </select>
+            <span></span>
+          </div>
+        </div>
+
+        <div class="row">
+          <label for="infra">Origen infratentorial</label>
+          <div class="ig">
+            <select id="infra">
+              <option value="0">No</option>
+              <option value="1">Sí</option>
+            </select>
+            <span></span>
+          </div>
+        </div>
+
+        <div class="row">
+          <label for="age80">Edad</label>
+          <div class="ig">
+            <select id="age80">
+              <option value="0">&lt; 80 años</option>
+              <option value="1">≥ 80 años</option>
+            </select>
+            <span></span>
+          </div>
+        </div>
       </div>
       <div class="note">El punto por volumen (≥30 ml) se calcula automáticamente según el método seleccionado.</div>
     </fieldset>
 
+    <details>
+      <summary>Ver interpretación pronóstica</summary>
+      <div class="details-box">
+        <p><strong>Puntuación e interpretación:</strong></p>
+        <ul>
+          <li><strong>0-1:</strong> Pronóstico relativamente favorable (~0-13% mortalidad a 30 días)</li>
+          <li><strong>2-3:</strong> Pronóstico intermedio (~26-37% mortalidad)</li>
+          <li><strong>4-6:</strong> Pronóstico desfavorable (~72-100% mortalidad)</li>
+        </ul>
+        <p><strong>Componentes del ICH Score:</strong></p>
+        <ul>
+          <li>GCS: 13-15 (0), 5-12 (1), 3-4 (2)</li>
+          <li>Volumen: &lt;30 ml (0), ≥30 ml (1)</li>
+          <li>IVH: No (0), Sí (1)</li>
+          <li>Infratentorial: No (0), Sí (1)</li>
+          <li>Edad: &lt;80 (0), ≥80 (1)</li>
+        </ul>
+        <p class="muted">Interpretar con clínica, neuroimagen y protocolo del centro. Mayor puntuación implica peor pronóstico.</p>
+      </div>
+    </details>
+
     <div class="actions">
-      <button class="btn primary" onclick="calc()">Calcular</button>
-      <button class="btn secondary" onclick="copyRes()">Copiar</button>
-      <button class="btn secondary" type="reset" onclick="resetRes()">Limpiar</button>
-    
+      <button type="submit" class="btn primary">Calcular</button>
+      <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
+      <button type="reset" class="btn secondary">Limpiar</button>
       <span class="spacer"></span>
       <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
-</div>
+    </div>
+
+    <div id="result" class="result" aria-live="polite">Introduce datos y pulsa "Calcular".</div>
+    <p class="muted">ICH Score 0-6: mayor puntuación implica peor pronóstico. El punto por volumen se añade con ≥30 ml. Interpretar con clínica, neuroimagen y protocolo del centro.</p>
   </form>
-
-  <div id="res" class="result" aria-live="polite">Introduce datos y pulsa Calcular.</div>
-    <p class="muted"><strong>Nota clínica:</strong> ICH Score 0–6: mayor puntuación implica peor pronóstico. El punto por volumen se añade con &ge;30&nbsp;ml. Interpretar con clínica, neuroimagen y protocolo del centro.</p>
-
-  <div id="warn" class="warn" style="display:none">Resultado orientativo. Interpreta en contexto clínico y protocolo local.</div>
 </div>
 
+<!-- Scripts comunes -->
+<script src="../js/calculadoras-common.js"></script>
+
+<!-- Lógica específica de esta calculadora -->
 <script>
-const $ = (id)=>document.getElementById(id);
-function round(v,d=1){return Math.round((v+Number.EPSILON)*10**d)/10**d}
+(function() {
+  const $ = (id) => document.getElementById(id);
+  
+  const r = (value, decimals = 1) => Math.round((value + Number.EPSILON) * (10 ** decimals)) / (10 ** decimals);
 
-function getVolumeMl(){
-  const mode = document.querySelector('input[name="volmode"]:checked').value;
-  if(mode === 'known'){
-    const v = parseFloat($('volKnown').value||'0');
-    return v>0 ? v : NaN;
-  }
-  // ABC/2
-  const A = parseFloat($('A').value||'0');
-  const B = parseFloat($('B').value||'0');
-  const slices = parseInt($('slices').value||'0',10);
-  const thickMm = parseFloat($('thick').value||'0');
-  if(!(A>0 && B>0 && slices>0 && thickMm>0)) return NaN;
-  const Ccm = (slices * thickMm)/10; // mm -> cm
-  const volCm3 = (A * B * Ccm) / 2;  // ≈ ml
-  return volCm3;
-}
-
-function interpretICH(score){
-  if(score<=1) return {cls:'good', txt:'Pronóstico relativamente favorable (orientativo)'}
-  if(score<=3) return {cls:'mod',  txt:'Pronóstico intermedio (orientativo)'}
-  return {cls:'sev', txt:'Pronóstico desfavorable (orientativo)'}
-}
-
-function calc(){
-  const vol = getVolumeMl();
-  if(Number.isNaN(vol)){
-    $('res').innerText = 'Faltan datos para el volumen. Revisa A, B, nº cortes y grosor, o introduce volumen conocido.';
-    $('warn').style.display='none';
-    return;
-  }
-  const volPts = vol >= 30 ? 1 : 0;
-
-  const gcs  = parseInt($('gcs').value,10);
-  const ivh  = parseInt($('ivh').value,10);
-  const infra= parseInt($('infra').value,10);
-  const age  = parseInt($('age80').value,10);
-
-  const total = gcs + volPts + ivh + infra + age;
-  const k = interpretICH(total);
-
-  const detalle = [
-    `GCS: ${gcs} pt`,
-    `Volumen: ${round(vol,1)} ml (${volPts? '≥30 → +1 pt' : '<30 → +0 pt'})`,
-    `IVH: ${ivh? 'sí (+1 pt)':'no (+0 pt)'}`,
-    `Infratentorial: ${infra? 'sí (+1 pt)':'no (+0 pt)'}`,
-    `Edad ≥80: ${age? 'sí (+1 pt)':'no (+0 pt)'}`
-  ].join(' · ');
-
-  $('res').innerHTML =
-    `ICH Score = <strong>${total}</strong>\n`+
-    `<span class="badge ${k.cls}">${k.txt}</span>\n`+
-    `Desglose: ${detalle}`;
-  $('warn').style.display='block';
-}
-
-function copyRes(){
-  const t = $('res').innerText || '';
-  if(!t.trim()) return alert('No hay resultado.');
-  navigator.clipboard.writeText(t);
-}
-
-function resetRes(){
-  $('res').textContent = 'Introduce datos y pulsa Calcular.';
-  $('warn').style.display='none';
-}
-
-// Toggle bloques según modo
-document.querySelectorAll('input[name="volmode"]').forEach(r=>{
-  r.addEventListener('change', ()=>{
+  function getVolumeMl() {
     const mode = document.querySelector('input[name="volmode"]:checked').value;
-    $('abc2-block').style.display = mode==='abc2' ? '' : 'none';
-    $('known-block').style.display = mode==='known' ? '' : 'none';
+    if (mode === 'known') {
+      const v = parseFloat($('volKnown').value || '0');
+      return v > 0 ? v : NaN;
+    }
+    // ABC/2
+    const A = parseFloat($('A').value || '0');
+    const B = parseFloat($('B').value || '0');
+    const slices = parseInt($('slices').value || '0', 10);
+    const thickMm = parseFloat($('thick').value || '0');
+    if (!(A > 0 && B > 0 && slices > 0 && thickMm > 0)) return NaN;
+    const Ccm = (slices * thickMm) / 10; // mm -> cm
+    const volCm3 = (A * B * Ccm) / 2;  // ≈ ml
+    return volCm3;
+  }
+
+  function interpretICH(score) {
+    if (score <= 1) return { cls: 'good', txt: 'Pronóstico relativamente favorable (orientativo)' };
+    if (score <= 3) return { cls: 'mod', txt: 'Pronóstico intermedio (orientativo)' };
+    return { cls: 'sev', txt: 'Pronóstico desfavorable (orientativo)' };
+  }
+
+  $('formICH').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const vol = getVolumeMl();
+    if (Number.isNaN(vol)) {
+      $('result').textContent = 'Faltan datos para el volumen. Revisa A, B, nº cortes y grosor, o introduce volumen conocido.';
+      return;
+    }
+    const volPts = vol >= 30 ? 1 : 0;
+    
+    const gcs = parseInt($('gcs').value, 10);
+    const ivh = parseInt($('ivh').value, 10);
+    const infra = parseInt($('infra').value, 10);
+    const age = parseInt($('age80').value, 10);
+    
+    const total = gcs + volPts + ivh + infra + age;
+    const cat = interpretICH(total);
+    
+    const detalle = [
+      `GCS: ${gcs} pt`,
+      `Volumen: ${r(vol, 1)} ml (${volPts ? '≥30 → +1 pt' : '<30 → +0 pt'})`,
+      `IVH: ${ivh ? 'sí (+1 pt)' : 'no (+0 pt)'}`,
+      `Infratentorial: ${infra ? 'sí (+1 pt)' : 'no (+0 pt)'}`,
+      `Edad ≥80: ${age ? 'sí (+1 pt)' : 'no (+0 pt)'}`
+    ].join(' · ');
+    
+    let resultado = `ICH Score = ${total}\n`;
+    resultado += `Categoría: ${cat.txt}\n`;
+    resultado += `Desglose: ${detalle}`;
+    
+    $('result').textContent = resultado;
   });
-});
 
-// Cierre inteligente
-function smartClose(){
-  try{
-    if(window.opener && !window.opener.closed){ window.close(); return; }
-  }catch(e){}
-  if(history.length>1){ history.back(); }
-  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
-}
-var _cb = document.getElementById('closeBtn');
-if(_cb){ _cb.addEventListener('click', smartClose); }
-
+  // Toggle bloques según modo
+  document.querySelectorAll('input[name="volmode"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const mode = document.querySelector('input[name="volmode"]:checked').value;
+      $('abc2-block').style.display = mode === 'abc2' ? '' : 'none';
+      $('known-block').style.display = mode === 'known' ? '' : 'none';
+    });
+  });
+})();
 </script>
 </body>
 </html>

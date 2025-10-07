@@ -1,164 +1,160 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>ABCD² – Riesgo tras AIT</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ASPECTS - Alberta Stroke Program Early CT Score - Urgencias</title>
+
+<!-- Estilos comunes de calculadoras -->
+<link rel="stylesheet" href="../css/calculadoras-common.css">
+
+<!-- Estilos específicos -->
 <style>
-:root{--c1:#0a5ea8;--c1d:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
-body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px;background:#fff;color:#222}
-.card{max-width:900px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
-h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
-.small{font-size:.9rem;color:var(--mut)}
-fieldset{border:1px solid #e5e7eb;border-radius:12px;padding:.8rem;margin-bottom:.9rem}
-legend{padding:0 .4rem;color:#334155;font-weight:700}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+details{margin-top:.4rem}
+details summary{cursor:pointer;color:#0a4c84;font-weight:600}
+.details-box{border:1px solid var(--bd);background:var(--bg);border-radius:10px;padding:.7rem .9rem;margin-top:.5rem;color:#374151}
+ul{margin:.3rem 0 .6rem 1rem}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
 label{display:flex;gap:.55rem;align-items:center;margin:.25rem 0}
 input[type=checkbox]{transform:scale(1.1)}
 .note{font-size:.85rem;color:#475569;margin:.25rem 0}
-.actions{display:flex;gap:.6rem;margin-top:.9rem;flex-wrap:wrap;align-items:center}
-.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
-.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1d)}
-.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}
-.result{margin-top:1rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;white-space:pre-wrap;color:var(--tx)}
-.badge{display:inline-block;padding:.2rem .5rem;border-radius:999px;font-weight:600}
-.low{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
-.mod{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
-.high{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
-@media(max-width:860px){.grid{grid-template-columns:1fr}}
-
-*{box-sizing:border-box}
-select{max-width:100%}
-.actions .spacer{flex:1 1 auto}
-.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
-.btn.close:hover{filter:brightness(1.05)}</style>
+.warn{color:#9a3412;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:.5rem .7rem;margin-top:.6rem}
+@media(max-width:900px){.grid-2{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <div class="card">
-  <h1>ABCD² – Riesgo de ictus tras AIT</h1>
-  <p class="small">
-    Suma de 0 a 7 puntos. Interpretación orientativa (0–3 bajo, 4–5 intermedio, 6–7 alto). No sustituye el juicio clínico ni las guías locales.
-  </p>
+  <h1>ASPECTS - Alberta Stroke Program Early CT Score</h1>
+  <p class="sub">Puntúa de 10 (sin cambios) a 0 (afectación extensa) restando 1 punto por cada región con signos isquémicos tempranos en el territorio ACM (MCA). Uso orientativo; no sustituye el juicio clínico ni los protocolos locales.</p>
 
-  <form id="f">
+  <form id="formASPECTS" class="grid">
+    
     <fieldset>
-      <legend>Criterios ABCD²</legend>
-
-      <div class="grid">
-        <div>
-          <strong>A – Age</strong>
-          <label><input type="checkbox" id="age60"> Edad ≥ 60 años (1)</label>
-          <div class="note">Si no se marca, puntúa 0.</div>
+      <legend>Contexto</legend>
+      <div class="row">
+        <label for="side">Hemisferio evaluado</label>
+        <div class="ig">
+          <select id="side">
+            <option value="izquierdo">Izquierdo</option>
+            <option value="derecho">Derecho</option>
+            <option value="no especificado">No especificado</option>
+          </select>
+          <span></span>
         </div>
-
-        <div>
-          <strong>B – Blood Pressure</strong>
-          <label><input type="checkbox" id="bpHigh"> PA inicial ≥ 140/90 mmHg (1)</label>
-          <div class="note">Medida al llegar (o la primera disponible).</div>
-        </div>
-
-        <div>
-          <strong>C – Clinical features</strong>
-          <label><input type="checkbox" id="weakness"> Déficit motor unilateral (2)</label>
-          <label><input type="checkbox" id="speechOnly"> Trastorno del habla sin debilidad (1)</label>
-          <div class="note">Si hay debilidad, marca solo “Déficit motor” (2) y no “Habla”.</div>
-        </div>
-
-        <div>
-          <strong>D – Duration</strong>
-          <label><input type="checkbox" id="dur60"> Duración ≥ 60 min (2)</label>
-          <label><input type="checkbox" id="dur10"> Duración 10–59 min (1)</label>
-          <div class="note">Si marcaste ≥60 min (2), no marques 10–59 (1).</div>
-        </div>
-
-        <div>
-          <strong>D – Diabetes</strong>
-          <label><input type="checkbox" id="dm"> Diabetes (1)</label>
-        </div>
+      </div>
+      <div class="note">
+        Selecciona las regiones <strong>con signos isquémicos tempranos</strong> (hipoatenuación, pérdida de diferenciación gris-blanca, borramiento de la corteza, etc.).
       </div>
     </fieldset>
 
+    <fieldset>
+      <legend>Núcleos profundos e ínsula</legend>
+      <div class="grid-2">
+        <label><input type="checkbox" id="caudate"> Núcleo caudado</label>
+        <label><input type="checkbox" id="lentiform"> Núcleo lenticular</label>
+        <label><input type="checkbox" id="icapsule"> Cápsula interna</label>
+        <label><input type="checkbox" id="insula"> Ínsula</label>
+      </div>
+      <div class="note">Cada región marcada resta 1 punto al total (10 → 0).</div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Regiones corticales M1-M6 (territorio superficial de la ACM)</legend>
+      <div class="grid-2">
+        <label><input type="checkbox" id="m1"> M1 (frontal opercular / insulo-frontal anterior)</label>
+        <label><input type="checkbox" id="m2"> M2 (frontal superior / anterior)</label>
+        <label><input type="checkbox" id="m3"> M3 (frontal-parietal superior)</label>
+        <label><input type="checkbox" id="m4"> M4 (temporal superior / parietal inferior)</label>
+        <label><input type="checkbox" id="m5"> M5 (temporo-parietal posterior)</label>
+        <label><input type="checkbox" id="m6"> M6 (occípito-parietal lateral)</label>
+      </div>
+      <div class="note">La nomenclatura M1-M6 es esquemática y puede variar entre atlas; aplica tu sistemática habitual.</div>
+    </fieldset>
+
+    <details>
+      <summary>Ver interpretación y uso clínico</summary>
+      <div class="details-box">
+        <p><strong>Interpretación orientativa:</strong></p>
+        <ul>
+          <li><strong>10-9:</strong> Mínimos/no hallazgos isquémicos tempranos</li>
+          <li><strong>8-7:</strong> Afectación moderada</li>
+          <li><strong>6-0:</strong> Afectación extensa</li>
+        </ul>
+        <p><strong>Uso clínico:</strong></p>
+        <ul>
+          <li>Ayuda a estratificar riesgo de hemorragia tras trombólisis</li>
+          <li>ASPECTS ≤5-6 se asocia a peor pronóstico</li>
+          <li>Decisiones de EVT según tiempo y criterios del centro</li>
+          <li>Complementar con imagen avanzada si disponible</li>
+        </ul>
+        <p class="muted">Las decisiones terapéuticas dependen de la clínica, el tiempo, la imagen avanzada y los protocolos locales.</p>
+      </div>
+    </details>
+
     <div class="actions">
-      <button type="button" class="btn primary" onclick="calc()">Calcular</button>
-      <button type="button" class="btn secondary" onclick="copyRes()">Copiar</button>
-      <button type="reset"  class="btn secondary" onclick="resetRes()">Limpiar</button>
-    
+      <button type="submit" class="btn primary">Calcular</button>
+      <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
+      <button type="reset" class="btn secondary">Limpiar</button>
       <span class="spacer"></span>
       <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
-</div>
+    </div>
+
+    <div id="result" class="result" aria-live="polite">Marca las regiones afectadas y pulsa "Calcular".</div>
+    <p class="muted">ASPECTS 10-9 (mínimos/no hallazgos), 8-7 (moderado), 0-6 (extenso). Las decisiones terapéuticas (fibrinólisis/EVT) dependen de la clínica, el tiempo, la imagen avanzada y los protocolos locales.</p>
   </form>
-
-  <div id="res" class="result" aria-live="polite">Marca los criterios y pulsa Calcular.</div>
-    <p class="muted"><strong>Nota clínica:</strong> Puntuaciones más altas se asocian a mayor riesgo de ictus precoz tras AIT. Interpretación orientativa (0–3 bajo, 4–5 intermedio, 6–7 alto). Ajusta manejo a protocolos locales y disponibilidad de TIA clinic.</p>
-
 </div>
 
+<!-- Scripts comunes -->
+<script src="../js/calculadoras-common.js"></script>
+
+<!-- Lógica específica de esta calculadora -->
 <script>
-function calc(){
-  // Reglas de exclusión interna para evitar doble conteo:
-  const age60   = document.getElementById('age60').checked ? 1 : 0;
-  const bpHigh  = document.getElementById('bpHigh').checked ? 1 : 0;
-
-  const weakness    = document.getElementById('weakness').checked;     // 2 puntos si sí
-  const speechOnly  = (!weakness && document.getElementById('speechOnly').checked) ? 1 : 0; // solo si no hay weakness
-  const clin        = weakness ? 2 : speechOnly; // 0 si ninguno
-
-  const dur60  = document.getElementById('dur60').checked ? 2 : 0;
-  const dur10  = (!dur60 && document.getElementById('dur10').checked) ? 1 : 0;
-  const dur    = dur60 || dur10; // 2 o 1 o 0
-
-  const dm     = document.getElementById('dm').checked ? 1 : 0;
-
-  const total = age60 + bpHigh + clin + (dur60?2:dur10) + dm;
-
-  // Categoría y sugerencias orientativas:
-  let cat = {txt:'Bajo riesgo', badge:'low'};
-  let sug = 'Alta con observación estrecha y estudio preferente; educación sobre signos de alarma.';
-  if(total >= 6){
-    cat = {txt:'Alto riesgo', badge:'high'};
-    sug = 'Considerar ingreso / estudio urgente (neuroimagen, etiología, inicio secundario).';
-  } else if(total >= 4){
-    cat = {txt:'Riesgo intermedio', badge:'mod'};
-    sug = 'Observación y estudio rápido (TIA clinic/urgencias) según recursos locales.';
+(function() {
+  const $ = (id) => document.getElementById(id);
+  
+  function isChecked(id) {
+    return $(id).checked;
   }
 
-  // Texto clínico:
-  const desgl = [
-    `Edad≥60: ${age60}`,
-    `PA≥140/90: ${bpHigh}`,
-    `Clínica (motor=2 / habla=1): ${clin}`,
-    `Duración (≥60=2 / 10–59=1): ${dur60?2:(dur10?1:0)}`,
-    `Diabetes: ${dm}`
-  ].join(' · ');
-
-  document.getElementById('res').innerHTML =
-    `ABCD² = <strong>${total}</strong> → `+
-    `<span class="badge ${cat.badge}">${cat.txt}</span>\n`+
-    `Sugerencia: ${sug}\n`+
-    `Desglose: ${desgl}`;
-}
-
-function copyRes(){
-  const t = document.getElementById('res').innerText || '';
-  if(!t.trim()) return alert('No hay resultado.');
-  navigator.clipboard.writeText(t);
-}
-
-function resetRes(){
-  document.getElementById('res').textContent = 'Marca los criterios y pulsa Calcular.';
-}
-
-// Cierre inteligente
-function smartClose(){
-  try{
-    if(window.opener && !window.opener.closed){ window.close(); return; }
-  }catch(e){}
-  if(history.length>1){ history.back(); }
-  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
-}
-var _cb = document.getElementById('closeBtn');
-if(_cb){ _cb.addEventListener('click', smartClose); }
-
+  $('formASPECTS').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const base = 10;
+    const regiones = [
+      ['Núcleo caudado', 'caudate'],
+      ['Núcleo lenticular', 'lentiform'],
+      ['Cápsula interna', 'icapsule'],
+      ['Ínsula', 'insula'],
+      ['M1', 'm1'], ['M2', 'm2'], ['M3', 'm3'],
+      ['M4', 'm4'], ['M5', 'm5'], ['M6', 'm6']
+    ];
+    
+    const marcadas = regiones.filter(([_, id]) => isChecked(id)).map(([n]) => n);
+    const resta = marcadas.length;
+    const total = Math.max(0, base - resta);
+    
+    // Categoría
+    let categoria, badge;
+    if (total >= 9) {
+      categoria = 'Mínima o sin afectación';
+      badge = 'good';
+    } else if (total >= 7) {
+      categoria = 'Afectación moderada';
+      badge = 'mod';
+    } else {
+      categoria = 'Afectación extensa';
+      badge = 'sev';
+    }
+    
+    const lado = $('side').value;
+    const listado = marcadas.length ? marcadas.join(' · ') : 'Ninguna';
+    
+    let resultado = `ASPECTS (${lado}) = ${total}/10 → ${categoria}\n`;
+    resultado += `Regiones con signos isquémicos tempranos: ${listado}`;
+    
+    $('result').textContent = resultado;
+  });
+})();
 </script>
 </body>
 </html>
