@@ -3,56 +3,27 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Osmolalidad plasmática</title>
-<style>
-  :root{
-    --c1:#0a5ea8; --c1-600:#0a4c84; --b:#fff; --bg:#f7fbff; --bd:#e1eefc; --tx:#0a4c84;
-    --bx:#d1d9e6; --muted:#667085;
-  }
-  body{ font-family:Roboto, Arial, Helvetica, sans-serif; margin:0; padding:20px; background:#fff; color:#222; }
-  h1{ font-size:1.25rem; margin:.25rem 0 1rem 0; color:var(--tx); }
-  .card{ background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:16px 16px 18px; max-width:720px; margin:0 auto; box-shadow:0 4px 16px rgba(0,0,0,.05);}
-  .sub{ color:#475569; margin-top:-.4rem; margin-bottom:.8rem; font-size:.95rem;}
-  .grid{ display:grid; gap:.9rem; }
-  .row{ display:grid; gap:.5rem; grid-template-columns: 1fr 1fr; align-items:center; }
-  .row label{ font-weight:600; color:#334155; }
-  .ig{ display:grid; grid-template-columns:1fr 180px; gap:.5rem; }
-  input[type="number"], select{
-    border:1px solid var(--bx); border-radius:10px; padding:.6rem .65rem; font-size:1rem; width:100%;
-  }
-  .actions{ display:flex; gap:.6rem; margin-top:.4rem; flex-wrap:wrap; }
-  .btn{ padding:.6rem .9rem; border-radius:10px; border:1px solid transparent; cursor:pointer; font-weight:500; }
-  .btn.primary{ background:var(--c1); color:#fff; }
-  .btn.primary:hover{ background:var(--c1-600); }
-  .btn.secondary{ background:#eef2f7; color:var(--tx); border-color:#d9e2ec; }
-  .btn.secondary:hover{ background:#e6ebf2; }
-  .result{
-    margin-top:.9rem; padding:.9rem; border:1px solid var(--bd); background:var(--bg); border-radius:10px; color:var(--tx);
-  }
-  .muted{ color:var(--muted); font-size:.9rem; }
-  details{ margin-top:.6rem; }
-  details summary{ cursor:pointer; color:#0a4c84; font-weight:600; }
-  .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:.6rem; }
-  @media (max-width:560px){
-    .row{ grid-template-columns:1fr; }
-    .ig{ grid-template-columns:1fr; }
-    .two-col{ grid-template-columns:1fr; }
-  }
+<title>Osmolalidad Plasmática - Urgencias</title>
 
-*{box-sizing:border-box}
-select{max-width:100%}
-.actions{display:flex;gap:.6rem;margin-top:.6rem;flex-wrap:wrap;align-items:center}
-.actions .spacer{flex:1 1 auto}
-.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
-.btn.close:hover{filter:brightness(1.05)}</style>
+<!-- Estilos comunes de calculadoras -->
+<link rel="stylesheet" href="../css/calculadoras-common.css">
+
+<!-- Estilos específicos -->
+<style>
+details{margin-top:.4rem}
+details summary{cursor:pointer;color:#0a4c84;font-weight:600}
+.details-box{border:1px solid var(--bd);background:var(--bg);border-radius:10px;padding:.7rem .9rem;margin-top:.5rem;color:#374151}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+@media(max-width:560px){.two-col{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-
 <div class="card">
-  <h1>Osmolalidad plasmática (estimada)</h1>
-  <p class="sub">Fórmula clásica sin etanol: <strong>Osm = 2×Na (mmol/L) + Glucosa (mg/dL)/18 + Urea (mg/dL)/2.8</strong></p>
+  <h1>Osmolalidad Plasmática (Estimada)</h1>
+  <p class="sub">Fórmula clásica: Osm = 2×Na⁺ + Glucosa/18 + Urea/2.8</p>
 
-  <form id="osmForm" class="grid">
+  <form id="formOsmolalidad" class="grid">
+    
     <div class="row">
       <label for="na">Sodio (Na⁺)</label>
       <div class="ig">
@@ -86,28 +57,30 @@ select{max-width:100%}
     </div>
 
     <details>
-      <summary>Opcional: datos adicionales</summary>
-      <div class="two-col">
-        <div class="row" style="grid-template-columns:1fr;">
-          <label for="measured">Osmolalidad medida (si disponible)</label>
-          <div class="ig" style="grid-template-columns:1fr 180px;">
-            <input id="measured" type="number" step="0.1" min="0" placeholder="Ej. 290" />
-            <select id="measuredUnit">
-              <option value="mosm">mOsm/kg</option>
-            </select>
+      <summary>Datos adicionales (opcional)</summary>
+      <div class="details-box">
+        <div class="two-col">
+          <div class="row">
+            <label for="measured">Osmolalidad medida</label>
+            <div class="ig">
+              <input id="measured" type="number" step="0.1" min="0" placeholder="Ej. 290" />
+              <select id="measuredUnit">
+                <option value="mosm">mOsm/kg</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <label for="ethanol">Etanol</label>
+            <div class="ig">
+              <input id="ethanol" type="number" step="0.1" min="0" placeholder="Ej. 0" />
+              <select id="ethanolUnit">
+                <option value="mgdl">mg/dL</option>
+                <option value="mmol">mmol/L</option>
+              </select>
+            </div>
           </div>
         </div>
-        <div class="row" style="grid-template-columns:1fr;">
-          <label for="ethanol">Etanol (opcional)</label>
-          <div class="ig" style="grid-template-columns:1fr 180px;">
-            <input id="ethanol" type="number" step="0.1" min="0" placeholder="Ej. 0" />
-            <select id="ethanolUnit">
-              <option value="mgdl">mg/dL</option>
-              <option value="mmol">mmol/L</option>
-            </select>
-          </div>
-          <p class="muted">Si se desea, puede añadirse la contribución de etanol ≈ <em>EtOH (mg/dL) / 3.7</em>. Deja 0 para omitir.</p>
-        </div>
+        <p class="muted">Etanol: contribuye ≈ EtOH (mg/dL) / 3.7. Dejar en 0 para omitir.</p>
       </div>
     </details>
 
@@ -115,112 +88,88 @@ select{max-width:100%}
       <button type="submit" class="btn primary">Calcular</button>
       <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
       <button type="reset" class="btn secondary">Limpiar</button>
-    
       <span class="spacer"></span>
       <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
-</div>
+    </div>
 
-    <div id="result" class="result" aria-live="polite">Introduce los datos y pulsa “Calcular”.</div>
-    <p class="muted"><strong>Nota clínica:</strong> Osmolalidad elevada indica hiperosmolaridad; comparar con medida real para detectar brecha osmolar (posibles alcoholes, toxinas).</p>
-
-    <p class="muted">Uso clínico profesional. Esta herramienta no sustituye el juicio clínico.</p>
+    <div id="result" class="result" aria-live="polite">Introduce valores y pulsa "Calcular".</div>
+    <p class="muted">Osmolalidad elevada indica hiperosmolaridad. Brecha osmolar &gt;10 mOsm/kg sugiere presencia de osmoles no medidos (alcoholes, toxinas).</p>
   </form>
 </div>
 
+<!-- Scripts comunes -->
+<script src="../js/calculadoras-common.js"></script>
+
+<!-- Lógica específica de esta calculadora -->
 <script>
-(function(){
+(function() {
   const $ = (id) => document.getElementById(id);
-  const round = (v, d=1) => Math.round((v + Number.EPSILON) * (10**d)) / (10**d);
+  
+  const r = (value, decimals = 1) => Math.round((value + Number.EPSILON) * (10 ** decimals)) / (10 ** decimals);
 
-  const form = $('osmForm');
-  const result = $('result');
-  const btnCopy = $('copyBtn');
+  // Funciones de conversión
+  const gluToMgDl = (v, u) => u === 'mmol' ? v * 18.0 : v;
+  const ureaToMgDl = (v, u) => u === 'mmol' ? v * 2.8 : v;
+  const etohToMgDl = (v, u) => u === 'mmol' ? v * 46.07 * 10.0 : v;
 
-  // Conversiones
-  const gluToMgDl  = (v,u) => u === 'mmol' ? v * 18.0 : v;      // glucosa mmol/L → mg/dL
-  const ureaToMgDl = (v,u) => u === 'mmol' ? v * 2.8  : v;      // urea mmol/L → mg/dL
-  const etohToMgDl = (v,u) => u === 'mmol' ? v * 46.07 * 10.0 : v; // EtOH mmol/L → mg/dL (PM 46.07 g/mol)
-
-  form.addEventListener('submit', (e) => {
+  $('formOsmolalidad').addEventListener('submit', function(e) {
     e.preventDefault();
-
-    // Datos base
+    
     const na = parseFloat($('na').value);
     const glu = parseFloat($('glu').value);
-    const ur  = parseFloat($('urea').value);
-
+    const urea = parseFloat($('urea').value);
+    
     const gluUnit = $('gluUnit').value;
-    const urUnit  = $('ureaUnit').value;
-
-    if(!(na >= 0) || !(glu >= 0) || !(ur >= 0)){
-      result.textContent = 'Revisa los valores introducidos.';
+    const ureaUnit = $('ureaUnit').value;
+    
+    if (!(na > 0) || !(glu >= 0) || !(urea >= 0)) {
+      $('result').textContent = 'Por favor, revisa todos los valores requeridos.';
       return;
     }
-
-    // Conversión a mg/dL donde aplica
+    
+    // Conversiones
     const gluMg = gluToMgDl(glu, gluUnit);
-    const urMg  = ureaToMgDl(ur,  urUnit);
-
-    // Opcionales
+    const ureaMg = ureaToMgDl(urea, ureaUnit);
+    
+    // Etanol opcional
     let etoh = parseFloat($('ethanol').value);
     if (isNaN(etoh)) etoh = 0;
     const etohUnit = $('ethanolUnit').value;
     const etohMg = etohToMgDl(etoh, etohUnit);
-
+    
+    // Osmolalidad medida opcional
     let measured = parseFloat($('measured').value);
-    if (isNaN(measured)) measured = null;
-
-    // Fórmula base
-    let osmol = 2*na + gluMg/18 + urMg/2.8;
-
-    // Con etanol (opcional): + EtOH(mg/dL)/3.7
+    
+    // Cálculo principal
+    let osmol = 2 * na + gluMg/18 + ureaMg/2.8;
+    
+    // Añadir etanol si está presente
     if (etohMg > 0) {
       osmol += (etohMg / 3.7);
     }
-
-    // Mensaje principal
-    let msg = `Osmolalidad estimada: ${round(osmol,1)} mOsm/kg.`;
-
-    // Osmolar gap (si hay medida real)
-    if (measured !== null && measured >= 0) {
-      const gap = measured - osmol;
-      const sGap = gap > 0 ? '+' + round(gap,1) : String(round(gap,1));
-      msg += `\nOsmolar gap (medida − estimada): ${sGap} mOsm/kg.`;
-    }
-
-    // Desglose
-    const parts = [
-      `Componentes: 2×Na = ${round(2*na,1)}`,
-      `Glucosa/18 = ${round(gluMg/18,1)} (glucosa: ${round(gluMg,1)} mg/dL)`,
-      `Urea/2.8 = ${round(urMg/2.8,1)} (urea: ${round(urMg,1)} mg/dL)`
-    ];
+    
+    let resultado = `Osmolalidad estimada: ${r(osmol, 1)} mOsm/kg\n\n`;
+    resultado += `Componentes:\n`;
+    resultado += `• 2×Na⁺ = ${r(2 * na, 1)}\n`;
+    resultado += `• Glucosa/18 = ${r(gluMg/18, 1)} (${r(gluMg, 1)} mg/dL)\n`;
+    resultado += `• Urea/2.8 = ${r(ureaMg/2.8, 1)} (${r(ureaMg, 1)} mg/dL)`;
+    
     if (etohMg > 0) {
-      parts.push(`Etanol/3.7 = ${round(etohMg/3.7,1)} (etanol: ${round(etohMg,1)} mg/dL)`);
+      resultado += `\n• Etanol/3.7 = ${r(etohMg/3.7, 1)} (${r(etohMg, 1)} mg/dL)`;
     }
-
-    result.textContent = msg + '\n' + parts.join(' · ');
-  });
-
-  btnCopy.addEventListener('click', () => {
-    const txt = result.textContent || '';
-    if(!txt.trim()){ alert('No hay resultado para copiar.'); return; }
-    navigator.clipboard.writeText(txt)
-      .then(() => { btnCopy.textContent = '¡Copiado!'; setTimeout(()=>btnCopy.textContent='Copiar resultado',1000); })
-      .catch(() => alert('No se pudo copiar.'));
+    
+    // Brecha osmolar si hay medida
+    if (!isNaN(measured) && measured > 0) {
+      const gap = measured - osmol;
+      resultado += `\n\nBrecha osmolar: ${r(gap, 1)} mOsm/kg`;
+      if (gap > 10) {
+        resultado += ` (elevada, considerar osmoles no medidos)`;
+      }
+    }
+    
+    $('result').textContent = resultado;
   });
 })();
-
-// Cierre inteligente
-function smartClose(){
-  try{
-    if(window.opener && !window.opener.closed){ window.close(); return; }
-  }catch(e){}
-  if(history.length>1){ history.back(); }
-  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
-}
-var _cb = document.getElementById('closeBtn');
-if(_cb){ _cb.addEventListener('click', smartClose); }
-
 </script>
 </body>
 </html>

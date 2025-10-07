@@ -1,97 +1,169 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Calcio sérico corregido</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px}
-.card{max-width:700px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
-h1{font-size:1.25rem;margin-bottom:1rem;color:#0a4c84}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
-label{display:flex;flex-direction:column;font-weight:600;color:#334155}
-input,select{border:1px solid #d1d9e6;border-radius:10px;padding:.55rem}
-.actions{display:flex;gap:.6rem;margin-top:.8rem}
-.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid #d9e2ec;background:#eef2f7;color:#0a4c84;cursor:pointer}
-.btn.primary{background:#0a5ea8;color:#fff;border-color:transparent}
-.result{margin-top:1rem;padding:.9rem;border:1px solid #e1eefc;background:#f7fbff;border-radius:10px;white-space:pre-wrap;color:#0a4c84}
-.small{font-size:.9rem;color:#667085}
-@media(max-width:640px){.grid{grid-template-columns:1fr}}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Calcio Sérico Corregido - Urgencias</title>
 
-*{box-sizing:border-box}
-select{max-width:100%}
-.actions .spacer{flex:1 1 auto}
-.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
-.btn.close:hover{filter:brightness(1.05)}</style>
+<!-- Estilos comunes de calculadoras -->
+<link rel="stylesheet" href="../css/calculadoras-common.css">
+
+<!-- Estilos específicos -->
+<style>
+details{margin-top:.4rem}
+details summary{cursor:pointer;color:#0a4c84;font-weight:600}
+.details-box{border:1px solid var(--bd);background:var(--bg);border-radius:10px;padding:.7rem .9rem;margin-top:.5rem;color:#374151}
+ul{margin:.3rem 0 .6rem 1rem}
+</style>
 </head>
 <body>
 <div class="card">
-  <h1>Calcio sérico corregido</h1>
-  <div class="grid">
-    <label>Calcio total (mg/dL)
-      <input type="number" id="ca" step="0.01"></label>
-    <label>Método de corrección
-      <select id="met">
-        <option value="alb" selected>Por albúmina</option>
-        <option value="tp">Por proteínas totales</option>
-      </select>
-    </label>
-    <label id="albLabel">Albúmina (g/dL)
-      <input type="number" id="alb" step="0.1"></label>
-    <label id="tpLabel" style="display:none">Proteínas totales (g/dL)
-      <input type="number" id="tp" step="0.1"></label>
-  </div>
+  <h1>Calcio Sérico Corregido</h1>
+  <p class="sub">Corrige el calcio total según albúmina o proteínas totales para interpretar niveles en hipoalbuminemia.</p>
 
-  <div class="actions">
-    <button class="btn primary" onclick="calc()">Calcular</button>
-    <button class="btn" onclick="copiar()">Copiar</button>
-    <button class="btn" onclick="limpiar()">Limpiar</button>
-  
+  <form id="formCalcio" class="grid">
+    
+    <div class="row">
+      <label for="ca">Calcio total (mg/dL)</label>
+      <div class="ig">
+        <input id="ca" type="number" step="0.01" min="0" placeholder="Ej. 8.5" required />
+        <span></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="metodo">Método de corrección</label>
+      <div class="ig">
+        <select id="metodo">
+          <option value="alb">Por albúmina</option>
+          <option value="tp">Por proteínas totales</option>
+        </select>
+        <span></span>
+      </div>
+    </div>
+
+    <div class="row" id="albRow">
+      <label for="alb">Albúmina (g/dL)</label>
+      <div class="ig">
+        <input id="alb" type="number" step="0.1" min="0" placeholder="Ej. 3.5" required />
+        <span></span>
+      </div>
+    </div>
+
+    <div class="row" id="tpRow" style="display: none;">
+      <label for="tp">Proteínas totales (g/dL)</label>
+      <div class="ig">
+        <input id="tp" type="number" step="0.1" min="0" placeholder="Ej. 6.0" />
+        <span></span>
+      </div>
+    </div>
+
+    <details>
+      <summary>Ver fórmulas y rangos</summary>
+      <div class="details-box">
+        <p><strong>Fórmulas de corrección:</strong></p>
+        <ul>
+          <li><strong>Por albúmina:</strong> Ca<sub>corr</sub> = Ca + 0.8 × (4 − alb g/dL)</li>
+          <li><strong>Por proteínas totales:</strong> Ca<sub>corr</sub> = Ca + 0.8 × (7.5 − PT g/dL)</li>
+        </ul>
+        <p><strong>Rangos de referencia:</strong></p>
+        <ul>
+          <li><strong>Calcio total:</strong> 8.5-10.5 mg/dL</li>
+          <li><strong>Calcio iónico:</strong> 4.5-5.3 mg/dL (más preciso)</li>
+        </ul>
+        <p class="muted">La corrección ayuda a interpretar niveles en hipoalbuminemia; siempre correlacionar con síntomas, ECG y calcio iónico si es preciso.</p>
+      </div>
+    </details>
+
+    <div class="actions">
+      <button type="submit" class="btn primary">Calcular</button>
+      <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
+      <button type="reset" class="btn secondary">Limpiar</button>
       <span class="spacer"></span>
       <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
-</div>
-  <div id="res" class="result" aria-live="polite">Selecciona método, introduce valores y calcula.</div>
-    <p class="muted"><strong>Nota clínica:</strong> El calcio corregido ayuda a interpretar niveles en hipoalbuminemia; siempre correlacionar con síntomas, ECG y, si es preciso, calcio iónico.</p>
+    </div>
 
-  <p class="small">Fórmulas: por albúmina → Ca<sub>corr</sub>=Ca + 0.8×(4 − alb g/dL).  
-  Por proteínas totales (menos usada) → Ca<sub>corr</sub>=Ca + 0.8×(7.5 − PT g/dL).</p>
+    <div id="result" class="result" aria-live="polite">Introduce valores y pulsa "Calcular".</div>
+    <p class="muted">Uso profesional. El calcio corregido es una estimación; considerar medir calcio iónico en situaciones críticas.</p>
+  </form>
 </div>
 
+<!-- Scripts comunes -->
+<script src="../js/calculadoras-common.js"></script>
+
+<!-- Lógica específica de esta calculadora -->
 <script>
-const met=document.getElementById('met'), albL=document.getElementById('albLabel'), tpL=document.getElementById('tpLabel');
-met.addEventListener('change', ()=>{
-  const v=met.value; albL.style.display = (v==='alb')?'block':'none'; tpL.style.display=(v==='tp')?'block':'none';
-});
-function r(v,d=2){return Math.round((v+Number.EPSILON)*10**d)/10**d}
-function calc(){
-  const ca=+document.getElementById('ca').value;
-  if(!(ca>0)) return alert('Introduce calcio total.');
-  let out='';
-  if(met.value==='alb'){
-    const alb=+document.getElementById('alb').value; if(!(alb>=0)) return alert('Introduce albúmina.');
-    const cac = ca + 0.8*(4 - alb);
-    out = `Calcio corregido (por albúmina) = ${r(cac)} mg/dL`;
-  }else{
-    const tp=+document.getElementById('tp').value; if(!(tp>0)) return alert('Introduce proteínas totales.');
-    const cac = ca + 0.8*(7.5 - tp);
-    out = `Calcio corregido (por proteínas totales) = ${r(cac)} mg/dL`;
-  }
-  document.getElementById('res').textContent=out;
-}
-function copiar(){navigator.clipboard.writeText(document.getElementById('res').textContent||'')}
-function limpiar(){document.querySelectorAll('input').forEach(i=>i.value='');document.getElementById('res').textContent='Selecciona método, introduce valores y calcula.'}
+(function() {
+  const $ = (id) => document.getElementById(id);
+  
+  const r = (value, decimals = 2) => Math.round((value + Number.EPSILON) * (10 ** decimals)) / (10 ** decimals);
 
-// Cierre inteligente
-function smartClose(){
-  try{
-    if(window.opener && !window.opener.closed){ window.close(); return; }
-  }catch(e){}
-  if(history.length>1){ history.back(); }
-  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
-}
-var _cb = document.getElementById('closeBtn');
-if(_cb){ _cb.addEventListener('click', smartClose); }
+  // Manejar cambio de método
+  $('metodo').addEventListener('change', function() {
+    const metodo = this.value;
+    $('albRow').style.display = metodo === 'alb' ? 'grid' : 'none';
+    $('tpRow').style.display = metodo === 'tp' ? 'grid' : 'none';
+    
+    // Hacer requerido el campo correspondiente
+    $('alb').required = metodo === 'alb';
+    $('tp').required = metodo === 'tp';
+  });
 
+  // Evento del formulario
+  $('formCalcio').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const ca = parseFloat($('ca').value);
+    const metodo = $('metodo').value;
+    
+    if (!(ca > 0)) {
+      $('result').textContent = 'Por favor, introduce el calcio total.';
+      return;
+    }
+    
+    let resultado = '';
+    
+    if (metodo === 'alb') {
+      const alb = parseFloat($('alb').value);
+      if (!(alb > 0)) {
+        $('result').textContent = 'Por favor, introduce la albúmina.';
+        return;
+      }
+      const cac = ca + 0.8 * (4 - alb);
+      resultado = `Calcio corregido (por albúmina) = ${r(cac)} mg/dL\n`;
+      resultado += `Calcio total: ${r(ca)} mg/dL, Albúmina: ${r(alb)} g/dL`;
+      
+    } else {
+      const tp = parseFloat($('tp').value);
+      if (!(tp > 0)) {
+        $('result').textContent = 'Por favor, introduce las proteínas totales.';
+        return;
+      }
+      const cac = ca + 0.8 * (7.5 - tp);
+      resultado = `Calcio corregido (por proteínas totales) = ${r(cac)} mg/dL\n`;
+      resultado += `Calcio total: ${r(ca)} mg/dL, Proteínas totales: ${r(tp)} g/dL`;
+    }
+    
+    // Interpretación
+    const calcioCorregido = parseFloat(resultado.split('=')[1]);
+    if (calcioCorregido < 8.5) {
+      resultado += '\n⚠️ Hipocalcemia';
+    } else if (calcioCorregido > 10.5) {
+      resultado += '\n⚠️ Hipercalcemia';
+    } else {
+      resultado += '\n✓ Calcio dentro de rango normal';
+    }
+    
+    $('result').textContent = resultado;
+  });
+
+  // Limpiar campos al reset
+  $('formCalcio').addEventListener('reset', function() {
+    $('albRow').style.display = 'grid';
+    $('tpRow').style.display = 'none';
+    $('metodo').value = 'alb';
+  });
+})();
 </script>
 </body>
 </html>

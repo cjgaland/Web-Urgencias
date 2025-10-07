@@ -1,103 +1,117 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Centor / McIsaac – Faringitis estreptocócica</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Centor / McIsaac — Faringitis estreptocócica - Urgencias</title>
+
+<!-- Estilos comunes de calculadoras -->
+<link rel="stylesheet" href="../css/calculadoras-common.css">
+
+<!-- Estilos específicos -->
 <style>
-:root{--c1:#0a5ea8;--c1d:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
-body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px}
-.card{max-width:880px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
-h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)} .small{font-size:.9rem;color:var(--mut)}
-fieldset{border:1px solid #e5e7eb;border-radius:12px;padding:.8rem;margin:.8rem 0}
-legend{padding:0 .4rem;color:#334155;font-weight:700}
-label{display:flex;gap:.55rem;align-items:center;margin:.25rem 0}
-input[type=checkbox],input[type=radio]{transform:scale(1.1)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
-.actions{display:flex;gap:.6rem;margin-top:.8rem;flex-wrap:wrap;align-items:center}
-.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
-.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1d)}
-.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}
-.result{margin-top:.9rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;white-space:pre-wrap;color:var(--tx)}
-.badge{display:inline-block;padding:.2rem .5rem;border-radius:999px;font-weight:700}
-.low{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
-.mod{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
-.high{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
-
-*{box-sizing:border-box}
-
-select{max-width:100%}
-.actions .spacer{flex:1 1 auto}
-.btn.close{margin-left:auto;background:var(--c1d,#08406a);color:#fff;border-color:#083554}
-.btn.close:hover{filter:brightness(1.05)}
+.small{font-size:.92rem;color:#334155;margin-left:1.5rem}
+details{margin-top:.4rem}
+details summary{cursor:pointer;color:#0a4c84;font-weight:600}
+.details-box{border:1px solid var(--bd);background:var(--bg);border-radius:10px;padding:.7rem .9rem;margin-top:.5rem;color:#374151}
+ul{margin:.3rem 0 .6rem 1rem}
 </style>
 </head>
 <body>
 <div class="card">
-  <h1>Centor / McIsaac – Faringitis estreptocócica</h1>
-  <p class="small">Suma 0–5. McIsaac ajusta por edad. Orienta necesidad de test/antibiótico según protocolo local.</p>
+  <h1>Centor / McIsaac — Faringitis estreptocócica</h1>
+  <p class="sub">Suma 0-5. McIsaac ajusta por edad. Orienta necesidad de test/antibiótico según protocolo local.</p>
 
-  <form id="f" onsubmit="return false;">
+  <form id="formCentor" class="grid">
     <fieldset>
       <legend>Criterios Centor</legend>
-      <label><input type="checkbox" id="fiebre"> Fiebre &gt; 38ºC (1)</label>
-      <label><input type="checkbox" id="exudado"> Exudado/amígdalas hinchadas (1)</label>
-      <label><input type="checkbox" id="adenopatias"> Adenopatías cervicales anteriores dolorosas (1)</label>
-      <label><input type="checkbox" id="toseAusente"> Ausencia de tos (1)</label>
+      <div class="grid">
+        <label><input type="checkbox" id="fiebre"> Fiebre > 38°C (1 punto)</label>
+        <label><input type="checkbox" id="exudado"> Exudado/amígdalas hinchadas (1 punto)</label>
+        <label><input type="checkbox" id="adenopatias"> Adenopatías cervicales anteriores dolorosas (1 punto)</label>
+        <label><input type="checkbox" id="tosAusente"> Ausencia de tos (1 punto)</label>
+      </div>
     </fieldset>
 
     <fieldset>
       <legend>Edad (McIsaac)</legend>
-      <label><input type="radio" name="edad" value="1" checked> 3–14 años (+1)</label>
-      <label><input type="radio" name="edad" value="0"> 15–44 años (0)</label>
-      <label><input type="radio" name="edad" value="-1"> ≥ 45 años (−1)</label>
+      <div class="grid">
+        <label><input type="radio" name="edad" value="1"> 3-14 años (+1 punto)</label>
+        <label><input type="radio" name="edad" value="0" checked> 15-44 años (0 puntos)</label>
+        <label><input type="radio" name="edad" value="-1"> ≥ 45 años (-1 punto)</label>
+      </div>
     </fieldset>
 
+    <details>
+      <summary>Ver criterios y recomendaciones</summary>
+      <div class="details-box">
+        <p><strong>Interpretación según puntuación McIsaac:</strong></p>
+        <ul>
+          <li><strong>0-1 puntos:</strong> Baja probabilidad (≈1-10%). Manejo sintomático.</li>
+          <li><strong>2-3 puntos:</strong> Probabilidad intermedia (≈17-35%). Considerar test rápido/cultivo.</li>
+          <li><strong>4-5 puntos:</strong> Alta probabilidad (≈51-53%). Considerar antibioterapia empírica o test.</li>
+        </ul>
+        <p class="muted">Adaptar según prevalencia local y disponibilidad de test.</p>
+      </div>
+    </details>
+
     <div class="actions">
-      <button class="btn primary" onclick="calc()">Calcular</button>
-      <button class="btn secondary" onclick="copyRes()">Copiar</button>
-      <button class="btn secondary" type="reset" onclick="resetRes()">Limpiar</button>
-    
+      <button type="button" class="btn primary" id="calc">Calcular</button>
+      <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
+      <button type="reset" class="btn secondary">Limpiar</button>
       <span class="spacer"></span>
       <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
-</div>
+    </div>
+
+    <div id="result" class="result" aria-live="polite">Selecciona criterios y pulsa "Calcular".</div>
+    <p class="muted">Uso profesional. Adaptar tratamiento según protocolos locales y situación epidemiológica.</p>
   </form>
-
-  <div id="res" class="result" aria-live="polite">Selecciona criterios y pulsa Calcular.</div>
 </div>
 
+<!-- Scripts comunes -->
+<script src="../js/calculadoras-common.js"></script>
+
+<!-- Lógica específica de esta calculadora -->
 <script>
-function v(id){return document.getElementById(id).checked?1:0}
-function calc(){
-  const centor = v('fiebre')+v('exudado')+v('adenopatias')+v('toseAusente');
-  const edad = parseInt(document.querySelector('input[name="edad"]:checked').value,10);
-  const mcisaac = centor + edad;
+(function(){
+  const $ = (id) => document.getElementById(id);
+  
+  function score(){
+    let centor = 0;
+    if($('fiebre').checked) centor += 1;
+    if($('exudado').checked) centor += 1;
+    if($('adenopatias').checked) centor += 1;
+    if($('tosAusente').checked) centor += 1;
+    
+    const edad = parseInt(document.querySelector('input[name="edad"]:checked').value, 10);
+    const mcisaac = centor + edad;
+    
+    return { centor, mcisaac };
+  }
+  
+  function interpretacion(mcisaac) {
+    if (mcisaac >= 4) {
+      return 'Alta probabilidad: considerar antibioterapia o test rápido/cultivo según protocolo.';
+    } else if (mcisaac >= 2) {
+      return 'Probabilidad intermedia: considerar test rápido/cultivo.';
+    } else {
+      return 'Baja probabilidad de estreptococo; manejo sintomático o test según disponibilidad.';
+    }
+  }
+  
+  $('calc').addEventListener('click', () => {
+    const { centor, mcisaac } = score();
+    const textoInterpretacion = interpretacion(mcisaac);
+    
+    const resultado = `Centor = ${centor}; McIsaac = ${mcisaac}\n${textoInterpretacion}`;
+    $('result').textContent = resultado;
+  });
 
-  let badge='low', rec='Baja probabilidad de estreptococo; manejo sintomático o test según disponibilidad.';
-  if(mcisaac>=4){badge='high'; rec='Alta probabilidad: considerar antibioterapia o test rápido/cultivo según protocolo.'}
-  else if(mcisaac===2 || mcisaac===3){badge='mod'; rec='Probabilidad intermedia: considerar test rápido/cultivo.'}
-
-  document.getElementById('res').innerHTML =
-    `Centor = ${centor}; McIsaac = <strong>${mcisaac}</strong>\n`+
-    `<span class="badge ${badge}">${rec}</span>`;
-}
-function copyRes(){
-  const t=document.getElementById('res').innerText||''; if(!t.trim()) return alert('Sin resultado.');
-  navigator.clipboard.writeText('Centor/McIsaac:\n'+t);
-}
-function resetRes(){ document.getElementById('res').textContent='Selecciona criterios y pulsa Calcular.'; }
-
-// Cierre inteligente
-function smartClose(){
-  try{
-    if(window.opener && !window.opener.closed){ window.close(); return; }
-  }catch(e){}
-  if(history.length>1){ history.back(); }
-  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
-}
-var _cb = document.getElementById('closeBtn');
-if(_cb){ _cb.addEventListener('click', smartClose); }
-
+  // Limpiar resultado al resetear
+  $('formCentor').addEventListener('reset', () => {
+    $('result').textContent = 'Selecciona criterios y pulsa "Calcular".';
+  });
+})();
 </script>
 </body>
 </html>

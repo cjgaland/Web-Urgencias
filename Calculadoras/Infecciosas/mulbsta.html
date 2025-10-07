@@ -1,86 +1,116 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>MuLBSTA – Riesgo en neumonía vírica</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MuLBSTA — Riesgo en neumonía vírica - Urgencias</title>
+
+<!-- Estilos comunes de calculadoras -->
+<link rel="stylesheet" href="../css/calculadoras-common.css">
+
+<!-- Estilos específicos -->
 <style>
-:root{--c1:#0a5ea8;--c1d:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
-body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px}
-.card{max-width:820px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
-h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)} .small{font-size:.9rem;color:var(--mut)}
-label{display:flex;gap:.55rem;align-items:center;margin:.3rem 0}
-input[type=checkbox]{transform:scale(1.1)}
-.actions{display:flex;gap:.6rem;margin-top:.8rem;flex-wrap:wrap;align-items:center}
-.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
-.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1d)}
-.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}
-.result{margin-top:.9rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;white-space:pre-wrap;color:var(--tx)}
-.badge{display:inline-block;padding:.2rem .5rem;border-radius:999px;font-weight:700}
-.low{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
-.mod{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
-.high{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
-
-*{box-sizing:border-box}
-
-select{max-width:100%}
-.actions .spacer{flex:1 1 auto}
-.btn.close{margin-left:auto;background:var(--c1d,#08406a);color:#fff;border-color:#083554}
-.btn.close:hover{filter:brightness(1.05)}
+details{margin-top:.4rem}
+details summary{cursor:pointer;color:#0a4c84;font-weight:600}
+.details-box{border:1px solid var(--bd);background:var(--bg);border-radius:10px;padding:.7rem .9rem;margin-top:.5rem;color:#374151}
+ul{margin:.3rem 0 .6rem 1rem}
 </style>
 </head>
 <body>
 <div class="card">
-  <h1>MuLBSTA – Neumonía vírica</h1>
-  <p class="small">Escala orientativa de mortalidad en neumonía vírica. Interpretar en contexto.</p>
+  <h1>MuLBSTA — Neumonía vírica</h1>
+  <p class="sub">Escala orientativa de mortalidad en neumonía vírica. Interpretar en contexto clínico.</p>
 
-  <form onsubmit="return false;">
-    <label><input type="checkbox" id="multi"> Infiltrados multilobares (5)</label>
-    <label><input type="checkbox" id="lymph"> Linfopenia (≤0.8 ×10⁹/L) (4)</label>
-    <label><input type="checkbox" id="bact"> Coinfección bacteriana (3)</label>
-    <label><input type="checkbox" id="smoke"> Tabaquismo (historia actual/previa) (3)</label>
-    <label><input type="checkbox" id="htn"> Hipertensión (2)</label>
-    <label><input type="checkbox" id="age60"> Edad ≥ 60 años (2)</label>
+  <form id="formMuLBSTA" class="grid">
+    <label><input type="checkbox" id="multi"> Infiltrados multilobares (5 puntos)</label>
+    <label><input type="checkbox" id="lymph"> Linfopenia (≤0.8 ×10⁹/L) (4 puntos)</label>
+    <label><input type="checkbox" id="bact"> Coinfección bacteriana (4 puntos)</label>
+    <label><input type="checkbox" id="smoke"> Tabaquismo (historia actual/previa) (3 puntos)</label>
+    <label><input type="checkbox" id="htn"> Hipertensión (2 puntos)</label>
+    <label><input type="checkbox" id="age60"> Edad ≥ 60 años (2 puntos)</label>
+
+    <details>
+      <summary>Ver criterios y definiciones</summary>
+      <div class="details-box">
+        <ul>
+          <li><strong>Infiltrados multilobares:</strong> Compromiso radiológico de múltiples lóbulos pulmonares.</li>
+          <li><strong>Linfopenia:</strong> Recuento linfocitario ≤0.8 ×10⁹/L en hemograma.</li>
+          <li><strong>Coinfección bacteriana:</strong> Evidencia de infección bacteriana concomitante.</li>
+          <li><strong>Tabaquismo:</strong> Historia de tabaquismo activo o en el último año.</li>
+          <li><strong>Hipertensión:</strong> Diagnóstico previo de hipertensión arterial.</li>
+          <li><strong>Edad ≥60:</strong> Pacientes de 60 años o más.</li>
+        </ul>
+        <p class="muted"><strong>Interpretación:</strong> 0-11 puntos (riesgo bajo-moderado), ≥12 puntos (riesgo alto).</p>
+      </div>
+    </details>
 
     <div class="actions">
-      <button class="btn primary" onclick="calc()">Calcular</button>
-      <button class="btn secondary" onclick="copyRes()">Copiar</button>
-      <button class="btn secondary" type="reset" onclick="resetRes()">Limpiar</button>
-    
+      <button type="button" class="btn primary" id="calc">Calcular</button>
+      <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
+      <button type="reset" class="btn secondary">Limpiar</button>
       <span class="spacer"></span>
       <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
-</div>
+    </div>
+
+    <div id="result" class="result" aria-live="polite">Marca los criterios y pulsa "Calcular".</div>
+    <p class="muted">Escala predictiva de mortalidad a 90 días en neumonía viral. Validada principalmente en población china.</p>
   </form>
-
-  <div id="res" class="result" aria-live="polite">Marca criterios y pulsa Calcular.</div>
 </div>
 
+<!-- Scripts comunes -->
+<script src="../js/calculadoras-common.js"></script>
+
+<!-- Lógica específica de esta calculadora -->
 <script>
-function v(id){return document.getElementById(id).checked}
-function calc(){
-  const total = (v('multi')?5:0)+(v('lymph')?4:0)+(v('bact')?3:0)+(v('smoke')?3:0)+(v('htn')?2:0)+(v('age60')?2:0);
-  let badge='low', msg='Riesgo bajo/moderado. Seguir protocolo clínico.';
-  if(total>=12){badge='high'; msg='Riesgo alto: considerar ingreso/monitorización intensiva.'}
-  else if(total>=8){badge='mod'; msg='Riesgo intermedio: observar de cerca y optimizar tratamiento.'}
+(function(){
+  const $ = (id) => document.getElementById(id);
+  
+  function score(){
+    let total = 0;
+    if($('multi').checked) total += 5;
+    if($('lymph').checked) total += 4;
+    if($('bact').checked) total += 4;
+    if($('smoke').checked) total += 3;
+    if($('htn').checked) total += 2;
+    if($('age60').checked) total += 2;
+    return total;
+  }
+  
+  function interpretacion(total) {
+    if (total >= 12) {
+      return {badge: 'sev', text: 'Riesgo alto: considerar ingreso/monitorización intensiva.'};
+    } else if (total >= 8) {
+      return {badge: 'mod', text: 'Riesgo intermedio: observar de cerca y optimizar tratamiento.'};
+    } else {
+      return {badge: 'good', text: 'Riesgo bajo/moderado. Seguir protocolo clínico.'};
+    }
+  }
+  
+  function componentes() {
+    const parts = [];
+    if($('multi').checked) parts.push('Multilobular(5)');
+    if($('lymph').checked) parts.push('Linfopenia(4)');
+    if($('bact').checked) parts.push('Coinfección(4)');
+    if($('smoke').checked) parts.push('Tabaquismo(3)');
+    if($('htn').checked) parts.push('HTA(2)');
+    if($('age60').checked) parts.push('Edad≥60(2)');
+    return parts.join(' + ') || '—';
+  }
 
-  document.getElementById('res').innerHTML =
-    `MuLBSTA = <strong>${total}</strong>\n`+
-    `<span class="badge ${badge}">${msg}</span>`;
-}
-function copyRes(){ const t=document.getElementById('res').innerText||''; if(!t.trim()) return alert('Sin resultado.'); navigator.clipboard.writeText('MuLBSTA:\n'+t); }
-function resetRes(){ document.getElementById('res').textContent='Marca criterios y pulsa Calcular.'; }
+  $('calc').addEventListener('click', () => {
+    const total = score();
+    const { badge, text } = interpretacion(total);
+    const comp = componentes();
+    
+    const resultado = `MuLBSTA = ${total}\nComponentes: ${comp}\n${text}`;
+    $('result').textContent = resultado;
+  });
 
-// Cierre inteligente
-function smartClose(){
-  try{
-    if(window.opener && !window.opener.closed){ window.close(); return; }
-  }catch(e){}
-  if(history.length>1){ history.back(); }
-  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
-}
-var _cb = document.getElementById('closeBtn');
-if(_cb){ _cb.addEventListener('click', smartClose); }
-
+  // Limpiar resultado al resetear
+  $('formMuLBSTA').addEventListener('reset', () => {
+    $('result').textContent = 'Marca los criterios y pulsa "Calcular".';
+  });
+})();
 </script>
 </body>
 </html>
