@@ -3,131 +3,177 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Agua Corporal Total</title>
+<title>Agua Corporal Total - Urgencias</title>
+
+<!-- Estilos comunes de calculadoras -->
+<link rel="stylesheet" href="../css/calculadoras-common.css">
+
+<!-- Estilos específicos -->
 <style>
-  :root{--c1:#0a5ea8;--c1-600:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
-  *{box-sizing:border-box}
-  body{font-family:Roboto,Arial,Helvetica,sans-serif;margin:0;padding:20px;background:#fff;color:#222}
-  h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
-  .card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px 16px 18px;max-width:720px;margin:0 auto;box-shadow:0 4px 16px rgba(0,0,0,.05)}
-  .sub{color:#475569;margin:-.4rem 0 .8rem;font-size:.95rem}
-  .grid{display:grid;gap:.9rem}
-  .row{display:grid;gap:.5rem;grid-template-columns:1fr 1fr;align-items:center}
-  .ig{display:grid;grid-template-columns:1fr 180px;gap:.5rem}
-  label{font-weight:600;color:#334155}
-  input[type=number],select{border:1px solid var(--bx);border-radius:10px;padding:.6rem .65rem;font-size:1rem;width:100%}
-  select{max-width:100%}
-  .actions{display:flex;gap:.6rem;margin-top:.4rem;flex-wrap:wrap;align-items:center}
-  .actions .spacer{flex:1 1 auto}
-  .btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
-  .btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1-600)}
-  .btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}.btn.secondary:hover{background:#e6ebf2}
-  .btn.close{margin-left:auto;background:var(--c1-600);color:#fff;border-color:#083554}
-  .btn.close:hover{filter:brightness(1.05)}
-  .result{margin-top:.9rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;color:var(--tx);white-space:pre-wrap}
-  .muted{color:var(--mut);font-size:.9rem}
-  @media (max-width:560px){.row{grid-template-columns:1fr}.ig{grid-template-columns:1fr}}
+details{margin-top:.4rem}
+details summary{cursor:pointer;color:#0a4c84;font-weight:600}
+.details-box{border:1px solid var(--bd);background:var(--bg);border-radius:10px;padding:.7rem .9rem;margin-top:.5rem;color:#374151}
+ul{margin:.3rem 0 .6rem 1rem}
 </style>
 </head>
 <body>
 <div class="card">
-  <h1 style="margin-bottom:.4rem">Agua Corporal Total</h1>
-  <p class="sub" style="margin-top:0"><strong>Watson</strong> (adultos). Comparativa con <strong>Hume</strong>.</p>
+  <h1>Agua Corporal Total (TBW)</h1>
+  <p class="sub">Estimación del agua corporal total. Fórmula de Watson (recomendada) con comparativa Hume.</p>
 
   <form id="formTBW" class="grid">
+    
+    <!-- Sexo -->
     <div class="row">
       <label for="sexo">Sexo</label>
-      <select id="sexo" required>
-        <option value="M">Varón</option>
-        <option value="F">Mujer</option>
-      </select>
+      <div class="ig">
+        <select id="sexo" required>
+          <option value="M">Varón</option>
+          <option value="F">Mujer</option>
+        </select>
+        <span></span>
+      </div>
     </div>
 
+    <!-- Edad -->
     <div class="row">
-      <label for="edad">Edad</label>
+      <label for="edad">Edad (años)</label>
       <div class="ig">
         <input id="edad" type="number" step="1" min="0" placeholder="Ej. 45" required />
         <span></span>
       </div>
     </div>
 
+    <!-- Peso -->
     <div class="row">
       <label for="peso">Peso</label>
       <div class="ig">
         <input id="peso" type="number" step="0.1" min="0" placeholder="Ej. 70" required />
-        <select id="pesoUnit"><option value="kg">kg</option><option value="lb">lb</option></select>
+        <select id="pesoUnit">
+          <option value="kg">kg</option>
+          <option value="lb">lb</option>
+        </select>
       </div>
     </div>
 
+    <!-- Talla -->
     <div class="row">
       <label for="talla">Talla</label>
       <div class="ig">
         <input id="talla" type="number" step="0.1" min="0" placeholder="Ej. 175" required />
-        <select id="tallaUnit"><option value="cm">cm</option><option value="m">m</option><option value="in">in</option></select>
+        <select id="tallaUnit">
+          <option value="cm">cm</option>
+          <option value="m">m</option>
+          <option value="in">in</option>
+        </select>
       </div>
     </div>
 
+    <!-- Detalles expandibles -->
+    <details>
+      <summary>Ver fórmulas y aplicación clínica</summary>
+      <div class="details-box">
+        <p><strong>Fórmulas disponibles:</strong></p>
+        <ul>
+          <li><strong>Watson (adultos):</strong>
+            <ul>
+              <li>Hombres: TBW (L) = 2.447 - 0.09516×edad + 0.1074×altura(cm) + 0.3362×peso(kg)</li>
+              <li>Mujeres: TBW (L) = -2.097 + 0.1069×altura(cm) + 0.2466×peso(kg) - 0.00737×edad</li>
+            </ul>
+          </li>
+          <li><strong>Hume (comparativa):</strong>
+            <ul>
+              <li>Hombres: TBW (L) = 0.194786×peso(kg) + 0.296785×altura(m) - 14.012934</li>
+              <li>Mujeres: TBW (L) = 0.34454×peso(kg) + 0.183809×altura(m) - 35.270121</li>
+            </ul>
+          </li>
+        </ul>
+        
+        <p><strong>Aplicación clínica:</strong></p>
+        <ul>
+          <li>Estimación de volumen de distribución de fármacos hidrosolubles</li>
+          <li>Cálculo de déficit hídrico en deshidratación</li>
+          <li>Planificación de reposición hidroelectrolítica</li>
+          <li>Ajuste de dosis de algunos medicamentos</li>
+        </ul>
+        
+        <p class="muted" style="margin-top:0.8rem"><strong>Nota:</strong> El agua corporal total representa aproximadamente el 60% del peso corporal en hombres adultos y el 50% en mujeres adultas. Watson es la fórmula más utilizada por su validación en población adulta amplia.</p>
+      </div>
+    </details>
+
+    <!-- Botones de acción -->
     <div class="actions">
       <button type="submit" class="btn primary">Calcular</button>
       <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
-      <button type="reset" class="btn secondary">Limpiar</button>     
-          <span class="spacer"></span>
+      <button type="reset" class="btn secondary">Limpiar</button>
+      <span class="spacer"></span>
       <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
     </div>
 
-    <div id="result" class="result" aria-live="polite">Introduce datos y pulsa “Calcular”.</div>
-    <p class="muted">Resultado en litros (L). Fórmulas para adultos.</p>
+    <!-- Área de resultado -->
+    <div id="result" class="result" aria-live="polite">Introduce todos los datos y pulsa "Calcular".</div>
+    
+    <!-- Nota al pie -->
+    <p class="muted">Resultado en litros (L). Fórmulas validadas para adultos. No sustituye el juicio clínico.</p>
   </form>
 </div>
 
+<!-- Scripts comunes -->
+<script src="../js/calculadoras-common.js"></script>
+
+<!-- Lógica específica de esta calculadora -->
 <script>
-(function(){
-  const $=id=>document.getElementById(id), r=(v,d=2)=>Math.round((v+Number.EPSILON)*(10**d))/(10**d);
-  const toKg=(v,u)=>u==='lb'?v*0.45359237:v;
-  const toCm=(v,u)=>u==='m'?v*100:(u==='in'?v*2.54:v);
+(function() {
+  const $ = (id) => document.getElementById(id);
+  const r = (value, decimals = 2) => Math.round((value + Number.EPSILON) * (10 ** decimals)) / (10 ** decimals);
 
-  $('formTBW').addEventListener('submit',e=>{
+  // Conversión de unidades
+  const toKg = (value, unit) => unit === 'lb' ? value * 0.45359237 : value;
+  const toCm = (value, unit) => unit === 'm' ? value * 100 : (unit === 'in' ? value * 2.54 : value);
+
+  // Evento del formulario
+  $('formTBW').addEventListener('submit', (e) => {
     e.preventDefault();
-    const sex=$('sexo').value;
-    const age=parseFloat($('edad').value);
-    const kg=toKg(parseFloat($('peso').value),$('pesoUnit').value);
-    const cm=toCm(parseFloat($('talla').value),$('tallaUnit').value);
-    if(!(kg>0)||!(cm>0)||!(age>=0)) return $('result').textContent='Revisa valores.';
-
-    // Watson (L)
-    let watson;
-    if(sex==='M') watson = 2.447 - 0.09516*age + 0.1074*cm + 0.3362*kg;
-    else          watson = -2.097 + 0.1069*cm + 0.2466*kg - 0.00737*age;
-
-    // Hume (L)
-    let hume;
-    if(sex==='M') hume = 0.194786*kg + 0.296785*(cm/100) - 14.012934;
-    else          hume = 0.34454*kg + 0.183809*(cm/100) - 35.270121;
-
-    $('result').textContent = `Agua corporal total (Watson): ${r(watson)} L\nComparativa Hume: ${r(hume)} L`;
-  });
-
-  $('copyBtn').addEventListener('click',()=>{
-    const t=$('result').textContent||''; if(!t.trim()) return alert('No hay resultado.');
-    navigator.clipboard.writeText(t).then(()=>{ $('copyBtn').textContent='¡Copiado!'; setTimeout(()=>$('copyBtn').textContent='Copiar resultado',900); });
-  });
-
-  // Cierre inteligente
-  function smartClose(){
-    try{
-      if(window.opener && !window.opener.closed){
-        window.close();
-        return;
-      }
-    }catch(e){}
-    if(history.length > 1){
-      history.back();
-    }else{
-      location.href = '../index.html'; // Ajusta si tu índice está en otra ruta
+    
+    const sex = $('sexo').value;
+    const age = parseFloat($('edad').value);
+    const kg = toKg(parseFloat($('peso').value), $('pesoUnit').value);
+    const cm = toCm(parseFloat($('talla').value), $('tallaUnit').value);
+    const m = cm / 100; // Para Hume
+    
+    if (!(kg > 0) || !(cm > 0) || !(age >= 0)) {
+      $('result').textContent = 'Por favor, revisa todos los valores.';
+      return;
     }
-  }
-  var _closeBtn = document.getElementById('closeBtn');
-  if(_closeBtn){ _closeBtn.addEventListener('click', smartClose); }
+
+    // Watson (litros)
+    let watson;
+    if (sex === 'M') {
+      watson = 2.447 - 0.09516 * age + 0.1074 * cm + 0.3362 * kg;
+    } else {
+      watson = -2.097 + 0.1069 * cm + 0.2466 * kg - 0.00737 * age;
+    }
+
+    // Hume (litros)
+    let hume;
+    if (sex === 'M') {
+      hume = 0.194786 * kg + 0.296785 * m - 14.012934;
+    } else {
+      hume = 0.34454 * kg + 0.183809 * m - 35.270121;
+    }
+    
+    // Porcentaje del peso corporal
+    const porcentajePeso = (watson / kg) * 100;
+    
+    let resultado = `Agua corporal total (Watson) = ${r(watson, 2)} L\n`;
+    resultado += `Aproximadamente ${r(porcentajePeso, 1)}% del peso corporal\n\n`;
+    resultado += `Referencia Hume = ${r(hume, 2)} L`;
+    
+    $('result').textContent = resultado;
+  });
+
+  // Nota: El botón de copiar y cerrar se configuran automáticamente
+  // por calculadoras-common.js
 })();
 </script>
 </body>
