@@ -1,36 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>QT corregido (QTc)</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-:root{--c1:#0a5ea8;--c1-600:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
-*{box-sizing:border-box}
-
-body{font-family:Roboto,Arial,Helvetica,sans-serif;margin:0;padding:20px;background:#fff;color:#222}
-h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
-.card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px 16px 18px;max-width:760px;margin:0 auto;box-shadow:0 4px 16px rgba(0,0,0,.05)}
-.sub{color:#475569;margin:-.4rem 0 .8rem;font-size:.95rem}
-.grid{display:grid;gap:.9rem}
-.row{display:grid;gap:.5rem;grid-template-columns:1fr 1fr;align-items:center}
-.ig{display:grid;grid-template-columns:1fr 160px;gap:.5rem}
-label{font-weight:600;color:#334155}
-input[type=number],select{border:1px solid var(--bx);border-radius:10px;padding:.6rem .65rem;font-size:1rem;width:100%}
-.actions{display:flex;gap:.6rem;margin-top:.4rem;flex-wrap:wrap;align-items:center}
-.actions .spacer{flex:1 1 auto}
-.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
-.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1-600)}
-.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}.btn.secondary:hover{background:#e6ebf2}
-.result{margin-top:.9rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;color:var(--tx);white-space:pre-wrap}
-.muted{color:var(--mut);font-size:.9rem}
-@media (max-width:560px){.row{grid-template-columns:1fr}.ig{grid-template-columns:1fr}}
-
-select{max-width:100%}
-
-.btn.close{margin-left:auto;background:var(--c1-600);color:#fff;border-color:#083554}
-.btn.close:hover{filter:brightness(1.05)}
-</style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>QT corregido (QTc) - Urgencias</title>
+<link rel="stylesheet" href="../css/calculadoras-common.css">
 </head>
 <body>
 <div class="card">
@@ -42,31 +16,31 @@ select{max-width:100%}
       <label for="qt">QT medido</label>
       <div class="ig">
         <input id="qt" type="number" step="1" min="1" placeholder="Ej. 420" required>
-        <select disabled><option>ms</option></select>
+        <span>ms</span>
       </div>
     </div>
 
     <div class="row">
-      <label for="modo">Modo de entrada RR</label>
+      <label for="modo">Modo de entrada</label>
       <select id="modo">
         <option value="hr">Usar frecuencia cardiaca (lpm)</option>
-        <option value="rr">Usar RR (s)</option>
+        <option value="rr">Usar intervalo RR (s)</option>
       </select>
     </div>
 
     <div class="row" id="filaHR">
       <label for="hr">Frecuencia cardiaca</label>
       <div class="ig">
-        <input id="hr" type="number" step="1" min="1" placeholder="Ej. 75">
-        <select disabled><option>lpm</option></select>
+        <input id="hr" type="number" step="1" min="1" placeholder="Ej. 75" required>
+        <span>lpm</span>
       </div>
     </div>
 
     <div class="row" id="filaRR" style="display:none">
       <label for="rr">Intervalo RR</label>
       <div class="ig">
-        <input id="rr" type="number" step="0.01" min="0.2" placeholder="Ej. 0.8">
-        <select disabled><option>s</option></select>
+        <input id="rr" type="number" step="0.01" min="0.2" placeholder="Ej. 0.8" required>
+        <span>s</span>
       </div>
     </div>
 
@@ -74,76 +48,100 @@ select{max-width:100%}
       <button type="submit" class="btn primary">Calcular</button>
       <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
       <button type="reset" class="btn secondary">Limpiar</button>
-    
       <span class="spacer"></span>
       <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
-</div>
+    </div>
 
-    <div id="result" class="result" aria-live="polite">Introduce QT y frecuencia (o RR) y pulsa “Calcular”.</div>
-    <p class="muted">Valores orientativos de normalidad QTc: ≤450 ms varón, ≤470 ms mujer (pueden variar por fuente).</p>
+    <div id="result" class="result" aria-live="polite">Introduce QT y frecuencia (o RR) y pulsa "Calcular".</div>
+    
+    <details>
+      <summary>Ver métodos e interpretación</summary>
+      <div class="details-box">
+        <p><strong>Métodos de corrección:</strong></p>
+        <ul>
+          <li><strong>Bazett:</strong> QTc = QT / √RR</li>
+          <li><strong>Fridericia:</strong> QTc = QT / ³√RR</li>
+          <li><strong>Framingham:</strong> QTc = QT + 154 × (1 - RR)</li>
+          <li><strong>Hodges:</strong> QTc = QT + 1.75 × (FC - 60)</li>
+        </ul>
+        <p><strong>Interpretación:</strong></p>
+        <ul>
+          <li><strong>Normal:</strong> ≤450 ms (varón), ≤470 ms (mujer)</li>
+          <li><strong>Prolongado:</strong> &gt;470 ms (varón), &gt;480 ms (mujer)</li>
+          <li><strong>Alto riesgo:</strong> &gt;500 ms</li>
+        </ul>
+      </div>
+    </details>
   </form>
 </div>
 
+<script src="../js/calculadoras-common.js"></script>
 <script>
 (function(){
-  const $=id=>document.getElementById(id), r=(v,d=0)=>Math.round((v+Number.EPSILON)*(10**d))/(10**d);
-
-  $('modo').addEventListener('change', ()=>{
-    const m = $('modo').value;
-    $('filaHR').style.display = (m==='hr')?'grid':'none';
-    $('filaRR').style.display = (m==='rr')?'grid':'none';
+  const $ = window.CalcUtils.getElement;
+  const r = window.CalcUtils.round;
+  
+  // Alternar entre HR y RR
+  $('modo').addEventListener('change', function(){
+    const modo = this.value;
+    $('filaHR').style.display = (modo === 'hr') ? 'grid' : 'none';
+    $('filaRR').style.display = (modo === 'rr') ? 'grid' : 'none';
   });
 
-  $('formQTc').addEventListener('submit', e=>{
+  $('formQTc').addEventListener('submit', function(e){
     e.preventDefault();
-    const qt = parseFloat($('qt').value); if(!(qt>0)) return $('result').textContent='QT inválido.';
-    let rr;
-    if($('modo').value==='hr'){
-      const hr = parseFloat($('hr').value);
-      if(!(hr>0)) return $('result').textContent='Frecuencia inválida.';
-      rr = 60.0 / hr;
-    }else{
-      rr = parseFloat($('rr').value);
-      if(!(rr>0)) return $('result').textContent='RR inválido.';
+    
+    const qt = parseFloat($('qt').value);
+    if (!window.CalcUtils.isPositive(qt)) {
+      $('result').textContent = 'QT inválido. Introduce un valor mayor que 0.';
+      return;
     }
-    // Métodos
-    const qtcBazett = qt / Math.sqrt(rr);
-    const qtcFridericia = qt / Math.cbrt(rr);
-    const qtcFramingham = qt + 154*(1 - rr);
-    const qtcHodges = qt + 1.75*( (60/rr) - 60 );
-
-    const msg = [
-      `QT = ${r(qt)} ms, RR = ${ (rr).toFixed(3) } s (FC ≈ ${r(60/rr)} lpm)`,
-      `QTc (Bazett): ${r(qtcBazett)} ms`,
-      `QTc (Fridericia): ${r(qtcFridericia)} ms`,
-      `QTc (Framingham): ${r(qtcFramingham)} ms`,
-      `QTc (Hodges): ${r(qtcHodges)} ms`
-    ].join('\n');
-    $('result').textContent = msg;
-  });
-
-  $('copyBtn').addEventListener('click',()=>{
-    const t=$('result').textContent||''; if(!t.trim()) return alert('No hay resultado.');
-    navigator.clipboard.writeText(t).then(()=>{ $('copyBtn').textContent='¡Copiado!'; setTimeout(()=>$('copyBtn').textContent='Copiar resultado',900); });
-  });
-})();
-  // Cierre inteligente
-  function smartClose(){
-    try{
-      if(window.opener && !window.opener.closed){
-        window.close();
+    
+    let rr, fc;
+    if($('modo').value === 'hr'){
+      const hr = parseFloat($('hr').value);
+      if (!window.CalcUtils.isPositive(hr)) {
+        $('result').textContent = 'Frecuencia cardiaca inválida.';
         return;
       }
-    }catch(e){}
-    if(history.length > 1){
-      history.back();
-    }else{
-      location.href = '../index.html'; // Ajusta si tu índice está en otra ruta
+      rr = 60.0 / hr;
+      fc = hr;
+    } else {
+      rr = parseFloat($('rr').value);
+      if (!window.CalcUtils.isPositive(rr)) {
+        $('result').textContent = 'Intervalo RR inválido.';
+        return;
+      }
+      fc = 60.0 / rr;
     }
-  }
-  var _closeBtn = document.getElementById('closeBtn');
-  if(_closeBtn){ _closeBtn.addEventListener('click', smartClose); }
+    
+    // Métodos de corrección
+    const qtcBazett = qt / Math.sqrt(rr);
+    const qtcFridericia = qt / Math.cbrt(rr);
+    const qtcFramingham = qt + 154 * (1 - rr);
+    const qtcHodges = qt + 1.75 * (fc - 60);
+    
+    // Interpretación
+    function interpretarQTC(qtc) {
+      if (qtc <= 450) return 'Normal';
+      if (qtc <= 470) return 'Límite';
+      if (qtc <= 500) return 'Prolongado';
+      return 'Alto riesgo';
+    }
+    
+    const resultado = `QT = ${r(qt)} ms, RR = ${r(rr, 3)} s (FC ≈ ${r(fc)} lpm)
 
+QTc por diferentes métodos:
+• Bazett: ${r(qtcBazett)} ms (${interpretarQTC(qtcBazett)})
+• Fridericia: ${r(qtcFridericia)} ms (${interpretarQTC(qtcFridericia)})
+• Framingham: ${r(qtcFramingham)} ms (${interpretarQTC(qtcFramingham)})
+• Hodges: ${r(qtcHodges)} ms (${interpretarQTC(qtcHodges)})
+
+Nota: Bazett es el método más utilizado clínicamente.`;
+    
+    $('result').textContent = resultado;
+  });
+})();
 </script>
 </body>
 </html>

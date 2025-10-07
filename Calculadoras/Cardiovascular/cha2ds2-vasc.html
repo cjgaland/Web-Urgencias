@@ -1,136 +1,197 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>CHA₂DS₂-VASc (Riesgo de ACV en FA)</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CHA₂DS₂-VASc (Riesgo de ACV en FA) - Urgencias</title>
+<link rel="stylesheet" href="../css/calculadoras-common.css">
 <style>
-:root{--c1:#0a5ea8;--c1-600:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
-*{box-sizing:border-box}
-
-body{font-family:Roboto,Arial,Helvetica,sans-serif;margin:0;padding:20px;background:#fff;color:#222}
-h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
-.card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px 16px 18px;max-width:760px;margin:0 auto;box-shadow:0 4px 16px rgba(0,0,0,.05)}
-.sub{color:#475569;margin:-.4rem 0 .8rem;font-size:.95rem}
-.grid{display:grid;gap:.7rem}
-label{display:flex;gap:.6rem;align-items:flex-start}
-input[type=checkbox]{transform:translateY(3px)}
-.actions{display:flex;gap:.6rem;margin-top:.4rem;flex-wrap:wrap;align-items:center}
-.actions .spacer{flex:1 1 auto}
-.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
-.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1-600)}
-.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}.btn.secondary:hover{background:#e6ebf2}
-.result{margin-top:.9rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;color:var(--tx);white-space:pre-wrap}
-.muted{color:var(--mut);font-size:.9rem}
-.small{font-size:.9rem;color:#334155}
-
-select{max-width:100%}
-
-.btn.close{margin-left:auto;background:var(--c1-600);color:#fff;border-color:#083554}
-.btn.close:hover{filter:brightness(1.05)}
+.age-group { grid-column: 1 / -1; }
+.age-options { display: grid; gap: 0.5rem; margin-top: 0.3rem; }
 </style>
 </head>
 <body>
 <div class="card">
   <h1>CHA₂DS₂-VASc (FA)</h1>
-  <p class="sub">Suma de puntos: C(1) H(1) A≥75(2) Diabetes(1) Ictus/TIA/TEP prev.(2) Vasculopatía(1) Edad 65–74(1) Sexo femenino(1).</p>
+  <p class="sub">Evaluación de riesgo de ictus en fibrilación auricular para guiar anticoagulación.</p>
 
   <form id="formCHA2" class="grid">
-    <label><input type="checkbox" id="c"> Insuficiencia cardiaca/FEVI reducida (C)</label>
-    <label><input type="checkbox" id="h"> Hipertensión (H)</label>
-    <label class="small">Edad:
-      <span style="display:block;margin-left:.6rem">
-        <input type="checkbox" id="age75"> ≥ 75 años (2 puntos)<br>
-        <input type="checkbox" id="age6574"> 65–74 años (1 punto)
-      </span>
-    </label>
-    <label><input type="checkbox" id="d"> Diabetes mellitus (D)</label>
-    <label><input type="checkbox" id="s2"> Ictus/AIT/TE tromboembólica previa (S₂)</label>
-    <label><input type="checkbox" id="v"> Vasculopatía (IAM previo, arteriopatía periférica o placa aórtica) (V)</label>
-    <label><input type="checkbox" id="f"> Sexo femenino (Sc)</label>
+    <div class="row">
+      <label for="c">
+        <input type="checkbox" id="c"> Insuficiencia cardiaca/FEVI reducida (C) - 1 punto
+      </label>
+    </div>
+    
+    <div class="row">
+      <label for="h">
+        <input type="checkbox" id="h"> Hipertensión (H) - 1 punto
+      </label>
+    </div>
+    
+    <div class="age-group">
+      <label style="font-weight: 600; margin-bottom: 0.5rem;">Edad:</label>
+      <div class="age-options">
+        <label for="age75">
+          <input type="checkbox" id="age75"> ≥ 75 años (A₂) - 2 puntos
+        </label>
+        <label for="age6574">
+          <input type="checkbox" id="age6574"> 65–74 años (A) - 1 punto
+        </label>
+      </div>
+    </div>
+    
+    <div class="row">
+      <label for="d">
+        <input type="checkbox" id="d"> Diabetes mellitus (D) - 1 punto
+      </label>
+    </div>
+    
+    <div class="row">
+      <label for="s2">
+        <input type="checkbox" id="s2"> Ictus/AIT/TE tromboembólica previa (S₂) - 2 puntos
+      </label>
+    </div>
+    
+    <div class="row">
+      <label for="v">
+        <input type="checkbox" id="v"> Vasculopatía (V) - 1 punto
+      </label>
+    </div>
+    
+    <div class="row">
+      <label for="f">
+        <input type="checkbox" id="f"> Sexo femenino (Sc) - 1 punto
+      </label>
+    </div>
 
     <div class="actions">
-      <button type="button" class="btn primary" id="calc">Calcular</button>
-      <button type="button" class="btn secondary" id="copyBtn">Copiar resultado</button>
+      <button type="submit" class="btn primary">Calcular</button>
+      <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
       <button type="reset" class="btn secondary">Limpiar</button>
-    
       <span class="spacer"></span>
       <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
-</div>
+    </div>
 
-    <div id="result" class="result" aria-live="polite">Selecciona criterios y pulsa “Calcular”.</div>
-    <p class="muted">Nota: El sexo femenino puntúa 1 pero no debe ser el único factor para anticoagulación. Interprete junto a guías.</p>
+    <div id="result" class="result" aria-live="polite">Selecciona criterios y pulsa "Calcular".</div>
+    
+    <details>
+      <summary>Ver interpretación y recomendaciones</summary>
+      <div class="details-box">
+        <p><strong>Puntuación y riesgo anual de ictus:</strong></p>
+        <ul>
+          <li><strong>0:</strong> 0.2–0.9%</li>
+          <li><strong>1:</strong> 0.6–1.3%</li>
+          <li><strong>2:</strong> ~2.2%</li>
+          <li><strong>3:</strong> ~3.2%</li>
+          <li><strong>4:</strong> ~4.0%</li>
+          <li><strong>5:</strong> ~6.7%</li>
+          <li><strong>6:</strong> ~9.8%</li>
+          <li><strong>7:</strong> ~9.6%</li>
+          <li><strong>8:</strong> ~6.7%</li>
+          <li><strong>9:</strong> ~15.2%</li>
+        </ul>
+        <p><strong>Recomendaciones según guías:</strong></p>
+        <ul>
+          <li><strong>≥2 puntos (hombres):</strong> Anticoagulación recomendada</li>
+          <li><strong>≥3 puntos (mujeres):</strong> Anticoagulación recomendada</li>
+          <li><strong>1 punto (hombres):</strong> Considerar anticoagulación</li>
+          <li><strong>2 puntos (mujeres):</strong> Considerar anticoagulación</li>
+        </ul>
+      </div>
+    </details>
   </form>
 </div>
 
+<script src="../js/calculadoras-common.js"></script>
 <script>
 (function(){
-  const $=id=>document.getElementById(id);
-  const riskTable = {
-    0: "≈ 0.2–0.9%/año",
-    1: "≈ 0.6–1.3%/año",
-    2: "≈ 2.2%/año",
-    3: "≈ 3.2%/año",
-    4: "≈ 4.0%/año",
-    5: "≈ 6.7%/año",
-    6: "≈ 9.8%/año",
-    7: "≈ 9.6%/año",
-    8: "≈ 6.7%/año",
-    9: "≈ 15.2%/año"
-  };
-  function score(){
-    let s = 0;
-    if($('c').checked) s+=1;
-    if($('h').checked) s+=1;
-    const a75 = $('age75').checked, a6574=$('age6574').checked;
-    if(a75) s+=2; else if(a6574) s+=1;
-    if($('d').checked) s+=1;
-    if($('s2').checked) s+=2;
-    if($('v').checked) s+=1;
-    if($('f').checked) s+=1;
-    return s;
+  const $ = window.CalcUtils.getElement;
+  
+  // Evitar selección múltiple de edad
+  function configurarEdad() {
+    const age75 = $('age75');
+    const age6574 = $('age6574');
+    
+    age75.addEventListener('change', function() {
+      if (this.checked) age6574.checked = false;
+    });
+    
+    age6574.addEventListener('change', function() {
+      if (this.checked) age75.checked = false;
+    });
   }
-  function interp(n){
-    const r=riskTable[n]||"—";
-    let rec;
-    if(n===0) rec="Riesgo bajo.";
-    else if(n===1) rec="Riesgo bajo-intermedio.";
-    else if(n>=2) rec="Riesgo elevado: valorar anticoagulación según guías.";
-    return {r,rec};
-  }
-  $('calc').addEventListener('click',()=>{
-    const s = score();
-    const {r,rec} = interp(s);
-    const det = [
-      $('c').checked?'C':'', $('h').checked?'H':'',
-      $('age75').checked?'A2':'', $('age6574').checked?'A':'',
-      $('d').checked?'D':'', $('s2').checked?'S2':'', $('v').checked?'V':'',
-      $('f').checked?'Sc':''
-    ].filter(Boolean).join('+') || '—';
-    $('result').textContent = `CHA₂DS₂-VASc = ${s}\nComponentes: ${det}\nRiesgo anual estimado: ${r}\n${rec}`;
-  });
-  $('copyBtn').addEventListener('click',()=>{
-    const t=$('result').textContent||''; if(!t.trim()) return alert('No hay resultado.');
-    navigator.clipboard.writeText(t).then(()=>{ $('copyBtn').textContent='¡Copiado!'; setTimeout(()=>$('copyBtn').textContent='Copiar resultado',900); });
+  
+  $('formCHA2').addEventListener('submit', function(e) {
+    e.preventDefault();
+    configurarEdad();
+    
+    const criterios = [
+      {id: 'c', puntos: 1, letra: 'C', texto: 'Insuficiencia cardiaca'},
+      {id: 'h', puntos: 1, letra: 'H', texto: 'Hipertensión'},
+      {id: 'age75', puntos: 2, letra: 'A₂', texto: 'Edad ≥75 años'},
+      {id: 'age6574', puntos: 1, letra: 'A', texto: 'Edad 65-74 años'},
+      {id: 'd', puntos: 1, letra: 'D', texto: 'Diabetes'},
+      {id: 's2', puntos: 2, letra: 'S₂', texto: 'Ictus/TIA/TE previa'},
+      {id: 'v', puntos: 1, letra: 'V', texto: 'Vasculopatía'},
+      {id: 'f', puntos: 1, letra: 'Sc', texto: 'Sexo femenino'}
+    ];
+    
+    let score = 0;
+    const componentes = [];
+    const presentes = [];
+    
+    criterios.forEach(criterio => {
+      if ($(criterio.id).checked) {
+        score += criterio.puntos;
+        componentes.push(criterio.letra);
+        presentes.push(criterio.texto);
+      }
+    });
+    
+    // Tabla de riesgo
+    const riesgoTable = {
+      0: "0.2–0.9%",
+      1: "0.6–1.3%", 
+      2: "~2.2%",
+      3: "~3.2%",
+      4: "~4.0%",
+      5: "~6.7%",
+      6: "~9.8%",
+      7: "~9.6%",
+      8: "~6.7%",
+      9: "~15.2%"
+    };
+    
+    const riesgoAnual = riesgoTable[score] || "—";
+    
+    // Recomendaciones
+    let recomendacion;
+    const esMujer = $('f').checked;
+    
+    if (score === 0) {
+      recomendacion = "Riesgo muy bajo. No se recomienda anticoagulación.";
+    } else if ((!esMujer && score === 1) || (esMujer && score === 2)) {
+      recomendacion = "Riesgo bajo-intermedio. Considerar anticoagulación según factores individuales.";
+    } else if ((!esMujer && score >= 2) || (esMujer && score >= 3)) {
+      recomendacion = "Riesgo elevado. Se recomienda anticoagulación oral.";
+    } else {
+      recomendacion = "Valorar individualmente. El sexo femenino no debe ser el único factor para anticoagulación.";
+    }
+    
+    const resultado = `CHA₂DS₂-VASc = ${score} puntos
+
+Componentes: ${componentes.join('+') || 'Ninguno'}
+
+Riesgo anual de ictus: ${riesgoAnual}
+
+Recomendación: ${recomendacion}
+
+Criterios presentes:
+${presentes.length > 0 ? presentes.map(c => `• ${c}`).join('\n') : 'Ninguno'}`;
+    
+    $('result').textContent = resultado;
   });
 })();
-  // Cierre inteligente
-  function smartClose(){
-    try{
-      if(window.opener && !window.opener.closed){
-        window.close();
-        return;
-      }
-    }catch(e){}
-    if(history.length > 1){
-      history.back();
-    }else{
-      location.href = '../index.html'; // Ajusta si tu índice está en otra ruta
-    }
-  }
-  var _closeBtn = document.getElementById('closeBtn');
-  if(_closeBtn){ _closeBtn.addEventListener('click', smartClose); }
-
 </script>
 </body>
 </html>
