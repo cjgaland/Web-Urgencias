@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Goteo por gravedad - Urgencias</title>
+
+<!-- Estilos comunes de calculadoras -->
+<link rel="stylesheet" href="../css/calculadoras-common.css">
+
+<!-- Estilos específicos -->
+<style>
+details{margin-top:.8rem}
+details summary{cursor:pointer;color:#0a4c84;font-weight:600;padding:.3rem 0}
+.details-box{border:1px solid var(--bd);background:var(--bg);border-radius:10px;padding:.7rem .9rem;margin-top:.5rem;color:#374151}
+table{width:100%;border-collapse:collapse;margin:.5rem 0;font-size:.9rem}
+th,td{padding:.4rem;text-align:left;border-bottom:1px solid #e5e7eb}
+th{background:#f8fafc;font-weight:600;color:#334155}
+.formula{background:#f1f5f9;padding:.5rem;border-radius:6px;font-family:monospace;margin:.4rem 0}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Goteo por gravedad</h1>
+  <p class="sub">Calcula la velocidad de infusión (mL/h y gotas/min) a partir del volumen a administrar, tiempo deseado y factor de goteo del sistema.</p>
+
+  <form id="calcForm" class="grid">
+
+    <div class="row">
+      <label for="vol">Volumen total</label>
+      <div class="ig">
+        <input type="number" id="vol" min="0" step="1" placeholder="Ej. 500" required>
+        <select disabled><option>mL</option></select>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="tiempo">Tiempo de infusión</label>
+      <div class="ig">
+        <input type="number" id="tiempo" min="0" step="1" placeholder="Ej. 120" required>
+        <select id="unidadTiempo">
+          <option value="min">minutos</option>
+          <option value="h">horas</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="factor">Factor de goteo</label>
+      <div class="ig">
+        <select id="factor">
+          <option value="20">Macrogotero 20 gotas/mL</option>
+          <option value="15">Macrogotero 15 gotas/mL</option>
+          <option value="60">Microgotero 60 gotas/mL</option>
+          <option value="otro">Otro…</option>
+        </select>
+        <input type="number" id="customFactor" min="1" step="1" placeholder="gotas/mL" style="display:none">
+      </div>
+    </div>
+
+    <details>
+      <summary>Ver fórmulas y tabla de referencia</summary>
+      <div class="details-box">
+        <h4>Fórmulas</h4>
+        <div class="formula">
+          mL/h = Volumen (mL) ÷ Tiempo (h)<br>
+          gotas/min = [mL/h × Factor (gotas/mL)] ÷ 60
+        </div>
+
+        <h4>Factores de goteo comunes</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Sistema</th>
+              <th>Factor</th>
+              <th>Uso habitual</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Macrogotero</td>
+              <td>20 gotas/mL</td>
+              <td>Adultos, sueroterapia estándar</td>
+            </tr>
+            <tr>
+              <td>Macrogotero</td>
+              <td>15 gotas/mL</td>
+              <td>Algunos sistemas europeos</td>
+            </tr>
+            <tr>
+              <td>Microgotero</td>
+              <td>60 gotas/mL</td>
+              <td>Pediatría, precisión mayor</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>Ejemplo práctico</h4>
+        <p><strong>Situación:</strong> Administrar 500 mL en 2 horas con macrogotero (20 gotas/mL)</p>
+        <p><strong>Cálculo:</strong></p>
+        <ul>
+          <li>mL/h = 500 ÷ 2 = 250 mL/h</li>
+          <li>gotas/min = (250 × 20) ÷ 60 ≈ 83 gotas/min</li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="actions">
+      <button type="submit" class="btn primary">Calcular</button>
+      <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
+      <button type="reset" class="btn secondary">Limpiar</button>
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+    </div>
+
+    <div id="result" class="result" aria-live="polite">Introduce los datos y pulsa "Calcular".</div>
+    
+    <p class="muted">
+      <strong>Nota de seguridad:</strong> Verifica el factor real del sistema de goteo utilizado. Ajusta la velocidad según la tolerancia del paciente, el calibre del acceso venoso y las indicaciones clínicas. En situaciones críticas, considera el uso de bombas de infusión.
+    </p>
+
+  </form>
+</div>
+
+<!-- Scripts comunes -->
+<script src="../js/calculadoras-common.js"></script>
+
+<!-- Lógica específica de esta calculadora -->
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+  const r = (v, d=1) => Math.round((v + Number.EPSILON) * (10 ** d)) / (10 ** d);
+  
+  $('factor').addEventListener('change', ()=>{
+    $('customFactor').style.display = ($('factor').value==='otro') ? 'block' : 'none';
+  });
+
+  function getFactor(){
+    if($('factor').value==='otro'){
+      const v = +$('customFactor').value || 0;
+      return v>0 ? v : NaN;
+    }
+    return +$('factor').value;
+  }
+
+  $('calcForm').addEventListener('submit', function(e){ 
+    e.preventDefault();
+    
+    const V = +$('vol').value;
+    const T = +$('tiempo').value;
+    const F = getFactor();
+    
+    if(!(V>0) || !(T>0) || !(F>0)){
+      return $('result').textContent='⚠️ Completa volumen, tiempo y factor de goteo.';
+    }
+    
+    const horas = ($('unidadTiempo').value==='h') ? T : T/60;
+    const mlh = V/horas;
+    const gpm = (mlh * F)/60;
+    
+    const lines = [];
+    lines.push(`VELOCIDAD DE INFUSIÓN:`);
+    lines.push(`• ${r(mlh, 1)} mL/h`);
+    lines.push(`• ${Math.round(gpm)} gotas/min (factor ${F} gotas/mL)`);
+    lines.push(``);
+    lines.push(`Para administrar ${V} mL en ${T} ${$('unidadTiempo').value==='h'?'horas':'minutos'}.`);
+    
+    $('result').textContent = lines.join('\n');
+  });
+
+  // Limpiar resultado al resetear
+  $('calcForm').addEventListener('reset', () => {
+    $('result').textContent = 'Introduce los datos y pulsa "Calcular".';
+  });
+})();
+</script>
+</body>
+</html>

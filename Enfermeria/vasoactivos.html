@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Vasoactivos - Urgencias</title>
+
+<!-- Estilos comunes de calculadoras -->
+<link rel="stylesheet" href="../css/calculadoras-common.css">
+
+<!-- Estilos específicos -->
+<style>
+details{margin-top:.8rem}
+details summary{cursor:pointer;color:#0a4c84;font-weight:600;padding:.3rem 0}
+.details-box{border:1px solid var(--bd);background:var(--bg);border-radius:10px;padding:.7rem .9rem;margin-top:.5rem;color:#374151}
+table{width:100%;border-collapse:collapse;margin:.5rem 0;font-size:.9rem}
+th,td{padding:.4rem;text-align:left;border-bottom:1px solid #e5e7eb}
+th{background:#f8fafc;font-weight:600;color:#334155}
+.formula{background:#f1f5f9;padding:.5rem;border-radius:6px;font-family:monospace;margin:.4rem 0}
+.warning{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:.6rem;border-radius:8px;margin:.6rem 0;font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Vasoactivos</h1>
+  <p class="sub">Conversor bidireccional entre mcg/kg/min y mL/h para fármacos vasoactivos. Calcula la velocidad de infusión según peso, dosis objetivo y concentración preparada.</p>
+
+  <div class="warning">
+    <strong>⚠️ MEDICAMENTO DE ALTO RIESGO:</strong> Requiere doble verificación, monitorización continua y vía central preferente. Confirma concentración, dosis y cálculos antes de administrar.
+  </div>
+
+  <form id="calcForm" class="grid">
+
+    <div class="row">
+      <label for="peso">Peso del paciente</label>
+      <div class="ig">
+        <input type="number" id="peso" min="1" step="0.1" placeholder="Ej. 70" required>
+        <select disabled><option>kg</option></select>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="preset">Fármaco / concentración</label>
+      <div class="ig">
+        <select id="preset">
+          <option value="norad_20_250">Noradrenalina 20 mg / 250 mL (80 mcg/mL)</option>
+          <option value="adren_5_50">Adrenalina 5 mg / 50 mL (100 mcg/mL)</option>
+          <option value="dopam_200_50">Dopamina 200 mg / 50 mL (4000 mcg/mL)</option>
+          <option value="dobuta_250_250">Dobutamina 250 mg / 250 mL (1000 mcg/mL)</option>
+          <option value="custom">Personalizada…</option>
+        </select>
+        <input type="number" id="conc" min="0.1" step="0.1" placeholder="mcg/mL" style="display:none">
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="dose">Dosis objetivo</label>
+      <div class="ig">
+        <input type="number" id="dose" min="0" step="0.01" placeholder="Ej. 0.1" required>
+        <select id="doseU">
+          <option value="mcgkgmin">mcg/kg/min</option>
+          <option value="mlh">mL/h</option>
+        </select>
+      </div>
+    </div>
+
+    <details>
+      <summary>Ver fórmulas y rangos terapéuticos</summary>
+      <div class="details-box">
+        <h4>Fórmulas</h4>
+        <div class="formula">
+          mL/h = [mcg/kg/min × Peso (kg) × 60 min/h] ÷ Concentración (mcg/mL)<br>
+          mcg/kg/min = [mL/h × Concentración (mcg/mL)] ÷ [Peso (kg) × 60 min/h]
+        </div>
+
+        <h4>Rangos terapéuticos habituales</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Fármaco</th>
+              <th>Rango típico</th>
+              <th>Concentración usual</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Noradrenalina</td>
+              <td>0.01 - 0.5 mcg/kg/min</td>
+              <td>80 mcg/mL (20 mg/250 mL)</td>
+            </tr>
+            <tr>
+              <td>Adrenalina</td>
+              <td>0.01 - 0.5 mcg/kg/min</td>
+              <td>100 mcg/mL (5 mg/50 mL)</td>
+            </tr>
+            <tr>
+              <td>Dopamina</td>
+              <td>2 - 20 mcg/kg/min</td>
+              <td>4000 mcg/mL (200 mg/50 mL)</td>
+            </tr>
+            <tr>
+              <td>Dobutamina</td>
+              <td>2 - 20 mcg/kg/min</td>
+              <td>1000 mcg/mL (250 mg/250 mL)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>Ejemplo práctico</h4>
+        <p><strong>Situación:</strong> Paciente 70 kg, noradrenalina 0.1 mcg/kg/min, concentración 80 mcg/mL</p>
+        <p><strong>Cálculo:</strong></p>
+        <ul>
+          <li>mL/h = (0.1 × 70 × 60) ÷ 80 = 5.25 mL/h</li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="actions">
+      <button type="submit" class="btn primary">Calcular</button>
+      <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
+      <button type="reset" class="btn secondary">Limpiar</button>
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+    </div>
+
+    <div id="result" class="result" aria-live="polite">Introduce los datos y pulsa "Calcular".</div>
+    
+    <p class="muted">
+      <strong>Protocolo de seguridad:</strong> (1) Doble verificación independiente de concentración y dosis, (2) Vía central preferente, (3) Monitorización continua PA/FC, (4) Bombas de infusión dedicadas, (5) Etiquetado claro con concentración, (6) Protocolo de extravasación disponible.
+    </p>
+
+  </form>
+</div>
+
+<!-- Scripts comunes -->
+<script src="../js/calculadoras-common.js"></script>
+
+<!-- Lógica específica de esta calculadora -->
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+  const r = (v, d=2) => Math.round((v + Number.EPSILON) * (10 ** d)) / (10 ** d);
+  
+  const presets = {
+    norad_20_250: 80,
+    adren_5_50: 100,
+    dopam_200_50: 4000,
+    dobuta_250_250: 1000
+  };
+  
+  $('preset').addEventListener('change', ()=>{
+    $('conc').style.display = ($('preset').value==='custom') ? 'block' : 'none';
+  });
+
+  function getConc(){
+    const p = $('preset').value;
+    if(p==='custom'){
+      const c = +$('conc').value;
+      return c>0 ? c : NaN;
+    }
+    return presets[p];
+  }
+
+  $('calcForm').addEventListener('submit', function(e){ 
+    e.preventDefault();
+    
+    const peso = +$('peso').value;
+    const conc = getConc();
+    const dose = +$('dose').value;
+    const mode = $('doseU').value;
+    
+    if(!(peso>0) || !(conc>0) || !(dose>0)){
+      return $('result').textContent = '⚠️ Completa peso, concentración y dosis.';
+    }
+    
+    let lines = [];
+    
+    if(mode==='mcgkgmin'){
+      const mlh = (dose * peso * 60) / conc;
+      lines.push(`CONVERSIÓN mcg/kg/min → mL/h:`);
+      lines.push(`• Paciente: ${peso} kg`);
+      lines.push(`• Dosis: ${dose} mcg/kg/min`);
+      lines.push(`• Concentración: ${conc} mcg/mL`);
+      lines.push(``);
+      lines.push(`AJUSTAR BOMBA A: ${r(mlh, 2)} mL/h`);
+    }else{
+      const mcgkgmin = (dose * conc) / (peso * 60);
+      lines.push(`CONVERSIÓN mL/h → mcg/kg/min:`);
+      lines.push(`• Paciente: ${peso} kg`);
+      lines.push(`• Velocidad: ${dose} mL/h`);
+      lines.push(`• Concentración: ${conc} mcg/mL`);
+      lines.push(``);
+      lines.push(`DOSIS EQUIVALENTE: ${r(mcgkgmin, 3)} mcg/kg/min`);
+    }
+    
+    $('result').textContent = lines.join('\n');
+  });
+
+  // Limpiar resultado al resetear
+  $('calcForm').addEventListener('reset', () => {
+    $('result').textContent = 'Introduce los datos y pulsa "Calcular".';
+  });
+})();
+</script>
+</body>
+</html>

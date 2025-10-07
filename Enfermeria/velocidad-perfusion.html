@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Velocidad de perfusión - Urgencias</title>
+
+<!-- Estilos comunes de calculadoras -->
+<link rel="stylesheet" href="../css/calculadoras-common.css">
+
+<!-- Estilos específicos -->
+<style>
+details{margin-top:.8rem}
+details summary{cursor:pointer;color:#0a4c84;font-weight:600;padding:.3rem 0}
+.details-box{border:1px solid var(--bd);background:var(--bg);border-radius:10px;padding:.7rem .9rem;margin-top:.5rem;color:#374151}
+table{width:100%;border-collapse:collapse;margin:.5rem 0;font-size:.9rem}
+th,td{padding:.4rem;text-align:left;border-bottom:1px solid #e5e7eb}
+th{background:#f8fafc;font-weight:600;color:#334155}
+.formula{background:#f1f5f9;padding:.5rem;border-radius:6px;font-family:monospace;margin:.4rem 0}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Velocidad de perfusión</h1>
+  <p class="sub">Conversor bidireccional entre volumen, velocidad (mL/h) y duración de infusión. Introduce volumen y uno de los otros parámetros; el tercero se calculará automáticamente.</p>
+
+  <form id="calcForm" class="grid">
+
+    <div class="row">
+      <label for="vol2">Volumen total</label>
+      <div class="ig">
+        <input type="number" id="vol2" min="0" step="1" placeholder="Ej. 250" required>
+        <select disabled><option>mL</option></select>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="mlh">Velocidad (opcional)</label>
+      <div class="ig">
+        <input type="number" id="mlh" min="0" step="0.1" placeholder="Ej. 125">
+        <select disabled><option>mL/h</option></select>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="dur">Duración (opcional)</label>
+      <div class="ig">
+        <input type="number" id="dur" min="0" step="1" placeholder="Ej. 2">
+        <select id="durU">
+          <option value="h">horas</option>
+          <option value="min">minutos</option>
+        </select>
+      </div>
+    </div>
+
+    <details>
+      <summary>Ver fórmulas y ejemplos</summary>
+      <div class="details-box">
+        <h4>Fórmulas</h4>
+        <div class="formula">
+          mL/h = Volumen (mL) ÷ Duración (h)<br>
+          Duración (h) = Volumen (mL) ÷ mL/h
+        </div>
+
+        <h4>Ejemplos comunes en urgencias</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Situación</th>
+              <th>Volumen</th>
+              <th>Duración</th>
+              <th>Velocidad</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sueroterapia estándar</td>
+              <td>500 mL</td>
+              <td>4 h</td>
+              <td>125 mL/h</td>
+            </tr>
+            <tr>
+              <td>Hidratación rápida</td>
+              <td>1000 mL</td>
+              <td>1 h</td>
+              <td>1000 mL/h</td>
+            </tr>
+            <tr>
+              <td>Antibiótico IV</td>
+              <td>100 mL</td>
+              <td>30 min</td>
+              <td>200 mL/h</td>
+            </tr>
+            <tr>
+              <td>Mantenimiento</td>
+              <td>1000 mL</td>
+              <td>8 h</td>
+              <td>125 mL/h</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>Ejemplo paso a paso</h4>
+        <p><strong>Pregunta:</strong> ¿A qué velocidad debo programar la bomba para pasar 250 mL en 2 horas?</p>
+        <p><strong>Solución:</strong></p>
+        <ul>
+          <li>Volumen = 250 mL</li>
+          <li>Duración = 2 h</li>
+          <li>mL/h = 250 ÷ 2 = <strong>125 mL/h</strong></li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="actions">
+      <button type="submit" class="btn primary">Calcular</button>
+      <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
+      <button type="reset" class="btn secondary">Limpiar</button>
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+    </div>
+
+    <div id="result" class="result" aria-live="polite">Introduce volumen y <em>uno</em> de los otros dos parámetros.</div>
+    
+    <p class="muted">
+      <strong>Nota de seguridad:</strong> Verifica los límites de estabilidad del fármaco, la compatibilidad con el disolvente y la tolerancia del acceso venoso. Para fármacos fotosensibles, protege de la luz. Revisa protocolos locales para velocidades máximas permitidas.
+    </p>
+
+  </form>
+</div>
+
+<!-- Scripts comunes -->
+<script src="../js/calculadoras-common.js"></script>
+
+<!-- Lógica específica de esta calculadora -->
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+  const r = (v, d=1) => Math.round((v + Number.EPSILON) * (10 ** d)) / (10 ** d);
+  
+  $('calcForm').addEventListener('submit', function(e){ 
+    e.preventDefault();
+    
+    const V = +$('vol2').value;
+    const mlh = +$('mlh').value;
+    const dur = +$('dur').value;
+    const durU = $('durU').value;
+    
+    if(!(V>0)){
+      return $('result').textContent='⚠️ Indica el volumen total a administrar.';
+    }
+    
+    const hasMLH = mlh>0;
+    const hasDur = dur>0;
+    
+    if(hasMLH && hasDur){
+      return $('result').textContent='⚠️ Indica solo mL/h O duración, no ambos. El tercero se calculará.';
+    }
+    if(!hasMLH && !hasDur){
+      return $('result').textContent='⚠️ Indica mL/h O duración para calcular.';
+    }
+    
+    let lines = [];
+    
+    if(hasMLH){
+      // Calcular duración
+      const horas = V/mlh;
+      const min = Math.round(horas*60);
+      lines.push(`CÁLCULO DE DURACIÓN:`);
+      lines.push(`• Volumen: ${V} mL`);
+      lines.push(`• Velocidad: ${mlh} mL/h`);
+      lines.push(``);
+      lines.push(`DURACIÓN: ${r(horas, 2)} h (${min} min)`);
+    }
+    
+    if(hasDur){
+      // Calcular mL/h
+      const horas = (durU==='h') ? dur : dur/60;
+      const calcMLH = V/horas;
+      lines.push(`CÁLCULO DE VELOCIDAD:`);
+      lines.push(`• Volumen: ${V} mL`);
+      lines.push(`• Duración: ${dur} ${durU==='h'?'horas':'minutos'} (${r(horas, 2)} h)`);
+      lines.push(``);
+      lines.push(`PROGRAMAR BOMBA A: ${r(calcMLH, 1)} mL/h`);
+    }
+    
+    $('result').textContent = lines.join('\n');
+  });
+
+  // Limpiar resultado al resetear
+  $('calcForm').addEventListener('reset', () => {
+    $('result').textContent = 'Introduce volumen y uno de los otros dos parámetros.';
+  });
+})();
+</script>
+</body>
+</html>

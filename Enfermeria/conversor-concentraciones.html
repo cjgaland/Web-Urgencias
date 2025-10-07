@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Conversor de concentraciones - Urgencias</title>
+
+<!-- Estilos comunes de calculadoras -->
+<link rel="stylesheet" href="../css/calculadoras-common.css">
+
+<!-- Estilos específicos -->
+<style>
+details{margin-top:.8rem}
+details summary{cursor:pointer;color:#0a4c84;font-weight:600;padding:.3rem 0}
+.details-box{border:1px solid var(--bd);background:var(--bg);border-radius:10px;padding:.7rem .9rem;margin-top:.5rem;color:#374151}
+table{width:100%;border-collapse:collapse;margin:.5rem 0;font-size:.9rem}
+th,td{padding:.4rem;text-align:left;border-bottom:1px solid #e5e7eb}
+th{background:#f8fafc;font-weight:600;color:#334155}
+.formula{background:#f1f5f9;padding:.5rem;border-radius:6px;font-family:monospace;margin:.4rem 0}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Conversor de concentraciones</h1>
+  <p class="sub">Herramienta multiuso para conversiones farmacológicas: porcentajes, mg/mL, volúmenes y equivalencias iónicas (mEq/mmol).</p>
+
+  <form id="calcForm" class="grid">
+
+    <fieldset class="grid">
+      <legend><strong>% ⇄ mg/mL</strong></legend>
+      <div class="row">
+        <label for="pct">% (p/v)</label>
+        <div class="ig">
+          <input type="number" id="pct" min="0" step="0.01" placeholder="Ej. 1">
+          <select disabled><option>%</option></select>
+        </div>
+      </div>
+      <div class="row">
+        <label for="mgml">mg/mL</label>
+        <div class="ig">
+          <input type="number" id="mgml" min="0" step="0.01" placeholder="Ej. 10">
+          <select disabled><option>mg/mL</option></select>
+        </div>
+      </div>
+      <p class="muted">Regla: 1% (p/v) = 1 g en 100 mL = <strong>10 mg/mL</strong></p>
+    </fieldset>
+
+    <fieldset class="grid">
+      <legend><strong>mg ↔ mL</strong> (a partir de concentración)</legend>
+      <div class="row">
+        <label for="dosisMg">Dosis</label>
+        <div class="ig">
+          <input type="number" id="dosisMg" min="0" step="0.01" placeholder="Ej. 500">
+          <select disabled><option>mg</option></select>
+        </div>
+      </div>
+      <div class="row">
+        <label for="conc2">Concentración</label>
+        <div class="ig">
+          <input type="number" id="conc2" min="0" step="0.01" placeholder="Ej. 50">
+          <select disabled><option>mg/mL</option></select>
+        </div>
+      </div>
+      <div class="row">
+        <label for="volCalc">Volumen</label>
+        <div class="ig">
+          <input type="number" id="volCalc" min="0" step="0.1" placeholder="Ej. 10">
+          <select disabled><option>mL</option></select>
+        </div>
+      </div>
+      <p class="muted">Volumen (mL) = mg ÷ (mg/mL) · · · mg = Volumen × (mg/mL)</p>
+    </fieldset>
+
+    <fieldset class="grid">
+      <legend><strong>mEq ⇄ mmol</strong></legend>
+      <div class="row">
+        <label for="mmol">Cantidad</label>
+        <div class="ig">
+          <input type="number" id="mmol" min="0" step="0.01" placeholder="Ej. 10">
+          <select id="valencia">
+            <option value="1">mmol (monovalente: Na⁺, K⁺, Cl⁻)</option>
+            <option value="2">mmol (divalente: Ca²⁺, Mg²⁺)</option>
+          </select>
+        </div>
+      </div>
+      <p class="muted">mEq = mmol × valencia</p>
+    </fieldset>
+
+    <details>
+      <summary>Ver fórmulas y ejemplos</summary>
+      <div class="details-box">
+        <h4>Conversión % ⇄ mg/mL</h4>
+        <div class="formula">
+          % → mg/mL: multiplica por 10<br>
+          mg/mL → %: divide entre 10
+        </div>
+        <p><strong>Ejemplo:</strong> Adrenalina 0.1% = 0.1 × 10 = 1 mg/mL</p>
+
+        <h4>Conversión mg ↔ mL</h4>
+        <div class="formula">
+          Volumen = mg ÷ concentración<br>
+          mg = Volumen × concentración
+        </div>
+        <p><strong>Ejemplo:</strong> Necesitas 5 mg de morfina. Tienes morfina 10 mg/mL → 5 ÷ 10 = 0.5 mL</p>
+
+        <h4>Equivalencias iónicas</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Ion</th>
+              <th>Valencia</th>
+              <th>Conversión</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Na⁺, K⁺, Cl⁻</td>
+              <td>1</td>
+              <td>1 mmol = 1 mEq</td>
+            </tr>
+            <tr>
+              <td>Ca²⁺, Mg²⁺</td>
+              <td>2</td>
+              <td>1 mmol = 2 mEq</td>
+            </tr>
+          </tbody>
+        </table>
+        <p><strong>Ejemplo:</strong> 10 mmol de Ca²⁺ = 10 × 2 = 20 mEq</p>
+      </div>
+    </details>
+
+    <div class="actions">
+      <button type="submit" class="btn primary">Calcular</button>
+      <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
+      <button type="reset" class="btn secondary">Limpiar</button>
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+    </div>
+
+    <div id="result" class="result" aria-live="polite">Introduce los datos y pulsa "Calcular".</div>
+    
+    <p class="muted">
+      <strong>Nota de seguridad:</strong> Verifica siempre el tipo de porcentaje (p/v, p/p, v/v) según el medicamento. Para electrolitos, confirma la valencia. Redondea volúmenes a las jeringas disponibles y aplica doble verificación.
+    </p>
+
+  </form>
+</div>
+
+<!-- Scripts comunes -->
+<script src="../js/calculadoras-common.js"></script>
+
+<!-- Lógica específica de esta calculadora -->
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+  const r = (v, d=2) => Math.round((v + Number.EPSILON) * (10 ** d)) / (10 ** d);
+  
+  $('calcForm').addEventListener('submit', function(e){ 
+    e.preventDefault();
+    
+    const pct = +$('pct').value;
+    const mgml = +$('mgml').value;
+    let lines = [];
+
+    // % ⇄ mg/mL
+    if(pct>0 && !(mgml>0)){
+      const result = pct * 10;
+      lines.push(`CONVERSIÓN % → mg/mL:`);
+      lines.push(`${pct}% = ${r(result, 2)} mg/mL`);
+    }
+    if(mgml>0 && !(pct>0)){
+      const result = mgml / 10;
+      lines.push(`CONVERSIÓN mg/mL → %:`);
+      lines.push(`${mgml} mg/mL = ${r(result, 3)}%`);
+    }
+
+    // mg ↔ mL
+    const mg = +$('dosisMg').value;
+    const conc = +$('conc2').value;
+    const vol = +$('volCalc').value;
+    
+    if(mg>0 && conc>0 && !(vol>0)){
+      const result = mg / conc;
+      if(lines.length) lines.push('');
+      lines.push(`CÁLCULO DE VOLUMEN:`);
+      lines.push(`Para ${mg} mg a ${conc} mg/mL:`);
+      lines.push(`Volumen necesario = ${r(result, 2)} mL`);
+    }
+    if(vol>0 && conc>0 && !(mg>0)){
+      const result = vol * conc;
+      if(lines.length) lines.push('');
+      lines.push(`CÁLCULO DE DOSIS:`);
+      lines.push(`En ${vol} mL a ${conc} mg/mL:`);
+      lines.push(`Cantidad = ${r(result, 2)} mg`);
+    }
+
+    // mEq ⇄ mmol
+    const mmol = +$('mmol').value;
+    const z = +$('valencia').value;
+    if(mmol>0){
+      const meq = mmol * z;
+      if(lines.length) lines.push('');
+      lines.push(`EQUIVALENCIA IÓNICA:`);
+      lines.push(`${mmol} mmol (valencia ${z}) = ${r(meq, 2)} mEq`);
+    }
+
+    if(lines.length === 0){
+      $('result').textContent = '⚠️ Introduce al menos un valor en cualquier sección para calcular.';
+    } else {
+      $('result').textContent = lines.join('\n');
+    }
+  });
+
+  // Limpiar resultado al resetear
+  $('calcForm').addEventListener('reset', () => {
+    $('result').textContent = 'Introduce los datos y pulsa "Calcular".';
+  });
+})();
+</script>
+</body>
+</html>

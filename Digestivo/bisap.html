@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Escala BISAP - Urgencias</title>
+<link rel="stylesheet" href="../css/calculadoras-common.css">
+</head>
+<body>
+<div class="card">
+  <h1>Escala BISAP</h1>
+  <p class="sub">Índice pronóstico para pancreatitis aguda en las primeras 24h. 5 criterios (0-5 puntos).</p>
+
+  <form id="formBISAP" class="grid">
+    <div class="row">
+      <label for="bun">
+        <input type="checkbox" id="bun"> BUN &gt; 25 mg/dL (1 punto)
+      </label>
+    </div>
+    <div class="row">
+      <label for="glasgow">
+        <input type="checkbox" id="glasgow"> Glasgow &lt; 15 (1 punto)
+      </label>
+    </div>
+    <div class="row">
+      <label for="sirpa">
+        <input type="checkbox" id="sirpa"> SIRS presente (1 punto)
+      </label>
+    </div>
+    <div class="row">
+      <label for="edad">
+        <input type="checkbox" id="edad"> Edad &gt; 60 años (1 punto)
+      </label>
+    </div>
+    <div class="row">
+      <label for="derrame">
+        <input type="checkbox" id="derrame"> Derrame pleural (1 punto)
+      </label>
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="btn primary">Calcular</button>
+      <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
+      <button type="reset" class="btn secondary">Limpiar</button>
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+    </div>
+
+    <div id="result" class="result" aria-live="polite">Marca criterios presentes y pulsa "Calcular".</div>
+    
+    <details>
+      <summary>Ver interpretación</summary>
+      <div class="details-box">
+        <p><strong>Interpretación:</strong></p>
+        <ul>
+          <li><strong>0–2 puntos:</strong> Bajo riesgo de complicaciones</li>
+          <li><strong>3–5 puntos:</strong> Riesgo elevado de complicaciones graves y mortalidad</li>
+        </ul>
+        <p class="muted">Usar junto a valoración clínica, analítica y de imagen.</p>
+      </div>
+    </details>
+  </form>
+</div>
+
+<script src="../js/calculadoras-common.js"></script>
+<script>
+(function(){
+  const $ = window.CalcUtils.getElement;
+  
+  $('formBISAP').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const criterios = [
+      {id: 'bun', texto: 'BUN > 25 mg/dL'},
+      {id: 'glasgow', texto: 'Glasgow < 15'},
+      {id: 'sirpa', texto: 'SIRS presente'},
+      {id: 'edad', texto: 'Edad > 60 años'},
+      {id: 'derrame', texto: 'Derrame pleural'}
+    ];
+    
+    const presentes = criterios.filter(c => $(c.id).checked);
+    const score = presentes.length;
+    
+    let riesgo, interpretacion;
+    if (score <= 2) {
+      riesgo = "BAJO";
+      interpretacion = "Bajo riesgo de complicaciones graves. Manejo habitual.";
+    } else {
+      riesgo = "ALTO";
+      interpretacion = "Riesgo elevado de complicaciones graves y mortalidad. Considerar vigilancia intensiva.";
+    }
+    
+    const resultado = `BISAP = ${score} puntos
+
+RIESGO: ${riesgo}
+
+Criterios presentes: ${presentes.length > 0 ? presentes.map(c => c.texto).join(', ') : 'Ninguno'}
+
+Interpretación: ${interpretacion}
+
+Mortalidad estimada:
+• 0-2 puntos: ~1%
+• 3-5 puntos: ~5-10%`;
+
+    $('result').textContent = resultado;
+  });
+})();
+</script>
+</body>
+</html>
