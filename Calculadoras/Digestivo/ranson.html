@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Criterios de Ranson - Urgencias</title>
+
+<!-- Estilos comunes de calculadoras -->
+<link rel="stylesheet" href="../css/calculadoras-common.css">
+
+<!-- Estilos específicos -->
+<style>
+details{margin-top:.4rem}
+details summary{cursor:pointer;color:#0a4c84;font-weight:600}
+.details-box{border:1px solid var(--bd);background:var(--bg);border-radius:10px;padding:.7rem .9rem;margin-top:.5rem;color:#374151}
+ul{margin:.3rem 0 .6rem 1rem}
+fieldset{margin-bottom:0.8rem}
+fieldset legend{font-size:1rem;font-weight:700;color:#0a4c84}
+.check-row{display:flex;align-items:center;gap:0.5rem;margin:0.4rem 0}
+.check-row label{font-weight:400;margin:0;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Criterios de Ranson</h1>
+  <p class="sub">Evaluación pronóstica en pancreatitis aguda. 11 criterios: 5 al ingreso + 6 a las 48 horas.</p>
+
+  <form id="formRanson" class="grid">
+    
+    <!-- Criterios al ingreso -->
+    <fieldset>
+      <legend>Criterios al ingreso (0 horas)</legend>
+      
+      <div class="check-row">
+        <input type="checkbox" id="edad" value="1">
+        <label for="edad">Edad &gt; 55 años</label>
+      </div>
+      
+      <div class="check-row">
+        <input type="checkbox" id="leucocitos" value="1">
+        <label for="leucocitos">Leucocitos &gt; 16,000/mm³</label>
+      </div>
+      
+      <div class="check-row">
+        <input type="checkbox" id="glucosa" value="1">
+        <label for="glucosa">Glucosa &gt; 200 mg/dL (sin diabetes)</label>
+      </div>
+      
+      <div class="check-row">
+        <input type="checkbox" id="ldh" value="1">
+        <label for="ldh">LDH &gt; 350 UI/L</label>
+      </div>
+      
+      <div class="check-row">
+        <input type="checkbox" id="ast" value="1">
+        <label for="ast">AST (GOT) &gt; 250 UI/L</label>
+      </div>
+    </fieldset>
+
+    <!-- Criterios a las 48 horas -->
+    <fieldset>
+      <legend>Criterios a las 48 horas</legend>
+      
+      <div class="check-row">
+        <input type="checkbox" id="hto" value="1">
+        <label for="hto">Caída de hematocrito &gt; 10%</label>
+      </div>
+      
+      <div class="check-row">
+        <input type="checkbox" id="bun" value="1">
+        <label for="bun">Aumento de BUN &gt; 5 mg/dL</label>
+      </div>
+      
+      <div class="check-row">
+        <input type="checkbox" id="calcio" value="1">
+        <label for="calcio">Calcio sérico &lt; 8 mg/dL</label>
+      </div>
+      
+      <div class="check-row">
+        <input type="checkbox" id="pao2" value="1">
+        <label for="pao2">PaO₂ &lt; 60 mmHg</label>
+      </div>
+      
+      <div class="check-row">
+        <input type="checkbox" id="base" value="1">
+        <label for="base">Déficit de bases &gt; 4 mEq/L</label>
+      </div>
+      
+      <div class="check-row">
+        <input type="checkbox" id="fluidos" value="1">
+        <label for="fluidos">Secuestro de fluidos &gt; 6 L</label>
+      </div>
+    </fieldset>
+
+    <!-- Detalles expandibles -->
+    <details>
+      <summary>Ver interpretación completa</summary>
+      <div class="details-box">
+        <p><strong>Puntuación y mortalidad estimada:</strong></p>
+        <ul>
+          <li><strong>0-2 puntos:</strong> Mortalidad &lt; 1% (pancreatitis leve)</li>
+          <li><strong>3-4 puntos:</strong> Mortalidad ~15% (pancreatitis moderada)</li>
+          <li><strong>5-6 puntos:</strong> Mortalidad ~40% (pancreatitis grave)</li>
+          <li><strong>&gt; 6 puntos:</strong> Mortalidad cercana al 100%</li>
+        </ul>
+        <p><strong>Nota clínica:</strong></p>
+        <ul>
+          <li>Los criterios al ingreso se evalúan en las primeras horas</li>
+          <li>Los criterios a las 48h requieren seguimiento analítico</li>
+          <li>Score ≥3 indica pancreatitis grave y necesidad de UCI</li>
+          <li>Esta escala es específica para pancreatitis NO biliar</li>
+          <li>Existen criterios modificados para pancreatitis biliar</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Botones de acción -->
+    <div class="actions">
+      <button type="submit" class="btn primary">Calcular</button>
+      <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
+      <button type="reset" class="btn secondary">Limpiar</button>
+      <span class="spacer"></span>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
+    </div>
+
+    <!-- Área de resultado -->
+    <div id="result" class="result" aria-live="polite">Marca los criterios presentes y pulsa "Calcular".</div>
+    
+    <!-- Nota al pie -->
+    <p class="muted">Uso profesional. Score ≥3 sugiere pancreatitis grave. Considerar ingreso en UCI y soporte intensivo. No sustituye el juicio clínico.</p>
+  </form>
+</div>
+
+<!-- Scripts comunes -->
+<script src="../js/calculadoras-common.js"></script>
+
+<!-- Lógica específica de esta calculadora -->
+<script>
+(function() {
+  const $ = (id) => document.getElementById(id);
+
+  // Lista de todos los criterios
+  const criterios = [
+    'edad', 'leucocitos', 'glucosa', 'ldh', 'ast',
+    'hto', 'bun', 'calcio', 'pao2', 'base', 'fluidos'
+  ];
+
+  // Función para calcular puntos
+  function calcularPuntos() {
+    let puntos = 0;
+    let ingreso = 0;
+    let horas48 = 0;
+    
+    // Criterios al ingreso
+    ['edad', 'leucocitos', 'glucosa', 'ldh', 'ast'].forEach(id => {
+      if ($(id).checked) {
+        puntos++;
+        ingreso++;
+      }
+    });
+    
+    // Criterios a las 48 horas
+    ['hto', 'bun', 'calcio', 'pao2', 'base', 'fluidos'].forEach(id => {
+      if ($(id).checked) {
+        puntos++;
+        horas48++;
+      }
+    });
+    
+    return { total: puntos, ingreso, horas48 };
+  }
+
+  // Función para interpretación
+  function interpretacion(puntos) {
+    if (puntos === 0) {
+      return 'Pancreatitis leve. Mortalidad < 1%. Buen pronóstico.';
+    }
+    if (puntos <= 2) {
+      return 'Pancreatitis leve. Mortalidad < 1%. Manejo en planta convencional.';
+    }
+    if (puntos <= 4) {
+      return 'Pancreatitis moderada. Mortalidad ~15%. Considerar UCI o cuidados intermedios.';
+    }
+    if (puntos <= 6) {
+      return 'Pancreatitis grave. Mortalidad ~40%. Ingreso en UCI y soporte intensivo.';
+    }
+    return 'Pancreatitis muy grave. Mortalidad cercana al 100%. UCI, soporte avanzado y medidas de rescate.';
+  }
+
+  // Función para categoría de riesgo
+  function categoriaRiesgo(puntos) {
+    if (puntos <= 2) return 'LEVE';
+    if (puntos <= 4) return 'MODERADA';
+    if (puntos <= 6) return 'GRAVE';
+    return 'MUY GRAVE';
+  }
+
+  // Evento del formulario
+  $('formRanson').addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const { total, ingreso, horas48 } = calcularPuntos();
+    const categoria = categoriaRiesgo(total);
+    const interp = interpretacion(total);
+    
+    // Construir resultado
+    let resultado = `RANSON = ${total} puntos → ${categoria}\n\n`;
+    resultado += `${interp}\n\n`;
+    resultado += `Desglose:\n`;
+    resultado += `• Criterios al ingreso: ${ingreso}/5\n`;
+    resultado += `• Criterios a las 48h: ${horas48}/6\n\n`;
+    
+    // Listar criterios positivos
+    const positivos = [];
+    criterios.forEach(id => {
+      if ($(id).checked) {
+        const label = document.querySelector(`label[for="${id}"]`).textContent;
+        positivos.push(label);
+      }
+    });
+    
+    if (positivos.length > 0) {
+      resultado += `Criterios presentes:\n`;
+      positivos.forEach(criterio => {
+        resultado += `• ${criterio}\n`;
+      });
+    } else {
+      resultado += 'No hay criterios presentes.';
+    }
+    
+    $('result').textContent = resultado;
+  });
+
+  // Nota: El botón de copiar y cerrar se configuran automáticamente
+  // por calculadoras-common.js
+})();
+</script>
+</body>
+</html>

@@ -3,174 +3,287 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Child–Pugh (Clasificación)</title>
+<title>Child-Pugh (Clasificación) - Urgencias</title>
+
+<!-- Estilos comunes de calculadoras -->
+<link rel="stylesheet" href="../css/calculadoras-common.css">
+
+<!-- Estilos específicos -->
 <style>
-  :root{--c1:#0a5ea8;--c1-600:#0a4c84;--c1-700:#08406a;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
-  *{box-sizing:border-box}
-  body{font-family:Roboto,Arial,Helvetica,sans-serif;margin:0;padding:20px;background:#fff;color:#222}
-  h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
-  .card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px 16px 18px;max-width:760px;margin:0 auto;box-shadow:0 4px 16px rgba(0,0,0,.05)}
-  .sub{color:#475569;margin:-.4rem 0 .8rem;font-size:.95rem}
-  .grid{display:grid;gap:.9rem}
-  .row{display:grid;gap:.5rem;grid-template-columns:1fr 1fr;align-items:center}
-  .ig{display:grid;grid-template-columns:1fr 180px;gap:.5rem}
-  label{font-weight:600;color:#334155}
-  input[type=number],select{border:1px solid var(--bx);border-radius:10px;padding:.6rem .65rem;font-size:1rem;width:100%}
-  select{max-width:100%}
-  .actions{display:flex;gap:.6rem;margin-top:.4rem;flex-wrap:wrap;align-items:center}
-  .actions .spacer{flex:1 1 auto}
-  .btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
-  .btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1-600)}
-  .btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}.btn.secondary:hover{background:#e6ebf2}
-  .btn.close{margin-left:auto;background:var(--c1-700);color:#fff;border-color:#083554}
-  .btn.close:hover{filter:brightness(1.05)}
-  .result{margin-top:.9rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;color:var(--tx);white-space:pre-wrap}
-  .muted{color:var(--mut);font-size:.9rem}
-  @media (max-width:560px){.row{grid-template-columns:1fr}.ig{grid-template-columns:1fr}}
+details{margin-top:.4rem}
+details summary{cursor:pointer;color:#0a4c84;font-weight:600}
+.details-box{border:1px solid var(--bd);background:var(--bg);border-radius:10px;padding:.7rem .9rem;margin-top:.5rem;color:#374151}
+ul{margin:.3rem 0 .6rem 1rem}
+table{font-size:0.9rem;margin-top:0.5rem}
+table td{padding:0.4rem 0.5rem}
 </style>
 </head>
 <body>
 <div class="card">
-  <h1>Clasificación Child–Pugh</h1>
-  <p class="sub">Cinco parámetros (1–3 puntos cada uno): bilirrubina, albúmina, TP/INR, ascitis, encefalopatía. Suma → clase A/B/C.</p>
+  <h1>Clasificación Child-Pugh</h1>
+  <p class="sub">Evaluación pronóstica en cirrosis hepática. Cinco parámetros con 1-3 puntos cada uno.</p>
 
   <form id="formChild" class="grid">
+    
+    <!-- Bilirrubina -->
     <div class="row">
-      <label for="bilirr">Bilirrubina sérica (mg/dL)</label>
-      <select id="bilirr" required>
-        <option value="1">&lt; 2 mg/dL (1 punto)</option>
-        <option value="2">2 – 3 mg/dL (2 puntos)</option>
-        <option value="3">&gt; 3 mg/dL (3 puntos)</option>
-      </select>
-    </div>
-
-    <div class="row">
-      <label for="albumina">Albúmina sérica (g/dL)</label>
-      <select id="albumina" required>
-        <option value="1">&gt; 3.5 g/dL (1 punto)</option>
-        <option value="2">2.8 – 3.5 g/dL (2 puntos)</option>
-        <option value="3">&lt; 2.8 g/dL (3 puntos)</option>
-      </select>
-    </div>
-
-    <div class="row">
-      <label for="coagulacion">Coagulación (elige criterio)</label>
+      <label for="bilirr">Bilirrubina sérica</label>
       <div class="ig">
-        <select id="coagModo">
-          <option value="inr">INR</option>
-          <option value="tp">Tiempo de protrombina (prolongación)</option>
+        <select id="bilirr" required>
+          <option value="">Seleccionar...</option>
+          <option value="1">&lt; 2 mg/dL (1 punto)</option>
+          <option value="2">2-3 mg/dL (2 puntos)</option>
+          <option value="3">&gt; 3 mg/dL (3 puntos)</option>
         </select>
         <span></span>
       </div>
     </div>
 
+    <!-- Albúmina -->
+    <div class="row">
+      <label for="albumina">Albúmina sérica</label>
+      <div class="ig">
+        <select id="albumina" required>
+          <option value="">Seleccionar...</option>
+          <option value="1">&gt; 3.5 g/dL (1 punto)</option>
+          <option value="2">2.8-3.5 g/dL (2 puntos)</option>
+          <option value="3">&lt; 2.8 g/dL (3 puntos)</option>
+        </select>
+        <span></span>
+      </div>
+    </div>
+
+    <!-- Modo de coagulación -->
+    <div class="row">
+      <label for="coagModo">Coagulación (elige criterio)</label>
+      <div class="ig">
+        <select id="coagModo">
+          <option value="inr">INR</option>
+          <option value="tp">Tiempo de protrombina (TP prolongación)</option>
+        </select>
+        <span></span>
+      </div>
+    </div>
+
+    <!-- INR -->
     <div class="row" id="filaINR">
       <label for="inr">INR</label>
-      <select id="inr">
-        <option value="1">&lt; 1.7 (1 punto)</option>
-        <option value="2">1.7 – 2.3 (2 puntos)</option>
-        <option value="3">&gt; 2.3 (3 puntos)</option>
-      </select>
+      <div class="ig">
+        <select id="inr">
+          <option value="">Seleccionar...</option>
+          <option value="1">&lt; 1.7 (1 punto)</option>
+          <option value="2">1.7-2.3 (2 puntos)</option>
+          <option value="3">&gt; 2.3 (3 puntos)</option>
+        </select>
+        <span></span>
+      </div>
     </div>
 
+    <!-- TP -->
     <div class="row" id="filaTP" style="display:none">
       <label for="tp">TP (prolongación vs control)</label>
-      <select id="tp">
-        <option value="1">&lt; 4 s (1 punto)</option>
-        <option value="2">4 – 6 s (2 puntos)</option>
-        <option value="3">&gt; 6 s (3 puntos)</option>
-      </select>
+      <div class="ig">
+        <select id="tp">
+          <option value="">Seleccionar...</option>
+          <option value="1">&lt; 4 s (1 punto)</option>
+          <option value="2">4-6 s (2 puntos)</option>
+          <option value="3">&gt; 6 s (3 puntos)</option>
+        </select>
+        <span></span>
+      </div>
     </div>
 
+    <!-- Ascitis -->
     <div class="row">
       <label for="ascitis">Ascitis</label>
-      <select id="ascitis" required>
-        <option value="1">Ausente (1 punto)</option>
-        <option value="2">Leve / controlada (2 puntos)</option>
-        <option value="3">Moderada–severa / refractaria (3 puntos)</option>
-      </select>
+      <div class="ig">
+        <select id="ascitis" required>
+          <option value="">Seleccionar...</option>
+          <option value="1">Ausente (1 punto)</option>
+          <option value="2">Leve/controlada (2 puntos)</option>
+          <option value="3">Moderada-severa/refractaria (3 puntos)</option>
+        </select>
+        <span></span>
+      </div>
     </div>
 
+    <!-- Encefalopatía -->
     <div class="row">
       <label for="encef">Encefalopatía hepática</label>
-      <select id="encef" required>
-        <option value="1">Ausente (1 punto)</option>
-        <option value="2">Grado I–II (2 puntos)</option>
-        <option value="3">Grado III–IV (3 puntos)</option>
-      </select>
+      <div class="ig">
+        <select id="encef" required>
+          <option value="">Seleccionar...</option>
+          <option value="1">Ausente (1 punto)</option>
+          <option value="2">Grado I-II (2 puntos)</option>
+          <option value="3">Grado III-IV (3 puntos)</option>
+        </select>
+        <span></span>
+      </div>
     </div>
 
+    <!-- Detalles expandibles -->
+    <details>
+      <summary>Ver tabla completa de criterios</summary>
+      <div class="details-box">
+        <table>
+          <thead>
+            <tr>
+              <th>Parámetro</th>
+              <th>1 punto</th>
+              <th>2 puntos</th>
+              <th>3 puntos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Bilirrubina</strong></td>
+              <td>&lt; 2 mg/dL</td>
+              <td>2-3 mg/dL</td>
+              <td>&gt; 3 mg/dL</td>
+            </tr>
+            <tr>
+              <td><strong>Albúmina</strong></td>
+              <td>&gt; 3.5 g/dL</td>
+              <td>2.8-3.5 g/dL</td>
+              <td>&lt; 2.8 g/dL</td>
+            </tr>
+            <tr>
+              <td><strong>INR</strong></td>
+              <td>&lt; 1.7</td>
+              <td>1.7-2.3</td>
+              <td>&gt; 2.3</td>
+            </tr>
+            <tr>
+              <td><strong>TP prolongación</strong></td>
+              <td>&lt; 4 s</td>
+              <td>4-6 s</td>
+              <td>&gt; 6 s</td>
+            </tr>
+            <tr>
+              <td><strong>Ascitis</strong></td>
+              <td>Ausente</td>
+              <td>Leve/controlada</td>
+              <td>Moderada-severa</td>
+            </tr>
+            <tr>
+              <td><strong>Encefalopatía</strong></td>
+              <td>Ausente</td>
+              <td>Grado I-II</td>
+              <td>Grado III-IV</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="margin-top:0.8rem"><strong>Interpretación:</strong></p>
+        <ul>
+          <li><strong>Clase A (5-6 puntos):</strong> Enfermedad compensada. Supervivencia 1-2 años: ~100%</li>
+          <li><strong>Clase B (7-9 puntos):</strong> Disfunción significativa. Supervivencia 1-2 años: ~80%</li>
+          <li><strong>Clase C (10-15 puntos):</strong> Enfermedad descompensada. Supervivencia 1-2 años: ~45%. Considerar trasplante hepático</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Botones de acción -->
     <div class="actions">
       <button type="submit" class="btn primary">Calcular</button>
       <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
       <button type="reset" class="btn secondary">Limpiar</button>
       <span class="spacer"></span>
-      <button type="button" id="closeBtn" class="btn close">Cerrar ventana</button>
+      <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
     </div>
 
-    <div id="resultado" class="result" aria-live="polite">Selecciona las categorías y pulsa “Calcular”.</div>
-
-    <p class="muted">
-      <strong>Recordatorio clínico (Child–Pugh):</strong>
-      A = 5–6 puntos · B = 7–9 · C = 10–15. Herramienta pronóstica orientativa en hepatopatía crónica/cirrosis.
-      La valoración de ascitis y encefalopatía es clínica; interpreta el resultado junto al contexto del paciente y otras escalas.
-    </p>
+    <!-- Área de resultado -->
+    <div id="result" class="result" aria-live="polite">Selecciona todas las categorías y pulsa "Calcular".</div>
+    
+    <!-- Nota al pie -->
+    <p class="muted">Uso profesional. Herramienta pronóstica orientativa en hepatopatía crónica/cirrosis. No sustituye el juicio clínico.</p>
   </form>
 </div>
 
+<!-- Scripts comunes -->
+<script src="../js/calculadoras-common.js"></script>
+
+<!-- Lógica específica de esta calculadora -->
 <script>
-(function(){
-  const $ = id => document.getElementById(id);
+(function() {
+  const $ = (id) => document.getElementById(id);
 
   // Alternar entre INR y TP
-  $('coagModo').addEventListener('change', ()=>{
-    const m = $('coagModo').value;
-    $('filaINR').style.display = (m==='inr') ? 'grid' : 'none';
-    $('filaTP').style.display  = (m==='tp')  ? 'grid' : 'none';
+  $('coagModo').addEventListener('change', () => {
+    const modo = $('coagModo').value;
+    $('filaINR').style.display = (modo === 'inr') ? 'grid' : 'none';
+    $('filaTP').style.display  = (modo === 'tp')  ? 'grid' : 'none';
+    
+    // Limpiar el campo no visible
+    if (modo === 'inr') {
+      $('tp').value = '';
+    } else {
+      $('inr').value = '';
+    }
   });
 
-  function calcularPuntos(){
-    const b = parseInt($('bilirr').value,10);
-    const a = parseInt($('albumina').value,10);
-    const m = $('coagModo').value;
-    const c = parseInt((m==='inr' ? $('inr').value : $('tp').value),10);
-    const s = parseInt($('ascitis').value,10);
-    const e = parseInt($('encef').value,10);
-    return b + a + c + s + e;
+  // Función para calcular puntos
+  function calcularPuntos() {
+    const bilirr = parseInt($('bilirr').value, 10);
+    const albumina = parseInt($('albumina').value, 10);
+    const modo = $('coagModo').value;
+    const coag = parseInt((modo === 'inr' ? $('inr').value : $('tp').value), 10);
+    const ascitis = parseInt($('ascitis').value, 10);
+    const encef = parseInt($('encef').value, 10);
+    
+    if (isNaN(bilirr) || isNaN(albumina) || isNaN(coag) || isNaN(ascitis) || isNaN(encef)) {
+      return null;
+    }
+    
+    return bilirr + albumina + coag + ascitis + encef;
   }
 
-  function claseChild(p){
-    if(p<=6) return 'A';
-    if(p<=9) return 'B';
+  // Función para determinar clase
+  function claseChild(puntos) {
+    if (puntos <= 6) return 'A';
+    if (puntos <= 9) return 'B';
     return 'C';
   }
 
-  $('formChild').addEventListener('submit', (ev)=>{
-    ev.preventDefault();
-    const puntos = calcularPuntos();
-    const clase = claseChild(puntos);
-    $('resultado').textContent = `Child–Pugh = ${puntos} puntos → Clase ${clase}`;
-  });
-
-  $('copyBtn').addEventListener('click', ()=>{
-    const t = $('resultado').textContent || '';
-    if(!t.trim()) return alert('No hay resultado.');
-    navigator.clipboard.writeText(t).then(()=>{
-      const b=$('copyBtn'); b.textContent='¡Copiado!'; setTimeout(()=>b.textContent='Copiar resultado',900);
-    });
-  });
-
-  // Cierre inteligente
-  function smartClose(){
-    try{
-      if(window.opener && !window.opener.closed){
-        window.close(); return;
-      }
-    }catch(e){}
-    if(history.length>1){ history.back(); }
-    else{ location.href='../index.html'; } // ajusta si tu índice está en otra ruta
+  // Función para interpretación
+  function interpretacion(clase) {
+    if (clase === 'A') {
+      return 'Enfermedad compensada, mejor pronóstico.\nSupervivencia 1-2 años: ~100%';
+    }
+    if (clase === 'B') {
+      return 'Disfunción significativa.\nSupervivencia 1-2 años: ~80%';
+    }
+    return 'Enfermedad descompensada, peor pronóstico.\nSupervivencia 1-2 años: ~45%\nConsiderar derivación para trasplante hepático';
   }
-  $('closeBtn').addEventListener('click', smartClose);
+
+  // Evento del formulario
+  $('formChild').addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const puntos = calcularPuntos();
+    
+    if (puntos === null) {
+      $('result').textContent = 'Por favor, completa todos los campos.';
+      return;
+    }
+    
+    const clase = claseChild(puntos);
+    const interp = interpretacion(clase);
+    
+    // Construir resultado
+    let resultado = `CHILD-PUGH = ${puntos} puntos → Clase ${clase}\n\n`;
+    resultado += `${interp}\n\n`;
+    resultado += `Desglose:\n`;
+    resultado += `• Bilirrubina: ${$('bilirr').value} pt\n`;
+    resultado += `• Albúmina: ${$('albumina').value} pt\n`;
+    resultado += `• Coagulación (${$('coagModo').value.toUpperCase()}): ${$('coagModo').value === 'inr' ? $('inr').value : $('tp').value} pt\n`;
+    resultado += `• Ascitis: ${$('ascitis').value} pt\n`;
+    resultado += `• Encefalopatía: ${$('encef').value} pt`;
+    
+    $('result').textContent = resultado;
+  });
+
+  // Nota: El botón de copiar y cerrar se configuran automáticamente
+  // por calculadoras-common.js
 })();
 </script>
 </body>
