@@ -1,131 +1,149 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>PECARN TCE ≥ 2 años</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-:root{--c1:#0a5ea8;--c1d:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84}
-body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px}
-.card{max-width:880px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
-h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
-.small{font-size:.9rem;color:#475569}
-fieldset{border:1px solid #e5e7eb;border-radius:12px;padding:.8rem;margin-bottom:.9rem}
-legend{padding:0 .4rem;color:#334155;font-weight:700}
-label{display:flex;align-items:center;gap:.6rem;margin:.2rem 0}
-input[type=checkbox]{transform:scale(1.15)}
-.actions{display:flex;gap:.6rem;margin-top:.9rem;flex-wrap:wrap;align-items:center}
-.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
-.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1d)}
-.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}
-.result{margin-top:1rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;white-space:pre-wrap;color:var(--tx)}
-.note{color:#065f46;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:.5rem .7rem;margin-top:.6rem}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PECARN TCE ≥ 2 años - Urgencias</title>
 
-*{box-sizing:border-box}
-select{max-width:100%}
-.actions .spacer{flex:1 1 auto}
-.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
-.btn.close:hover{filter:brightness(1.05)}</style>
+<!-- Estilos comunes de calculadoras -->
+<link rel="stylesheet" href="../css/calculadoras-common.css">
+
+<!-- Estilos específicos -->
+<style>
+details {margin-top: .4rem}
+details summary {cursor: pointer; color: #0a4c84; font-weight: 600}
+.details-box {border: 1px solid var(--bd); background: var(--bg); border-radius: 10px; padding: .7rem .9rem; margin-top: .5rem; color: #374151}
+ul {margin: .3rem 0 .6rem 1rem}
+</style>
 </head>
 <body>
 <div class="card">
   <h1>PECARN TCE ≥ 2 años</h1>
-  <p class="small">Regla de PECARN para ≥2 años. Clasifica el riesgo de lesión cerebral clínicamente importante.</p>
+  <p class="sub">
+    Regla de PECARN para ≥2 años. Clasifica el riesgo de lesión cerebral clínicamente importante.
+  </p>
 
-  <form id="f">
+  <form id="formCalc" class="grid">
+    
     <fieldset>
-      <legend>Predictores de <strong>alto riesgo</strong></legend>
-      <label><input type="checkbox" id="gcs"> GCS &lt; 15</label>
-      <label><input type="checkbox" id="basilar"> Signos de fractura basilar (equimosis mastoidea, “ojos de mapache”, otolicuorrea, hemotímpano)</label>
-      <label><input type="checkbox" id="ams"> Alteración del estado mental</label>
+      <legend>Predictores de alto riesgo</legend>
+      <div class="row">
+        <label><input type="checkbox" id="gcs"> GCS &lt; 15</label>
+        <span></span>
+      </div>
+      <div class="row">
+        <label><input type="checkbox" id="basilar"> Signos de fractura basilar (equimosis mastoidea, "ojos de mapache", otolicuorrea, hemotímpano)</label>
+        <span></span>
+      </div>
+      <div class="row">
+        <label><input type="checkbox" id="ams"> Alteración del estado mental</label>
+        <span></span>
+      </div>
     </fieldset>
 
     <fieldset>
-      <legend>Predictores de <strong>riesgo intermedio</strong></legend>
-      <label><input type="checkbox" id="loc"> Pérdida de conciencia</label>
-      <label><input type="checkbox" id="vom"> Vómitos</label>
-      <label><input type="checkbox" id="sevMech"> Mecanismo de alta energía</label>
-      <label><input type="checkbox" id="severeHeadache"> Cefalea intensa</label>
+      <legend>Predictores de riesgo intermedio</legend>
+      <div class="row">
+        <label><input type="checkbox" id="loc"> Pérdida de conciencia</label>
+        <span></span>
+      </div>
+      <div class="row">
+        <label><input type="checkbox" id="vom"> Vómitos</label>
+        <span></span>
+      </div>
+      <div class="row">
+        <label><input type="checkbox" id="sevMech"> Mecanismo de alta energía</label>
+        <span></span>
+      </div>
+      <div class="row">
+        <label><input type="checkbox" id="severeHeadache"> Cefalea intensa</label>
+        <span></span>
+      </div>
     </fieldset>
+
+    <details>
+      <summary>Ver interpretación y manejo</summary>
+      <div class="details-box">
+        <p><strong>Interpretación:</strong></p>
+        <ul>
+          <li><strong>Alto riesgo:</strong> TC craneal recomendada</li>
+          <li><strong>Riesgo intermedio:</strong> Observación vs TC según evolución, múltiples predictores y factores clínicos</li>
+          <li><strong>Bajo riesgo:</strong> Sin TC de rutina</li>
+        </ul>
+        <p class="muted">Integre siempre el juicio clínico y protocolo local.</p>
+      </div>
+    </details>
 
     <div class="actions">
-      <button type="button" class="btn primary" onclick="calc()">Calcular</button>
-      <button type="button" class="btn secondary" onclick="copyRes()">Copiar</button>
+      <button type="submit" class="btn primary">Calcular</button>
+      <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
       <button type="reset" class="btn secondary">Limpiar</button>
-    
       <span class="spacer"></span>
       <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
-</div>
+    </div>
+
+    <div id="result" class="result" aria-live="polite">Marca los predictores y pulsa "Calcular".</div>
+    
+    <p class="muted">PECARN ≥2 años. Alto riesgo → TC craneal; intermedio → observación vs TC según evolución, múltiples predictores y factores clínicos; bajo → sin TC de rutina. Integre siempre el juicio clínico y protocolo local.</p>
   </form>
-
-  <div id="res" class="result" aria-live="polite">Marca los predictores y pulsa Calcular.</div>
-    <p class="muted"><strong>Nota clínica:</strong> PECARN ≥2 años. <em>Alto riesgo</em> → TC craneal; <em>intermedio</em> → observación vs TC según evolución, múltiples predictores y factores clínicos; <em>bajo</em> → sin TC de rutina. Integre siempre el juicio clínico y protocolo local.</p>
-
-  <div id="note" class="note" style="display:none"></div>
 </div>
 
+<!-- Scripts comunes -->
+<script src="../js/calculadoras-common.js"></script>
+
+<!-- Lógica específica de esta calculadora -->
 <script>
-function txt(b){return b?'Sí':'No'}
-function calc(){
-  const gcs=document.getElementById('gcs').checked;
-  const basilar=document.getElementById('basilar').checked;
-  const ams=document.getElementById('ams').checked;
+(function() {
+  const $ = (id) => document.getElementById(id);
 
-  const loc=document.getElementById('loc').checked;
-  const vom=document.getElementById('vom').checked;
-  const sev=document.getElementById('sevMech').checked;
-  const head=document.getElementById('severeHeadache').checked;
-
-  const res=document.getElementById('res');
-  const note=document.getElementById('note'); note.style.display='none'; note.textContent='';
-
-  let risk='BAJO';
-  let reco='Observación clínica. No TC de rutina.';
-  if(gcs || basilar || ams){
-    risk='ALTO';
-    reco='Recomendar TC craneal inmediata (o manejo según protocolo).';
-  }else if(loc || vom || sev || head){
-    risk='INTERMEDIO';
-    reco='Observación estrecha vs TC según evolución/otros factores (empeoramiento, múltiples predictores).';
+  function txt(b) {
+    return b ? 'Sí' : 'No';
   }
 
-  res.textContent =
-`PECARN ≥2 a
-— Alto riesgo:
-   • GCS<15: ${txt(gcs)}
-   • Signos basilar: ${txt(basilar)}
-   • AMS: ${txt(ams)}
-— Intermedio:
-   • LOC: ${txt(loc)}
-   • Vómitos: ${txt(vom)}
-   • Mecanismo severo: ${txt(sev)}
-   • Cefalea intensa: ${txt(head)}
+  $('formCalc').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const gcs = $('gcs').checked;
+    const basilar = $('basilar').checked;
+    const ams = $('ams').checked;
+    const loc = $('loc').checked;
+    const vom = $('vom').checked;
+    const sev = $('sevMech').checked;
+    const head = $('severeHeadache').checked;
 
-Resultado: Riesgo ${risk}.
-Conducta: ${reco}`;
+    let risk = 'BAJO';
+    let badge = 'good';
+    let reco = 'Observación clínica. No TC de rutina.';
+    
+    if (gcs || basilar || ams) {
+      risk = 'ALTO';
+      badge = 'sev';
+      reco = 'Recomendar TC craneal inmediata (o manejo según protocolo).';
+    } else if (loc || vom || sev || head) {
+      risk = 'INTERMEDIO';
+      badge = 'mod';
+      reco = 'Observación estrecha vs TC según evolución/otros factores (empeoramiento, múltiples predictores).';
+    }
 
-  if(risk==='INTERMEDIO' && (vom || head)){
-    note.style.display='block';
-    note.textContent='Nota: vómitos repetidos/cefalea intensa pueden inclinar hacia TC o prolongar observación.';
-  }
-}
-function copyRes(){
-  const t=document.getElementById('res').textContent||'';
-  if(!t.trim()) return alert('No hay resultado.');
-  navigator.clipboard.writeText(t);
-}
+    $('result').textContent = 
+      `PECARN ≥2 a\n` +
+      `— Alto riesgo:\n` +
+      `   • GCS<15: ${txt(gcs)}\n` +
+      `   • Signos basilar: ${txt(basilar)}\n` +
+      `   • AMS: ${txt(ams)}\n` +
+      `— Intermedio:\n` +
+      `   • LOC: ${txt(loc)}\n` +
+      `   • Vómitos: ${txt(vom)}\n` +
+      `   • Mecanismo severo: ${txt(sev)}\n` +
+      `   • Cefalea intensa: ${txt(head)}\n\n` +
+      `Resultado: Riesgo ${risk}.\n` +
+      `Conducta: ${reco}`;
 
-// Cierre inteligente
-function smartClose(){
-  try{
-    if(window.opener && !window.opener.closed){ window.close(); return; }
-  }catch(e){}
-  if(history.length>1){ history.back(); }
-  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
-}
-var _cb = document.getElementById('closeBtn');
-if(_cb){ _cb.addEventListener('click', smartClose); }
-
+    if (risk === 'INTERMEDIO' && (vom || head)) {
+      $('result').textContent += '\n\nNota: vómitos repetidos/cefalea intensa pueden inclinar hacia TC o prolongar observación.';
+    }
+  });
+})();
 </script>
 </body>
 </html>

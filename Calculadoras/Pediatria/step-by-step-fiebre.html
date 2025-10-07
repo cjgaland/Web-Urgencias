@@ -1,100 +1,134 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Fiebre < 3 meses – Step-by-Step</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-:root{--c1:#0a5ea8;--c1d:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84;--mut:#667085}
-body{font-family:Roboto,Arial,sans-serif;margin:0;padding:20px;background:#fff;color:#222}
-.card{max-width:900px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05);padding:16px}
-h1{font-size:1.25rem;margin:.25rem 0 1rem;color:var(--tx)}
-.small{font-size:.9rem;color:var(--mut)}
-fieldset{border:1px solid #e5e7eb;border-radius:12px;padding:.8rem;margin-bottom:.9rem}
-legend{padding:0 .4rem;color:#334155;font-weight:700}
-label{display:flex;gap:.6rem;align-items:center;margin:.25rem 0}
-input[type=checkbox]{transform:scale(1.1)}
-.actions{display:flex;gap:.6rem;margin-top:.9rem;flex-wrap:wrap;align-items:center}
-.btn{padding:.6rem .9rem;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:500}
-.btn.primary{background:var(--c1);color:#fff}.btn.primary:hover{background:var(--c1d)}
-.btn.secondary{background:#eef2f7;color:var(--tx);border-color:#d9e2ec}
-.result{margin-top:1rem;padding:.9rem;border:1px solid var(--bd);background:var(--bg);border-radius:10px;white-space:pre-wrap;color:var(--tx)}
-.warn{color:#9a3412;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:.5rem .7rem;margin-top:.6rem}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Fiebre &lt; 3 meses – Step-by-Step - Urgencias</title>
 
-*{box-sizing:border-box}
-select{max-width:100%}
-.actions .spacer{flex:1 1 auto}
-.btn.close{margin-left:auto;background:#08406a;color:#fff;border-color:#083554}
-.btn.close:hover{filter:brightness(1.05)}</style>
+<!-- Estilos comunes de calculadoras -->
+<link rel="stylesheet" href="../css/calculadoras-common.css">
+
+<!-- Estilos específicos -->
+<style>
+details {margin-top: .4rem}
+details summary {cursor: pointer; color: #0a4c84; font-weight: 600}
+.details-box {border: 1px solid var(--bd); background: var(--bg); border-radius: 10px; padding: .7rem .9rem; margin-top: .5rem; color: #374151}
+ul {margin: .3rem 0 .6rem 1rem}
+</style>
 </head>
 <body>
 <div class="card">
   <h1>Fiebre &lt; 3 meses – Step-by-Step</h1>
-  <p class="small">Clasificación orientativa de riesgo. Ajusta umbrales/flujo a tu protocolo local. No sustituye el juicio clínico.</p>
+  <p class="sub">
+    Clasificación orientativa de riesgo. Ajusta umbrales/flujo a tu protocolo local. No sustituye el juicio clínico.
+  </p>
 
-  <form id="f">
+  <form id="formCalc" class="grid">
+    
     <fieldset>
       <legend>Clínica</legend>
-      <label><input type="checkbox" id="toxic"> Mal aspecto / letargo / irritabilidad marcada</label>
-      <label><input type="checkbox" id="age_lt21"> Edad &lt; 21 días</label>
-      <label><input type="checkbox" id="focal"> Foco clínico evidente</label>
+      <div class="row">
+        <label><input type="checkbox" id="toxic"> Mal aspecto / letargo / irritabilidad marcada</label>
+        <span></span>
+      </div>
+      <div class="row">
+        <label><input type="checkbox" id="age_lt21"> Edad &lt; 21 días</label>
+        <span></span>
+      </div>
+      <div class="row">
+        <label><input type="checkbox" id="focal"> Foco clínico evidente</label>
+        <span></span>
+      </div>
     </fieldset>
+
     <fieldset>
       <legend>Analítica</legend>
-      <label><input type="checkbox" id="pcte_pos"> Procalcitonina ≥ 0.5 ng/mL</label>
-      <label><input type="checkbox" id="crp_high"> PCR ≥ 20 mg/L</label>
-      <label><input type="checkbox" id="anc_high"> ANC ≥ 10.000/mm³</label>
-      <label><input type="checkbox" id="ua_abn"> Orina anormal (LE/Nit/≥10 leuc)</label>
+      <div class="row">
+        <label><input type="checkbox" id="pcte_pos"> Procalcitonina ≥ 0.5 ng/mL</label>
+        <span></span>
+      </div>
+      <div class="row">
+        <label><input type="checkbox" id="crp_high"> PCR ≥ 20 mg/L</label>
+        <span></span>
+      </div>
+      <div class="row">
+        <label><input type="checkbox" id="anc_high"> ANC ≥ 10.000/mm³</label>
+        <span></span>
+      </div>
+      <div class="row">
+        <label><input type="checkbox" id="ua_abn"> Orina anormal (LE/Nit/≥10 leuc)</label>
+        <span></span>
+      </div>
     </fieldset>
 
+    <details>
+      <summary>Ver estratificación y manejo</summary>
+      <div class="details-box">
+        <p><strong>Clasificación de riesgo:</strong></p>
+        <ul>
+          <li><strong>Muy alto riesgo:</strong> Mal aspecto/letargo o &lt;21 días</li>
+          <li><strong>Alto riesgo:</strong> Uno o más criterios analíticos positivos o foco clínico</li>
+          <li><strong>Bajo riesgo:</strong> Sin criterios previos</li>
+        </ul>
+        <p><strong>Manejo orientativo:</strong></p>
+        <ul>
+          <li><strong>Muy alto/alto:</strong> Ingreso y manejo completo (cultivos, ATB IV, etc.)</li>
+          <li><strong>Bajo:</strong> Manejo ambulatorio con reevaluación rápida</li>
+        </ul>
+      </div>
+    </details>
+
     <div class="actions">
-      <button type="button" class="btn primary" onclick="calc()">Calcular</button>
-      <button type="button" class="btn secondary" onclick="copyRes()">Copiar</button>
+      <button type="submit" class="btn primary">Calcular</button>
+      <button type="button" id="copyBtn" class="btn secondary">Copiar resultado</button>
       <button type="reset" class="btn secondary">Limpiar</button>
-    
       <span class="spacer"></span>
       <button type="button" id="closeBtn" class="btn close" title="Cerrar esta ventana">Cerrar ventana</button>
-</div>
+    </div>
+
+    <div id="result" class="result" aria-live="polite">Selecciona criterios y pulsa "Calcular".</div>
+    
+    <p class="muted">Algoritmo para lactantes &lt;3 meses. Riesgo alto/muy alto suele requerir ingreso y antibioterapia; bajo riesgo permite manejo ambulatorio con reevaluación. Adapta thresholds a tu guía local.</p>
   </form>
-
-  <div id="res" class="result" aria-live="polite">Selecciona criterios y pulsa Calcular.</div>
-    <p class="muted"><strong>Nota clínica:</strong> Algoritmo para lactantes &lt;3 meses. Riesgo alto/muy alto suele requerir ingreso y antibioterapia; bajo riesgo permite manejo ambulatorio con reevaluación. Adapta thresholds a tu guía local.</p>
-
-  <div id="warn" class="warn" style="display:none">Ajusta umbrales y flujo a tu guía local.</div>
 </div>
 
+<!-- Scripts comunes -->
+<script src="../js/calculadoras-common.js"></script>
+
+<!-- Lógica específica de esta calculadora -->
 <script>
-function any(ids){return ids.some(id=>document.getElementById(id).checked)}
-function calc(){
-  const very_high = any(['toxic','age_lt21']);
-  const high = any(['pcte_pos','crp_high','anc_high','ua_abn','focal']);
-  let cat='Bajo riesgo', badge='background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0';
-  let plan='Manejo ambulatorio con reevaluación rápida y educación a cuidadores.';
-  if(very_high){ cat='Muy alto riesgo'; badge='background:#fef2f2;color:#991b1b;border:1px solid #fecaca';
-    plan='Ingreso y manejo completo según protocolo (cultivos, ATB IV, etc.).'; }
-  else if(high){ cat='Alto riesgo'; badge='background:#fff7ed;color:#9a3412;border:1px solid #fed7aa';
-    plan='Observación/ingreso según contexto, pruebas complementarias y posible ATB.'; }
-  document.getElementById('res').innerHTML =
-    `Step-by-Step → <span style="padding:.2rem .5rem;border-radius:999px;${badge}">${cat}</span>\nSugerencia: ${plan}`;
-  document.getElementById('warn').style.display='block';
-}
-function copyRes(){
-  const t=document.getElementById('res').innerText||'';
-  if(!t.trim()) return alert('No hay resultado.');
-  navigator.clipboard.writeText(t);
-}
+(function() {
+  const $ = (id) => document.getElementById(id);
 
-// Cierre inteligente
-function smartClose(){
-  try{
-    if(window.opener && !window.opener.closed){ window.close(); return; }
-  }catch(e){}
-  if(history.length>1){ history.back(); }
-  else{ location.href='../index.html'; } // Ajusta si tu índice está en otra ruta
-}
-var _cb = document.getElementById('closeBtn');
-if(_cb){ _cb.addEventListener('click', smartClose); }
+  function any(ids) {
+    return ids.some(id => $(id).checked);
+  }
 
+  $('formCalc').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const very_high = any(['toxic', 'age_lt21']);
+    const high = any(['pcte_pos', 'crp_high', 'anc_high', 'ua_abn', 'focal']);
+    
+    let cat = 'Bajo riesgo';
+    let badge = 'good';
+    let plan = 'Manejo ambulatorio con reevaluación rápida y educación a cuidadores.';
+    
+    if (very_high) {
+      cat = 'Muy alto riesgo';
+      badge = 'sev';
+      plan = 'Ingreso y manejo completo según protocolo (cultivos, ATB IV, etc.).';
+    } else if (high) {
+      cat = 'Alto riesgo';
+      badge = 'mod';
+      plan = 'Observación/ingreso según contexto, pruebas complementarias y posible ATB.';
+    }
+
+    $('result').innerHTML = 
+      `Step-by-Step → <span class="badge ${badge}">${cat}</span>\n` +
+      `Sugerencia: ${plan}`;
+  });
+})();
 </script>
 </body>
 </html>
