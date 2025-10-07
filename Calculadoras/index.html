@@ -399,6 +399,23 @@
         </div>
       </div>
 
+            <!-- Ranson -->
+      <div class="link-card">
+        <div class="link-icon"><i class="fa-solid fa-list-check"></i></div>
+        <div class="link-content">
+          <a href="#" onclick="abrirCalculadora('Digestivo/ranson.html')">Criterios de Ranson</a>
+          <p class="link-description">Evaluación pronóstica en pancreatitis aguda. 11 criterios (ingreso + 48h).</p>
+        </div>
+      </div>
+
+      <!-- Glasgow-Blatchford -->
+      <div class="link-card">
+        <div class="link-icon"><i class="fa-solid fa-droplet"></i></div>
+        <div class="link-content">
+          <a href="#" onclick="abrirCalculadora('Digestivo/glasgow-blatchford.html')">Glasgow-Blatchford Score</a>
+          <p class="link-description">Riesgo en hemorragia digestiva alta. Score 0 = muy bajo riesgo.</p>
+        </div>
+      </div>
       
     </div>
   </div>
@@ -899,7 +916,7 @@
     if (location.hash) setTimeout(() => openById(location.hash.slice(1)), 50);
   </script>
 
-  <!-- JS: abrir calculadoras en ventana nueva (sin CORS) -->
+  <!-- JS: abrir calculadoras en ventana nueva (MEJORADO) -->
   <script src="js/modal.js"></script>
 </body>
 </html>
