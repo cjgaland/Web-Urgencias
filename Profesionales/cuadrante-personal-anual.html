@@ -23,7 +23,17 @@ h1{margin:.2rem 0 .6rem 0;text-align:center;font-size:1.9rem}
 .year-btn:hover{box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .year-pill{background:#eef7ff;color:#083a63}
 
-.toolbar{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin:.5rem 0 .75rem}
+.toolbar{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin:.5rem 0 .75rem;align-items:center}
+.filter-options { 
+  display: inline-flex; 
+  gap: 0.75rem; 
+  align-items: center; 
+  margin-left: 1rem; 
+  padding-left: 1rem; 
+  border-left: 2px solid #eee; 
+}
+.filter-options label { cursor: pointer; font-size: 0.9em; white-space: nowrap; }
+.filter-options input[type="radio"] { margin-right: 0.25rem; vertical-align: middle;}
 .table-wrap{overflow:auto}
 
 table{border-collapse:collapse;width:100%;font-size:.9rem;background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden}
@@ -45,10 +55,17 @@ th,td{border:1px solid #eef2f7;text-align:center;padding:.3rem .4rem;white-space
 
 .notice{background:#fff7ed;border:1px solid #fde4c7;color:#92400e;border-radius:12px;padding:.6rem .8rem;text-align:center;margin:.6rem auto;max-width:720px}
 
+/* Turnos asistenciales */
 .shift-M{background:#E6F4EA}.shift-T{background:#E6ECFF}.shift-G{background:#EAF7FF}.shift-O{background:#FFF0F5}
-.shift-F{background:#FFF5E6}.shift-FO{background:#FFECEC}.shift-R{background:#E0F7FA}.shift-V{background:#FDF4FF}
-.shift-S{background:#F5F7FA;color:#99A3AD}.shift-LD{background:#F0FDF4}.shift-FR{background:#F3E8FF}.shift-OT{background:#F2F2F2}
-.shift-SD{background:#F8FAFF}.shift-LS{background:#F0F7FF}.shift-BL{background:#FFF0F0}.shift-BM{background:#FFF7FA}
+.shift-F{background:#FFF5E6}.shift-FO{background:#FFECEC}.shift-R{background:#E0F7FA}.shift-VA{background:#F0FFF4}
+.shift-CON{background:#FFF0F0}
+
+/* Turnos NO asistenciales */
+.shift-V{background:#FDF4FF}.shift-S{background:#F5F7FA;color:#99A3AD}.shift-LD{background:#F0FDF4}
+.shift-FR{background:#F3E8FF}.shift-OT{background:#F2F2F2}.shift-SD{background:#F8FAFF}
+.shift-LS{background:#F0F7FF}.shift-BL{background:#FFF0F0}.shift-BM{background:#FFF7FA}
+.shift-LDA{background:#FFF4E6}
+
 .muted{color:#6b7280}
 
 /* ===== Impresión / PDF ===== */
@@ -57,7 +74,7 @@ th,td{border:1px solid #eef2f7;text-align:center;padding:.3rem .4rem;white-space
   @page { size: A4 landscape; margin: 10mm 12mm 10mm 10mm; }
 
   /* Oculta controles y quita límites/padding para aprovechar ancho */
-  .actions-bottom, .toolbar, .year-nav { display:none !important; }
+  .actions-bottom, .toolbar, .year-nav, .filter-options { display:none !important; }
   .panel { border:none; max-width:none; padding:0; }
 
   /* SIN transform ni zoom: que @page mande */
@@ -75,7 +92,7 @@ th,td{border:1px solid #eef2f7;text-align:center;padding:.3rem .4rem;white-space
   thead { display:table-header-group; }
   tfoot { display:table-footer-group; }
 
-  /* Celdas: varias líneas, pero NO partir “M+G” */
+  /* Celdas: varias líneas, pero NO partir "M+G" */
   th, td {
     white-space:normal;
     word-break:normal;          /* evita partir códigos cortos */
@@ -87,11 +104,11 @@ th,td{border:1px solid #eef2f7;text-align:center;padding:.3rem .4rem;white-space
   tr { page-break-inside:avoid; }
 
   /* Ajuste fino de anchos para ganar espacio en la tabla */
-  th.mes-head, td.mes-head { width:22mm; }        /* columna “Mes” un poco más estrecha */
-  thead th:last-child, tbody td:last-child { width:34mm; } /* “Obs.” algo más compacta */
+  th.mes-head, td.mes-head { width:22mm; }        /* columna "Mes" un poco más estrecha */
+  thead th:last-child, tbody td:last-child { width:34mm; } /* "Obs." algo más compacta */
 
   /* Si quieres aún un pelín más de densidad, descomenta: */
-  * table { font-size: .65rem; } */
+  /* table { font-size: .65rem; } */
 }
 
 </style>
@@ -110,9 +127,24 @@ th,td{border:1px solid #eef2f7;text-align:center;padding:.3rem .4rem;white-space
     <button id="nextYear" class="year-btn" title="Año siguiente" aria-label="Año siguiente">▶︎</button>
   </div>
 
-  <!-- Opciones -->
+  <!-- Barra de herramientas unificada -->
   <div class="toolbar">
-    <label><input id="chkDow" type="checkbox"> Mostrar días de semana</label>
+    <!-- Botones de filtro estilo mensual -->
+    <div class="filter-options">
+      <strong style="margin-right: 0.25rem;">Mostrar:</strong>
+      <label><input type="radio" name="filtroTipo" value="todo" checked> Todo</label>
+      <label><input type="radio" name="filtroTipo" value="asistencial"> Asistencial</label>
+      <label><input type="radio" name="filtroTipo" value="no-asistencial"> No Asistencial</label>
+    </div>
+    
+    <!-- Separador visual -->
+    <span style="color: var(--muted); margin: 0 0.5rem;">|</span>
+    
+    <!-- Casilla de verificación -->
+    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+      <input id="chkDow" type="checkbox" style="margin: 0;">
+      <span>Mostrar días de semana</span>
+    </label>
   </div>
 
   <!-- Tabla -->
@@ -150,6 +182,38 @@ th,td{border:1px solid #eef2f7;text-align:center;padding:.3rem .4rem;white-space
   const CURR_YEAR = new Date().getFullYear();
   const CURR_MONTH = new Date().getMonth()+1;
 
+  // === CODIGOS ACTUALIZADOS ===
+  const CODIGOS={
+    // ASISTENCIALES
+    M:{nombre:'Mañana 08–15',clase:'shift-M',tipo:'asistencial'},
+    T:{nombre:'Tarde 15–22',clase:'shift-T',tipo:'asistencial'},
+    G:{nombre:'Guardia laborable 15–08',clase:'shift-G',tipo:'asistencial'},
+    O:{nombre:'Guardia Observación 08–15 (día sig.)',clase:'shift-O',tipo:'asistencial'},
+    F:{nombre:'Guardia Festivo 09–09',clase:'shift-F',tipo:'asistencial'},
+    FO:{nombre:'Obs. Festivo 10–10',clase:'shift-FO',tipo:'asistencial'},
+    R:{nombre:'Refuerzo 10–22 (sólo findes/festivos)',clase:'shift-R',tipo:'asistencial'},
+    
+    // NO ASISTENCIALES
+    V:{nombre:'Vacaciones',clase:'shift-V',tipo:'no-asistencial'},
+    VA:{nombre:'Vacaciones asistencial',clase:'shift-VA',tipo:'no-asistencial'},
+    S:{nombre:'Saliente',clase:'shift-S',tipo:'no-asistencial'},
+    LD:{nombre:'Libre disposición',clase:'shift-LD',tipo:'no-asistencial'},
+    LDA:{nombre:'Libre disposición anual',clase:'shift-LDA',tipo:'no-asistencial'},
+    FR:{nombre:'Formación',clase:'shift-FR',tipo:'no-asistencial'},
+    CON:{nombre:'Congresos/Reunión/Simposio',clase:'shift-CON',tipo:'no-asistencial'},
+    OT:{nombre:'Otros',clase:'shift-OT',tipo:'no-asistencial'},
+    SD:{nombre:'Saliente diferido',clase:'shift-SD',tipo:'no-asistencial'},
+    LS:{nombre:'Liberación sindical',clase:'shift-LS',tipo:'no-asistencial'},
+    BL:{nombre:'Baja laboral',clase:'shift-BL',tipo:'no-asistencial'},
+    BM:{nombre:'Baja maternal',clase:'shift-BM',tipo:'no-asistencial'}
+  };
+
+  // Definir turnos asistenciales para filtrado
+  const TURNOS_ASISTENCIALES = ['M', 'T', 'G', 'O', 'F', 'FO', 'R'];
+  
+  // Filtro actual
+  let filtroActual = 'todo';
+
   // === Utilidades CSV ===
   function normalize(s){return (s||'').toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();}
   function parseCSV(text){
@@ -181,7 +245,7 @@ th,td{border:1px solid #eef2f7;text-align:center;padding:.3rem .4rem;white-space
   function daysInMonth(y,m){return new Date(y,m,0).getDate();}
 
   async function cargarMes(y,m){
-    const csvPath=`../Cuadrantes/data/cuadrantes/${y}-${pad2(m)}.csv`;
+    const csvPath=`../../Cuadrantes/data/cuadrantes/${y}-${pad2(m)}.csv`;
     try{
       const txt=await fetch(csvPath+'?v='+Date.now()).then(r=>r.ok?r.text():Promise.reject('no CSV'));
       const rows=parseCSV(txt);
@@ -191,19 +255,27 @@ th,td{border:1px solid #eef2f7;text-align:center;padding:.3rem .4rem;white-space
     }catch{return null;}
   }
 
-  const CODIGOS={
-    M:{nombre:'Mañana 08–15',clase:'shift-M'},T:{nombre:'Tarde 15–22',clase:'shift-T'},
-    G:{nombre:'Guardia laborable 15–08',clase:'shift-G'},O:{nombre:'Guardia Observación 08–15 (día sig.)',clase:'shift-O'},
-    F:{nombre:'Guardia Festivo 09–09',clase:'shift-F'},FO:{nombre:'Obs. Festivo 10–10',clase:'shift-FO'},
-    R:{nombre:'Refuerzo 10–22 (sólo findes/festivos)',clase:'shift-R'},V:{nombre:'Vacaciones',clase:'shift-V'},
-    S:{nombre:'Saliente',clase:'shift-S'},LD:{nombre:'Libre disposición',clase:'shift-LD'},
-    FR:{nombre:'Formación',clase:'shift-FR'},OT:{nombre:'Otros',clase:'shift-OT'},
-    SD:{nombre:'Saliente diferido',clase:'shift-SD'},LS:{nombre:'Liberación sindical',clase:'shift-LS'},
-    BL:{nombre:'Baja laboral',clase:'shift-BL'},BM:{nombre:'Baja maternal',clase:'shift-BM'}
-  };
-
   function extractTokens(raw){
-    return (raw||'').toUpperCase().trim().split(/[ \\/+\-]+/).filter(Boolean);
+    return (raw||'')
+      .toUpperCase()
+      .replace(/[+\/\-;,]/g,' ')       // separadores → espacio
+      .split(/\s+/)
+      .map(t=>t.trim())
+      .filter(t=>t && (t in CODIGOS)); // sólo códigos conocidos
+  }
+
+  function aplicarFiltro(tokens, filtro) {
+    if (filtro === 'todo') return tokens;
+    
+    if (filtro === 'asistencial') {
+      return tokens.filter(token => TURNOS_ASISTENCIALES.includes(token));
+    }
+    
+    if (filtro === 'no-asistencial') {
+      return tokens.filter(token => !TURNOS_ASISTENCIALES.includes(token));
+    }
+    
+    return tokens;
   }
 
   /* ========= RENDER ANUAL (enero–diciembre salvo año en curso) ========= */
@@ -258,14 +330,27 @@ th,td{border:1px solid #eef2f7;text-align:center;padding:.3rem .4rem;white-space
             const idx = colIndex[String(d)];
             const val = idx != null ? (fila[idx]||'').trim() : '';
             const tokens = extractTokens(val);
-            if(tokens.length){ huboActividadEnElAnio=true; huboActividadEnEsteMes=true; }
-            tokens.forEach(tok => { totales[tok] = (totales[tok] || 0) + 1; });
-            const primary=tokens[0]||'';
+            const tokensFiltrados = aplicarFiltro(tokens, filtroActual);
+            
+            if(tokensFiltrados.length){ 
+              huboActividadEnElAnio=true; 
+              huboActividadEnEsteMes=true; 
+            }
+            
+            // Contar solo los tokens que pasan el filtro
+            tokensFiltrados.forEach(tok => { 
+              totales[tok] = (totales[tok] || 0) + 1; 
+            });
+            
+            const primary=tokensFiltrados[0]||'';
             const cls=primary&&CODIGOS[primary]?CODIGOS[primary].clase:'';
             const dow=new Date(yearNum,m-1,d).getDay();
             const wk=(dow===0||dow===6)?' wknd':'';
             const title=`${anioParam}-${pad2(m)}-${pad2(d)} · ${['D','L','M','X','J','V','S'][dow]}${val?(' · '+val):''}`;
-            html += `<td class="${cls}${wk}" title="${title}">${val}</td>`;
+            
+            // Mostrar solo los tokens filtrados
+            const displayVal = tokensFiltrados.length > 0 ? tokensFiltrados.join('+') : '';
+            html += `<td class="${cls}${wk}" title="${title}">${displayVal}</td>`;
           }else{
             const dow=new Date(yearNum,m-1,d).getDay();
             const wk=(dow===0||dow===6)?' wknd':'';
@@ -295,24 +380,43 @@ th,td{border:1px solid #eef2f7;text-align:center;padding:.3rem .4rem;white-space
       noAct.textContent='';
     }
 
-    // Leyenda
+    // Leyenda filtrada
     const ley=$('leyenda'); ley.innerHTML='';
     Object.entries(CODIGOS).forEach(([k,def])=>{
+      // Aplicar filtro a la leyenda
+      if (filtroActual === 'asistencial' && !TURNOS_ASISTENCIALES.includes(k)) return;
+      if (filtroActual === 'no-asistencial' && TURNOS_ASISTENCIALES.includes(k)) return;
+      
       const el=document.createElement('div');
       el.className='item';
       el.innerHTML=`<span class="badge ${def.clase}"></span><b>${k}</b> <span class="muted">${def.nombre}</span>`;
       ley.appendChild(el);
     });
 
-    // Totales
+    // Totales filtrados
     const tot=$('totales'); tot.innerHTML='';
     Object.keys(totales).sort().forEach(k=>{
       const def=CODIGOS[k];
+      // Aplicar filtro a los totales
+      if (filtroActual === 'asistencial' && !TURNOS_ASISTENCIALES.includes(k)) return;
+      if (filtroActual === 'no-asistencial' && TURNOS_ASISTENCIALES.includes(k)) return;
+      
       const box=document.createElement('div');
       box.className='chip';
-      box.innerHTML=`<span class="badge ${def?def.clase:''}"></span><b>${k}</b> · ${totales[k]} día(s)`;
+      box.innerHTML=`<span class="badge ${def.clase}"></span><b>${k}</b> · ${totales[k]} día(s)`;
       tot.appendChild(box);
     });
+
+    // Mostrar total general si hay filtro activo
+    if (filtroActual !== 'todo') {
+      const totalDias = Object.values(totales).reduce((sum, count) => sum + count, 0);
+      const boxTotal = document.createElement('div');
+      boxTotal.className='chip';
+      boxTotal.style.background = '#0ea5e9';
+      boxTotal.style.color = 'white';
+      boxTotal.innerHTML = `<b>TOTAL ${filtroActual.toUpperCase()}</b> · ${totalDias} día(s)`;
+      tot.appendChild(boxTotal);
+    }
   }
 
   // Render inicial y eventos
@@ -321,6 +425,14 @@ th,td{border:1px solid #eef2f7;text-align:center;padding:.3rem .4rem;white-space
 
   $('prevYear').addEventListener('click',()=>{ anioParam=String(parseInt(anioParam,10)-1); renderAnual($('chkDow').checked); });
   $('nextYear').addEventListener('click',()=>{ anioParam=String(parseInt(anioParam,10)+1); renderAnual($('chkDow').checked); });
+
+  // Filtros con radio buttons
+  document.querySelectorAll('input[name="filtroTipo"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+      filtroActual = this.value;
+      renderAnual($('chkDow').checked);
+    });
+  });
 
   // Botones imprimir / PDF (ambos abren el diálogo del navegador)
   $('btnPrint').addEventListener('click', ()=> window.print());
