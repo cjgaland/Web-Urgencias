@@ -10,11 +10,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-  <!-- Estilos muy ligeros para el selector de año, estado del CSV y botón de gráficas -->
   <style>
     .year-switch {
       display:flex; align-items:center; gap:.5rem; margin:0 0 1rem 0; flex-wrap:wrap;
-      justify-content:center;                 /* ✅ centrado */
+      justify-content:center;
     }
     .year-switch button {
       border: none; border-radius: 999px; padding: .45rem .8rem; background: #fff;
@@ -33,8 +32,6 @@
     .badge-ok { background:#E6F4EA; }
     .badge-ko { background:#FFECEC; }
     .small-note { font-size:.9rem; color:#51607a; margin-top:.6rem; text-align:center; }
-
-    /* === Botón de GRÁFICAS centrado y oscuro === */
     .actions.center { display:flex; justify-content:center; margin:.6rem 0 0; }
     .btn-dark {
       display:inline-flex; align-items:center; gap:.5rem;
@@ -43,8 +40,6 @@
     }
     .btn-dark:hover { filter:brightness(1.05); transform:translateY(-1px); }
     .btn-dark i { font-size: .95em; }
-
-    /* === Botón flotante discreto para acceso al editor === */
     #btn-editor{
       position: fixed; right: 16px; bottom: 16px; z-index: 1200;
       width: 42px; height: 42px; border-radius: 50%;
@@ -71,13 +66,9 @@
         <li><a href="../Documentos/index.html"><i class="fas fa-file-lines"></i> <span>Documentos y plantillas</span></a></li>
         <li><a href="../Calidad/index.html"><i class="fas fa-shield-heart"></i> <span>Calidad y Seguridad del Paciente</span></a></li>
       </ul>
-
-      <!-- Bloque adicional: Sala de Críticos -->
       <ul class="submenu-criticos">
         <li><a href="../Criticos/index.html"><i class="fas fa-procedures"></i> <span>Sala de Críticos</span></a></li>
       </ul>
-
-      <!-- Bloque adicional: Equipo -->
       <ul class="submenu-equipo">
         <li><a href="../Profesionales/index.html"><i class="fas fa-user-md"></i> <span>Fichas del personal</span></a></li>
         <li><a href="../Cuadrantes/index.html"><i class="fas fa-calendar-alt"></i> <span>Cuadrantes de trabajo</span></a></li>
@@ -99,7 +90,6 @@
       </div>
     </section>
 
-    <!-- Selector de año centrado -->
     <div class="year-switch">
       <button id="prevYear" title="Año anterior">⟵</button>
       <label for="yearInput" class="visually-hidden">Año</label>
@@ -107,61 +97,55 @@
       <button id="nextYear" title="Año siguiente">⟶</button>
     </div>
 
-    <!-- Lista de meses -->
     <nav class="calc-toc" id="monthList"></nav>
 
     <noscript>
+      <p><strong>Parece que JavaScript está desactivado. Aquí tienes los enlaces directos:</strong></p>
       <nav class="calc-toc">
-        <!-- Año 2024 -->
-        <a href="2024/ene2024.html">Enero 2024</a>
-        <a href="2024/feb2024.html">Febrero 2024</a>
-        <a href="2024/mar2024.html">Marzo 2024</a>
-        <a href="2024/abr2024.html">Abril 2024</a>
-        <a href="2024/may2024.html">Mayo 2024</a>
-        <a href="2024/jun2024.html">Junio 2024</a>
-        <a href="2024/jul2024.html">Julio 2024</a>
-        <a href="2024/ago2024.html">Agosto 2024</a>
-        <a href="2024/sep2024.html">Septiembre 2024</a>
-        <a href="2024/oct2024.html">Octubre 2024</a>
-        <a href="2024/nov2024.html">Noviembre 2024</a>
-        <a href="2024/dic2024.html">Diciembre 2024</a>
+        <a href="visor.html?anno=2024&mes=1">Enero 2024</a>
+        <a href="visor.html?anno=2024&mes=2">Febrero 2024</a>
+        <a href="visor.html?anno=2024&mes=3">Marzo 2024</a>
+        <a href="visor.html?anno=2024&mes=4">Abril 2024</a>
+        <a href="visor.html?anno=2024&mes=5">Mayo 2024</a>
+        <a href="visor.html?anno=2024&mes=6">Junio 2024</a>
+        <a href="visor.html?anno=2024&mes=7">Julio 2024</a>
+        <a href="visor.html?anno=2024&mes=8">Agosto 2024</a>
+        <a href="visor.html?anno=2024&mes=9">Septiembre 2024</a>
+        <a href="visor.html?anno=2024&mes=10">Octubre 2024</a>
+        <a href="visor.html?anno=2024&mes=11">Noviembre 2024</a>
+        <a href="visor.html?anno=2024&mes=12">Diciembre 2024</a>
 
-        <!-- Año 2025 -->
-        <a href="2025/ene2025.html">Enero 2025</a>
-        <a href="2025/feb2025.html">Febrero 2025</a>
-        <a href="2025/mar2025.html">Marzo 2025</a>
-        <a href="2025/abr2025.html">Abril 2025</a>
-        <a href="2025/may2025.html">Mayo 2025</a>
-        <a href="2025/jun2025.html">Junio 2025</a>
-        <a href="2025/jul2025.html">Julio 2025</a>
-        <a href="2025/ago2025.html">Agosto 2025</a>
-        <a href="2025/sep2025.html">Septiembre 2025</a>
-        <a href="2025/oct2025.html">Octubre 2025</a>
-        <a href="2025/nov2025.html">Noviembre 2025</a>
-        <a href="2025/dic2025.html">Diciembre 2025</a>
+        <a href="visor.html?anno=2025&mes=1">Enero 2025</a>
+        <a href="visor.html?anno=2025&mes=2">Febrero 2025</a>
+        <a href="visor.html?anno=2025&mes=3">Marzo 2025</a>
+        <a href="visor.html?anno=2025&mes=4">Abril 2025</a>
+        <a href="visor.html?anno=2025&mes=5">Mayo 2025</a>
+        <a href="visor.html?anno=2025&mes=6">Junio 2025</a>
+        <a href="visor.html?anno=2025&mes=7">Julio 2025</a>
+        <a href="visor.html?anno=2025&mes=8">Agosto 2025</a>
+        <a href="visor.html?anno=2025&mes=9">Septiembre 2025</a>
+        <a href="visor.html?anno=2025&mes=10">Octubre 2025</a>
+        <a href="visor.html?anno=2025&mes=11">Noviembre 2025</a>
+        <a href="visor.html?anno=2025&mes=12">Diciembre 2025</a>
 
-        <!-- Año 2026 -->
-        <a href="2026/ene2026.html">Enero 2026</a>
-        <a href="2026/feb2026.html">Febrero 2026</a>
-        <a href="2026/mar2026.html">Marzo 2026</a>
-        <a href="2026/abr2026.html">Abril 2026</a>
-        <a href="2026/may2026.html">Mayo 2026</a>
-        <a href="2026/jun2026.html">Junio 2026</a>
-        <a href="2026/jul2026.html">Julio 2026</a>
-        <a href="2026/ago2026.html">Agosto 2026</a>
-        <a href="2026/sep2026.html">Septiembre 2026</a>
-        <a href="2026/oct2026.html">Octubre 2026</a>
-        <a href="2026/nov2026.html">Noviembre 2026</a>
-        <a href="2026/dic2026.html">Diciembre 2026</a>
+        <a href="visor.html?anno=2026&mes=1">Enero 2026</a>
+        <a href="visor.html?anno=2026&mes=2">Febrero 2026</a>
+        <a href="visor.html?anno=2026&mes=3">Marzo 2026</a>
+        <a href="visor.html?anno=2026&mes=4">Abril 2026</a>
+        <a href="visor.html?anno=2026&mes=5">Mayo 2026</a>
+        <a href="visor.html?anno=2026&mes=6">Junio 2026</a>
+        <a href="visor.html?anno=2026&mes=7">Julio 2026</a>
+        <a href="visor.html?anno=2026&mes=8">Agosto 2026</a>
+        <a href="visor.html?anno=2026&mes=9">Septiembre 2026</a>
+        <a href="visor.html?anno=2026&mes=10">Octubre 2026</a>
+        <a href="visor.html?anno=2026&mes=11">Noviembre 2026</a>
+        <a href="visor.html?anno=2026&mes=12">Diciembre 2026</a>
       </nav>
     </noscript>
-
-
     <p class="small-note">
       Nota: Podrá acceder a los cuadrantes que estén en verde.
     </p>
 
-    <!-- Botón GRÁFICAS centrado, justo debajo de la nota -->
     <div class="actions center">
       <a class="btn-dark" href="./Estadistica/index.html">
         <i class="fa-solid fa-chart-line"></i> Estadística
@@ -192,7 +176,6 @@
     const prevBtn = document.getElementById('prevYear');
     const nextBtn = document.getElementById('nextYear');
 
-    // Año inicial = año actual del navegador
     const hoy = new Date();
     let currentYear = hoy.getFullYear();
 
@@ -205,13 +188,18 @@
 
       MESES.forEach((m, i) => {
         const mm = two(i+1);
-        const href = `${y}/${m.pref}${y}.html`;
+        
+        // === (NUEVO) ESTE ES EL ÚNICO CAMBIO EN EL SCRIPT ===
+        // Antes: const href = `${y}/${m.pref}${y}.html`;
+        const href = `visor.html?anno=${y}&mes=${i + 1}`;
+        // === FIN DEL CAMBIO ===
+
         const a = document.createElement('a');
         a.href = href;
         a.innerHTML = `<span>${m.nom} ${y}</span><span class="badge-estado">Comprobando…</span>`;
         monthList.appendChild(a);
 
-        // Comprobar si existe el CSV para ese mes y año
+        // (La lógica de comprobación del CSV no cambia)
         const csvUrl = `data/cuadrantes/${y}-${mm}.csv?v=${Date.now()}`;
         fetch(csvUrl, { cache: 'no-store' })
           .then(r => {
@@ -239,23 +227,19 @@
       if (!isNaN(v)) { currentYear = v; buildYear(currentYear); }
     });
 
-    // Inicializar
     buildYear(currentYear);
   </script>
 
-  <!-- === Botón de acceso al Editor con contraseña (bloque mínimo) === -->
   <button id="btn-editor" title="Editor de cuadrantes" aria-label="Abrir editor">🔒</button>
   <script>
   (function(){
-    // ⚠️ CAMBIA AQUÍ TU CONTRASEÑA
     const PASSWORD = "Cuadrantes/Urgencias#";
-
     const btn = document.getElementById('btn-editor');
     btn.addEventListener('click', () => {
       const intento = prompt('Introduce la contraseña del editor:');
-      if (intento === null) return; // cancelado
+      if (intento === null) return;
       if (intento === PASSWORD){
-        sessionStorage.setItem('editor_ok','1');  // ⭐ guarda marca de sesión
+        sessionStorage.setItem('editor_ok','1');
         window.location.href = "./Editor/index.html";
       } else {
         alert('Contraseña incorrecta');
@@ -263,6 +247,6 @@
     });
   })();
   </script>
-  <!-- === Fin del bloque mínimo === -->
+  
 </body>
 </html>
