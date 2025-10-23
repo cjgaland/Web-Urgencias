@@ -18,7 +18,7 @@
   .sub{color:var(--muted);margin:.1rem 0 .8rem 0;text-align:center}
   .pill{display:inline-block;border-radius:999px;background:var(--pill-bg);color:var(--pill-ink);padding:.25rem .6rem;font-weight:600;margin-left:.5rem}
 
-  /* Nav mes con “píldoras” blancas */
+  /* Nav mes con "píldoras" blancas */
   .nav-month{display:flex;align-items:center;justify-content:center;gap:.9rem;margin:.2rem 0 .8rem}
   .navbtn{
     width:34px;height:34px;border-radius:999px;border:1px solid var(--border);
@@ -43,6 +43,18 @@
   .print-toolbar .btn{border:1px solid var(--border);background:#fff;border-radius:999px;padding:.45rem .85rem;cursor:pointer}
   .print-toolbar .btn:hover{box-shadow:0 1px 4px rgba(0,0,0,.06)}
 
+  /* BOTONES DE FILTRO */
+  .filter-options { 
+    display: inline-flex; 
+    gap: 0.75rem; 
+    align-items: center; 
+    margin-left: 1rem; 
+    padding-left: 1rem; 
+    border-left: 2px solid #eee; 
+  }
+  .filter-options label { cursor: pointer; font-size: 0.9em; white-space: nowrap; }
+  .filter-options input[type="radio"] { margin-right: 0.25rem; vertical-align: middle;}
+
   /* Colores turnos */
   .shift-M{background:#E6F4EA}
   .shift-T{background:#E6ECFF}
@@ -52,19 +64,36 @@
   .shift-FO{background:#FFECEC}
   .shift-R{background:#E0F7FA}
   .shift-V{background:#FDF4FF}
+  .shift-VA{background:#FDF4FF;background-image:linear-gradient(45deg,rgba(0,0,0,.07) 25%,transparent 25%,transparent 50%,rgba(0,0,0,.07) 50%,rgba(0,0,0,.07) 75%,transparent 75%,transparent);background-size:10px 10px}
   .shift-S{background:#F5F7FA;color:#99A3AD}
   .shift-LD{background:#F0FDF4}
+  .shift-LDA{background:#F0FDF4;background-image:linear-gradient(45deg,rgba(0,0,0,.07) 25%,transparent 25%,transparent 50%,rgba(0,0,0,.07) 50%,rgba(0,0,0,.07) 75%,transparent 75%,transparent);background-size:10px 10px}
   .shift-FR{background:#F3E8FF}
+  .shift-CON{background:#E0E0E0}
   .shift-OT{background:#F2F2F2}
   .shift-SD{background:#F5F7FA;color:#6b7280}
   .shift-LS{background:#E8F0FE}
   .shift-BL{background:#FFE4E6}
   .shift-BM{background:#FFE4F1}
 
+  /* Estilo para celdas filtradas */
+  td.filtered-out {
+    background-color: #f8f9fa !important;
+    color: transparent !important;
+    background-image: none !important;
+  }
+
   @media print{
-    .print-toolbar,.nav-month{display:none!important}
+    .print-toolbar,.nav-month,.filter-options{display:none!important}
     .panel{border:none}
-    @page { size: A4 landscape; margin: 10mm; }
+    @page { 
+      size: A4 landscape; 
+      margin: 2.5cm 3mm 3mm 3mm !important;
+    }
+    /* Ocultar celdas filtradas en impresión */
+    td.filtered-out { display: none !important; }
+    /* Ocultar leyenda y totales filtrados en impresión */
+    .legend .item[style*="display: none"] { display: none !important; }
   }
 </style>
 </head>
@@ -78,6 +107,22 @@
   </div>
 
   <div class="panel">
+    <!-- BARRA DE HERRAMIENTAS CON FILTROS -->
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; flex-wrap:wrap;">
+      <div style="display:flex; align-items:center; gap:.5rem; flex-wrap:wrap;">
+        <h3 style="margin:0;">Matriz mensual</h3>
+        <span class="pill">Sólo lectura</span>
+        
+        <!-- BOTONES DE FILTRO -->
+        <div class="filter-options">
+          <strong style="margin-right: 0.25rem;">Mostrar:</strong>
+          <label><input type="radio" name="filtroTipo" value="todo" checked> Todo</label>
+          <label><input type="radio" name="filtroTipo" value="asistencial"> Asistencial</label>
+          <label><input type="radio" name="filtroTipo" value="no-asistencial"> No Asistencial</label>
+        </div>
+      </div>
+    </div>
+
     <div id="tabla"></div>
 
     <!-- NUEVO: título como en el anual -->
@@ -105,23 +150,34 @@
   const DOW_L = ['D','L','M','X','J','V','S']; // 0=Dom
 
   const CODIGOS = {
-    M:{nombre:'Mañana 08–15', clase:'shift-M'},
-    T:{nombre:'Tarde 15–22', clase:'shift-T'},
-    G:{nombre:'Guardia laborable 15–08', clase:'shift-G'},
-    O:{nombre:'Guardia Observación 08–15 (día sig.)', clase:'shift-O'},
-    F:{nombre:'Guardia Festivo 09–09', clase:'shift-F'},
-    FO:{nombre:'Obs. Festivo 10–10', clase:'shift-FO'},
-    R:{nombre:'Refuerzo 10–22 (sólo findes/festivos)', clase:'shift-R'},
-    V:{nombre:'Vacaciones', clase:'shift-V'},
-    S:{nombre:'Saliente', clase:'shift-S'},
-    LD:{nombre:'Libre disposición', clase:'shift-LD'},
-    FR:{nombre:'Formación', clase:'shift-FR'},
-    OT:{nombre:'Otros', clase:'shift-OT'},
-    SD:{nombre:'Saliente diferido', clase:'shift-SD'},
-    LS:{nombre:'Liberación sindical', clase:'shift-LS'},
-    BL:{nombre:'Baja laboral', clase:'shift-BL'},
-    BM:{nombre:'Baja maternal', clase:'shift-BM'}
+    M:{nombre:'Mañana 08–15', clase:'shift-M', asistencial:true},
+    T:{nombre:'Tarde 15–22', clase:'shift-T', asistencial:true},
+    G:{nombre:'Guardia laborable 15–08', clase:'shift-G', asistencial:true},
+    O:{nombre:'Guardia Observación 08–15 (día sig.)', clase:'shift-O', asistencial:true},
+    F:{nombre:'Guardia Festivo 09–09', clase:'shift-F', asistencial:true},
+    FO:{nombre:'Obs. Festivo 10–10', clase:'shift-FO', asistencial:true},
+    R:{nombre:'Refuerzo 10–22 (sólo findes/festivos)', clase:'shift-R', asistencial:true},
+    V:{nombre:'Vacaciones', clase:'shift-V', asistencial:false},
+    VA:{nombre:'Vacaciones Adicionales', clase:'shift-VA', asistencial:false},
+    S:{nombre:'Saliente', clase:'shift-S', asistencial:false},
+    LD:{nombre:'Libre disposición', clase:'shift-LD', asistencial:false},
+    LDA:{nombre:'Libre Disposición Adicional', clase:'shift-LDA', asistencial:false},
+    FR:{nombre:'Formación', clase:'shift-FR', asistencial:false},
+    CON:{nombre:'Congreso/Reunión/Simposio', clase:'shift-CON', asistencial:false},
+    OT:{nombre:'Otros', clase:'shift-OT', asistencial:false},
+    SD:{nombre:'Saliente diferido', clase:'shift-SD', asistencial:false},
+    LS:{nombre:'Liberación sindical', clase:'shift-LS', asistencial:false},
+    BL:{nombre:'Baja laboral', clase:'shift-BL', asistencial:false},
+    BM:{nombre:'Baja maternal', clase:'shift-BM', asistencial:false}
   };
+
+  // Definir turnos asistenciales
+  const TURNOS_ASISTENCIALES = ['M', 'T', 'G', 'O', 'F', 'FO', 'R'];
+  const KEYS = Object.keys(CODIGOS);
+
+  // Variables globales
+  let datosOriginales = null;
+  let filtroActual = 'todo';
 
   // --- util: obtiene TODOS los códigos de una celda (cuenta M+G, M/T, M-G, "LD FR", etc.)
   function extractTokens(raw){
@@ -131,6 +187,21 @@
       .split(/\s+/)
       .map(t=>t.trim())
       .filter(t=>t && (t in CODIGOS)); // sólo códigos conocidos
+  }
+
+  // Función para aplicar filtro
+  function aplicarFiltro(tokens, filtro) {
+    if (filtro === 'todo') return tokens;
+    
+    if (filtro === 'asistencial') {
+      return tokens.filter(token => TURNOS_ASISTENCIALES.includes(token));
+    }
+    
+    if (filtro === 'no-asistencial') {
+      return tokens.filter(token => !TURNOS_ASISTENCIALES.includes(token));
+    }
+    
+    return tokens;
   }
 
   const params = new URLSearchParams(location.search);
@@ -143,7 +214,7 @@
   function renderSubFecha(){ $('sub-fecha').textContent = MESES_L[parseInt(mesParam,10)-1] + ' ' + anioParam; }
   renderSubFecha();
 
-  const csvPathBase = `../Cuadrantes/data/cuadrantes/`;
+  const csvPathBase = `../../Cuadrantes/data/cuadrantes/`;
 
   function parseCSV(text){
     const lines = text.replace(/\r/g,'').split('\n').filter(l=>l.trim().length);
@@ -175,7 +246,7 @@
 
   function daysInMonth(y,m){ return new Date(parseInt(y,10), parseInt(m,10), 0).getDate(); }
 
-  function render(header, fila){
+  function render(header, fila, filtro = 'todo'){
     const cont = $('tabla');
     if (!fila){ cont.innerHTML = '<p style="color:#b00"><b>No se encontró profesional en el CSV</b></p>'; return; }
 
@@ -203,27 +274,44 @@
       const idx = colIndex[String(d)];
       const val = (idx!=null ? (fila[idx]||'').trim() : '');
       const tokens = extractTokens(val);
-      tokens.forEach(tok => { totales[tok] = (totales[tok]||0) + 1; });
-      const primary = tokens[0] || '';
+      const tokensFiltrados = aplicarFiltro(tokens, filtro);
+      
+      // Contar solo tokens visibles según filtro
+      tokensFiltrados.forEach(tok => { totales[tok] = (totales[tok]||0) + 1; });
+      
+      const primary = tokensFiltrados[0] || '';
       const cls = primary && CODIGOS[primary] ? CODIGOS[primary].clase : '';
-      html += `<td class="${cls}">${val}</td>`;
+      const mostrarTexto = tokensFiltrados.length > 0 ? val : '';
+      const claseFiltro = tokens.length > 0 && tokensFiltrados.length === 0 ? 'filtered-out' : '';
+      
+      html += `<td class="${cls} ${claseFiltro}">${mostrarTexto}</td>`;
     }
     const idxObs = colIndex['Obs.'];
     html += `<td>${idxObs!=null ? (fila[idxObs]||'') : ''}</td></tr></tbody></table>`;
 
     cont.innerHTML = html;
 
+    // Renderizar leyenda según filtro
     const ley = $('leyenda'); ley.innerHTML='';
     Object.entries(CODIGOS).forEach(([k,def])=>{
+      // Aplicar filtro a la leyenda
+      if (filtro === 'asistencial' && !def.asistencial) return;
+      if (filtro === 'no-asistencial' && def.asistencial) return;
+      
       const el = document.createElement('div');
       el.className = 'item';
       el.innerHTML = `<span class="badge ${def.clase}"></span><b>${k}</b> <span class="muted">${def.nombre}</span>`;
       ley.appendChild(el);
     });
 
+    // Renderizar totales según filtro
     const tot = $('totales'); tot.innerHTML='';
     Object.keys(totales).sort().forEach(k=>{
       const def = CODIGOS[k];
+      // Aplicar filtro a los totales
+      if (filtro === 'asistencial' && !def.asistencial) return;
+      if (filtro === 'no-asistencial' && def.asistencial) return;
+      
       const box = document.createElement('div');
       box.className = 'chip';
       box.innerHTML = `<span class="badge ${def?def.clase:''}"></span><b>${k}</b> · ${totales[k]} día(s)`;
@@ -240,7 +328,8 @@
         if(!rows.length) throw new Error('CSV vacío');
         const header = rows[0];
         const fila = buscarFila(rows);
-        render(header, fila);
+        datosOriginales = {header, fila};
+        render(header, fila, filtroActual);
       })
       .catch(err => { $('tabla').innerHTML = "<p style='color:#b00'><b>Error:</b> " + err.message + "</p>"; });
   }
@@ -259,6 +348,16 @@
   }
   $('prevM').addEventListener('click', ()=>goDeltaMonth(-1));
   $('nextM').addEventListener('click', ()=>goDeltaMonth(1));
+
+  // Event listeners para los filtros
+  document.querySelectorAll('input[name="filtroTipo"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+      filtroActual = this.value;
+      if (datosOriginales) {
+        render(datosOriginales.header, datosOriginales.fila, filtroActual);
+      }
+    });
+  });
 
   // Enlace al cuadrante anual
   const b = document.getElementById('btnAnual');
