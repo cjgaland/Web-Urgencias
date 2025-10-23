@@ -1,371 +1,469 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Editor de cuadrantes · Generador de CSV</title>
-<link rel="stylesheet" href="../../css/style.css?v=20250824"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Editor de cuadrantes · Urgencias</title>
+<link rel="icon" href="../favicon.ico" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
 <style>
-  :root{--radius:12px;--shadow:0 4px 16px rgba(0,0,0,.08);--gap:.5rem;}
-  body{background:#f4f7fb;margin:0;padding:1rem;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
-  .wrap{max-width:1200px;margin:0 auto}
-  h1{font-size:1.4rem;margin:.2rem 0 1rem}
-  .panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:1rem;margin-bottom:1rem}
-  /* ✅ Mes/Año alineados arriba */
-  .row{display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-start}
-  label{font-size:.9rem;color:#333;display:block;margin-bottom:.25rem}
-  select,textarea,input[type=text]{border:1px solid #d9e1ec;border-radius:8px;padding:.5rem .6rem;font-size:.95rem;background:#fff}
-  textarea{min-width:280px;min-height:120px}
-  button{border:none;border-radius:999px;background:#00457c;color:#fff;padding:.55rem .9rem;font-weight:600;cursor:pointer}
-  button.secondary{background:#eef3f9;color:#0f1a2a}
-  .grid-wrap{overflow:auto}
-  table{border-collapse:separate;border-spacing:0;width:100%;font-size:.92rem}
-  th,td{border-bottom:1px solid #eef2f7;padding:.4rem .45rem;text-align:center;white-space:nowrap}
-  thead th{position:sticky;top:0;background:#f7fafc;z-index:1}
-  th.sticky,td.sticky{position:sticky;left:0;background:#fff;text-align:left}
-  td[contenteditable="true"]{background:#fff}
-  td:focus{outline:2px solid #99c2ff;outline-offset:-2px}
-    /* Colores turnos */
-    .shift-M{background:#E6F4EA}    /* Mañana */
-    .shift-T{background:#E6ECFF}    /* Tarde */
-    .shift-G{background:#EAF7FF}    /* Guardia Laboral */
-    .shift-O{background:#FFF0F5}    /* Observación Laboral */
-    .shift-F{background:#FFF5E6}    /* Guardia Festivo */
-    .shift-FO{background:#FFECEC}   /* Observación Festivo */
-    .shift-R{background:#E0F7FA}    /* Refuerzo Fin de Semana */
-    .shift-V{background:#FDF4FF}    /* Vacaciones */
-    .shift-S{background:#F5F7FA;color:#99A3AD}    /* Saliente */
-    .shift-LD{background:#F0FDF4}   /* Libre disposición: Asuntos Propios */
-    .shift-FR{background:#F3E8FF}   /* Formación */
-    .shift-OT{background:#F2F2F2}   /* Otros */
-    .shift-sd{background:#E8F5E9}   /* Saliente diferido */
-    .shift-LS{background:#FFFDE7}   /* Liberación sindical */
-    .shift-BL{background:#FFEBEE}   /* Baja laboral */
-    .shift-BM{background:#E1F5FE}   /* Baja maternal */
-  .legend{display:flex;flex-wrap:wrap;gap:.5rem .75rem;margin-top:.5rem}
-  .legend .item{display:flex;gap:.35rem;align-items:center}
-  .legend .sw{width:18px;height:14px;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
-  .palette{position:fixed;inset:auto auto 1rem 1rem;background:#fff;border:1px solid #e3e9f3;border-radius:12px;box-shadow:var(--shadow);padding:.6rem .6rem .4rem;display:flex;flex-wrap:wrap;gap:.4rem;z-index:999}
-  .palette button{background:#fff;color:#111;border:1px solid #d9e1ec;border-radius:10px;padding:.3rem .5rem}
-  .palette button:hover{background:#f2f6ff}
-  .hint{font-size:.9rem;color:#51607a}
+/* ... (Estilos generales que ya tenías) ... */
+body{font-family:'Roboto',sans-serif;background:#f4f7fb;color:#333;margin:0}
+.wrap{max-width:1600px;margin:1.5rem auto;padding:0 1.5rem}
+.panel{background:#fff;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.07);padding:1.2rem 1.5rem}
+h1,h2{color:#00457c;margin:0 0 1rem}
+.grid-cols-2{display:grid;grid-template-columns:300px 1fr;gap:1rem}
+.flex-col{display:flex;flex-direction:column;gap:.75rem}
+.flex-row{display:flex;align-items:center;gap:.75rem}
+label{font-weight:600;font-size:.9rem;color:#333}
+textarea,select,input[type="number"],input[type="text"]{width:100%;padding:.6rem .75rem;border:1px solid #ccc;border-radius:8px;font-family:inherit;font-size:1rem;box-sizing:border-box}
+textarea{font-family:monospace;font-size:.9rem;min-height:200px;resize:vertical}
+button{padding:.6rem 1rem;border:none;border-radius:8px;background:#00457c;color:#fff;font-weight:700;font-size:.9rem;cursor:pointer;transition:background .2s ease}
+button:hover{background:#00335c}
+button.secondary{background:#e2e8f0;color:#333}
+button.secondary:hover{background:#cbd5e1}
+button.blue{background:#1e88e5} button.blue:hover{background:#1565c0}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:.9rem;table-layout:fixed}
+thead th{position:sticky;top:0;background:#f7fafc;padding:.5rem;z-index:1}
+th,td{border-bottom:1px solid #eee;padding:.3rem .4rem;text-align:center;border-right:1px solid #eee}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:#fff;border-right:2px solid #ddd;width:140px;font-weight:600}
+tbody td:not(:first-child){width:45px;min-width:45px}
+tbody td[contenteditable="true"]:focus{outline:2px solid #1e88e5;background:#f0f8ff}
+.dow-D, .dow-S, .dow-V, .dow-F { background:#f7f9fc; }
+
+/* Paleta de colores */
+#palette{position:fixed;bottom:1rem;right:1rem;background:rgba(255,255,255,.95);border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.15);padding:.7rem;display:grid;grid-template-columns:repeat(6,auto);gap:.5rem;z-index:100}
+#palette button{padding:0;width:40px;height:32px;font-size:1rem;font-weight:700;border:1px solid rgba(0,0,0,.1);border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+#palette button:hover{transform:scale(1.1);border-color:rgba(0,0,0,.3)}
+
+/* Colores de turnos (copiados de la plantilla) */
+.shift-M{background:#E6F4EA}
+.shift-T{background:#E6ECFF}
+.shift-G{background:#EAF7FF}
+.shift-O{background:#FFF0F5}
+.shift-F{background:#FFF5E6}
+.shift-FO{background:#FFECEC}
+.shift-R{background:#E0F7FA}
+.shift-V{background:#FDF4FF}
+.shift-S{background:#F5F7FA;color:#99A3AD}
+.shift-LD{background:#F0FDF4}
+.shift-FR{background:#F3E8FF}
+.shift-OT{background:#F2F2f2}
+.shift-SD{background:#E8F5E9}
+.shift-LS{background:#FFFDE7}
+.shift-BL{background:#FFEBEE}
+.shift-BM{background:#E1F5FE}
+.shift-RD{background:#E6FFF8}
+
+/* === NUEVOS CÓDIGOS CON TRAMA (PASO 1) === */
+.shift-LDA {
+  background-color: #F0FDF4; /* Base de LD */
+  background-image: linear-gradient(45deg, rgba(0,0,0,.07) 25%, transparent 25%, transparent 50%, rgba(0,0,0,.07) 50%, rgba(0,0,0,.07) 75%, transparent 75%, transparent);
+  background-size: 10px 10px;
+}
+.shift-VA {
+  background-color: #FDF4FF; /* Base de V */
+  background-image: linear-gradient(45deg, rgba(0,0,0,.07) 25%, transparent 25%, transparent 50%, rgba(0,0,0,.07) 50%, rgba(0,0,0,.07) 75%, transparent 75%, transparent);
+  background-size: 10px 10px;
+}
+/* === NUEVO CÓDIGO CONGRESO === */
+.shift-CON { background: #E0E0E0; } /* Gris claro */
   
-  /* === Estilos del bloqueo con contraseña === */
-  #editor-gate {
-    position: fixed; inset: 0; background: #ffffff; z-index: 9999;
-    display: grid; place-items: center; font-family: Roboto, system-ui, Arial, sans-serif;
-  }
-  #editor-gate .box{
-    width: min(92vw, 380px); background: #fff; border-radius: 14px;
-    box-shadow: 0 12px 40px rgba(0,0,0,.2); padding: 1.1rem;
-  }
-  #editor-gate h2{ margin:.2rem 0 .6rem; font-size:1.1rem; }
-  #editor-gate p{ color:#475569; margin:.2rem 0 .8rem; }
-  #editor-gate input{
-    width: 100%; border:1px solid #d9e1ec; border-radius: 10px;
-    padding:.55rem .7rem; font-size:1rem;
-  }
-  #editor-gate .actions{ display:flex; gap:.6rem; justify-content:flex-end; margin-top:.8rem; }
-  #editor-gate button{
-    border:none; border-radius: 999px; padding:.5rem .9rem; font-weight:600; cursor:pointer;
-    box-shadow: 0 2px 10px rgba(0,0,0,.08);
-  }
-  #editor-gate .ok{ background:#00457c; color:#fff; }
-  #editor-gate .err{ color:#b91c1c; font-size:.9rem; margin-top:.5rem; display:none; }
+/* (HE COMENTADO EL ESTILO DEL "GATE" PARA QUE NO MOLESTE)
+#editor-gate{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:1000;display:flex;align-items:center;justify-content:center}
+#gate-box{background:#fff;padding:2rem;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+#gate-box input{width:200px}
+*/
 </style>
 </head>
 <body>
 
-<!-- === Capa de bloqueo por contraseña === -->
-<div id="editor-gate" role="dialog" aria-modal="true" aria-labelledby="editorGateTitle">
-  <div class="box">
-    <h2 id="editorGateTitle">Acceso al editor</h2>
-    <p>Introduce la contraseña para continuar.</p>
-    <input type="password" id="editor-pass" placeholder="••••••••" autocomplete="current-password" />
-    <div class="actions">
-      <button type="button" id="editor-open" class="ok">Entrar</button>
-    </div>
-    <div id="editor-err" class="err">Contraseña incorrecta.</div>
-  </div>
+<div id="palette">
+  <button type="button" class="shift-M" data-val="M">M</button>
+  <button type="button" class="shift-T" data-val="T">T</button>
+  <button type="button" class="shift-G" data-val="G">G</button>
+  <button type="button" class="shift-O" data-val="O">O</button>
+  <button type="button" class="shift-F" data-val="F">F</button>
+  <button type="button" class="shift-FO" data-val="FO">FO</button>
+  <button type="button" class="shift-R" data-val="R">R</button>
+  <button type="button" class="shift-LD" data-val="LD">LD</button>
+  <button type="button" class="shift-LDA" data-val="LDA">LDA</button>
+  <button type="button" class="shift-V" data-val="V">V</button>
+  <button type="button" class="shift-VA" data-val="VA">VA</button>
+  <button type="button" class="shift-FR" data-val="FR">FR</button>
+  <button type="button" class="shift-S" data-val="S">S</button>
+  <button type="button" class="shift-SD" data-val="SD">SD</button>
+  <button type="button" class="shift-LS" data-val="LS">LS</button>
+  <button type="button" class="shift-BL" data-val="BL">BL</button>
+  <button type="button" class="shift-BM" data-val="BM">BM</button>
+  <button type="button" class="shift-OT" data-val="OT">OT</button>
+  <button type="button" class="shift-RD" data-val="RD">RD</button>
+  <button type="button" class="shift-CON" data-val="CON">RD</button>
+  <button type="button" class="secondary" data-val="" style="grid-column: span 3">Limpiar</button>
 </div>
-  
-  
+
 <div class="wrap">
-  <h1>Editor de cuadrantes · Generador de CSV</h1>
-
-  <div class="panel">
-    <div class="row">
-      <div>
-        <label>Mes</label>
-        <select id="mes"></select>
+  <div class="grid-cols-2">
+    <div class="panel flex-col" style="height:fit-content">
+      <h2>Controles</h2>
+      <div class="flex-col">
+        <label for="anio">Año</label>
+        <input type="number" id="anio" value="2025" min="2020" max="2030" step="1" />
       </div>
-      <div>
-        <label>Año</label>
-        <!-- 🔁 input → select -->
-        <select id="anno"></select>
+      <div class="flex-col">
+        <label for="mes">Mes</label>
+        <select id="mes">
+          <option value="01">01 - Enero</option>
+          <option value="02">02 - Febrero</option>
+          <option value="03">03 - Marzo</option>
+          <option value="04">04 - Abril</option>
+          <option value="05">05 - Mayo</option>
+          <option value="06">06 - Junio</option>
+          <option value="07">07 - Julio</option>
+          <option value="08">08 - Agosto</option>
+          <option value="09">09 - Septiembre</option>
+          <option value="10">10 - Octubre</option>
+          <option value="11" selected>11 - Noviembre</option>
+          <option value="12">12 - Diciembre</option>
+        </select>
       </div>
-
-      <div>
-        <label>Profesionales (uno por línea)</label>
-        <textarea id="nombres" placeholder="Apellido, Nombre&#10;..."></textarea>
+      <div class="flex-col">
+        <label for="profesionales">Profesionales (uno por línea)</label>
+        <textarea id="profesionales" rows="12"></textarea>
       </div>
-      <div style="display:flex;gap:.5rem;align-items:flex-end">
-        <button id="btn-generar">Generar cuadrante</button>
-        <button class="secondary" id="btn-importar">Importar CSV…</button>
-        <input id="file" type="file" accept=".csv" hidden/>
-        <button class="secondary" id="btn-limpiar">Vaciar cuadrante</button>
+      <div class="flex-row">
+        <button type="button" id="btnCargarTxt" class="secondary" title="Cargar lista desde profesionales.txt">Cargar .txt</button>
+        <button type="button" id="btnGenerar" class="blue" style="flex:1">Generar cuadrante</button>
+      </div>
+      <hr style="border:none;border-top:1px solid #eee;margin:.5rem 0">
+      <div class="flex-row">
+        <button type="button" id="btnImportar" class="secondary" style="flex:1">Importar CSV...</button>
+        <input type="file" id="fileInput" accept=".csv" hidden />
+      </div>
+      <div class="flex-col" style="gap:.5rem">
+        <button type="button" id="btnExportar">Exportar CSV</button>
+        <button type="button" id="btnCopiar" class="secondary">Copiar CSV al portapapeles</button>
       </div>
     </div>
-    <p class="hint">Escribe directamente en las celdas. Usa el <strong>menú flotante</strong> (abajo izquierda) para insertar códigos o combínalos con <code>+</code> (ej.: <code>M+G</code>).</p>
-  </div>
 
-  <div class="panel">
-    <div class="grid-wrap">
-      <table id="tabla">
-        <thead id="thead"></thead>
-        <tbody id="tbody"></tbody>
-      </table>
-    </div>
-    <div class="legend" id="leyenda"></div>
-    <div style="margin-top:.8rem;display:flex;gap:.5rem;flex-wrap:wrap">
-      <button id="btn-exportar">Exportar CSV</button>
-      <button class="secondary" id="btn-copiar">Copiar CSV al portapapeles</button>
+    <div class="panel">
+      <h1 id="tituloTabla">Editor de cuadrante</h1>
+      <div style="overflow:auto;max-height:80vh">
+        <table id="tablaEditor">
+          <thead id="thead"></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- Paleta -->
-<div class="palette" id="palette" aria-hidden="true"></div>
-  
 <script>
+/* === Contraseña (HE COMENTADO ESTE BLOQUE ENTERO) ===
 (function(){
-  const PASSWORD = "Cuadrantes/Urgencias#"; // usa la misma que en el índice
-
-  // Si venimos del índice y ya se validó, quitamos la capa
-  if (sessionStorage.getItem('editor_ok') === '1') {
-    document.getElementById('editor-gate').remove();
-    return;
-  }
-
-  const gate   = document.getElementById('editor-gate');
-  const input  = document.getElementById('editor-pass');
-  const btn    = document.getElementById('editor-open');
-  const errBox = document.getElementById('editor-err');
-
-  function unlock(){
-    sessionStorage.setItem('editor_ok','1'); // guarda sesión también aquí
-    gate.remove();
-  }
-
-  btn.addEventListener('click', () => {
-    const intento = input.value || "";
-    if (intento === PASSWORD) {
-      errBox.style.display = 'none';
-      unlock();
+  const gate = document.getElementById('editor-gate');
+  const pass = document.getElementById('pass');
+  const btn = document.getElementById('btnEntrar');
+  const clave = "MONTILLA_URG_2024"; // Tu clave
+  
+  function checkSession(){
+    if (sessionStorage.getItem('editorAuth') === clave) {
+      gate.style.display = 'none';
+      document.getElementById('palette').style.display = 'grid';
     } else {
-      errBox.style.display = 'block';
-      input.select();
+      gate.style.display = 'flex';
     }
-  });
-
-  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') btn.click(); });
-  setTimeout(()=>input.focus(), 50);
+  }
+  function login(){
+    if (pass.value === clave) {
+      sessionStorage.setItem('editorAuth', clave);
+      checkSession();
+    } else {
+      alert('Contraseña incorrecta');
+    }
+  }
+  btn.addEventListener('click', login);
+  pass.addEventListener('keydown', e => { if(e.key==='Enter') login(); });
+  checkSession();
 })();
-</script>
+*/
 
-<script>
-  const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-  const DOW = ['D','L','M','X','J','V','S']; // 0=Dom
-    // Códigos de turno
-  const CODIGOS = {
-      M:{nombre:'Mañana 08–15', clase:'shift-M'},
-      T:{nombre:'Tarde 15–22', clase:'shift-T'},
-      G:{nombre:'Guardia laborable 15–08', clase:'shift-G'},
-      O:{nombre:'Guardia Observación 08–15 (día sig.)', clase:'shift-O'},
-      F:{nombre:'Guardia Festivo 09–09', clase:'shift-F'},
-      FO:{nombre:'Obs. Festivo 10–10', clase:'shift-FO'},
-      R:{nombre:'Refuerzo 10–22 (sólo findes/festivos)', clase:'shift-R'},
-      V:{nombre:'Vacaciones', clase:'shift-V'},
-      S:{nombre:'Saliente', clase:'shift-S'},
-      LD:{nombre:'Libre disposición', clase:'shift-LD'},
-      FR:{nombre:'Formación', clase:'shift-FR'},
-      OT:{nombre:'Otros', clase:'shift-OT'},
-      SD:{nombre:'Saliente diferido', clase:'shift-sd'},
-      LS:{nombre:'Liberación sindical', clase:'shift-LS'},
-      BL:{nombre:'Baja laboral', clase:'shift-BL'},
-      BM:{nombre:'Baja maternal', clase:'shift-BM'}
-    };
+// === App ===
+const DOW = ['D', 'L', 'M', 'X', 'J', 'V', 'S'];
+const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
-  // Meses en selector
-  const selMes = document.getElementById('mes');
-  MESES.forEach((m,i)=>{ const o=document.createElement('option'); o.value=i+1; o.textContent=m[0].toUpperCase()+m.slice(1); selMes.appendChild(o); });
-  selMes.value = new Date().getMonth()+1;
-
-  // ✅ Años 2024–2030 en selector
-  const selAnno = document.getElementById('anno');
-  (function fillYears(){
-    const actual = new Date().getFullYear();
-    for(let y=2024; y<=2030; y++){
-      const opt = document.createElement('option');
-      opt.value = y; opt.textContent = y;
-      if (y === actual) opt.selected = true;
-      selAnno.appendChild(opt);
+// === Carga de profesionales.txt ===
+function cargarProfesionales(){
+  const txtArea = document.getElementById('profesionales');
+  const paths = [
+    '../data/profesionales.txt',
+    '../../data/profesionales.txt',
+    './data/profesionales.txt',
+    '/Cuadrantes/data/profesionales.txt'
+  ];
+  let found = false;
+  
+  async function tryPath(i){
+    if (i >= paths.length) {
+      if (!found) txtArea.value = "Error: No se encontró profesionales.txt";
+      return;
     }
-  })();
+    try {
+      const r = await fetch(`${paths[i]}?v=${Date.now()}`); // anti-cache
+      if (r.ok) {
+        txtArea.value = await r.text();
+        found = true;
+      } else {
+        await tryPath(i + 1);
+      }
+    } catch (e) {
+      await tryPath(i + 1);
+    }
+  }
+  tryPath(0);
+}
+document.getElementById('btnCargarTxt').addEventListener('click', cargarProfesionales);
+cargarProfesionales(); // Carga automática al inicio
 
+// === Generar tabla ===
+document.getElementById('btnGenerar').addEventListener('click', generar);
+
+function getDaysInMonth(y, m) { return new Date(y, m, 0).getDate(); } // m=1..12
+function getDow(y, m, d) { return new Date(y, m-1, d).getDay(); } // m=1..12, d=1..31
+
+function generar(){
+  const anio = parseInt(document.getElementById('anio').value, 10);
+  const mesNum = parseInt(document.getElementById('mes').value, 10);
+  const numDias = getDaysInMonth(anio, mesNum);
+  const mesNombre = MESES[mesNum-1];
+  document.getElementById('tituloTabla').textContent = `Cuadrante · ${mesNombre} ${anio}`;
+  
+  const profesionales = document.getElementById('profesionales').value.split('\n').filter(Boolean).map(s => s.trim());
+  
   const thead = document.getElementById('thead');
   const tbody = document.getElementById('tbody');
-  const leyenda = document.getElementById('leyenda');
-
-  function daysInMonth(y,m){ return new Date(y,m,0).getDate(); }
-  function labelDia(y,m,d){ const dow=new Date(y,m-1,d).getDay(); return `${DOW[dow]} ${d}`; }
-
-  function buildLegend(){
-    leyenda.innerHTML='';
-    for (const [k,v] of Object.entries(CODIGOS)){
-      const d=document.createElement('div'); d.className='item';
-      const sw=document.createElement('span'); sw.className='sw '+v.clase; d.appendChild(sw);
-      const tx=document.createElement('span'); tx.textContent=`${k} = ${v.nombre}`; d.appendChild(tx);
-      leyenda.appendChild(d);
+  thead.innerHTML = '';
+  tbody.innerHTML = '';
+  
+  // Cabecera
+  const trHead = document.createElement('tr');
+  trHead.innerHTML = '<th>Profesional</th>';
+  for(let d=1; d<=numDias; d++){
+    const dow = getDow(anio, mesNum, d);
+    const th = document.createElement('th');
+    th.textContent = `${DOW[dow]} ${d}`;
+    th.className = `dow-${DOW[dow]}`;
+    trHead.appendChild(th);
+  }
+  trHead.innerHTML += '<th>Obs.</th>';
+  thead.appendChild(trHead);
+  
+  // Cuerpo
+  profesionales.forEach(nombre => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${nombre}</td>`;
+    for(let d=1; d<=numDias; d++){
+      tr.innerHTML += `<td contenteditable="true" data-d="${d}" data-n="${nombre}"></td>`;
     }
-  }
-
-  function generar(){
-    const y = parseInt(document.getElementById('anno').value.trim())||new Date().getFullYear();
-    const m = parseInt(selMes.value);
-    const dmax = daysInMonth(y,m);
-    const nombres = document.getElementById('nombres').value.split(/\n+/).map(s=>s.trim()).filter(Boolean);
-
-    // header
-    thead.innerHTML='';
-    const tr=document.createElement('tr');
-    const th0=document.createElement('th'); th0.textContent='Profesional'; th0.className='sticky'; tr.appendChild(th0);
-    for(let d=1; d<=dmax; d++){ const th=document.createElement('th'); th.textContent=labelDia(y,m,d); tr.appendChild(th); }
-    const thObs=document.createElement('th'); thObs.textContent='Obs.'; tr.appendChild(thObs);
-    thead.appendChild(tr);
-
-    // body
-    tbody.innerHTML='';
-    nombres.forEach(n=>{
-      const tr=document.createElement('tr');
-      const tdN=document.createElement('td'); tdN.textContent=n; tdN.className='sticky'; tr.appendChild(tdN);
-      for(let d=1; d<=dmax; d++){
-        const td=document.createElement('td'); td.contentEditable='true'; td.dataset.day=d; td.addEventListener('input',()=>tint(td)); tr.appendChild(td);
-      }
-      const tdObs=document.createElement('td'); tdObs.contentEditable='true'; tr.appendChild(tdObs);
-      tbody.appendChild(tr);
-    });
-
-    buildLegend();
-  }
-
-  function tokenize(v){ return v.toUpperCase().trim().split(/[ \\/+\-]+/).filter(Boolean); }
-  function tint(td){
-    td.className='';
-    const tokens = tokenize(td.textContent);
-    const first = tokens.find(t=>CODIGOS[t]);
-    if(first) td.classList.add(CODIGOS[first].clase);
-  }
-
-  // Exportar CSV
-  function exportCSV(){
-    const rows = [];
-    const head = Array.from(thead.querySelectorAll('th')).map(th=>th.textContent.replace(/^([DLXJVS])\s+/,'').replace('Profesional','Nombre'));
-    rows.push(head);
-    tbody.querySelectorAll('tr').forEach(tr=>{
-      const cols = Array.from(tr.children).map(td=>td.textContent.replaceAll('"','""'));
-      rows.push(cols);
-    });
-    const csv = rows.map(r=>r.map(c=>(/[",\n]/.test(c)?`"${c}"`:c)).join(',')).join('\n');
-    const y = document.getElementById('anno').value; const m = String(selMes.value).padStart(2,'0');
-    const blob = new Blob([csv],{type:'text/csv;charset=utf-8;'});
-    const link=document.createElement('a'); link.href=URL.createObjectURL(blob); link.download=`${y}-${m}.csv`; link.click(); URL.revokeObjectURL(link.href);
-  }
-
-  async function copyCSV(){
-    const head = Array.from(thead.querySelectorAll('th')).map(th=>th.textContent.replace(/^([DLXJVS])\s+/,'').replace('Profesional','Nombre'));
-    const rows = [head];
-    tbody.querySelectorAll('tr').forEach(tr=>{ rows.push(Array.from(tr.children).map(td=>td.textContent)); });
-    const csv = rows.map(r=>r.join(',')).join('\n');
-    await navigator.clipboard.writeText(csv);
-    alert('CSV copiado al portapapeles');
-  }
-
-  function importarCSV(text){
-    const lines = text.replace(/\r/g,'').split('\n').filter(l=>l.trim().length);
-    if(!lines.length) return;
-    const header = lines[0].split(',');
-    const dmax = header.length-2;
-    const nombres = [];
-    for(let i=1;i<lines.length;i++){ const cols = lines[i].split(','); nombres.push((cols[0]||'').trim()); }
-    document.getElementById('nombres').value = nombres.join('\n');
-    generar();
-    let r=1;
-    tbody.querySelectorAll('tr').forEach(tr=>{
-      const cols = (lines[r++]||'').split(',');
-      for(let c=1;c<=dmax;c++){ const td = tr.children[c]; td.textContent = (cols[c]||'').trim(); tint(td); }
-      tr.lastElementChild.textContent = cols[dmax+1]||'';
-    });
-  }
-
-  const palette = document.getElementById('palette'); let currentCell=null;
-  function buildPalette(){
-    palette.innerHTML='';
-    for (const k of Object.keys(CODIGOS)){
-      const b=document.createElement('button'); b.textContent=k; b.title=CODIGOS[k].nombre; b.addEventListener('click',()=>insertCode(k)); palette.appendChild(b);
-    }
-    const plus=document.createElement('button'); plus.textContent='+'; plus.title='Añadir + para combinaciones'; plus.addEventListener('click',()=>insertText('+')); palette.appendChild(plus);
-    const clear=document.createElement('button'); clear.textContent='Borrar'; clear.addEventListener('click',()=>insertText('')); palette.appendChild(clear);
-  }
-  document.addEventListener('focusin',e=>{ if(e.target.tagName==='TD' && e.target.isContentEditable){ currentCell=e.target; }});
-  function insertCode(k){ if(!currentCell) return; const t=currentCell.textContent.trim(); currentCell.textContent = t? (t.endsWith('+')? t+k : t+'+'+k) : k; tint(currentCell); }
-  function insertText(t){ if(!currentCell) return; if(t===''){ currentCell.textContent=''; tint(currentCell);} else { currentCell.textContent=(currentCell.textContent||'')+t; currentCell.focus(); } }
-
-  document.getElementById('btn-generar').addEventListener('click',generar);
-  document.getElementById('btn-exportar').addEventListener('click',exportCSV);
-  document.getElementById('btn-copiar').addEventListener('click',copyCSV);
-  document.getElementById('btn-limpiar').addEventListener('click',()=>{ tbody.querySelectorAll('td[contenteditable]').forEach(td=>{td.textContent=''; tint(td);}); });
-  document.getElementById('btn-importar').addEventListener('click',()=>document.getElementById('file').click());
-  document.getElementById('file').addEventListener('change',ev=>{
-    const f=ev.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>importarCSV(r.result); r.readAsText(f);
+    tr.innerHTML += `<td contenteditable="true" data-d="obs" data-n="${nombre}"></td>`;
+    tbody.appendChild(tr);
   });
+}
 
-// === Carga robusta de profesionales (anti-caché + varias rutas) ===
-(async function loadProfesionalesYArrancar(){
-  const destinos = [
-    '../data/profesionales.txt',                // relativo desde /Cuadrantes/Editor/
-    '/Cuadrantes/data/profesionales.txt',       // absoluto (por si el index se sirve con mayúscula)
-    '/cuadrantes/data/profesionales.txt'        // absoluto en minúsculas (por si hubo cambio de carpeta)
-  ];
+// === Coloreado (Tint) ===
+const shiftClasses = [
+  'shift-M', 'shift-T', 'shift-G', 'shift-O', 'shift-F', 'shift-FO', 'shift-R', 
+  'shift-V', 'shift-VA', /*NUEVO*/
+  'shift-S', 
+  'shift-LD', 'shift-LDA', /*NUEVO*/
+  'shift-FR', 'shift-OT', 'shift-SD', 'shift-LS', 'shift-BL', 'shift-BM', 'shift-RD', 'shift-CON'
+];
 
-  let cargado = false, contenido = '';
+// (MODIFICADO para incluir LDA y VA)
+const shiftColors = {
+    'M':'shift-M', 'T':'shift-T', 'G':'shift-G', 'O':'shift-O', 'F':'shift-F', 'FO':'shift-FO', 'R':'shift-R',
+    'V':'shift-V',
+    'VA':'shift-VA', /* <-- NUEVO */
+    'S':'shift-S',
+    'LD':'shift-LD',
+    'LDA':'shift-LDA', /* <-- NUEVO */
+    'FR':'shift-FR', 'OT':'shift-OT', 'SD':'shift-SD', 'LS':'shift-LS', 'BL':'shift-BL', 'BM':'shift-BM', 'RD':'shift-RD', 'CON':'shift-CON'
+};
 
-  for (const base of destinos){
-    const url = `${base}?v=${Date.now()}`;
-    try{
-      const res = await fetch(url, { cache: 'no-store' });
-      if (res.ok){
-        contenido = (await res.text()).replace(/\r/g,'').trim();
-        if (contenido){
-          cargado = true;
-          break;
-        }
-      }
-    }catch(_){ /* probar siguiente */ }
+function tokenizar(val){
+  const raw = val.toUpperCase().trim();
+  if (!raw) return [];
+  return raw.split(/[ \\/+\-]+/).filter(Boolean);
+}
+
+function tint(cell){
+  if (!cell) return;
+  cell.classList.remove(...shiftClasses);
+  const tokens = tokenizar(cell.textContent || '');
+  if (tokens.length > 0) {
+    const firstToken = tokens[0];
+    if (shiftColors[firstToken]) {
+      cell.classList.add(shiftColors[firstToken]);
+    }
   }
+}
 
-  if (cargado){
-    document.getElementById('nombres').value = contenido;
+// Event delegation para el tint
+document.getElementById('tbody').addEventListener('input', e => {
+  if(e.target.tagName === 'TD' && e.target.isContentEditable){
+    tint(e.target);
+  }
+});
+
+
+// === Paleta ===
+let currentCell = null;
+document.getElementById('tbody').addEventListener('focusin', e => {
+  if(e.target.tagName === 'TD' && e.target.isContentEditable){
+    currentCell = e.target;
+  }
+});
+document.getElementById('tbody').addEventListener('focusout', e => {
+  // currentCell = null; // No lo ponemos a null para poder hacer clic en la paleta
+});
+
+document.getElementById('palette').addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn || !currentCell) return;
+  
+  const val = btn.dataset.val;
+  if (val === '') {
+    currentCell.textContent = ''; // Limpiar
   } else {
-    // Si no carga, deja el textarea vacío y avisa en consola para ver el motivo (404/403/etc.)
-    console.warn('No se pudo cargar profesionales.txt desde ninguna ruta probada.');
+    // Si la celda está vacía o ya tiene un +, añade. Si no, reemplaza.
+    const currentText = (currentCell.textContent || '').trim();
+    if (currentText === '') {
+      currentCell.textContent = val;
+    } else {
+      currentCell.textContent = currentText + '+' + val;
+    }
   }
+  tint(currentCell);
+  currentCell.focus();
+});
 
-  // Continúa la inicialización del editor
-  buildPalette(); 
-  buildLegend(); 
-  generar();
-})();
+
+// === Importar / Exportar CSV ===
+function exportCSV(copy=false){
+  const anio = document.getElementById('anio').value;
+  const mes = document.getElementById('mes').value;
+  const filename = `${anio}-${mes}.csv`;
+  
+  const table = document.getElementById('tablaEditor');
+  let csv = [];
+  
+  // Encabezados
+  const headers = Array.from(table.querySelectorAll('thead th')).map(th => {
+    const txt = th.textContent.replace(/"/g, '""');
+    return `"${txt}"`;
+  });
+  csv.push(headers.join(','));
+  
+  // Filas
+  const rows = table.querySelectorAll('tbody tr');
+  rows.forEach(row => {
+    const cols = Array.from(row.querySelectorAll('td')).map(td => {
+      const txt = td.textContent.replace(/"/g, '""');
+      return `"${txt}"`;
+    });
+    csv.push(cols.join(','));
+  });
+  
+  const csvContent = csv.join('\n');
+  
+  if (copy) {
+    navigator.clipboard.writeText(csvContent).then(() => {
+      alert('CSV copiado al portapapeles.');
+    }, () => {
+      alert('Error al copiar el CSV.');
+    });
+  } else {
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  }
+}
+
+document.getElementById('btnExportar').addEventListener('click', () => exportCSV(false));
+document.getElementById('btnCopiar').addEventListener('click', () => exportCSV(true));
+
+// Importar
+document.getElementById('btnImportar').addEventListener('click', () => {
+  document.getElementById('fileInput').click();
+});
+document.getElementById('fileInput').addEventListener('change', importarCSV);
+
+function importarCSV(event){
+  const file = event.target.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = e => {
+    const txt = e.target.result;
+    const lines = txt.replace(/\r/g,'').split('\n').filter(l=>l.trim().length);
+    
+    // Parsear CSV (simple, asume que tus celdas no tienen comas dentro)
+    const data = lines.map(line => {
+        return line.split(',').map(cell => cell.trim().replace(/^"|"$/g, '').replace(/""/g, '"'));
+    });
+
+    if (data.length < 2) {
+      alert("CSV inválido o vacío.");
+      return;
+    }
+
+    // Regenerar tabla basada en el CSV
+    const anio = document.getElementById('anio').value;
+    const mesNum = parseInt(document.getElementById('mes').value, 10);
+    const numDias = getDaysInMonth(anio, mesNum);
+    const mesNombre = MESES[mesNum-1];
+    document.getElementById('tituloTabla').textContent = `Cuadrante · ${mesNombre} ${anio} (Importado)`;
+
+    const thead = document.getElementById('thead');
+    const tbody = document.getElementById('tbody');
+    thead.innerHTML = '';
+    tbody.innerHTML = '';
+
+    // Cabecera desde CSV
+    const trHead = document.createElement('tr');
+    data[0].forEach(cell => trHead.innerHTML += `<th>${cell}</th>`);
+    thead.appendChild(trHead);
+
+    // Cuerpo desde CSV
+    for(let i=1; i<data.length; i++){
+      const r = data[i];
+      if (!r || r.length === 0) continue;
+      
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${r[0] || ''}</td>`; // Nombre
+      
+      for(let d=1; d<=numDias; d++){
+        const td = document.createElement('td');
+        td.contentEditable = true;
+        td.textContent = r[d] || '';
+        tint(td); // Colorear
+        tr.appendChild(td);
+      }
+      
+      const tdObs = document.createElement('td'); // Obs.
+      tdObs.contentEditable = true;
+      tdObs.textContent = r[numDias+1] || '';
+      tr.appendChild(tdObs);
+      
+      tbody.appendChild(tr);
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = null; // Reset input
+}
 
 </script>
 </body>
