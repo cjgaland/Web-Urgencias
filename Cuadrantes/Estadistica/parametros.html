@@ -10,8 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<!-- Librería PDF -->
 <style>
+/* ... (Todos tus estilos CSS de parametros.html se mantienen igual) ... */
 :root{ --azul-oscuro:#0a2a5e; --verde:#2e7d32; --rojo:#c62828; --azul:#1e3a8a; --tenue:#6b7a90; --borde:#e6eef8; --bgsoft:#f7f9fc;}
 .panel{background:#fff;border:1px solid var(--borde);border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.05);padding:1rem}
 .filtros{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;margin:.5rem 0 1rem}
@@ -43,20 +43,11 @@ th{font-weight:800;color:#2b3a55}
 .badge-note{color:var(--tenue)}
 .delta{font-weight:700}
 .delta.pos{color:var(--verde)} .delta.eq{color:var(--azul)} .delta.neg{color:var(--rojo)}
-
-/* Campo Profesional con botón borrar */
 .input-with-clear{ display:flex; align-items:center; gap:.4rem; }
-.input-with-clear input{
-  width:16rem; padding:.45rem .6rem; border:1px solid #e6eef8; border-radius:8px;
-}
-.clear-btn{
-  border:1px solid #e6eef8; background:#fff; border-radius:8px;
-  padding:.35rem .55rem; cursor:pointer;
-}
+.input-with-clear input{ width:16rem; padding:.45rem .6rem; border:1px solid #e6eef8; border-radius:8px; }
+.clear-btn{ border:1px solid #e6eef8; background:#fff; border-radius:8px; padding:.35rem .55rem; cursor:pointer; }
 .clear-btn:hover{ background:#f3f6fb; }
 .clear-btn[hidden]{ display:none; }
-
-/* Caja de parámetros (checks) */
 .param-box{flex:1 1 100%; background:var(--bgsoft); border:1px solid #d5e2f5; padding: .8rem .9rem; border-radius:16px}
 .param-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem}
 .param-head h3{margin:0;font-size:1.05rem}
@@ -64,49 +55,21 @@ th{font-weight:800;color:#2b3a55}
 .param-grid{display:flex;flex-wrap:wrap;gap:.4rem 1rem}
 .chk{display:inline-flex;gap:.45rem;align-items:center;background:#fff;border:1px solid var(--borde);border-radius:10px;padding:.35rem .6rem}
 .chk input{transform:scale(1.2)}
-
-/* Compactar “moda” con tooltip y elipsis */
-td .ellipsis{
-  max-width: 220px;
-  display: inline-block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  vertical-align: bottom;
-}
-
-/* ——— Pantalla: asegurar layout correcto (sin afectar impresión) ——— */
-@media screen {
-  .filtros.screen-only { display:flex; }
-  .kpis.screen-only{ display:grid; grid-template-columns:repeat(4, minmax(220px,1fr)); }
-}
-
-/* ——— Impresión: UI fuera, solo cabecera export + tablas + gráfica ——— */
+td .ellipsis{ max-width: 220px; display:inline-block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; vertical-align:bottom; }
+@media screen {.filtros.screen-only { display:flex; } .kpis.screen-only{ display:grid; grid-template-columns:repeat(4, minmax(220px,1fr)); }}
 @media print{
   @page{ size: A4 landscape; margin: 8mm; }
   .sidebar, .masthead, .btn-back { display:none !important; }
-.screen-only { display:none !important; }
-
+  .screen-only { display:none !important; }
   .kpis, .toolbar-final, .filtros { display:none !important; }
   th.sticky, td.sticky { position: static !important; }
   .table-wrap{ overflow: visible !important; border-radius:12px; }
   .panel{ border:none; box-shadow:none; }
 }
-
-/* ——— Clon para PDF: mismo resultado que imprimir ——— */
-
-/* Estética cabecera exportación */
 .export-header{ margin-bottom: .6rem; }
 .export-header h2 { margin: 0 0 .25rem 0; }
 .export-summary { display:flex; flex-wrap:wrap; gap:.4rem .6rem; }
-.export-summary .chip{
-  background:#f0f4ff; border:1px solid #d6e4ff; border-radius:8px;
-  padding:.25rem .5rem; font-weight:600;
-}
-
-/* Contenedor temporal PDF */
-
-/* === Print (modelo cuadrante-personal): misma salida que vista de impresión del navegador === */
+.export-summary .chip{ background:#f0f4ff; border:1px solid #d6e4ff; border-radius:8px; padding:.25rem .5rem; font-weight:600; }
 @media print{
   @page { size: A4 landscape; margin: 10mm; }
   .sidebar, .masthead, .nav-month, .print-toolbar, .toolbar-final, .filtros, .kpis, .btn-back { display:none !important; }
@@ -117,7 +80,6 @@ td .ellipsis{
   th.sticky, td.sticky { position: static !important; }
   .table-wrap{ overflow: visible !important; border-radius: 12px; }
 }
-
 </style>
 </head>
 <body>
@@ -144,26 +106,23 @@ td .ellipsis{
 </header>
 
 <main class="main-content" id="areaExport">
-  <!-- Cabecera de pantalla -->
   <section class="hero screen-only">
     <div class="hero-icon"><i class="fa-solid fa-sliders"></i></div>
     <div class="hero-text">
       <h1>Parámetros de cuadrantes</h1>
       <p id="subtitulo" style="color:#5b6b85;font-weight:600;margin:.2rem 0 0"></p>
       <div id="chipsPantalla" class="screen-only" style="display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin-top:.2rem"></div>
-<p id="nombreProfesional" class="proName" style="display:none"></p>
+      <p id="nombreProfesional" class="proName" style="display:none"></p>
       <p>Selecciona los conceptos que quieras medir. El bloque asistencial puede computarse por turnos o por horas; el no asistencial se cuenta por días.</p>
     </div>
   </section>
 
-  <!-- Cabecera para impresión/PDF -->
-<div class="panel">
+  <div class="panel">
     <div class="filtros screen-only">
       <div class="group">
         <label for="anio"><strong>Año</strong></label>
         <input id="anio" type="number" min="2000" max="2100" step="1" style="width:6.5rem;text-align:center" />
       </div>
-
       <div class="group">
         <label for="filtroNombre"><strong>Profesional</strong></label>
         <div class="input-with-clear">
@@ -173,7 +132,6 @@ td .ellipsis{
           </button>
         </div>
       </div>
-
       <div class="group">
         <label for="topN"><strong>Top-N</strong></label>
         <select id="topN" size="1" style="padding:.45rem .6rem;border:1px solid #e6eef8;border-radius:8px">
@@ -184,28 +142,25 @@ td .ellipsis{
           <option value="20">20</option>
         </select>
       </div>
-
       <div class="group push">
         <button class="btn primary" id="btnCalcular" type="button"><i class="fa-solid fa-rotate"></i> Calcular</button>
       </div>
-
       <div class="group" style="flex:1 1 100%"></div>
-
       <div class="group">
         <button class="btn" id="selTodo" type="button">Todo el año</button>
         <button class="btn" id="selHastaHoy" type="button">Hasta mes actual</button>
         <button class="btn" id="selNinguno" type="button">Ninguno</button>
         <button class="btn" id="selInvertir" type="button">Invertir</button>
       </div>
-
       <div class="group" title="Excluir de los cálculos a los profesionales sin actividad asistencial">
         <input type="checkbox" id="excluirInactivos" />
         <label for="excluirInactivos"><strong>Excluir sin actividad</strong></label>
       </div>
-
+      <div class="group" title="Excluir de las medias a profesionales con días RD en el periodo">
+        <input type="checkbox" id="excluirRD" />
+        <label for="excluirRD"><strong>Excluir reducidos (RD)</strong></label>
+      </div>
       <div class="group month-grid" id="meses"></div>
-
-      <!-- BLOQUE DE SELECCIÓN DE PARÁMETROS -->
       <div class="param-box" id="boxAsist">
         <div class="param-head">
           <h3>Asistencial</h3>
@@ -221,7 +176,6 @@ td .ellipsis{
           <button class="btn small" id="btnGuardias" type="button">Guardias (G+O+F+FO)</button>
         </div>
       </div>
-
       <div class="param-box" id="boxOtros">
         <div class="param-head"><h3>No asistencial</h3></div>
         <div class="param-grid" id="otrosChecks"></div>
@@ -238,7 +192,6 @@ td .ellipsis{
       <div class="kpi"><div class="label"><i class="fa-regular fa-user"></i> Sin labor asistencial</div><div class="val" id="k_noasist">–</div></div>
       <div class="kpi"><div class="label"><i class="fa-solid fa-layer-group"></i> Param. seleccionado – Suma (selección)</div><div class="val" id="k_suma">–</div></div>
     </div>
-
     <div class="table-wrap" style="margin-bottom:1rem">
       <table>
         <thead>
@@ -259,12 +212,10 @@ td .ellipsis{
         </tbody>
       </table>
     </div>
-
     <div id="warns" class="panel" style="display:none; margin-top:1rem">
       <strong><i class="fa-solid fa-circle-exclamation"></i> Avisos de carga:</strong>
       <ul id="warnList" style="margin:.4rem 0 0 .9rem"></ul>
     </div>
-
     <div class="var-grid">
       <div class="table-wrap">
         <table id="tablaMeses">
@@ -280,29 +231,26 @@ td .ellipsis{
       </div>
       <div class="canvas-wrap"><canvas id="chartVar"></canvas></div>
     </div>
-
     <div class="toolbar-final screen-only">
-    <button class="btn blue" id="btnGuardarPDF" type="button"><i class="fa-regular fa-file-pdf"></i> Guardar PDF</button>
-    
+      <button class="btn blue" id="btnGuardarPDF" type="button"><i class="fa-regular fa-file-pdf"></i> Guardar PDF</button>
       <button class="btn" id="btnImprimir" type="button"><i class="fa-solid fa-print"></i> Imprimir</button>
-</div>
+    </div>
   </div>
 </main>
 
 <script>
 /* ====== Constantes y utilidades ====== */
-const ASIST=["M","T","G","O","F","FO","R"];  // sin MO
-const OTROS=["LD","V","FR","SD","LS","OT","BL","BM"];
+const ASIST=["M","T","G","O","F","FO","R"];
+/* (NUEVO) Constante OTROS MODIFICADA */
+const OTROS=["LD", "LDA", "V", "VA", "FR", "CON", "SD", "LS", "OT", "BL", "BM", "RD"];
 const HORAS={M:8,T:8,G:17,O:17,F:24,FO:24,R:12};
 const mesesN=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 const mesesShort=["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
 const $=s=>document.querySelector(s); const $$=s=>Array.from(document.querySelectorAll(s));
 const hoy=new Date();
-
-/* Formateadores 2 decimales */
 const fmt2 = n => Number(n??0).toLocaleString('es-ES',{minimumFractionDigits:2, maximumFractionDigits:2});
 
-/* Moda compacta con elipsis y tooltip */
+/* ... (Resto del script - sin cambios) ... */
 const fmtModasCompact = (modas, maxShown = 3) => {
   if (!modas || modas.length === 0) return 'Sin moda';
   const uniq = [...new Set(modas.map(Number))].sort((a,b)=>a-b);
@@ -311,8 +259,6 @@ const fmtModasCompact = (modas, maxShown = 3) => {
   const title = uniq.map(fmt2).join(', ');
   return `<span class="ellipsis" title="${title}">${shown}${extra}</span>`;
 };
-
-/* Cabecera exportación: periodo + selección */
 function rangoMeses(mSel){
   if(!mSel.length) return "";
   const idx=mSel.map(m=>parseInt(m,10)-1).sort((a,b)=>a-b);
@@ -324,8 +270,6 @@ function rangoMeses(mSel){
   const nombres=idx.map(i=>mesesShort[i]);
   return (nombres.length>8) ? `${nombres.slice(0,8).join(", ")}…` : nombres.join(", ");
 }
-
-
 function updateExportHeader(anio, mesesSel, sel, nombreFocus){
   const periodo = `Periodo: Año ${anio} · ${rangoMeses(mesesSel)} (${mesesSel.length} mes${mesesSel.length>1?'es':''})`;
   const ambito  = nombreFocus ? `Profesional: ${nombreFocus}` : 'Ámbito: Grupo completo';
@@ -336,16 +280,11 @@ function updateExportHeader(anio, mesesSel, sel, nombreFocus){
   const p = $("#exportPeriodo"); const s=$("#exportSel");
   if (p) p.textContent = periodo;
   if (s) s.innerHTML   = chips;
-
-  // --- Pantalla: subtítulo + chips ---
   const subt = document.getElementById('subtitulo');
   if (subt) subt.textContent = periodo;
   const chipsPan = document.getElementById('chipsPantalla');
   if (chipsPan) chipsPan.innerHTML = chips;
 }
-
-
-/* ====== DOM inicial ====== */
 document.addEventListener('DOMContentLoaded',()=>{$("#anio").value=hoy.getFullYear();});
 function buildMonthsGrid(){const cont=$("#meses");cont.innerHTML="";mesesN.forEach((n,i)=>{const b=document.createElement("button");b.type="button";b.className="month-btn active";b.dataset.m=String(i+1).padStart(2,"0");b.textContent=n;b.onclick=()=>b.classList.toggle("active");cont.appendChild(b);});}
 buildMonthsGrid();
@@ -354,17 +293,10 @@ function selectNone(){$$(".month-btn").forEach(b=>b.classList.remove("active"));
 function invertMonths(){$$(".month-btn").forEach(b=>b.classList.toggle("active"));}
 function selectUntilNow(){const a=parseInt($("#anio").value,10);const mNow=(a===hoy.getFullYear())?hoy.getMonth()+1:12;$$(".month-btn").forEach((b,i)=>{b.classList.toggle("active",i<mNow);});}
 $("#selTodo").onclick=selectAllMonths;$("#selNinguno").onclick=selectNone;$("#selInvertir").onclick=invertMonths;$("#selHastaHoy").onclick=selectUntilNow;
-
-/* CSV robusto */
 function parseCSV(text){const lines=text.replace(/\uFEFF/g,'').replace(/\r/g,"").split("\n").filter(l=>l.trim().length);return lines.map(line=>{const row=[];let cur="";let inQ=false;for(let i=0;i<line.length;i++){const ch=line[i],nx=line[i+1];if(ch=='"'){if(inQ&&nx=='"'){cur+='"';i++;}else{inQ=!inQ;}}else if(ch==","&&!inQ){row.push(cur);cur="";}else cur+=ch;}row.push(cur);return row;});}
 const tokenizar=v=>v.toUpperCase().trim().split(/[ \\/+\-]+/).filter(Boolean);
-
-/* ====== Estado ====== */
 let fullProf=[]; let baseProf=[]; let porMesCache={}; let BASE_PATH=null; let chartVar=null; let warnBuf=[];
-function pushWarn(msg){warnBuf.push(msg);}
-function flushWarns(){const panel=$("#warns"),ul=$("#warnList");if(!warnBuf.length){panel.style.display='none';ul.innerHTML='';return;}panel.style.display='block';ul.innerHTML=warnBuf.map(w=>`<li>${w}</li>`).join('');warnBuf=[];}
-
-/* ====== UI checks ====== */
+function pushWarn(msg){warnBuf.push(msg);} function flushWarns(){const panel=$("#warns"),ul=$("#warnList");if(!warnBuf.length){panel.style.display='none';ul.innerHTML='';return;}panel.style.display='block';ul.innerHTML=warnBuf.map(w=>`<li>${w}</li>`).join('');warnBuf=[];}
 function buildChecks(){
   const mk = (codes, contId) => {
     const c = $(contId); c.innerHTML="";
@@ -375,30 +307,22 @@ function buildChecks(){
       c.appendChild(w);
     });
   };
-  mk(ASIST, '#asistChecks');
-  mk(OTROS, '#otrosChecks');
-  // Por defecto: Guardias (G,O,F,FO) marcadas
+  mk(ASIST, '#asistChecks'); mk(OTROS, '#otrosChecks');
   const defaultGuardias=["G","O","F","FO"];
   ASIST.forEach(code=> $(`#chk_asistChecks_${code}`).checked = defaultGuardias.includes(code));
 }
 buildChecks();
-
-/* helpers seleccionar/deseleccionar/preset */
 $("#btnAllAsist").onclick=()=>{ASIST.forEach(c=>$(`#chk_asistChecks_${c}`).checked=true);};
 $("#btnNoneAsist").onclick=()=>{ASIST.forEach(c=>$(`#chk_asistChecks_${c}`).checked=false);};
 $("#btnGuardias").onclick=()=>{ASIST.forEach(c=>$(`#chk_asistChecks_${c}`).checked=false);["G","O","F","FO"].forEach(c=>$(`#chk_asistChecks_${c}`).checked=true);}; 
 $("#btnAllOtros").onclick=()=>{OTROS.forEach(c=>$(`#chk_otrosChecks_${c}`).checked=true);};
 $("#btnNoneOtros").onclick=()=>{OTROS.forEach(c=>$(`#chk_otrosChecks_${c}`).checked=false);};
-
-/* Lee la selección actual */
 function leerSeleccion(){
   const asistCodes = ASIST.filter(c=> $(`#chk_asistChecks_${c}`).checked );
   const otrosCodes = OTROS.filter(c=> $(`#chk_otrosChecks_${c}`).checked );
   const modo = document.querySelector('input[name="modoAsist"]:checked')?.value || 'turnos';
   return { asist:{ mode:modo, codes:new Set(asistCodes) }, otros:{ codes:new Set(otrosCodes) } };
 }
-
-/* ====== Localización CSV ====== */
 async function resolveBasePath(anio, mesesSel){
   if(BASE_PATH) return BASE_PATH;
   const candidates=['../data/cuadrantes','../../data/cuadrantes','../../Cuadrantes/data/cuadrantes','./data/cuadrantes','/Cuadrantes/data/cuadrantes'];
@@ -409,8 +333,6 @@ async function resolveBasePath(anio, mesesSel){
   pushWarn('No se ha podido resolver la ubicación de los CSV. Revisa la carpeta data/cuadrantes.');
   return null;
 }
-
-/* ====== Carga y acumulación ====== */
 async function cargarMes(anio,m){
   const acc={porProf:{},totalMes:{},totalAsistMes:0,totalOtrosMes:0};
   try{
@@ -437,7 +359,6 @@ async function cargarMes(anio,m){
   }catch(_){pushWarn(`Error leyendo CSV de ${mesesN[parseInt(m,10)-1]} (${anio}).`);}
   return acc;
 }
-
 async function cargarDatos(anio,meses){
   const porMes={}; const accProf={};
   for(const m of meses){
@@ -449,36 +370,22 @@ async function cargarDatos(anio,meses){
   }
   return {porMes,accProf};
 }
-
-/* ====== Cálculo de valor según selección ====== */
 function totalAsist(row){return ASIST.reduce((s,c)=>s+(row[c]||0),0);}
 function valorSeleccionFila(row, sel){
   if(!row) return 0;
   let s=0;
-  // asistencial
-  sel.asist.codes.forEach(c=>{
-    const v = row[c]||0;
-    s += (sel.asist.mode==='horas') ? v*(HORAS[c]||0) : v;
-  });
-  // no asistencial (siempre días)
+  sel.asist.codes.forEach(c=>{ const v=row[c]||0; s += (sel.asist.mode==='horas') ? v*(HORAS[c]||0) : v; });
   sel.otros.codes.forEach(c=>{ s += (row[c]||0); });
   return s;
 }
-
-/* ====== Estadísticos ====== */
 function statsBasicos(vals){
   const n=vals.length; if(n===0) return {n:0};
   const s=vals.reduce((a,b)=>a+b,0), media=s/n;
   const sorted=[...vals].sort((a,b)=>a-b);
   const mediana=(n%2?sorted[(n-1)/2]:(sorted[n/2-1]+sorted[n/2])/2);
-
-  // Moda: si maxF=1 (todos distintos), lista vacía => “Sin moda”
   const frec=new Map(); sorted.forEach(v=>frec.set(v,(frec.get(v)||0)+1));
   const maxF=Math.max(...frec.values());
-  const modas = (maxF > 1)
-    ? [...frec.entries()].filter(([,f])=>f===maxF).map(([v])=>v)
-    : [];
-
+  const modas = (maxF > 1) ? [...frec.entries()].filter(([,f])=>f===maxF).map(([v])=>v) : [];
   const var_m=n>1?vals.reduce((a,b)=>a+(b-media)**2,0)/(n-1):0; const sd=Math.sqrt(var_m);
   const q=p=>{if(n===1) return sorted[0]; const pos=(n-1)*p; const base=Math.floor(pos); const rest=pos-base; return sorted[base]+(sorted[base+1]-sorted[base])*rest;};
   return {n,suma:s,media,mediana,modas,sd,min:sorted[0],max:sorted[n-1],p25:q(0.25),p75:q(0.75)};
@@ -497,8 +404,21 @@ function nombresActivosPeriodo(porMes,meses){
 }
 function claseDelta(a,b){if(a>b) return 'pos'; if(a<b) return 'neg'; return 'eq';}
 const fmtDelta = (a,b) => `<span class="delta ${claseDelta(a,b)}">${fmt2(a)}</span> <small class="badge-note">(${fmt2(b)})</small>`;
-
-/* ====== Render KPIs (solo pantalla) ====== */
+function nombresReducidosEnPeriodo(porMes, meses) {
+  const reducidos = new Set();
+  meses.forEach(m => {
+    const prof = porMes[m]?.porProf || {};
+    for (const [n, row] of Object.entries(prof)) {
+      if ((row.RD || 0) > 0) reducidos.add(n);
+    }
+  });
+  return reducidos;
+}
+function filtraExcluyendoRD(setNombres, porMes, meses, excluirRD) {
+  if (!excluirRD) return setNombres;
+  const reducidos = nombresReducidosEnPeriodo(porMes, meses);
+  return new Set([...setNombres].filter(n => !reducidos.has(n)));
+}
 function renderKPIs(sel){
   const total=fullProf.length;
   const conAsist=fullProf.filter(x=>totalAsist(x.data)>0).length;
@@ -509,32 +429,28 @@ function renderKPIs(sel){
   $("#k_noasist").textContent=sinAsist.toLocaleString('es-ES');
   $("#k_suma").textContent=sumaSel.toLocaleString('es-ES');
 }
-
-/* ====== Render tabla estadísticos (grupo/profesional) ====== */
 function renderStatsTabla(anio,porMes,mesesSel,sel,nombreFocus){
   const mHasta=(anio===hoy.getFullYear())?(hoy.getMonth()+1):12;
   const mesesAnual=Array.from({length:mHasta},(_,i)=>String(i+1).padStart(2,"0"));
-
   const activosPeriodo=nombresActivosPeriodo(porMes,mesesSel);
-  const activosAnual=nombresActivosPeriodo(porMes,mesesAnual);
-
+  const activosAnual  =nombresActivosPeriodo(porMes,mesesAnual);
+  const excluirRD = document.getElementById('excluirRD')?.checked;
+  const grupoPeriodo = filtraExcluyendoRD(activosPeriodo, porMes, mesesSel, excluirRD);
+  const grupoAnual   = filtraExcluyendoRD(activosAnual,   porMes, mesesAnual, excluirRD);
   const proVecPer = nombreFocus ? vectorMensualDe(porMes,nombreFocus,sel,mesesSel) : [];
   const proVecAnu = nombreFocus ? vectorMensualDe(porMes,nombreFocus,sel,mesesAnual) : [];
-
-  const promsGrupoPer=[...activosPeriodo].map(n=>{
+  const promsGrupoPer=[...grupoPeriodo].map(n=>{
     const v=vectorMensualDe(porMes,n,sel,mesesSel);
     return v.reduce((a,b)=>a+b,0)/mesesSel.length;
   });
-  const promsGrupoAnu=[...activosAnual].map(n=>{
+  const promsGrupoAnu=[...grupoAnual].map(n=>{
     const v=vectorMensualDe(porMes,n,sel,mesesAnual);
     return v.reduce((a,b)=>a+b,0)/mesesAnual.length;
   });
-
   const stProPer = statsBasicos(proVecPer);
   const stProAnu = statsBasicos(proVecAnu);
   const stGrpPer = statsBasicos(promsGrupoPer);
   const stGrpAnu = statsBasicos(promsGrupoAnu);
-
   const toggleAnual = (show)=>{
     const disp = show ? '' : 'none';
     const thA = document.getElementById('th_valor_anual');
@@ -544,40 +460,30 @@ function renderStatsTabla(anio,porMes,mesesSel,sel,nombreFocus){
       if (td) td.style.display = disp;
     });
   };
-
   if (nombreFocus) {
-    // === PROFESIONAL: 4 columnas
     toggleAnual(true);
-
     const set = (idP, idA, getVal, getGrp)=>{
       const vp = getVal(stProPer); const vg = getGrp(stGrpPer);
       const va = getVal(stProAnu); const vgA= getGrp(stGrpAnu);
       document.getElementById(idP).innerHTML = (stProPer.n) ? fmtDelta(vp, vg) : '–';
       document.getElementById(idA).innerHTML = (stProAnu.n) ? fmtDelta(va, vgA) : '–';
     };
-
     set('st_media_p','st_media_a', s=>s.media||0,   s=>s.media||0);
     set('st_mediana_p','st_mediana_a', s=>s.mediana??0, s=>s.mediana??0);
-
     document.getElementById('st_moda_p').innerHTML =
       (stProPer.n? `${fmtModasCompact(stProPer.modas)} <small class="badge-note">(${fmtModasCompact(stGrpPer.modas)})</small>`:'–');
     document.getElementById('st_moda_a').innerHTML =
       (stProAnu.n? `${fmtModasCompact(stProAnu.modas)} <small class="badge-note">(${fmtModasCompact(stGrpAnu.modas)})</small>`:'–');
-
     set('st_sd_p','st_sd_a', s=>s.sd??0, s=>s.sd??0);
-
     document.getElementById('st_minmax_p').innerHTML =
       (stProPer.n? `${fmt2(stProPer.min??0)} / ${fmt2(stProPer.max??0)} <small class="badge-note">(${fmt2(stGrpPer.min??0)} / ${fmt2(stGrpPer.max??0)})</small>`:'–');
     document.getElementById('st_minmax_a').innerHTML =
       (stProAnu.n? `${fmt2(stProAnu.min??0)} / ${fmt2(stProAnu.max??0)} <small class="badge-note">(${fmt2(stGrpAnu.min??0)} / ${fmt2(stGrpAnu.max??0)})</small>`:'–');
-
     document.getElementById('st_p2575_p').innerHTML =
       (stProPer.n? `${fmt2(stProPer.p25??0)} / ${fmt2(stProPer.p75??0)} <small class="badge-note">(${fmt2(stGrpPer.p25??0)} / ${fmt2(stGrpPer.p75??0)})</small>`:'–');
     document.getElementById('st_p2575_a').innerHTML =
-      (stProAnu.n? `${fmt2(stProAnu.p25??0)} / ${fmt2(stProAnu.p75??0)} <small class="badge-note">(${fmt2(stGrpPer.p25??0)} / ${fmt2(stGrpPer.p75??0)})</small>`:'–');
-
+      (stProAnu.n? `${fmt2(stProAnu.p25??0)} / ${fmt2(stProAnu.p75??0)} <small class="badge-note">(${fmt2(stGrpPer.p25??0)} / ${fmt2(stGrpAnu.p75??0)})</small>`:'–');
   } else {
-    // === GRUPO: 3 columnas (ocultamos "Valor anual")
     toggleAnual(false);
     const put = (id, valHtml)=>{ document.getElementById(id).innerHTML = valHtml; };
     if (stGrpPer.n) {
@@ -593,14 +499,14 @@ function renderStatsTabla(anio,porMes,mesesSel,sel,nombreFocus){
     }
   }
 }
-
-/* ====== Tabla inferior + Gráfica ====== */
 function renderVariacion(anio,mesesSel,sel,nombreFocus,excluirInactivos){
   const tbody=$("#tablaMeses tbody"); const filas=[]; const labels=[]; const proData=[]; const grpData=[];
   const activosPeriodo = nombresActivosPeriodo(porMesCache, mesesSel);
-  const setGrupo = excluirInactivos ? activosPeriodo
-    : new Set(mesesSel.flatMap(m=>Object.keys(porMesCache[m]?.porProf||{})));
-
+  let setGrupoBase = excluirInactivos
+    ? activosPeriodo
+    : new Set(mesesSel.flatMap(m => Object.keys(porMesCache[m]?.porProf || {})));
+  const excluirRD = document.getElementById('excluirRD')?.checked;
+  const setGrupo = filtraExcluyendoRD(setGrupoBase, porMesCache, mesesSel, excluirRD);
   mesesSel.forEach(m=>{
     const info=porMesCache[m]||{porProf:{}};
     const suma = Object.values(info.porProf).reduce((a,row)=>a+valorSeleccionFila(row,sel),0);
@@ -614,7 +520,6 @@ function renderVariacion(anio,mesesSel,sel,nombreFocus,excluirInactivos){
     filas.push(`<tr><td class="sticky">${mesesN[idx]}</td><td>${suma.toLocaleString('es-ES')}</td><td>${fmt2(mediaG)}</td></tr>`);
   });
   tbody.innerHTML=filas.join('');
-
   try{
     if(chartVar){chartVar.destroy();chartVar=null;}
     const ctx=document.getElementById('chartVar').getContext('2d');
@@ -623,8 +528,6 @@ function renderVariacion(anio,mesesSel,sel,nombreFocus,excluirInactivos){
     chartVar=new Chart(ctx,{type:'line',data:{labels,datasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'},title:{display:true,text:`Variación mensual ${anio}`}},scales:{y:{beginAtZero:true}}}});
   }catch(e){pushWarn('No se pudo renderizar la gráfica.');}
 }
-
-/* ====== Filtros ====== */
 function aplicarFiltrosYOrden(lista,topN,filtroNombre,excluirInactivos){
   let res=lista;
   if(excluirInactivos) res=res.filter(x=>totalAsist(x.data)>0);
@@ -633,14 +536,11 @@ function aplicarFiltrosYOrden(lista,topN,filtroNombre,excluirInactivos){
   if(topN>0) res=res.slice(0,topN);
   return res;
 }
-
-/* ====== Calcular principal ====== */
 async function calcular(){
   const anio=parseInt($("#anio").value,10);
   const mesesSel=$$(".month-btn.active").map(b=>b.dataset.m);
   if(!mesesSel.length){alert("Selecciona al menos un mes.");return;}
   $("#subtitulo").textContent=`Año ${anio} · ${rangoMeses(mesesSel)} (${mesesSel.length} mes${mesesSel.length>1?'es':''})`;
-
   const filtro=($("#filtroNombre").value||"").trim();
   const topN=parseInt($("#topN").value||"0",10);
   const excluirInactivos=$("#excluirInactivos").checked;
@@ -648,25 +548,18 @@ async function calcular(){
   if(sel.asist.codes.size===0 && sel.otros.codes.size===0){
     alert("Selecciona al menos un concepto asistencial o no asistencial."); return;
   }
-
   await resolveBasePath(anio, mesesSel);
-
   const mHasta=(anio===hoy.getFullYear())?(hoy.getMonth()+1):12;
   const mesesAnual=Array.from({length:mHasta},(_,i)=>String(i+1).padStart(2,"0"));
   const mesesNecesarios=[...new Set([...mesesSel,...mesesAnual])];
   const {porMes,accProf}=await cargarDatos(anio,mesesNecesarios);
   porMesCache=porMes;
-
   fullProf=Object.entries(accProf).map(([nombre,data])=>({nombre,data}));
-
   let filtrada = aplicarFiltrosYOrden(fullProf,topN,filtro,excluirInactivos);
   if(filtrada.length===0) filtrada=[...fullProf];
   baseProf=filtrada;
-
   const filtradaReal = aplicarFiltrosYOrden(fullProf,topN,filtro,excluirInactivos);
   const nombreFocus = (filtradaReal.length===1) ? filtradaReal[0].nombre : null;
-
-  // Nombre destacado + placeholder + botón borrar
   const nameTag=$("#nombreProfesional");
   const inp = $("#filtroNombre");
   const clearBtn = $("#btnClearFiltro");
@@ -678,20 +571,16 @@ async function calcular(){
     inp.placeholder = 'Buscar nombre…';
   }
   clearBtn.hidden = !(inp.value && inp.value.length);
-
-  // Cabecera exportación
   updateExportHeader(anio, mesesSel, sel, nombreFocus);
-
   renderKPIs(sel);
   renderStatsTabla(anio,porMesCache,mesesSel,sel,nombreFocus);
   renderVariacion(anio,mesesSel,sel,nombreFocus,excluirInactivos);
   flushWarns();
 }
-
-/* ====== Eventos ====== */
 $("#btnCalcular").addEventListener('click',calcular);
 $("#topN").addEventListener('change',calcular);
 $("#excluirInactivos").addEventListener('change',calcular);
+document.getElementById('excluirRD').addEventListener('change', calcular);
 $("#anio").addEventListener('change',()=>{ selectUntilNow(); });
 $("#filtroNombre").addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); calcular(); }});
 $("#filtroNombre").addEventListener('input',()=>{
@@ -705,28 +594,17 @@ document.getElementById('btnClearFiltro').addEventListener('click', ()=>{
   calcular();
 });
 document.getElementById('btnVolver').addEventListener('click',()=>{ window.location.href='./index.html'; });
-
-/* Imprimir */
 document.getElementById('btnImprimir').addEventListener('click',()=>window.print());
-/* ====== Inicio (defaults solicitados) ====== */
+document.getElementById('btnGuardarPDF').addEventListener('click',()=>window.print());
 document.addEventListener('DOMContentLoaded', ()=>{
-  // Año actual
   document.getElementById('anio').value = new Date().getFullYear();
-
-  // Excluir sin actividad por defecto
   document.getElementById('excluirInactivos').checked = true;
-
-  // Meses hasta el mes actual
+  document.getElementById('excluirRD').checked = false;
   selectUntilNow();
-
-  // Asegurar “Por turnos”
   const rbTurnos = document.querySelector('input[name="modoAsist"][value="turnos"]');
   if (rbTurnos) rbTurnos.checked = true;
-
-  // Calcular automáticamente (Guardias ya marcadas en buildChecks)
   calcular();
 });
-document.getElementById('btnGuardarPDF').addEventListener('click',()=>window.print());
 </script>
 </body>
 </html>

@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 
 <style>
-/* ===== Layout / filtros ===== */
+/* ... (Tus estilos existentes) ... */
 .panel-personal{ overflow:visible; }
 .filtros{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;margin:.5rem 0 1rem}
 .filtros .group{display:flex;gap:.4rem;align-items:center}
@@ -20,40 +20,24 @@
 .month-btn{border:1px solid #e6eef8;background:#fff;border-radius:999px;padding:.35rem .6rem;cursor:pointer}
 .month-btn.active{background:#edf5ff;border-color:#cfe0fb;color:#0a4c84;font-weight:700}
 #topN{position:relative;z-index:10}
-
-/* ===== Pestañas y botones mejorados ===== */
 .tabs{margin-top:.25rem}
 .tab-head{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:.6rem}
 .tab-left{display:flex;gap:.4rem;flex-wrap:wrap}
-/* NUEVO estilo para los botones de pestaña */
 .tab-head button {
-  background: #f2f4f7;           /* gris suave */
-  color: #333;
-  font-weight: 700;              /* negrita */
-  border: none;
-  border-radius: 999px;          /* forma ovalada */
-  padding: 0.5rem 1.2rem;
-  cursor: pointer;
+  background: #f2f4f7; color: #333; font-weight: 700; border: none;
+  border-radius: 999px; padding: 0.5rem 1.2rem; cursor: pointer;
   transition: background 0.2s ease, transform 0.2s ease;
-  text-transform: none;          /* o uppercase si prefieres todo en mayúsculas */
+  text-transform: none;
 }
-.tab-head button:hover {
-  background: #e1e5eb;           /* gris más oscuro al pasar */
-  transform: translateY(-1px);
-}
+.tab-head button:hover { background: #e1e5eb; transform: translateY(-1px); }
 .tab-head button[aria-selected="true"] {
-  background: #d0d4db;           /* tono más marcado para el activo */
-  color: #000;
+  background: #d0d4db; color: #000;
   box-shadow: inset 0 2px 6px rgba(0,0,0,.15);
 }
-
 .view-switch{display:flex;align-items:center;gap:.6rem;color:#5b6b85;font-weight:600}
 .view-switch label{display:inline-flex;align-items:center;gap:.35rem;cursor:pointer}
-
 [role="tabpanel"]{display:none}
 [role="tabpanel"].active{display:block}
-
-/* ===== Tablas ===== */
 .table-wrap{overflow:auto;border:1px solid #e6eef8;background:#fff;border-radius:12px}
 table{width:100%;border-collapse:separate;border-spacing:0}
 th,td{padding:.55rem .6rem;border-bottom:1px solid #eef2f7;white-space:nowrap;text-align:right;font-size:.95rem}
@@ -62,33 +46,13 @@ th{font-weight:800;color:#2b3a55}
 th.sortable{cursor:pointer}
 th.sortable:hover{background:#f7fbff}
 tfoot td{font-weight:800;background:#fafcff}
-
-/* ===== Botonera ===== */
 .actions{display:flex;gap:.6rem;justify-content:center;margin:1rem 0 .3rem}
 .btn{border:1px solid #e6eef8;background:#fff;border-radius:999px;padding:.55rem .9rem;font-weight:700;cursor:pointer}
 .btn.primary{background:#0a4c84;color:#fff;border-color:#0a4c84}
-.btn.graf {
-  background: #1e88e5;          /* azul diferente */
-  color: #fff;
-  border-color: #1e88e5;
-  font-weight: 700;
-}
-.btn.graf:hover {
-  background: #1565c0;
-  border-color: #1565c0;
-}
-  
-.btn.parametro {
-  background: #1e88e5;          /* azul diferente */
-  color: #fff;
-  border-color: #1e88e5;
-  font-weight: 700;
-}
-.btn.graf:hover {
-  background: #1565c0;
-  border-color: #1565c0;
-}
-  
+.btn.graf { background: #1e88e5; color: #fff; border-color: #1e88e5; font-weight: 700; }
+.btn.graf:hover { background: #1565c0; border-color: #1565c0; }
+.btn.parametro { background: #1e88e5; color: #fff; border-color: #1e88e5; font-weight: 700; }
+.btn.graf:hover { background: #1565c0; border-color: #1565c0; }
 .badge-tip{display:inline-flex;gap:.35rem;align-items:center;border:1px solid #e6eef8;background:#f5f8ff;color:#0a4c84;border-radius:999px;padding:.25rem .55rem;font-size:.85rem}
 
 /* ===== Códigos ===== */
@@ -97,43 +61,43 @@ tfoot td{font-weight:800;background:#fafcff}
 .code.F{background:#FFF5E6}.code.FO{background:#FFECEC}.code.R{background:#E0F7FA}
 .code.LD{background:#F0FDF4}.code.FR{background:#F3E8FF}.code.V{background:#FDF4FF}
 .code.SD{background:#F5F7FA}.code.LS{background:#F5F7FA}.code.OT{background:#F2F2F2}
-.code.BL{background:#F2F2F2}.code.BM{background:#F2F2F2}
+.code.BL{background:#F2F2F2}.code.BM{background:#F2F2F2}.code.RD{background:#E6FFF8}
 
-/* ===== Subtítulo bajo H1 ===== */
+/* === (NUEVO) ESTILOS PARA LDA Y VA === */
+.code.LDA {
+  background-color: #F0FDF4; /* Base de LD */
+  background-image: linear-gradient(45deg, rgba(0,0,0,.07) 25%, transparent 25%, transparent 50%, rgba(0,0,0,.07) 50%, rgba(0,0,0,.07) 75%, transparent 75%, transparent);
+  background-size: 10px 10px;
+}
+.code.VA {
+  background-color: #FDF4FF; /* Base de V */
+  background-image: linear-gradient(45deg, rgba(0,0,0,.07) 25%, transparent 25%, transparent 50%, rgba(0,0,0,.07) 50%, rgba(0,0,0,.07) 75%, transparent 75%, transparent);
+  background-size: 10px 10px;
+}
+/* === FIN NUEVO === */
+
 .subtitle{ margin:.2rem 0 0; color:#5b6b85; font-weight:600; }
-
-/* ===== Cabecera simple SOLO impresión ===== */
 .print-only{ display:none; }
 .print-header{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 6mm 0}
 .print-header .title{font-weight:800;font-size:1.1rem}
 .print-header .meta{color:#5b6b85;font-weight:600}
 
-/* ===== Impresión A4 apaisado ===== */
+/* ... (Resto de estilos, @media print, etc. sin cambios) ... */
 @media print{
   @page{ size: A4 landscape; margin: 8mm; }
   html, body{ width:100%; margin:0 !important; padding:0 !important; background:#fff !important; }
   .sidebar, .masthead, .filtros, .actions, .small-note { display:none !important; }
-
-  /* Cabecera visual *no* imprime: usamos la simple */
   .hero{ display:none !important; }
-
-  /* Layout a todo el ancho */
   .main-content{ max-width:none !important; width:100% !important; padding:0 !important; margin:0 !important; }
   .panel-personal{ border:none; box-shadow:none; padding:0 !important; margin:0 !important; }
   .table-wrap{ border:none; box-shadow:none; overflow:visible !important; }
-
-  /* Tipografía compacta para que quepan todas las columnas */
   table{ font-size:12px !important; }
   th, td{ padding:.3rem .35rem !important; }
-
-  /* Mostrar cabecera de impresión */
   .print-only{ display:block !important; }
   .tabs .tab-head{ display:none !important; }
   [role="tabpanel"]{ display:none !important; }
   [role="tabpanel"].active{ display:block !important; }
 }
-  
-/* Botón flotante Volver */
 .btn-back{
   position:fixed; right:16px; top:12px; z-index:1000;
   display:inline-flex; align-items:center; gap:.4rem;
@@ -142,13 +106,7 @@ tfoot td{font-weight:800;background:#fafcff}
   box-shadow:0 2px 10px rgba(0,0,0,.08);
 }
 .btn-back:hover{ background:#f7f9fc; }
-
-/* Ocultar en impresión */
-@media print{
-  .btn-back{ display:none !important; }
-}
-  
-  
+@media print{ .btn-back{ display:none !important; } }
 </style>
 </head>
 <body>
@@ -157,8 +115,6 @@ tfoot td{font-weight:800;background:#fafcff}
   <i class="fa-solid fa-arrow-left"></i> Volver
 </button>
  
-    
-<!-- Sidebar reducido -->
 <aside class="sidebar">
   <div class="sidebar-header">
     <img src="../../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba"/>
@@ -172,14 +128,12 @@ tfoot td{font-weight:800;background:#fafcff}
     </ul>
   </nav>
 </aside>
-
 <header class="masthead">
   <div class="masthead-left"><img src="../../images/Logo-Salud2.png" alt="Junta de Andalucía"/></div>
   <div class="masthead-right"><img src="../../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Urgencias Montilla"/></div>
 </header>
 
 <main class="main-content">
-  <!-- Cabecera simple para impresión -->
   <div class="print-only" style="margin-bottom:4mm">
     <div class="print-header">
       <div class="title"><i class="fa-solid fa-chart-line"></i> Estadística de cuadrantes</div>
@@ -188,7 +142,6 @@ tfoot td{font-weight:800;background:#fafcff}
     <div class="meta" id="print-meta-below"></div>
   </div>
 
-  <!-- Cabecera de pantalla -->
   <section class="hero">
     <div class="hero-icon"><i class="fa-solid fa-chart-line"></i></div>
     <div class="hero-text">
@@ -198,19 +151,16 @@ tfoot td{font-weight:800;background:#fafcff}
     </div>
   </section>
 
-  <!-- Panel -->
   <div class="panel-personal" style="padding:1rem">
     <div class="filtros">
       <div class="group">
         <label for="anio"><strong>Año</strong></label>
         <input id="anio" type="number" min="2000" max="2100" step="1" style="width:6.5rem;text-align:center" />
       </div>
-
       <div class="group">
         <label for="filtroNombre"><strong>Profesional</strong></label>
         <input id="filtroNombre" type="text" placeholder="Buscar nombre…" style="width:16rem;padding:.45rem .6rem;border:1px solid #e6eef8;border-radius:8px">
       </div>
-
       <div class="group">
         <label for="topN"><strong>Top-N</strong></label>
         <select id="topN" size="1" style="padding:.45rem .6rem;border:1px solid #e6eef8;border-radius:8px">
@@ -221,29 +171,20 @@ tfoot td{font-weight:800;background:#fafcff}
           <option value="20">20</option>
         </select>
       </div>
-
-      <!-- Calcular a la derecha -->
       <div class="group push">
         <button class="btn primary" id="btnCalcular">
         <i class="fa-solid fa-rotate"></i> Calcular</button>
       </div>
-    
-      <!-- Botón Graficas -->
       <div class="group push">
         <button class="btn parametro" id="btnparametro">
         <i class="fa-solid fa-sliders"></i> Parámetros
         </button>
       </div>
-
-            <!-- Botón Graficas -->
       <div class="group push">
         <button class="btn graf blue" id="btnGraficas">
         <i class="fa-solid fa-chart-column"></i> Gráficas
         </button>
       </div>
-
-      
-
       <div class="group" style="flex:1 1 100%"></div>
       <div class="group">
         <button class="btn" id="selTodo">Todo el año</button>
@@ -261,7 +202,6 @@ tfoot td{font-weight:800;background:#fafcff}
           <button id="tab-asist" role="tab" aria-controls="panel-asist" aria-selected="true">Actividad asistencial</button>
           <button id="tab-otros" role="tab" aria-controls="panel-otros" aria-selected="false">Otros conceptos</button>
         </div>
-        <!-- conmutador Turnos / Horas -->
         <div class="view-switch">
           <span>Ver como:</span>
           <label><input type="radio" name="vista" value="turnos" checked> Turnos</label>
@@ -311,13 +251,14 @@ tfoot td{font-weight:800;background:#fafcff}
                 <th class="sticky sortable" data-k="nombre">Profesional</th>
                 <th class="sortable" data-k="total">Total</th>
                 <th><span class="code LD">LD</span></th>
-                <th><span class="code V">V</span></th>
-                <th><span class="code FR">FR</span></th>
+                <th><span class="code LDA">LDA</span></th> <th><span class="code V">V</span></th>
+                <th><span class="code VA">VA</span></th>   <th><span class="code FR">FR</span></th>
                 <th><span class="code SD">SD</span></th>
                 <th><span class="code LS">LS</span></th>
                 <th><span class="code OT">OT</span></th>
                 <th><span class="code BL">BL</span></th>
                 <th><span class="code BM">BM</span></th>
+                <th><span class="code RD">RD</span></th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -326,13 +267,14 @@ tfoot td{font-weight:800;background:#fafcff}
                 <td class="sticky">Totales</td>
                 <td id="otr-total"></td>
                 <td id="otr-LD"></td>
-                <td id="otr-V"></td>
-                <td id="otr-FR"></td>
+                <td id="otr-LDA"></td> <td id="otr-V"></td>
+                <td id="otr-VA"></td>   <td id="otr-FR"></td>
                 <td id="otr-SD"></td>
                 <td id="otr-LS"></td>
                 <td id="otr-OT"></td>
                 <td id="otr-BL"></td>
                 <td id="otr-BM"></td>
+                <td id="otr-RD"></td>
               </tr>
             </tfoot>
           </table>
@@ -352,7 +294,8 @@ tfoot td{font-weight:800;background:#fafcff}
 <script>
 /* ===== Config ===== */
 const ASIST = ["M","T","G","O","F","FO","R"];
-const OTROS = ["LD","V","FR","SD","LS","OT","BL","BM"];
+/* (NUEVO) Constante OTROS MODIFICADA */
+const OTROS = ["LD", "LDA", "V", "VA", "FR", "SD", "LS", "OT", "BL", "BM", "RD"];
 const ALL_CODES = [...ASIST, ...OTROS];
 const HORAS = { M:8, T:8, G:17, O:17, F:24, FO:24, R:12 };   // turnos→horas
 
@@ -362,10 +305,9 @@ const mesesShort = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct",
 const $  = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
 
-/* ===== Año y meses ===== */
+/* ... (Código de Año y meses, Tabs, Utilidades - sin cambios) ... */
 const hoy = new Date();
 $("#anio").value = hoy.getFullYear();
-
 function buildMonthsGrid(){
   const cont = $("#meses");
   cont.innerHTML = "";
@@ -379,7 +321,6 @@ function buildMonthsGrid(){
   });
 }
 buildMonthsGrid();
-
 function selectAllMonths(){ $$(".month-btn").forEach(b=>b.classList.add("active")); }
 function selectNone(){     $$(".month-btn").forEach(b=>b.classList.remove("active")); }
 function invertMonths(){   $$(".month-btn").forEach(b=>b.classList.toggle("active")); }
@@ -392,8 +333,6 @@ $("#selTodo").onclick = selectAllMonths;
 $("#selNinguno").onclick = selectNone;
 $("#selInvertir").onclick = invertMonths;
 $("#selHastaHoy").onclick = selectUntilNow;
-
-/* ===== Tabs ===== */
 function selectTab(id){
   $$("#panel-asist, #panel-otros").forEach(p=>p.classList.remove("active"));
   $$("#tab-asist, #tab-otros").forEach(b=>b.setAttribute("aria-selected","false"));
@@ -402,8 +341,6 @@ function selectTab(id){
 }
 $("#tab-asist").onclick = ()=>selectTab("asist");
 $("#tab-otros").onclick = ()=>selectTab("otros");
-
-/* ===== Utilidades ===== */
 function rangoMeses(mSel){
   if(!mSel.length) return "";
   const idx = mSel.map(m=>parseInt(m,10)-1).sort((a,b)=>a-b);
@@ -431,7 +368,7 @@ function parseCSV(text){
 }
 const tokenizar = v => v.toUpperCase().trim().split(/[ \\/+\-]+/).filter(Boolean);
 
-/* ===== Carga y agregación ===== */
+/* ... (Carga y agregación - sin cambios, ya usa ALL_CODES) ... */
 async function cargarDatos(anio, meses){
   const acc = {}; // { nombre: {M:0,...} }
   for(const m of meses){
@@ -459,7 +396,7 @@ async function cargarDatos(anio, meses){
   return { asist, otros };
 }
 
-/* ===== Render ===== */
+/* ... (Render, Ordenable - sin cambios) ... */
 function renderTabla(tblId, data, cols, footIds, transform=null){
   const view = transform ? data.map(transform) : data;
   const tbody = document.querySelector(`#${tblId} tbody`);
@@ -469,24 +406,19 @@ function renderTabla(tblId, data, cols, footIds, transform=null){
   const totals = cols.reduce((o,k)=>{o[k]=view.reduce((s,x)=>s+(x[k]||0),0);return o;}, {});
   for(const [k,id] of Object.entries(footIds)){ const el=document.getElementById(id); if(el) el.textContent = (totals[k]||0).toLocaleString('es-ES'); }
 }
-
-/* ===== Ordenable (desc por defecto) ===== */
 function makeSortable(tableId, initialKey='total'){
   const tbl = document.getElementById(tableId);
   let dir = -1; // descendente
   let key = initialKey;
-
   const head = tbl.tHead.rows[0];
   const mapIdx = {};
   Array.from(head.cells).forEach((th,i)=>{ if(th.dataset.k) mapIdx[th.dataset.k]=i+1; });
-
   function cellVal(row, k){
     if(k==='nombre') return row.cells[0].textContent;
     const idx = mapIdx[k];
     const txt = row.querySelector(`td:nth-child(${idx})`)?.textContent || '0';
     return parseInt(txt.replace(/\./g,''),10) || 0;
   }
-
   function sort(){
     const tbody = tbl.tBodies[0];
     const rows = Array.from(tbody.querySelectorAll('tr'));
@@ -497,7 +429,6 @@ function makeSortable(tableId, initialKey='total'){
     });
     rows.forEach(r=>tbody.appendChild(r));
   }
-
   tbl.querySelectorAll('th.sortable').forEach(th=>{
     th.addEventListener('click', ()=>{
       key = th.dataset.k;
@@ -505,15 +436,11 @@ function makeSortable(tableId, initialKey='total'){
       sort();
     });
   });
-
   return { sort };
 }
 
-/* ===== Estado global ===== */
-let baseAsist = [];  // turnos
+let baseAsist = [];
 let baseOtros = [];
-
-/* ===== Conmutador Turnos/Horas ===== */
 function aHoras(row){
   const r = { nombre: row.nombre };
   let totalH = 0;
@@ -525,6 +452,8 @@ function aHoras(row){
   r.total = totalH;
   return r;
 }
+
+/* (NUEVO) pintarSegunVista MODIFICADA */
 function pintarSegunVista(){
   const vista = (document.querySelector('input[name="vista"]:checked')?.value)||'turnos';
   const transform = (vista==='horas') ? aHoras : null;
@@ -534,84 +463,59 @@ function pintarSegunVista(){
     transform
   );
 
+  /* AÑADIDOS LDA y VA al objeto footIds */
   renderTabla("tablaOtros", baseOtros, ["total", ...OTROS],
-    { total:"otr-total", LD:"otr-LD", V:"otr-V", FR:"otr-FR", SD:"otr-SD", LS:"otr-LS", OT:"otr-OT", BL:"otr-BL", BM:"otr-BM" }
+    { total:"otr-total", LD:"otr-LD", LDA:"otr-LDA", V:"otr-V", VA:"otr-VA", FR:"otr-FR", SD:"otr-SD", LS:"otr-LS", OT:"otr-OT", BL:"otr-BL", BM:"otr-BM", RD:"otr-RD" }
   );
 
   makeSortable("tablaAsist").sort();
   makeSortable("tablaOtros").sort();
 }
 
-/* ===== Calcular ===== */
+/* ... (Calcular, Eventos - sin cambios) ... */
 async function calcular(){
   const anio = parseInt($("#anio").value, 10);
   const mesesSel = $$(".month-btn.active").map(b=>b.dataset.m);
   if(!mesesSel.length){ alert("Selecciona al menos un mes."); return; }
-
   const rango = rangoMeses(mesesSel);
   $("#subtitulo").textContent = `Año ${anio} · ${rango} (${mesesSel.length} mes${mesesSel.length>1?'es':''})`;
   document.getElementById('print-meta-right').textContent = fechaHoraAhora();
   document.getElementById('print-meta-below').textContent = `Año ${anio} · ${rango} (${mesesSel.length} mes${mesesSel.length>1?'es':''})`;
-
   const filtro = ($("#filtroNombre").value||"").trim().toLowerCase();
   const topN = parseInt($("#topN").value||"0",10);
-
   let { asist, otros } = await cargarDatos(anio, mesesSel);
-
   if(filtro){
     const match = s => s.toLowerCase().includes(filtro);
     asist = asist.filter(r=>match(r.nombre));
     otros = otros.filter(r=>match(r.nombre));
   }
-
   asist.sort((a,b)=> (b.total - a.total) || a.nombre.localeCompare(b.nombre,'es'));
   otros.sort((a,b)=> (b.total - a.total) || a.nombre.localeCompare(b.nombre,'es'));
-
   if(topN>0){ asist = asist.slice(0,topN); otros = otros.slice(0,topN); }
-
-  baseAsist = asist;  // turnos base
+  baseAsist = asist;
   baseOtros = otros;
-
   pintarSegunVista();
 }
-
 $$('input[name="vista"]').forEach(r=>r.addEventListener('change', pintarSegunVista));
-
-/* ===== PDF/Imprimir ===== */
 document.getElementById('btnPDF').onclick = ()=>window.print();
 document.getElementById('btnImprimir').onclick = ()=>window.print();
-
-/* Auto-calcular al abrir */
 selectUntilNow();
 calcular();
-
-// 🔧 Eventos de interacción
 document.getElementById('btnCalcular').addEventListener('click', calcular);
-
-// (opcionales, pero útiles)
 document.getElementById('topN').addEventListener('change', calcular);
-document.getElementById('anio').addEventListener('change', () => {
-  // si cambias de año y quieres mantener “hasta mes actual” cuando toca
-  selectUntilNow();
-});
+document.getElementById('anio').addEventListener('change', () => { selectUntilNow(); });
 document.getElementById('filtroNombre').addEventListener('keydown', (e) => {
   if (e.key === 'Enter') { e.preventDefault(); calcular(); }
 });
-
  document.getElementById('btnparametro').addEventListener('click', ()=>{
   window.location.href = './parametros.html';
 });
-  
   document.getElementById('btnGraficas').addEventListener('click', ()=>{
   window.location.href = './graficas.html';
 });
- 
-// Botón Volver: vuelve a Cuadrantes
 document.getElementById('btnVolver').addEventListener('click', ()=>{
-  window.location.href = '../index.html';   // o usa: window.history.back();
+  window.location.href = '../index.html';
 });
-
-  
 </script>
 </body>
 </html>

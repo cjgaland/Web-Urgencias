@@ -9,11 +9,10 @@
 <link rel="stylesheet" href="../../css/style.css?v=20250824"/>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-<!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
 <style>
-/* ——— Ajustes de layout para integrarse con tu estilo ——— */
+/* ... (Tus estilos CSS no cambian) ... */
 .panel{background:#fff;border:1px solid #e6eef8;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.05);padding:1rem}
 .filtros{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;margin:.5rem 0 1rem}
 .filtros .group{display:flex;gap:.4rem;align-items:center}
@@ -21,17 +20,13 @@
 .filtros .month-grid{display:grid;grid-template-columns:repeat(6,minmax(110px,1fr));gap:.4rem;width:100%}
 .month-btn{border:1px solid #e6eef8;background:#fff;border-radius:999px;padding:.35rem .6rem;cursor:pointer}
 .month-btn.active{background:#edf5ff;border-color:#cfe0fb;color:#0a4c84;font-weight:700}
-
 .btn{border:1px solid #e6eef8;background:#fff;border-radius:999px;padding:.55rem .9rem;font-weight:700;cursor:pointer}
 .btn.primary{background:#0a4c84;color:#fff;border-color:#0a4c84}
 .btn.blue{background:#1e88e5;color:#fff;border-color:#1e88e5}
 .btn.blue:hover{background:#1565c0;border-color:#1565c0}
-
 .header-actions{display:flex;gap:.6rem;flex-wrap:wrap}
 .hstack{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
 .vstack{display:flex;flex-direction:column;gap:.6rem}
-
-/* Botón Volver flotante arriba-derecha */
 .btn-back{
   position:fixed; right:16px; top:12px; z-index:1000;
   display:inline-flex; align-items:center; gap:.4rem;
@@ -40,8 +35,6 @@
   box-shadow:0 2px 10px rgba(0,0,0,.08);
 }
 .btn-back:hover{background:#f7f9fc}
-
-/* Tabs muy ligeras (igual que estadística) */
 .tabs{margin-top:.25rem}
 .tab-head{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:.6rem}
 .tab-left{display:flex;gap:.4rem;flex-wrap:wrap}
@@ -51,27 +44,18 @@
 }
 .tab-head button:hover{background:#e1e5eb;transform:translateY(-1px)}
 .tab-head button[aria-selected="true"]{background:#d0d4db;color:#000;box-shadow:inset 0 2px 6px rgba(0,0,0,.15)}
-
 .view-switch{display:flex;align-items:center;gap:.6rem;color:#5b6b85;font-weight:600}
 .view-switch label{display:inline-flex;align-items:center;gap:.35rem;cursor:pointer}
-
 .canvas-wrap{position:relative;min-height:360px}
 .chart-toolbar{display:flex;gap:.6rem;justify-content:flex-end;margin:.4rem 0}
-
-/* Impresión: quepan bien las gráficas en A4 apaisado */
 @media print{
   @page{ size: A4 landscape; margin: 8mm; }
   .sidebar, .masthead, .header-actions, .filtros, .tab-head, .chart-toolbar, .btn-back { display:none !important; }
   .panel{ border:none; box-shadow:none; padding:0 }
 }
-  
 </style>
-  
-  
-  
 </head>
 <body>
-<!-- Botón Volver (flotante arriba-derecha) -->
 <button class="btn-back" id="btnVolver"><i class="fa-solid fa-arrow-left"></i> Volver</button>
 
 <aside class="sidebar">
@@ -91,7 +75,7 @@
 <header class="masthead">
   <div class="masthead-left"><img src="../../images/Logo-Salud2.png" alt="Junta de Andalucía"/></div>
   <div class="masthead-right"><img src="../../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Urgencias Montilla"/></div>
-</header>
+</header> 
 
 <main class="main-content">
   <section class="hero">
@@ -108,12 +92,10 @@
         <label for="anio"><strong>Año</strong></label>
         <input id="anio" type="number" min="2000" max="2100" step="1" style="width:6.5rem;text-align:center" />
       </div>
-
       <div class="group">
         <label for="filtroNombre"><strong>Profesional</strong></label>
         <input id="filtroNombre" type="text" placeholder="Buscar nombre…" style="width:16rem;padding:.45rem .6rem;border:1px solid #e6eef8;border-radius:8px">
       </div>
-
       <div class="group">
         <label for="topN"><strong>Top-N</strong></label>
         <select id="topN" size="1" style="padding:.45rem .6rem;border:1px solid #e6eef8;border-radius:8px">
@@ -124,11 +106,9 @@
           <option value="20">20</option>
         </select>
       </div>
-
       <div class="group push">
         <button class="btn primary" id="btnCalcular2"><i class="fa-solid fa-rotate"></i> Calcular</button>
       </div>
-
       <div class="group" style="flex:1 1 100%"></div>
       <div class="group">
         <button class="btn" id="selTodo">Todo el año</button>
@@ -151,14 +131,12 @@
           <label><input type="radio" name="vista" value="horas"> Horas</label>
         </div>
       </div>
-
       <section id="panel-asist">
         <div class="chart-toolbar">
           <button class="btn" id="pngAsist"><i class="fa-solid fa-image"></i> PNG Asistencial (turnos)</button>
         </div>
         <div class="canvas-wrap"><canvas id="chartAsist"></canvas></div>
       </section>
-
       <section id="panel-otros" style="display:none">
         <div class="chart-toolbar">
           <button class="btn" id="pngOtros"><i class="fa-solid fa-image"></i> PNG Otros</button>
@@ -172,10 +150,65 @@
 <script>
 /* ===== Config ===== */
 const ASIST = ["M","T","G","O","F","FO","R"];
-const OTROS = ["LD","V","FR","SD","LS","OT","BL","BM"];
+const OTROS = ["LD", "LDA", "V", "VA", "FR", "CON", "SD", "LS", "OT", "BL", "BM", "RD"]; // (Actualizado)
 const ALL_CODES = [...ASIST, ...OTROS];
 const HORAS = { M:8, T:8, G:17, O:17, F:24, FO:24, R:12 };
 
+/* === (NUEVO) FUNCIÓN PARA CREAR PATRONES DE RAYAS === */
+function createStripedPattern(color, stripeColor = 'rgba(0,0,0,0.1)') {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = 10;
+  canvas.height = 10;
+  
+  // Fondo con el color base
+  ctx.fillStyle = color;
+  ctx.fillRect(0, 0, 10, 10);
+  
+  // Rayas
+  ctx.strokeStyle = stripeColor;
+  ctx.lineWidth = 2; // Grosor de la raya
+  ctx.beginPath();
+  // Dibujamos líneas diagonales
+  ctx.moveTo(-1, -1);
+  ctx.lineTo(11, 11);
+  ctx.moveTo(-1, 9);
+  ctx.lineTo(11, 21);
+  ctx.moveTo(-1, -11);
+  ctx.lineTo(11, 1);
+  ctx.stroke();
+  
+  // Creamos el patrón repetible
+  return ctx.createPattern(canvas, 'repeat');
+}
+
+/* (NUEVO) Constante COLORS MODIFICADA para usar la función de patrones */
+const COLORS = {
+  // Asistencial
+  M:  "#6FBF73",  // verde medio
+  T:  "#5C6BC0",  // azul-violeta suave
+  G:  "#4FC3F7",  // azul claro
+  O:  "#EC407A",  // rosa moderado
+  F:  "#FFA726",  // naranja suave
+  FO: "#E57373",  // rojo claro
+  R:  "#26C6DA",  // cian medio
+
+  // Otros
+  LD: "#9CCC65",
+  LDA: createStripedPattern("#9CCC65"),
+  V:  "#BA68C8",
+  VA: createStripedPattern("#BA68C8"),
+  FR: "#9575CD",
+  CON: "#E0E0E0", // <-- AÑADIDO (Color sólido gris)
+  SD: "#4DB6AC",
+  LS: "#FFD54F",
+  OT: "#BDBDBD",
+  BL: "#EF9A9A",
+  BM: "#64B5F6",
+  RD: "#81C784"
+};
+
+/* ... (Resto del script - sin cambios) ... */
 const mesesN     = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 const mesesShort = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
 
@@ -185,6 +218,8 @@ const $$ = s => Array.from(document.querySelectorAll(s));
 const hoy = new Date();
 document.addEventListener('DOMContentLoaded', ()=>{
   document.getElementById('anio').value = hoy.getFullYear();
+  selectUntilNow();
+  calcular();
 });
 
 function buildMonthsGrid(){
@@ -292,14 +327,14 @@ function aHoras(row){
 
 function buildAsistentialChart(vista='turnos'){
   const data = (vista==='horas') ? baseAsist.map(aHoras) : baseAsist;
-
   const labels = data.map(r=>r.nombre);
   const datasets = ASIST.map((k)=>({
     label: k,
     data: data.map(r=>r[k]||0),
+    backgroundColor: COLORS[k] || undefined,
+    borderColor: "#333",
     borderWidth: 1
   }));
-
   const ctx = document.getElementById('chartAsist').getContext('2d');
   chartAsist = new Chart(ctx, {
     type: 'bar',
@@ -329,7 +364,6 @@ function buildAsistentialChart(vista='turnos'){
       }
     }
   });
-
   const btn = document.getElementById('pngAsist');
   btn.textContent = `PNG Asistencial (${vista})`;
   btn.prepend(Object.assign(document.createElement('i'), { className:'fa-solid fa-image', style:'margin-right:.4rem' }));
@@ -341,9 +375,10 @@ function buildOtrosChart(){
   const datasets = OTROS.map(k=>({
     label: k,
     data: data.map(r=>r[k]||0),
+    backgroundColor: COLORS[k] || undefined,
+    borderColor: "#333",
     borderWidth: 1
   }));
-
   const ctx = document.getElementById('chartOtros').getContext('2d');
   chartOtros = new Chart(ctx, {
     type: 'bar',
@@ -353,7 +388,16 @@ function buildOtrosChart(){
       maintainAspectRatio: false,
       plugins: {
         legend: { position: 'top' },
-        title: { display: true, text: 'Otros conceptos (turnos)' }
+        title: { display: true, text: 'Otros conceptos (turnos)' },
+        tooltip: {
+          callbacks: {
+            footer: (items)=>{
+              const idx = items[0].dataIndex;
+              const total = OTROS.reduce((s,k)=> s + (data[idx][k]||0), 0);
+              return 'Total: ' + total.toLocaleString('es-ES');
+            }
+          }
+        }
       },
       scales: {
         x: { stacked: true, ticks: { autoSkip: false, maxRotation: 45, minRotation: 0 } },
@@ -363,7 +407,6 @@ function buildOtrosChart(){
   });
 }
 
-/* ===== Tabs ===== */
 function showTab(id){
   if(id==='asist'){
     document.getElementById('panel-asist').style.display = '';
@@ -380,40 +423,31 @@ function showTab(id){
 document.getElementById('tab-asist').addEventListener('click', ()=>showTab('asist'));
 document.getElementById('tab-otros').addEventListener('click', ()=>showTab('otros'));
 
-/* ===== Calcular ===== */
 async function calcular(){
   const anio = parseInt($("#anio").value, 10);
   const mesesSel = $$(".month-btn.active").map(b=>b.dataset.m);
   if(!mesesSel.length){ alert("Selecciona al menos un mes."); return; }
-
   const filtro = ($("#filtroNombre").value||"").trim().toLowerCase();
   const topN = parseInt($("#topN").value||"0",10);
   const rango = rangoMeses(mesesSel);
   document.getElementById('subtitulo').textContent = `Año ${anio} · ${rango} (${mesesSel.length} mes${mesesSel.length>1?'es':''})`;
-
   let { asist, otros } = await cargarDatos(anio, mesesSel);
-
   if(filtro){
     const match = s => s.toLowerCase().includes(filtro);
     asist = asist.filter(r=>match(r.nombre));
     otros = otros.filter(r=>match(r.nombre));
   }
-
   asist.sort((a,b)=> (b.total - a.total) || a.nombre.localeCompare(b.nombre,'es'));
   otros.sort((a,b)=> (b.total - a.total) || a.nombre.localeCompare(b.nombre,'es'));
-
   if(topN>0){ asist = asist.slice(0,topN); otros = otros.slice(0,topN); }
-
   baseAsist = asist;
   baseOtros = otros;
-
   destroyCharts();
   const vista = (document.querySelector('input[name="vista"]:checked')?.value)||'turnos';
   buildAsistentialChart(vista);
   buildOtrosChart();
 }
 
-/* ===== Descargar PNG (por gráfica) ===== */
 function descargarPNG(chart, nombre){
   const url = chart.toBase64Image('image/png', 1);
   const a = document.createElement('a');
@@ -429,8 +463,6 @@ document.getElementById('pngAsist').addEventListener('click', ()=>{
 document.getElementById('pngOtros').addEventListener('click', ()=>{
   if(chartOtros) descargarPNG(chartOtros, 'otros-conceptos');
 });
-
-/* ===== Listeners ===== */
 document.getElementById('btnVolver').addEventListener('click', ()=>{ window.location.href = './index.html'; });
 document.getElementById('btnCalcular2').addEventListener('click', calcular);
 document.getElementById('topN').addEventListener('change', calcular);
@@ -445,10 +477,6 @@ $$('input[name="vista"]').forEach(r=>r.addEventListener('change', ()=>{
   buildAsistentialChart(vista);
   buildOtrosChart();
 }));
-
-/* ===== Auto ===== */
-selectUntilNow();
-calcular();
 </script>
 </body>
 </html>
