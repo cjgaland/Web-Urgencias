@@ -7,12 +7,13 @@
 <link rel="icon" href="../favicon.ico" type="image/x-icon">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
 <style>
-/* ... (Estilos generales que ya tenías) ... */
+/* ... (Estilos generales) ... */
 body{font-family:'Roboto',sans-serif;background:#f4f7fb;color:#333;margin:0}
 .wrap{max-width:1600px;margin:1.5rem auto;padding:0 1.5rem}
 .panel{background:#fff;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.07);padding:1.2rem 1.5rem}
 h1,h2{color:#00457c;margin:0 0 1rem}
 .grid-cols-2{display:grid;grid-template-columns:300px 1fr;gap:1rem}
+@media (max-width: 900px) { .grid-cols-2 { grid-template-columns: 1fr; } } /* Stack on smaller screens */
 .flex-col{display:flex;flex-direction:column;gap:.75rem}
 .flex-row{display:flex;align-items:center;gap:.75rem}
 label{font-weight:600;font-size:.9rem;color:#333}
@@ -26,17 +27,51 @@ button.blue{background:#1e88e5} button.blue:hover{background:#1565c0}
 table{width:100%;border-collapse:separate;border-spacing:0;font-size:.9rem;table-layout:fixed}
 thead th{position:sticky;top:0;background:#f7fafc;padding:.5rem;z-index:1}
 th,td{border-bottom:1px solid #eee;padding:.3rem .4rem;text-align:center;border-right:1px solid #eee}
-th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:#fff;border-right:2px solid #ddd;width:140px;font-weight:600}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:#fff;border-right:2px solid #ddd;width:140px;font-weight:600; z-index: 2;} /* Added z-index */
+thead th:first-child { z-index: 3; } /* Higher z-index for header */
 tbody td:not(:first-child){width:45px;min-width:45px}
 tbody td[contenteditable="true"]:focus{outline:2px solid #1e88e5;background:#f0f8ff}
-.dow-D, .dow-S, .dow-V, .dow-F { background:#f7f9fc; }
+.dow-D, .dow-S { background:#f7f9fc; font-weight: bold; color: #c62828;} /* Weekend highlighting */
 
-/* Paleta de colores */
-#palette{position:fixed;bottom:1rem;right:1rem;background:rgba(255,255,255,.95);border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.15);padding:.7rem;display:grid;grid-template-columns:repeat(6,auto);gap:.5rem;z-index:100}
-#palette button{padding:0;width:40px;height:32px;font-size:1rem;font-weight:700;border:1px solid rgba(0,0,0,.1);border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
-#palette button:hover{transform:scale(1.1);border-color:rgba(0,0,0,.3)}
+/* Paleta de colores (MODIFICADA) */
+#palette {
+  /* position:fixed; REMOVED */
+  /* bottom: 2rem; REMOVED */
+  /* right:1rem; REMOVED */
+  margin-top: 1rem; /* ADDED: Space above palette */
+  width: 100%; /* ADDED: Full width of container */
+  background: #fdfdff; /* Slightly off-white */
+  border: 1px solid #eef2f7; /* Light border */
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,.05); /* Softer shadow */
+  padding:.7rem;
+  box-sizing: border-box; /* Include padding in width */
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr)); /* Responsive columns */
+  gap:.5rem;
+  z-index:100;
+  /* max-width: calc(6 * 40px + 5 * .5rem + 2 * .7rem); REMOVED */
+}
+#palette button {
+  padding:0;
+  width:100%; /* Fill column */
+  height:32px;
+  font-size:1rem;
+  font-weight:700;
+  border:1px solid rgba(0,0,0,.1);
+  border-radius:6px;
+  box-shadow:0 1px 3px rgba(0,0,0,.05);
+  color: #333 !important; /* Force dark text color */
+  cursor: pointer;
+}
+#palette button:hover{transform:scale(1.05);border-color:rgba(0,0,0,.3)} /* Slightly less scale */
+#palette button.secondary {
+    grid-column: span 2 / auto; /* Occupy 2 columns if possible */
+    width: auto; /* Allow auto width */
+}
 
-/* Colores de turnos (copiados de la plantilla) */
+
+/* Colores de turnos */
 .shift-M{background:#E6F4EA}
 .shift-T{background:#E6ECFF}
 .shift-G{background:#EAF7FF}
@@ -45,17 +80,18 @@ tbody td[contenteditable="true"]:focus{outline:2px solid #1e88e5;background:#f0f
 .shift-FO{background:#FFECEC}
 .shift-R{background:#E0F7FA}
 .shift-V{background:#FDF4FF}
-.shift-S{background:#F5F7FA;color:#99A3AD}
+.shift-S{background:#F5F7FA; color:#333 !important;}
 .shift-LD{background:#F0FDF4}
 .shift-FR{background:#F3E8FF}
-.shift-OT{background:#F2F2f2}
+.shift-DOC{background: #EBF5FB;}
+.shift-OT{background:#F2F2F2}
 .shift-SD{background:#E8F5E9}
 .shift-LS{background:#FFFDE7}
 .shift-BL{background:#FFEBEE}
 .shift-BM{background:#E1F5FE}
 .shift-RD{background:#E6FFF8}
 
-/* === NUEVOS CÓDIGOS CON TRAMA (PASO 1) === */
+/* === CÓDIGOS CON TRAMA (LDA y VA) === */
 .shift-LDA {
   background-color: #F0FDF4; /* Base de LD */
   background-image: linear-gradient(45deg, rgba(0,0,0,.07) 25%, transparent 25%, transparent 50%, rgba(0,0,0,.07) 50%, rgba(0,0,0,.07) 75%, transparent 75%, transparent);
@@ -68,39 +104,10 @@ tbody td[contenteditable="true"]:focus{outline:2px solid #1e88e5;background:#f0f
 }
 /* === NUEVO CÓDIGO CONGRESO === */
 .shift-CON { background: #E0E0E0; } /* Gris claro */
-  
-/* (HE COMENTADO EL ESTILO DEL "GATE" PARA QUE NO MOLESTE)
-#editor-gate{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:1000;display:flex;align-items:center;justify-content:center}
-#gate-box{background:#fff;padding:2rem;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.3)}
-#gate-box input{width:200px}
-*/
+
 </style>
 </head>
 <body>
-
-<div id="palette">
-  <button type="button" class="shift-M" data-val="M">M</button>
-  <button type="button" class="shift-T" data-val="T">T</button>
-  <button type="button" class="shift-G" data-val="G">G</button>
-  <button type="button" class="shift-O" data-val="O">O</button>
-  <button type="button" class="shift-F" data-val="F">F</button>
-  <button type="button" class="shift-FO" data-val="FO">FO</button>
-  <button type="button" class="shift-R" data-val="R">R</button>
-  <button type="button" class="shift-LD" data-val="LD">LD</button>
-  <button type="button" class="shift-LDA" data-val="LDA">LDA</button>
-  <button type="button" class="shift-V" data-val="V">V</button>
-  <button type="button" class="shift-VA" data-val="VA">VA</button>
-  <button type="button" class="shift-FR" data-val="FR">FR</button>
-  <button type="button" class="shift-S" data-val="S">S</button>
-  <button type="button" class="shift-SD" data-val="SD">SD</button>
-  <button type="button" class="shift-LS" data-val="LS">LS</button>
-  <button type="button" class="shift-BL" data-val="BL">BL</button>
-  <button type="button" class="shift-BM" data-val="BM">BM</button>
-  <button type="button" class="shift-OT" data-val="OT">OT</button>
-  <button type="button" class="shift-RD" data-val="RD">RD</button>
-  <button type="button" class="shift-CON" data-val="CON">RD</button>
-  <button type="button" class="secondary" data-val="" style="grid-column: span 3">Limpiar</button>
-</div>
 
 <div class="wrap">
   <div class="grid-cols-2">
@@ -129,7 +136,7 @@ tbody td[contenteditable="true"]:focus{outline:2px solid #1e88e5;background:#f0f
       </div>
       <div class="flex-col">
         <label for="profesionales">Profesionales (uno por línea)</label>
-        <textarea id="profesionales" rows="12"></textarea>
+        <textarea id="profesionales" rows="12" spellcheck="false"></textarea>
       </div>
       <div class="flex-row">
         <button type="button" id="btnCargarTxt" class="secondary" title="Cargar lista desde profesionales.txt">Cargar .txt</button>
@@ -148,45 +155,38 @@ tbody td[contenteditable="true"]:focus{outline:2px solid #1e88e5;background:#f0f
 
     <div class="panel">
       <h1 id="tituloTabla">Editor de cuadrante</h1>
-      <div style="overflow:auto;max-height:80vh">
-        <table id="tablaEditor">
+      <div style="overflow:auto;max-height:80vh"> <table id="tablaEditor">
           <thead id="thead"></thead>
           <tbody id="tbody"></tbody>
         </table>
       </div>
-    </div>
-  </div>
-</div>
 
-<script>
-/* === Contraseña (HE COMENTADO ESTE BLOQUE ENTERO) ===
-(function(){
-  const gate = document.getElementById('editor-gate');
-  const pass = document.getElementById('pass');
-  const btn = document.getElementById('btnEntrar');
-  const clave = "MONTILLA_URG_2024"; // Tu clave
-  
-  function checkSession(){
-    if (sessionStorage.getItem('editorAuth') === clave) {
-      gate.style.display = 'none';
-      document.getElementById('palette').style.display = 'grid';
-    } else {
-      gate.style.display = 'flex';
-    }
-  }
-  function login(){
-    if (pass.value === clave) {
-      sessionStorage.setItem('editorAuth', clave);
-      checkSession();
-    } else {
-      alert('Contraseña incorrecta');
-    }
-  }
-  btn.addEventListener('click', login);
-  pass.addEventListener('keydown', e => { if(e.key==='Enter') login(); });
-  checkSession();
-})();
-*/
+      <div id="palette">
+        <button type="button" class="shift-M" data-val="M">M</button>
+        <button type="button" class="shift-T" data-val="T">T</button>
+        <button type="button" class="shift-G" data-val="G">G</button>
+        <button type="button" class="shift-O" data-val="O">O</button>
+        <button type="button" class="shift-F" data-val="F">F</button>
+        <button type="button" class="shift-FO" data-val="FO">FO</button>
+        <button type="button" class="shift-R" data-val="R">R</button>
+        <button type="button" class="shift-LD" data-val="LD">LD</button>
+        <button type="button" class="shift-LDA" data-val="LDA">LDA</button>
+        <button type="button" class="shift-V" data-val="V">V</button>
+        <button type="button" class="shift-VA" data-val="VA">VA</button>
+        <button type="button" class="shift-FR" data-val="FR">FR</button>
+        <button type="button" class="shift-DOC" data-val="DOC">DOC</button>
+        <button type="button" class="shift-CON" data-val="CON">CON</button>
+        <button type="button" class="shift-S" data-val="S">S</button>
+        <button type="button" class="shift-SD" data-val="SD">SD</button>
+        <button type="button" class="shift-LS" data-val="LS">LS</button>
+        <button type="button" class="shift-BL" data-val="BL">BL</button>
+        <button type="button" class="shift-BM" data-val="BM">BM</button>
+        <button type="button" class="shift-OT" data-val="OT">OT</button>
+        <button type="button" class="shift-RD" data-val="RD">RD</button>
+        <button type="button" class="secondary" data-val="">Limpiar</button>
+      </div> </div> </div> </div> <script>
+/* === Contraseña (COMENTADO) === */
+// (function(){ ... })();
 
 // === App ===
 const DOW = ['D', 'L', 'M', 'X', 'J', 'V', 'S'];
@@ -195,21 +195,22 @@ const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto'
 // === Carga de profesionales.txt ===
 function cargarProfesionales(){
   const txtArea = document.getElementById('profesionales');
+  // Ajusta estas rutas si tu fichero está en otro sitio relativo a Editor/index.html
   const paths = [
-    '../data/profesionales.txt',
-    '../../data/profesionales.txt',
-    './data/profesionales.txt',
-    '/Cuadrantes/data/profesionales.txt'
+    '../data/profesionales.txt',        // Sube a Cuadrantes/ y baja a data/
+    '../../data/profesionales.txt',     // Sube a la raíz del sitio y baja a data/
+    './data/profesionales.txt'          // Busca en Cuadrantes/Editor/data/ (poco probable)
   ];
   let found = false;
   
   async function tryPath(i){
     if (i >= paths.length) {
-      if (!found) txtArea.value = "Error: No se encontró profesionales.txt";
+      if (!found) txtArea.value = "Error: No se encontró profesionales.txt\nRutas probadas:\n" + paths.join('\n');
       return;
     }
     try {
       const r = await fetch(`${paths[i]}?v=${Date.now()}`); // anti-cache
+      // console.log(`Intentando cargar: ${paths[i]}, Status: ${r.status}`); // Debugging line
       if (r.ok) {
         txtArea.value = await r.text();
         found = true;
@@ -217,13 +218,14 @@ function cargarProfesionales(){
         await tryPath(i + 1);
       }
     } catch (e) {
+      // console.error(`Error cargando ${paths[i]}:`, e); // Debugging line
       await tryPath(i + 1);
     }
   }
   tryPath(0);
 }
 document.getElementById('btnCargarTxt').addEventListener('click', cargarProfesionales);
-cargarProfesionales(); // Carga automática al inicio
+document.addEventListener('DOMContentLoaded', cargarProfesionales); // Carga automática al inicio
 
 // === Generar tabla ===
 document.getElementById('btnGenerar').addEventListener('click', generar);
@@ -233,73 +235,108 @@ function getDow(y, m, d) { return new Date(y, m-1, d).getDay(); } // m=1..12, d=
 
 function generar(){
   const anio = parseInt(document.getElementById('anio').value, 10);
-  const mesNum = parseInt(document.getElementById('mes').value, 10);
+  if (isNaN(anio) || anio < 2000 || anio > 2100) {
+      alert("Por favor, introduce un año válido.");
+      return;
+  }
+  const mesSelect = document.getElementById('mes');
+  const mesNum = parseInt(mesSelect.value, 10);
   const numDias = getDaysInMonth(anio, mesNum);
-  const mesNombre = MESES[mesNum-1];
+  const mesNombre = mesSelect.options[mesSelect.selectedIndex].text.split(' - ')[1]; // Get month name from select
   document.getElementById('tituloTabla').textContent = `Cuadrante · ${mesNombre} ${anio}`;
   
-  const profesionales = document.getElementById('profesionales').value.split('\n').filter(Boolean).map(s => s.trim());
+  const profesionales = document.getElementById('profesionales').value.split('\n')
+      .map(s => s.trim())
+      .filter(Boolean); // Filter empty lines
+
+  if (profesionales.length === 0) {
+      alert("Por favor, introduce o carga la lista de profesionales.");
+      return;
+  }
   
   const thead = document.getElementById('thead');
   const tbody = document.getElementById('tbody');
-  thead.innerHTML = '';
-  tbody.innerHTML = '';
+  thead.innerHTML = ''; // Clear previous header
+  tbody.innerHTML = ''; // Clear previous body
   
-  // Cabecera
+  // Build Header Row
   const trHead = document.createElement('tr');
-  trHead.innerHTML = '<th>Profesional</th>';
+  const thProf = document.createElement('th');
+  thProf.textContent = 'Profesional';
+  trHead.appendChild(thProf);
+
   for(let d=1; d<=numDias; d++){
     const dow = getDow(anio, mesNum, d);
     const th = document.createElement('th');
     th.textContent = `${DOW[dow]} ${d}`;
-    th.className = `dow-${DOW[dow]}`;
+    th.className = `dow-${DOW[dow]}`; // Add class for styling weekends
     trHead.appendChild(th);
   }
-  trHead.innerHTML += '<th>Obs.</th>';
+  const thObs = document.createElement('th');
+  thObs.textContent = 'Obs.';
+  trHead.appendChild(thObs);
   thead.appendChild(trHead);
   
-  // Cuerpo
+  // Build Body Rows
   profesionales.forEach(nombre => {
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${nombre}</td>`;
+    
+    const tdNombre = document.createElement('td');
+    tdNombre.textContent = nombre;
+    tr.appendChild(tdNombre);
+
     for(let d=1; d<=numDias; d++){
-      tr.innerHTML += `<td contenteditable="true" data-d="${d}" data-n="${nombre}"></td>`;
+      const tdDia = document.createElement('td');
+      tdDia.contentEditable = "true";
+      tdDia.dataset.d = d; // Store day and name for reference if needed later
+      tdDia.dataset.n = nombre;
+      tr.appendChild(tdDia);
     }
-    tr.innerHTML += `<td contenteditable="true" data-d="obs" data-n="${nombre}"></td>`;
+    
+    const tdObs = document.createElement('td');
+    tdObs.contentEditable = "true";
+    tdObs.dataset.d = "obs";
+    tdObs.dataset.n = nombre;
+    tr.appendChild(tdObs);
+    
     tbody.appendChild(tr);
   });
+  // Apply initial tinting after generating table
+  tintTable();
 }
 
 // === Coloreado (Tint) ===
 const shiftClasses = [
   'shift-M', 'shift-T', 'shift-G', 'shift-O', 'shift-F', 'shift-FO', 'shift-R', 
-  'shift-V', 'shift-VA', /*NUEVO*/
+  'shift-V', 'shift-VA', 
   'shift-S', 
-  'shift-LD', 'shift-LDA', /*NUEVO*/
-  'shift-FR', 'shift-OT', 'shift-SD', 'shift-LS', 'shift-BL', 'shift-BM', 'shift-RD', 'shift-CON'
+  'shift-LD', 'shift-LDA', 
+  'shift-FR', 'shift-CON', 'shift-DOC',
+  'shift-OT', 'shift-SD', 'shift-LS', 'shift-BL', 'shift-BM', 'shift-RD'
 ];
 
-// (MODIFICADO para incluir LDA y VA)
 const shiftColors = {
     'M':'shift-M', 'T':'shift-T', 'G':'shift-G', 'O':'shift-O', 'F':'shift-F', 'FO':'shift-FO', 'R':'shift-R',
-    'V':'shift-V',
-    'VA':'shift-VA', /* <-- NUEVO */
+    'V':'shift-V', 'VA':'shift-VA', 
     'S':'shift-S',
-    'LD':'shift-LD',
-    'LDA':'shift-LDA', /* <-- NUEVO */
-    'FR':'shift-FR', 'OT':'shift-OT', 'SD':'shift-SD', 'LS':'shift-LS', 'BL':'shift-BL', 'BM':'shift-BM', 'RD':'shift-RD', 'CON':'shift-CON'
+    'LD':'shift-LD', 'LDA':'shift-LDA', 
+    'FR':'shift-FR', 
+    'CON':'shift-CON', 'DOC':'shift-DOC',// <-- CON AÑADIDO
+    'OT':'shift-OT', 'SD':'shift-SD', 'LS':'shift-LS', 'BL':'shift-BL', 'BM':'shift-BM', 'RD':'shift-RD'
 };
 
 function tokenizar(val){
-  const raw = val.toUpperCase().trim();
+  const raw = (val || '').toUpperCase().trim(); // Add safety check for null/undefined
   if (!raw) return [];
-  return raw.split(/[ \\/+\-]+/).filter(Boolean);
+  // Split by space, slash, plus, hyphen
+  return raw.split(/[ \/+\-]+/).filter(Boolean); // Filter empty strings resulting from multiple separators
 }
 
 function tint(cell){
-  if (!cell) return;
+  if (!cell || !cell.classList) return; // Add safety check
+  // Remove all potential shift classes first
   cell.classList.remove(...shiftClasses);
-  const tokens = tokenizar(cell.textContent || '');
+  const tokens = tokenizar(cell.textContent);
   if (tokens.length > 0) {
     const firstToken = tokens[0];
     if (shiftColors[firstToken]) {
@@ -308,87 +345,154 @@ function tint(cell){
   }
 }
 
-// Event delegation para el tint
+// Event delegation for tinting on input
 document.getElementById('tbody').addEventListener('input', e => {
   if(e.target.tagName === 'TD' && e.target.isContentEditable){
     tint(e.target);
   }
 });
 
+// Function to apply tinting to the whole table
+function tintTable() {
+    document.querySelectorAll('#tbody td[contenteditable="true"]').forEach(tint);
+}
 
 // === Paleta ===
 let currentCell = null;
+// Use focusin to capture focus event bubbled up to tbody
 document.getElementById('tbody').addEventListener('focusin', e => {
   if(e.target.tagName === 'TD' && e.target.isContentEditable){
     currentCell = e.target;
+    // Optionally highlight the current cell more strongly
+    // currentCell.style.outline = '3px solid blue'; 
   }
-});
-document.getElementById('tbody').addEventListener('focusout', e => {
-  // currentCell = null; // No lo ponemos a null para poder hacer clic en la paleta
 });
 
 document.getElementById('palette').addEventListener('click', e => {
   const btn = e.target.closest('button');
-  if (!btn || !currentCell) return;
+  if (!btn) return; // Clicked outside a button
+  if (!currentCell) {
+      // Try to find the last focused cell if available
+      const lastFocused = document.querySelector('#tbody td:focus');
+      if (lastFocused) {
+          currentCell = lastFocused;
+      } else {
+        alert("Selecciona una celda en la tabla primero.");
+        return;
+      }
+  }
   
   const val = btn.dataset.val;
+  
+  // Set focus back to the cell after button click (important!)
+  currentCell.focus(); 
+
   if (val === '') {
     currentCell.textContent = ''; // Limpiar
   } else {
-    // Si la celda está vacía o ya tiene un +, añade. Si no, reemplaza.
+    // Append with '+' if cell is not empty, otherwise just set the value
     const currentText = (currentCell.textContent || '').trim();
     if (currentText === '') {
       currentCell.textContent = val;
     } else {
-      currentCell.textContent = currentText + '+' + val;
+       // Avoid double '+' if user clicks fast or types '+'
+       if (!currentText.endsWith('+')) {
+           currentCell.textContent = currentText + '+' + val;
+       } else {
+           currentCell.textContent += val;
+       }
     }
+    // Move cursor to the end of the cell content
+    // Create a range (a selection)
+    const range = document.createRange();
+    // Create a selection object
+    const sel = window.getSelection();
+    // Select all the content within the cell
+    range.selectNodeContents(currentCell);
+     // Collapse the range to the end point. 
+     // True collapses to the start, false collapses to the end
+    range.collapse(false); 
+    // Remove any existing selections
+    sel.removeAllRanges();
+    // Add the new range (which is now just a cursor at the end)
+    sel.addRange(range);
   }
-  tint(currentCell);
-  currentCell.focus();
+  tint(currentCell); // Apply color immediately
 });
 
 
 // === Importar / Exportar CSV ===
+function escapeCsvCell(cellText) {
+    const text = (cellText || '').replace(/"/g, '""'); // Escape double quotes
+    // Enclose in double quotes if it contains comma, double quote, or newline
+    if (/[",\n]/.test(text)) {
+        return `"${text}"`;
+    }
+    return text;
+}
+
 function exportCSV(copy=false){
   const anio = document.getElementById('anio').value;
   const mes = document.getElementById('mes').value;
+  if (!anio || !mes) {
+      alert("Selecciona año y mes.");
+      return;
+  }
   const filename = `${anio}-${mes}.csv`;
   
   const table = document.getElementById('tablaEditor');
+  if (!table.tHead || !table.tBodies[0] || table.tBodies[0].rows.length === 0) {
+      alert("Genera o importa un cuadrante primero.");
+      return;
+  }
+
   let csv = [];
   
   // Encabezados
-  const headers = Array.from(table.querySelectorAll('thead th')).map(th => {
-    const txt = th.textContent.replace(/"/g, '""');
-    return `"${txt}"`;
-  });
+  const headers = Array.from(table.querySelectorAll('thead th'))
+      .map(th => escapeCsvCell(th.textContent));
   csv.push(headers.join(','));
   
   // Filas
   const rows = table.querySelectorAll('tbody tr');
   rows.forEach(row => {
-    const cols = Array.from(row.querySelectorAll('td')).map(td => {
-      const txt = td.textContent.replace(/"/g, '""');
-      return `"${txt}"`;
-    });
+    const cols = Array.from(row.querySelectorAll('td'))
+        .map(td => escapeCsvCell(td.textContent));
     csv.push(cols.join(','));
   });
   
-  const csvContent = csv.join('\n');
+  // Ensure UTF-8 BOM for Excel compatibility with special characters
+  const BOM = "\uFEFF"; 
+  const csvContent = BOM + csv.join('\n');
   
   if (copy) {
-    navigator.clipboard.writeText(csvContent).then(() => {
+    navigator.clipboard.writeText(csvContent.substring(1)) // Remove BOM for clipboard
+    .then(() => {
       alert('CSV copiado al portapapeles.');
-    }, () => {
-      alert('Error al copiar el CSV.');
+    }, (err) => {
+      alert('Error al copiar el CSV: ' + err);
+      console.error('Clipboard error:', err);
     });
   } else {
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = filename;
-    link.click();
-    URL.revokeObjectURL(link.href);
+    if (link.download !== undefined) { // Feature detection
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", filename);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url); // Clean up
+    } else {
+        // Fallback for older browsers (e.g., IE)
+        if (window.navigator.msSaveBlob) { // IE 10+
+            window.navigator.msSaveBlob(blob, filename);
+        } else {
+             alert("Tu navegador no soporta la descarga directa. Intenta copiar al portapapeles.");
+        }
+    }
   }
 }
 
@@ -397,73 +501,160 @@ document.getElementById('btnCopiar').addEventListener('click', () => exportCSV(t
 
 // Importar
 document.getElementById('btnImportar').addEventListener('click', () => {
-  document.getElementById('fileInput').click();
+  document.getElementById('fileInput').click(); // Trigger hidden file input
 });
 document.getElementById('fileInput').addEventListener('change', importarCSV);
+
+// Basic CSV parser (handles simple quoted fields)
+function parseCSVLine(line) {
+    const row = [];
+    let currentCell = '';
+    let inQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        if (char === '"') {
+            if (inQuotes && line[i + 1] === '"') { // Handle escaped quote ""
+                currentCell += '"';
+                i++; // Skip next quote
+            } else {
+                inQuotes = !inQuotes; // Toggle quote state
+            }
+        } else if (char === ',' && !inQuotes) {
+            row.push(currentCell.trim());
+            currentCell = ''; // Reset for next cell
+        } else {
+            currentCell += char;
+        }
+    }
+    row.push(currentCell.trim()); // Add the last cell
+    return row;
+}
 
 function importarCSV(event){
   const file = event.target.files[0];
   if (!file) return;
   
+  // Extract year and month from filename if possible (e.g., "2025-11.csv")
+  const match = file.name.match(/(\d{4})-(\d{2})\.csv/);
+  if (match) {
+      document.getElementById('anio').value = match[1];
+      document.getElementById('mes').value = match[2];
+  } else {
+      console.warn("El nombre del archivo CSV no sigue el formato AAAA-MM.csv. Año y mes no actualizados automáticamente.");
+      // No alertamos, solo avisamos en consola
+  }
+
   const reader = new FileReader();
   reader.onload = e => {
-    const txt = e.target.result;
-    const lines = txt.replace(/\r/g,'').split('\n').filter(l=>l.trim().length);
-    
-    // Parsear CSV (simple, asume que tus celdas no tienen comas dentro)
-    const data = lines.map(line => {
-        return line.split(',').map(cell => cell.trim().replace(/^"|"$/g, '').replace(/""/g, '"'));
-    });
+    try { // Add try...catch for parsing errors
+        const txt = e.target.result;
+        // Split lines, handling potential different line endings, filter empty lines
+        const lines = txt.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n').filter(l => l.trim().length > 0);
+        
+        if (lines.length < 2) {
+          alert("CSV inválido o vacío (necesita cabecera y al menos una fila de datos).");
+          return;
+        }
 
-    if (data.length < 2) {
-      alert("CSV inválido o vacío.");
-      return;
-    }
+        const data = lines.map(parseCSVLine); // Use the improved parser
 
-    // Regenerar tabla basada en el CSV
-    const anio = document.getElementById('anio').value;
-    const mesNum = parseInt(document.getElementById('mes').value, 10);
-    const numDias = getDaysInMonth(anio, mesNum);
-    const mesNombre = MESES[mesNum-1];
-    document.getElementById('tituloTabla').textContent = `Cuadrante · ${mesNombre} ${anio} (Importado)`;
+        const headerRow = data[0];
+        // Basic validation: Check if first header is roughly 'Profesional'
+        if (!headerRow[0] || !headerRow[0].toLowerCase().includes('profesional')) {
+             console.warn("La primera columna del CSV no parece ser 'Profesional'. Importando de todas formas.");
+        }
+        const numDiasCsv = headerRow.length - 2; // Subtract 'Profesional' and 'Obs.' columns
 
-    const thead = document.getElementById('thead');
-    const tbody = document.getElementById('tbody');
-    thead.innerHTML = '';
-    tbody.innerHTML = '';
+        // Update table title
+        const anio = document.getElementById('anio').value;
+        const mesSelect = document.getElementById('mes');
+        const mesNombre = mesSelect.options[mesSelect.selectedIndex].text.split(' - ')[1];
+        document.getElementById('tituloTabla').textContent = `Cuadrante · ${mesNombre} ${anio} (Importado)`;
 
-    // Cabecera desde CSV
-    const trHead = document.createElement('tr');
-    data[0].forEach(cell => trHead.innerHTML += `<th>${cell}</th>`);
-    thead.appendChild(trHead);
+        const thead = document.getElementById('thead');
+        const tbody = document.getElementById('tbody');
+        thead.innerHTML = '';
+        tbody.innerHTML = '';
 
-    // Cuerpo desde CSV
-    for(let i=1; i<data.length; i++){
-      const r = data[i];
-      if (!r || r.length === 0) continue;
-      
-      const tr = document.createElement('tr');
-      tr.innerHTML = `<td>${r[0] || ''}</td>`; // Nombre
-      
-      for(let d=1; d<=numDias; d++){
-        const td = document.createElement('td');
-        td.contentEditable = true;
-        td.textContent = r[d] || '';
-        tint(td); // Colorear
-        tr.appendChild(td);
-      }
-      
-      const tdObs = document.createElement('td'); // Obs.
-      tdObs.contentEditable = true;
-      tdObs.textContent = r[numDias+1] || '';
-      tr.appendChild(tdObs);
-      
-      tbody.appendChild(tr);
+        // Build Header from CSV
+        const trHead = document.createElement('tr');
+        headerRow.forEach((cellText, index) => {
+            const th = document.createElement('th');
+            th.textContent = cellText;
+            if (index === 0) th.style.width = '140px'; // Keep first column width consistent
+            // Optionally add weekend styling based on header text if needed
+            trHead.appendChild(th);
+        });
+        thead.appendChild(trHead);
+
+        // Build Body from CSV
+        const profesionalesImportados = []; // To update the textarea later
+        for(let i=1; i<data.length; i++){
+          const r = data[i];
+          if (!r || r.length === 0 || !r[0]) continue; // Skip empty rows or rows without a name
+          
+          const nombre = r[0];
+          profesionalesImportados.push(nombre);
+
+          const tr = document.createElement('tr');
+          const tdNombre = document.createElement('td');
+          tdNombre.textContent = nombre;
+          tr.appendChild(tdNombre);
+          
+          // Fill day cells, respecting the number of columns in the CSV header
+          for(let d=1; d<=numDiasCsv; d++){
+            const tdDia = document.createElement('td');
+            tdDia.contentEditable = true;
+            tdDia.textContent = r[d] !== undefined ? r[d] : ''; // Use data from CSV, default to empty
+            // tint(tdDia); // Apply initial color -> Moved to tintTable() call below
+            tr.appendChild(tdDia);
+          }
+          
+          // Add Obs cell (last column)
+          const tdObs = document.createElement('td');
+          tdObs.contentEditable = true;
+          // Ensure we don't read beyond the array bounds
+          tdObs.textContent = r[numDiasCsv + 1] !== undefined ? r[numDiasCsv + 1] : ''; 
+          tr.appendChild(tdObs);
+          
+          tbody.appendChild(tr);
+        }
+        // Update the professionals textarea with names from the imported CSV
+        document.getElementById('profesionales').value = profesionalesImportados.join('\n');
+        
+        // Apply tinting to the whole table after importing
+        tintTable();
+
+    } catch (parseError) {
+        alert("Error al procesar el archivo CSV. Comprueba el formato.\n" + parseError.message);
+        console.error("CSV Parse Error:", parseError);
     }
   };
-  reader.readAsText(file);
-  event.target.value = null; // Reset input
+  reader.onerror = (e) => {
+      alert("Error al leer el archivo CSV.");
+      console.error("FileReader error:", e);
+  };
+  reader.readAsText(file, 'UTF-8'); // Specify encoding if known, UTF-8 is common
+  event.target.value = null; // Reset input so the same file can be loaded again
 }
+
+// Set current month/year on load
+document.addEventListener('DOMContentLoaded', () => {
+    const now = new Date();
+    // Only set if not already set (e.g., by browser remembering form values)
+    if (!document.getElementById('anio').value) {
+        document.getElementById('anio').value = now.getFullYear();
+    }
+     if (!document.getElementById('mes').value || document.getElementById('mes').selectedIndex === -1) {
+        document.getElementById('mes').value = String(now.getMonth() + 1).padStart(2, '0');
+     }
+    // Optionally trigger 'generar' automatically if professionals are loaded AND table is empty
+    if (document.getElementById('profesionales').value.trim() && !document.getElementById('tbody').hasChildNodes()) {
+       // Check if professionals list has content AND tbody is empty
+       // generar(); // Decided against auto-generating on load, user clicks button
+    }
+});
+
 
 </script>
 </body>
