@@ -52,18 +52,18 @@ tfoot td{font-weight:800;background:#fafcff}
 .btn.graf { background: #1e88e5; color: #fff; border-color: #1e88e5; font-weight: 700; }
 .btn.graf:hover { background: #1565c0; border-color: #1565c0; }
 .btn.parametro { background: #1e88e5; color: #fff; border-color: #1e88e5; font-weight: 700; }
-.btn.graf:hover { background: #1565c0; border-color: #1565c0; }
+/* .btn.graf:hover { background: #1565c0; border-color: #1565c0; } */ /* Removed duplicate */
 .badge-tip{display:inline-flex;gap:.35rem;align-items:center;border:1px solid #e6eef8;background:#f5f8ff;color:#0a4c84;border-radius:999px;padding:.25rem .55rem;font-size:.85rem}
 
 /* ===== Códigos ===== */
 .code{display:inline-block;min-width:2ch;text-align:center;border-radius:6px;border:1px solid #e6eef8;padding:.05rem .3rem;background:#f8fafc}
 .code.M{background:#E6F4EA}.code.T{background:#E6ECFF}.code.G{background:#EAF7FF}.code.O{background:#FFF0F5}
 .code.F{background:#FFF5E6}.code.FO{background:#FFECEC}.code.R{background:#E0F7FA}
-.code.LD{background:#F0FDF4}.code.FR{background:#F3E8FF}.code.V{background:#FDF4FF}
+.code.LD{background:#F0FDF4}.code.FR{background:#F3E8FF}.code.V{background:#FDF4FF}.code.DOC { background: #EBF5FB; }
 .code.SD{background:#F5F7FA}.code.LS{background:#F5F7FA}.code.OT{background:#F2F2F2}
 .code.BL{background:#F2F2F2}.code.BM{background:#F2F2F2}.code.RD{background:#E6FFF8}
 
-/* === (NUEVO) ESTILOS PARA LDA Y VA === */
+/* === ESTILOS PARA LDA y VA (CON TRAMA) === */
 .code.LDA {
   background-color: #F0FDF4; /* Base de LD */
   background-image: linear-gradient(45deg, rgba(0,0,0,.07) 25%, transparent 25%, transparent 50%, rgba(0,0,0,.07) 50%, rgba(0,0,0,.07) 75%, transparent 75%, transparent);
@@ -74,7 +74,9 @@ tfoot td{font-weight:800;background:#fafcff}
   background-image: linear-gradient(45deg, rgba(0,0,0,.07) 25%, transparent 25%, transparent 50%, rgba(0,0,0,.07) 50%, rgba(0,0,0,.07) 75%, transparent 75%, transparent);
   background-size: 10px 10px;
 }
-/* === FIN NUEVO === */
+/* === NUEVO ESTILO PARA CON === */
+.code.CON { background: #E0E0E0; } /* Gris claro */
+
 
 .subtitle{ margin:.2rem 0 0; color:#5b6b85; font-weight:600; }
 .print-only{ display:none; }
@@ -86,13 +88,14 @@ tfoot td{font-weight:800;background:#fafcff}
 @media print{
   @page{ size: A4 landscape; margin: 8mm; }
   html, body{ width:100%; margin:0 !important; padding:0 !important; background:#fff !important; }
-  .sidebar, .masthead, .filtros, .actions, .small-note { display:none !important; }
+  .sidebar, .masthead, .filtros, .actions, .small-note, .btn-back { display:none !important; }
   .hero{ display:none !important; }
   .main-content{ max-width:none !important; width:100% !important; padding:0 !important; margin:0 !important; }
   .panel-personal{ border:none; box-shadow:none; padding:0 !important; margin:0 !important; }
   .table-wrap{ border:none; box-shadow:none; overflow:visible !important; }
   table{ font-size:12px !important; }
   th, td{ padding:.3rem .35rem !important; }
+  th.sticky, td.sticky { position: static !important; background: #fff !important; } /* Ensure background in print */
   .print-only{ display:block !important; }
   .tabs .tab-head{ display:none !important; }
   [role="tabpanel"]{ display:none !important; }
@@ -106,7 +109,7 @@ tfoot td{font-weight:800;background:#fafcff}
   box-shadow:0 2px 10px rgba(0,0,0,.08);
 }
 .btn-back:hover{ background:#f7f9fc; }
-@media print{ .btn-back{ display:none !important; } }
+
 </style>
 </head>
 <body>
@@ -251,8 +254,12 @@ tfoot td{font-weight:800;background:#fafcff}
                 <th class="sticky sortable" data-k="nombre">Profesional</th>
                 <th class="sortable" data-k="total">Total</th>
                 <th><span class="code LD">LD</span></th>
-                <th><span class="code LDA">LDA</span></th> <th><span class="code V">V</span></th>
-                <th><span class="code VA">VA</span></th>   <th><span class="code FR">FR</span></th>
+                <th><span class="code LDA">LDA</span></th>
+                <th><span class="code V">V</span></th>
+                <th><span class="code VA">VA</span></th>
+                <th><span class="code FR">FR</span></th>
+                <th><span class="code DOC">DOC</span></th>
+                <th><span class="code CON">CON</span></th>
                 <th><span class="code SD">SD</span></th>
                 <th><span class="code LS">LS</span></th>
                 <th><span class="code OT">OT</span></th>
@@ -267,8 +274,12 @@ tfoot td{font-weight:800;background:#fafcff}
                 <td class="sticky">Totales</td>
                 <td id="otr-total"></td>
                 <td id="otr-LD"></td>
-                <td id="otr-LDA"></td> <td id="otr-V"></td>
-                <td id="otr-VA"></td>   <td id="otr-FR"></td>
+                <td id="otr-LDA"></td>
+                <td id="otr-V"></td>
+                <td id="otr-VA"></td>
+                <td id="otr-FR"></td>
+                <td id="otr-DOC"></td>
+                <td id="otr-CON"></td>
                 <td id="otr-SD"></td>
                 <td id="otr-LS"></td>
                 <td id="otr-OT"></td>
@@ -295,7 +306,7 @@ tfoot td{font-weight:800;background:#fafcff}
 /* ===== Config ===== */
 const ASIST = ["M","T","G","O","F","FO","R"];
 /* (NUEVO) Constante OTROS MODIFICADA */
-const OTROS = ["LD", "LDA", "V", "VA", "FR", "SD", "LS", "OT", "BL", "BM", "RD"];
+const OTROS = ["LD", "LDA", "V", "VA", "FR", "DOC", "CON", "SD", "LS", "OT", "BL", "BM", "RD"]; // CON añadido
 const ALL_CODES = [...ASIST, ...OTROS];
 const HORAS = { M:8, T:8, G:17, O:17, F:24, FO:24, R:12 };   // turnos→horas
 
@@ -305,87 +316,151 @@ const mesesShort = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct",
 const $  = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
 
-/* ... (Código de Año y meses, Tabs, Utilidades - sin cambios) ... */
+/* ===== State ===== */
+let baseAsist = [];
+let baseOtros = [];
+let currentSort = { table: null, key: 'total', dir: -1 }; // State for sorting
+
+/* ===== UI Setup ===== */
 const hoy = new Date();
-$("#anio").value = hoy.getFullYear();
+if (!$("#anio").value) $("#anio").value = hoy.getFullYear(); // Set year only if empty
+
 function buildMonthsGrid(){
   const cont = $("#meses");
   cont.innerHTML = "";
   mesesN.forEach((n,i)=>{
     const b = document.createElement("button");
-    b.type="button"; b.className="month-btn active";
+    b.type="button"; b.className="month-btn active"; // Default to active
     b.dataset.m = String(i+1).padStart(2,"0");
     b.textContent = n;
-    b.onclick = ()=> b.classList.toggle("active");
+    b.onclick = ()=> {
+        b.classList.toggle("active");
+        // Optionally trigger recalculation on month toggle, or wait for Calculate button
+        // calcular();
+    };
     cont.appendChild(b);
   });
 }
 buildMonthsGrid();
+
 function selectAllMonths(){ $$(".month-btn").forEach(b=>b.classList.add("active")); }
 function selectNone(){     $$(".month-btn").forEach(b=>b.classList.remove("active")); }
 function invertMonths(){   $$(".month-btn").forEach(b=>b.classList.toggle("active")); }
 function selectUntilNow(){
   const a = parseInt($("#anio").value,10);
-  const mNow = (a===hoy.getFullYear()) ? hoy.getMonth()+1 : 12;
-  $$(".month-btn").forEach((b,i)=>{ b.classList.toggle("active", i<mNow); });
+  const mNow = (a===hoy.getFullYear()) ? hoy.getMonth()+1 : 12; // Use 12 if year is not current
+  $$(".month-btn").forEach((b,i)=>{ b.classList.toggle("active", i < mNow); });
 }
 $("#selTodo").onclick = selectAllMonths;
 $("#selNinguno").onclick = selectNone;
 $("#selInvertir").onclick = invertMonths;
 $("#selHastaHoy").onclick = selectUntilNow;
+
 function selectTab(id){
-  $$("#panel-asist, #panel-otros").forEach(p=>p.classList.remove("active"));
-  $$("#tab-asist, #tab-otros").forEach(b=>b.setAttribute("aria-selected","false"));
-  $("#panel-"+id).classList.add("active");
-  $("#tab-"+id).setAttribute("aria-selected","true");
+  $$("#panel-asist, #panel-otros").forEach(p => p.classList.toggle("active", p.id === `panel-${id}`));
+  $$("#tab-asist, #tab-otros").forEach(b => b.setAttribute("aria-selected", b.id === `tab-${id}`));
 }
 $("#tab-asist").onclick = ()=>selectTab("asist");
 $("#tab-otros").onclick = ()=>selectTab("otros");
-function rangoMeses(mSel){
-  if(!mSel.length) return "";
-  const idx = mSel.map(m=>parseInt(m,10)-1).sort((a,b)=>a-b);
-  const consecutivos = idx.every((v,i,a)=> i===0 || v===a[i-1]+1 );
-  if(consecutivos){
-    const first = mesesShort[idx[0]], last = mesesShort[idx[idx.length-1]];
-    return (first===last)? first : `${first}–${last}`;
-  }
-  const nombres = idx.map(i=>mesesShort[i]);
-  return (nombres.length>8) ? `${nombres.slice(0,8).join(", ")}…` : nombres.join(", ");
-}
-function fechaHoraAhora(){ return new Date().toLocaleString('es-ES',{hour12:false}); }
-function parseCSV(text){
-  const lines = text.replace(/\uFEFF/g,'').replace(/\r/g,"").split("\n").filter(l=>l.trim().length);
-  return lines.map(line=>{
-    const row=[]; let cur=""; let inQ=false;
-    for(let i=0;i<line.length;i++){
-      const ch=line[i], nx=line[i+1];
-      if(ch=='"'){ if(inQ && nx=='"'){ cur+='"'; i++; } else { inQ=!inQ; } }
-      else if(ch=="," && !inQ){ row.push(cur); cur=""; }
-      else cur+=ch;
-    }
-    row.push(cur); return row;
-  });
-}
-const tokenizar = v => v.toUpperCase().trim().split(/[ \\/+\-]+/).filter(Boolean);
 
-/* ... (Carga y agregación - sin cambios, ya usa ALL_CODES) ... */
+
+/* ===== Utilities ===== */
+function rangoMeses(mSel){
+  if(!mSel || mSel.length === 0) return "Ningún mes";
+  const idx = mSel.map(m=>parseInt(m,10)-1).sort((a,b)=>a-b);
+  if (idx.length === 1) return mesesShort[idx[0]];
+  // Check for consecutive sequence
+  let isConsecutive = true;
+  for (let i = 1; i < idx.length; i++) {
+      if (idx[i] !== idx[i-1] + 1) {
+          isConsecutive = false;
+          break;
+      }
+  }
+  if(isConsecutive){
+    const first = mesesShort[idx[0]], last = mesesShort[idx[idx.length-1]];
+    return `${first}–${last}`;
+  }
+  // Otherwise, list them, abbreviate if too many
+  const nombres = idx.map(i=>mesesShort[i]);
+  return (nombres.length > 6) ? `${nombres.slice(0, 3).join(", ")}…${nombres.slice(-3).join(", ")}` : nombres.join(", ");
+}
+
+function fechaHoraAhora(){ return new Date().toLocaleString('es-ES',{dateStyle: 'short', timeStyle: 'short', hour12:false}); }
+
+// Basic CSV parser (handles simple quoted fields) - repeated from editor, keep consistent
+function parseCSVLine(line) {
+    const row = [];
+    let currentCell = '';
+    let inQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        if (char === '"') {
+            if (inQuotes && line[i + 1] === '"') { currentCell += '"'; i++; }
+            else { inQuotes = !inQuotes; }
+        } else if (char === ',' && !inQuotes) {
+            row.push(currentCell.trim()); currentCell = '';
+        } else { currentCell += char; }
+    }
+    row.push(currentCell.trim());
+    return row;
+}
+function parseCSV(text){
+  // Remove BOM if present, handle line endings, filter empty lines
+  const lines = text.replace(/^\uFEFF/, '').replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n').filter(l=>l.trim().length > 0);
+  return lines.map(parseCSVLine);
+}
+const tokenizar = v => (v || '').toUpperCase().trim().split(/[ \\/+\-]+/).filter(Boolean); // Safety check for v
+
+
+/* ===== Data Loading and Processing ===== */
 async function cargarDatos(anio, meses){
   const acc = {}; // { nombre: {M:0,...} }
+  let basePath = null; // Detect base path once
+
   for(const m of meses){
+    // Try to determine base path on the first valid month
+    if (!basePath) {
+        const candidates = ['../data/cuadrantes', './data/cuadrantes']; // Prioritize one level up
+        for (const p of candidates) {
+            try {
+                const check = await fetch(`${p}/${anio}-${m}.csv?v=${Date.now()}`, { method: 'HEAD', cache: 'no-store' });
+                if (check.ok) {
+                    basePath = p;
+                    break;
+                }
+            } catch (_) { /* ignore fetch errors during detection */ }
+        }
+        if (!basePath) {
+             console.warn("Could not reliably determine CSV base path. Assuming '../data/cuadrantes'.");
+             basePath = '../data/cuadrantes'; // Default fallback
+        }
+    }
+
     try{
-      const r = await fetch(`../data/cuadrantes/${anio}-${m}.csv?v=${Date.now()}`, {cache:'no-store'});
-      if(!r.ok) continue;
+      const r = await fetch(`${basePath}/${anio}-${m}.csv?v=${Date.now()}`, {cache:'no-store'});
+      if(!r.ok) {
+          // console.warn(`CSV not found for ${anio}-${m} at ${basePath}`); // Less verbose logging
+          continue; // Skip this month if CSV not found
+      }
       const rows = parseCSV(await r.text());
-      const dmax = (rows[0]||[]).length - 2;
+      const header = rows[0] || [];
+      if (header.length < 3) continue; // Skip malformed
+      const dmax = header.length - 2;
+
       for(let i=1;i<rows.length;i++){
         const nombre = (rows[i][0]||"").trim(); if(!nombre) continue;
         acc[nombre] = acc[nombre] || Object.fromEntries(ALL_CODES.map(c=>[c,0]));
         for(let d=1; d<=dmax; d++){
-          tokenizar(rows[i][d]||"").forEach(t=>{ if(ALL_CODES.includes(t)) acc[nombre][t]++; });
+          if (rows[i][d] !== undefined) {
+              tokenizar(rows[i][d]).forEach(t=>{ if(ALL_CODES.includes(t)) acc[nombre][t]++; });
+          }
         }
       }
-    }catch(e){}
+    }catch(e){ console.error(`Error processing CSV for ${anio}-${m}:`, e); }
   }
+
+  // Separate into asist/otros arrays
   const asist=[], otros=[];
   for(const [nombre, obj] of Object.entries(acc)){
     const totalA = ASIST.reduce((s,c)=>s+(obj[c]||0),0);
@@ -396,51 +471,88 @@ async function cargarDatos(anio, meses){
   return { asist, otros };
 }
 
-/* ... (Render, Ordenable - sin cambios) ... */
+/* ===== Rendering and Sorting ===== */
 function renderTabla(tblId, data, cols, footIds, transform=null){
   const view = transform ? data.map(transform) : data;
   const tbody = document.querySelector(`#${tblId} tbody`);
-  tbody.innerHTML = view.length
+  if (!tbody) { console.error(`Table body not found for ${tblId}`); return; }
+
+  // Build HTML string for performance
+  let tableHTML = view.length
     ? view.map(r=>`<tr><td class="sticky">${r.nombre}</td>${cols.map(k=>`<td>${(r[k]||0).toLocaleString('es-ES')}</td>`).join("")}</tr>`).join("")
     : `<tr><td class="sticky" colspan="${cols.length+1}">Sin datos para el filtro seleccionado.</td></tr>`;
-  const totals = cols.reduce((o,k)=>{o[k]=view.reduce((s,x)=>s+(x[k]||0),0);return o;}, {});
-  for(const [k,id] of Object.entries(footIds)){ const el=document.getElementById(id); if(el) el.textContent = (totals[k]||0).toLocaleString('es-ES'); }
-}
-function makeSortable(tableId, initialKey='total'){
-  const tbl = document.getElementById(tableId);
-  let dir = -1; // descendente
-  let key = initialKey;
-  const head = tbl.tHead.rows[0];
-  const mapIdx = {};
-  Array.from(head.cells).forEach((th,i)=>{ if(th.dataset.k) mapIdx[th.dataset.k]=i+1; });
-  function cellVal(row, k){
-    if(k==='nombre') return row.cells[0].textContent;
-    const idx = mapIdx[k];
-    const txt = row.querySelector(`td:nth-child(${idx})`)?.textContent || '0';
-    return parseInt(txt.replace(/\./g,''),10) || 0;
+  tbody.innerHTML = tableHTML; // Single DOM update
+
+  // Calculate totals
+  const totals = {};
+  cols.forEach(k => { totals[k] = view.reduce((s, x) => s + (x[k] || 0), 0); });
+
+  // Update footer cells
+  for(const [k,id] of Object.entries(footIds)){
+      const el = document.getElementById(id);
+      if(el) { el.textContent = (totals[k]||0).toLocaleString('es-ES'); }
   }
-  function sort(){
-    const tbody = tbl.tBodies[0];
-    const rows = Array.from(tbody.querySelectorAll('tr'));
-    rows.sort((A,B)=>{
-      const a = cellVal(A,key), b = cellVal(B,key);
-      if(key==='nombre') return a.localeCompare(b,'es') * (dir===-1?-1:1);
-      return (b-a) * (dir===-1?1:-1);
-    });
-    rows.forEach(r=>tbody.appendChild(r));
-  }
-  tbl.querySelectorAll('th.sortable').forEach(th=>{
-    th.addEventListener('click', ()=>{
-      key = th.dataset.k;
-      dir = (dir===-1)?1:-1;
-      sort();
-    });
-  });
-  return { sort };
 }
 
-let baseAsist = [];
-let baseOtros = [];
+function applySorting(tableId, key, dir) {
+    const tbl = document.getElementById(tableId);
+    if (!tbl || !tbl.tBodies[0]) return;
+    const tbody = tbl.tBodies[0];
+    const rows = Array.from(tbody.rows);
+    const isNumeric = key !== 'nombre';
+
+    rows.sort((A, B) => {
+        const aText = A.cells[key === 'nombre' ? 0 : (ALL_CODES.indexOf(key) + (tableId === 'tablaAsist' ? ASIST : OTROS).indexOf(key) + 1)].textContent; // Adjust index based on table/key
+        const bText = B.cells[key === 'nombre' ? 0 : (ALL_CODES.indexOf(key) + (tableId === 'tablaAsist' ? ASIST : OTROS).indexOf(key) + 1)].textContent;
+
+        if (isNumeric) {
+            const aVal = parseInt(aText.replace(/\./g, ''), 10) || 0;
+            const bVal = parseInt(bText.replace(/\./g, ''), 10) || 0;
+            return (aVal - bVal) * dir; // dir is 1 for asc, -1 for desc
+        } else {
+            return aText.localeCompare(bText, 'es') * dir;
+        }
+    });
+
+    // Re-append rows in sorted order
+    rows.forEach(r => tbody.appendChild(r));
+
+    // Update sort indicators (optional)
+    tbl.querySelectorAll('th.sortable').forEach(th => {
+        th.classList.remove('sorted-asc', 'sorted-desc');
+        if (th.dataset.k === key) {
+            th.classList.add(dir === 1 ? 'sorted-asc' : 'sorted-desc');
+        }
+    });
+}
+
+
+function makeSortable(tableId){
+    const tbl = document.getElementById(tableId);
+    if (!tbl || !tbl.tHead) return; // Exit if table or header not found
+
+    tbl.querySelectorAll('th.sortable').forEach(th => {
+        th.addEventListener('click', () => {
+            const newKey = th.dataset.k;
+            let newDir;
+
+            if (currentSort.table !== tableId || currentSort.key !== newKey) {
+                // New column or different table, sort descending by default (or ascending for name)
+                newDir = (newKey === 'nombre') ? 1 : -1;
+            } else {
+                // Same column, toggle direction
+                newDir = currentSort.dir * -1;
+            }
+
+            currentSort = { table: tableId, key: newKey, dir: newDir };
+            applySorting(tableId, newKey, newDir); // Apply the actual sort
+        });
+    });
+     // Initial sort state if needed (e.g., sort by name initially)
+     // applySorting(tableId, currentSort.key, currentSort.dir);
+}
+
+
 function aHoras(row){
   const r = { nombre: row.nombre };
   let totalH = 0;
@@ -453,7 +565,7 @@ function aHoras(row){
   return r;
 }
 
-/* (NUEVO) pintarSegunVista MODIFICADA */
+/* pintarSegunVista MODIFICADA con CON */
 function pintarSegunVista(){
   const vista = (document.querySelector('input[name="vista"]:checked')?.value)||'turnos';
   const transform = (vista==='horas') ? aHoras : null;
@@ -463,59 +575,110 @@ function pintarSegunVista(){
     transform
   );
 
-  /* AÑADIDOS LDA y VA al objeto footIds */
   renderTabla("tablaOtros", baseOtros, ["total", ...OTROS],
-    { total:"otr-total", LD:"otr-LD", LDA:"otr-LDA", V:"otr-V", VA:"otr-VA", FR:"otr-FR", SD:"otr-SD", LS:"otr-LS", OT:"otr-OT", BL:"otr-BL", BM:"otr-BM", RD:"otr-RD" }
+    { total:"otr-total", LD:"otr-LD", LDA:"otr-LDA", V:"otr-V", VA:"otr-VA", FR:"otr-FR", DOC:"otr-DOC", CON:"otr-CON", SD:"otr-SD", LS:"otr-LS", OT:"otr-OT", BL:"otr-BL", BM:"otr-BM", RD:"otr-RD" }
   );
 
-  makeSortable("tablaAsist").sort();
-  makeSortable("tablaOtros").sort();
+  // Apply current sorting state after rendering
+  if (currentSort.table) {
+      applySorting(currentSort.table, currentSort.key, currentSort.dir);
+  } else {
+       // Default sort if no sort state exists yet (e.g., sort by name asc initially)
+       applySorting("tablaAsist", 'nombre', 1);
+       applySorting("tablaOtros", 'nombre', 1);
+       currentSort = { table: 'tablaAsist', key: 'nombre', dir: 1 }; // Set initial state
+  }
+
 }
 
-/* ... (Calcular, Eventos - sin cambios) ... */
+/* ===== Main Calculation Logic ===== */
 async function calcular(){
   const anio = parseInt($("#anio").value, 10);
   const mesesSel = $$(".month-btn.active").map(b=>b.dataset.m);
   if(!mesesSel.length){ alert("Selecciona al menos un mes."); return; }
   const rango = rangoMeses(mesesSel);
   $("#subtitulo").textContent = `Año ${anio} · ${rango} (${mesesSel.length} mes${mesesSel.length>1?'es':''})`;
+  // Update print headers
   document.getElementById('print-meta-right').textContent = fechaHoraAhora();
   document.getElementById('print-meta-below').textContent = `Año ${anio} · ${rango} (${mesesSel.length} mes${mesesSel.length>1?'es':''})`;
+
   const filtro = ($("#filtroNombre").value||"").trim().toLowerCase();
   const topN = parseInt($("#topN").value||"0",10);
-  let { asist, otros } = await cargarDatos(anio, mesesSel);
-  if(filtro){
-    const match = s => s.toLowerCase().includes(filtro);
-    asist = asist.filter(r=>match(r.nombre));
-    otros = otros.filter(r=>match(r.nombre));
+
+  // Show loading indicator
+  $("#tablaAsist tbody").innerHTML = `<tr><td colspan="${ASIST.length + 2}" class="sticky" style="text-align:center;">Cargando datos...</td></tr>`;
+  $("#tablaOtros tbody").innerHTML = `<tr><td colspan="${OTROS.length + 2}" class="sticky" style="text-align:center;">Cargando datos...</td></tr>`;
+
+  try {
+      let { asist, otros } = await cargarDatos(anio, mesesSel);
+
+      // Apply filters
+      if(filtro){
+        const match = s => s.nombre.toLowerCase().includes(filtro); // Filter by name property
+        asist = asist.filter(match);
+        otros = otros.filter(match);
+      }
+
+       // Sort by total descending to determine Top N
+       asist.sort((a,b)=> b.total - a.total);
+       otros.sort((a,b)=> b.total - a.total);
+
+      // Apply Top-N
+      if(topN > 0){
+          asist = asist.slice(0,topN);
+          // Filter 'otros' to only include names present in the top N 'asist'
+          const topNames = new Set(asist.map(r => r.nombre));
+          otros = otros.filter(r => topNames.has(r.nombre));
+      }
+
+      // Store filtered data
+      baseAsist = asist;
+      baseOtros = otros;
+
+      // Render tables (will apply current/default sort)
+      pintarSegunVista();
+
+  } catch (error) {
+      console.error("Error during calculation:", error);
+      $("#tablaAsist tbody").innerHTML = `<tr><td colspan="${ASIST.length + 2}" class="sticky" style="text-align:center;">Error al cargar datos.</td></tr>`;
+      $("#tablaOtros tbody").innerHTML = `<tr><td colspan="${OTROS.length + 2}" class="sticky" style="text-align:center;">Error al cargar datos.</td></tr>`;
   }
-  asist.sort((a,b)=> (b.total - a.total) || a.nombre.localeCompare(b.nombre,'es'));
-  otros.sort((a,b)=> (b.total - a.total) || a.nombre.localeCompare(b.nombre,'es'));
-  if(topN>0){ asist = asist.slice(0,topN); otros = otros.slice(0,topN); }
-  baseAsist = asist;
-  baseOtros = otros;
-  pintarSegunVista();
 }
+
+/* ===== Event Listeners ===== */
+// Recalculate when view (Turnos/Horas) changes
 $$('input[name="vista"]').forEach(r=>r.addEventListener('change', pintarSegunVista));
+
+// Print buttons
 document.getElementById('btnPDF').onclick = ()=>window.print();
 document.getElementById('btnImprimir').onclick = ()=>window.print();
-selectUntilNow();
-calcular();
+
+// Initial load: Select months up to now and calculate
+document.addEventListener('DOMContentLoaded', () => {
+    selectUntilNow();
+    makeSortable("tablaAsist"); // Initialize sorting listeners
+    makeSortable("tablaOtros");
+    calcular(); // Initial calculation on load
+});
+
+// Recalculate button
 document.getElementById('btnCalcular').addEventListener('click', calcular);
-document.getElementById('topN').addEventListener('change', calcular);
-document.getElementById('anio').addEventListener('change', () => { selectUntilNow(); });
+
+// Recalculate when Top-N or Filter changes (indirectly via Calculate button or Enter key)
+document.getElementById('topN').addEventListener('change', calcular); // Trigger calc on change
+document.getElementById('anio').addEventListener('change', () => {
+    selectUntilNow(); // Update month selection when year changes
+    calcular(); // Recalculate automatically when year changes
+});
 document.getElementById('filtroNombre').addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') { e.preventDefault(); calcular(); }
+  if (e.key === 'Enter') { e.preventDefault(); calcular(); } // Trigger calc on Enter
 });
- document.getElementById('btnparametro').addEventListener('click', ()=>{
-  window.location.href = './parametros.html';
-});
-  document.getElementById('btnGraficas').addEventListener('click', ()=>{
-  window.location.href = './graficas.html';
-});
-document.getElementById('btnVolver').addEventListener('click', ()=>{
-  window.location.href = '../index.html';
-});
+
+// Navigation buttons
+ document.getElementById('btnparametro').addEventListener('click', ()=>{ window.location.href = './parametros.html'; });
+ document.getElementById('btnGraficas').addEventListener('click', ()=>{ window.location.href = './graficas.html'; });
+ document.getElementById('btnVolver').addEventListener('click', ()=>{ window.location.href = '../index.html'; });
+
 </script>
 </body>
 </html>
