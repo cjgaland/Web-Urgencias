@@ -57,15 +57,15 @@ th,td{border:1px solid #eef2f7;text-align:center;padding:.3rem .4rem;white-space
 
 /* Turnos asistenciales */
 .shift-M{background:#E6F4EA}.shift-T{background:#E6ECFF}.shift-G{background:#EAF7FF}.shift-O{background:#FFF0F5}
-.shift-F{background:#FFF5E6}.shift-FO{background:#FFECEC}.shift-R{background:#E0F7FA}.shift-VA{background:#F0FFF4}
-.shift-CON{background:#FFF0F0}
+.shift-F{background:#FFF5E6}.shift-FO{background:#FFECEC}.shift-R{background:#E0F7FA}
+
 
 /* Turnos NO asistenciales */
 .shift-V{background:#FDF4FF}.shift-S{background:#F5F7FA;color:#99A3AD}.shift-LD{background:#F0FDF4}
 .shift-FR{background:#F3E8FF}.shift-OT{background:#F2F2F2}.shift-SD{background:#F8FAFF}
 .shift-LS{background:#F0F7FF}.shift-BL{background:#FFF0F0}.shift-BM{background:#FFF7FA}
-.shift-LDA{background:#FFF4E6}
-
+.shift-LDA{background:#FFF4E6}.shift-DOC{background:#EBF5FB}.shift-CON{background:#FFF0F0}
+.shift-VA{background:#F0FFF4}
 .muted{color:#6b7280}
 
 /* ===== Impresión / PDF ===== */
@@ -199,7 +199,8 @@ th,td{border:1px solid #eef2f7;text-align:center;padding:.3rem .4rem;white-space
     S:{nombre:'Saliente',clase:'shift-S',tipo:'no-asistencial'},
     LD:{nombre:'Libre disposición',clase:'shift-LD',tipo:'no-asistencial'},
     LDA:{nombre:'Libre disposición anual',clase:'shift-LDA',tipo:'no-asistencial'},
-    FR:{nombre:'Formación',clase:'shift-FR',tipo:'no-asistencial'},
+    FR:{nombre:'Formación (recibida)',clase:'shift-FR',tipo:'no-asistencial'},
+    DOC:{nombre:'Docencia (impartida)',clase:'shift-DOC',tipo:'no-asistencial'},
     CON:{nombre:'Congresos/Reunión/Simposio',clase:'shift-CON',tipo:'no-asistencial'},
     OT:{nombre:'Otros',clase:'shift-OT',tipo:'no-asistencial'},
     SD:{nombre:'Saliente diferido',clase:'shift-SD',tipo:'no-asistencial'},
