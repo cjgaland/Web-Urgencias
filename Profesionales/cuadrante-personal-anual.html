@@ -245,7 +245,7 @@ th,td{border:1px solid #eef2f7;text-align:center;padding:.3rem .4rem;white-space
   function daysInMonth(y,m){return new Date(y,m,0).getDate();}
 
   async function cargarMes(y,m){
-    const csvPath=`../../Cuadrantes/data/cuadrantes/${y}-${pad2(m)}.csv`;
+    const csvPath=`../Cuadrantes/data/cuadrantes/${y}-${pad2(m)}.csv`;
     try{
       const txt=await fetch(csvPath+'?v='+Date.now()).then(r=>r.ok?r.text():Promise.reject('no CSV'));
       const rows=parseCSV(txt);
