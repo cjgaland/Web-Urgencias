@@ -1,1223 +1,1766 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>SVP · Soporte Vital Pediátrico</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#ffffff;
-      --text:#0b0c0f;
-      --card:#0f1118;
-      --ink:#eef1f7;
-      --stroke:#23293a;
-      --blue:#0d6efd;
-      --blue2:#0b5ed7;
-      --red:#dc3545;
-      --red2:#b02a37;
-      --chip-blue:#10243c;
-      --chip-blue-b:#264a73;
-      --chip-red:#33151a;
-      --chip-red-b:#682a34;
-      --warn:#ffd23f;
-      --warn-dark:#c9a305;
-      --gap: clamp(6px,.9vw,12px);
-      --radius:12px;
-      --shadow:0 10px 30px rgba(0,0,0,.25);
-      --fs-xs: clamp(10px,.8vw,12px);
-      --fs-sm: clamp(11px,.95vw,13px);
-      --fs-md: clamp(13px,1.1vw,15px);
-      --fs-lg: clamp(16px,1.5vw,20px);
-      --h-ritmo: 120px;
-      --h-fin: 120px;
-      --row-gap: 18px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
-      font-family:Roboto,system-ui,-apple-system,Segoe UI,Ubuntu,"Helvetica Neue",Arial;
-      -webkit-text-size-adjust:100%;
-      overflow:auto;
-    }
-    /* Cabecera */
-    header{
-      display:grid;
-      grid-template-columns:auto 1fr auto;
-      align-items:center;
-      gap:10px;
-      padding:8px 12px;
-      border-bottom:1px solid #e6e9f0;
-      background:#fff;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      gap:.5rem;
-      cursor:pointer;
-      border:none;
-      border-radius:12px;
-      padding:8px 12px;
-      font-weight:800;
-      background:var(--red);
-      color:#fff;
-      font-size:var(--fs-sm);
-      box-shadow:var(--shadow);
-    }
-    .btn:hover{
-      background:var(--red2);
-    }
-    .center{
-      text-align:center;
-      line-height:1.1
-    }
-    .center .dt{
-      font-size:var(--fs-sm);
-      color:#000
-    }
-    .center .title{
-      margin-top:2px;
-      font-size:var(--fs-lg);
-      font-weight:800;
-      color:#000
-    }
-    .clock{
-      min-width:130px;
-      text-align:center;
-      color:#fff;
-      background:var(--red);
-      border-radius:12px;
-      padding:8px 12px;
-      font:800 18px/1 "Courier New",monospace;
-      box-shadow:var(--shadow);
-    }
-    /* ===== LAYOUT (3 columnas) ===== */
-    .main{
-      min-height: calc(100dvh - 58px);
-      height:auto;
-      padding: 8px 12px 96px; /* margen FAB + barra informe + alarmas */
-      display:grid;
-      gap: var(--row-gap);
-      grid-template-columns: 1.4fr 1fr 1fr;
-      grid-template-areas: 
-        "confirm confirm inicio"   /* Fila 1 */
-        "prep ritmo via"           /* Fila 2 */
-        "med med desf"             /* Fila 3 */
-        "fin brose recap";         /* Fila 4 - MODIFICADO: 3 columnas */
-      grid-auto-rows: auto;
-      align-content:start;
-    }
-    @supports not (height: 100dvh){
-      .main{ min-height: calc(100vh - 58px); }
-    }
-    /* Áreas */
-    #g-confirm{ grid-area:confirm; }
-    #g-inicio { grid-area:inicio; }
-    #g-prep { grid-area:prep; }
-    #g-ritmo { grid-area:ritmo; min-height:var(--h-ritmo); }
-    #g-via { grid-area:via; }
-    #g-med { grid-area:med; }
-    #g-desf { grid-area:desf; }
-    #g-fin { grid-area:fin; min-height:var(--h-fin); }
-    #g-brose { grid-area:brose; } /* NUEVA: Broselow separado */
-    #g-recap { grid-area:recap; } /* NUEVA: Recordatorio rápido separado */
-    
-    /* Tarjetas */
-    .group{
-      background:var(--card);
-      color:var(--ink);
-      border:1px solid var(--stroke);
-      border-radius:var(--radius);
-      padding:8px;
-      display:grid;
-      grid-template-rows:auto 1fr;
-      gap:6px;
-      box-shadow:var(--shadow);
-    }
-    .group h3{
-      margin:0;
-      font-size:var(--fs-md);
-      font-weight:800;
-    }
-    .row{
-      display:grid;
-      grid-auto-flow:column;
-      grid-auto-columns:1fr;
-      gap: var(--gap);
-    }
-    .item{
-      background:linear-gradient(180deg,#121521,#0e1118 60%);
-      border:1px solid var(--stroke);
-      border-radius:10px;
-      padding:8px;
-      display:grid;
-      grid-template-rows:auto auto;
-      gap:6px;
-      min-width:0;
-      min-height:92px;
-    }
-    .top{
-      display:flex;
-      align-items:center;
-      gap:6px;
-      font-size:var(--fs-sm)
-    }
-    .top input[type="checkbox"]{
-      width:18px;
-      height:18px;
-      cursor:pointer;
-    }
-    .top label{
-      cursor:pointer;
-      font-weight:700;
-      color:#fff;
-    }
-    .delta{
-      justify-self:start;
-      font:800 14px/1 "Courier New",monospace;
-      background:#0b0d14;
-      border:1px solid #242a39;
-      border-radius:8px;
-      padding:4px 8px;
-      color:#e8eefb;
-    }
-    /* Ritmo en una línea con iconos */
-    .ritmo-inline{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: var(--gap);
-    }
-    .ritmo-inline .chips{
-      display:flex;
-      align-items:center;
-      gap: 6px;
-      flex-wrap:nowrap;
-    }
-    .ritmo-inline .chips i{
-      color:#fff;
-      opacity:.85;
-    }
-    .r-red {
-      background:var(--chip-red);
-      border-color:var(--chip-red-b);
-      color:#fff;
-    }
-    .r-blue {
-      background:var(--chip-blue);
-      border-color:var(--chip-blue-b);
-      color:#fff;
-    }
-    .ritmo-log{
-      font-size:var(--fs-xs);
-      line-height:1.25;
-      max-height:64px;
-      overflow:auto;
-      margin-top:4px;
-    }
-    /* Controles comunes */
-    .slider{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      font-size:var(--fs-xs)
-    }
-    .slider input[type="range"]{
-      width:120px;
-    }
-    .energy{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      font-size:var(--fs-xs)
-    }
-    .energy input{
-      width:86px;
-      background:#0b0d14;
-      color:#e8eefb;
-      border:1px solid #283149;
-      border-radius:8px;
-      padding:3px 6px;
-    }
-    .select{
-      width:100%;
-      background:#0b0d14;
-      color:#e8eefb;
-      border:1px solid #283149;
-      border-radius:8px;
-      padding:4px 6px;
-    }
-    /* Chips Broselow (oscuros) */
-    .chips-wrap{
-      display:flex;
-      flex-wrap:wrap;
-      gap:6px;
-    }
-    .chip{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid #2a3146;
-      background:#0f1320;
-      color:#e7edff;
-      font-size:var(--fs-xs);
-      cursor:pointer;
-    }
-    .chip .sw{
-      width:18px;
-      height:10px;
-      border-radius:999px;
-      border:1px solid rgba(0,0,0,.25)
-    }
-    .chip.active{
-      outline:2px solid #e7edff;
-      outline-offset:2px
-    }
-    .small-note{
-      font-size:var(--fs-xs);
-      color:#aeb7cc
-    }
-    /* AVISOS: borde gordo + tinte + parpadeo */
-    .warn-strong{
-      outline:4px solid var(--warn);
-      box-shadow: 0 0 0 6px rgba(255,210,63,.30), inset 0 0 0 9999px rgba(255,210,63,.10), var(--shadow);
-      border-color: var(--warn-dark);
-    }
-    @keyframes twinkleStrong{
-      0%{ box-shadow: 0 0 0 6px rgba(255,210,63,.45), inset 0 0 0 9999px rgba(255,210,63,.18), var(--shadow); }
-      100%{ box-shadow: 0 0 0 0 rgba(255,210,63,0), inset 0 0 0 9999px rgba(255,210,63,.06), var(--shadow); }
-    }
-    .blink-strong{
-      animation: twinkleStrong 900ms infinite alternate;
-    }
-    /* Historiales */
-    .inline-list{
-      font-size:var(--fs-xs);
-      line-height:1.3;
-      max-height:96px;
-      overflow:auto;
-      padding-right:2px;
-    }
-    .inline-list span{
-      display:block;
-      white-space:nowrap;
-    }
-    /* Medicación (6 huecos) */
-    .med-grid{
-      display:grid;
-      grid-template-columns: repeat(6, minmax(160px,1fr));
-      gap: var(--gap);
-    }
-    .med-item{
-      min-width:0;
-    }
-    /* Alarmas centradas abajo */
-    .alerts{
-      position:fixed;
-      left:50%;
-      transform:translateX(-50%);
-      bottom:64px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:center;
-      max-width:84vw;
-      z-index:80;
-    }
-    .alert{
-      background:var(--warn);
-      color:#111;
-      border:1px solid var(--warn-dark);
-      border-radius:999px;
-      padding:8px 12px;
-      font-size:var(--fs-sm);
-      display:flex;
-      gap:8px;
-      align-items:center;
-      box-shadow:0 6px 18px rgba(0,0,0,.25);
-    }
-    .alert i{ color:#111 }
-    .alert .t{
-      font-family:"Courier New",monospace;
-      font-weight:800;
-    }
-    /* Barra de informe + PDF */
-    .reportbar{
-      position:fixed;
-      right:12px;
-      bottom:12px;
-      display:flex;
-      gap:8px;
-      z-index:90;
-    }
-    .reportbar .btn{
-      background:var(--blue);
-    }
-    .reportbar .btn:hover{
-      background:var(--blue2);
-    }
-    /* FABs horizontales */
-    .fabs{
-      position:fixed;
-      left:12px;
-      bottom:12px;
-      display:flex;
-      gap:8px;
-      z-index:95;
-    }
-    .fab{
-      width:44px;
-      height:44px;
-      border-radius:50%;
-      display:grid;
-      place-items:center;
-      text-decoration:none;
-      color:#fff;
-      border:1px solid #1e2433;
-      box-shadow:var(--shadow);
-      background:#151823;
-    }
-    .fab.home{
-      background:var(--blue);
-    }
-    .fab.crit{
-      background:var(--red);
-    }
-    .fab:hover{
-      filter:brightness(1.1);
-    }
-    /* Diálogo Informe */
-    dialog{
-      border:none;
-      border-radius:14px;
-      padding:0;
-      box-shadow:0 24px 60px rgba(0,0,0,.5);
-      width:min(980px,92vw);
-      color:#0b0c0f;
-    }
-    .dialog-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:10px 14px;
-      border-bottom:1px solid #e7eef7;
-      background:#f7f9ff;
-    }
-    .dialog-body{
-      padding:10px 14px 14px;
-      background:#fff;
-    }
-    .table{
-      width:100%;
-      border-collapse:separate;
-      border-spacing:0;
-      font-size:13px;
-    }
-    .table th,.table td{
-      border-bottom:1px solid #eef2f7;
-      padding:6px 8px;
-      text-align:left;
-      white-space:nowrap;
-    }
-    .dialog-actions{
-      display:flex;
-      justify-content:flex-end;
-      gap:8px;
-      padding:0 14px 12px;
-      background:#fff;
-    }
-    .btn-ghost{
-      background:#fff;
-      border:1px solid #e3eaf6;
-      color:#0b0c0f;
-      font-weight:700;
-      border-radius:10px;
-      padding:8px 12px;
-    }
-    /* Recordatorio rápido */
-    #recap{
-      background:#0f1118;
-      color:#cfd8ea;
-      border:1px solid #23293a;
-      border-radius:10px;
-      padding:8px 10px;
-      font-size:var(--fs-xs);
-    }
-    #recap h4{
-      margin:.2rem 0 .4rem;
-      font-size:var(--fs-sm);
-      color:#fff
-    }
-    /* Modo tablet apilado (opcional) */
-    @media (max-width: 1100px){
-      .main{
-        grid-template-columns: 1fr;
-        grid-template-areas: 
-          "confirm"
-          "inicio"
-          "prep"
-          "ritmo"
-          "via"
-          "med"
-          "desf"
-          "fin"
-          "brose"
-          "recap";
-      }
-      .med-grid{
-        grid-template-columns: repeat(2, minmax(160px,1fr));
-      }
-    }
-    @media print{
-      header, .fabs, .alerts, .reportbar { display:none !important; }
-      body{ background:#fff; color:#000 }
-    }
-    /* Distribución vertical agradable en pantallas grandes */
-    @media (min-width: 1200px) and (min-height: 800px){
-      .main{
-        align-content: space-between;
-        gap: clamp(14px, 1.6vh, 28px);
-      }
-      #g-confirm, #g-inicio{ min-height: 140px; }
-      #g-prep, #g-ritmo, #g-via{ min-height: 150px; }
-      #g-med, #g-desf{ min-height: 230px; }
-      #g-fin, #g-brose, #g-recap{ min-height: 130px; }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SVP · Soporte Vital Pediátrico</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#f0f0f0; --text:#ececec;
+  --card: #1f2436;
+  --item-bg:#0f1118; --item-ink:#eef1f7; --item-stroke:#23293a;
+  --blue:#003a8e; --blue2:#044fbc;
+  --red:#dc3545;  --red2:#b02a37;
+  --orange:#613109; --orange2:#e65c00;
+  --green:#198754; --green2:#157347;
+  --purple:#6f42c1; --purple2:#5a2d9c;
+  --cyan:#0dcaf0; --cyan2:#0baccc;
+  --chip-blue:#10243c; --chip-blue-b:#264a73;
+  --chip-red:#33151a;  --chip-red-b:#682a34;
+  --chip-orange:#3d2a14; --chip-orange-b:#7a5528;
+  --chip-green:#0f2a1c; --chip-green-b:#1e5534;
+  --chip-purple:#2a1a3d; --chip-purple-b:#54348b;
+  --warn:#ffd23f; --warn-dark:#c9a305;
+
+  --gap: clamp(6px,.9vw,12px);
+  --radius:12px; --shadow:0 10px 30px rgba(0,0,0,.15);
+
+  --fs-xs: clamp(14px, 1.1vw, 16px);
+  --fs-sm: clamp(15px, 1.2vw, 18px);
+  --fs-md: clamp(16px, 1.4vw, 22px);
+  --fs-lg: clamp(20px, 1.8vw, 28px);
+
+  --row-gap: 4px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:Roboto,system-ui,-apple-system,Segoe UI,Ubuntu,"Helvetica Neue",Arial;
+  -webkit-text-size-adjust:100%;
+  overflow:hidden;
+}
+
+/* Cabecera */
+header{
+  display:grid; grid-template-columns: 1fr auto 1fr; align-items:center;
+  gap:10px; padding:8px 12px; border-bottom:1px solid #d8dde6; background:#fff; height: 70px;
+}
+.header-left, .header-right { display: flex; align-items: center; gap: 8px; }
+.header-right { justify-content: flex-end; }
+.btn{
+  display:inline-flex; align-items:center; gap:.5rem; cursor:pointer; border:none;
+  border-radius:12px; padding:8px 12px; font-weight:800; background:var(--red);
+  color:#fff; font-size:var(--fs-sm); box-shadow:var(--shadow);
+}
+.btn:hover{ background:var(--red2); }
+.btn-blue { background: var(--blue); } .btn-blue:hover { background: var(--blue2); }
+.fab-header{
+  width:44px; height:44px; border-radius:50%; display:grid; place-items:center; text-decoration:none;
+  color:#fff; border:1px solid #1e2433; box-shadow:var(--shadow); background:#151823; transition: filter .2s;
+}
+.fab-header.home{ background:var(--blue); } .fab-header.crit{ background:var(--red); }
+.fab-header:hover{ filter:brightness(1.1); }
+.center{ text-align:center; line-height:1.1 }
+.center .dt{ font-size:var(--fs-sm); color:#000 }
+.center .title{ margin-top:2px; font-size:var(--fs-lg); font-weight:800; color:#000 }
+.clock{
+  min-width:100px; text-align:center; color:#fff; background:var(--red); border-radius:12px;
+  padding:8px 12px; font:800 18px/1 "Courier New",monospace; box-shadow:var(--shadow);
+}
+.weight-slider { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: var(--fs-sm); color: #000; margin-top: 2px;}
+.weight-slider input[type="range"] { width: 180px; cursor: pointer; }
+.weight-slider strong { min-width: 45px; text-align: right;}
+
+/* Layout Principal */
+.main{
+  height: calc(100dvh - 70px); padding: 8px 12px; display:grid; gap: var(--row-gap);
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    "confirm confirm confirm confirm"
+    "inicio inicio preparacion preparacion"
+    "ritmo ritmo via via"
+    "medicacion medicacion desfibrilacion alarmas"
+    "final brose recap recap";
+  grid-template-rows: 1.1fr 1.2fr 1.2fr 2fr 1fr;
+}
+
+/* Áreas */
+#g-confirm{ grid-area:confirm; }
+#g-inicio { grid-area:inicio; }
+#g-preparacion { grid-area:preparacion; }
+#g-ritmo  { grid-area:ritmo; }
+#g-via    { grid-area:via; }
+#g-medicacion { grid-area:medicacion; }
+#g-desfibrilacion { grid-area:desfibrilacion; }
+#g-final  { grid-area:final; }
+#g-brose { grid-area:brose; min-height: 100px; }
+#g-recordatorio { grid-area:recap; }
+#g-alarmas { grid-area: alarmas; }
+
+/* Tarjetas */
+.group{
+  background:var(--card); color:var(--text); border:1px solid #082d71; border-radius:var(--radius);
+  padding:8px; display:grid; grid-template-rows: auto minmax(0, 1fr); gap:6px;
+  box-shadow:var(--shadow); overflow: hidden;
+}
+.group h3{ margin:0; font-size:var(--fs-md); font-weight:800; color: var(--text); }
+.small-note { font-size: var(--fs-xs); color: #aeb7cc; }
+
+/* Filas internas */
+.row{ display:grid; grid-auto-flow:column; grid-auto-columns:1fr; gap: var(--gap); height: 100%; }
+#g-inicio .row { grid-template-columns: 1fr 1fr; grid-auto-flow: unset; }
+#g-preparacion .row { grid-template-columns: 1fr 1fr 1fr; grid-auto-flow: unset; }
+#g-via .row { grid-template-columns: 1fr 1fr 1fr; grid-auto-flow: unset; }
+#g-final .row { grid-template-columns: 1fr 1fr; grid-auto-flow: unset; }
+
+/* Items internos */
+.item{
+  background:var(--item-bg); color:var(--item-ink); border:1px solid var(--item-stroke);
+  border-radius:10px; padding:8px; display: flex; flex-direction: column; gap: 6px; min-width:0;
+}
+
+/* NUEVO: Estilo para la tarjeta de RCP reorganizada (igual que SVA) */
+#itm-rcp {
+  display: grid;
+  grid-template-columns: 1fr auto; /* Botón a la izquierda, controles a la derecha */
+  grid-template-rows: auto auto; /* Dos filas */
+  gap: 8px;
+  align-items: start;
+}
+
+/* El top (botón) ocupa toda la primera fila */
+#itm-rcp .top {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+/* Controles a la derecha del botón */
+#itm-rcp .slider {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 140px;
+}
+
+/* Countdown y delta en segunda fila, ocupando todo el ancho */
+#itm-rcp .cpr-countdown {
+  grid-column: 1 / 3;
+  grid-row: 2 / 3;
+  margin: 0;
+}
+
+#itm-rcp .delta {
+  grid-column: 1 / 3;
+  grid-row: 3 / 4;
+  align-self: end;
+}
+
+.cpr-countdown {
+  font-family: "Courier New", monospace; font-weight: 800; font-size: clamp(32px, 3vw, 48px);
+  color: var(--cyan); text-align: center; line-height: 1; margin: 4px 0; flex-shrink: 0; display: none;
+}
+.cpr-countdown.active { display: block; }
+.cpr-countdown.iot-active { color: var(--item-ink); }
+
+.top { flex-grow: 1; display: block; position: relative; width: 100%; z-index: 2; }
+.top input[type="checkbox"] { display: none; }
+.top label {
+  display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;
+  min-height: 60px; padding: 10px; border-radius: 8px; cursor: pointer;
+  font-weight: 700; font-size: var(--fs-md); color: #fff; background: #1a1e2d;
+  border: 1px solid var(--item-stroke); transition: background .2s, border-color .2s;
+}
+.top label:hover { background: #242a3e; border-color: #38425e; }
+.top input[type="checkbox"]:checked + label {
+  background: var(--chip-green); border-color: var(--chip-green-b);
+  box-shadow: 0 0 10px rgba(25, 135, 84, 0.5);
+}
+.delta{
+  justify-self:start; font:800 14px/1 "Courier New",monospace; background:#0b0d14;
+  border:1px solid #242a39; border-radius:8px; padding:4px 8px; color:#e8eefb; flex-shrink: 0;
+}
+
+/* Botones de reanimadores */
+.reanimadores { display: flex; gap: 8px; margin-top: 4px; }
+.reanimador-btn {
+  flex: 1; padding: 8px; border: 1px solid var(--item-stroke); border-radius: 8px;
+  background: var(--item-bg); color: var(--item-ink); cursor: pointer; text-align: center;
+  font-weight: 700; transition: all .2s;
+}
+.reanimador-btn.active {
+  background: var(--blue); border-color: var(--blue2); color: #fff;
+}
+
+/* Ritmo */
+.ritmo-inline { display:grid; grid-template-columns: 1fr 1fr; gap: var(--gap); height: 100%; }
+.ritmo-inline .chips { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); height: 100%; }
+.ritmo-inline input[type="radio"] { display: none; }
+.ritmo-inline label {
+  display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;
+  min-height: 60px; padding: 10px; border-radius: 8px; cursor: pointer;
+  font-weight: 700; font-size: var(--fs-md); color: #fff; transition: background .2s, border-color .2s;
+}
+.r-red { background: var(--chip-red); border: 1px solid var(--chip-red-b); }
+.r-blue { background: var(--chip-blue); border: 1px solid var(--chip-blue-b); }
+.r-red:hover { background: #5a2d34; } .r-blue:hover { background: #264a73; }
+.ritmo-inline input[type="radio"]:checked + label.r-red { background: var(--red); border-color: var(--red2); box-shadow: 0 0 10px rgba(220, 53, 69, 0.5); }
+.ritmo-inline input[type="radio"]:checked + label.r-blue { background: var(--blue); border-color: var(--blue2); box-shadow: 0 0 10px rgba(13, 110, 253, 0.5); }
+.ritmo-log{ font-size:var(--fs-xs); line-height:1.25; max-height:64px; overflow:auto; margin-top:4px; grid-column: 1 / -1; height: auto; }
+
+/* Controles */
+.slider{ display:flex; align-items:center; gap:8px; font-size:var(--fs-xs); flex-shrink: 0; }
+.slider input[type="range"]{ width:120px; cursor: pointer; }
+.energy{ display:flex; flex-wrap: wrap; align-items:center; gap: var(--gap); font-size:var(--fs-xs); flex-shrink: 0; }
+.energy input{ width:80px; background:#0b0d14; color:#e8eefb; border:1px solid #283149; border-radius:8px; padding:3px 6px; }
+.select{ width:100%; background:#0b0d14; color:#e8eefb; border:1px solid #283149; border-radius:8px; padding:4px 6px; font-size: var(--fs-xs); }
+
+/* AVISOS */
+.warn-strong{
+  outline:4px solid var(--warn);
+  box-shadow: 0 0 0 6px rgba(255,210,63,.30), inset 0 0 0 9999px rgba(255,210,63,.10), var(--shadow);
+  border-color: var(--warn-dark);
+}
+@keyframes twinkleStrong{
+  0%{ box-shadow: 0 0 0 6px rgba(255,210,63,.45), inset 0 0 0 9999px rgba(255,210,63,.18), var(--shadow); }
+  100%{ box-shadow: 0 0 0 0 rgba(255,210,63,0), inset 0 0 0 9999px rgba(255,210,63,.06), var(--shadow); }
+}
+.blink-strong{ animation: twinkleStrong 900ms infinite alternate; }
+
+/* Historiales */
+.inline-list{ font-size:var(--fs-xs); line-height:1.3; flex-grow: 1; min-height: 40px; max-height: 120px; overflow-y: auto; padding-right:2px; background: #0b0d14; border: 1px solid #242a39; border-radius: 8px; padding: 4px 8px; }
+.inline-list span{ display:block; white-space:nowrap; }
+
+/* Medicación */
+.med-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: var(--gap); height: 100%; }
+.med-item{ min-width:0; display: flex; flex-direction: column; gap: 6px; background:var(--item-bg); border:1px solid var(--item-stroke); border-radius:10px; padding:8px; }
+.med-item .inline-list { flex-grow: 1; flex-shrink: 1; overflow-y: auto; min-height: 40px; }
+.btn-ghost {
+  display: block; width: 100%; padding: 10px 8px; margin-top: 4px; font-size: var(--fs-sm); font-weight: 700;
+  background: #21283a; border: 1px solid #3a445d; color: #fff; border-radius: 8px; cursor: pointer;
+  text-align: center; flex-shrink: 0; transition: background .2s, border-color .2s;
+}
+.btn-ghost:hover { background: #2c364d; border-color: #505c7a; }
+
+/* MODIFICADO: Tarjeta Desfibrilación con slider de energía (10-360J, paso 20) */
+#g-desfibrilacion .item {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas */
+  gap: var(--gap);
+  align-items: start;
+}
+.def-col-left { 
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+#btn-def {
+  width: 100%;
+  font-size: var(--fs-md);
+  background-color: var(--orange);
+  border-color: var(--orange2);
+  flex-shrink: 0;
+}
+#btn-def:hover { background-color: var(--orange2); }
+.def-col-right {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0; 
+}
+.def-col-right .inline-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  min-height: 40px;
+}
+
+/* NUEVO: Estilo para el slider de energía en desfibrilación pediátrica */
+.def-energy-slider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.def-energy-slider input[type="range"] {
+  width: 100%;
+  height: 6px;
+  background: #1a1e2d;
+  border-radius: 3px;
+  outline: none;
+}
+
+.def-energy-slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: var(--orange);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.def-energy-slider input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: var(--orange);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+.def-energy-slider strong {
+  font-size: var(--fs-xs);
+  white-space: nowrap;
+  color: #fff;
+}
+
+.def-energy-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--fs-xs);
+  margin-top: 4px;
+}
+
+/* Alertas de Acción - MODIFICADO para múltiples mensajes */
+.action-alerts-container {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 99;
+  pointer-events: none;
+}
+
+.action-alert {
+  display: flex;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  box-shadow: var(--shadow);
+  align-items: center;
+  gap: 12px;
+  max-width: 90%;
+  animation: slideIn 0.3s ease-out;
+}
+.action-alert.red { background: var(--red); color: #fff; }
+.action-alert.orange { background: var(--orange); color: #fff; }
+.action-alert.warn { background: var(--warn); color: #111; }
+.action-alert.blue { background: var(--blue); color: #fff; }
+.action-alert.green { background: var(--green); color: #fff; }
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Alerta de Ventilación */
+.vent-alert {
+  display: none;
+  position: fixed;
+  top: 80px; 
+  left: 20px;
+  background: var(--cyan);
+  color: #000;
+  border: 2px solid var(--cyan2);
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  z-index: 100;
+  box-shadow: var(--shadow);
+  align-items: center;
+  gap: 12px;
+}
+
+/* Alerta de Recolocar Parches */
+.reposition-alert {
+  display: none;
+  position: fixed;
+  top: 80px; 
+  right: 20px;
+  background: var(--red);
+  color: #fff;
+  border: 2px solid var(--red2);
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  z-index: 100;
+  box-shadow: var(--shadow);
+  align-items: center;
+  gap: 12px;
+}
+
+#g-recordatorio { display: flex; }
+#recap{ background:var(--item-bg); color:var(--item-ink); border:1px solid var(--item-stroke); border-radius:10px; padding:8px 10px; font-size:var(--fs-xs); width: 100%; overflow-y: auto; }
+#recap h4{ margin:.2rem 0 .4rem; font-size:var(--fs-sm); color:#fff }
+
+/* REGLAS PARA DOS COLUMNAS */
+#recap ul {
+  column-count: 2;
+  column-gap: 1.5rem;
+  margin: .2rem 0 0;
+  padding-left: 1.1rem;
+}
+
+#recap ul li {
+  break-inside: avoid-column;
+  margin-bottom: 0.2rem;
+  line-height: 1;
+}
+
+#recap .small-text {
+   font-size: 80%;
+}
+
+/* Diálogo Informe */
+dialog{ border:none; border-radius:14px; padding:0; box-shadow:0 24px 60px rgba(0,0,0,.5); width:min(980px,92vw); color:#0b0c0f; }
+.dialog-head{ display:flex; justify-content:space-between; align-items:center; padding:10px 14px; border-bottom:1px solid #e7eef7; background:#f7f9ff; }
+.dialog-body{ padding:10px 14px 14px; background:#fff; max-height: 70vh; overflow-y: auto;}
+.table{ width:100%; border-collapse:separate; border-spacing:0; font-size:13px; }
+.table th,.table td{ border-bottom:1px solid #eef2f7; padding:6px 8px; text-align:left; white-space:nowrap; }
+.dialog-actions{ display:flex; justify-content:flex-end; gap:8px; padding:0 14px 12px; background:#fff; }
+.btn-ghost-light{ background:#fff; border:1px solid #e3eaf6; color:#0b0c0f; font-weight:700; border-radius:10px; padding:8px 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 0.35rem;}
+
+/* ESTILOS DE ALARMA */
+#alerts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  height: 100%;
+  min-height: 50px;
+}
+
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--chip-red); 
+  color: #fff; 
+  border: 1px solid var(--chip-red-b); 
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  box-shadow: var(--shadow);
+  animation: fadeIn .3s;
+  flex-shrink: 0;
+}
+.alert .t {
+  font-family: "Courier New", monospace;
+  font-size: var(--fs-md);
+  font-weight: 800;
+  color: var(--warn); 
+  margin-left: auto;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Tarjeta Broselow */
+#g-brose .row { grid-auto-flow: row; grid-auto-rows: auto; gap: 8px; align-content: start;}
+#g-brose .input-button-row { display: flex; align-items: center; gap: 6px; flex-wrap: nowrap; }
+#g-brose .input-button-row label { font-weight: 700; white-space: nowrap; flex-shrink: 0; }
+.chips-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 999px;
+  border: 1px solid var(--item-stroke); background: var(--item-bg); color: var(--item-ink);
+  font-size: 14px; cursor: pointer; transition: background .2s, outline .2s;
+}
+.chip:hover { background: #1a1e2d; }
+.chip .sw { width: 18px; height: 10px; border-radius: 999px; border: 1px solid rgba(0,0,0,.25); }
+.chip.active { outline: 2px solid var(--cyan); outline-offset: 1px; }
+
+#g-brose input[type="number"] {
+  width: 80px;
+  background:#0b0d14;
+  color:#e8eefb;
+  border:1px solid #283149;
+  border-radius:8px;
+  padding:4px 6px;
+  min-width: 60px;
+}
+
+#g-brose .btn-ghost {
+  padding: 6px 4px !important;
+  font-size: var(--fs-xs) !important;
+  margin-top: 0 !important;
+  flex-shrink: 0 !important;
+  width: auto !important;
+  min-width: unset !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+  border: 1px solid #3a445d;
+  color: #fff;
+  border-radius: 8px;
+  text-align: center;
+  transition: background .2s, border-color .2s;
+  background: #21283a;
+}
+
+#g-brose .btn-ghost:hover {
+   background: #2c364d;
+   border-color: #505c7a;
+}
+
+/* Tablet */
+@media (max-width: 1100px){
+  header { grid-template-columns: 1fr; height: auto; padding-bottom: 12px; }
+  .header-left, .header-right { justify-content: center; flex-wrap: wrap; }
+  .center { grid-row: 1; margin-bottom: 8px; }
+  .main{
+    grid-template-columns: 1fr;
+    grid-template-areas: "confirm" "inicio" "preparacion" "ritmo" "via" "medicacion" "desfibrilacion" "alarmas" "final" "brose" "recap";
+    height: auto; min-height: calc(100dvh - 120px); grid-template-rows: auto; padding-bottom: 20px;
+  }
+  body { overflow: auto; }
+  #g-inicio .row, #g-preparacion .row, #g-via .row, #g-final .row { grid-template-columns: 1fr; grid-auto-flow: row; }
+  .ritmo-inline { grid-template-columns: 1fr; }
+  #alerts { height: auto; overflow-y: visible; }
+  .med-grid { grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); }
+  #g-desfibrilacion .item { grid-template-columns: 1fr; }
+  
+  .action-alerts-container {
+    top: 120px;
+  }
+  
+  .vent-alert {
+    top: 120px;
+    left: 10px;
+    right: 10px;
+    max-width: calc(100% - 20px);
+  }
+  
+  .reposition-alert {
+    top: 120px;
+    right: 10px;
+    left: 10px;
+    max-width: calc(100% - 20px);
+  }
+}
+
+/* Print */
+@media print{
+  body > *:not(.print-container) { display: none !important; }
+  html, body { background:#fff !important; margin: 0 !important; padding: 0 !important; }
+  .print-container { display: block !important; }
+  @page { size: A4 portrait; margin: 15mm; }
+}
+  
+/* Selector de Reanimadores en el Header */
+.reanimadores-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 8px;
+  padding: 4px 8px;
+  background: var(--item-bg);
+  border: 1px solid var(--item-stroke);
+  border-radius: 8px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.radio-option:hover {
+  background: #1a1e2d;
+}
+
+.radio-option input[type="radio"] {
+  margin: 0;
+}
+
+.radio-label {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--item-ink);
+  white-space: nowrap;
+}
+
+.radio-option input[type="radio"]:checked + .radio-label {
+  color: var(--cyan);
+}
+  
+</style>
 </head>
 <body>
-  <header>
+
+<header>
+  <div class="header-left">
     <button class="btn" id="btnReset" title="Reiniciar"><i class="fa-solid fa-rotate"></i> Reiniciar</button>
-    <div class="center">
-      <div class="dt" id="fechaHora">--/--/---- --:--:--</div>
-      <div class="title">Soporte Vital Pediátrico</div>
-      <div class="slider" style="justify-content:center; margin-top:4px;">
-        <i class="fa-solid fa-child"></i> Peso: <input type="range" id="peso" min="3" max="70" step="1" value="20" style="width:220px">
-        <strong><span id="pesov">20</span> kg</strong>
-      </div>
+    <a class="fab-header home" href="../../../index.html" title="Inicio"><i class="fa-solid fa-house"></i></a>
+    <a class="fab-header crit" href="../../index.html" title="Críticos"><i class="fa-solid fa-procedures"></i></a>
+    
+    <div class="reanimadores-header">
+      <label class="radio-option">
+        <input type="radio" name="reanimadores" value="1" >
+        <span class="radio-label">1 Reanimador</span>
+      </label>
+      <label class="radio-option">
+        <input type="radio" name="reanimadores" value="2" checked>
+        <span class="radio-label">2 Reanimadores</span>
+      </label>
     </div>
-    <div class="clock" id="clock">00:00:00</div>
-  </header>
+  </div>
+  <div class="center">
+    <div class="dt" id="fechaHora">--/--/---- --:--:--</div>
+    <div class="title">Soporte Vital Pediátrico</div>
+    <div class="weight-slider">
+      <i class="fa-solid fa-child" aria-hidden="true"></i> Peso:
+      <input type="range" id="peso" min="3" max="70" step="1" value="20">
+      <strong><span id="pesov">20</span> kg</strong>
+    </div>
+  </div>
+  <div class="header-right">
+    <button class="btn btn-blue" id="btnInforme"><i class="fa-solid fa-file-lines"></i> Informe</button>
+    <button class="btn btn-blue" id="btnPDF"><i class="fa-solid fa-print"></i> Imprimir / PDF</button>
+    <div class="clock" id="clock">00:00</div>
+  </div>
+</header>
 
-  <main class="main">
-    <!-- Fila 1 -->
-    <section class="group" id="g-confirm">
-      <h3>Confirmar PCR <span class="small">· Δ desde inicio</span></h3>
-      <div class="row">
-        <div class="item" id="itm-inc"><div class="top"><input type="checkbox" id="cb-inc"><label for="cb-inc">Inconsciencia</label></div><div class="delta" id="tm-inc">00:00:00</div></div>
-        <div class="item" id="itm-resp"><div class="top"><input type="checkbox" id="cb-resp"><label for="cb-resp">Respiración anormal</label></div><div class="delta" id="tm-resp">00:00:00</div></div>
-        <div class="item" id="itm-pulso"><div class="top"><input type="checkbox" id="cb-pulso"><label for="cb-pulso">Sin pulso</label></div><div class="delta" id="tm-pulso">00:00:00</div></div>
+<main class="main">
+  <section class="group" id="g-confirm">
+    <h3>Confirmar PCR</h3>
+    <div class="row">
+      <div class="item" id="itm-inc"><div class="top"><input type="checkbox" id="cb-inc"><label for="cb-inc">Inconsciencia</label></div><div class="delta" id="tm-inc">00:00</div></div>
+      <div class="item" id="itm-resp"><div class="top"><input type="checkbox" id="cb-resp"><label for="cb-resp">Respiración anormal</label></div><div class="delta" id="tm-resp">00:00</div></div>
+      <div class="item" id="itm-pulso"><div class="top"><input type="checkbox" id="cb-pulso"><label for="cb-pulso">Sin pulso</label></div><div class="delta" id="tm-pulso">00:00</div></div>
+    </div>
+  </section>
+
+  <section class="group" id="g-inicio">
+  <h3>Inicio Reanimación Cardiopulmonar</h3>
+  <div class="row">
+    <div class="item" id="itm-rcp">
+      <div class="top"><input type="checkbox" id="cb-rcp"><label for="cb-rcp">Masaje cardíaco</label></div>
+      
+      <div class="slider">
+        <span style="font-size: 12px; color: #ccc;">Ritmo</span>
+        <input type="range" id="bpm" min="100" max="120" step="5" value="110" disabled>
+        <strong><span id="bpmv">110</span> lpm</strong>
       </div>
-    </section>
-
-    <section class="group" id="g-inicio">
-      <h3>Inicio PCR</h3>
-      <div class="row">
-        <div class="item" id="itm-rcp">
-          <div class="top"><input type="checkbox" id="cb-rcp"><label for="cb-rcp">Masaje cardíaco</label></div>
-          <div class="delta" id="tm-rcp">00:00:00</div>
-          <div class="slider"><span>Metrónomo</span> <input type="range" id="bpm" min="100" max="120" step="5" value="110" disabled> <strong><span id="bpmv">110</span> lpm</strong> </div>
-        </div>
-        <div class="item" id="itm-llamada"><div class="top"><input type="checkbox" id="cb-llamada"><label for="cb-llamada">Llamada 88</label></div><div class="delta" id="tm-llamada">00:00:00</div></div>
+      
+      <div class="cpr-countdown" id="cpr-count">--</div>
+      <div class="delta" id="tm-rcp">00:00</div>
+      
       </div>
-    </section>
+    <div class="item" id="itm-llamada"><div class="top"><input type="checkbox" id="cb-llamada"><label for="cb-llamada">Llamada 88</label></div><div class="delta" id="tm-llamada">00:00</div></div>
+  </div>
+</section>
 
-    <!-- Fila 2 -->
-    <section class="group" id="g-prep">
-      <h3>Preparación</h3>
-      <div class="row">
-        <div class="item" id="itm-via"><div class="top"><input type="checkbox" id="cb-via"><label for="cb-via">Vía / Muestras</label></div><div class="delta" id="tm-via">00:00:00</div></div>
-        <div class="item" id="itm-ox"><div class="top"><input type="checkbox" id="cb-ox"><label for="cb-ox">Oxígeno</label></div><div class="delta" id="tm-ox">00:00:00</div></div>
-        <div class="item" id="itm-monitor"><div class="top"><input type="checkbox" id="cb-monitor"><label for="cb-monitor">Monitor ECG</label></div><div class="delta" id="tm-monitor">00:00:00</div></div>
+  <section class="group" id="g-preparacion">
+    <h3>Preparación</h3>
+    <div class="row">
+      <div class="item" id="itm-via"><div class="top"><input type="checkbox" id="cb-via"><label for="cb-via">Vía / Muestras</label></div><div class="delta" id="tm-via">00:00</div></div>
+      <div class="item" id="itm-ox"><div class="top"><input type="checkbox" id="cb-ox"><label for="cb-ox">Oxígeno</label></div><div class="delta" id="tm-ox">00:00</div></div>
+      <div class="item" id="itm-monitor"><div class="top"><input type="checkbox" id="cb-monitor"><label for="cb-monitor">Monitor ECG</label></div><div class="delta" id="tm-monitor">00:00</div></div>
+    </div>
+  </section>
+
+  <section class="group" id="g-ritmo">
+    <h3>Ritmo</h3>
+    <div class="ritmo-inline">
+      <div class="chips"><label class="r-red"><input type="radio" name="ritmo" value="FV"> FV</label><label class="r-red"><input type="radio" name="ritmo" value="TVSP"> TVSP</label></div>
+      <div class="chips"><label class="r-blue"><input type="radio" name="ritmo" value="AESP"> AESP</label><label class="r-blue"><input type="radio" name="ritmo" value="Asistolia"> Asistolia</label></div>
+    </div>
+    <div class="delta" id="tm-ritmo">00:00</div>
+    <div class="ritmo-log" id="ritmo-list"></div>
+  </section>
+
+  <section class="group" id="g-via">
+    <h3>Vía aérea</h3>
+    <div class="row">
+      <div class="item" id="itm-mascarilla"><div class="top"><input type="checkbox" id="cb-mascarilla"><label for="cb-mascarilla">Mascarilla</label></div><div class="delta" id="tm-mascarilla">00:00</div></div>
+      <div class="item" id="itm-iot"><div class="top"><input type="checkbox" id="cb-iot"><label for="cb-iot">IOT</label></div><div class="delta" id="tm-iot">00:00</div></div>
+      <div class="item" id="itm-etco2"><div class="top"><input type="checkbox" id="cb-etco2"><label for="cb-etco2">ETCO₂</label></div><div class="delta" id="tm-etco2">00:00</div></div>
+    </div>
+  </section>
+
+  <section class="group" id="g-medicacion">
+    <h3>Medicación (dosis x <span id="peso-med">20</span> kg)</h3>
+    <div class="med-grid">
+      <div class="item med-item" id="itm-adr"><div class="top"><input type="checkbox" id="cb-adr"><label for="cb-adr">Adrenalina</label></div><div class="delta" id="tm-adr">00:00</div><div class="inline-list" id="list-adr"></div><button class="btn btn-ghost" id="btn-adr">+ Dosis</button></div>
+      <div class="item med-item" id="itm-ami"><div class="top"><input type="checkbox" id="cb-ami"><label for="cb-ami">Amiodarona</label></div><div class="delta" id="tm-ami">00:00</div><div class="inline-list" id="list-ami"></div><button class="btn btn-ghost" id="btn-ami">+ Dosis</button></div>
+      <div class="item med-item" id="itm-mg"><div class="top"><input type="checkbox" id="cb-mg"><label for="cb-mg">Magnesio</label></div><div class="delta" id="tm-mg">00:00</div><div class="inline-list" id="list-mg"></div><button class="btn btn-ghost" id="btn-mg">+ Dosis</button></div>
+      <div class="item med-item" id="itm-rsi"><div class="top"><input type="checkbox" id="cb-rsi"><label for="cb-rsi">IOT / RSI</label></div><select id="sel-rsi" class="select" aria-label="Fármaco IOT/RSI"><option selected>Etomidato</option><option>Ketamina</option><option>Midazolam</option><option>Fentanilo</option><option>Propofol</option><option>Rocuronio</option><option>Succinilcolina</option></select><div class="delta" id="tm-rsi">00:00</div><div class="inline-list" id="list-rsi"></div><button class="btn btn-ghost" id="btn-rsi">+ Dosis</button></div>
+      <div class="item med-item" id="itm-ant"><div class="top"><input type="checkbox" id="cb-ant"><label for="cb-ant">Antídotos</label></div><select id="sel-ant" class="select" aria-label="Antídoto"><option selected>Naloxona</option><option>Flumazenilo</option></select><div class="delta" id="tm-ant">00:00</div><div class="inline-list" id="list-ant"></div><button class="btn btn-ghost" id="btn-ant">+ Dosis</button></div>
+    </div>
+  </section>
+
+  <section class="group" id="g-desfibrilacion">
+    <h3>Desfibrilación</h3>
+    <div class="item" id="itm-def"> 
+      <div class="def-col-left">
+        <div class="top">
+          <input type="checkbox" id="cb-def"><label for="cb-def">Desfibrilación realizada</label>
+        </div>
+        <div class="delta" id="tm-def">00:00</div>
+        
+        <div class="def-energy-slider">
+          <span style="font-size: 12px; color: #ccc;">Energía (J/Kg)</span>
+          <input type="range" id="def-energy" min="4" max="10" step="2" value="4">
+          <strong><span id="def-jkg-value">4</span> J/Kg</strong>
+        </div>
+
+        <div class="def-energy-info">
+          <span>Total Calculado:</span>
+          <strong><span id="def-calculated">80</span> J</strong>
+        </div>
+
       </div>
-    </section>
-
-    <section class="group" id="g-ritmo">
-      <h3>Ritmo</h3>
-      <div class="ritmo-inline">
-        <div class="chips">
-          <i class="fa-solid fa-bolt" title="Desfibrilables"></i>
-          <label class="r-red"><input type="radio" name="ritmo" value="FV"> FV</label>
-          <label class="r-red"><input type="radio" name="ritmo" value="TVSP"> TVSP</label>
-        </div>
-        <div class="chips">
-          <i class="fa-solid fa-ban" title="No desfibrilables"></i>
-          <label class="r-blue"><input type="radio" name="ritmo" value="AESP"> AESP</label>
-          <label class="r-blue"><input type="radio" name="ritmo" value="Asistolia"> Asistolia</label>
-        </div>
-      </div>
-      <div class="delta" id="tm-ritmo">00:00:00</div>
-      <div class="ritmo-log" id="ritmo-list"></div>
-    </section>
-
-    <section class="group" id="g-via">
-      <h3>Vía aérea</h3>
-      <div class="row">
-        <div class="item" id="itm-iot"><div class="top"><input type="checkbox" id="cb-iot"><label for="cb-iot">IOT / Mascarilla</label></div><div class="delta" id="tm-iot">00:00:00</div></div>
-        <div class="item" id="itm-etco2"><div class="top"><input type="checkbox" id="cb-etco2"><label for="cb-etco2">ETCO₂</label></div><div class="delta" id="tm-etco2">00:00:00</div></div>
-      </div>
-    </section>
-
-    <!-- Fila 3 -->
-    <section class="group" id="g-med">
-      <h3>Medicación (dosis calculadas por kg)</h3>
-      <div class="med-grid">
-        <!-- 1 Adrenalina -->
-        <div class="item med-item" id="itm-adr">
-          <div class="top"><input type="checkbox" id="cb-adr"><label for="cb-adr">Adrenalina</label></div>
-          <div class="delta" id="tm-adr">00:00:00</div>
-          <div class="inline-list" id="list-adr"></div>
-          <button class="btn btn-ghost" id="btn-adr">+ Dosis</button>
-        </div>
-        <!-- 2 Amiodarona -->
-        <div class="item med-item" id="itm-ami">
-          <div class="top"><input type="checkbox" id="cb-ami"><label for="cb-ami">Amiodarona</label></div>
-          <div class="delta" id="tm-ami">00:00:00</div>
-          <div class="inline-list" id="list-ami"></div>
-          <button class="btn btn-ghost" id="btn-ami">+ Dosis</button>
-        </div>
-        <!-- 3 Atropina -->
-        <div class="item med-item" id="itm-atr">
-          <div class="top"><input type="checkbox" id="cb-atr"><label for="cb-atr">Atropina</label></div>
-          <div class="delta" id="tm-atr">00:00:00</div>
-          <div class="inline-list" id="list-atr"></div>
-          <button class="btn btn-ghost" id="btn-atr">+ Dosis</button>
-        </div>
-        <!-- 4 Magnesio -->
-        <div class="item med-item" id="itm-mg">
-          <div class="top"><input type="checkbox" id="cb-mg"><label for="cb-mg">Magnesio</label></div>
-          <div class="delta" id="tm-mg">00:00:00</div>
-          <div class="inline-list" id="list-mg"></div>
-          <button class="btn btn-ghost" id="btn-mg">+ Dosis</button>
-        </div>
-        <!-- 5 IOT/RSI -->
-        <div class="item med-item" id="itm-rsi">
-          <div class="top"><input type="checkbox" id="cb-rsi"><label for="cb-rsi">IOT / RSI</label></div>
-          <select id="sel-rsi" class="select" aria-label="Fármaco IOT/RSI">
-            <option selected>Etomidato</option>
-            <option>Ketamina</option><option>Midazolam</option>
-            <option>Fentanilo</option><option>Propofol</option>
-            <option>Rocuronio</option><option>Succinilcolina</option>
-          </select>
-          <div class="delta" id="tm-rsi">00:00:00</div>
-          <div class="inline-list" id="list-rsi"></div>
-          <button class="btn btn-ghost" id="btn-rsi">+ Dosis</button>
-        </div>
-        <!-- 6 Antídotos -->
-        <div class="item med-item" id="itm-ant">
-          <div class="top"><input type="checkbox" id="cb-ant"><label for="cb-ant">Antídotos</label></div>
-          <select id="sel-ant" class="select" aria-label="Antídoto">
-            <option selected>Naloxona</option>
-            <option>Flumazenilo</option>
-          </select>
-          <div class="delta" id="tm-ant">00:00:00</div>
-          <div class="inline-list" id="list-ant"></div>
-          <button class="btn btn-ghost" id="btn-ant">+ Dosis</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="group" id="g-desf">
-      <h3>Desfibrilación</h3>
-      <div class="item" id="itm-def">
-        <div class="top"><i class="fa-solid fa-bolt"></i><strong>Registro de descargas (J/kg)</strong></div>
-        <div class="energy">
-          <span>Energía</span>
-          <input type="number" id="def-jkg" step="1" min="1" max="10" value="2"> J/kg
-          <button class="btn btn-ghost" id="btn-def4" title="Ajustar a 4 J/kg">+ 4 J/kg</button>
-          <span class="small-note">Actual: <strong><span id="def-ener">0</span> J</strong></span>
-        </div>
-        <button class="btn btn-ghost" id="btn-def">+ Desfibrilación</button>
+      <div class="def-col-right">
+        <button class="btn btn-ghost" id="btn-def">+ Desfibrilar</button>
         <div class="inline-list" id="def-list"></div>
       </div>
-    </section>
+    </div>
+  </section>
+  <section class="group" id="g-alarmas"> <h3>Alarmas</h3> <div id="alerts"></div> </section>
 
-    <!-- Fila 4 - MODIFICADA: 3 tarjetas en lugar de 2 -->
-    <section class="group" id="g-fin">
-      <h3>Fin del proceso</h3>
-      <div class="row">
-        <div class="item" id="itm-rce"><div class="top"><input type="checkbox" id="cb-rce"><label for="cb-rce">Recuperación</label></div><div class="delta" id="tm-rce">00:00:00</div></div>
-        <div class="item" id="itm-exitus"><div class="top"><input type="checkbox" id="cb-exitus"><label for="cb-exitus">Éxitus</label></div><div class="delta" id="tm-exitus">00:00:00</div></div>
-      </div>
-    </section>
+  <section class="group" id="g-final">
+    <h3>Fin del proceso</h3>
+    <div class="row">
+      <div class="item" id="itm-rce"><div class="top"><input type="checkbox" id="cb-rce"><label for="cb-rce">Recuperación Circulación Espontánea</label></div><div class="delta" id="tm-rce">00:00</div></div>
+      <div class="item" id="itm-exitus"><div class="top"><input type="checkbox" id="cb-exitus"><label for="cb-exitus">Exitus</label></div><div class="delta" id="tm-exitus">00:00</div></div>
+    </div>
+  </section>
 
-    <!-- Broselow como tarjeta independiente -->
-    <section class="group" id="g-brose">
-      <h3>Broselow (opcional) · longitud → peso</h3>
-      <div class="row" style="grid-auto-flow:row; grid-auto-rows:auto; gap:8px;">
-        <div style="display:flex; align-items:center; gap:8px;">
-          <label for="br-len" style="font-weight:700">Longitud</label>
-          <input id="br-len" type="number" step="0.1" placeholder="p. ej. 95" style="width:110px; background:#0b0d14; color:#e8eefb; border:1px solid #283149; border-radius:8px; padding:4px 6px;">
-          <button class="btn btn-ghost" id="br-calc">Calcular</button>
-          <span class="small-note">o elige color:</span>
+  <section class="group" id="g-brose">
+    <h3>Broselow (opcional)</h3>
+     <div class="row" style="grid-auto-flow:row; grid-auto-rows:auto; gap:8px; align-content: start;">
+        <div class="input-button-row">
+          <label for="br-len" style="font-weight:700">Long (cm)</label>
+          <input id="br-len" type="number" step="1" placeholder="ej: 95">
+          <button class="btn btn-ghost" id="br-calc">Calc Peso</button>
+          <div class="small-note">o elige color:</div>
         </div>
         <div class="chips-wrap" id="br-chips"></div>
-        <div class="small-note" id="br-info">—</div>
+        <div class="small-note" id="br-info" style="margin-top: auto;">—</div>
       </div>
-    </section>
+  </section>
 
-    <!-- Recordatorio rápido como tarjeta independiente -->
-    <section class="group" id="g-recap">
-      <div id="recap">
-        <h4>Recordatorio rápido (PALS)</h4>
-        <ul style="margin:.2rem 0 0; padding-left:1.1rem;">
-          <li>Compresiones 100–120/min, profundidad ~1/3 AP (≈4 cm lactantes, 5 cm niños).</li>
-          <li>Ventilar: sin vía aérea aislada 15:2 (2 reanimadores); con vía aérea aislada 10 rpm.</li>
-          <li>Desfibrilación: 1ª 2 J/kg → ≥4 J/kg, hasta 10 J/kg máx (no superar dosis adulta).</li>
-          <li>Adrenalina 0,01 mg/kg IV/IO (1:10.000 ≈ 0,1 mL/kg) cada 3–5 min.</li>
-          <li>Amiodarona 5 mg/kg (total máx 15 mg/kg en FV/TV refractaria).</li>
-          <li>Magnesio 25–50 mg/kg (máx 2 g) en Torsades/hipomagnesemia.</li>
-          <li>Antídotos orientativos: Naloxona 0,1 mg/kg (máx 2 mg); Flumazenilo 0,01 mg/kg (máx 0,2 mg).</li>
-        </ul>
-      </div>
-    </section>
-  </main>
+  <section class="group" id="g-recordatorio">
+    <div id="recap">
+      <h4>Recordatorio rápido (PALS)</h4>
+      <ul style="margin:.2rem 0 0; padding-left:1.1rem;">
+        <li><span class="small-text"><strong>Compresiones:</strong>  100–120/min, prof. ≈1/3 AP (4cm lact / 5cm niño). Ratio 15:2 (o 30:1 si 1 reanimador).</span></li>
+        <li><span class="small-text"><strong>Ventilar:</strong> con vía aérea avanzada: 1 cada 2-3s (20-30 rpm).</span></li>
+        <li><span class="small-text"><strong>Desfibrilación:</strong> Inicial 4 J/kg → ≥4 J/kg (máx 8 J/kg o dosis adulto).</span></li>
+        <li><span class="small-text"><strong>Adrenalina:</strong> 0,01 mg/kg IV/IO (0,1 mL/kg de 1:10.000) cada 3–5 min.</span></li>
+        <li><span class="small-text"><strong>Amiodarona:</strong> 5 mg/kg IV/IO en bolo (máx 3 dosis para FV/TVsp refractaria).</span></li>
+        <li><span class="small-text"><strong>Causas Reversibles (H y T):</strong> Hipovolemia, Hipoxia, H⁺(acidosis), Hipo/HiperK, Hipotermia, Hipoglucemia; Tensión (neumotórax), Taponamiento, Tóxicos, Trombosis (pulmonar/coronaria).</span></li>      
+      </ul>
+    </div>
+  </section>
+</main>
 
-  <!-- Barra Informe + PDF -->
-  <div class="reportbar">
-    <button class="btn" id="btnInforme"><i class="fa-solid fa-file-lines"></i> Informe</button>
-    <button class="btn" id="btnPDF"><i class="fa-solid fa-file-arrow-down"></i> Exportar PDF</button>
+<div id="vent-alert" class="vent-alert"> <i class="fa-solid fa-lungs"></i> <span>Realice 2 ventilaciones</span> </div>
+
+<div id="reposition-alert" class="reposition-alert">
+  <i class="fa-solid fa-arrows-rotate"></i>
+  <span>Recoloque los parches en el paciente</span>
+</div>
+
+<div id="action-alerts-container" class="action-alerts-container"></div>
+
+<dialog id="dialogInforme">
+  <div class="dialog-head">
+    <h2 style="margin:0; font-size: var(--fs-lg);">Informe SVP</h2>
+    <button id="btnCerrarDialog" style="background:none; border:none; cursor:pointer; font-size:18px;"><i class="fa-solid fa-xmark"></i></button>
   </div>
+  <div class="dialog-body">
+    <table class="table">
+      <thead><tr><th>Parámetro</th><th>Valor</th><th>Tiempo (MM:SS)</th></tr></thead>
+      <tbody id="tablaInforme"></tbody>
+    </table>
+  </div>
+  <div class="dialog-actions">
+    <button class="btn-ghost-light" id="btnImprimirDialog"><i class="fa-solid fa-print"></i> Imprimir / PDF</button>
+    <button class="btn-ghost-light" id="btnCerrarInforme">Cerrar</button>
+    <button class="btn btn-blue" id="btnCopiarInforme"><i class="fa-solid fa-copy"></i> Copiar Texto</button>
+  </div>
+</dialog>
 
-  <!-- Alarmas -->
-  <div class="alerts" id="alerts"></div>
+<iframe id="printFrame" title="Contenedor de impresión oculto" style="position:absolute; left:-9999px; top:-9999px; width:1px; height:1px;"></iframe>
 
-<!-- FABs -->
-<nav class="fabs" aria-label="Accesos">
-  <a class="fab home" href="../../../index.html" title="Inicio"><i class="fa-solid fa-house"></i></a>
-  <a class="fab crit" href="../../index.html" title="Críticos"><i class="fa-solid fa-procedures"></i></a>
-</nav>
+<script>
+document.addEventListener('DOMContentLoaded', ()=>{
 
-  <!-- Diálogo Informe -->
-  <dialog id="dlg">
-    <div class="dialog-head">
-      <h3>Informe · SVP</h3>
-      <button class="btn-ghost" id="dlgClose" title="Cerrar"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-    <div class="dialog-body">
-      <table class="table" id="tablaInforme">
-        <thead><tr><th>Actuación</th><th>Δ desde inicio</th><th>Detalle</th></tr></thead>
-        <tbody></tbody>
-      </table>
-    </div>
-    <div class="dialog-actions">
-      <button class="btn-ghost" onclick="window.print()"><i class="fa-solid fa-print"></i> Imprimir</button>
-      <button class="btn" id="dlgOk">Cerrar</button>
-    </div>
-  </dialog>
+  // --- 1. UTILIDADES Y ESTADO GLOBAL ---
+  const pad2 = n => String(n).padStart(2,'0');
+  const fmtHMS = ms => {
+    const s=Math.max(0,Math.floor(ms/1000));
+    const m=Math.floor(s/60), ss=s%60;
+    return `${pad2(m)}:${pad2(ss)}`;
+  };
 
-  <!-- jsPDF -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', ()=>{
-      /* ===== util tiempo ===== */
-      const pad2 = n => String(n).padStart(2,'0');
-      const fmtHMS = ms => {
-        const s=Math.max(0,Math.floor(ms/1000));
-        const h=Math.floor(s/3600), m=Math.floor((s%3600)/60), ss=s%60;
-        return `${pad2(h)}:${pad2(m)}:${pad2(ss)}`;
-      };
-      /* ===== cabecera ===== */
-      const fechaHoraEl = document.getElementById('fechaHora');
-      const pintaFecha = () => {
-        const a=new Date();
-        fechaHoraEl.textContent = `${pad2(a.getDate())}/${pad2(a.getMonth()+1)}/${a.getFullYear()} ${pad2(a.getHours())}:${pad2(a.getMinutes())}:${pad2(a.getSeconds())}`;
-      };
-      setInterval(pintaFecha,1000);
-      pintaFecha();
-      let t0 = new Date();
-      const clockEl = document.getElementById('clock');
-      const tick = ()=> clockEl.textContent = fmtHMS(Date.now()-t0.getTime());
-      setInterval(tick, 1000);
-      tick();
-      /* ===== peso ===== */
-      let PESO = 20;
-      const peso = document.getElementById('peso'), pesov=document.getElementById('pesov');
-      pesov.textContent = peso.value;
-      PESO = +peso.value;
-      function setPesoGlobal(kg){
-        kg = Math.max(3, Math.min(70, Math.round(kg)));
-        PESO = kg;
-        peso.value = kg;
-        pesov.textContent = kg;
-        updateDefEnergy();
+  let t0 = new Date();
+  let shockCount = 0;
+  let audioCtx=null, BPM=110;
+  let cprCycleTimer = null, beepCount = 0;
+  const PAUSE_MS = 10000;
+  let isIOTActive = false;
+  let isCPRRunning = false, isPaused = false;
+  let hasShownFirstAdrenalineAlert = false;
+  let numReanimadores = 2; // 1 o 2 reanimadores
+  let PESO = 20;
+
+  const BEEP_MS = () => 60000 / BPM;
+
+  const ids = ['inc','resp','pulso','llamada','via','ox','monitor','mascarilla','iot','etco2','adr','ami','mg','rsi','ant','def','rce','exitus'];
+  const state = {};
+  ids.forEach(id => state[id] = { ts: null });
+  state['rcp'] = { ts: null };
+
+  // Elementos DOM
+  const ventAlert = document.getElementById('vent-alert');
+  const repositionAlert = document.getElementById('reposition-alert');
+  const cprCountEl = document.getElementById('cpr-count');
+  const actionAlertsContainer = document.getElementById('action-alerts-container');
+  const fechaHoraEl = document.getElementById('fechaHora');
+  const clockEl = document.getElementById('clock');
+  const bpmInput = document.getElementById('bpm');
+  const bpmValueEl = document.getElementById('bpmv');
+  const cbRcp = document.getElementById('cb-rcp');
+  const tmRitmo = document.getElementById('tm-ritmo');
+  const ritmoList = document.getElementById('ritmo-list');
+  const alertsEl = document.getElementById('alerts');
+  const alertHandles = {};
+  const defEnergy = document.getElementById('def-energy');
+  // CAMBIO: ID del display de J/Kg
+  const defJkgValue = document.getElementById('def-jkg-value');
+  const defCalculated = document.getElementById('def-calculated');
+  const defList = document.getElementById('def-list');
+  const dialogInforme = document.getElementById('dialogInforme');
+  const tablaInforme = document.getElementById('tablaInforme');
+  const printFrame = document.getElementById('printFrame');
+  const pesoSlider = document.getElementById('peso');
+  const pesoValueEl = document.getElementById('pesov');
+  const pesoMedEl = document.getElementById('peso-med');
+  const brLen=document.getElementById('br-len');
+  const brCalc=document.getElementById('br-calc');
+  const brChips=document.getElementById('br-chips');
+  const brInfo=document.getElementById('br-info');
+
+  // Sistema de mensajes persistentes
+  const persistentAlerts = new Map();
+
+  // --- 2. FUNCIONES PRINCIPALES ---
+
+  function marcar(id) {
+    if (state[id] && state[id].ts) return;
+    state[id].ts = new Date();
+    const el = document.getElementById('tm-' + id);
+    if (el) el.textContent = fmtHMS(state[id].ts - t0);
+  }
+
+  const pintaFecha = () => {
+    const a=new Date();
+    fechaHoraEl.textContent = `${pad2(a.getDate())}/${pad2(a.getMonth()+1)}/${a.getFullYear()}  ${pad2(a.getHours())}:${pad2(a.getMinutes())}:${pad2(a.getSeconds())}`;
+  };
+
+  const tick = ()=> {
+    clockEl.textContent = fmtHMS(Date.now()-t0.getTime());
+  };
+
+  const ensureAudio = () => {
+    if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+  };
+
+  const beep = (freq=880,dur=0.09,gainVal=0.25)=>{
+    ensureAudio();
+    const osc=audioCtx.createOscillator(), g=audioCtx.createGain();
+    osc.type="sine"; osc.frequency.value=freq; g.gain.value=gainVal;
+    osc.connect(g); g.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime+dur);
+  };
+
+  // Metrónomo adaptado para pediatría (ratio 15:2 o 30:2 según reanimadores)
+  function runCompressionCycle() {
+    if (!isCPRRunning) return;
+   
+    const compresionesPorCiclo = numReanimadores === 1 ? 30 : 15;
+   
+    if (isIOTActive) {
+      if (cprCountEl) {
+          cprCountEl.textContent = "∞";
+          cprCountEl.classList.add('active', 'iot-active');
       }
-      peso.addEventListener('input', e=>{
-        setPesoGlobal(+e.target.value);
-      });
-      /* ===== audio: metrónomo + avisos ===== */
-      let audioCtx=null, beepInterval=null, BPM=110;
-      const msPerBeat = () => 60000 / BPM;
-      const ensureAudio = () => {
-        if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
-      };
-      const beep = (freq=880,dur=0.09,gainVal=0.25)=>{
-        ensureAudio();
-        const osc=audioCtx.createOscillator(), g=audioCtx.createGain();
-        osc.type="sine";
-        osc.frequency.value=freq;
-        g.gain.value=gainVal;
-        osc.connect(g);
-        g.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime+dur);
-      };
-      const startMetronome = ()=>{
-        if(!beepInterval){
-          beep();
-          beepInterval=setInterval(()=>beep(880,0.07,0.22), msPerBeat());
+      beep(880, 0.07, 0.22);
+      cprCycleTimer = setTimeout(runCompressionCycle, BEEP_MS());
+    } else {
+      if (beepCount < compresionesPorCiclo) {
+        if (cprCountEl) {
+            cprCountEl.textContent = compresionesPorCiclo - beepCount;
+            cprCountEl.classList.add('active');
+            cprCountEl.classList.remove('iot-active');
         }
-      };
-      const stopMetronome = ()=>{
-        clearInterval(beepInterval);
-        beepInterval=null;
-      };
-      const setBPM = v => {
-        BPM=v;
-        if(beepInterval){
-          clearInterval(beepInterval);
-          beepInterval=setInterval(()=>beep(880,0.07,0.22), msPerBeat());
-        }
-      };
-      const bpm = document.getElementById('bpm'), bpmv=document.getElementById('bpmv');
-      bpm.addEventListener('input', e=>{
-        bpmv.textContent=e.target.value;
-        setBPM(+e.target.value);
-      });
-      /* ===== estado & sellado ===== */
-      const ids=['inc','resp','pulso','rcp','llamada','via','ox','monitor','iot','etco2','adr','ami','atr','mg','rsi','ant','rce','exitus'];
-      const state={};
-      ids.forEach(id=>state[id]={ts:null});
-      function marcar(id){
-        if(state[id].ts) return;
-        state[id].ts = new Date();
-        const el = document.getElementById('tm-'+id);
-        if(el) el.textContent = fmtHMS(state[id].ts - t0);
+        beep(880, 0.07, 0.22);
+        beepCount++;
+        cprCycleTimer = setTimeout(runCompressionCycle, BEEP_MS());
+      } else {
+        isPaused = true;
+        if (cprCountEl) cprCountEl.textContent = "--";
+        beep(660, 0.15, 0.3);
+        if (ventAlert) ventAlert.style.display = 'flex';
+       
+        cprCycleTimer = setTimeout(() => {
+          isPaused = false;
+          if (ventAlert) ventAlert.style.display = 'none';
+          beepCount = 0;
+          if (isCPRRunning) runCompressionCycle();
+        }, PAUSE_MS);
       }
-      // Parar metrónomo al finalizar
-      ['rce','exitus'].forEach(id=>{
-        const cb = document.getElementById('cb-'+id);
-        if (cb) cb.addEventListener('change', e => {
-          if (e.target.checked) stopMetronome();
-        });
-      });
-      /* ===== checkboxes generales ===== */
-      ids.forEach(id=>{
-        const cb=document.getElementById('cb-'+id);
-        if(!cb) return;
-        cb.addEventListener('change', e=>{
-          if(!e.target.checked){
-            e.target.checked=true;
-            return;
-          }
-          marcar(id);
-          if(id==='rcp'){
-            bpm.disabled=false;
-            startMetronome();
-          }
-        });
-      });
-      /* ===== avisos fuertes ===== */
-      const addWarn = id => document.getElementById(id).classList.add('warn-strong','blink-strong');
-      const clearWarn = id => document.getElementById(id).classList.remove('warn-strong','blink-strong');
-      /* ===== Ritmo ===== */
-      const tmRitmo = document.getElementById('tm-ritmo');
-      const ritmoList = document.getElementById('ritmo-list');
-      document.querySelectorAll('#g-ritmo input[type=radio]').forEach(r=>{
-        ['click','change'].forEach(ev=> r.addEventListener(ev, ()=>{
-          const ts = new Date();
-          const delta = fmtHMS(ts - t0);
-          const row=document.createElement('div');
-          row.textContent = `${r.value} · ${delta}`;
-          ritmoList.prepend(row);
-          if(!tmRitmo.dataset.set){
-            tmRitmo.dataset.set=1;
-            tmRitmo.textContent = delta;
-          }
-          clearWarn('g-ritmo');
-          if(r.value==='FV' || r.value==='TVSP'){
-            addWarn('itm-def');
-          } else {
-            clearWarn('itm-def');
-          }
-        }));
-      });
-      /* ===== Alarmas únicas (upsert & reset) ===== */
-      const alertsEl=document.getElementById('alerts');
-      const alertHandles = {}; // key -> handle
-      function createAlert(name, ms, tone, onFire, key){
-        let end = Date.now() + ms;
-        const el=document.createElement('div');
-        el.className='alert';
-        el.innerHTML=`<i class="fa-solid fa-bell"></i><span>${name}</span> <span class="t">00:00</span>`;
-        alertsEl.appendChild(el);
-        function render(){
-          const left = end - Date.now();
-          const tSpan = el.querySelector('.t');
-          if(left<=0){
-            clearInterval(timer);
-            tSpan.textContent='00:00';
-            beep(tone,0.12,0.35);
-            setTimeout(()=>beep(tone,0.12,0.35),180);
-            if(onFire) onFire();
-            setTimeout(()=>{
-              el.remove();
-              if(key) delete alertHandles[key];
-            }, 10000);
-            return;
-          }
-          const s=Math.ceil(left/1000), mm=Math.floor(s/60), ss=s%60;
-          tSpan.textContent=`${pad2(mm)}:${pad2(ss)}`;
+    }
+  }
+
+  const startMetronome = ()=>{
+    if (isCPRRunning) return;
+    ensureAudio();
+    isCPRRunning = true;
+    beepCount = 0;
+    if (cprCountEl) {
+        cprCountEl.textContent = numReanimadores === 1 ? "30" : "15";
+        cprCountEl.classList.add('active');
+        cprCountEl.classList.remove('iot-active');
+    }
+    if (ventAlert) ventAlert.style.display = 'none';
+    runCompressionCycle();
+    
+    // Iniciar alarma cíclica de reevaluación al comenzar masaje
+    startReevaluationAlert();
+  };
+
+  /// Función: Iniciar/Reiniciar alarma de reevaluación
+  function startReevaluationAlert() {
+    upsertAlert('reevaluacion', 'Reevaluar paciente y ritmo', 120000, 660, () => {
+      // Cuando llega a cero: mostrar alerta persistente
+      showPersistentAlert('reevaluacion', '<i class="fa-solid fa-heart-pulse"></i> Reevalue al paciente y ritmo', 'warn');
+      addWarn('g-ritmo');
+      
+      // REINICIAR AUTOMÁTICAMENTE después de 20 segundos (tiempo para reevaluar)
+      setTimeout(() => {
+        startReevaluationAlert();
+      }, 20000); // 20 segundos para reevaluar
+    });
+  }
+
+  const stopMetronome = ()=>{
+    isCPRRunning = false;
+    isPaused = false;
+    if (cprCycleTimer) clearTimeout(cprCycleTimer); cprCycleTimer = null;
+    beepCount = 0;
+    if (ventAlert) ventAlert.style.display = 'none';
+    if (cprCountEl) {
+        cprCountEl.textContent = "--";
+        cprCountEl.classList.remove('active', 'iot-active');
+    }
+  };
+
+  const setBPM = v => { BPM=v; };
+
+  // ====================================================================
+  // INICIO: LÓGICA DE DESFIBRILACIÓN MODIFICADA
+  // ====================================================================
+
+  // --- NUEVA FUNCIÓN: Calcula J totales basados en J/Kg del slider ---
+  function updateCalculatedJoules() {
+    if (!defEnergy || !defJkgValue || !defCalculated) return 0; // Guard clause
+    
+    const jkg = parseFloat(defEnergy.value);
+    // Aplicar límites (10J min, 360J max)
+    const totalJ = Math.min(360, Math.max(10, Math.round(PESO * jkg)));
+    
+    // 1. Actualizar el display de J/Kg
+    defJkgValue.textContent = jkg;
+    
+    // 2. Actualizar el display de Julios Totales
+    defCalculated.textContent = totalJ;
+    
+    return totalJ; // Devolver valor para el log
+  }
+
+  // Sincroniza slider y textos (MODIFICADO para J/Kg)
+  function syncDefibrillationToWeight(){
+    // Pone el slider en el valor por defecto (4 J/Kg)
+    defEnergy.value = 4;
+    // Actualiza los displays (J/Kg y Total J)
+    updateCalculatedJoules();
+  }
+
+  // MODIFICADO: setPesoGlobal ahora solo recalcula Julios, no resetea el slider
+  function setPesoGlobal(kg){
+    kg = Math.max(3, Math.min(70, Math.round(kg)));
+    PESO = kg;
+    pesoSlider.value = kg;
+    pesoValueEl.textContent = kg;
+    pesoMedEl.textContent = kg;
+    
+    // MODIFICADO: Ya no llama a sync... (que resetea el slider)
+    // Solo recalcula los Julios totales con el J/Kg actual
+    updateCalculatedJoules(); 
+  }
+
+  // ====================================================================
+  // FIN: LÓGICA DE DESFIBRILACIÓN MODIFICADA
+  // ====================================================================
+
+
+  pesoSlider.addEventListener('input', e => { setPesoGlobal(+e.target.value); });
+  setPesoGlobal(PESO); // <-- Esta llamada inicializa el peso y los cálculos dependientes
+
+  // Sistema de alertas persistentes
+  function showPersistentAlert(id, message, typeClass) {
+    if (persistentAlerts.has(id)) return;
+    
+    const alertEl = document.createElement('div');
+    alertEl.className = `action-alert ${typeClass}`;
+    alertEl.innerHTML = message;
+    alertEl.dataset.alertId = id;
+    
+    actionAlertsContainer.appendChild(alertEl);
+    persistentAlerts.set(id, alertEl);
+  }
+  
+  function removePersistentAlert(id) {
+    if (persistentAlerts.has(id)) {
+      const alertEl = persistentAlerts.get(id);
+      alertEl.remove();
+      persistentAlerts.delete(id);
+    }
+  }
+  
+  function clearAllPersistentAlerts() {
+    persistentAlerts.forEach((alertEl, id) => {
+      alertEl.remove();
+    });
+    persistentAlerts.clear();
+  }
+
+  const addWarn = id => {
+    const el = document.getElementById(id);
+    if(el) el.classList.add('warn-strong','blink-strong');
+  };
+
+  const clearWarn = id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('warn-strong','blink-strong');
+  }
+
+  // Destruye todas las alertas activas
+  function clearAllAlerts() {
+    Object.keys(alertHandles).forEach(key => {
+      if (alertHandles[key] && typeof alertHandles[key].destroy === 'function') {
+        alertHandles[key].destroy();
+      }
+    });
+  }
+  
+  function createAlert(name, ms, tone, onFire, key){
+    let end = Date.now() + ms;
+    const el=document.createElement('div');
+    el.className='alert';
+    el.innerHTML=`<i class="fa-solid fa-bell"></i><span>${name}</span> <span class="t">00:00</span>`;
+    
+    if (!alertsEl) {
+      console.error('El contenedor #alerts no existe.');
+      return { reset: ()=>{}, destroy: ()=>{} };
+    }
+    alertsEl.appendChild(el);
+
+    let timer = null;
+    
+    function render(){
+      const left = end - Date.now();
+      const tSpan = el.querySelector('.t');
+      
+      if (!tSpan || !el.isConnected) {
+        clearInterval(timer);
+        return;
+      }
+
+      if(left<=0){
+        clearInterval(timer);
+        tSpan.textContent='00:00';
+        el.style.borderColor = 'var(--warn)';
+        if (audioCtx && audioCtx.state !== 'closed') {
+          beep(tone,0.12,0.35);
+          setTimeout(()=>{
+            if (audioCtx && audioCtx.state !== 'closed') {
+              beep(tone,0.12,0.35);
+            }
+          },180);
         }
-        const timer=setInterval(render, 250);
+        if(onFire) onFire();
+        
+        setTimeout(()=>{
+          el.remove();
+          if(key && alertHandles[key] === this) {
+             delete alertHandles[key];
+          }
+        }, 10000);
+        return;
+      }
+      const s=Math.ceil(left/1000), mm=Math.floor(s/60), ss=s%60;
+      tSpan.textContent=`${pad2(mm)}:${pad2(ss)}`;
+    }
+    
+    timer=setInterval(render, 250);
+    render();
+
+    const alertObject = {
+      reset(newMs){
+        end = Date.now() + newMs;
+        if(!el.isConnected) alertsEl.appendChild(el);
+        el.style.borderColor = 'var(--item-stroke)';
+        clearInterval(timer);
+        timer = setInterval(render, 250);
         render();
-        return {
-          reset(newMs){
-            end = Date.now() + newMs;
-            if(!el.isConnected) alertsEl.appendChild(el);
-          },
-          destroy(){
-            clearInterval(timer);
-            el.remove();
-            if(key) delete alertHandles[key];
-          }
-        };
-      }
-      function upsertAlert(key, name, ms, tone, onFire){
-        if(alertHandles[key]){
-          alertHandles[key].reset(ms);
-        } else {
-          alertHandles[key] = createAlert(name, ms, tone, onFire, key);
+      },
+      destroy(){
+        clearInterval(timer);
+        el.remove();
+        if(key && alertHandles[key] === alertObject) {
+          delete alertHandles[key];
         }
       }
-      /* ===== Desfibrilación (pediátrica, por kg) con auto-≥4 J/kg ===== */
-      let shockCount=0;
-      const defJkg = document.getElementById('def-jkg');
-      const defList = document.getElementById('def-list');
-      const defEner = document.getElementById('def-ener');
-      const btnDef4 = document.getElementById('btn-def4');
-      function cappedJkg(){
-        return Math.min(10, Math.max(1, +defJkg.value||2));
-      }
-      function calcJ(){
-        return Math.round(PESO * cappedJkg());
-      }
-      function updateDefEnergy(){
-        defEner.textContent = calcJ();
-      }
-      defJkg.addEventListener('input', updateDefEnergy);
-      btnDef4.addEventListener('click', ()=>{
-        defJkg.value = 4;
-        updateDefEnergy();
+    };
+    return alertObject;
+  }
+ 
+  function upsertAlert(key, name, ms, tone, onFire){
+    if(alertHandles[key]){
+      alertHandles[key].reset(ms);
+    } else {
+      alertHandles[key] = createAlert(name, ms, tone, onFire, key);
+    }
+  }
+
+
+  // Cálculo Dosis Pediátricas
+  function round(v, step=0.01){ return Math.round(v/step)*step; }
+  // --- NUEVO: Formateador a dos decimales máximo ---
+  const d2 = v => (Math.round(v*100)/100).toFixed(2).replace(/\.?0+$/,'');
+
+  function doseText(drug, kg){
+  kg = Math.max(3, kg);
+  switch(drug){
+    case 'Adrenalina':
+      return `Adre ${d2(round(0.01*kg,0.01))} mg (${d2(round(0.1*kg,0.1))} mL 1:10k)`;
+    case 'Amiodarona':
+      return `Amio ${d2(round(5*kg,5))} mg`;
+    case 'Magnesio':
+      return `Mg ${d2(round(Math.min(25*kg,2000),25))} mg`;
+    case 'Etomidato':
+      return `Etomidato ${d2(round(0.3*kg,0.1))} mg`;
+    case 'Ketamina':
+      return `Ketamina ${d2(round(1.5*kg,0.5))} mg`;
+    case 'Midazolam':
+      return `Midazolam ${d2(round(0.1*kg,0.1))} mg`;
+    case 'Fentanilo':
+      return `Fentanilo ${d2(round(1.5*kg,0.5))} mcg`;
+    case 'Propofol':
+      return `Propofol ${d2(round(1.5*kg,1))} mg`;
+    case 'Rocuronio':
+      return `Rocuronio ${d2(round(1.2*kg,0.1))} mg`;
+    case 'Succinilcolina':
+      return `Succini ${d2(round(2*kg,0.5))} mg`;
+    case 'Naloxona':
+      return `Naloxona ${d2(Math.min(round(0.1*kg,0.1),2))} mg`;
+    case 'Flumazenilo':
+      return `Flumazenilo ${d2(Math.min(round(0.01*kg,0.01),0.2))} mg`;
+  }
+  return drug;
+}
+
+
+  function addDoseFor(key, label, displayName){
+    document.getElementById('cb-' + key).checked = true;
+    marcar(key);
+   
+    const list = document.getElementById('list-'+key);
+    const ts = new Date(); const delta = fmtHMS(ts - t0);
+    const tag = displayName ? `${displayName}` : (label || 'Dosis');
+    const doseDetail = doseText(tag, PESO);
+    const s = document.createElement('span'); s.textContent= `${doseDetail}: ${delta}`;
+    list.prepend(s);
+   
+    if(key === 'adr'){
+      // Eliminar mensajes de adrenalina y reiniciar alarma
+      removePersistentAlert('adrenalina');
+      removePersistentAlert('adrenalina-primera-vez');
+      clearWarn('itm-adr');
+      
+      // Reiniciar alarma de 3 minutos
+      upsertAlert('adr', 'Adrenalina +3:00', 180000, 660, ()=> {
+        showPersistentAlert('adrenalina', '<i class="fa-solid fa-syringe"></i> Administre Adrenalina', 'orange');
+        addWarn('itm-adr');
       });
-      updateDefEnergy();
-      document.getElementById('btn-def').addEventListener('click', ()=>{
-        shockCount += 1;
-        const ts = new Date();
-        const delta = fmtHMS(ts - t0);
-        // Tras 1er shock, subir a ≥4 J/kg automáticamente
-        if(shockCount===1){
-          defJkg.value = Math.max(4, +defJkg.value||2);
-          updateDefEnergy();
-        }
-        const jkg = cappedJkg();
-        const joules = Math.round(jkg * PESO);
-        const line = document.createElement('span');
-        line.textContent = `${shockCount}ª: ${delta} · ${jkg} J/kg → ${joules} J`;
-        defList.prepend(line);
-        // reevaluación de ritmo a los 2 min (reset si ya existe)
-        upsertAlert('ritmo','Reevaluar ritmo', 120000, 880, ()=> addWarn('g-ritmo'));
-        // sugerir antiarrítmico tras varias
-        if(shockCount===3) addWarn('itm-ami');
-        clearWarn('itm-def');
+    }
+    
+    if(key === 'ami'){
+      removePersistentAlert('amiodarona');
+      clearWarn('itm-ami');
+    }
+  }
+ 
+  function setupDyn(key, selId, labelFallback){
+    const sel = document.getElementById(selId);
+    const btn = document.getElementById('btn-'+key);
+    const name = ()=> sel.value || labelFallback;
+    btn.addEventListener('click', ()=> addDoseFor(key, null, name()));
+  }
+
+  // --- BROSELOW ---
+  const BANDS = [ {key:'grey', nombre:'Gris', hex:'#9ca3af', kg:[3,5], len:[46,59]}, {key:'pink', nombre:'Rosa', hex:'#f472b6', kg:[6,7], len:[59,67]}, {key:'red', nombre:'Rojo', hex:'#ef4444', kg:[8,9], len:[67,74]}, {key:'purple', nombre:'Morado', hex:'#8b5cf6', kg:[10,11], len:[74,84]}, {key:'yellow', nombre:'Amarillo',hex:'#f59e0b', kg:[12,14], len:[84,95]}, {key:'white', nombre:'Blanco', hex:'#e5e7eb', kg:[15,18], len:[95,108]}, {key:'blue', nombre:'Azul', hex:'#3b82f6', kg:[19,23], len:[108,121]}, {key:'orange', nombre:'Naranja', hex:'#fb923c', kg:[24,29], len:[121,131]}, {key:'green', nombre:'Verde', hex:'#10b981', kg:[30,36], len:[131,143]}, ];
+  function mid(a,b){return Math.round(((a+b)/2))}
+  function bandFromLen(cm){ let b=null,d=Infinity;for(const band of BANDS){const[a,z]=band.len;if(cm>=a&&cm<=z)return band;const dist=cm<a?a-cm:cm>z?cm-z:0;if(dist<d){d=dist;b=band;}}return b; }
+  function renderChips(){ brChips.innerHTML='';BANDS.forEach(b=>{const el=document.createElement('button');el.type='button';el.className='chip';el.dataset.key=b.key;el.innerHTML=`<span class="sw" style="background:${b.hex}"></span>${b.nombre}`;el.addEventListener('click',()=>{brChips.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));el.classList.add('active');const est=mid(b.kg[0],b.kg[1]);setPesoGlobal(est);brInfo.textContent=`${b.nombre}: ${b.kg[0]}–${b.kg[1]} kg (${b.len[0]}–${b.len[1]} cm) ≈ ${est} kg`;});brChips.appendChild(el);}); }
+  brCalc.addEventListener('click',()=>{ const cm=+brLen.value;if(!cm){brLen.focus();return;}const b=bandFromLen(cm);if(!b){brInfo.textContent='Longitud fuera de rango Broselow.'; brChips.querySelectorAll('.chip').forEach(x=>x.classList.remove('active')); return;} const est=mid(b.kg[0],b.kg[1]);setPesoGlobal(est);brChips.querySelectorAll('.chip').forEach(x=>x.classList.toggle('active',x.dataset.key===b.key));brInfo.textContent=`${b.nombre}: ${b.kg[0]}–${b.kg[1]} kg (${b.len[0]}–${b.len[1]} cm) ≈ ${est} kg`; });
+  renderChips();
+
+  // Informe
+  function agregarFilaInforme(tabla, parametro, valor, tiempo) {
+    const fila = document.createElement('tr');
+    fila.innerHTML = `<td>${parametro}</td><td>${valor}</td><td>${tiempo}</td>`;
+    tabla.appendChild(fila);
+  }
+ 
+  function generarInforme() {
+    tablaInforme.innerHTML = '';
+    const map = {
+      'inc':'Inconsciencia', 'resp':'Respiración anormal', 'pulso':'Sin pulso',
+      'rcp':'Inicio compresiones torácicas', 'llamada':'Llamada 88', 'via':'Vía/Muestras',
+      'ox':'Oxígeno', 'monitor':'Monitor ECG', 'mascarilla': 'Vía Aérea: Mascarilla',
+      'iot':'Vía Aérea: IOT', 'etco2':'ETCO₂', 'adr':'Adrenalina',
+      'ami':'Amiodarona', 'mg':'Magnesio', 'rsi':'IOT/RSI', 'ant':'Antídotos',
+      'def':'Desfibrilación', 'rce':'Recuperacion Circulación Espontánea', 'exitus':'Exitus'
+    };
+    const idOrden = ['rcp', ...ids];
+   
+    agregarFilaInforme(tablaInforme, 'Peso del paciente', `${PESO} kg`, 'Inicio');
+   
+    for (const id of idOrden) {
+      if (state[id] && state[id].ts && map[id]) {
+          agregarFilaInforme(tablaInforme, map[id], 'Completado', fmtHMS(state[id].ts - t0));
+      }
+    }
+   
+    const ritmos = [...document.querySelectorAll('#ritmo-list div')].reverse();
+    ritmos.forEach(it => {
+      const partes = it.textContent.split('·');
+      agregarFilaInforme(tablaInforme, 'Ritmo', partes[0].trim(), partes[1].trim());
+    });
+   
+    const defLines = [...document.querySelectorAll('#def-list span')].reverse();
+    defLines.forEach(x => {
+      const partes = x.textContent.split('·');
+      const tiempoFull = partes[0]?.split(': ');
+      const tiempo = tiempoFull.length > 1 ? tiempoFull[1].trim() : (tiempoFull[0]?.trim() || '—');
+      const detalle = partes[1]?.trim() || '—';
+      const parametro = `Desfibrilación ${tiempoFull[0] || ''}`;
+      agregarFilaInforme(tablaInforme, parametro.replace(':', ''), detalle, tiempo);
+    });
+   
+    ['adr','ami','mg','rsi','ant'].forEach(key=>{
+      [...document.querySelectorAll('#list-'+key+' span')].reverse().forEach(x=>{
+        const [det, delta] = x.textContent.split(': ');
+        const label = (key==='rsi' || key==='ant') ? det : key.toUpperCase();
+        agregarFilaInforme(tablaInforme, `Dosis: ${label}`, 'Administrada', delta);
       });
-      /* ===== Broselow opcional (longitud→peso o color→peso) ===== */
-      const BANDS = [
-        {key:'grey', nombre:'Gris', hex:'#9ca3af', kg:[3,5], len:[46.8,59.2]},
-        {key:'pink', nombre:'Rosa', hex:'#f472b6', kg:[6,7], len:[59.2,66.9]},
-        {key:'red', nombre:'Rojo', hex:'#ef4444', kg:[8,9], len:[66.9,74.2]},
-        {key:'purple', nombre:'Morado', hex:'#8b5cf6', kg:[10,11], len:[74.2,83.8]},
-        {key:'yellow', nombre:'Amarillo',hex:'#f59e0b', kg:[12,14], len:[83.8,95.4]},
-        {key:'white', nombre:'Blanco', hex:'#e5e7eb', kg:[15,18], len:[95.4,108.3]},
-        {key:'blue', nombre:'Azul', hex:'#3b82f6', kg:[19,23], len:[108.3,121.5]},
-        {key:'orange', nombre:'Naranja', hex:'#fb923c', kg:[24,29], len:[121.5,130.7]},
-        {key:'green', nombre:'Verde', hex:'#10b981', kg:[30,36], len:[130.7,143.3]},
-      ];
-      const brLen=document.getElementById('br-len');
-      const brCalc=document.getElementById('br-calc');
-      const brChips=document.getElementById('br-chips');
-      const brInfo=document.getElementById('br-info');
-      function mid(a,b){return Math.round(((a+b)/2)*10)/10}
-      function bandFromLen(cm){
-        let best=null, dist=Infinity;
-        for(const b of BANDS){
-          const [a,z]=b.len;
-          if(cm>=a && cm<=z) return b;
-          const d=cm<a? a-cm : cm>z? cm-z : 0;
-          if(d<dist){dist=d; best=b;}
-        }
-        return best;
+    });
+  }
+
+  function generarHTMLInforme() {
+    let html = `
+      <html>
+      <head>
+        <title>Informe SVP · ${new Date().toLocaleString('es-ES')}</title>
+        <style>
+          body { font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; padding: 0; background: #fff; color: #000; }
+          .page { width: 210mm; min-height: 297mm; padding: 20mm; margin: 10mm auto; box-sizing: border-box; }
+          h1 { font-size: 24px; text-align: center; margin-bottom: 5px; border-bottom: 2px solid #000; padding-bottom: 10px; }
+          .header-info { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 15px; }
+          .table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 20px; }
+          .table th, .table td { border: 1px solid #888; padding: 6px 8px; text-align: left; }
+          .table th { background: #eee; }
+          .table tr:nth-child(even) { background: #f9f9f9; }
+          @media print {
+            body { margin: 0; padding: 0; }
+            .page { margin: 0; padding: 0; box-shadow: none; border: none; }
+          }
+        </style>
+      </head>
+      <body>
+        <div class="page">
+          <h1>Informe de Soporte Vital Pediátrico (SVP)</h1>
+          <div class="header-info">
+            <div><strong>Fecha:</strong> ${new Date().toLocaleString('es-ES')}</div>
+            <div><strong>Duración Total:</strong> ${clockEl.textContent}</div>
+            <div><strong>Peso del paciente:</strong> ${PESO} kg</div>
+          </div>
+
+          <table class="table">
+            <thead><tr><th>Evento</th><th>Detalle</th><th>Tiempo (Inicio: 00:00)</th></tr></thead>
+            <tbody>
+    `;
+    
+    const map = {
+      'inc':'Inconsciencia', 'resp':'Respiración anormal', 'pulso':'Sin pulso',
+      'rcp':'Inicio compresiones torácicas', 'llamada':'Llamada 88', 'via':'Vía/Muestras',
+      'ox':'Oxígeno', 'monitor':'Monitor ECG', 'mascarilla': 'Vía Aérea: Mascarilla',
+      'iot':'Vía Aérea: IOT', 'etco2':'ETCO₂', 'adr':'Adrenalina',
+      'ami':'Amiodarona', 'mg':'Magnesio', 'rsi':'IOT/RSI', 'ant':'Antídotos',
+      'def':'Desfibrilación', 'rce':'Recuperacion Circulación Espontánea', 'exitus':'Exitus'
+    };
+    const idOrden = ['rcp', ...ids];
+    
+    html += `<tr><td>Peso del paciente</td><td>${PESO} kg</td><td>Inicio</td></tr>`;
+    
+    for (const id of idOrden) {
+      if (state[id] && state[id].ts && map[id]) {
+        html += `<tr><td>${map[id]}</td><td>Completado</td><td>${fmtHMS(state[id].ts - t0)}</td></tr>`;
       }
-      function renderChips(){
-        brChips.innerHTML='';
-        BANDS.forEach(b=>{
-          const el=document.createElement('button');
-          el.type='button';
-          el.className='chip';
-          el.dataset.key=b.key;
-          el.innerHTML=`<span class="sw" style="background:${b.hex}"></span>${b.nombre}`;
-          el.addEventListener('click', ()=>{
-            brChips.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
-            el.classList.add('active');
-            const est = mid(b.kg[0], b.kg[1]);
-            setPesoGlobal(est);
-            brInfo.textContent = `${b.nombre}: ${b.kg[0]}–${b.kg[1]} kg · ${Math.round(b.len[0])}–${Math.round(b.len[1])} cm (≈${est} kg)`;
-          });
-          brChips.appendChild(el);
-        });
-      }
-      brCalc.addEventListener('click', ()=>{
-        const cm = +brLen.value;
-        if(!cm) { brLen.focus(); return; }
-        const b = bandFromLen(cm);
-        if(!b) return;
-        const est = mid(b.kg[0], b.kg[1]);
-        setPesoGlobal(est);
-        brChips.querySelectorAll('.chip').forEach(x=>x.classList.toggle('active', x.dataset.key===b.key));
-        brInfo.textContent = `${b.nombre}: ${b.kg[0]}–${b.kg[1]} kg · ${Math.round(b.len[0])}–${Math.round(b.len[1])} cm (≈${est} kg)`;
+    }
+    
+    const ritmos = [...document.querySelectorAll('#ritmo-list div')].reverse();
+    ritmos.forEach(it => {
+      const partes = it.textContent.split('·');
+      html += `<tr><td>Ritmo</td><td>${partes[0].trim()}</td><td>${partes[1].trim()}</td></tr>`;
+    });
+    
+    const defLines = [...document.querySelectorAll('#def-list span')].reverse();
+    defLines.forEach(x => {
+      const partes = x.textContent.split('·');
+      const tiempoFull = partes[0]?.split(': ');
+      const tiempo = tiempoFull.length > 1 ? tiempoFull[1].trim() : (tiempoFull[0]?.trim() || '—');
+      const detalle = partes[1]?.trim() || '—';
+      const parametro = `Desfibrilación ${tiempoFull[0] || ''}`;
+      html += `<tr><td>${parametro.replace(':', '')}</td><td>${detalle}</td><td>${tiempo}</td></tr>`;
+    });
+    
+    ['adr','ami','mg','rsi','ant'].forEach(key=>{
+      [...document.querySelectorAll('#list-'+key+' span')].reverse().forEach(x=>{
+        const [det, delta] = x.textContent.split(': ');
+        const label = (key==='rsi' || key==='ant') ? det : key.toUpperCase();
+        html += `<tr><td>Dosis: ${label}</td><td>Administrada</td><td>${delta}</td></tr>`;
       });
-      renderChips();
-      /* ===== Dosis por kg ===== */
-      function round(v, step){
-        return Math.round(v/step)*step;
-      }
-      function doseText(drug, kg){
-        switch(drug){
-          case 'Adrenalina': {
-            const mg = +(0.01 * kg).toFixed(3); // 0,01 mg/kg
-            const ml = +(0.1 * kg).toFixed(2); // 0,1 mL/kg de 1:10.000 (0,1 mg/mL)
-            return `Adrenalina ${mg} mg (≈ ${ml} mL de 1:10.000)`;
-          }
-          case 'Amiodarona': {
-            const mg = round(5 * kg, 5); // 5 mg/kg
-            return `Amiodarona ${mg} mg`;
-          }
-          case 'Atropina': {
-            let mg = +(0.02 * kg).toFixed(2); // 0,02 mg/kg
-            if(mg < 0.1) mg = 0.1; // mínimo 0,1 mg
-            if(mg > 0.5) mg = 0.5; // máximo 0,5 mg por dosis
-            return `Atropina ${mg} mg`;
-          }
-          case 'Magnesio': {
-            const mg = round(Math.min(Math.max(25*kg, 25*kg), 2000), 25); // 25–50 mg/kg, mostramos 25 mg/kg por defecto, máx 2 g
-            return `Magnesio ${mg} mg (25–50 mg/kg; máx 2 g)`;
-          }
-          // RSI
-          case 'Etomidato': return `Etomidato ${+(0.3*kg).toFixed(2)} mg (0,3 mg/kg)`;
-          case 'Ketamina': return `Ketamina ${+(1.5*kg).toFixed(1)} mg (1–2 mg/kg IV)`;
-          case 'Midazolam': return `Midazolam ${+(0.1*kg).toFixed(2)} mg (0,1 mg/kg IV)`;
-          case 'Fentanilo': return `Fentanilo ${+(1.5*kg).toFixed(1)} mcg (1–2 mcg/kg)`;
-          case 'Propofol': return `Propofol ${+(1.5*kg).toFixed(1)} mg (≈1–2 mg/kg)`;
-          case 'Rocuronio': return `Rocuronio ${+(1.2*kg).toFixed(2)} mg (1–1,2 mg/kg)`;
-          case 'Succinilcolina': return `Succinilcolina ${+(2*kg).toFixed(1)} mg (≈2 mg/kg)`;
-          // Antídotos
-          case 'Naloxona': {
-            let mg = +(0.1*kg).toFixed(2);
-            if(mg>2) mg=2; // 0,1 mg/kg, máx 2 mg
-            return `Naloxona ${mg} mg (máx 2 mg)`;
-          }
-          case 'Flumazenilo': {
-            let mg = +(0.01*kg).toFixed(3);
-            if(mg>0.2) mg=0.2; // 0,01 mg/kg, máx 0,2 mg
-            return `Flumazenilo ${mg} mg (máx 0,2 mg)`;
-          }
+    });
+
+    html += `
+            </tbody>
+          </table>
+        </div>
+      </body>
+      </html>
+    `;
+    return html;
+  }
+  
+  function abrirInformeParaImprimir() {
+    const htmlContenido = generarHTMLInforme();
+    const win = window.open('', '_blank');
+    if (win) {
+      win.document.open();
+      win.document.write(htmlContenido);
+      win.document.close();
+      
+      win.onload = () => {
+        win.focus();
+        win.print();
+      };
+    } else {
+      alert('Por favor, permita las ventanas emergentes para imprimir el informe.');
+    }
+  }
+
+  // Resetea toda la aplicación a su estado inicial
+function resetApp() {
+  if (confirm('¿Está seguro de que desea reiniciar todo el proceso?')) {
+    stopMetronome();
+    t0 = new Date();
+    tick();
+    hasShownFirstAdrenalineAlert = false;
+    
+    // Reset reanimadores
+    document.querySelector('input[name="reanimadores"][value="2"]').checked = true;
+    numReanimadores = 2;
+    
+    // ... el resto del código sigue igual
+     
+      const allIds = ['rcp', ...ids];
+      allIds.forEach(id=>{
+        state[id]={ts:null};
+        const cb=document.getElementById('cb-'+id);
+        if(cb){
+          cb.checked=false;
+          cb.disabled = false;
         }
-        return '';
-      }
-      /* ===== Medicación ===== */
-      function addDoseFor(key, label, displayName){
-        const list=document.getElementById('list-'+key);
-        const ts = new Date();
-        const delta = fmtHMS(ts - t0);
-        let det = label || 'Dosis';
-        if(displayName){
-          det = doseText(displayName, PESO);
-        } else{
-          if(key==='adr') det = doseText('Adrenalina', PESO);
-          if(key==='ami') det = doseText('Amiodarona', PESO);
-          if(key==='atr') det = doseText('Atropina', PESO);
-          if(key==='mg') det = doseText('Magnesio', PESO);
-        }
-        const s=document.createElement('span');
-        s.textContent= ` ${det}: ${delta}`;
-        list.prepend(s);
-        if(key==='adr'){
-          upsertAlert('adr','Adrenalina +3:00', 180000, 660, ()=> addWarn('itm-adr'));
-          clearWarn('itm-adr');
-        }
-        if(key==='ami'){
-          clearWarn('itm-ami');
-        }
-      }
-      [['adr','Adrenalina'],['ami','Amiodarona'],['atr','Atropina'],['mg','Magnesio']].forEach(([key,_name])=>{
-        const cb=document.getElementById('cb-'+key), btn=document.getElementById('btn-'+key);
-        cb.addEventListener('change', e=>{
-          if(e.target.checked){
-            marcar(key);
-            addDoseFor(key,'1ª dosis');
-          }
-        });
-        btn.addEventListener('click', ()=> addDoseFor(key));
+        const tm=document.getElementById('tm-'+id);
+        if(tm){ tm.textContent='00:00'; tm.removeAttribute('data-set'); }
       });
-      function setupDyn(key, selId, fallback){
-        const sel = document.getElementById(selId);
-        const cb = document.getElementById('cb-'+key);
-        const btn = document.getElementById('btn-'+key);
-        const current = ()=> sel.value || fallback;
-        cb.addEventListener('change', e=>{
-          if(e.target.checked){
-            marcar(key);
-            addDoseFor(key,'1ª dosis', current());
-          }
-        });
-        btn.addEventListener('click', ()=> addDoseFor(key, null, current()));
-      }
-      setupDyn('rsi','sel-rsi','IOT/RSI');
-      setupDyn('ant','sel-ant','Antídoto');
-      /* ===== Informe + PDF ===== */
-      function buildRows(){
-        const rows=[];
-        const map={inc:'Inconsciencia',resp:'Respiración anormal',pulso:'Sin pulso',rcp:'Masaje cardíaco',llamada:'Llamada 88', via:'Vía/Muestras',ox:'Oxígeno',monitor:'Monitor ECG',iot:'IOT/Mascarilla',etco2:'ETCO₂', adr:'Adrenalina',ami:'Amiodarona',atr:'Atropina',mg:'Magnesio',rsi:'IOT/RSI',ant:'Antídotos', rce:'Recuperación',exitus:'Éxitus'};
-        // Ritmo (historial)
-        const ritmos=[...document.querySelectorAll('#ritmo-list div')].reverse();
-        ritmos.forEach(it=> rows.push({id:'Ritmo', delta: it.textContent.split('·').pop().trim(), det: it.textContent.split('·')[0].trim()}));
-        // Actuaciones con Δ
-        Object.keys(map).forEach(id=>{
-          if(state[id].ts){
-            rows.push({id:map[id], delta: fmtHMS(state[id].ts - t0), det:'—'});
-          }
-        });
-        // Desfibrilaciones
-        const defLines=[...document.querySelectorAll('#def-list span')].reverse();
-        defLines.forEach(x=>{
-          const parts = x.textContent.split('·');
-          const delta = parts[0].split(': ').pop().trim();
-          const det = parts[1]?.trim()||'—';
-          rows.push({id:'Desfibrilación', delta, det});
-        });
-        // Dosis de medicación
-        ['adr','ami','atr','mg','rsi','ant'].forEach(key=>{
-          [...document.querySelectorAll('#list-'+key+' span')].reverse().forEach(x=>{
-            const [det, delta] = x.textContent.split(': ');
-            rows.push({id:(key==='rsi'||key==='ant')?det.split(' ')[0]:key.toUpperCase(), delta:delta, det:det});
-          });
-        });
-        rows.unshift({id:'Peso', delta:`${PESO} kg`, det:'—'});
-        return rows;
-      }
-      const dlg=document.getElementById('dlg');
-      document.getElementById('btnInforme').addEventListener('click', ()=>{
-        const rows = buildRows();
-        const tb=document.querySelector('#tablaInforme tbody');
-        tb.innerHTML='';
-        rows.forEach(r=>{
-          const tr=document.createElement('tr');
-          tr.innerHTML=`<td>${r.id}</td><td>${r.delta}</td><td>${r.det}</td>`;
-          tb.appendChild(tr);
-        });
-        dlg.showModal();
+     
+      document.querySelectorAll('#g-ritmo input').forEach(r=> {
+        r.checked=false;
+        r.disabled = false;
       });
-      document.getElementById('dlgClose').addEventListener('click', ()=>dlg.close());
-      document.getElementById('dlgOk').addEventListener('click', ()=>dlg.close());
-      document.getElementById('btnPDF').addEventListener('click', ()=>{
-        const rows=buildRows();
-        const jsPDFClass = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
-        if(!jsPDFClass){
-          alert('No se ha podido cargar jsPDF. Usa “Imprimir” y elige “Guardar como PDF”.');
-          return;
+      tmRitmo.removeAttribute('data-set');
+      tmRitmo.textContent = '00:00';
+      ritmoList.textContent='';
+     
+      ['adr','ami','mg','rsi','ant'].forEach(k=>{
+        document.getElementById('list-'+k).textContent='';
+      });
+
+      // CAMBIO: Eliminadas las líneas que fijaban Julios a 200
+      defList.textContent='';
+      shockCount = 0;
+     
+      clearAllAlerts();
+      clearAllPersistentAlerts();
+      
+      document.querySelectorAll('.warn-strong').forEach(el => {
+        el.classList.remove('warn-strong','blink-strong');
+      });
+     
+      bpmInput.value=110;
+      bpmValueEl.textContent='110';
+      bpmInput.disabled = true;
+      isIOTActive = false;
+      isPaused = false;
+      isCPRRunning = false;
+      
+      // Reset reanimadores
+      document.querySelectorAll('.reanimador-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.querySelector('[data-reanimadores="1"]').classList.add('active');
+      
+      setPesoGlobal(20);
+      // CAMBIO: Llama a la nueva función de sincronización para resetear el slider a 4 J/Kg
+      syncDefibrillationToWeight();
+      
+      if (cprCountEl) {
+          cprCountEl.textContent = "--";
+          cprCountEl.classList.remove('active', 'iot-active');
+      }
+     
+      if (ventAlert) ventAlert.style.display = 'none';
+      if (repositionAlert) repositionAlert.style.display = 'none';
+      
+      document.querySelectorAll('#br-chips .chip').forEach(x=>x.classList.remove('active'));
+      brInfo.textContent='—';
+      brLen.value='';
+      
+      if (audioCtx) {
+        audioCtx.close();
+        audioCtx = null;
+      }
+    }
+  }
+
+  // --- 3. ASIGNACIÓN DE EVENTOS (EVENT LISTENERS) ---
+
+bpmInput.addEventListener('input', e=>{ bpmValueEl.textContent=e.target.value; setBPM(+e.target.value); });
+document.getElementById('btnReset').addEventListener('click', resetApp);
+
+// CAMBIO: Evento para el slider de energía (J/Kg)
+defEnergy.addEventListener('input', e => {
+  updateCalculatedJoules();
+});
+
+// SELECTOR DE REANIMADORES EN EL HEADER
+document.querySelectorAll('input[name="reanimadores"]').forEach(radio => {
+  radio.addEventListener('change', function() {
+    numReanimadores = parseInt(this.value);
+    
+    // Actualizar contador si está corriendo
+    if (isCPRRunning && !isIOTActive) {
+      const compresionesPorCiclo = numReanimadores === 1 ? 30 : 15;
+      if (cprCountEl) {
+        cprCountEl.textContent = compresionesPorCiclo - beepCount;
+      }
+    }
+  });
+});
+
+  // Sistema de guiado paso a paso
+  function checkPCRSteps() {
+    const incChecked = document.getElementById('cb-inc').checked;
+    const respChecked = document.getElementById('cb-resp').checked;
+    
+    if (incChecked && respChecked) {
+      showPersistentAlert('iniciar-compresiones', '<i class="fa-solid fa-heart-circle-plus"></i> Inicie Compresiones torácicas (Masaje cardíaco)', 'blue');
+      addWarn('itm-rcp');
+    } else {
+      removePersistentAlert('iniciar-compresiones');
+      clearWarn('itm-rcp');
+    }
+  }
+
+  // Botones de reanimadores
+  document.querySelectorAll('.reanimador-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.reanimador-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      numReanimadores = parseInt(this.dataset.reanimadores);
+      
+      // Actualizar contador si está corriendo
+      if (isCPRRunning && !isIOTActive) {
+        const compresionesPorCiclo = numReanimadores === 1 ? 30 : 15;
+        if (cprCountEl) {
+          cprCountEl.textContent = compresionesPorCiclo - beepCount;
         }
-        const doc = new jsPDFClass({unit:'pt', format:'a4'});
-        const margin=40;
-        let y=margin;
-        doc.setFont('helvetica','bold');
-        doc.setFontSize(14);
-        doc.text('Informe · SVP', margin, y);
-        y+=18;
-        doc.setFont('helvetica','');
-        doc.setFontSize(10);
-        const now=new Date();
-        doc.text(`Fecha: ${now.toLocaleDateString()} Hora: ${now.toLocaleTimeString()}`, margin, y);
-        y+=14;
-        doc.text(`Tiempo desde inicio: ${document.getElementById('clock').textContent}`, margin, y);
-        y+=14;
-        doc.text(`Peso: ${PESO} kg`, margin, y);
-        y+=20;
-        doc.setFont('helvetica','bold');
-        doc.text('Actuación', margin, y);
-        doc.text('Δ', margin+260, y);
-        doc.text('Detalle', margin+330, y);
-        y+=12;
-        doc.setLineWidth(.5);
-        doc.line(margin, y, 555, y);
-        y+=10;
-        doc.setFont('helvetica','');
-        rows.forEach(r=>{
-          if(y>780){
-            doc.addPage();
-            y=margin;
-          }
-          doc.text(String(r.id), margin, y);
-          doc.text(String(r.delta), margin+260, y);
-          doc.text(String(r.det), margin+330, y);
-          y+=12;
-        });
-        doc.save('SVP_informe.pdf');
-      });
-      /* ===== Reiniciar ===== */
-      document.getElementById('btnReset').addEventListener('click', ()=>{
+      }
+    });
+  });
+
+  // Eventos de Checkbox
+  ids.forEach(id => {
+    const cb = document.getElementById('cb-' + id);
+    if (!cb) return;
+    cb.addEventListener('change', e => {
+      if (!e.target.checked) { e.target.checked = true; return; }
+      marcar(id);
+      
+      // Verificar pasos de PCR
+      if (id === 'inc' || id === 'resp') {
+        checkPCRSteps();
+      }
+      
+      // Guiado paso a paso
+      if (id === 'rcp') {
+        removePersistentAlert('iniciar-compresiones');
+        showPersistentAlert('monitor-ecg', '<i class="fa-solid fa-wave-square"></i> Monitorice ECG', 'green');
+        addWarn('itm-monitor');
+      }
+      
+      if (id === 'monitor') {
+        removePersistentAlert('monitor-ecg');
+        showPersistentAlert('evaluar-ritmo', '<i class="fa-solid fa-heart-pulse"></i> Evalúe el Ritmo', 'green');
+        addWarn('g-ritmo');
+        clearWarn('itm-monitor');
+      }
+     
+      if(id === 'rce' || id === 'exitus') {
         stopMetronome();
-        t0 = new Date();
-        tick();
-        ids.forEach(id=>{
-          state[id]={ts:null};
-          const cb=document.getElementById('cb-'+id);
-          if(cb){
-            cb.checked=false;
-          }
-          const tm=document.getElementById('tm-'+id);
-          if(tm){
-            tm.textContent='00:00:00';
-            tm.removeAttribute('data-set');
-          }
-        });
-        document.querySelectorAll('#g-ritmo input').forEach(r=> r.checked=false);
-        document.getElementById('tm-ritmo').removeAttribute('data-set');
-        document.getElementById('ritmo-list').textContent='';
-        ['adr','ami','atr','mg','rsi','ant'].forEach(k=>{
-          document.getElementById('list-'+k).textContent='';
-        });
-        document.getElementById('def-jkg').value=2;
-        document.getElementById('def-list').textContent='';
-        shockCount=0;
-        updateDefEnergy();
-        document.querySelectorAll('.alerts .alert').forEach(a=>a.remove());
-        ['g-ritmo','itm-adr','itm-ami','itm-def'].forEach(id=> clearWarn(id));
-        bpm.value=110;
-        bpmv.textContent='110';
-        // peso por defecto 20 kg
-        setPesoGlobal(20);
-        // Broselow chips reset visual
-        document.querySelectorAll('#br-chips .chip').forEach(x=>x.classList.remove('active'));
-        brInfo.textContent='—';
-        brLen.value='';
-      });
-    }); // DOMContentLoaded
-  </script>
+        clearAllAlerts();
+        clearAllPersistentAlerts();
+        if (repositionAlert) repositionAlert.style.display = 'none';
+      }
+     
+      if (id === 'iot') {
+        isIOTActive = true;
+        if (cprCountEl) {
+            cprCountEl.textContent = "∞";
+            cprCountEl.classList.add('active', 'iot-active');
+        }
+        if (isCPRRunning) {
+          if (cprCycleTimer) clearTimeout(cprCycleTimer);
+          if (ventAlert) ventAlert.style.display = 'none';
+          isPaused = false;
+          beepCount = 0;
+          runCompressionCycle();
+        }
+      }
+    });
+  });
+ 
+  cbRcp.addEventListener('change', e => {
+      if (e.target.checked) {
+        if (!state['rcp'].ts) {
+            marcar('rcp');
+            bpmInput.disabled = false;
+            startMetronome();
+            
+            removePersistentAlert('iniciar-compresiones');
+            showPersistentAlert('monitor-ecg', '<i class="fa-solid fa-wave-square"></i> Monitorice ECG', 'green');
+            clearWarn('itm-rcp');
+            addWarn('itm-monitor');
+        }
+        else if (isPaused) {
+            if (cprCycleTimer) clearTimeout(cprCycleTimer);
+            isPaused = false;
+            if (ventAlert) ventAlert.style.display = 'none';
+            beepCount = 0;
+            runCompressionCycle();
+        }
+      } else {
+        e.target.checked = true;
+        if (isPaused) {
+            if (cprCycleTimer) clearTimeout(cprCycleTimer);
+            isPaused = false;
+            if (ventAlert) ventAlert.style.display = 'none';
+            beepCount = 0;
+            runCompressionCycle();
+        }
+      }
+  });
+
+  // COMPORTAMIENTO DE RITMOS SEGÚN ESPECIFICACIÓN
+  document.querySelectorAll('#g-ritmo input[type=radio]').forEach(r => {
+    r.addEventListener('click', () => {
+      const ts = new Date();
+      const delta = fmtHMS(ts - t0);
+      const row = document.createElement('div');
+      row.textContent = `${r.value} · ${delta}`;
+      ritmoList.prepend(row);
+      
+      if(!tmRitmo.dataset.set){
+        tmRitmo.dataset.set=1;
+        tmRitmo.textContent = delta;
+      }
+      
+      clearWarn('g-ritmo');
+      removePersistentAlert('evaluar-ritmo');
+      removePersistentAlert('monitor-ecg');
+      
+      clearWarn('itm-monitor');
+      
+      // COMPORTAMIENTO SEGÚN TIPO DE RITMO
+      if(r.value === 'FV' || r.value === 'TVSP'){
+        // Ritmos desfibrilables
+        showPersistentAlert('desfibrilar', '<i class="fa-solid fa-bolt"></i> Desfibrile al paciente', 'red');
+        addWarn('itm-def');
+        clearWarn('itm-adr');
+        clearWarn('itm-ami');
+      } else {
+        // AESP o Asistolia (ritmos no desfibrilables)
+        clearWarn('itm-def');
+        clearWarn('itm-ami');
+        addWarn('itm-adr');
+        
+        // Mostrar adrenalina solo la PRIMERA VEZ
+        if (!hasShownFirstAdrenalineAlert) {
+          showPersistentAlert('adrenalina-primera-vez', '<i class="fa-solid fa-syringe"></i> Administre Adrenalina', 'orange');
+          hasShownFirstAdrenalineAlert = true;
+        }
+        
+        // SOLO REINICIAR ALARMA DE REEVALUACIÓN para ritmos NO desfibrilables (AESP/Asistolia)
+        startReevaluationAlert();
+        removePersistentAlert('reevaluacion');
+      }
+    });
+  });
+
+  // COMPORTAMIENTO DE DESFIBRILACIÓN
+  document.getElementById('btn-def').addEventListener('click', () => {
+    document.getElementById('cb-def').checked = true;
+    marcar('def');
+   
+    shockCount += 1;
+    const ts = new Date();
+    const delta = fmtHMS(ts - t0);
+    const line = document.createElement('span');
+    
+    // CAMBIO: Coge el valor total calculado (ej: 80 J) no el valor del slider (ej: 4 J/Kg)
+    const joulesParaDescarga = defCalculated.textContent;
+    line.textContent = `${shockCount}ª: ${delta} · ${joulesParaDescarga} J`;
+    defList.prepend(line);
+   
+    // Reiniciar alarma de reevaluación
+    startReevaluationAlert();
+    removePersistentAlert('reevaluacion');
+    removePersistentAlert('desfibrilar');
+   
+    // COMPORTAMIENTO TRAS 3ª DESFIBRILACIÓN
+    if(shockCount === 3) {
+      showPersistentAlert('adrenalina', '<i class="fa-solid fa-syringe"></i> Administre Adrenalina', 'orange');
+      showPersistentAlert('amiodarona', '<i class="fa-solid fa-syringe"></i> Administre Amiodarona', 'orange');
+      
+      // Mostrar alerta de recolocar parches
+      if (repositionAlert) repositionAlert.style.display = 'flex';
+      
+      // Resaltar tarjetas
+      addWarn('itm-ami');
+      addWarn('itm-adr');
+    } else {
+      // Eliminar alerta de recolocar parches (solo si NO es la 3ª)
+      if (repositionAlert) repositionAlert.style.display = 'none';
+    }
+    
+    clearWarn('itm-def');
+  });
+
+  [['adr','Adrenalina'],['ami','Amiodarona'],['mg','Magnesio']].forEach(([key, name]) => {
+  const btn = document.getElementById('btn-'+key);
+  btn.addEventListener('click', () => addDoseFor(key, null, name));
+});
+
+
+  setupDyn('rsi','sel-rsi','IOT/RSI');
+  setupDyn('ant','sel-ant','Antídoto');
+
+  // Eventos del Diálogo/Informe
+  document.getElementById('btnInforme').addEventListener('click', function() {
+    generarInforme();
+    dialogInforme.showModal();
+  });
+  document.getElementById('btnCerrarDialog').addEventListener('click', function() {
+    dialogInforme.close();
+  });
+  document.getElementById('btnCerrarInforme').addEventListener('click', function() {
+    dialogInforme.close();
+  });
+ 
+  document.getElementById('btnCopiarInforme').addEventListener('click', function() {
+    const htmlContenido = generarHTMLInforme();
+    const tempEl = document.createElement('div');
+    tempEl.innerHTML = htmlContenido;
+    let texto = tempEl.querySelector('h1').textContent + '\n';
+    tempEl.querySelectorAll('.header-info div').forEach(div => texto += div.textContent + '\n');
+    texto += '\n';
+    tempEl.querySelectorAll('.table tr').forEach(tr => {
+      let linea = [];
+      tr.querySelectorAll('th, td').forEach(cell => linea.push(cell.textContent));
+      texto += linea.join('\t') + '\n';
+    });
+    
+    navigator.clipboard.writeText(texto).then(() => {
+      alert('Informe (formato texto) copiado al portapapeles');
+    }).catch(err => {
+      console.error('Error al copiar: ', err);
+    });
+  });
+ 
+  document.getElementById('btnPDF').addEventListener('click', abrirInformeParaImprimir);
+  document.getElementById('btnImprimirDialog').addEventListener('click', abrirInformeParaImprimir);
+
+  // --- 4. INICIALIZACIÓN DE LA APP ---
+  pintaFecha();
+  setInterval(pintaFecha,1000);
+  tick();
+  setInterval(tick, 1000);
+  
+  // CAMBIO: Esta única llamada inicializa el slider a 4 J/Kg y calcula los J totales
+  syncDefibrillationToWeight(); 
+
+
+}); // --- FIN DE DOMContentLoaded ---
+</script>
 </body>
 </html>
