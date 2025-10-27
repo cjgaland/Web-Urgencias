@@ -172,6 +172,7 @@ header{
   display: block;
   position: relative;
   width: 100%;
+  z-index: 2; /* <-- AÑADIR ESTA LÍNEA */
 }
 .top input[type="checkbox"] { display: none; }
 .top label {
@@ -342,18 +343,24 @@ header{
   border-color: #505c7a;
 }
 
-/* Tarjeta Desfibrilación */
+/* Tarjeta Desfibrilación - MODIFICADO: Mejor distribución */
 #g-desfibrilacion .item {
   display: grid;
-  grid-template-columns: 1fr; /* Apilado en 1 columna */
+  grid-template-columns: 1fr 1fr; /* Dos columnas */
+  gap: var(--gap);
+  align-items: start;
+}
+.def-col-left { 
+  display: flex;
+  flex-direction: column;
   gap: var(--gap);
 }
-.def-col-left { display: flex; }
 #btn-def {
   width: 100%;
   font-size: var(--fs-md);
   background-color: var(--orange);
   border-color: var(--orange2);
+  flex-shrink: 0;
 }
 #btn-def:hover { background-color: var(--orange2); }
 .def-col-right {
@@ -368,13 +375,12 @@ header{
   min-height: 40px;
 }
 
-/* Alerta de Ventilación */
+/* Alerta de Ventilación - MODIFICADO: posición izquierda */
 .vent-alert {
   display: none;
   position: fixed;
   top: 80px; 
-  left: 50%;
-  transform: translateX(-50%);
+  left: 20px;
   background: var(--cyan);
   color: #000;
   border: 2px solid var(--cyan2);
@@ -388,29 +394,61 @@ header{
   gap: 12px;
 }
 
-/* Alertas de Acción */
-.action-alert {
+/* Alerta de Recolocar Parches - NUEVA: posición derecha */
+.reposition-alert {
   display: none;
   position: fixed;
   top: 80px; 
-  left: 50%;
-  transform: translateX(-50%);
+  right: 20px;
+  background: var(--red);
+  color: #fff;
+  border: 2px solid var(--red2);
   border-radius: 12px;
   padding: 12px 20px;
   font-size: var(--fs-lg);
   font-weight: 700;
-  z-index: 99;
+  z-index: 100;
   box-shadow: var(--shadow);
   align-items: center;
   gap: 12px;
 }
-.action-alert.show {
+
+/* Alertas de Acción - MODIFICADO para múltiples mensajes */
+.action-alerts-container {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
   display: flex;
-  animation: fadeOut 4s forwards;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 99;
+  pointer-events: none;
+}
+
+.action-alert {
+  display: flex;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  box-shadow: var(--shadow);
+  align-items: center;
+  gap: 12px;
+  max-width: 90%;
+  animation: slideIn 0.3s ease-out;
 }
 .action-alert.red { background: var(--red); color: #fff; }
 .action-alert.orange { background: var(--orange); color: #fff; }
 .action-alert.warn { background: var(--warn); color: #111; }
+.action-alert.blue { background: var(--blue); color: #fff; }
+.action-alert.green { background: var(--green); color: #fff; }
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
 @keyframes fadeOut {
   0%, 75% { opacity: 1; }
@@ -504,18 +542,154 @@ dialog{ border:none; border-radius:14px; padding:0; box-shadow:0 24px 60px rgba(
     grid-template-columns: 1fr; grid-auto-flow: row;
   }
   .ritmo-inline { grid-template-columns: 1fr; }
+  
+  #g-desfibrilacion .item {
+    grid-template-columns: 1fr; /* Una columna en móvil */
+  }
 
   #alerts {
     height: auto;
     overflow-y: visible;
   }
+  
+  .action-alerts-container {
+    top: 120px;
+  }
+  
+  .vent-alert {
+    top: 120px;
+    left: 10px;
+    right: 10px;
+    max-width: calc(100% - 20px);
+  }
+  
+  .reposition-alert {
+    top: 120px;
+    right: 10px;
+    left: 10px;
+    max-width: calc(100% - 20px);
+  }
 }
 @media print{
   /* Ocultamos todo menos el contenido del informe (ver JS) */
-  header, .main, .action-alert, .vent-alert, #g-alarmas, dialog { 
+  header, .main, .action-alert, .vent-alert, .reposition-alert, #g-alarmas, dialog { 
     display:none !important; 
   }
 }
+  
+/* NUEVO ESTILO PARA LA TARJETA DE MASAJE CARDÍACO REORGANIZADA */
+#itm-rcp {
+  display: grid;
+  grid-template-columns: 1fr auto; /* Botón a la izquierda, controles a la derecha */
+  grid-template-rows: auto auto; /* Dos filas */
+  gap: 8px;
+  align-items: start;
+}
+
+/* El top (botón) ocupa toda la primera fila */
+#itm-rcp .top {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+/* Controles a la derecha del botón */
+#itm-rcp .slider {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 140px;
+}
+
+/* Countdown y delta en segunda fila, ocupando todo el ancho */
+#itm-rcp .cpr-countdown {
+  grid-column: 1 / 3;
+  grid-row: 2 / 3;
+  margin: 0;
+}
+
+#itm-rcp .delta {
+  grid-column: 1 / 3;
+  grid-row: 3 / 4;
+  align-self: end;
+}
+
+/* Estilo mejorado para el slider */
+#itm-rcp .slider input[type="range"] {
+  width: 100px;
+  height: 6px;
+  background: #1a1e2d;
+  border-radius: 3px;
+  outline: none;
+}
+
+#itm-rcp .slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: var(--cyan);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#itm-rcp .slider input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: var(--cyan);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+/* Label del BPM más compacto */
+#itm-rcp .slider strong {
+  font-size: var(--fs-xs);
+  white-space: nowrap;
+}
+
+/* NUEVO: Estilo para el slider de energía en desfibrilación */
+.def-energy-slider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.def-energy-slider input[type="range"] {
+  width: 100%;
+  height: 6px;
+  background: #1a1e2d;
+  border-radius: 3px;
+  outline: none;
+}
+
+.def-energy-slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: var(--orange);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.def-energy-slider input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: var(--orange);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+.def-energy-slider strong {
+  font-size: var(--fs-xs);
+  white-space: nowrap;
+  color: #fff;
+}
+  
 </style>
 </head>
 <body>
@@ -553,14 +727,17 @@ dialog{ border:none; border-radius:14px; padding:0; box-shadow:0 24px 60px rgba(
     <h3>Inicio compresiones torácicas</h3>
     <div class="row">
       <div class="item" id="itm-rcp">
-        <div class="top"><input type="checkbox" id="cb-rcp"><label for="cb-rcp">Masaje cardíaco</label></div>
-        <div class="cpr-countdown" id="cpr-count">--</div> 
-        <div class="delta" id="tm-rcp">00:00</div>
-        <div class="slider"><span>Metrónomo</span>
-          <input type="range" id="bpm" min="100" max="120" step="5" value="110" disabled>
-          <strong><span id="bpmv">110</span> lpm</strong>
-        </div>
-      </div>
+  <div class="top"><input type="checkbox" id="cb-rcp"><label for="cb-rcp">Masaje cardíaco</label></div>
+  
+  <div class="slider">
+    <span style="font-size: 12px; color: #ccc;">Ritmo</span>
+    <input type="range" id="bpm" min="100" max="120" step="5" value="110" disabled>
+    <strong><span id="bpmv">110</span> lpm</strong>
+  </div>
+  
+  <div class="cpr-countdown" id="cpr-count">--</div> 
+  <div class="delta" id="tm-rcp">00:00</div>
+</div>
       <div class="item" id="itm-llamada"><div class="top"><input type="checkbox" id="cb-llamada"><label for="cb-llamada">Llamada 88</label></div><div class="delta" id="tm-llamada">00:00</div></div>
     </div>
   </section>
@@ -652,21 +829,23 @@ dialog{ border:none; border-radius:14px; padding:0; box-shadow:0 24px 60px rgba(
     </div>
   </section>
 
+  <!-- MODIFICADO: Tarjeta de Desfibrilación con slider de energía -->
   <section class="group" id="g-desfibrilacion">
     <h3>Desfibrilación</h3>
     <div class="item" id="itm-def"> 
       <div class="def-col-left">
-        <button class="btn btn-ghost" id="btn-def">+ Desfibrilación</button>
-      </div>
-      <div class="def-col-right">
         <div class="top">
-          <input type="checkbox" id="cb-def"><label for="cb-def">Desfibrilación</label>
+          <input type="checkbox" id="cb-def"><label for="cb-def">Desfibrilación realizada</label>
         </div>
         <div class="delta" id="tm-def">00:00</div>
-        <div class="energy">
-          <span>Energía</span>
-          <input type="number" id="def-energy" step="50" min="150" max="360" value="200"> J
+        <div class="def-energy-slider">
+          <span style="font-size: 12px; color: #ccc;">Energía</span>
+          <input type="range" id="def-energy" min="100" max="360" step="20" value="200">
+          <strong><span id="def-energy-value">200</span> J</strong>
         </div>
+      </div>
+      <div class="def-col-right">
+        <button class="btn btn-ghost" id="btn-def">+ Desfibrilar</button>
         <div class="inline-list" id="def-list"></div>
       </div>
     </div>
@@ -704,7 +883,14 @@ dialog{ border:none; border-radius:14px; padding:0; box-shadow:0 24px 60px rgba(
   <span>Realice 2 ventilaciones</span>
 </div>
 
-<div id="action-alert" class="action-alert"></div>
+<!-- NUEVA: Alerta de recolocar parches -->
+<div id="reposition-alert" class="reposition-alert">
+  <i class="fa-solid fa-arrows-rotate"></i>
+  <span>Recoloque los parches en el paciente</span>
+</div>
+
+<!-- MODIFICADO: Contenedor para múltiples alertas -->
+<div id="action-alerts-container" class="action-alerts-container"></div>
 
 <dialog id="dialogInforme">
   <div class="dialog-head">
@@ -751,6 +937,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   let isIOTActive = false;
   let isCPRRunning = false;
   let isPaused = false;
+  let hasShownFirstAdrenalineAlert = false; // Control para primera alerta de adrenalina
  
   const BEEP_MS = () => 60000 / BPM;
  
@@ -761,9 +948,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
  
   // Elementos del DOM
   const ventAlert = document.getElementById('vent-alert');
+  const repositionAlert = document.getElementById('reposition-alert');
   const cprCountEl = document.getElementById('cpr-count');
-  const actionAlert = document.getElementById('action-alert');
-  let actionAlertTimer = null;
+  const actionAlertsContainer = document.getElementById('action-alerts-container');
   const fechaHoraEl = document.getElementById('fechaHora');
   const clockEl = document.getElementById('clock');
   const bpmInput = document.getElementById('bpm');
@@ -774,10 +961,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const alertsEl = document.getElementById('alerts'); 
   const alertHandles = {};
   const defEnergy = document.getElementById('def-energy');
+  const defEnergyValue = document.getElementById('def-energy-value');
   const defList = document.getElementById('def-list');
   const dialogInforme = document.getElementById('dialogInforme');
   const tablaInforme = document.getElementById('tablaInforme');
 
+  // Sistema de mensajes persistentes
+  const persistentAlerts = new Map();
 
   // --- 2. FUNCIONES PRINCIPALES ---
 
@@ -856,7 +1046,24 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
     if (ventAlert) ventAlert.style.display = 'none';
     runCompressionCycle();
+    
+    // Iniciar alarma cíclica de reevaluación al comenzar masaje
+    startReevaluationAlert();
   };
+  
+  /// Función: Iniciar/Reiniciar alarma de reevaluación
+  function startReevaluationAlert() {
+  upsertAlert('reevaluacion', 'Reevaluar paciente y ritmo', 120000, 660, () => {
+    // Cuando llega a cero: mostrar alerta persistente
+    showPersistentAlert('reevaluacion', '<i class="fa-solid fa-heart-pulse"></i> Reevalue al paciente y ritmo', 'warn');
+    addWarn('g-ritmo');
+    
+    // REINICIAR AUTOMÁTICAMENTE después de 20 segundos (tiempo para reevaluar)
+    setTimeout(() => {
+      startReevaluationAlert();
+    }, 20000); // 20 segundos para reevaluar
+  });
+}
  
   const stopMetronome = ()=>{ 
     isCPRRunning = false;
@@ -872,23 +1079,37 @@ document.addEventListener('DOMContentLoaded', ()=>{
  
   const setBPM = v => { BPM=v; };
  
-  function showActionAlert(message, typeClass) {
-    if (actionAlertTimer) clearTimeout(actionAlertTimer); 
-    actionAlert.innerHTML = message;
-    actionAlert.className = 'action-alert show ' + typeClass;
-    actionAlertTimer = setTimeout(() => {
-      actionAlert.className = 'action-alert';
-    }, 4000);
+  // Sistema de alertas persistentes
+  function showPersistentAlert(id, message, typeClass) {
+    if (persistentAlerts.has(id)) return;
+    
+    const alertEl = document.createElement('div');
+    alertEl.className = `action-alert ${typeClass}`;
+    alertEl.innerHTML = message;
+    alertEl.dataset.alertId = id;
+    
+    actionAlertsContainer.appendChild(alertEl);
+    persistentAlerts.set(id, alertEl);
+  }
+  
+  function removePersistentAlert(id) {
+    if (persistentAlerts.has(id)) {
+      const alertEl = persistentAlerts.get(id);
+      alertEl.remove();
+      persistentAlerts.delete(id);
+    }
+  }
+  
+  function clearAllPersistentAlerts() {
+    persistentAlerts.forEach((alertEl, id) => {
+      alertEl.remove();
+    });
+    persistentAlerts.clear();
   }
 
   const addWarn = id => {
     const el = document.getElementById(id);
     if(el) el.classList.add('warn-strong','blink-strong');
-   
-    if (id === 'itm-def') showActionAlert('<i class="fa-solid fa-bolt"></i> Realice desfibrilación', 'red');
-    if (id === 'itm-adr') showActionAlert('<i class="fa-solid fa-syringe"></i> Administre Adrenalina', 'red'); // Corregido typo 'showActionJAlert'
-    if (id === 'itm-ami') showActionAlert('<i class="fa-solid fa-syringe"></i> Administre Amiodarona', 'orange');
-    if (id === 'g-ritmo') showActionAlert('<i class="fa-solid fa-heart-pulse"></i> Reevalue paciente y ritmo', 'warn');
   };
 
   const clearWarn = id => {
@@ -896,8 +1117,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     if (el) el.classList.remove('warn-strong','blink-strong');
   }
 
-  // --- NUEVA FUNCIÓN ---
-  /** Destruye todas las alertas activas */
+  // Destruye todas las alertas activas
   function clearAllAlerts() {
     Object.keys(alertHandles).forEach(key => {
       if (alertHandles[key] && typeof alertHandles[key].destroy === 'function') {
@@ -933,7 +1153,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
         clearInterval(timer);
         tSpan.textContent='00:00';
         el.style.borderColor = 'var(--warn)';
-        beep(tone,0.12,0.35); setTimeout(()=>beep(tone,0.12,0.35),180);
+        if (audioCtx && audioCtx.state !== 'closed') {
+          beep(tone,0.12,0.35); 
+          setTimeout(()=>{
+            if (audioCtx && audioCtx.state !== 'closed') {
+              beep(tone,0.12,0.35);
+            }
+          },180);
+        }
         if(onFire) onFire();
         
         setTimeout(()=>{ 
@@ -972,13 +1199,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
  
   function upsertAlert(key, name, ms, tone, onFire){
-    if (key === 'ritmo') {
-      const originalOnFire = onFire;
-      onFire = () => {
-        if (originalOnFire) originalOnFire();
-      };
-    }
-   
     if(alertHandles[key]){ 
       alertHandles[key].reset(ms); 
     } else { 
@@ -990,17 +1210,29 @@ document.addEventListener('DOMContentLoaded', ()=>{
     document.getElementById('cb-' + key).checked = true;
     marcar(key);
    
-    const list=document.getElementById('list-'+key);
+    const list = document.getElementById('list-'+key);
     const ts = new Date(); const delta = fmtHMS(ts - t0); 
     const tag = displayName ? `${displayName}` : (label || 'Dosis');
-    const s=document.createElement('span'); s.textContent= `${tag}: ${delta}`;
+    const s = document.createElement('span'); s.textContent= `${tag}: ${delta}`;
     list.prepend(s);
    
-    if(key==='adr'){
-      upsertAlert('adr','Adrenalina +3:00', 180000, 660, ()=> addWarn('itm-adr'));
+    if(key === 'adr'){
+      // Eliminar mensajes de adrenalina y reiniciar alarma
+      removePersistentAlert('adrenalina');
+      removePersistentAlert('adrenalina-primera-vez');
       clearWarn('itm-adr');
+      
+      // Reiniciar alarma de 3 minutos
+      upsertAlert('adr', 'Adrenalina +3:00', 180000, 660, ()=> {
+        showPersistentAlert('adrenalina', '<i class="fa-solid fa-syringe"></i> Administre Adrenalina', 'orange');
+        addWarn('itm-adr');
+      });
     }
-    if(key==='ami'){ clearWarn('itm-ami'); }
+    
+    if(key === 'ami'){ 
+      removePersistentAlert('amiodarona');
+      clearWarn('itm-ami'); 
+    }
   }
  
   function setupDyn(key, selId, labelFallback){
@@ -1024,7 +1256,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       'ox':'Oxígeno', 'monitor':'Monitor ECG', 'mascarilla': 'Vía Aérea: Mascarilla', 
       'iot':'Vía Aérea: IOT', 'etco2':'ETCO₂', 'adr':'Adrenalina', 
       'ami':'Amiodarona', 'mg':'Magnesio', 'rsi':'IOT/RSI', 'ant':'Antídotos', 
-      'def':'Desfibrilación', 'rce':'Recuperacion Circulación Espontánea', 'exitus':'Exitus' // Tilde quitada
+      'def':'Desfibrilación', 'rce':'Recuperacion Circulación Espontánea', 'exitus':'Exitus'
     };
     const idOrden = ['rcp', ...ids];
    
@@ -1059,7 +1291,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     });
   }
 
-  // --- NUEVA FUNCIÓN: Genera el HTML para la impresión profesional ---
   function generarHTMLInforme() {
     let html = `
       <html>
@@ -1093,14 +1324,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
             <tbody>
     `;
     
-    // --- Reutilizar la lógica de 'generarInforme()' para construir el HTML ---
     const map = {
       'inc':'Inconsciencia', 'resp':'Respiración anormal', 'pulso':'Sin pulso', 
       'rcp':'Inicio compresiones torácicas', 'llamada':'Llamada 88', 'via':'Vía/Muestras', 
       'ox':'Oxígeno', 'monitor':'Monitor ECG', 'mascarilla': 'Vía Aérea: Mascarilla', 
       'iot':'Vía Aérea: IOT', 'etco2':'ETCO₂', 'adr':'Adrenalina', 
       'ami':'Amiodarona', 'mg':'Magnesio', 'rsi':'IOT/RSI', 'ant':'Antídotos', 
-      'def':'Desfibrilación', 'rce':'Recuperacion Circulación Espontánea', 'exitus':'Exitus' // Tilde quitada
+      'def':'Desfibrilación', 'rce':'Recuperacion Circulación Espontánea', 'exitus':'Exitus'
     };
     const idOrden = ['rcp', ...ids];
     
@@ -1133,7 +1363,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
         html += `<tr><td>Dosis: ${label}</td><td>Administrada</td><td>${delta}</td></tr>`;
       });
     });
-    // --- Fin de la lógica reutilizada ---
 
     html += `
             </tbody>
@@ -1145,7 +1374,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     return html;
   }
   
-  // --- NUEVA FUNCIÓN: Abre la ventana de impresión ---
   function abrirInformeParaImprimir() {
     const htmlContenido = generarHTMLInforme();
     const win = window.open('', '_blank');
@@ -1154,60 +1382,77 @@ document.addEventListener('DOMContentLoaded', ()=>{
       win.document.write(htmlContenido);
       win.document.close();
       
-      // Esperar a que el DOM de la nueva ventana esté listo
       win.onload = () => { 
-        win.focus(); // Enfocar la nueva ventana
-        win.print(); // Abrir el diálogo de impresión
-        // Opcional: win.close(); // Cierra la pestaña después de imprimir
+        win.focus();
+        win.print();
       };
     } else {
       alert('Por favor, permita las ventanas emergentes para imprimir el informe.');
     }
   }
 
-  /** Resetea toda la aplicación a su estado inicial */
+  // Resetea toda la aplicación a su estado inicial
   function resetApp() {
     if (confirm('¿Está seguro de que desea reiniciar todo el proceso?')) {
       stopMetronome(); 
       t0 = new Date(); 
       tick();
+      hasShownFirstAdrenalineAlert = false;
      
       const allIds = ['rcp', ...ids];
       allIds.forEach(id=>{
         state[id]={ts:null};
         const cb=document.getElementById('cb-'+id); 
-        if(cb){ cb.checked=false; }
+        if(cb){ 
+          cb.checked=false; 
+          cb.disabled = false;
+        }
         const tm=document.getElementById('tm-'+id); 
         if(tm){ tm.textContent='00:00'; tm.removeAttribute('data-set'); }
       });
      
-      document.querySelectorAll('#g-ritmo input').forEach(r=> r.checked=false);
+      document.querySelectorAll('#g-ritmo input').forEach(r=> {
+        r.checked=false;
+        r.disabled = false;
+      });
       tmRitmo.removeAttribute('data-set');
       tmRitmo.textContent = '00:00';
       ritmoList.textContent='';
      
-      ['adr','ami','mg','rsi','ant'].forEach(k=>{ document.getElementById('list-'+k).textContent=''; });
+      ['adr','ami','mg','rsi','ant'].forEach(k=>{ 
+        document.getElementById('list-'+k).textContent=''; 
+      });
       defEnergy.value=200; 
+      defEnergyValue.textContent='200';
       defList.textContent=''; 
       shockCount = 0;
      
-      // --- MODIFICADO: Llama a la nueva función de limpieza ---
       clearAllAlerts();
+      clearAllPersistentAlerts();
       
-      ['g-ritmo','itm-adr','itm-ami','itm-def'].forEach(id=> clearWarn(id));
+      document.querySelectorAll('.warn-strong').forEach(el => {
+        el.classList.remove('warn-strong','blink-strong');
+      });
      
-      bpmInput.value=110; bpmValueEl.textContent='110';
+      bpmInput.value=110; 
+      bpmValueEl.textContent='110';
       bpmInput.disabled = true;
       isIOTActive = false;
       isPaused = false;
+      isCPRRunning = false;
+      
       if (cprCountEl) {
           cprCountEl.textContent = "--";
           cprCountEl.classList.remove('active', 'iot-active');
       }
      
       if (ventAlert) ventAlert.style.display = 'none';
-      if (actionAlertTimer) clearTimeout(actionAlertTimer);
-      if (actionAlert) actionAlert.className = 'action-alert';
+      if (repositionAlert) repositionAlert.style.display = 'none';
+      
+      if (audioCtx) {
+        audioCtx.close();
+        audioCtx = null;
+      }
     }
   }
 
@@ -1217,6 +1462,29 @@ document.addEventListener('DOMContentLoaded', ()=>{
   bpmInput.addEventListener('input', e=>{ bpmValueEl.textContent=e.target.value; setBPM(+e.target.value); });
   document.getElementById('btnReset').addEventListener('click', resetApp);
 
+  // Evento para el nuevo slider de energía
+  defEnergy.addEventListener('input', e => {
+    defEnergyValue.textContent = e.target.value;
+  });
+
+  // Sistema de guiado paso a paso
+  function checkPCRSteps() {
+    const incChecked = document.getElementById('cb-inc').checked;
+    const respChecked = document.getElementById('cb-resp').checked;
+    
+    if (incChecked && respChecked) {
+      showPersistentAlert('iniciar-compresiones', '<i class="fa-solid fa-heart-circle-plus"></i> Inicie Compresiones torácicas (Masaje cardíaco)', 'blue');
+      // --- LÍNEA AÑADIDA ---
+      addWarn('itm-rcp'); 
+      // --- FIN LÍNEA AÑADIDA ---
+    } else {
+      removePersistentAlert('iniciar-compresiones');
+      // --- LÍNEA AÑADIDA ---
+      clearWarn('itm-rcp'); // Para apagarla si se desmarcara
+      // --- FIN LÍNEA AÑADIDA ---
+    }
+  }
+
   // Eventos de Checkbox (excepto RCP)
   ids.forEach(id => {
     const cb = document.getElementById('cb-' + id);
@@ -1224,11 +1492,31 @@ document.addEventListener('DOMContentLoaded', ()=>{
     cb.addEventListener('change', e => {
       if (!e.target.checked) { e.target.checked = true; return; }
       marcar(id);
+      
+      // Verificar pasos de PCR
+      if (id === 'inc' || id === 'resp') {
+        checkPCRSteps();
+      }
+      
+      // Guiado paso a paso
+      if (id === 'rcp') {
+        removePersistentAlert('iniciar-compresiones');
+        showPersistentAlert('monitor-ecg', '<i class="fa-solid fa-wave-square"></i> Monitorice ECG', 'green');
+        addWarn('itm-monitor');
+      }
+      
+      if (id === 'monitor') {
+        removePersistentAlert('monitor-ecg');
+        showPersistentAlert('evaluar-ritmo', '<i class="fa-solid fa-heart-pulse"></i> Evalúe el Ritmo', 'green');
+        addWarn('g-ritmo');
+        clearWarn('itm-monitor');
+      }
      
-      // --- MODIFICADO: Limpia alarmas al finalizar ---
       if(id === 'rce' || id === 'exitus') {
         stopMetronome(); 
-        clearAllAlerts(); // <--- NUEVO
+        clearAllAlerts();
+        clearAllPersistentAlerts();
+        if (repositionAlert) repositionAlert.style.display = 'none';
       }
      
       if (id === 'iot') {
@@ -1254,6 +1542,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
             marcar('rcp');
             bpmInput.disabled = false;
             startMetronome();
+            
+            removePersistentAlert('iniciar-compresiones');
+            showPersistentAlert('monitor-ecg', '<i class="fa-solid fa-wave-square"></i> Monitorice ECG', 'green');
+            clearWarn('itm-rcp');
+            addWarn('itm-monitor');
         } 
         else if (isPaused) {
             if (cprCycleTimer) clearTimeout(cprCycleTimer); 
@@ -1274,24 +1567,59 @@ document.addEventListener('DOMContentLoaded', ()=>{
       }
   });
 
-  document.querySelectorAll('#g-ritmo input[type=radio]').forEach(r=>{
-    r.addEventListener('click', ()=>{
-      const ts = new Date(); const delta = fmtHMS(ts - t0); 
-      const row=document.createElement('div'); row.textContent = `${r.value} · ${delta}`; ritmoList.prepend(row);
-      if(!tmRitmo.dataset.set){ tmRitmo.dataset.set=1; tmRitmo.textContent = delta; }
-      clearWarn('g-ritmo');
-     
-      if(r.value==='FV' || r.value==='TVSP'){ 
-        addWarn('itm-def');
-        clearWarn('itm-adr');
-      } else { 
-        addWarn('itm-adr');
-        clearWarn('itm-def');
+  // COMPORTAMIENTO DE RITMOS SEGÚN ESPECIFICACIÓN
+document.querySelectorAll('#g-ritmo input[type=radio]').forEach(r => {
+  r.addEventListener('click', () => {
+    const ts = new Date(); 
+    const delta = fmtHMS(ts - t0); 
+    const row = document.createElement('div'); 
+    row.textContent = `${r.value} · ${delta}`; 
+    ritmoList.prepend(row);
+    
+    if(!tmRitmo.dataset.set){ 
+      tmRitmo.dataset.set=1; 
+      tmRitmo.textContent = delta; 
+    }
+    
+    clearWarn('g-ritmo');
+    removePersistentAlert('evaluar-ritmo');
+    removePersistentAlert('monitor-ecg');
+    
+    // AÑADE ESTA LÍNEA:
+    clearWarn('itm-monitor'); // <-- Limpiar iluminación del monitor ECG
+    
+    // COMPORTAMIENTO SEGÚN TIPO DE RITMO
+    if(r.value === 'FV' || r.value === 'TVSP'){ 
+      // Ritmos desfibrilables
+      showPersistentAlert('desfibrilar', '<i class="fa-solid fa-bolt"></i> Desfibrile al paciente', 'red');
+      addWarn('itm-def');
+      clearWarn('itm-adr');
+      clearWarn('itm-ami');
+    } else { 
+      // AESP o Asistolia (ritmos no desfibrilables)
+      clearWarn('itm-def');
+      clearWarn('itm-ami');
+      addWarn('itm-adr');
+      
+      // Mostrar adrenalina solo la PRIMERA VEZ
+      if (!hasShownFirstAdrenalineAlert) {
+        showPersistentAlert('adrenalina-primera-vez', '<i class="fa-solid fa-syringe"></i> Administre Adrenalina', 'orange');
+        hasShownFirstAdrenalineAlert = true;
       }
-    });
+      
+      // SOLO REINICIAR ALARMA DE REEVALUACIÓN para ritmos NO desfibrilables (AESP/Asistolia)
+      startReevaluationAlert();
+      removePersistentAlert('reevaluacion');
+    }
+    
+    // ELIMINAR ESTA LÍNEA: NO reiniciar para todos los ritmos
+    // startReevaluationAlert();
+    // removePersistentAlert('reevaluacion');
   });
+});
 
-  document.getElementById('btn-def').addEventListener('click', ()=>{
+  // COMPORTAMIENTO DE DESFIBRILACIÓN
+  document.getElementById('btn-def').addEventListener('click', () => {
     document.getElementById('cb-def').checked = true;
     marcar('def');
    
@@ -1302,27 +1630,41 @@ document.addEventListener('DOMContentLoaded', ()=>{
     line.textContent = `${shockCount}ª: ${delta} · ${defEnergy.value} J`;
     defList.prepend(line);
    
-    upsertAlert('ritmo','Reevaluar ritmo', 120000, 880, ()=> addWarn('g-ritmo'));
+    // Reiniciar alarma de reevaluación
+    startReevaluationAlert();
+    removePersistentAlert('reevaluacion');
+    removePersistentAlert('desfibrilar');
    
-    if(shockCount===3) {
+    // COMPORTAMIENTO TRAS 3ª DESFIBRILACIÓN
+    if(shockCount === 3) {
+      showPersistentAlert('adrenalina', '<i class="fa-solid fa-syringe"></i> Administre Adrenalina', 'orange');
+      showPersistentAlert('amiodarona', '<i class="fa-solid fa-syringe"></i> Administre Amiodarona', 'orange');
+      
+      // Mostrar alerta de recolocar parches
+      if (repositionAlert) repositionAlert.style.display = 'flex';
+      
+      // Resaltar tarjetas
       addWarn('itm-ami');
       addWarn('itm-adr');
+    } else {
+      // Eliminar alerta de recolocar parches (solo si NO es la 3ª)
+      if (repositionAlert) repositionAlert.style.display = 'none';
     }
     
     clearWarn('itm-def');
   });
 
-  [['adr','Adrenalina'],['ami','Amiodarona'],['mg','Magnesio']].forEach(([key,_name])=>{
-    const btn=document.getElementById('btn-'+key);
-    btn.addEventListener('click', ()=> addDoseFor(key));
+  [['adr','Adrenalina'],['ami','Amiodarona'],['mg','Magnesio']].forEach(([key,_name]) => {
+    const btn = document.getElementById('btn-'+key);
+    btn.addEventListener('click', () => addDoseFor(key));
   });
 
   setupDyn('rsi','sel-rsi','IOT/RSI');
   setupDyn('ant','sel-ant','Antídoto');
 
-  // --- Eventos del Diálogo/Informe ---
+  // Eventos del Diálogo/Informe
   document.getElementById('btnInforme').addEventListener('click', function() {
-    generarInforme(); // Genera la tabla para el diálogo modal
+    generarInforme();
     dialogInforme.showModal();
   });
   document.getElementById('btnCerrarDialog').addEventListener('click', function() {
@@ -1333,19 +1675,16 @@ document.addEventListener('DOMContentLoaded', ()=>{
   });
  
   document.getElementById('btnCopiarInforme').addEventListener('click', function() {
-    // Esta función ahora genera texto plano a partir de la *nueva* función de HTML
-    // Es menos eficiente, pero funciona para copiar y pegar rápido
     const htmlContenido = generarHTMLInforme();
     const tempEl = document.createElement('div');
     tempEl.innerHTML = htmlContenido;
-    // Extraer texto, simplificándolo
     let texto = tempEl.querySelector('h1').textContent + '\n';
     tempEl.querySelectorAll('.header-info div').forEach(div => texto += div.textContent + '\n');
     texto += '\n';
     tempEl.querySelectorAll('.table tr').forEach(tr => {
       let linea = [];
       tr.querySelectorAll('th, td').forEach(cell => linea.push(cell.textContent));
-      texto += linea.join('\t') + '\n'; // Usar tabs para pegar mejor en Excel
+      texto += linea.join('\t') + '\n';
     });
     
     navigator.clipboard.writeText(texto).then(() => {
@@ -1355,7 +1694,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     });
   });
  
-  // --- MODIFICADO: Ambos botones de imprimir/pdf usan la nueva función ---
   document.getElementById('btnPDF').addEventListener('click', abrirInformeParaImprimir);
   document.getElementById('btnImprimirDialog').addEventListener('click', abrirInformeParaImprimir);
 
