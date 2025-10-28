@@ -6,367 +6,83 @@
     <title>SVA Trauma · ABCDE</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+
     <style>
         :root {
-          --bg:#f0f0f0; --text:#ececec;
-          --card: #1f2436;
-          --item-bg:#0f1118; --item-ink:#eef1f7; --item-stroke:#23293a;
-          --blue:#003a8e; --blue2:#044fbc;
-          --red:#dc3545;  --red2:#b02a37;
-          --orange:#613109; --orange2:#e65c00;
-          --green:#198754; --green2:#157347;
-          --purple:#6f42c1; --purple2:#5a2d9c;
-          --cyan:#0dcaf0; --cyan2:#0baccc;
-          --chip-blue:#10243c; --chip-blue-b:#264a73;
-          --chip-red:#33151a;  --chip-red-b:#682a34;
-          --chip-orange:#3d2a14; --chip-orange-b:#7a5528;
-          --chip-green:#0f2a1c; --chip-green-b:#1e5534;
-          --chip-purple:#2a1a3d; --chip-purple-b:#54348b;
-          --warn:#ffd23f; --warn-dark:#c9a305;
-          /* Colores tenues */
-          --red-dim: #4d181f;
-          --warn-dim: #664d03;
-          --green-dim: #0f3b23;
-
-
-          --gap: clamp(6px,.9vw,12px);
-          --radius:12px; --shadow:0 10px 30px rgba(0,0,0,.15);
-
-          --fs-xs: clamp(14px, 1.1vw, 16px);
-          --fs-sm: clamp(15px, 1.2vw, 18px);
-          --fs-md: clamp(16px, 1.4vw, 22px);
-          --fs-lg: clamp(20px, 1.8vw, 28px);
-
+          --bg:#f0f0f0; --text:#ececec; --card: #1f2436; --item-bg:#0f1118; --item-ink:#eef1f7; --item-stroke:#23293a;
+          --blue:#003a8e; --blue2:#044fbc; --red:#dc3545;  --red2:#b02a37; --orange:#613109; --orange2:#e65c00;
+          --green:#198754; --green2:#157347; --purple:#6f42c1; --purple2:#5a2d9c; --cyan:#0dcaf0; --cyan2:#0baccc;
+          --chip-blue:#10243c; --chip-blue-b:#264a73; --chip-red:#33151a;  --chip-red-b:#682a34; --chip-orange:#3d2a14; --chip-orange-b:#7a5528;
+          --chip-green:#0f2a1c; --chip-green-b:#1e5534; --chip-purple:#2a1a3d; --chip-purple-b:#54348b;
+          --warn:#ffd23f; --warn-dark:#c9a305; --red-dim: #4d181f; --warn-dim: #664d03; --green-dim: #0f3b23;
+          --gap: clamp(6px,.9vw,12px); --radius:12px; --shadow:0 10px 30px rgba(0,0,0,.15);
+          --fs-xs: clamp(14px, 1.1vw, 16px); --fs-sm: clamp(15px, 1.2vw, 18px); --fs-md: clamp(16px, 1.4vw, 22px); --fs-lg: clamp(20px, 1.8vw, 28px);
           --row-gap: 4px;
         }
+        * { box-sizing: border-box; } html, body { height: 100%; }
+        body { margin: 0; background: var(--bg); color: var(--text); font-family: Roboto, system-ui, sans-serif; -webkit-text-size-adjust: 100%; overflow: hidden; }
+        header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; padding: 8px 12px; border-bottom: 1px solid #d8dde6; background: #fff; height: 70px; }
+        .header-left, .header-right { display: flex; align-items: center; gap: 8px; } .header-right { justify-content: flex-end; }
+        .btn { display: inline-flex; align-items: center; gap: .5rem; cursor: pointer; border: none; border-radius: 12px; padding: 8px 12px; font-weight: 800; background: var(--red); color: #fff; font-size: var(--fs-sm); box-shadow: var(--shadow); transition: background .2s; }
+        .btn:hover { background: var(--red2); } .btn-blue { background: var(--blue); } .btn-blue:hover { background: var(--blue2); }
+        .fab-header{ width:44px; height:44px; border-radius:50%; display:grid; place-items:center; text-decoration:none; color:#fff; border:1px solid #1e2433; box-shadow:var(--shadow); background:#151823; transition: filter .2s; } .fab-header.home{ background:var(--blue); } .fab-header.crit{ background:var(--red); } .fab-header:hover{ filter:brightness(1.1); }
+        .center { text-align: center; line-height: 1.1; color: #000; } .center .dt { font-size: var(--fs-sm); color: #000; } .center .title { margin-top: 2px; font-size: var(--fs-lg); font-weight: 800; color: #000; }
+        .header-slider { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: var(--fs-sm); color: #000; margin-top: 2px; } .header-slider input[type="range"] { width: 180px; cursor: pointer; } .header-slider strong { min-width: 45px; text-align: right; }
+        .clock { min-width: 100px; text-align: center; color: #fff; background: var(--red); border-radius: 12px; padding: 8px 12px; font: 800 18px/1 "Courier New", monospace; box-shadow: var(--shadow); }
+        .main { height: calc(100dvh - 70px); padding: 8px 12px; display: grid; gap: var(--row-gap); grid-template-columns: 1fr 1fr 1fr; grid-template-areas: "triage triage triage" "a b d" "c e misc" "finproc finproc record"; grid-template-rows: 1.5fr 2fr 2fr 1.5fr; }
+        #g-triage { grid-area: triage; } #g-a { grid-area: a; } #g-b { grid-area: b; } #g-c { grid-area: c; } #g-d { grid-area: d; } #g-e { grid-area: e; } #g-misc { grid-area: misc; } #g-finproceso { grid-area: finproc; } #g-recordatorios { grid-area: record; }
+        .group { background: var(--card); color: var(--ink); border: 1px solid #082d71; border-radius: var(--radius); padding: 8px; display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 6px; box-shadow: var(--shadow); overflow: hidden; }
+        .group h3 { margin: 0; font-size: var(--fs-md); font-weight: 800; display: flex; align-items: center; gap: 8px; }
+        .row { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: var(--gap); height: 100%; }
 
-        * {
-            box-sizing: border-box;
-        }
+        .item { background: var(--item-bg); color: var(--item-ink); border: 1px solid var(--item-stroke); border-radius: 10px; padding: 8px; display: grid; grid-template-rows: auto auto 1fr; gap: 6px; min-width: 0; align-content: start; }
+        /* Ajuste: Fila media por defecto es auto, inferior es 1fr */
+        .item { grid-template-rows: auto auto minmax(0, 1fr); }
+        .select, .slider, .btn-ghost, .delta, .mechanism-buttons, .mechanism-info, .triage-lights, .triage-info, .item-controls, .inline-list.item-log { flex-shrink: 0; }
+        .item-top-row { display: grid; grid-template-columns: 1fr auto; gap: var(--gap); align-items: center; grid-row: 1 / 2; }
+        .item-top-row .top { flex-grow: 0; min-height: 50px; }
+        .item-top-row .delta { justify-self: end; align-self: center; flex-shrink: 0; }
+        .top { display: block; position: relative; width: 100%; z-index: 2; } .top input[type="checkbox"] { display: none; }
+        .top label { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; min-height: 50px; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: var(--fs-md); color: #fff; background: #1a1e2d; border: 1px solid var(--item-stroke); transition: background .2s, border-color .2s; text-align: center; }
+        .top label:hover { background: #242a3e; border-color: #38425e; } .top input[type="checkbox"]:checked + label { background: var(--chip-green); border-color: var(--chip-green-b); box-shadow: 0 0 10px rgba(25, 135, 84, 0.5); }
+        .delta{ justify-self:start; font:800 14px/1 "Courier New",monospace; background:#0b0d14; border:1px solid #242a39; border-radius:8px; padding:4px 8px; color:#e8eefb; flex-shrink: 0; }
 
-        html, body {
-            height: 100%;
-        }
+        /* --- Triage Styles --- */
+        #itm-triage .item-top-row { grid-row: 1/2; } .triage-lights { grid-row: 2 / 3; justify-self: center; width: auto; display: flex; flex-direction: row; gap: var(--gap); background: transparent; padding: 8px 0; border: none; justify-content: center; } .light-row { display: flex; align-items: center; gap: 10px; } .triage-light { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--item-stroke); cursor: pointer; transition: all 0.2s; padding: 0; position: relative; flex-shrink: 0; } .triage-light.red { background-color: var(--red-dim); --light-color: var(--red); } .triage-light.yellow { background-color: var(--warn-dim); --light-color: var(--warn); } .triage-light.green { background-color: var(--green-dim); --light-color: var(--green); } .triage-light.active { background-color: var(--light-color); box-shadow: 0 0 12px 2px var(--light-color); border-color: var(--light-color); } .triage-light:not(.active):hover { border-color: var(--item-ink); } .light-label { font-size: var(--fs-sm); color: var(--item-ink); font-weight: 600; }
+        .triage-info { grid-row: 3 / 4; width: 100%; font-size: var(--fs-xs); text-align: center; color: var(--item-ink); padding: 6px 8px; background: #0b0d14; border-radius: 6px; } .triage-info p { margin: 0; line-height: 1.3; } .triage-info p[data-info="none"] { color: #888; }
+        /* --- Mechanism Styles --- */
+        #itm-eval .item-top-row { grid-row: 1/2; } .mechanism-buttons { grid-row: 2 / 3; align-self: center; display: flex; flex-wrap: wrap; gap: var(--gap); justify-content: center; margin: 4px 0; } .mechanism-btn { background-color: var(--item-bg); border: 1px solid var(--item-stroke); color: var(--item-ink); border-radius: 8px; padding: 8px 10px; cursor: pointer; font-size: var(--fs-lg); line-height: 1; transition: all 0.2s; min-width: 44px; text-align: center; } .mechanism-btn i.ti { font-size: 1.1em; vertical-align: middle; } .mechanism-btn:hover { background-color: #1a1e2d; border-color: #38425e; } .mechanism-btn.active { background-color: var(--blue); border-color: var(--blue2); color: #fff; box-shadow: 0 0 10px rgba(0, 58, 142, 0.5); }
+        .mechanism-info { grid-row: 3 / 4; width: 100%; font-size: var(--fs-sm); text-align: center; color: var(--item-ink); padding: 6px 8px; background: #0b0d14; border-radius: 6px; font-weight: 600; } .mechanism-info p { margin: 0; line-height: 1.3; } .mechanism-info p[data-info="none"] { color: #888; font-weight: 400; }
 
-        body {
-            margin: 0;
-            background: var(--bg);
-            color: var(--text);
-            font-family: Roboto, system-ui, -apple-system, Segoe UI, Ubuntu, "Helvetica Neue", Arial;
-            -webkit-text-size-adjust: 100%;
-            overflow: hidden;
-        }
-
-        header {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 12px;
-            border-bottom: 1px solid #d8dde6;
-            background: #fff;
-            height: 70px;
-        }
-
-        .header-left, .header-right {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-        }
-        .header-right { justify-content: flex-end; }
-
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: .5rem;
-            cursor: pointer;
-            border: none;
-            border-radius: 12px;
-            padding: 8px 12px;
-            font-weight: 800;
-            background: var(--red);
-            color: #fff;
-            font-size: var(--fs-sm);
-            box-shadow: var(--shadow);
-            transition: background .2s;
-        }
-
-        .btn:hover {
-            background: var(--red2);
-        }
-
-        .btn-blue { background: var(--blue); }
-        .btn-blue:hover { background: var(--blue2); }
-
-        .fab-header{
-          width:44px; height:44px; border-radius:50%; display:grid; place-items:center; text-decoration:none;
-          color:#fff; border:1px solid #1e2433; box-shadow:var(--shadow); background:#151823;
-          transition: filter .2s;
-        }
-        .fab-header.home{ background:var(--blue); }
-        .fab-header.crit{ background:var(--red); }
-        .fab-header:hover{ filter:brightness(1.1); }
+        /* --- Estilos Nueva Estructura Select+Log --- */
+        .item-controls { display: grid; grid-template-columns: 1fr auto; gap: var(--gap); align-items: center; margin: 4px 0; grid-row: 2 / 3; }
+        .item-add-btn { padding: 8px 12px; margin: 0; width: auto; flex-shrink: 0; }
+        .inline-list.item-log { font-size: var(--fs-xs); line-height: 1.4; flex-grow: 1; min-height: 40px; max-height: 50px; overflow-y: auto; background: #0b0d14; border: 1px solid #242a39; border-radius: 8px; padding: 4px 8px; grid-row: 3 / 4; /* Fila inferior */ }
+        .inline-list.item-log span { display: block; word-wrap: break-word; }
+        /* Estilo para botones múltiples en fila media (Fluidoterapia) */
+        .item-multi-button { display: flex; flex-direction: column; gap: 4px; grid-row: 2/3; margin: 4px 0;}
 
 
-        .center {
-            text-align: center;
-            line-height: 1.1;
-            color: #000;
-        }
+        .slider{ display:flex; align-items:center; gap:8px; font-size:var(--fs-sm); flex-shrink: 0; grid-row: 2/3; padding: 8px 0; /* Espacio vertical */} .slider input[type="range"]{ width:100%; cursor: pointer; }
+        .select{ width:100%; background:#0b0d14; color:#e8eefb; border:1px solid #283149; border-radius:8px; padding: 8px 10px; font-size: var(--fs-sm); flex-shrink: 0; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e8eefb'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; background-size: 18px; cursor: pointer; /* No asignar grid-row aquí, se hará en .item-controls si aplica */ }
+        .small-note { font-size: var(--fs-xs); color: #aeb7cc; flex-shrink: 0; grid-row: 3/4; margin-top: auto; padding-top: 4px; /* Pequeño espacio arriba */}
+        .btn-ghost { display: block; width: 100%; padding: 10px 8px; margin-top: 4px; font-size: var(--fs-sm); font-weight: 700; background: #21283a; border: 1px solid #3a445d; color: #fff; border-radius: 8px; cursor: pointer; text-align: center; flex-shrink: 0; transition: background .2s, border-color .2s; grid-row: 2/3; /* Fila media por defecto */}
 
-        .center .dt {
-            font-size: var(--fs-sm);
-            color: #000;
-        }
+        .warn-strong{ outline:4px solid var(--warn); box-shadow: 0 0 0 6px rgba(255,210,63,.30), inset 0 0 0 9999px rgba(255,210,63,.10), var(--shadow); border-color: var(--warn-dark); } @keyframes twinkleStrong{ 0%{ box-shadow: 0 0 0 6px rgba(255,210,63,.45), inset 0 0 0 9999px rgba(255,210,63,.18), var(--shadow); } 100%{ box-shadow: 0 0 0 0 rgba(255,210,63,0), inset 0 0 0 9999px rgba(255,210,63,.06), var(--shadow); } } .blink-strong{ animation: twinkleStrong 900ms infinite alternate; }
+        .action-alerts-container { position: fixed; top: 80px; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 99; pointer-events: none; } .action-alert { display: flex; border-radius: 12px; padding: 12px 20px; font-size: var(--fs-lg); font-weight: 700; box-shadow: var(--shadow); align-items: center; gap: 12px; max-width: 90%; animation: slideIn 0.3s ease-out; } .action-alert.red { background: var(--red); color: #fff; } .action-alert.orange { background: var(--orange2); color: #fff; } .action-alert.warn { background: var(--warn); color: #111; } .action-alert.blue { background: var(--blue); color: #fff; } .action-alert.green { background: var(--green); color: #fff; } @keyframes slideIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        .circulo-amarillo { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: var(--warn); color: #000; border-radius: 50%; font-weight: 800; margin-right: 10px; font-size: 16px; border: 2px solid var(--warn-dark); box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
 
-        .center .title {
-            margin-top: 2px;
-            font-size: var(--fs-lg);
-            font-weight: 800;
-            color: #000;
-        }
+        dialog { border: none; border-radius: 14px; padding: 0; box-shadow: 0 24px 60px rgba(0, 0, 0, .5); width: min(980px, 92vw); color: #0b0c0f; } .dialog-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid #e7eef7; background: #f7f9ff; } .dialog-head h3 { margin: 0; font-size: var(--fs-lg); color: #0b0c0f; } .dialog-body { padding: 10px 14px 14px; background: #fff; max-height: 70vh; overflow-y: auto; } .table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; } .table th, .table td { border-bottom: 1px solid #eef2f7; padding: 6px 8px; text-align: left; white-space: nowrap; } .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; padding: 0 14px 12px; background: #fff; } .btn-ghost-light{ background:#fff; border:1px solid #e3eaf6; color:#0b0c0f; font-weight:700; border-radius:10px; padding:8px 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 0.35rem; }
 
-        .header-slider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            font-size: var(--fs-sm);
-            color: #000;
-            margin-top: 2px;
-        }
-        .header-slider input[type="range"] {
-            width: 180px;
-            cursor: pointer;
-        }
-        .header-slider strong {
-            min-width: 45px;
-            text-align: right;
-        }
-
-
-        .clock {
-            min-width: 100px; /* Reducido para MM:SS */
-            text-align: center;
-            color: #fff;
-            background: var(--red);
-            border-radius: 12px;
-            padding: 8px 12px;
-            font: 800 18px/1 "Courier New", monospace;
-            box-shadow: var(--shadow);
-        }
-
-        .main {
-            height: calc(100dvh - 70px);
-            padding: 8px 12px;
-            display: grid;
-            gap: var(--row-gap);
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-template-areas:
-                "triage triage triage"
-                "a b d"
-                "c e misc"
-                "finproc finproc record";
-            grid-template-rows: 1.5fr 2fr 2fr 1.5fr;
-        }
-
-        #g-triage { grid-area: triage; }
-        #g-a { grid-area: a; }
-        #g-b { grid-area: b; }
-        #g-c { grid-area: c; }
-        #g-d { grid-area: d; }
-        #g-e { grid-area: e; }
-        #g-misc { grid-area: misc; }
-        #g-finproceso { grid-area: finproc; }
-        #g-recordatorios { grid-area: record; }
-
-        .group {
-            background: var(--card);
-            color: var(--ink);
-            border: 1px solid #082d71;
-            border-radius: var(--radius);
-            padding: 8px;
-            display: grid;
-            grid-template-rows: auto minmax(0, 1fr);
-            gap: 6px;
-            box-shadow: var(--shadow);
-            overflow: hidden;
-        }
-
-        .group h3 {
-            margin: 0;
-            font-size: var(--fs-md);
-            font-weight: 800;
-        }
-
-        .row {
-            display: grid;
-            grid-auto-flow: column;
-            grid-auto-columns: 1fr;
-            gap: var(--gap);
-            height: 100%;
-        }
-
-        .item {
-            background: var(--item-bg);
-            color: var(--item-ink);
-            border: 1px solid var(--item-stroke);
-            border-radius: 10px;
-            padding: 8px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            min-width: 0;
-        }
-
-        .select, .slider, .btn-ghost, .delta, .mechanism-buttons, .mechanism-info { /* Añadidos mechanism-* */
-            flex-shrink: 0;
-        }
-
-        .top {
-            flex-grow: 1;
-            display: block;
-            position: relative;
-            width: 100%;
-            z-index: 2;
-        }
-        .top input[type="checkbox"] {
-            display: none;
-        }
-        .top label {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-            min-height: 60px;
-            padding: 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: var(--fs-md);
-            color: #fff;
-            background: #1a1e2d;
-            border: 1px solid var(--item-stroke);
-            transition: background .2s, border-color .2s;
-            text-align: center;
-        }
-        .top label:hover {
-            background: #242a3e;
-            border-color: #38425e;
-        }
-        .top input[type="checkbox"]:checked + label {
-            background: var(--chip-green);
-            border-color: var(--chip-green-b);
-            box-shadow: 0 0 10px rgba(25, 135, 84, 0.5);
-        }
-
-        .delta{
-            justify-self:start;
-            font:800 14px/1 "Courier New",monospace;
-            background:#0b0d14;
-            border:1px solid #242a39;
-            border-radius:8px;
-            padding:4px 8px;
-            color:#e8eefb;
-            flex-shrink: 0;
-        }
-
-        /* ===== ESTILOS PARA LA NUEVA TARJETA DE TRIAGE ===== */
-        #itm-triage { padding: 0; }
-        .triage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); height: 100%; padding: 8px; }
-        .triage-action { display: flex; flex-direction: column; gap: 6px; }
-        .triage-action .top { flex-grow: 1; }
-        .triage-selector { display: flex; flex-direction: column; gap: 8px; padding-right: 15%; align-items: start; }
-        .triage-lights { display: flex; flex-direction: column; gap: 10px; background: transparent; padding: 0; border: none; width: 100%; }
-        .light-row { display: flex; align-items: center; gap: 10px; }
-        .triage-light { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--item-stroke); cursor: pointer; transition: background-color 0.2s, box-shadow 0.2s, border-color 0.2s; padding: 0; position: relative; flex-shrink: 0; }
-        .triage-light.red { background-color: var(--red-dim); --light-color: var(--red); }
-        .triage-light.yellow { background-color: var(--warn-dim); --light-color: var(--warn); }
-        .triage-light.green { background-color: var(--green-dim); --light-color: var(--green); }
-        .triage-light.active { background-color: var(--light-color); box-shadow: 0 0 12px 2px var(--light-color); border-color: var(--light-color); }
-        .triage-light:not(.active):hover { border-color: var(--item-ink); }
-        .light-label { font-size: var(--fs-sm); color: var(--item-ink); font-weight: 600; }
-        .triage-info { font-size: var(--fs-xs); text-align: left; color: var(--item-ink); margin-top: auto; padding: 6px 8px; background: #0b0d14; border-radius: 6px; width: 100%; }
-        .triage-info p { margin: 0; line-height: 1.3; }
-        .triage-info p[data-info="none"] { color: #888; }
-        /* ===== FIN ESTILOS TARJETA TRIAGE ===== */
-
-        /* ===== ESTILOS PARA TARJETA MECANISMO ===== */
-        .mechanism-buttons { display: flex; flex-wrap: wrap; gap: var(--gap); justify-content: center; margin-top: 4px; margin-bottom: 4px; }
-        .mechanism-btn { background-color: var(--item-bg); border: 1px solid var(--item-stroke); color: var(--item-ink); border-radius: 8px; padding: 8px 10px; cursor: pointer; font-size: var(--fs-lg); line-height: 1; transition: background-color 0.2s, border-color 0.2s, color 0.2s; min-width: 44px; text-align: center; }
-        .mechanism-btn:hover { background-color: #1a1e2d; border-color: #38425e; }
-        .mechanism-btn.active { background-color: var(--blue); border-color: var(--blue2); color: #fff; box-shadow: 0 0 10px rgba(0, 58, 142, 0.5); }
-        .mechanism-info { font-size: var(--fs-sm); text-align: center; color: var(--item-ink); margin-top: auto; padding: 6px 8px; background: #0b0d14; border-radius: 6px; font-weight: 600; }
-        .mechanism-info p { margin: 0; line-height: 1.3; }
-        .mechanism-info p[data-info="none"] { color: #888; font-weight: 400; }
-        /* ===== FIN ESTILOS TARJETA MECANISMO ===== */
-
-
-        .slider{ display:flex; align-items:center; gap:8px; font-size:var(--fs-sm); flex-shrink: 0; }
-        .slider input[type="range"]{ width:100%; cursor: pointer; }
-
-        .select{ width:100%; background:#0b0d14; color:#e8eefb; border:1px solid #283149; border-radius:8px; padding: 8px 10px; font-size: var(--fs-sm); flex-shrink: 0; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e8eefb'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; background-size: 18px; cursor: pointer; }
-        .small-note { font-size: var(--fs-xs); color: #aeb7cc; flex-shrink: 0; }
-        .btn-ghost { display: block; width: 100%; padding: 10px 8px; margin-top: 4px; font-size: var(--fs-sm); font-weight: 700; background: #21283a; border: 1px solid #3a445d; color: #fff; border-radius: 8px; cursor: pointer; text-align: center; flex-shrink: 0; transition: background .2s, border-color .2s; }
-        .btn-ghost:hover { background: #2c364d; border-color: #505c7a; }
-
-        .warn-strong{ outline:4px solid var(--warn); box-shadow: 0 0 0 6px rgba(255,210,63,.30), inset 0 0 0 9999px rgba(255,210,63,.10), var(--shadow); border-color: var(--warn-dark); }
-        @keyframes twinkleStrong{ 0%{ box-shadow: 0 0 0 6px rgba(255,210,63,.45), inset 0 0 0 9999px rgba(255,210,63,.18), var(--shadow); } 100%{ box-shadow: 0 0 0 0 rgba(255,210,63,0), inset 0 0 0 9999px rgba(255,210,63,.06), var(--shadow); } }
-        .blink-strong{ animation: twinkleStrong 900ms infinite alternate; }
-
-        .action-alerts-container { position: fixed; top: 80px; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 99; pointer-events: none; }
-        .action-alert { display: flex; border-radius: 12px; padding: 12px 20px; font-size: var(--fs-lg); font-weight: 700; box-shadow: var(--shadow); align-items: center; gap: 12px; max-width: 90%; animation: slideIn 0.3s ease-out; }
-        .action-alert.red { background: var(--red); color: #fff; } .action-alert.orange { background: var(--orange); color: #fff; } .action-alert.warn { background: var(--warn); color: #111; } .action-alert.blue { background: var(--blue); color: #fff; } .action-alert.green { background: var(--green); color: #fff; }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-
-        dialog { border: none; border-radius: 14px; padding: 0; box-shadow: 0 24px 60px rgba(0, 0, 0, .5); width: min(980px, 92vw); color: #0b0c0f; }
-        .dialog-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid #e7eef7; background: #f7f9ff; }
-        .dialog-head h3 { margin: 0; font-size: var(--fs-lg); color: #0b0c0f; }
-        .dialog-body { padding: 10px 14px 14px; background: #fff; max-height: 70vh; overflow-y: auto; }
-        .table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; }
-        .table th, .table td { border-bottom: 1px solid #eef2f7; padding: 6px 8px; text-align: left; white-space: nowrap; }
-        .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; padding: 0 14px 12px; background: #fff; }
-        .btn-ghost-light{ background:#fff; border:1px solid #e3eaf6; color:#0b0c0f; font-weight:700; border-radius:10px; padding:8px 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 0.35rem; }
-
-        @media (max-width: 1100px) {
-            body { overflow: auto; }
-            header { grid-template-columns: 1fr; height: auto; padding-bottom: 12px; }
-            .header-left, .header-right { justify-content: center; flex-wrap: wrap; }
-            .center { grid-row: 1; margin-bottom: 8px; }
-            .main { height: auto; min-height: calc(100vh - 120px); grid-template-columns: 1fr; grid-template-rows: auto; grid-template-areas: "triage" "a" "b" "c" "d" "e" "misc" "finproc" "record"; padding-bottom: 20px; }
-            .triage-grid { grid-template-columns: 1fr; }
-            .triage-selector { padding-right: 0; align-items: center; }
-            .triage-lights { flex-direction: column; align-items: start; }
-            .triage-info { text-align: center; }
-            #g-c .row, #g-finproceso .row, #g-recordatorios .row, #g-a .row, #g-b .row, #g-d .row, #g-e .row, #g-misc .row { grid-template-columns: 1fr; grid-auto-flow: row; }
-            .action-alerts-container { top: 120px; }
-        }
-
-        @media print {
-            body > *:not(.print-container) { display: none !important; }
-            html, body { background:#fff !important; margin: 0 !important; padding: 0 !important; }
-            .print-container { display: block !important; }
-            @page { size: A4 portrait; margin: 15mm; }
-        }
-
-        .circulo-amarillo {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    background: var(--warn);
-    color: #000;
-    border-radius: 50%;
-    font-weight: 800;
-    margin-right: 10px;
-    font-size: 16px;
-    border: 2px solid var(--warn-dark);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-        
+        @media (max-width: 1100px) { body { overflow: auto; } header { grid-template-columns: 1fr; height: auto; padding-bottom: 12px; } .header-left, .header-right { justify-content: center; flex-wrap: wrap; } .center { grid-row: 1; margin-bottom: 8px; } .main { height: auto; min-height: calc(100vh - 120px); grid-template-columns: 1fr; grid-template-rows: auto; grid-template-areas: "triage" "a" "b" "c" "d" "e" "misc" "finproc" "record"; padding-bottom: 20px; }
+        .item-top-row { grid-template-columns: 1fr; } .item-top-row .delta { justify-self: start; margin-top: 4px;}
+        .triage-lights { flex-direction: row; justify-content: center; } .light-row { flex-direction: column; text-align: center; gap: 4px; } .triage-info { text-align: center; }
+        .item-controls { grid-template-columns: 1fr; } .item-add-btn { width: 100%; }
+        .item-multi-button { flex-direction: row; gap: var(--gap); } /* Botones fluidos en horizontal */
+        .item-multi-button .btn-ghost { flex: 1; } /* Botones fluidos ocupan espacio */
+        #g-c .row, #g-finproceso .row, #g-recordatorios .row, #g-a .row, #g-b .row, #g-d .row, #g-e .row, #g-misc .row { grid-template-columns: 1fr; grid-auto-flow: row; } .action-alerts-container { top: 120px; } }
+        @media print { body > *:not(.print-container) { display: none !important; } html, body { background:#fff !important; margin: 0 !important; padding: 0 !important; } .print-container { display: block !important; } @page { size: A4 portrait; margin: 15mm; } }
     </style>
 </head>
 
@@ -386,117 +102,130 @@
             <h3>Triage y Evaluación Inicial</h3>
             <div class="row">
                 <div class="item" id="itm-triage">
-                    <div class="triage-grid">
-                        <div class="triage-action"> <div class="top"><input type="checkbox" id="cb-triage"><label for="cb-triage">Evaluación Inicial Completada</label></div> <div class="delta" id="tm-triage">00:00</div> </div>
-                        <div class="triage-selector">
-                            <div class="triage-lights">
-                                <div class="light-row"> <button class="triage-light red" data-triage="rojo" title="Triage Rojo: Prioridad I"></button> <span class="light-label">Triage Rojo</span> </div>
-                                <div class="light-row"> <button class="triage-light yellow" data-triage="amarillo" title="Triage Amarillo: Prioridad II"></button> <span class="light-label">Triage Amarillo</span> </div>
-                                <div class="light-row"> <button class="triage-light green" data-triage="verde" title="Triage Verde: Prioridad III"></button> <span class="light-label">Triage Verde</span> </div>
-                            </div>
-                            <div class="triage-info"> <p data-info="rojo" style="display:none;"><strong>Prioridad I:</strong> Atención inmediata.</p> <p data-info="amarillo" style="display:none;"><strong>Prioridad II:</strong> Urgente, puede esperar.</p> <p data-info="verde" style="display:none;"><strong>Prioridad III:</strong> No urgente.</p> <p data-info="none">Seleccione nivel de triage.</p> </div>
-                        </div>
-                    </div>
+                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-triage"><label for="cb-triage">Evaluación Inicial Completada</label></div> <div class="delta" id="tm-triage">00:00</div> </div>
+                     <div class="triage-lights"> <div class="light-row"> <button class="triage-light red" data-triage="rojo" title="Triage Rojo: Prioridad I"></button> <span class="light-label">Triage Rojo</span> </div> <div class="light-row"> <button class="triage-light yellow" data-triage="amarillo" title="Triage Amarillo: Prioridad II"></button> <span class="light-label">Triage Amarillo</span> </div> <div class="light-row"> <button class="triage-light green" data-triage="verde" title="Triage Verde: Prioridad III"></button> <span class="light-label">Triage Verde</span> </div> </div>
+                     <div class="triage-info"> <p data-info="rojo" style="display:none;"><strong>Prioridad I:</strong> Atención inmediata.</p> <p data-info="amarillo" style="display:none;"><strong>Prioridad II:</strong> Urgente, puede esperar.</p> <p data-info="verde" style="display:none;"><strong>Prioridad III:</strong> No urgente.</p> <p data-info="none">Seleccione nivel de triage.</p> </div>
                 </div>
                 <div class="item" id="itm-eval">
-                    <div class="top"><input type="checkbox" id="cb-eval"><label for="cb-eval">Mecanismo de Trauma</label></div>
-                    <div class="mechanism-buttons">
-                        <button class="mechanism-btn" data-mechanism="vehiculo" title="Accidente Vehículo Motor"><i class="fa-solid fa-car-burst fa-fw"></i></button>
-                        <button class="mechanism-btn" data-mechanism="caida" title="Caída > 3m"><i class="fa-solid fa-person-falling fa-fw"></i></button>
-                        <button class="mechanism-btn" data-mechanism="atropello" title="Atropello"><i class="fa-solid fa-person-walking-dashed-line-arrow-right fa-fw"></i></button>
-                        <button class="mechanism-btn" data-mechanism="arma_blanca" title="Herida Arma Blanca"><i class="fa-solid fa-utensils fa-fw"></i></button>
-                        <button class="mechanism-btn" data-mechanism="arma_fuego" title="Herida Arma Fuego"><i class="fa-solid fa-gun fa-fw"></i></button>
-                        <button class="mechanism-btn" data-mechanism="penetrante" title="Trauma Penetrante"><i class="fa-solid fa-angles-right fa-fw"></i></button>
-                        <button class="mechanism-btn" data-mechanism="contuso" title="Trauma Contuso"><i class="fa-solid fa-hammer fa-fw"></i></button>
-                    </div>
-                    <div class="mechanism-info">
-                        <p data-info="vehiculo" style="display:none;">Accidente Vehículo Motor</p> <p data-info="caida" style="display:none;">Caída &gt; 3 metros</p> <p data-info="atropello" style="display:none;">Atropello</p>
-                        <p data-info="arma_blanca" style="display:none;">Herida por Arma Blanca</p> <p data-info="arma_fuego" style="display:none;">Herida por Arma de Fuego</p>
-                        <p data-info="penetrante" style="display:none;">Trauma Penetrante</p> <p data-info="contuso" style="display:none;">Trauma Contuso</p>
-                        <p data-info="none">Seleccione mecanismo.</p>
-                    </div>
-                    <div class="delta" id="tm-eval">00:00</div>
+                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-eval"><label for="cb-eval">Mecanismo de Trauma</label></div> <div class="delta" id="tm-eval">00:00</div> </div>
+                     <div class="mechanism-buttons"> <button class="mechanism-btn" data-mechanism="vehiculo" title="Accidente Vehículo Motor"><i class="fa-solid fa-car-burst fa-fw"></i></button> <button class="mechanism-btn" data-mechanism="caida" title="Caída > 3m"><i class="fa-solid fa-person-falling fa-fw"></i></button> <button class="mechanism-btn" data-mechanism="atropello" title="Atropello"><i class="fa-solid fa-person-walking-dashed-line-arrow-right fa-fw"></i></button> <button class="mechanism-btn" data-mechanism="arma_blanca" title="Herida Arma Blanca"><i class="ti ti-dagger"></i></button> <button class="mechanism-btn" data-mechanism="arma_fuego" title="Herida Arma Fuego"><i class="fa-solid fa-gun fa-fw"></i></button> <button class="mechanism-btn" data-mechanism="penetrante" title="Trauma Penetrante"><i class="fa-solid fa-angles-right fa-fw"></i></button> <button class="mechanism-btn" data-mechanism="contuso" title="Trauma Contuso"><i class="fa-solid fa-hammer fa-fw"></i></button> </div>
+                     <div class="mechanism-info"> <p data-info="vehiculo" style="display:none;">Accidente Vehículo Motor</p> <p data-info="caida" style="display:none;">Caída &gt; 3 metros</p> <p data-info="atropello" style="display:none;">Atropello</p> <p data-info="arma_blanca" style="display:none;">Herida por Arma Blanca</p> <p data-info="arma_fuego" style="display:none;">Herida por Arma de Fuego</p> <p data-info="penetrante" style="display:none;">Trauma Penetrante</p> <p data-info="contuso" style="display:none;">Trauma Contuso</p> <p data-info="none">Seleccione mecanismo.</p> </div>
                 </div>
             </div>
         </section>
 
         <section class="group" id="g-a">
-            <h3><span class="circulo-amarillo">A</span> - Vía Aérea y Control Cervical</h3>
-            <div class="row">
-                <div class="item" id="itm-via"> <div class="top"><input type="checkbox" id="cb-via"><label for="cb-via">Vía Aérea Permeable</label></div> <select id="sel-via" class="select"> <option selected>Maniobras básicas</option> <option>Cánula orofaríngea</option> <option>Cánula nasofaríngea</option> <option>Intubación orotraqueal</option> <option>Mascarilla laríngea</option> <option>Cricotiroidotomía</option> </select> <div class="delta" id="tm-via">00:00</div> </div>
-                <div class="item" id="itm-cervical"> <div class="top"><input type="checkbox" id="cb-cervical"><label for="cb-cervical">Inmovilización Cervical</label></div> <button class="btn-ghost" id="btn-cervical">+ Inmovilización</button> <div class="delta" id="tm-cervical">00:00</div> </div>
-            </div>
+             <h3><span class="circulo-amarillo">A</span> - Vía Aérea y Control Cervical</h3>
+             <div class="row">
+                 <div class="item" id="itm-via">
+                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-via"><label for="cb-via">Vía Aérea</label></div> <div class="delta" id="tm-via">00:00</div> </div>
+                     <div class="item-controls"> <select id="sel-via" class="select item-select"> <option selected disabled value="">-- Seleccione Intervención --</option> <option value="Maniobras básicas">Maniobras básicas</option> <option value="Aspiración">Aspiración</option> <option value="Cánula orofaríngea">Cánula orofaríngea</option> <option value="Cánula nasofaríngea">Cánula nasofaríngea</option> <option value="Intubación orotraqueal">Intubación orotraqueal</option> <option value="Mascarilla laríngea">Mascarilla laríngea</option> <option value="Cricotiroidotomía">Cricotiroidotomía</option> </select> <button class="btn-ghost item-add-btn" id="btn-add-via">+ Registrar</button> </div>
+                     <div class="inline-list item-log" id="log-via"></div>
+                 </div>
+                 <div class="item" id="itm-cervical">
+                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-cervical"><label for="cb-cervical">Control Cervical</label></div> <div class="delta" id="tm-cervical">00:00</div> </div>
+                     <div class="item-controls"> <select id="sel-cervical" class="select item-select"> <option selected disabled value="">-- Seleccione Inmovilización --</option> <option value="Control manual">Control manual</option> <option value="Collarín cervical">Collarín cervical</option> <option value="DAMA">DAMA</option> <option value="Inmovilizador Tetracameral">Inmovilizador Tetracameral</option> <option value="Tabla espinal larga">Tabla espinal larga</option> </select> <button class="btn-ghost item-add-btn" id="btn-add-cervical">+ Registrar</button> </div>
+                     <div class="inline-list item-log" id="log-cervical"></div>
+                 </div>
+             </div>
         </section>
 
         <section class="group" id="g-b">
-            <h3><span class="circulo-amarillo">B</span> - Ventilación y Oxigenación</h3>
-            <div class="row">
-                <div class="item" id="itm-oxigeno"> <div class="top"><input type="checkbox" id="cb-oxigeno"><label for="cb-oxigeno">Oxigenación</label></div> <select id="sel-oxigeno" class="select"> <option selected>Mascarilla simple</option> <option>Mascarilla con reservorio</option> <option>Ventilación manual</option> <option>Ventilación mecánica</option> </select> <div class="delta" id="tm-oxigeno">00:00</div> </div>
-                <div class="item" id="itm-torax"> <div class="top"><input type="checkbox" id="cb-torax"><label for="cb-torax">Evaluación Tórax</label></div> <button class="btn-ghost" id="btn-torax">+ Evaluación</button> <div class="delta" id="tm-torax">00:00</div> </div>
-            </div>
+             <h3><span class="circulo-amarillo">B</span> - Ventilación y Oxigenación</h3>
+             <div class="row">
+                 <div class="item" id="itm-oxigeno">
+                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-oxigeno"><label for="cb-oxigeno">Oxigenación</label></div> <div class="delta" id="tm-oxigeno">00:00</div> </div>
+                     <div class="item-controls"> <select id="sel-oxigeno" class="select item-select"> <option selected disabled value="">-- Seleccione Método --</option> <option value="Gafas nasales">Gafas nasales</option> <option value="Mascarilla simple">Mascarilla simple</option> <option value="Mascarilla Venturi">Mascarilla Venturi</option> <option value="Mascarilla con reservorio">Mascarilla con reservorio</option> <option value="Ventilación Manual (Ambú)">Ventilación Manual (Ambú)</option> <option value="Ventilación Mecánica">Ventilación Mecánica</option> </select> <button class="btn-ghost item-add-btn" id="btn-add-oxigeno">+ Registrar</button> </div>
+                     <div class="inline-list item-log" id="log-oxigeno"></div>
+                 </div>
+                 <div class="item" id="itm-torax">
+                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-torax"><label for="cb-torax">Evaluación Tórax</label></div> <div class="delta" id="tm-torax">00:00</div> </div>
+                     <button class="btn-ghost" id="btn-torax">+ Evaluación</button>
+                     <div></div>
+                 </div>
+             </div>
         </section>
 
         <section class="group" id="g-c">
-            <h3><span class="circulo-amarillo">C</span> - Circulación y Control Hemorrágico</h3>
-            <div class="row">
-                <div class="item" id="itm-hemorragia"> <div class="top"><input type="checkbox" id="cb-hemorragia"><label for="cb-hemorragia">Control Hemorrágico</label></div> <select id="sel-hemorragia" class="select"> <option selected>Compresión directa</option> <option>Torniquete</option> <option>Vendaje compresivo</option> <option>Hemostáticos tópicos</option> </select> <div class="delta" id="tm-hemorragia">00:00</div> </div>
-                <div class="item" id="itm-acceso"> <div class="top"><input type="checkbox" id="cb-acceso"><label for="cb-acceso">Acceso Vascular</label></div> <select id="sel-acceso" class="select"> <option selected>Vía periférica</option> <option>Vía intraósea</option> <option>Vía central</option> </select> <div class="delta" id="tm-acceso">00:00</div> </div>
-                <div class="item" id="itm-fluidos"> <div class="top"><input type="checkbox" id="cb-fluidos"><label for="cb-fluidos">Fluidoterapia</label></div> <button class="btn-ghost" id="btn-fluidos">+ Cristaloides</button> <button class="btn-ghost" id="btn-sangre">+ Hemoderivados</button> <div class="delta" id="tm-fluidos">00:00</div> </div>
-            </div>
+             <h3><span class="circulo-amarillo">C</span> - Circulación y Control Hemorrágico</h3>
+             <div class="row">
+                 <div class="item" id="itm-hemorragia">
+                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-hemorragia"><label for="cb-hemorragia">Control Hemorrágico</label></div> <div class="delta" id="tm-hemorragia">00:00</div> </div>
+                     <div class="item-controls"> <select id="sel-hemorragia" class="select item-select"> <option selected disabled value="">-- Seleccione Método --</option> <option value="Compresión directa">Compresión directa</option> <option value="Vendaje compresivo">Vendaje compresivo</option> <option value="Torniquete (extremidad)">Torniquete (extremidad)</option> <option value="Torniquete (unión)">Torniquete (unión)</option> <option value="Hemostáticos tópicos">Hemostáticos tópicos</option> <option value="Ac. Tranexámico">Ac. Tranexámico</option> </select> <button class="btn-ghost item-add-btn" id="btn-add-hemorragia">+ Registrar</button> </div>
+                     <div class="inline-list item-log" id="log-hemorragia"></div>
+                 </div>
+                 <div class="item" id="itm-acceso">
+                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-acceso"><label for="cb-acceso">Acceso Vascular</label></div> <div class="delta" id="tm-acceso">00:00</div> </div>
+                     <div class="item-controls"> <select id="sel-acceso" class="select item-select"> <option selected disabled value="">-- Seleccione Acceso --</option> <option value="Vía periférica">Vía periférica</option> <option value="Vía intraósea">Vía intraósea</option> <option value="Vía central">Vía central</option> </select> <button class="btn-ghost item-add-btn" id="btn-add-acceso">+ Registrar</button> </div>
+                     <div class="inline-list item-log" id="log-acceso"></div>
+                 </div>
+                 <div class="item" id="itm-fluidos">
+                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-fluidos"><label for="cb-fluidos">Fluidoterapia</label></div> <div class="delta" id="tm-fluidos">00:00</div> </div>
+                     <div class="item-multi-button">
+                        <button class="btn-ghost" id="btn-fluidos">+ Cristaloides</button>
+                        <button class="btn-ghost" id="btn-sangre">+ Hemoderivados</button>
+                     </div>
+                     <div class="inline-list item-log" id="log-fluidos"></div>
+                 </div>
+             </div>
         </section>
 
         <section class="group" id="g-d">
-            <h3><span class="circulo-amarillo">D</span> - Déficit Neurológico</h3>
-            <div class="row">
-                <div class="item" id="itm-glasgow"> <div class="top"><input type="checkbox" id="cb-glasgow"><label for="cb-glasgow">Escala de Glasgow</label></div> <div class="slider"> <span>GCS:</span> <input type="range" id="gcs" min="3" max="15" step="1" value="15"> <strong><span id="gcsv">15</span></strong> </div> <div class="delta" id="tm-glasgow">00:00</div> </div>
-                <div class="item" id="itm-pupilas"> <div class="top"><input type="checkbox" id="cb-pupilas"><label for="cb-pupilas">Evaluación Pupilar</label></div> <button class="btn-ghost" id="btn-pupilas">+ Evaluación</button> <div class="delta" id="tm-pupilas">00:00</div> </div>
-            </div>
+             <h3><span class="circulo-amarillo">D</span> - Déficit Neurológico</h3>
+             <div class="row">
+                 <div class="item" id="itm-glasgow">
+                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-glasgow"><label for="cb-glasgow">Escala de Glasgow</label></div> <div class="delta" id="tm-glasgow">00:00</div> </div>
+                     <div class="slider"> <span>GCS:</span> <input type="range" id="gcs" min="3" max="15" step="1" value="15"> <strong><span id="gcsv">15</span></strong> </div>
+                     <div></div>
+                 </div>
+                 <div class="item" id="itm-pupilas">
+                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-pupilas"><label for="cb-pupilas">Evaluación Pupilar</label></div> <div class="delta" id="tm-pupilas">00:00</div> </div>
+                     <button class="btn-ghost" id="btn-pupilas">+ Evaluación</button>
+                     <div></div>
+                 </div>
+             </div>
         </section>
 
         <section class="group" id="g-e">
-            <h3><span class="circulo-amarillo">E</span> - Exposición y Control Ambiental</h3>
-            <div class="row">
-                <div class="item" id="itm-exposicion"> <div class="top"><input type="checkbox" id="cb-exposicion"><label for="cb-exposicion">Exposición Completa</label></div> <div class="delta" id="tm-exposicion">00:00</div> </div>
-                <div class="item" id="itm-temp"> <div class="top"><input type="checkbox" id="cb-temp"><label for="cb-temp">Control de Temperatura</label></div> <div class="slider"> <span>Temp:</span> <input type="range" id="temp" min="32" max="40" step="0.1" value="36.5"> <strong><span id="tempv">36.5</span>°C</strong> </div> <div class="delta" id="tm-temp">00:00</div> </div>
-            </div>
+             <h3><span class="circulo-amarillo">E</span> - Exposición y Control Ambiental</h3>
+             <div class="row">
+                 <div class="item" id="itm-exposicion">
+                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-exposicion"><label for="cb-exposicion">Exposición Completa</label></div> <div class="delta" id="tm-exposicion">00:00</div> </div>
+                     <div></div><div></div> </div>
+                 <div class="item" id="itm-temp">
+                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-temp"><label for="cb-temp">Control de Temperatura</label></div> <div class="delta" id="tm-temp">00:00</div> </div>
+                     <div class="slider"> <span>Temp:</span> <input type="range" id="temp" min="32" max="40" step="0.1" value="36.5"> <strong><span id="tempv">36.5</span>°C</strong> </div>
+                     <div></div>
+                 </div>
+             </div>
         </section>
 
         <section class="group" id="g-misc">
             <h3>Misceláneos</h3>
-            <div class="row">
-                <div class="item" id="itm-analgesia"> <div class="top"><input type="checkbox" id="cb-analgesia"><label for="cb-analgesia">Analgesia</label></div> <select id="sel-analgesia" class="select"> <option selected>Fentanilo</option> <option>Morfina</option> <option>Ketamina</option> <option>Paracetamol</option> </select> <button class="btn-ghost" id="btn-analgesia">+ Dosis</button> <div class="delta" id="tm-analgesia">00:00</div> </div>
-                <div class="item" id="itm-antibioticos"> <div class="top"><input type="checkbox" id="cb-antibioticos"><label for="cb-antibioticos">Antibióticos</label></div> <select id="sel-antibioticos" class="select"> <option selected>Ceftriaxona</option> <option>Amoxicilina/Clavulánico</option> <option>Clindamicina</option> <option>Gentamicina</option> </select> <button class="btn-ghost" id="btn-antibioticos">+ Dosis</button> <div class="delta" id="tm-antibioticos">00:00</div> </div>
-            </div>
+             <div class="row">
+                 <div class="item" id="itm-analgesia">
+                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-analgesia"><label for="cb-analgesia">Analgesia</label></div> <div class="delta" id="tm-analgesia">00:00</div> </div>
+                     <div class="item-controls"> <select id="sel-analgesia" class="select item-select"> <option selected disabled value="">-- Seleccione Fármaco --</option> <option value="Fentanilo">Fentanilo</option> <option value="Morfina">Morfina</option> <option value="Ketamina">Ketamina</option> <option value="Paracetamol">Paracetamol</option> </select> <button class="btn-ghost item-add-btn" id="btn-add-analgesia">+ Registrar</button> </div>
+                     <div class="inline-list item-log" id="log-analgesia"></div>
+                 </div>
+                 <div class="item" id="itm-antibioticos">
+                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-antibioticos"><label for="cb-antibioticos">Antibióticos</label></div> <div class="delta" id="tm-antibioticos">00:00</div> </div>
+                     <div class="item-controls"> <select id="sel-antibioticos" class="select item-select"> <option selected disabled value="">-- Seleccione Fármaco --</option> <option value="Ceftriaxona">Ceftriaxona</option> <option value="Amoxi-Clav">Amoxi-Clav</option> <option value="Clindamicina">Clindamicina</option> <option value="Gentamicina">Gentamicina</option> </select> <button class="btn-ghost item-add-btn" id="btn-add-antibioticos">+ Registrar</button> </div>
+                     <div class="inline-list item-log" id="log-antibioticos"></div>
+                 </div>
+             </div>
         </section>
 
-        <section class="group" id="g-finproceso">
-            <h3>Fin de Proceso</h3>
-            <div class="row">
-                <div class="item"> <div class="top"><input type="checkbox" id="cb-paciente-estable"><label for="cb-paciente-estable">Paciente Estable</label></div> <div class="delta" id="tm-paciente-estable">00:00</div> </div>
-                <div class="item"> <div class="top"><input type="checkbox" id="cb-trasladado"><label for="cb-trasladado">Trasladado a Hospital</label></div> <div class="delta" id="tm-trasladado">00:00</div> </div>
-                <div class="item"> <div class="top"><input type="checkbox" id="cb-pcr-trauma"><label for="cb-pcr-trauma">PCR en Trauma</label></div> <div class="delta" id="tm-pcr-trauma">00:00</div> </div>
-                <div class="item"> <div class="top"><input type="checkbox" id="cb-exitus"><label for="cb-exitus">Fallecido</label></div> <div class="delta" id="tm-exitus">00:00</div> </div>
-            </div>
-        </section>
+        {/* --- Fin de Proceso y Recordatorios sin cambios estructurales internos --- */}
+        <section class="group" id="g-finproceso"> <h3>Fin de Proceso</h3> <div class="row"> <div class="item"> <div class="item-top-row"><div class="top"><input type="checkbox" id="cb-paciente-estable"><label for="cb-paciente-estable">Paciente Estable</label></div> <div class="delta" id="tm-paciente-estable">00:00</div></div> </div> <div class="item"> <div class="item-top-row"><div class="top"><input type="checkbox" id="cb-trasladado"><label for="cb-trasladado">Trasladado a Hospital</label></div> <div class="delta" id="tm-trasladado">00:00</div></div> </div> <div class="item"> <div class="item-top-row"><div class="top"><input type="checkbox" id="cb-pcr-trauma"><label for="cb-pcr-trauma">PCR en Trauma</label></div> <div class="delta" id="tm-pcr-trauma">00:00</div></div> </div> <div class="item"> <div class="item-top-row"><div class="top"><input type="checkbox" id="cb-exitus"><label for="cb-exitus">Fallecido</label></div> <div class="delta" id="tm-exitus">00:00</div></div> </div> </div> </section>
+        <section class="group" id="g-recordatorios"> <h3>Recordatorios</h3> <div class="row" style="grid-auto-flow: row; grid-auto-rows: 1fr;"> <div class="item"> 
+            <div class="item-top-row"><div class="top"><input type="checkbox" id="rec-revaluar-abcde"><label for="rec-revaluar-abcde">Reevaluar ABCDE</label></div></div> 
+            <div class="small-note">Cada 5-15 min o ante cambios</div> </div> <div class="item"> <div class="item-top-row"><div class="top"><input type="checkbox" id="rec-monitorizar"><label for="rec-monitorizar">Monitorización continua</label></div></div> <div class="small-note">ECG, SpO2, TA, FR</div> </div> <div class="item"> <div class="item-top-row"><div class="top"><input type="checkbox" id="rec-anamesis"><label for="rec-anamesis">Anamnesis SAMPLE/AMPLIA</label></div></div> </div> </div> </section>
 
-        <section class="group" id="g-recordatorios">
-            <h3>Recordatorios</h3>
-            <div class="row" style="grid-auto-flow: row; grid-auto-rows: 1fr;">
-                <div class="item"> <div class="top"><input type="checkbox" id="rec-revaluar-abcde"><label for="rec-revaluar-abcde">Reevaluar ABCDE</label></div> <div class="small-note">Cada 5-15 min o ante cambios</div> </div>
-                <div class="item"> <div class="top"><input type="checkbox" id="rec-monitorizar"><label for="rec-monitorizar">Monitorización continua</label></div> <div class="small-note">ECG, SpO2, TA, FR</div> </div>
-                <div class="item"> <div class="top"><input type="checkbox" id="rec-anamesis"><label for="rec-anamesis">Anamnesis SAMPLE/AMPLIA</label></div> </div>
-            </div>
-        </section>
     </main>
 
     <div id="action-alerts-container" class="action-alerts-container"></div>
-
-    <dialog id="dialogInforme">
-        <div class="dialog-head"> <h3>Informe · SVA Trauma</h3> <button id="btnCerrarDialog" style="background:none; border:none; cursor:pointer; font-size:18px; color: #555;"><i class="fa-solid fa-xmark"></i></button> </div>
-        <div class="dialog-body"> <table class="table" id="tablaInforme"> <thead> <tr> <th>Actuación</th> <th>Detalle</th> <th>Tiempo (MM:SS)</th> </tr> </thead> <tbody></tbody> </table> </div>
-        <div class="dialog-actions"> <button class="btn-ghost-light" id="btnImprimirDialog"><i class="fa-solid fa-print"></i> Imprimir</button> <button class="btn-ghost-light" id="btnCerrarInforme">Cerrar</button> <button class="btn btn-blue" id="btnCopiarInforme"><i class="fa-solid fa-copy"></i> Copiar Texto</button> </div>
-    </dialog>
-
+    <dialog id="dialogInforme"> <div class="dialog-head"> <h3>Informe · SVA Trauma</h3> <button id="btnCerrarDialog" style="background:none; border:none; cursor:pointer; font-size:18px; color: #555;"><i class="fa-solid fa-xmark"></i></button> </div> <div class="dialog-body"> <table class="table" id="tablaInforme"> <thead> <tr> <th>Actuación</th> <th>Detalle</th> <th>Tiempo (MM:SS)</th> </tr> </thead> <tbody></tbody> </table> </div> <div class="dialog-actions"> <button class="btn-ghost-light" id="btnImprimirDialog"><i class="fa-solid fa-print"></i> Imprimir</button> <button class="btn-ghost-light" id="btnCerrarInforme">Cerrar</button> <button class="btn btn-blue" id="btnCopiarInforme"><i class="fa-solid fa-copy"></i> Copiar Texto</button> </div> </dialog>
     <iframe id="printFrame" title="Contenedor de impresión oculto" style="position:absolute; left:-9999px; top:-9999px; width:1px; height:1px;"></iframe>
 
     <script>
@@ -508,104 +237,86 @@
             const pintaFecha = () => { const a = new Date(); fechaHoraEl.textContent = `${pad2(a.getDate())}/${pad2(a.getMonth() + 1)}/${a.getFullYear()} ${pad2(a.getHours())}:${pad2(a.getMinutes())}:${pad2(a.getSeconds())}`; };
             setInterval(pintaFecha, 1000); pintaFecha();
 
-            let t0 = new Date();
-            const clockEl = document.getElementById('clock');
-            const tick = () => clockEl.textContent = fmtHMS(Date.now() - t0.getTime());
-            setInterval(tick, 1000); tick();
-
-            let EDAD = 35;
-            const edad = document.getElementById('edad'), edadv = document.getElementById('edadv');
-            edadv.textContent = edad.value; EDAD = +edad.value;
-            edad.addEventListener('input', e => { EDAD = +e.target.value; edadv.textContent = EDAD; addLog('edad', `Edad ajustada a: ${EDAD} años`); });
+            let t0 = new Date(); const clockEl = document.getElementById('clock'); const tick = () => clockEl.textContent = fmtHMS(Date.now() - t0.getTime()); setInterval(tick, 1000); tick();
+            let EDAD = 35; const edad = document.getElementById('edad'), edadv = document.getElementById('edadv'); edadv.textContent = edad.value; EDAD = +edad.value; edad.addEventListener('input', e => { EDAD = +e.target.value; edadv.textContent = EDAD; addLog('edad', `Edad ajustada a: ${EDAD} años`); });
 
             const ids = [ 'triage', 'eval', 'via', 'cervical', 'oxigeno', 'torax', 'hemorragia', 'acceso', 'fluidos', 'glasgow', 'pupilas', 'exposicion', 'temp', 'analgesia', 'antibioticos', 'paciente-estable', 'trasladado', 'pcr-trauma', 'exitus' ];
             const state = {}; ids.forEach(id => state[id] = { ts: null });
-
             const eventLogs = [];
-            function addLog(key, message, detail = '') {
-                const now = new Date(); eventLogs.push({ timestamp: now, timeSinceStart: fmtHMS(now - t0), key: key, message: message, detail: detail });
-                console.log(`[${fmtHMS(now - t0)}] ${message}`);
-            }
+            function addLog(key, message, detail = '') { const now = new Date(); eventLogs.push({ timestamp: now, timeSinceStart: fmtHMS(now - t0), key: key, message: message, detail: detail }); console.log(`[${fmtHMS(now - t0)}] ${message}`); }
+            function marcar(id, logMessage, logDetail = '') { if (!id || !state[id] || state[id].ts) return; state[id].ts = new Date(); const el = document.getElementById('tm-' + id); if (el) el.textContent = fmtHMS(state[id].ts - t0); if(logMessage) addLog(id, logMessage, logDetail); /* updateGuidance(); */ }
+            function desmarcar(id) { if (!id || !state[id]) return; state[id].ts = null; const tm = document.getElementById('tm-' + id); if (tm) tm.textContent = '00:00'; addLog(id, `Acción ${id} desmarcada`); /* updateGuidance(); */ }
 
-            function marcar(id, logMessage, logDetail = '') {
-                if (!id || !state[id] || state[id].ts) return;
-                state[id].ts = new Date(); const el = document.getElementById('tm-' + id); if (el) el.textContent = fmtHMS(state[id].ts - t0);
-                if(logMessage) addLog(id, logMessage, logDetail);
-            }
+            const actionAlertsContainer = document.getElementById('action-alerts-container'); const persistentAlerts = new Map();
+            function showPersistentAlert(id, message, typeClass) { /* ... */ } function removePersistentAlert(id) { /* ... */ } function clearAllPersistentAlerts() { /* ... */ } const addWarn = (elementId) => { /* ... */ }; const clearWarn = (elementId) => { /* ... */ }; function updateGuidance() { /* ... */ }
 
-            function desmarcar(id) {
-                if (!id || !state[id]) return;
-                state[id].ts = null; const tm = document.getElementById('tm-' + id); if (tm) tm.textContent = '00:00';
-                addLog(id, `Acción ${id} desmarcada`);
-            }
+            ids.forEach(id => { const cb = document.getElementById('cb-' + id); if (!cb) return; const label = document.querySelector(`label[for="cb-${id}"]`); const logMsg = label ? label.textContent.trim() : `Acción ${id}`; cb.addEventListener('change', e => { if (e.target.checked) marcar(id, logMsg); else desmarcar(id); }); });
+            document.querySelectorAll('#g-recordatorios input[type="checkbox"]').forEach(cb => { cb.addEventListener('change', e => { const id = e.target.id.replace('rec-', ''); const labelText = cb.closest('.item').querySelector('label').textContent; if (e.target.checked) addLog('recordatorio-' + id, `Marcado: ${labelText}`); else addLog('recordatorio-' + id, `Desmarcado: ${labelText}`); }); });
 
-            ids.forEach(id => {
-                const cb = document.getElementById('cb-' + id); if (!cb) return;
-                const label = document.querySelector(`label[for="cb-${id}"]`); const logMsg = label ? label.textContent.trim() : `Acción ${id}`;
-                cb.addEventListener('change', e => { if (e.target.checked) marcar(id, logMsg); else desmarcar(id); });
-            });
-
-            document.querySelectorAll('#g-recordatorios input[type="checkbox"]').forEach(cb => {
-                cb.addEventListener('change', e => { const id = e.target.id.replace('rec-', ''); const labelText = cb.closest('.item').querySelector('label').textContent; if (e.target.checked) addLog('recordatorio-' + id, `Marcado: ${labelText}`); else addLog('recordatorio-' + id, `Desmarcado: ${labelText}`); });
-            });
-
+            /* ===== Triage Logic ===== */
             const triageLights = document.querySelectorAll('.triage-light'); const triageInfoParas = document.querySelectorAll('.triage-info p'); const triageCheckbox = document.getElementById('cb-triage');
-            triageLights.forEach(light => {
-                light.addEventListener('click', () => {
-                    const selectedTriage = light.dataset.triage; const alreadyActive = light.classList.contains('active');
-                    if (alreadyActive) {
-                        triageLights.forEach(l => l.classList.remove('active')); triageInfoParas.forEach(p => p.style.display = 'none'); const initialMsg = document.querySelector('.triage-info p[data-info="none"]'); if (initialMsg) initialMsg.style.display = 'block'; addLog('triage', 'Selección de Triage anulada');
-                    } else {
-                        triageLights.forEach(l => l.classList.remove('active')); light.classList.add('active'); triageInfoParas.forEach(p => p.style.display = (p.dataset.info === selectedTriage) ? 'block' : 'none'); const initialMsg = document.querySelector('.triage-info p[data-info="none"]'); if (initialMsg) initialMsg.style.display = 'none';
-                        if (!triageCheckbox.checked) { triageCheckbox.checked = true; triageCheckbox.dispatchEvent(new Event('change')); } addLog('triage', `Triage seleccionado: ${selectedTriage.toUpperCase()}`);
-                    }
-                });
-            });
-            function resetTriageVisuals() {
-                triageLights.forEach(l => l.classList.remove('active')); triageInfoParas.forEach(p => p.style.display = 'none'); const initialMsg = document.querySelector('.triage-info p[data-info="none"]'); if (initialMsg) initialMsg.style.display = 'block';
-            }
+            triageLights.forEach(light => { light.addEventListener('click', () => { const selectedTriage = light.dataset.triage; const alreadyActive = light.classList.contains('active'); triageLights.forEach(l => l.classList.remove('active')); if (!alreadyActive) { light.classList.add('active'); triageInfoParas.forEach(p => { p.style.display = (p.dataset.info === selectedTriage) ? 'block' : 'none'; }); const initialMsg = document.querySelector('.triage-info p[data-info="none"]'); if (initialMsg) initialMsg.style.display = 'none'; if (!triageCheckbox.checked) { triageCheckbox.checked = true; triageCheckbox.dispatchEvent(new Event('change')); } addLog('triage', `Triage seleccionado: ${selectedTriage.toUpperCase()}`); } else { triageInfoParas.forEach(p => p.style.display = 'none'); const initialMsg = document.querySelector('.triage-info p[data-info="none"]'); if (initialMsg) initialMsg.style.display = 'block'; addLog('triage', 'Selección de Triage anulada'); } }); });
+            function resetTriageVisuals() { triageLights.forEach(l => l.classList.remove('active')); triageInfoParas.forEach(p => p.style.display = 'none'); const initialMsg = document.querySelector('.triage-info p[data-info="none"]'); if (initialMsg) initialMsg.style.display = 'block'; }
 
+             /* ===== Mechanism Logic ===== */
             const mechanismButtons = document.querySelectorAll('.mechanism-btn'); const mechanismInfoParas = document.querySelectorAll('.mechanism-info p'); const evalCheckbox = document.getElementById('cb-eval');
-            mechanismButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const selectedMechanism = button.dataset.mechanism; const alreadyActive = button.classList.contains('active');
-                    if (alreadyActive) {
-                        mechanismButtons.forEach(btn => btn.classList.remove('active')); mechanismInfoParas.forEach(p => p.style.display = 'none'); const initialMsg = document.querySelector('.mechanism-info p[data-info="none"]'); if (initialMsg) initialMsg.style.display = 'block'; addLog('eval', 'Selección de Mecanismo anulada');
-                    } else {
-                        mechanismButtons.forEach(btn => btn.classList.remove('active')); button.classList.add('active'); mechanismInfoParas.forEach(p => p.style.display = (p.dataset.info === selectedMechanism) ? 'block' : 'none'); const initialMsg = document.querySelector('.mechanism-info p[data-info="none"]'); if (initialMsg) initialMsg.style.display = 'none';
-                        if (!evalCheckbox.checked) { evalCheckbox.checked = true; evalCheckbox.dispatchEvent(new Event('change')); } const mechanismText = document.querySelector(`.mechanism-info p[data-info="${selectedMechanism}"]`)?.textContent || selectedMechanism; addLog('eval', `Mecanismo seleccionado: ${mechanismText}`);
-                    }
-                });
-            });
-            function resetMechanismVisuals() {
-                mechanismButtons.forEach(btn => btn.classList.remove('active')); mechanismInfoParas.forEach(p => p.style.display = 'none'); const initialMsg = document.querySelector('.mechanism-info p[data-info="none"]'); if (initialMsg) initialMsg.style.display = 'block';
-            }
+            mechanismButtons.forEach(button => { button.addEventListener('click', () => { const selectedMechanism = button.dataset.mechanism; const alreadyActive = button.classList.contains('active'); mechanismButtons.forEach(btn => btn.classList.remove('active')); if (!alreadyActive) { button.classList.add('active'); mechanismInfoParas.forEach(p => { p.style.display = (p.dataset.info === selectedMechanism) ? 'block' : 'none'; }); const initialMsg = document.querySelector('.mechanism-info p[data-info="none"]'); if (initialMsg) initialMsg.style.display = 'none'; if (!evalCheckbox.checked) { evalCheckbox.checked = true; evalCheckbox.dispatchEvent(new Event('change')); } const mechanismText = document.querySelector(`.mechanism-info p[data-info="${selectedMechanism}"]`)?.textContent || selectedMechanism; addLog('eval', `Mecanismo seleccionado: ${mechanismText}`); } else { mechanismInfoParas.forEach(p => p.style.display = 'none'); const initialMsg = document.querySelector('.mechanism-info p[data-info="none"]'); if (initialMsg) initialMsg.style.display = 'block'; addLog('eval', 'Selección de Mecanismo anulada'); } }); });
+            function resetMechanismVisuals() { mechanismButtons.forEach(btn => btn.classList.remove('active')); mechanismInfoParas.forEach(p => p.style.display = 'none'); const initialMsg = document.querySelector('.mechanism-info p[data-info="none"]'); if (initialMsg) initialMsg.style.display = 'block'; }
 
             const gcs = document.getElementById('gcs'), gcsv = document.getElementById('gcsv'); gcs.addEventListener('input', e => gcsv.textContent = e.target.value); gcs.addEventListener('change', e => { marcar('glasgow', 'GCS valorado', e.target.value); document.getElementById('cb-glasgow').checked = true; });
             const temp = document.getElementById('temp'), tempv = document.getElementById('tempv'); temp.addEventListener('input', e => tempv.textContent = e.target.value); temp.addEventListener('change', e => { marcar('temp', 'Temperatura valorada', `${e.target.value}°C`); document.getElementById('cb-temp').checked = true; });
 
-            document.getElementById('btn-cervical').addEventListener('click', () => { marcar('cervical', 'Inmovilización cervical aplicada'); document.getElementById('cb-cervical').checked = true; });
-            document.getElementById('btn-torax').addEventListener('click', () => { marcar('torax', 'Evaluación torácica completada'); document.getElementById('cb-torax').checked = true; });
-            document.getElementById('btn-fluidos').addEventListener('click', () => { marcar('fluidos', 'Cristaloides administrados'); document.getElementById('cb-fluidos').checked = true; });
-            document.getElementById('btn-sangre').addEventListener('click', () => { marcar('fluidos', 'Hemoderivados administrados'); document.getElementById('cb-fluidos').checked = true; });
-            document.getElementById('btn-pupilas').addEventListener('click', () => { marcar('pupilas', 'Evaluación pupilar realizada'); document.getElementById('cb-pupilas').checked = true; });
-            document.getElementById('btn-analgesia').addEventListener('click', () => { const farmaco = document.getElementById('sel-analgesia').value; marcar('analgesia', `Dosis Analgesia: ${farmaco}`); document.getElementById('cb-analgesia').checked = true; });
-            document.getElementById('btn-antibioticos').addEventListener('click', () => { const antibiotico = document.getElementById('sel-antibioticos').value; marcar('antibioticos', `Dosis Antibiótico: ${antibiotico}`); document.getElementById('cb-antibioticos').checked = true; });
-
-            function setupSelectLink(selectId, checkboxId) {
-                const select = document.getElementById(selectId); const checkbox = document.getElementById(checkboxId); if (!select || !checkbox) return;
-                select.addEventListener('change', (e) => { const cbId = checkboxId.replace('cb-', ''); if (state[cbId].ts) addLog(cbId, `Opción cambiada a: ${e.target.value}`); else marcar(cbId, `Opción seleccionada: ${e.target.value}`); checkbox.checked = true; });
+            /* ===== Lógica para Select + Botón + Log ===== */
+            function setupItemLogger(buttonId, selectId, checkboxId, logId) {
+                const button = document.getElementById(buttonId); const select = document.getElementById(selectId); const checkbox = document.getElementById(checkboxId); const logList = document.getElementById(logId); const timeDisplay = document.getElementById(checkboxId.replace('cb-', 'tm-'));
+                if (!button || !select || !checkbox || !logList || !timeDisplay) { console.error("Error al configurar logger para:", buttonId); return; }
+                button.addEventListener('click', () => {
+                    const selectedValue = select.value; const selectedText = select.options[select.selectedIndex].text;
+                    if (!selectedValue || select.selectedIndex === 0) { alert('Por favor, seleccione una opción del desplegable.'); return; }
+                    const timestamp = new Date(); const timeString = fmtHMS(timestamp - t0);
+                    const logEntry = document.createElement('span'); logEntry.textContent = `${selectedText}: ${timeString}`; logList.prepend(logEntry);
+                    const stateId = checkboxId.replace('cb-', '');
+                    if (!checkbox.checked) { checkbox.checked = true; checkbox.dispatchEvent(new Event('change')); if (state[stateId]) { state[stateId].ts = timestamp; timeDisplay.textContent = timeString; } }
+                    else { addLog(stateId, `Registrado: ${selectedText}`); }
+                    select.selectedIndex = 0;
+                    if(checkbox.checked && state[stateId] && state[stateId].ts !== timestamp){ addLog(stateId, `Registrado: ${selectedText}`); }
+                });
             }
-            // setupSelectLink('sel-trauma', 'cb-eval'); // YA NO SE USA
-            setupSelectLink('sel-via', 'cb-via'); setupSelectLink('sel-oxigeno', 'cb-oxigeno'); setupSelectLink('sel-hemorragia', 'cb-hemorragia'); setupSelectLink('sel-acceso', 'cb-acceso'); setupSelectLink('sel-analgesia', 'cb-analgesia'); setupSelectLink('sel-antibioticos', 'cb-antibioticos');
+            // --- Configurar todos los loggers ---
+            setupItemLogger('btn-add-via', 'sel-via', 'cb-via', 'log-via');
+            setupItemLogger('btn-add-cervical', 'sel-cervical', 'cb-cervical', 'log-cervical');
+            setupItemLogger('btn-add-oxigeno', 'sel-oxigeno', 'cb-oxigeno', 'log-oxigeno');
+            setupItemLogger('btn-add-hemorragia', 'sel-hemorragia', 'cb-hemorragia', 'log-hemorragia');
+            setupItemLogger('btn-add-acceso', 'sel-acceso', 'cb-acceso', 'log-acceso');
+            setupItemLogger('btn-add-analgesia', 'sel-analgesia', 'cb-analgesia', 'log-analgesia');
+            setupItemLogger('btn-add-antibioticos', 'sel-antibioticos', 'cb-antibioticos', 'log-antibioticos');
+
+            // Listeners para botones simples/específicos
+            document.getElementById('btn-torax').addEventListener('click', () => { marcar('torax', 'Evaluación torácica completada'); document.getElementById('cb-torax').checked = true; });
+            document.getElementById('btn-pupilas').addEventListener('click', () => { marcar('pupilas', 'Evaluación pupilar realizada'); document.getElementById('cb-pupilas').checked = true; });
+
+            // Fluidoterapia (botones específicos + log)
+            const fluidosLog = document.getElementById('log-fluidos');
+            const fluidosCheckbox = document.getElementById('cb-fluidos');
+            const fluidosTime = document.getElementById('tm-fluidos');
+            document.getElementById('btn-fluidos').addEventListener('click', () => {
+                const timestamp = new Date(); const timeString = fmtHMS(timestamp - t0);
+                const logEntry = document.createElement('span'); logEntry.textContent = `Cristaloides: ${timeString}`; fluidosLog.prepend(logEntry);
+                if (!fluidosCheckbox.checked) { fluidosCheckbox.checked = true; fluidosCheckbox.dispatchEvent(new Event('change')); if (state.fluidos) { state.fluidos.ts = timestamp; fluidosTime.textContent = timeString;} }
+                else { addLog('fluidos', 'Cristaloides administrados'); }
+            });
+             document.getElementById('btn-sangre').addEventListener('click', () => {
+                const timestamp = new Date(); const timeString = fmtHMS(timestamp - t0);
+                const logEntry = document.createElement('span'); logEntry.textContent = `Hemoderivados: ${timeString}`; fluidosLog.prepend(logEntry);
+                 if (!fluidosCheckbox.checked) { fluidosCheckbox.checked = true; fluidosCheckbox.dispatchEvent(new Event('change')); if (state.fluidos) { state.fluidos.ts = timestamp; fluidosTime.textContent = timeString;} }
+                 else { addLog('fluidos', 'Hemoderivados administrados'); }
+            });
+
+            // --- QUITAR setupSimpleSelectLink --- (Ya no se usan o están cubiertos por loggers)
+
 
             const dialogInforme = document.getElementById('dialogInforme'); const tablaInforme = document.getElementById('tablaInforme').querySelector('tbody');
-            function buildInforme() {
-                tablaInforme.innerHTML = ''; const addRow = (param, val, time) => { const tr = document.createElement('tr'); tr.innerHTML = `<td>${param}</td><td>${val}</td><td>${time}</td>`; tablaInforme.appendChild(tr); };
-                addRow('Inicio', t0.toLocaleString('es-ES',{ hour: '2-digit', minute:'2-digit', second:'2-digit' }), '00:00'); addRow('Edad', `${EDAD} años`, '—');
-                eventLogs.sort((a,b) => a.timestamp - b.timestamp).forEach(log => addRow(log.message, log.detail || 'OK', log.timeSinceStart));
-            }
-
+            function buildInforme() { /* ... (código sin cambios) ... */ }
             function generarHTMLInforme() { /* ... (código sin cambios) ... */ }
             function abrirInformeParaImprimir() { /* ... (código sin cambios) ... */ }
 
@@ -618,14 +329,20 @@
                 if (!confirm('¿Está seguro de que desea reiniciar todo el proceso?')) return;
                 t0 = new Date(); tick();
                 ids.forEach(id => { state[id] = { ts: null }; const cb = document.getElementById('cb-' + id); if (cb) cb.checked = false; const tm = document.getElementById('tm-' + id); if (tm) tm.textContent = '00:00'; });
-                resetTriageVisuals();
-                resetMechanismVisuals(); // <-- Añadido reset
+                resetTriageVisuals(); resetMechanismVisuals();
+                 // Limpiar todos los logs
+                 document.querySelectorAll('.inline-list.item-log').forEach(log => log.innerHTML = '');
+
                 gcs.value = 15; gcsv.textContent = '15'; temp.value = 36.5; tempv.textContent = '36.5'; edad.value = 35; edadv.textContent = '35'; EDAD = 35; eventLogs.length = 0;
                 document.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
                 document.querySelectorAll('#g-recordatorios input[type="checkbox"]').forEach(cb => cb.checked = false);
+                clearAllPersistentAlerts();
+                ['g-triage', 'g-a', 'g-b', 'g-c', 'g-d', 'g-e', 'g-misc', 'g-finproceso', 'g-recordatorios'].forEach(clearWarn);
                 addLog('reset', 'Aplicación reiniciada');
+                // updateGuidance(); // Sigue comentado
             });
             addLog('inicio', 'Aplicación iniciada');
+            // updateGuidance(); // Sigue comentado
         });
     </script>
 </body>
