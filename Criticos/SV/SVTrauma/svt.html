@@ -10,64 +10,376 @@
 
     <style>
         :root {
-          --bg:#f0f0f0; --text:#ececec; --card: #1f2436; --item-bg:#0f1118; --item-ink:#eef1f7; --item-stroke:#23293a;
-          --blue:#003a8e; --blue2:#044fbc; --red:#dc3545;  --red2:#b02a37; --orange:#613109; --orange2:#e65c00;
-          --green:#198754; --green2:#157347; --purple:#6f42c1; --purple2:#5a2d9c; --cyan:#0dcaf0; --cyan2:#0baccc;
-          --chip-blue:#10243c; --chip-blue-b:#264a73; --chip-red:#33151a;  --chip-red-b:#682a34; --chip-orange:#3d2a14; --chip-orange-b:#7a5528;
-          --chip-green:#0f2a1c; --chip-green-b:#1e5534; --chip-purple:#2a1a3d; --chip-purple-b:#54348b;
-          --warn:#ffd23f; --warn-dark:#c9a305; --red-dim: #4d181f; --warn-dim: #664d03; --green-dim: #0f3b23;
-          --gap: clamp(6px,.9vw,12px); --radius:12px; --shadow:0 10px 30px rgba(0,0,0,.15);
-          --fs-xs: clamp(14px, 1.1vw, 16px); --fs-sm: clamp(15px, 1.2vw, 18px); --fs-md: clamp(16px, 1.4vw, 22px); --fs-lg: clamp(20px, 1.8vw, 28px);
-          --row-gap: 4px;
+            --bg:#f0f0f0; --text:#ececec; --card: #1f2436; --item-bg:#0f1118; --item-ink:#eef1f7; --item-stroke:#23293a;
+            --blue:#003a8e; --blue2:#044fbc; --red:#dc3545;  --red2:#b02a37; --orange:#613109; --orange2:#e65c00;
+            --green:#198754; --green2:#157347; --purple:#6f42c1; --purple2:#5a2d9c; --cyan:#0dcaf0; --cyan2:#0baccc;
+            --chip-blue:#10243c; --chip-blue-b:#264a73; --chip-red:#33151a;  --chip-red-b:#682a34; --chip-orange:#3d2a14; --chip-orange-b:#7a5528;
+            --chip-green:#0f2a1c; --chip-green-b:#1e5534; --chip-purple:#2a1a3d; --chip-purple-b:#54348b;
+            --warn:#ffd23f; --warn-dark:#c9a305; --warn-dim: #664d03;
+            --warn-pale: #fafad2;
+            --red-dim: #4d181f; --green-dim: #0f3b23;
+            --gap: clamp(6px,.9vw,12px); --radius:12px; --shadow:0 10px 30px rgba(0,0,0,.15);
+            --fs-xs: clamp(14px, 1.1vw, 16px); --fs-xxs: clamp(12px, 0.9vw, 14px); --fs-sm: clamp(15px, 1.2vw, 18px); --fs-md: clamp(16px, 1.4vw, 22px); --fs-lg: clamp(20px, 1.8vw, 28px);
+            --row-gap: 4px;
         }
         * { box-sizing: border-box; } html, body { height: 100%; }
         body { margin: 0; background: var(--bg); color: var(--text); font-family: Roboto, system-ui, sans-serif; -webkit-text-size-adjust: 100%; overflow: hidden; }
+
         header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; padding: 8px 12px; border-bottom: 1px solid #d8dde6; background: #fff; height: 70px; }
         .header-left, .header-right { display: flex; align-items: center; gap: 8px; } .header-right { justify-content: flex-end; }
-        .btn { display: inline-flex; align-items: center; gap: .5rem; cursor: pointer; border: none; border-radius: 12px; padding: 8px 12px; font-weight: 800; background: var(--red); color: #fff; font-size: var(--fs-sm); box-shadow: var(--shadow); transition: background .2s; }
-        .btn:hover { background: var(--red2); } .btn-blue { background: var(--blue); } .btn-blue:hover { background: var(--blue2); }
+        .btn { display: inline-flex; align-items: center; gap: .5rem; cursor: pointer; border: none; border-radius: 12px; padding: 8px 12px; font-weight: 800; background: var(--red); color: #fff; font-size: var(--fs-sm); box-shadow: var(--shadow); transition: background .2s; } .btn:hover { background: var(--red2); } .btn-blue { background: var(--blue); } .btn-blue:hover { background: var(--blue2); }
         .fab-header{ width:44px; height:44px; border-radius:50%; display:grid; place-items:center; text-decoration:none; color:#fff; border:1px solid #1e2433; box-shadow:var(--shadow); background:#151823; transition: filter .2s; } .fab-header.home{ background:var(--blue); } .fab-header.crit{ background:var(--red); } .fab-header:hover{ filter:brightness(1.1); }
-        .center { text-align: center; line-height: 1.1; color: #000; } .center .dt { font-size: var(--fs-sm); color: #000; } .center .title { margin-top: 2px; font-size: var(--fs-lg); font-weight: 800; color: #000; }
-        .header-slider { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: var(--fs-sm); color: #000; margin-top: 2px; } .header-slider input[type="range"] { width: 180px; cursor: pointer; } .header-slider strong { min-width: 45px; text-align: right; }
+        
+        .center { text-align: center; line-height: 1.1; color: #000; }
+        .center .dt { font-size: var(--fs-sm); color: #000; font-weight: 800; }
+        .center .title { margin-top: 2px; font-size: var(--fs-lg); font-weight: 800; color: #000; }
+        .header-slider { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: var(--fs-sm); color: #000; margin-left: 12px; }
+        .header-slider input[type="range"] { width: 180px; cursor: pointer; }
+        .header-slider strong { min-width: 45px; text-align: right; white-space: nowrap; }
+
         .clock { min-width: 100px; text-align: center; color: #fff; background: var(--red); border-radius: 12px; padding: 8px 12px; font: 800 18px/1 "Courier New", monospace; box-shadow: var(--shadow); }
-        .main { height: calc(100dvh - 70px); padding: 8px 12px; display: grid; gap: var(--row-gap); grid-template-columns: 1fr 1fr 1fr; grid-template-areas: "triage triage triage" "a b d" "c e misc" "finproc finproc record"; grid-template-rows: 1.5fr 2fr 2fr 1.5fr; }
-        #g-triage { grid-area: triage; } #g-a { grid-area: a; } #g-b { grid-area: b; } #g-c { grid-area: c; } #g-d { grid-area: d; } #g-e { grid-area: e; } #g-misc { grid-area: misc; } #g-finproceso { grid-area: finproc; } #g-recordatorios { grid-area: record; }
+
+        .main { 
+            height: calc(100dvh - 70px); 
+            padding: 8px 12px; 
+            display: grid; 
+            gap: var(--row-gap); 
+            grid-template-columns: 1fr 1fr 1fr; 
+            grid-template-areas: 
+                "triage triage triage" 
+                "a b d" 
+                "c c e" 
+                "med med alertas";
+            grid-template-rows: auto auto auto 1fr; 
+        }
+        #g-triage { grid-area: triage; } 
+        #g-a { grid-area: a; } 
+        #g-b { grid-area: b; } 
+        #g-d { grid-area: d; } 
+        #g-c { grid-area: c; } 
+        #g-e { grid-area: e; } 
+        #g-medicacion { grid-area: med; } 
+        #g-alertas { grid-area: alertas; }
+
         .group { background: var(--card); color: var(--ink); border: 1px solid #082d71; border-radius: var(--radius); padding: 8px; display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 6px; box-shadow: var(--shadow); overflow: hidden; }
         .group h3 { margin: 0; font-size: var(--fs-md); font-weight: 800; display: flex; align-items: center; gap: 8px; }
         .row { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: var(--gap); height: 100%; }
+        
+        /* --- AJUSTES DE TAMAÑO PARA UNIFORMIDAD --- */
+        #g-c .row { grid-template-columns: repeat(4, 1fr); } 
+        #g-medicacion .row { grid-template-columns: repeat(4, 1fr); } /* 4 subtarjetas iguales */
 
-        .item { background: var(--item-bg); color: var(--item-ink); border: 1px solid var(--item-stroke); border-radius: 10px; padding: 8px; display: grid; grid-template-rows: auto auto 1fr; gap: 6px; min-width: 0; align-content: start; }
-        /* Ajuste: Fila media por defecto es auto, inferior es 1fr */
-        .item { grid-template-rows: auto auto minmax(0, 1fr); }
-        .select, .slider, .btn-ghost, .delta, .mechanism-buttons, .mechanism-info, .triage-lights, .triage-info, .item-controls, .inline-list.item-log { flex-shrink: 0; }
-        .item-top-row { display: grid; grid-template-columns: 1fr auto; gap: var(--gap); align-items: center; grid-row: 1 / 2; }
-        .item-top-row .top { flex-grow: 0; min-height: 50px; }
-        .item-top-row .delta { justify-self: end; align-self: center; flex-shrink: 0; }
-        .top { display: block; position: relative; width: 100%; z-index: 2; } .top input[type="checkbox"] { display: none; }
+        .item { background: var(--item-bg); color: var(--item-ink); border: 1px solid var(--item-stroke); border-radius: 10px; padding: 8px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+        .select, .slider, .btn-ghost, .delta, .mechanism-buttons, .mechanism-info, .triage-lights, .triage-info, .item-controls, .inline-list.item-log, .pupil-grid, .gcs-sliders, .constants-sliders { flex-shrink: 0; }
+        
+        /* --- NUEVO DISEÑO COMPACTO PARA TRIAGE Y MECANISMO --- */
+        #itm-triage, #itm-eval { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 8px; min-height: auto; }
+        #itm-triage .item-top-row, #itm-eval .item-top-row { grid-column: 1 / 2; grid-row: 1 / 2; display: flex; flex-direction: column; gap: 6px; }
+        #itm-triage .item-top-row .top, #itm-eval .item-top-row .top { min-height: 50px; flex: 1; }
+        #itm-triage .item-top-row .top label, #itm-eval .item-top-row .top label { min-height: 50px; font-size: var(--fs-sm); justify-content: flex-start; padding: 8px; }
+        #itm-triage .delta, #itm-eval .delta { justify-self: start; align-self: center; margin-top: 0; }
+        #itm-triage .triage-lights, #itm-eval .mechanism-buttons { grid-column: 2 / 3; grid-row: 1 / 2; align-self: center; margin: 0; padding: 0; }
+        #itm-triage .triage-lights { flex-direction: row; justify-content: center; gap: 12px; }
+        #itm-triage .light-row { flex-direction: column; align-items: center; gap: 4px; }
+        #itm-eval .mechanism-buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; justify-items: center; }
+        #itm-eval .mechanism-btn { min-width: 36px; padding: 6px; font-size: var(--fs-md); }
+        #itm-triage .triage-info, #itm-eval .mechanism-info { grid-column: 1 / -1; grid-row: 2 / 3; margin-top: 0; font-size: var(--fs-md); padding: 8px 10px; background: #2a2d1a; color: #e6d8a0; border: 1px solid #5a5528; border-radius: 8px; font-weight: 600; }
+        #itm-triage .triage-info p, #itm-eval .mechanism-info p { margin: 0; line-height: 1.3; text-align: center; }
+        #itm-triage .triage-info p[data-info="none"], #itm-eval .mechanism-info p[data-info="none"] { color: #a8a07a; font-weight: 400; }
+        /* --- FIN NUEVO DISEÑO COMPACTO --- */
+
+        .item-top-row { display: grid; grid-template-columns: 1fr auto; gap: var(--gap); align-items: center; flex-shrink: 0; }
+        .item-top-row .top { flex-grow: 1; min-height: 50px; } .item-top-row .delta { justify-self: end; align-self: center; flex-shrink: 0; }
+        .top { display: block; position: relative; width: 100%; z-index: 2; } .top input[type="checkbox"], .top input[type="radio"] { display: none; }
         .top label { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; min-height: 50px; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: var(--fs-md); color: #fff; background: #1a1e2d; border: 1px solid var(--item-stroke); transition: background .2s, border-color .2s; text-align: center; }
         .top label:hover { background: #242a3e; border-color: #38425e; } .top input[type="checkbox"]:checked + label { background: var(--chip-green); border-color: var(--chip-green-b); box-shadow: 0 0 10px rgba(25, 135, 84, 0.5); }
         .delta{ justify-self:start; font:800 14px/1 "Courier New",monospace; background:#0b0d14; border:1px solid #242a39; border-radius:8px; padding:4px 8px; color:#e8eefb; flex-shrink: 0; }
 
         /* --- Triage Styles --- */
-        #itm-triage .item-top-row { grid-row: 1/2; } .triage-lights { grid-row: 2 / 3; justify-self: center; width: auto; display: flex; flex-direction: row; gap: var(--gap); background: transparent; padding: 8px 0; border: none; justify-content: center; } .light-row { display: flex; align-items: center; gap: 10px; } .triage-light { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--item-stroke); cursor: pointer; transition: all 0.2s; padding: 0; position: relative; flex-shrink: 0; } .triage-light.red { background-color: var(--red-dim); --light-color: var(--red); } .triage-light.yellow { background-color: var(--warn-dim); --light-color: var(--warn); } .triage-light.green { background-color: var(--green-dim); --light-color: var(--green); } .triage-light.active { background-color: var(--light-color); box-shadow: 0 0 12px 2px var(--light-color); border-color: var(--light-color); } .triage-light:not(.active):hover { border-color: var(--item-ink); } .light-label { font-size: var(--fs-sm); color: var(--item-ink); font-weight: 600; }
-        .triage-info { grid-row: 3 / 4; width: 100%; font-size: var(--fs-xs); text-align: center; color: var(--item-ink); padding: 6px 8px; background: #0b0d14; border-radius: 6px; } .triage-info p { margin: 0; line-height: 1.3; } .triage-info p[data-info="none"] { color: #888; }
+        .triage-lights { display: flex; } .light-row { display: flex; align-items: center; } .triage-light { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--item-stroke); cursor: pointer; transition: all 0.2s; } .triage-light.red { background-color: var(--red-dim); --light-color: var(--red); } .triage-light.yellow { background-color: var(--warn-dim); --light-color: var(--warn); } .triage-light.green { background-color: var(--green-dim); --light-color: var(--green); } .triage-light.active { background-color: var(--light-color); box-shadow: 0 0 12px 2px var(--light-color); border-color: var(--light-color); } .triage-light:not(.active):hover { border-color: var(--item-ink); } .light-label { font-size: var(--fs-sm); color: var(--item-ink); font-weight: 600; }
+        .triage-info { width: 100%; font-size: var(--fs-xs); text-align: center; color: var(--item-ink); padding: 6px 8px; background: #0b0d14; border-radius: 6px; margin-top: auto; } .triage-info p { margin: 0; line-height: 1.3; } .triage-info p[data-info="none"] { color: #888; }
         /* --- Mechanism Styles --- */
-        #itm-eval .item-top-row { grid-row: 1/2; } .mechanism-buttons { grid-row: 2 / 3; align-self: center; display: flex; flex-wrap: wrap; gap: var(--gap); justify-content: center; margin: 4px 0; } .mechanism-btn { background-color: var(--item-bg); border: 1px solid var(--item-stroke); color: var(--item-ink); border-radius: 8px; padding: 8px 10px; cursor: pointer; font-size: var(--fs-lg); line-height: 1; transition: all 0.2s; min-width: 44px; text-align: center; } .mechanism-btn i.ti { font-size: 1.1em; vertical-align: middle; } .mechanism-btn:hover { background-color: #1a1e2d; border-color: #38425e; } .mechanism-btn.active { background-color: var(--blue); border-color: var(--blue2); color: #fff; box-shadow: 0 0 10px rgba(0, 58, 142, 0.5); }
-        .mechanism-info { grid-row: 3 / 4; width: 100%; font-size: var(--fs-sm); text-align: center; color: var(--item-ink); padding: 6px 8px; background: #0b0d14; border-radius: 6px; font-weight: 600; } .mechanism-info p { margin: 0; line-height: 1.3; } .mechanism-info p[data-info="none"] { color: #888; font-weight: 400; }
+        .mechanism-buttons { display: flex; flex-wrap: wrap; } .mechanism-btn { background-color: var(--item-bg); border: 1px solid var(--item-stroke); color: var(--item-ink); border-radius: 8px; padding: 8px 10px; cursor: pointer; font-size: var(--fs-lg); line-height: 1; transition: all 0.2s; min-width: 44px; text-align: center; } .mechanism-btn i.ti { font-size: 1.1em; vertical-align: middle; } .mechanism-btn:hover { background-color: #1a1e2d; border-color: #38425e; } .mechanism-btn.active { background-color: var(--blue); border-color: var(--blue2); color: #fff; box-shadow: 0 0 10px rgba(0, 58, 142, 0.5); }
+        .mechanism-info { width: 100%; font-size: var(--fs-sm); text-align: center; color: var(--item-ink); padding: 6px 8px; background: #0b0d14; border-radius: 6px; font-weight: 600; margin-top: auto; } .mechanism-info p { margin: 0; line-height: 1.3; } .mechanism-info p[data-info="none"] { color: #888; font-weight: 400; }
 
-        /* --- Estilos Nueva Estructura Select+Log --- */
-        .item-controls { display: grid; grid-template-columns: 1fr auto; gap: var(--gap); align-items: center; margin: 4px 0; grid-row: 2 / 3; }
+        /* --- MODIFICACIÓN: Estructura Select+Log MEJORADA --- */
+        .item-controls { display: grid; grid-template-columns: 1fr auto; gap: var(--gap); align-items: center; margin: 4px 0 0 0; }
         .item-add-btn { padding: 8px 12px; margin: 0; width: auto; flex-shrink: 0; }
-        .inline-list.item-log { font-size: var(--fs-xs); line-height: 1.4; flex-grow: 1; min-height: 40px; max-height: 50px; overflow-y: auto; background: #0b0d14; border: 1px solid #242a39; border-radius: 8px; padding: 4px 8px; grid-row: 3 / 4; /* Fila inferior */ }
-        .inline-list.item-log span { display: block; word-wrap: break-word; }
-        /* Estilo para botones múltiples en fila media (Fluidoterapia) */
-        .item-multi-button { display: flex; flex-direction: column; gap: 4px; grid-row: 2/3; margin: 4px 0;}
+        .inline-list.item-log { 
+            font-size: var(--fs-xs); 
+            line-height: 1.3; 
+            flex-grow: 1; 
+            min-height: 40px; 
+            max-height: 70px; 
+            overflow-y: auto; 
+            background: #0b0d14; 
+            border: 1px solid #242a39; 
+            border-radius: 6px; 
+            padding: 4px 6px; 
+            margin-top: 0;
+            color: var(--warn-pale);
+        }
+        .inline-list.item-log span { 
+            display: block; 
+            word-wrap: break-word;
+            padding: 2px 0;
+            border-bottom: 1px solid #1a1e2d;
+        }
+        .inline-list.item-log span:last-child {
+            border-bottom: none;
+        }
+        .item-multi-button { display: flex; flex-direction: column; gap: 4px; margin: 4px 0;}
 
+        /* --- Estilos Glasgow --- */
+        .gcs-sliders { display: grid; gap: 4px; padding: 4px 0; } .gcs-slider-row { display: grid; grid-template-columns: auto 1fr auto; gap: 6px; align-items: center; font-size: var(--fs-xs);} .gcs-slider-row label { font-weight: 600; min-width: 40px; } .gcs-slider-row input[type="range"] { width: 100%; } .gcs-slider-row strong { font-weight: 800; min-width: 20px; text-align: right; }
+        #gcs-total { text-align: center; font-size: var(--fs-sm); font-weight: 800; padding: 4px; background: #0b0d14; border-radius: 6px; margin-top: 6px; transition: color 0.3s; }
 
-        .slider{ display:flex; align-items:center; gap:8px; font-size:var(--fs-sm); flex-shrink: 0; grid-row: 2/3; padding: 8px 0; /* Espacio vertical */} .slider input[type="range"]{ width:100%; cursor: pointer; }
-        .select{ width:100%; background:#0b0d14; color:#e8eefb; border:1px solid #283149; border-radius:8px; padding: 8px 10px; font-size: var(--fs-sm); flex-shrink: 0; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e8eefb'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; background-size: 18px; cursor: pointer; /* No asignar grid-row aquí, se hará en .item-controls si aplica */ }
-        .small-note { font-size: var(--fs-xs); color: #aeb7cc; flex-shrink: 0; grid-row: 3/4; margin-top: auto; padding-top: 4px; /* Pequeño espacio arriba */}
-        .btn-ghost { display: block; width: 100%; padding: 10px 8px; margin-top: 4px; font-size: var(--fs-sm); font-weight: 700; background: #21283a; border: 1px solid #3a445d; color: #fff; border-radius: 8px; cursor: pointer; text-align: center; flex-shrink: 0; transition: background .2s, border-color .2s; grid-row: 2/3; /* Fila media por defecto */}
+        /* --- MODIFICACIÓN: Estilos Pupilas MÁS COMPACTOS --- */
+        .pupil-grid { 
+            display: grid; 
+            grid-template-columns: 1fr auto auto; 
+            gap: 2px 8px; 
+            align-items: center; 
+            font-size: 11px; 
+            padding: 4px 0; 
+            margin: auto; 
+            justify-content: center;
+            max-width: 250px;
+        }
+        .pupil-grid .header { 
+            font-weight: 800; 
+            text-align: center; 
+            justify-self: center; 
+            padding-bottom: 2px;
+            font-size: 11px;
+        }
+        .pupil-grid .label { 
+            font-weight: 600; 
+            justify-self: end; 
+            text-align: right;
+            font-size: 11px;
+            line-height: 1.1;
+            transition: color 0.2s; 
+        }
+        .pupil-grid .pupil-status { 
+            grid-column: 1 / 2; 
+            font-weight: 800; 
+            color: var(--warn-pale); 
+            justify-self: end; 
+            text-align: right; 
+            padding-bottom: 2px; 
+            transition: color 0.2s, text-content 0.2s;
+            font-size: 11px;
+        }
+        .pupil-grid .label.text-red, .pupil-grid .pupil-status.text-red { color: var(--red); }
+        .pupil-grid input[type="checkbox"] { 
+            width: 14px; 
+            height: 14px; 
+            cursor: pointer; 
+            justify-self: center; 
+            accent-color: var(--blue); 
+            appearance: none; 
+            -webkit-appearance: none; 
+            background-color: #333; 
+            border: 1px solid var(--item-stroke); 
+            border-radius: 3px; 
+            display: grid; 
+            place-content: center;
+        }
+        .pupil-grid input[type="checkbox"]::before { 
+            content: ""; 
+            width: 8px; 
+            height: 8px; 
+            transform: scale(0); 
+            transition: 120ms transform ease-in-out; 
+            box-shadow: inset 1em 1em #fff; 
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%); 
+            transform-origin: bottom left; 
+        }
+        .pupil-grid input[type="checkbox"]:checked { 
+            background-color: var(--blue); 
+            border-color: var(--blue2); 
+        }
+        .pupil-grid input[type="checkbox"]:checked::before { 
+            transform: scale(1); 
+        }
+        /* --- Estilos para Mirada Conjugada --- */
+        .pupil-grid .conjugada-buttons {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            justify-self: center;
+        }
+
+        .pupil-grid .conj-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--item-ink);
+            transition: color 0.2s;
+        }
+
+        .pupil-grid input[type="checkbox"]:checked + .conj-label {
+            color: var(--red);
+}
+        
+        /* --- MODIFICACIÓN: Nuevo diseño Fin de Proceso en 2 columnas CON TEXTO MÁS GRANDE --- */
+        .finproceso-grid { 
+            display: grid; 
+            grid-template-columns: auto 1fr auto 1fr; 
+            gap: 6px 8px; 
+            align-items: center; 
+            font-size: 12px;
+            padding: 8px 0;
+            margin: auto;
+            justify-content: center;
+            max-width: 220px;
+        }
+        .finproceso-grid .label { 
+            font-weight: 600; 
+            justify-self: start; 
+            text-align: left;
+            font-size: 12px;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+        .finproceso-grid input[type="checkbox"] { 
+            width: 16px;
+            height: 16px;
+            cursor: pointer; 
+            justify-self: start; 
+            accent-color: var(--blue); 
+            appearance: none; 
+            -webkit-appearance: none; 
+            background-color: #333; 
+            border: 1px solid var(--item-stroke); 
+            border-radius: 3px; 
+            display: grid; 
+            place-content: center;
+        }
+        .finproceso-grid input[type="checkbox"]::before { 
+            content: ""; 
+            width: 9px;
+            height: 9px;
+            transform: scale(0); 
+            transition: 120ms transform ease-in-out; 
+            box-shadow: inset 1em 1em #fff; 
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%); 
+            transform-origin: bottom left; 
+        }
+        .finproceso-grid input[type="checkbox"]:checked { 
+            background-color: var(--blue); 
+            border-color: var(--blue2); 
+        }
+        .finproceso-grid input[type="checkbox"]:checked::before { 
+            transform: scale(1); 
+        }
+
+        /* --- Estilos Constantes --- */
+        .constants-sliders { display: grid; gap: 6px; align-content: start; padding: 4px 0; margin: auto 0; } 
+        .constant-slider-row { display: grid; grid-template-columns: auto 1fr auto; gap: 6px; align-items: center; font-size: var(--fs-xs); } 
+        .constant-slider-row label { font-weight: 600; min-width: 50px; transition: color 0.3s; } 
+        .constant-slider-row input[type="range"] { width: 100%; } 
+        .constant-slider-row strong { font-weight: 800; min-width: 55px; text-align: right; transition: color 0.3s; }
+        
+        /* Colores para constantes alteradas */
+        .constant-slider-row label.warning, .constant-slider-row strong.warning { color: var(--warn); }
+        .constant-slider-row label.danger, .constant-slider-row strong.danger { color: var(--red); }
+
+        /* --- ▼▼▼ ESTILOS MEJORADOS PARA TARJETA ALERTAS/SUGERENCIAS ▼▼▼ --- */
+        #g-alertas { display: grid; grid-template-rows: auto 1fr; }
+        #g-alertas .alertas-container { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 4px; 
+            overflow-y: auto; 
+            padding-top: 5px;
+            height: 100%;
+        }
+
+        .dynamic-alerts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            min-height: 40px;
+            flex: 1;
+        }
+
+        .dynamic-alerts-list .no-alerts { 
+            color: var(--item-ink); 
+            font-style: italic; 
+            font-size: var(--fs-xxs); 
+            text-align: center; 
+            padding: 15px 0; 
+        }
+
+        .alert-line { 
+            font-size: var(--fs-xxs);
+            font-weight: 600;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 2px 0;
+        }
+
+        .alert-line.danger { color: var(--red); }
+        .alert-line.warning { color: var(--warn); }
+        .alert-line.info { color: var(--cyan); }
+
+        .alert-line i { 
+            font-size: 0.8em;
+            flex-shrink: 0;
+            width: 12px;
+            text-align: center;
+        }
+
+        .fixed-recommendations { 
+            margin-top: auto; 
+            padding-top: 8px; 
+            border-top: 1px solid var(--item-stroke); 
+            flex-shrink: 0;
+        }
+        .fixed-recommendations h4 { 
+            margin: 0 0 6px 0; 
+            font-size: var(--fs-sm); 
+            font-weight: 700; 
+            color: var(--item-ink); 
+        }
+        .fixed-recommendations ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center; 
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .fixed-recommendations li {
+            font-size: var(--fs-xxs);
+            color: #aeb7cc; 
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+        .fixed-recommendations li i { 
+            color: var(--item-ink); 
+            font-size: 0.9em;
+        }
+        /* --- ▲▲▲ FIN Estilos Mejorados Tarjeta Alertas ▲▲▲ --- */
+
+        .slider{ padding: 8px 0; }
+        /* --- ESTILOS SLIDERS AZUL/GRIS --- */
+        .gcs-sliders input[type="range"], .constants-sliders input[type="range"], .header-slider input[type="range"] { accent-color: var(--blue); height: 6px; cursor: pointer; width: 100%; background: linear-gradient(to right, var(--blue) 0%, var(--blue) var(--value-percent, 50%), #ddd var(--value-percent, 50%), #ddd 100%); border-radius: 3px; outline: none; -webkit-appearance: none; appearance: none; }
+        .gcs-sliders input[type="range"]::-webkit-slider-thumb, .constants-sliders input[type="range"]::-webkit-slider-thumb, .header-slider input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; background: var(--blue); border-radius: 50%; cursor: pointer; margin-top: -6px; border: 2px solid var(--item-ink); box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+        .gcs-sliders input[type="range"]::-moz-range-thumb, .constants-sliders input[type="range"]::-moz-range-thumb, .header-slider input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; background: var(--blue); border-radius: 50%; cursor: pointer; border: 2px solid var(--item-ink); box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+
+        .select{ width:100%; background:#0b0d14; color:#e8eefb; border:1px solid #283149; border-radius:8px; padding: 8px 10px; font-size: var(--fs-sm); flex-shrink: 0; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e8eefb'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; background-size: 18px; cursor: pointer; }
+        .small-note { font-size: var(--fs-xs); color: #aeb7cc; flex-shrink: 0; margin-top: auto; padding-top: 4px; }
+        .btn-ghost { display: block; width: 100%; padding: 10px 8px; margin-top: 4px; font-size: var(--fs-sm); font-weight: 700; background: #21283a; border: 1px solid #3a445d; color: #fff; border-radius: 8px; cursor: pointer; text-align: center; flex-shrink: 0; transition: background .2s, border-color .2s; }
 
         .warn-strong{ outline:4px solid var(--warn); box-shadow: 0 0 0 6px rgba(255,210,63,.30), inset 0 0 0 9999px rgba(255,210,63,.10), var(--shadow); border-color: var(--warn-dark); } @keyframes twinkleStrong{ 0%{ box-shadow: 0 0 0 6px rgba(255,210,63,.45), inset 0 0 0 9999px rgba(255,210,63,.18), var(--shadow); } 100%{ box-shadow: 0 0 0 0 rgba(255,210,63,0), inset 0 0 0 9999px rgba(255,210,63,.06), var(--shadow); } } .blink-strong{ animation: twinkleStrong 900ms infinite alternate; }
         .action-alerts-container { position: fixed; top: 80px; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 99; pointer-events: none; } .action-alert { display: flex; border-radius: 12px; padding: 12px 20px; font-size: var(--fs-lg); font-weight: 700; box-shadow: var(--shadow); align-items: center; gap: 12px; max-width: 90%; animation: slideIn 0.3s ease-out; } .action-alert.red { background: var(--red); color: #fff; } .action-alert.orange { background: var(--orange2); color: #fff; } .action-alert.warn { background: var(--warn); color: #111; } .action-alert.blue { background: var(--blue); color: #fff; } .action-alert.green { background: var(--green); color: #fff; } @keyframes slideIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
@@ -75,26 +387,66 @@
 
         dialog { border: none; border-radius: 14px; padding: 0; box-shadow: 0 24px 60px rgba(0, 0, 0, .5); width: min(980px, 92vw); color: #0b0c0f; } .dialog-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid #e7eef7; background: #f7f9ff; } .dialog-head h3 { margin: 0; font-size: var(--fs-lg); color: #0b0c0f; } .dialog-body { padding: 10px 14px 14px; background: #fff; max-height: 70vh; overflow-y: auto; } .table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; } .table th, .table td { border-bottom: 1px solid #eef2f7; padding: 6px 8px; text-align: left; white-space: nowrap; } .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; padding: 0 14px 12px; background: #fff; } .btn-ghost-light{ background:#fff; border:1px solid #e3eaf6; color:#0b0c0f; font-weight:700; border-radius:10px; padding:8px 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 0.35rem; }
 
-        @media (max-width: 1100px) { body { overflow: auto; } header { grid-template-columns: 1fr; height: auto; padding-bottom: 12px; } .header-left, .header-right { justify-content: center; flex-wrap: wrap; } .center { grid-row: 1; margin-bottom: 8px; } .main { height: auto; min-height: calc(100vh - 120px); grid-template-columns: 1fr; grid-template-rows: auto; grid-template-areas: "triage" "a" "b" "c" "d" "e" "misc" "finproc" "record"; padding-bottom: 20px; }
-        .item-top-row { grid-template-columns: 1fr; } .item-top-row .delta { justify-self: start; margin-top: 4px;}
-        .triage-lights { flex-direction: row; justify-content: center; } .light-row { flex-direction: column; text-align: center; gap: 4px; } .triage-info { text-align: center; }
-        .item-controls { grid-template-columns: 1fr; } .item-add-btn { width: 100%; }
-        .item-multi-button { flex-direction: row; gap: var(--gap); } /* Botones fluidos en horizontal */
-        .item-multi-button .btn-ghost { flex: 1; } /* Botones fluidos ocupan espacio */
-        #g-c .row, #g-finproceso .row, #g-recordatorios .row, #g-a .row, #g-b .row, #g-d .row, #g-e .row, #g-misc .row { grid-template-columns: 1fr; grid-auto-flow: row; } .action-alerts-container { top: 120px; } }
+        @media (max-width: 1100px) { 
+            body { overflow: auto; } 
+            header { grid-template-columns: 1fr; height: auto; padding-bottom: 12px; } 
+            .header-left, .header-right { justify-content: center; flex-wrap: wrap; } 
+            .center { grid-row: 1; margin-bottom: 8px; }
+            .main { 
+                height: auto; 
+                min-height: calc(100vh - 120px); 
+                grid-template-columns: 1fr; 
+                grid-template-rows: auto; 
+                grid-template-areas: "triage" "a" "b" "d" "c" "e" "med" "alertas";
+                padding-bottom: 20px; 
+            }
+            
+            /* Responsive para las nuevas tarjetas compactas */
+            #itm-triage, #itm-eval { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
+            #itm-triage .item-top-row, #itm-eval .item-top-row { grid-column: 1 / -1; grid-row: 1 / 2; display: grid; grid-template-columns: 1fr auto; gap: var(--gap); flex-direction: unset; }
+            #itm-triage .item-top-row .top, #itm-eval .item-top-row .top { min-height: 50px; }
+            #itm-triage .delta, #itm-eval .delta { justify-self: end; margin-top: 0; }
+            #itm-triage .triage-lights, #itm-eval .mechanism-buttons { grid-column: 1 / -1; grid-row: 2 / 3; margin: 4px 0; }
+            #itm-eval .mechanism-buttons { display: flex; flex-wrap: wrap; justify-content: center; grid-template-columns: unset; }
+            #itm-triage .triage-info, #itm-eval .mechanism-info { grid-column: 1 / -1; grid-row: 3 / 4; }
+            
+            .triage-lights { flex-direction: row; justify-content: center; } 
+            .light-row { flex-direction: column; text-align: center; gap: 4px; } 
+            .triage-info { text-align: center; }
+            .item-controls { grid-template-columns: 1fr; } 
+            .item-add-btn { width: 100%; }
+            .item-multi-button { flex-direction: row; gap: var(--gap); } 
+            .item-multi-button .btn-ghost { flex: 1; }
+            #g-c .row, #g-a .row, #g-b .row, #g-d .row, #g-e .row, #g-medicacion .row { grid-template-columns: 1fr; grid-auto-flow: row; }
+            .action-alerts-container { top: 120px; } 
+        }
         @media print { body > *:not(.print-container) { display: none !important; } html, body { background:#fff !important; margin: 0 !important; padding: 0 !important; } .print-container { display: block !important; } @page { size: A4 portrait; margin: 15mm; } }
+    
+    
     </style>
 </head>
 
 <body>
     <header>
-        <div class="header-left"> <button class="btn" id="btnReset" title="Reiniciar"><i class="fa-solid fa-rotate"></i> Reiniciar</button> <a class="fab-header home" href="../../../index.html" title="Inicio"><i class="fa-solid fa-house"></i></a> <a class="fab-header crit" href="../../index.html" title="Críticos"><i class="fa-solid fa-procedures"></i></a> </div>
+        <div class="header-left">
+            <button class="btn" id="btnReset" title="Reiniciar"><i class="fa-solid fa-rotate"></i> Reiniciar</button>
+            <a class="fab-header home" href="../../../index.html" title="Inicio"><i class="fa-solid fa-house"></i></a>
+            <a class="fab-header crit" href="../../index.html" title="Críticos"><i class="fa-solid fa-procedures"></i></a>
+            <div class="header-slider">
+                <i class="fa-solid fa-weight-scale"></i> Peso:
+                <input type="range" id="peso" min="30" max="150" step="1" value="70">
+                <strong><span id="pesov">70</span> kg</strong>
+            </div>
+        </div>
         <div class="center">
             <div class="dt" id="fechaHora">--/--/---- --:--:--</div>
             <div class="title">Soporte Vital Avanzado en Trauma</div>
-            <div class="header-slider"> <i class="fa-solid fa-user"></i> Edad: <input type="range" id="edad" min="1" max="100" step="1" value="35"> <strong><span id="edadv">35</span> años</strong> </div>
         </div>
-        <div class="header-right"> <button class="btn btn-blue" id="btnInforme"><i class="fa-solid fa-file-lines"></i> Informe</button> <button class="btn btn-blue" id="btnPDF"><i class="fa-solid fa-print"></i> Imprimir / PDF</button> <div class="clock" id="clock">00:00</div> </div>
+        <div class="header-right">
+            <button class="btn btn-blue" id="btnInforme"><i class="fa-solid fa-file-lines"></i> Informe</button>
+            <button class="btn btn-blue" id="btnPDF"><i class="fa-solid fa-print"></i> Imprimir / PDF</button>
+            <div class="clock" id="clock">00:00</div>
+        </div>
     </header>
 
     <main class="main">
@@ -102,126 +454,902 @@
             <h3>Triage y Evaluación Inicial</h3>
             <div class="row">
                 <div class="item" id="itm-triage">
-                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-triage"><label for="cb-triage">Evaluación Inicial Completada</label></div> <div class="delta" id="tm-triage">00:00</div> </div>
-                     <div class="triage-lights"> <div class="light-row"> <button class="triage-light red" data-triage="rojo" title="Triage Rojo: Prioridad I"></button> <span class="light-label">Triage Rojo</span> </div> <div class="light-row"> <button class="triage-light yellow" data-triage="amarillo" title="Triage Amarillo: Prioridad II"></button> <span class="light-label">Triage Amarillo</span> </div> <div class="light-row"> <button class="triage-light green" data-triage="verde" title="Triage Verde: Prioridad III"></button> <span class="light-label">Triage Verde</span> </div> </div>
-                     <div class="triage-info"> <p data-info="rojo" style="display:none;"><strong>Prioridad I:</strong> Atención inmediata.</p> <p data-info="amarillo" style="display:none;"><strong>Prioridad II:</strong> Urgente, puede esperar.</p> <p data-info="verde" style="display:none;"><strong>Prioridad III:</strong> No urgente.</p> <p data-info="none">Seleccione nivel de triage.</p> </div>
-                </div>
+                    <div class="item-top-row"><div class="top"><input type="checkbox" id="cb-triage"><label for="cb-triage">Evaluación Inicial</label>
+                        </div>
+                        <div class="delta" id="tm-triage">00:00</div>
+                    </div>
+                    <div class="triage-lights"><div class="light-row"><button class="triage-light red" data-triage="rojo" title="Triage Rojo: Prioridad I"></button><span class="light-label">Rojo</span></div><div class="light-row"><button class="triage-light yellow" data-triage="amarillo" title="Triage Amarillo: Prioridad II"></button><span class="light-label">Amarillo</span></div><div class="light-row"><button class="triage-light green" data-triage="verde" title="Triage Verde: Prioridad III"></button><span class="light-label">Verde</span></div></div><div class="triage-info"><p data-info="rojo" style="display:none;"><strong>Prioridad I:</strong> Atención inmediata.</p><p data-info="amarillo" style="display:none;"><strong>Prioridad II:</strong> Urgente, puede esperar.</p><p data-info="verde" style="display:none;"><strong>Prioridad III:</strong> No urgente.</p><p data-info="none">Seleccione nivel de triage</p></div></div>
                 <div class="item" id="itm-eval">
-                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-eval"><label for="cb-eval">Mecanismo de Trauma</label></div> <div class="delta" id="tm-eval">00:00</div> </div>
-                     <div class="mechanism-buttons"> <button class="mechanism-btn" data-mechanism="vehiculo" title="Accidente Vehículo Motor"><i class="fa-solid fa-car-burst fa-fw"></i></button> <button class="mechanism-btn" data-mechanism="caida" title="Caída > 3m"><i class="fa-solid fa-person-falling fa-fw"></i></button> <button class="mechanism-btn" data-mechanism="atropello" title="Atropello"><i class="fa-solid fa-person-walking-dashed-line-arrow-right fa-fw"></i></button> <button class="mechanism-btn" data-mechanism="arma_blanca" title="Herida Arma Blanca"><i class="ti ti-dagger"></i></button> <button class="mechanism-btn" data-mechanism="arma_fuego" title="Herida Arma Fuego"><i class="fa-solid fa-gun fa-fw"></i></button> <button class="mechanism-btn" data-mechanism="penetrante" title="Trauma Penetrante"><i class="fa-solid fa-angles-right fa-fw"></i></button> <button class="mechanism-btn" data-mechanism="contuso" title="Trauma Contuso"><i class="fa-solid fa-hammer fa-fw"></i></button> </div>
-                     <div class="mechanism-info"> <p data-info="vehiculo" style="display:none;">Accidente Vehículo Motor</p> <p data-info="caida" style="display:none;">Caída &gt; 3 metros</p> <p data-info="atropello" style="display:none;">Atropello</p> <p data-info="arma_blanca" style="display:none;">Herida por Arma Blanca</p> <p data-info="arma_fuego" style="display:none;">Herida por Arma de Fuego</p> <p data-info="penetrante" style="display:none;">Trauma Penetrante</p> <p data-info="contuso" style="display:none;">Trauma Contuso</p> <p data-info="none">Seleccione mecanismo.</p> </div>
-                </div>
+                    <div class="item-top-row"><div class="top"><input type="checkbox" id="cb-eval"><label for="cb-eval">Mecanismo de Trauma</label>
+                        </div>
+                        <div class="delta" id="tm-eval">00:00</div>
+                    </div>
+                    <div class="mechanism-buttons"><button class="mechanism-btn" data-mechanism="vehiculo" title="Accidente Vehículo Motor"><i class="fa-solid fa-car-burst fa-fw"></i></button><button class="mechanism-btn" data-mechanism="caida" title="Caída > 3m"><i class="fa-solid fa-person-falling fa-fw"></i></button><button class="mechanism-btn" data-mechanism="atropello" title="Atropello"><i class="fa-solid fa-person-walking-dashed-line-arrow-right fa-fw"></i></button><button class="mechanism-btn" data-mechanism="arma_blanca" title="Herida Arma Blanca"><i class="fa-solid fa-utensils"></i></button><button class="mechanism-btn" data-mechanism="arma_fuego" title="Herida Arma Fuego"><i class="fa-solid fa-gun fa-fw"></i></button><button class="mechanism-btn" data-mechanism="penetrante" title="Trauma Penetrante"><i class="fa-solid fa-angles-right fa-fw"></i></button><button class="mechanism-btn" data-mechanism="contuso" title="Trauma Contuso"><i class="fa-solid fa-hammer fa-fw"></i></button></div><div class="mechanism-info"><p data-info="vehiculo" style="display:none;">Accidente Vehículo Motor</p><p data-info="caida" style="display:none;">Caída</p><p data-info="atropello" style="display:none;">Atropello</p><p data-info="arma_blanca" style="display:none;">Herida por Arma Blanca</p><p data-info="arma_fuego" style="display:none;">Herida por Arma de Fuego</p><p data-info="penetrante" style="display:none;">Trauma Penetrante</p><p data-info="contuso" style="display:none;">Trauma Contuso</p><p data-info="none">Seleccione mecanismo</p></div></div>
             </div>
         </section>
 
-        <section class="group" id="g-a">
-             <h3><span class="circulo-amarillo">A</span> - Vía Aérea y Control Cervical</h3>
-             <div class="row">
-                 <div class="item" id="itm-via">
-                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-via"><label for="cb-via">Vía Aérea</label></div> <div class="delta" id="tm-via">00:00</div> </div>
-                     <div class="item-controls"> <select id="sel-via" class="select item-select"> <option selected disabled value="">-- Seleccione Intervención --</option> <option value="Maniobras básicas">Maniobras básicas</option> <option value="Aspiración">Aspiración</option> <option value="Cánula orofaríngea">Cánula orofaríngea</option> <option value="Cánula nasofaríngea">Cánula nasofaríngea</option> <option value="Intubación orotraqueal">Intubación orotraqueal</option> <option value="Mascarilla laríngea">Mascarilla laríngea</option> <option value="Cricotiroidotomía">Cricotiroidotomía</option> </select> <button class="btn-ghost item-add-btn" id="btn-add-via">+ Registrar</button> </div>
-                     <div class="inline-list item-log" id="log-via"></div>
-                 </div>
-                 <div class="item" id="itm-cervical">
-                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-cervical"><label for="cb-cervical">Control Cervical</label></div> <div class="delta" id="tm-cervical">00:00</div> </div>
-                     <div class="item-controls"> <select id="sel-cervical" class="select item-select"> <option selected disabled value="">-- Seleccione Inmovilización --</option> <option value="Control manual">Control manual</option> <option value="Collarín cervical">Collarín cervical</option> <option value="DAMA">DAMA</option> <option value="Inmovilizador Tetracameral">Inmovilizador Tetracameral</option> <option value="Tabla espinal larga">Tabla espinal larga</option> </select> <button class="btn-ghost item-add-btn" id="btn-add-cervical">+ Registrar</button> </div>
-                     <div class="inline-list item-log" id="log-cervical"></div>
-                 </div>
-             </div>
-        </section>
+        <section class="group" id="g-a"> 
+            <h3><span class="circulo-amarillo">A</span> - Vía Aérea y Control Cervical</h3> 
+            <div class="row"> 
+                <div class="item" id="itm-via"> 
+                    <div class="item-top-row"> 
+                        <div class="top"><input type="checkbox" id="cb-via"><label for="cb-via">Vía Aérea</label></div> 
+                        <div class="delta" id="tm-via">00:00</div> 
+                    </div> 
+                    <div class="item-controls"> 
+                        <select id="sel-via" class="select item-select"> 
+                          <option selected disabled value="">Indique Intervención</option> 
 
-        <section class="group" id="g-b">
-             <h3><span class="circulo-amarillo">B</span> - Ventilación y Oxigenación</h3>
-             <div class="row">
-                 <div class="item" id="itm-oxigeno">
-                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-oxigeno"><label for="cb-oxigeno">Oxigenación</label></div> <div class="delta" id="tm-oxigeno">00:00</div> </div>
-                     <div class="item-controls"> <select id="sel-oxigeno" class="select item-select"> <option selected disabled value="">-- Seleccione Método --</option> <option value="Gafas nasales">Gafas nasales</option> <option value="Mascarilla simple">Mascarilla simple</option> <option value="Mascarilla Venturi">Mascarilla Venturi</option> <option value="Mascarilla con reservorio">Mascarilla con reservorio</option> <option value="Ventilación Manual (Ambú)">Ventilación Manual (Ambú)</option> <option value="Ventilación Mecánica">Ventilación Mecánica</option> </select> <button class="btn-ghost item-add-btn" id="btn-add-oxigeno">+ Registrar</button> </div>
-                     <div class="inline-list item-log" id="log-oxigeno"></div>
-                 </div>
-                 <div class="item" id="itm-torax">
-                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-torax"><label for="cb-torax">Evaluación Tórax</label></div> <div class="delta" id="tm-torax">00:00</div> </div>
-                     <button class="btn-ghost" id="btn-torax">+ Evaluación</button>
-                     <div></div>
-                 </div>
-             </div>
-        </section>
+                          <optgroup label="💨 Maniobras básicas">
+                            <option value="Maniobras básicas" title="Apertura manual de la vía aérea (frente-mentón, tracción mandibular)">Maniobras básicas</option> 
+                            <option value="Aspiración" title="Eliminación de secreciones o vómito de la cavidad orofaríngea o tubo endotraqueal">Aspiración</option> 
+                          </optgroup>
 
+                          <optgroup label="🫀 Dispositivos supraglóticos / básicos">
+                            <option value="Cánula orofaríngea" 
+                              title="Dispositivo para mantener permeabilidad orofaríngea en paciente inconsciente sin reflejo nauseoso. Tamaños según código de color: 
+                        #000 (Neonato, negro, 40 mm), 
+                        #00 (Lactante pequeño, azul, 50 mm), 
+                        #0 (Lactante grande, negro, 60 mm), 
+                        #1 (Niño pequeño, blanco, 70 mm), 
+                        #2 (Niño grande, verde, 80 mm), 
+                        #3 (Adulto mujer, amarillo, 90 mm), 
+                        #4 (Adulto varón, rojo, 100 mm), 
+                        #5 (Adulto grande, violeta, 110 mm). Seleccionar midiendo desde comisura labial a ángulo mandibular.">
+                              Cánula orofaríngea
+                            </option> 
+                            <option value="Cánula nasofaríngea" 
+                              title="Alternativa en paciente con conciencia parcial o reflejo conservado. Tamaño orientativo: diámetro ≈ diámetro meñique del paciente. Evitar en sospecha de fractura de base de cráneo.">
+                              Cánula nasofaríngea
+                            </option> 
+                            <option value="Mascarilla laríngea" 
+                              title="Dispositivo supraglótico para ventilación cuando la intubación no es posible o como vía temporal. Selección por peso: T1 (≤5 kg), T1.5 (5–10 kg), T2 (10–20 kg), T2.5 (20–30 kg), T3 (30–50 kg), T4 (50–70 kg), T5 (>70 kg).">
+                              Mascarilla laríngea
+                            </option> 
+                          </optgroup>
+
+                          <optgroup label="🧠 Vías avanzadas / invasivas">
+                            <option value="Intubación orotraqueal" 
+                              title="Asegura vía aérea definitiva; requiere preparación de material, monitorización y fármacos de inducción/relajación (RSI). Seleccionar tubo según edad o complexión.">
+                              Intubación orotraqueal
+                            </option> 
+                            <option value="Cricotiroidotomía" 
+                              title="Acceso quirúrgico de emergencia ante imposibilidad de intubación y ventilación. Técnica de rescate definitiva en 'no intubable, no ventilable'.">
+                              Cricotiroidotomía
+                            </option> 
+                          </optgroup>
+                        </select>
+ 
+                        <button class="btn-ghost item-add-btn" id="btn-add-via">+Añadir</button> </div> 
+                    <div class="inline-list item-log" id="log-via"></div> 
+                </div> 
+                
+                <div class="item" id="itm-cervical"> 
+                    <div class="item-top-row"> 
+                        <div class="top"><input type="checkbox" id="cb-cervical"><label for="cb-cervical">Control Cervical</label></div> 
+                        <div class="delta" id="tm-cervical">00:00</div> 
+                    </div> 
+                    <div class="item-controls"> 
+                        <select id="sel-cervical" class="select item-select"> 
+                          <option selected disabled value="">Indique Método</option> 
+
+                          <optgroup label="🖐️ Control manual inicial">
+                            <option value="Control manual" title="Sujeción manual de cabeza y cuello para evitar movimientos durante valoración y maniobras. Primer paso en todo paciente con sospecha de lesión cervical.">
+                              Control manual
+                            </option> 
+                          </optgroup>
+
+                          <optgroup label="🦺 Dispositivos de inmovilización">
+                            <option value="Collarín cervical" title="Inmovilización externa del cuello. Seleccionar talla según distancia mentón-clavícula. Mantener alineación neutral. No sustituye al control manual hasta fijación completa.">
+                              Collarín cervical
+                            </option> 
+                            <option value="DAMA" title="Dispositivo de Anclaje de Miembros y Cabeza (DAMA). Complemento del collarín, mantiene alineación cefálica en tablero espinal.">
+                              DAMA
+                            </option> 
+                            <option value="Inmovilizador Tetracameral" title="Sistema de fijación lateral de cabeza con cámaras hinchables o bloques acolchados. Alternativa al DAMA.">
+                              Inmovilizador tetracameral
+                            </option> 
+                          </optgroup>
+
+                          <optgroup label="🛏️ Superficies de transporte / rescate">
+                            <option value="Tabla espinal larga" title="Permite movilización y traslado manteniendo alineación cabeza-tronco-pelvis. Uso limitado al tiempo imprescindible; sustituir por colchón de vacío o camilla rígida en destino.">
+                              Tabla espinal larga
+                            </option> 
+                          </optgroup>
+                        </select>
+
+                        <button class="btn-ghost item-add-btn" id="btn-add-cervical">+ Añadir</button> </div> 
+                    <div class="inline-list item-log" id="log-cervical"></div> 
+                </div> 
+            </div> 
+        </section>
+        
+        <section class="group" id="g-b"> 
+            <h3><span class="circulo-amarillo">B</span> - Ventilación y Oxigenación</h3> 
+            <div class="row"> 
+                
+                <div class="item" id="itm-oxigeno"> 
+                    <div class="item-top-row"> 
+                        <div class="top"><input type="checkbox" id="cb-oxigeno"><label for="cb-oxigeno">Oxigenación</label></div> 
+                        <div class="delta" id="tm-oxigeno">00:00</div> 
+                    </div> 
+                    <div class="item-controls"> 
+                        <select id="sel-oxigeno" class="select item-select"> 
+                          <option selected disabled value="">Indique Método</option> 
+
+                          <optgroup label="🫁 Bajo flujo">
+                            <option value="Gafas nasales" title="1–6 L/min · FiO₂ ≈ 24–40% · Confort, hipoxemia leve; menos útil si respira por la boca">
+                              Gafas nasales
+                            </option> 
+                            <option value="Mascarilla simple" title="5–10 L/min · FiO₂ ≈ 35–60% · Mantener ≥5 L/min para evitar reinhalación de CO₂">
+                              Mascarilla simple
+                            </option> 
+                          </optgroup>
+
+                          <optgroup label="🎯 FiO₂ controlada">
+                            <option value="Mascarilla Venturi" title="FiO₂ fija 24–60% según adaptador (24/28/31/35/40/60%) · Útil en EPOC o cuando se requiere precisión">
+                              Mascarilla Venturi
+                            </option> 
+                          </optgroup>
+
+                          <optgroup label="⚡ Alto flujo">
+                            <option value="Mascarilla con reservorio" title="10–15 L/min · FiO₂ ≈ 60–90% · Hipoxemia moderada-severa/trauma; bolsa siempre inflada">
+                              Mascarilla con reservorio
+                            </option> 
+                            <option value="Cánula nasal de alto flujo (HFNC)" title="30–60 L/min · FiO₂ 21–100% · Humidificada y calentada; genera PEEP baja · Indicado en hipoxemia">
+                              Cánula nasal de alto flujo (HFNC)
+                            </option> 
+                          </optgroup>
+
+                          <optgroup label="🧰 Ventilación no invasiva (VNI)">
+                            <option value="CPAP (VNI)" title="Presión continua; mejora oxigenación y reclutamiento · Útil en edema agudo/EPOC seleccionados">
+                              CPAP (VNI)
+                            </option> 
+                            <option value="BiPAP (VNI)" title="Presiones inspiratoria/espiratoria diferenciadas; soporte ventilatorio · Útil en hipercapnia/EPOC">
+                              BiPAP (VNI)
+                            </option> 
+                          </optgroup>
+
+                          <optgroup label="👐 Ventilación manual">
+                            <option value="Ventilación Manual (Ambú)" title="Con reservorio y O₂ a 15 L/min puede alcanzar FiO₂ alta · Sello facial; riesgo distensión gástrica">
+                              Ventilación Manual (Ambú)
+                            </option> 
+                          </optgroup>
+
+                          <optgroup label="🫀 Ventilación mecánica invasiva">
+                            <option value="Ventilación Mecánica" title="Tras intubación; ajustar Vt 6–8 ml/kg PB, PEEP y FiO₂ según gases · Monitorización estrecha">
+                              Ventilación Mecánica
+                            </option> 
+                          </optgroup>
+                        </select>
+
+                        <button class="btn-ghost item-add-btn" id="btn-add-oxigeno">+ Añadir</button> </div> 
+                    <div class="inline-list item-log" id="log-oxigeno"></div> 
+                </div> 
+                
+                <div class="item" id="itm-torax"> 
+                    <div class="item-top-row"> 
+                        <div class="top"><input type="checkbox" id="cb-torax"><label for="cb-torax">Evaluación Tórax</label></div> 
+                        <div class="delta" id="tm-torax">00:00</div> 
+                    </div> 
+                    <div class="item-controls"> 
+                       <select id="sel-torax" class="select item-select"> 
+                          <option selected disabled value="">Indique Evaluación</option> 
+
+                          <optgroup label="👁️ Exploración física básica">
+                            <option value="Inspección" title="Observar simetría torácica, movimientos respiratorios, tiraje, heridas, enfisema subcutáneo, hematomas o deformidades costales.">
+                              Inspección
+                            </option> 
+                            <option value="Palpación" title="Valorar crepitaciones, puntos dolorosos, movilidad costal, enfisema subcutáneo y expansión torácica simétrica.">
+                              Palpación
+                            </option> 
+                            <option value="Percusión" title="Comparar ambos hemitórax; matidez (derrame/hemotórax), hipersonoridad (neumotórax), timpanismo (enfisema severo).">
+                              Percusión
+                            </option> 
+                            <option value="Auscultación" title="Valorar murmullo vesicular, roncus, sibilancias, abolición unilateral (neumotórax, hemotórax). Realizar antes y después de procedimientos.">
+                              Auscultación
+                            </option> 
+                          </optgroup>
+
+                          <optgroup label="💉 Procedimientos terapéuticos">
+                            <option value="Descompresión torácica con aguja" title="Inserción de aguja gruesa en 2º espacio intercostal línea medio-clavicular (o 5º EIC línea axilar anterior) en sospecha de neumotórax a tensión.">
+                              Descompresión torácica con aguja
+                            </option> 
+                            <option value="Drenaje torácico" title="Colocación de tubo de drenaje (4º–5º EIC línea axilar media) con sello de agua. Indicaciones: neumotórax, hemotórax, hemoneumotórax.">
+                              Drenaje torácico
+                            </option> 
+                          </optgroup>
+
+                          <optgroup label="🩻 Evaluación complementaria">
+                            <option value="Ecografía torácica (EFAST)" title="Detección rápida de neumotórax, hemotórax, contusión pulmonar, derrame o taponamiento. Técnica de elección en trauma.">
+                              Ecografía torácica (EFAST)
+                            </option> 
+                            <option value="Radiografía de tórax" title="Proyección AP portátil en paciente crítico. Valorar alineación tubo/sondas, neumotórax, hemotórax o consolidaciones.">
+                              Radiografía de tórax
+                            </option> 
+                          </optgroup>
+                        </select>
+
+                        <button class="btn-ghost item-add-btn" id="btn-add-torax">+ Añadir</button> </div> 
+                    <div class="inline-list item-log" id="log-torax"></div> 
+                </div> 
+            </div> 
+        </section>
+        
+        <section class="group" id="g-d"> 
+            <h3><span class="circulo-amarillo">D</span> - Evaluación Neurológica</h3> 
+            <div class="row"> 
+                <div class="item" id="itm-glasgow"> 
+                    <div class="item-top-row"> 
+                        <div class="top"><input type="checkbox" id="cb-glasgow"><label for="cb-glasgow">Escala de Glasgow</label></div> 
+                        <div class="delta" id="tm-glasgow">00:00</div> 
+                    </div> 
+                    <div class="gcs-sliders"> 
+                        <div class="gcs-slider-row"> <label for="gcs-ocular">Ocular</label> <input type="range" id="gcs-ocular" min="1" max="4" step="1" value="4"> <strong><span id="gcs-ocular-v">4</span></strong> </div> <div class="gcs-slider-row"> <label for="gcs-verbal">Verbal</label> <input type="range" id="gcs-verbal" min="1" max="5" step="1" value="5"> <strong><span id="gcs-verbal-v">5</span></strong> </div> <div class="gcs-slider-row"> <label for="gcs-motor">Motor</label> <input type="range" id="gcs-motor" min="1" max="6" step="1" value="6"> <strong><span id="gcs-motor-v">6</span></strong> </div> </div> <div id="gcs-total">GCS Total: 15</div> </div> 
+            
+            
+            
+            <div class="item" id="itm-pupilas">
+                <div class="item-top-row"><div class="top"><input type="checkbox" id="cb-pupilas"><label for="cb-pupilas">Evaluación Pupilar</label></div>
+                    <div class="delta" id="tm-pupilas">00:00</div></div>
+                <div class="pupil-grid">
+                    <span id="pupil-status-label" class="pupil-status">Isocóricas</span>
+                    <span class="header">OD</span>
+                    <span class="header">OI</span>
+                    
+                    <span class="label">Media</span>
+                    <input type="checkbox" id="pup-od-media" checked>
+                    <input type="checkbox" id="pup-oi-media" checked>
+                    
+                    <span id="label-midriatica" class="label">Midriática</span>
+                    <input type="checkbox" id="pup-od-midriatica">
+                    <input type="checkbox" id="pup-oi-midriatica">
+                    
+                    <span id="label-miotica" class="label">Miótica</span>
+                    <input type="checkbox" id="pup-od-miotica">
+                    <input type="checkbox" id="pup-oi-miotica">
+                    
+                    <span id="label-reactivas" class="label">Reactivas</span>
+                    <input type="checkbox" id="pup-od-reactiva" checked>
+                    <input type="checkbox" id="pup-oi-reactiva" checked>
+                    
+                    <span id="label-rfm" class="label">RFM Normal</span>
+                    <input type="checkbox" id="pup-od-rfm" checked>
+                    <input type="checkbox" id="pup-oi-rfm" checked>
+                    
+                    <!-- NUEVA FILA: Mirada Conjugada -->
+                    <span id="label-conjugada" class="label">Mirada Conjugada</span>
+                    <div class="conjugada-buttons">
+                        <input type="checkbox" id="conj-d" value="derecha">
+                        <span class="conj-label">Der</span>
+                    </div>
+                    <div class="conjugada-buttons">
+                        <input type="checkbox" id="conj-i" value="izquierda">
+                        <span class="conj-label">Izd</span>
+                    </div>
+                </div>
+            </div>
+        </div> 
+            
+        </section>
         <section class="group" id="g-c">
-             <h3><span class="circulo-amarillo">C</span> - Circulación y Control Hemorrágico</h3>
-             <div class="row">
-                 <div class="item" id="itm-hemorragia">
-                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-hemorragia"><label for="cb-hemorragia">Control Hemorrágico</label></div> <div class="delta" id="tm-hemorragia">00:00</div> </div>
-                     <div class="item-controls"> <select id="sel-hemorragia" class="select item-select"> <option selected disabled value="">-- Seleccione Método --</option> <option value="Compresión directa">Compresión directa</option> <option value="Vendaje compresivo">Vendaje compresivo</option> <option value="Torniquete (extremidad)">Torniquete (extremidad)</option> <option value="Torniquete (unión)">Torniquete (unión)</option> <option value="Hemostáticos tópicos">Hemostáticos tópicos</option> <option value="Ac. Tranexámico">Ac. Tranexámico</option> </select> <button class="btn-ghost item-add-btn" id="btn-add-hemorragia">+ Registrar</button> </div>
-                     <div class="inline-list item-log" id="log-hemorragia"></div>
-                 </div>
-                 <div class="item" id="itm-acceso">
-                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-acceso"><label for="cb-acceso">Acceso Vascular</label></div> <div class="delta" id="tm-acceso">00:00</div> </div>
-                     <div class="item-controls"> <select id="sel-acceso" class="select item-select"> <option selected disabled value="">-- Seleccione Acceso --</option> <option value="Vía periférica">Vía periférica</option> <option value="Vía intraósea">Vía intraósea</option> <option value="Vía central">Vía central</option> </select> <button class="btn-ghost item-add-btn" id="btn-add-acceso">+ Registrar</button> </div>
-                     <div class="inline-list item-log" id="log-acceso"></div>
-                 </div>
-                 <div class="item" id="itm-fluidos">
-                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-fluidos"><label for="cb-fluidos">Fluidoterapia</label></div> <div class="delta" id="tm-fluidos">00:00</div> </div>
-                     <div class="item-multi-button">
-                        <button class="btn-ghost" id="btn-fluidos">+ Cristaloides</button>
-                        <button class="btn-ghost" id="btn-sangre">+ Hemoderivados</button>
-                     </div>
-                     <div class="inline-list item-log" id="log-fluidos"></div>
-                 </div>
-             </div>
-        </section>
+            <h3><span class="circulo-amarillo">C</span> - Circulación y Control Hemorrágico</h3> 
+            <div class="row"> 
+                <div class="item" id="itm-hemorragia"> 
+                    <div class="item-top-row"> 
+                        <div class="top"><input type="checkbox" id="cb-hemorragia"><label for="cb-hemorragia">C. Hemorrágico</label></div> 
+                        <div class="delta" id="tm-hemorragia">00:00</div> 
+                    </div> 
+                    <div class="item-controls"> 
+                        <select id="sel-hemorragia" class="select item-select"> 
+                      <option selected disabled value="">— Indique Método de Control Hemorrágico —</option> 
 
-        <section class="group" id="g-d">
-             <h3><span class="circulo-amarillo">D</span> - Déficit Neurológico</h3>
-             <div class="row">
-                 <div class="item" id="itm-glasgow">
-                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-glasgow"><label for="cb-glasgow">Escala de Glasgow</label></div> <div class="delta" id="tm-glasgow">00:00</div> </div>
-                     <div class="slider"> <span>GCS:</span> <input type="range" id="gcs" min="3" max="15" step="1" value="15"> <strong><span id="gcsv">15</span></strong> </div>
-                     <div></div>
-                 </div>
-                 <div class="item" id="itm-pupilas">
-                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-pupilas"><label for="cb-pupilas">Evaluación Pupilar</label></div> <div class="delta" id="tm-pupilas">00:00</div> </div>
-                     <button class="btn-ghost" id="btn-pupilas">+ Evaluación</button>
-                     <div></div>
-                 </div>
-             </div>
-        </section>
+                      <optgroup label="🩹 Control inicial">
+                        <option value="Compresión directa" title="Primera medida ante sangrado externo. Aplicar presión firme y mantenida sobre el punto de sangrado con gasas o apósito. No retirar apósitos empapados: superponer.">
+                          Compresión directa
+                        </option> 
+                        <option value="Vendaje compresivo" title="Tras compresión inicial, fijar con vendaje elástico o cohesivo. Debe mantener presión suficiente para controlar el sangrado sin comprometer la perfusión distal.">
+                          Vendaje compresivo
+                        </option> 
+                        <option value="Elevación del miembro" title="Complementa la compresión. Elevar extremidad afectada por encima del nivel del corazón para reducir presión venosa.">
+                          Elevación del miembro
+                        </option>
+                      </optgroup>
 
+                      <optgroup label="🧠 Torniquete / control de extremidad">
+                        <option value="Torniquete (extremidad)" title="Aplicar proximal al punto de sangrado, preferentemente 5–7 cm por encima. Anotar hora de colocación. No aflojar hasta control quirúrgico o protocolo establecido.">
+                          Torniquete (extremidad)
+                        </option> 
+                        <option value="Torniquete (unión)" title="Zonas de difícil compresión (ingle, axila, cuello). Usar dispositivos de presión focal (como iTClamp o compresión dirigida). Evitar torniquetes clásicos en estas regiones.">
+                          Torniquete (zona de unión)
+                        </option> 
+                      </optgroup>
+
+                      <optgroup label="🧴 Hemostáticos tópicos">
+                        <option value="Hemostáticos tópicos" title="Aplicar sobre heridas que no ceden con compresión. Ej.: Celox™, QuikClot™, ChitoGauze™. Presionar 3–5 min hasta hemostasia. Eficaces en sangrados cavitarios o irregulares.">
+                          Hemostáticos tópicos
+                        </option> 
+                      </optgroup>
+
+                      <optgroup label="🫀 Control avanzado / quirúrgico">
+                        <option value="Taponamiento cavitario" title="Colocación de gasas largas o compresas hemostáticas en cavidades profundas (axila, ingle, pelvis) cuando no es posible la compresión directa.">
+                          Taponamiento cavitario
+                        </option>
+                        <option value="Pinzamiento vascular / clamp" title="Aplicación de pinzas hemostáticas en vasos visibles y accesibles, solo en entorno quirúrgico o controlado.">
+                          Pinzamiento vascular
+                        </option>
+                        <option value="Control quirúrgico" title="Requiere quirófano o equipo especializado (cirugía vascular, general o trauma). Coordinación con anestesia y banco de sangre.">
+                          Control quirúrgico definitivo
+                        </option>
+                      </optgroup>
+
+                      <optgroup label="🧾 Soporte y documentación">
+                        <option value="Registro hora torniquete" title="Registrar hora exacta de colocación y revisar signos distales cada 10–15 min.">
+                          Registro de hora de torniquete
+                        </option>
+                        <option value="Fotografía / comunicación" title="Documentar la lesión para evolución y continuidad asistencial (foto, descripción o parte de trauma).">
+                          Documentación del control hemorrágico
+                        </option>
+                      </optgroup>
+                    </select>
+
+                        <button class="btn-ghost item-add-btn" id="btn-add-hemorragia">+ Añadir</button>               
+                    </div>
+                    <div class="inline-list item-log" id="log-hemorragia"></div> 
+                </div> 
+                
+                <div class="item" id="itm-acceso"> 
+                    <div class="item-top-row"> 
+                        <div class="top"><input type="checkbox" id="cb-acceso"><label for="cb-acceso">Acceso Vascular</label></div> 
+                        <div class="delta" id="tm-acceso">00:00</div> 
+                    </div> 
+                    <div class="item-controls"> 
+                        <select id="sel-acceso" class="select item-select">
+                      <option selected disabled value="">Indique Acceso</option>
+
+                      <optgroup label="💉 Vía periférica">
+                        <option value="Periférica 14–16G (x2)" 
+                          title="Dos vías periféricas gruesas (14–16G) en antebrazos o antecubitales. Permite perfusión rápida y transfusión. Primera elección en trauma grave.">
+                          Periférica 14–16G (x2)
+                        </option>
+                        <option value="Periférica 18–20G" 
+                          title="Vías periféricas medianas (18–20G). Adecuadas para fluidos, medicación y monitorización básica si no hay shock.">
+                          Periférica 18–20G
+                        </option>
+                        <option value="Periférica ecoguiada" 
+                          title="Uso de ecografía para canalización en pacientes con venas colapsadas o acceso difícil. Técnica rápida, segura y con alta tasa de éxito.">
+                          Periférica ecoguiada
+                        </option>
+                      </optgroup>
+
+                      <optgroup label="🦴 Vía intraósea">
+                        <option value="Intraósea tibial proximal" 
+                          title="Acceso rápido en paro o shock. Inserción 2 cm por debajo de la tuberosidad tibial. Alta tasa de éxito y flujo adecuado para fluidos y fármacos.">
+                          Intraósea tibial proximal
+                        </option>
+                        <option value="Intraósea humeral proximal" 
+                          title="Punto anatómico: 1 cm por encima del troquíter. Flujo superior a tibial. Útil en adultos y reanimación cardiaca.">
+                          Intraósea humeral proximal
+                        </option>
+                        <option value="Intraósea tibial distal/esternal (según dispositivo)" 
+                          title="Alternativa en adultos (esternal con FASTResponder™) o niños (tibial distal). Evitar si fractura o infección local.">
+                          Intraósea tibial distal / esternal (según dispositivo)
+                        </option>
+                      </optgroup>
+
+                      <optgroup label="🩸 Vía venosa central (CVC)">
+                        <option value="CVC femoral (ecoguiada)" 
+                          title="Acceso rápido y seguro, especialmente en reanimación o compresiones torácicas. Mayor riesgo de infección a largo plazo.">
+                          CVC femoral (ecoguiada)
+                        </option>
+                        <option value="CVC yugular interna (ecoguiada)" 
+                          title="Permite monitorización hemodinámica y administración de fármacos vasoactivos. Técnica preferida bajo control ecográfico.">
+                          CVC yugular interna (ecoguiada)
+                        </option>
+                        <option value="CVC subclavia (ecoguiada)" 
+                          title="Menor riesgo de infección, mejor confort; mayor riesgo de neumotórax. Ideal en paciente estable con control ecográfico.">
+                          CVC subclavia (ecoguiada)
+                        </option>
+                      </optgroup>
+
+                      <optgroup label="📈 Línea arterial (monitorización)">
+                        <option value="Arterial radial (ecoguiada)" 
+                          title="Acceso habitual para monitorización continua de presión arterial invasiva y extracción de gasometrías. Evitar si perfusión distal comprometida.">
+                          Arterial radial (ecoguiada)
+                        </option>
+                        <option value="Arterial femoral (ecoguiada)" 
+                          title="Alternativa cuando no es posible radial. Mayor calibre y flujo, útil en shock o paro. Mayor riesgo de infección o sangrado.">
+                          Arterial femoral (ecoguiada)
+                        </option>
+                      </optgroup>
+                    </select>
+
+
+                        <button class="btn-ghost item-add-btn" id="btn-add-acceso">+ Añadir</button> 
+                    </div> 
+                    <div class="inline-list item-log" id="log-acceso"></div> 
+                </div> 
+                <div class="item" id="itm-fluidos"> 
+                    <div class="item-top-row"> 
+                        <div class="top"><input type="checkbox" id="cb-fluidos"><label for="cb-fluidos">Fluidoterapia</label></div> 
+                        <div class="delta" id="tm-fluidos">00:00</div> 
+                    </div> <div class="item-controls"> 
+                    <select id="sel-fluidos" class="select item-select"> 
+                      <option selected disabled value="">Indique Fluido</option> 
+
+                      <optgroup label="💦 Cristaloides de reanimación">
+                        <option value="SF 0.9%" title="Isotónico. Reanimación inicial (250–500 ml en bolos; valorar respuesta). Riesgo de hipercloremia y acidosis si grandes volúmenes.">
+                          Suero fisiológico 0.9%
+                        </option> 
+                        <option value="Ringer Lactato" title="Balanceado. Preferible en reanimación del trauma. Evitar en hiperK severa; precaución en TCE por lactato (habitualmente seguro).">
+                          Ringer Lactato
+                        </option> 
+                        <option value="Glucosalino" title="Mantenimiento con aporte de glucosa. No indicado para reanimación. Útil tras estabilización o en riesgo de hipoglucemia.">
+                          Glucosalino
+                        </option> 
+                      </optgroup>
+
+                      <optgroup label="⚡ Soluciones hipertónicas / correcciones">
+                        <option value="Suero salino hipertónico 3%" title="HTIC/TCE, herniación inminente. Dosis típica: 2–3 ml/kg en 10–15 min. Controlar Na+ y osmolaridad.">
+                          Suero salino hipertónico 3%
+                        </option> 
+                        <option value="Suero salino hipertónico 7.5%" title="Alternativa más concentrada en HTIC. Bolo 1–2 ml/kg. Mayor riesgo de hipernatremia/osmolaridad: monitorizar.">
+                          Suero salino hipertónico 7.5%
+                        </option> 
+                        <option value="Glucosa hipertónica 30%" title="Hipoglucemia severa o correcciones puntuales. Bolo 10–20 ml; luego perfusión con glucosa al 10%. Vigilar extravasación.">
+                          Glucosa hipertónica 30%
+                        </option> 
+                        <option value="Bicarbonato sódico 1M" title="Acidosis metabólica grave o hiperK con arritmia. Uso en bolo/perfusión según gasometría. Riesgo de alcalosis/Na alto.">
+                          Bicarbonato sódico 1M
+                        </option> 
+                        <option value="Bicarbonato sódico 6M" title="Presentación concentrada para bolos pequeños. Indicaciones como 1M; usar con bomba y vía segura.">
+                          Bicarbonato sódico 6M
+                        </option> 
+                      </optgroup>
+
+                      <optgroup label="🩸 Coloides / expansores plasmáticos">
+                        <option value="Albúmina 5%" title="Expansor en hipoalbuminemia o shock refractario seleccionado. No primera línea en trauma. Vigilar sobrecarga.">
+                          Albúmina 5%
+                        </option> 
+                        <option value="Albúmina 20%" title="Alta concentración (oncótica). Útil para reposición dirigida; perfundir lentamente. Controlar volumen y Na+.">
+                          Albúmina 20%
+                        </option> 
+                        <option value="Gelatinas / expansores plasmáticos" title="Uso restringido; beneficio incierto y riesgos (coagulopatía/anafilaxia). Priorizar cristaloides y hemoderivados.">
+                          Gelatinas / expansores plasmáticos
+                        </option> 
+                      </optgroup>
+
+                      <optgroup label="🧠 Soluciones osmóticas / descompresivas">
+                        <option value="Manitol 20%" title="HTIC/TCE con signos de herniación. 0,25–1 g/kg IV. Requiere diuresis conservada; riesgo de hipotensión/osmolaridad alta.">
+                          Manitol 20%
+                        </option> 
+                      </optgroup>
+                    </select>
+
+ 
+                    <button class="btn-ghost item-add-btn" id="btn-add-fluidos">+ Añadir</button> 
+                    </div> 
+                    <div class="inline-list item-log" id="log-fluidos"></div> 
+                </div> 
+                
+                <div class="item" id="itm-hemoderivados"> 
+                    <div class="item-top-row"> 
+                        <div class="top"><input type="checkbox" id="cb-hemoderivados"><label for="cb-hemoderivados">Hemoderivados</label></div> 
+                        <div class="delta" id="tm-hemoderivados">00:00</div> 
+                    </div> 
+                    <div class="item-controls"> 
+                        <select id="sel-hemoderivados" class="select item-select"> 
+                          <option selected disabled value="">Indique Producto</option> 
+
+                          <optgroup label="🚨 Protocolo de Hemorragia Masiva">
+                            <option value="Activar PHM" title="Activar protocolo de transfusión masiva según protocolo del centro">Activar PHM (Protocolo Hemorragia Masiva)</option>
+                            <option value="Pack 1:1:1" title="Pack transfusional equilibrado: 1 CH + 1 PFC + 1 pool de Plaquetas">Pack 1:1:1 (CH : PFC : Plaquetas)</option>
+                          </optgroup>
+
+                          <optgroup label="🩸 Hemocomponentes">
+                            <option value="CH O- urgente" title="O negativo: primera elección en transfusión urgente sin tipar">Concentrado de Hematíes O− (urgente)</option>
+                            <option value="CH O+ urgente" title="O positivo: opción válida en varones o mujeres posmenopáusicas si escasez de O−">Concentrado de Hematíes O+ (urgente)</option>
+                            <option value="CH tipado" title="Transfusión tras determinación de grupo y pruebas cruzadas">Concentrado de Hematíes (grupo/tipado)</option>
+                            <option value="PFC" title="Reposición de factores de coagulación en sangrado masivo o coagulopatía">Plasma Fresco Congelado</option>
+                            <option value="Plaquetas" title="Corrección de trombocitopenia o coagulopatía dilucional">Plaquetas (pool o aféresis)</option>
+                            <option value="Crioprecipitado" title="Fuente concentrada de fibrinógeno; útil en coagulopatía severa">Crioprecipitado (fibrinógeno)</option>
+                            <option value="Sangre total (excepcional)" title="Solo en casos excepcionales o contexto militar">Sangre total (excepcional)</option>
+                          </optgroup>
+
+                          <optgroup label="🧪 Concentrados plasmáticos (hemostáticos)">
+                            <option value="PCC 4 factores" title="Complejo Protrombínico activado (II, VII, IX, X) para reversión de anticoagulantes">Complejo Protrombínico (PCC 4 factores)</option>
+                            <option value="Fibrinógeno concentrado" title="Alternativa rápida al crioprecipitado si disponible">Fibrinógeno concentrado</option>
+                            <option value="Antitrombina III" title="Uso en déficit adquirido o congénito en pacientes críticos">Antitrombina III</option>
+                            <option value="rFVIIa (rescate)" title="Uso de rescate en hemorragia masiva refractaria; requiere autorización">Factor VIIa activado (rescate)</option>
+                          </optgroup>
+                        </select>
+                        
+                        <button class="btn-ghost item-add-btn" id="btn-add-hemoderivados">+ Añadir</button> 
+                    </div> 
+                    <div class="inline-list item-log" id="log-hemoderivados"></div> </div> </div> </section>
+        
         <section class="group" id="g-e">
-             <h3><span class="circulo-amarillo">E</span> - Exposición y Control Ambiental</h3>
-             <div class="row">
-                 <div class="item" id="itm-exposicion">
-                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-exposicion"><label for="cb-exposicion">Exposición Completa</label></div> <div class="delta" id="tm-exposicion">00:00</div> </div>
-                     <div></div><div></div> </div>
-                 <div class="item" id="itm-temp">
-                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-temp"><label for="cb-temp">Control de Temperatura</label></div> <div class="delta" id="tm-temp">00:00</div> </div>
-                     <div class="slider"> <span>Temp:</span> <input type="range" id="temp" min="32" max="40" step="0.1" value="36.5"> <strong><span id="tempv">36.5</span>°C</strong> </div>
-                     <div></div>
-                 </div>
-             </div>
+            <h3><span class="circulo-amarillo">E</span> - Exposición y Constantes</h3> 
+            <div class="row"> 
+                <div class="item" id="itm-exposicion"> 
+                    <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-exposicion"><label for="cb-exposicion">Exposición</label></div> 
+                        <div class="delta" id="tm-exposicion">00:00</div> 
+                    </div> 
+                    <div class="item-controls"> 
+                        <select id="sel-exposicion" class="select item-select"> 
+                          <option selected disabled value="">Indique Evaluación</option> 
+
+                          <optgroup label="🧥 Desvestir y protección térmica">
+                            <option value="Retirar ropa" title="Retirar ropa y objetos que compriman; preservar intimidad; cortar prendas si preciso">
+                              Retirar ropa
+                            </option>
+                            <option value="Prevención hipotermia" title="Cubrir con mantas térmicas; minimizar exposición; cerrar puertas; evitar pérdidas de calor">
+                              Prevención de hipotermia (cobertura)
+                            </option>
+                            <option value="Recalentamiento activo" title="Aire caliente forzado; mantas térmicas activas; fluidos y sangre calentados; evitar infusiones frías">
+                              Recalentamiento activo
+                            </option>
+                          </optgroup>
+
+                          <optgroup label="🔎 Exploración por regiones">
+                            <option value="Evaluación cabeza" title="Inspección y palpación: heridas, hematomas, otorragia/rinorraquia, ojos y pupilas">
+                              Evaluación cabeza
+                            </option>
+                            <option value="Evaluación cuello" title="Lesiones penetrantes, enfisema, ingurgitación yugular, traquea centrada; no retirar collarín hasta seguro">
+                              Evaluación cuello
+                            </option>
+                            <option value="Evaluación tronco" title="Tórax y abdomen: heridas, hematomas, dolor localizado, pelvis estable o dolorosa">
+                              Evaluación tronco
+                            </option>
+                            <option value="Evaluación extremidades" title="Deformidades, sangrado, dolor, pulsos distales, perfusión y sensibilidad">
+                              Evaluación extremidades
+                            </option>
+                            <option value="Evaluación espalda" title="Inspección en giro en bloque (log-roll) con control cervical; heridas, dolor, hematomas">
+                              Evaluación espalda (log-roll)
+                            </option>
+                            <option value="Periné y piel" title="Periné, pliegues y áreas ocultas; buscar heridas, sangrado, quemaduras o cuerpos extraños">
+                              Periné y piel
+                            </option>
+                          </optgroup>
+
+                          <optgroup label="📈 Constantes y escalas">
+                            <option value="Monitorización básica" title="TA no invasiva, FC, FR, SatO₂, Tª; registrar valores iniciales y tendencia">
+                              Monitorización básica (TA/FC/FR/SatO₂/Tª)
+                            </option>
+                            <option value="Temperatura central" title="Termometría central (esofágica/rectal/vesical) si grave; objetivo ≥36 °C">
+                              Temperatura central
+                            </option>
+                            <option value="Escala GCS" title="Glasgow Coma Scale; reevaluar periódicamente y tras intervenciones">
+                              Escala GCS
+                            </option>
+                            <option value="Dolor EVA/EN" title="Registrar EVA/EN para guía de analgesia y reevaluación">
+                              Dolor (EVA/EN)
+                            </option>
+                            <option value="Glucemia capilar" title="Descartar hipo/hiperglucemia; objetivo 100–180 mg/dL en críticos">
+                              Glucemia capilar
+                            </option>
+                            <option value="Diuresis" title="Sonda vesical si no contraindicación; objetivo ≥0,5 ml/kg/h">
+                              Diuresis horaria
+                            </option>
+                          </optgroup>
+
+                          <optgroup label="🧪 Analítica/monitorización avanzada">
+                            <option value="Gasometría y lactato" title="GSA/GSV para oxigenación/ventilación y lactato como marcador de perfusión">
+                              Gasometría + Lactato
+                            </option>
+                            <option value="Tromboelastografía" title="TEG/ROTEM para coagulopatía del trauma y guía transfusional">
+                              Tromboelastografía (TEG/ROTEM)
+                            </option>
+                            <option value="Temperatura/ambiental" title="Control del entorno: temperatura de sala, mantas, calentadores de fluidos y sangre">
+                              Control térmico del entorno
+                            </option>
+                          </optgroup>
+                        </select>
+ 
+                        <button class="btn-ghost item-add-btn" id="btn-add-exposicion">+ Añadir</button> </div> 
+                    <div class="inline-list item-log" id="log-exposicion"></div> 
+                </div> 
+                
+                <div class="item" id="itm-constantes"> 
+                    <div class="item-top-row"> 
+                        <div class="top"><input type="checkbox" id="cb-constantes"><label for="cb-constantes">Constantes</label></div> 
+                        <div class="delta" id="tm-constantes">00:00</div> 
+                    </div> 
+                    <div class="constants-sliders"> <div class="constant-slider-row"> <label for="temp">Temp</label> <input type="range" id="temp" min="32" max="40" step="0.1" value="36.5"> <strong><span id="tempv">36.5 °C</span></strong> </div> <div class="constant-slider-row"> <label for="tas">TAS</label> <input type="range" id="tas" min="40" max="250" step="5" value="120"> <strong><span id="tasv">120 mmHg</span></strong> </div> <div class="constant-slider-row"> <label for="tad">TAD</label> <input type="range" id="tad" min="20" max="150" step="5" value="80"> <strong><span id="tadv">80 mmHg</span></strong> </div> <div class="constant-slider-row"> <label for="fr">FR</label> <input type="range" id="fr" min="5" max="60" step="1" value="20"> <strong><span id="frv">20 rpm</span></strong> </div> <div class="constant-slider-row"> <label for="satO2">SatO₂</label> <input type="range" id="satO2" min="70" max="100" step="1" value="98"> <strong><span id="satO2v">98 %</span></strong> </div> </div> </div> </div> </section>
+         
+        
+        
+        
+        <!-- MEDICACIÓN CON 4 SUBTARJETAS (incluyendo Fin de Proceso) -->
+        <section class="group" id="g-medicacion"> 
+            <h3>Medicación y Fin de Proceso (Dosis x <span id="peso-med">70</span> kg)</h3> 
+            <div class="row"> 
+                <div class="item" id="itm-analgesia"> 
+                    <div class="item-top-row"> 
+                        <div class="top"><input type="checkbox" id="cb-analgesia"><label for="cb-analgesia">Analgesia</label></div> 
+                        <div class="delta" id="tm-analgesia">00:00</div> 
+                    </div> 
+                    <div class="item-controls"> 
+                        <select id="sel-analgesia" class="select item-select"> 
+                    <option selected disabled value="">Indique Analg.</option> 
+
+                      <optgroup label="💉 Opioides mayores">
+                        <option value="Fentanilo" 
+                          title="Bolo: 25–100 µg IV cada 10–15 min (titulación). Perf: 0,5–2 µg/kg/h. Inicio rápido; útil en trauma. Precaución: depresión respiratoria, rigidez torácica si bolo rápido; monitorizar TA/FR/SatO₂.">
+                          Fentanilo
+                        </option> 
+                        <option value="Morfina" 
+                          title="Bolo: 2–4 mg IV cada 5–10 min (titulación). Perf: 1–5 mg/h. Analgesia sostenida. Precaución: hipotensión, náuseas; evitar en inestabilidad hemodinámica. Ajuste en IR.">
+                          Morfina
+                        </option> 
+                      </optgroup>
+
+                      <optgroup label="⚡ Analgésicos potentes y coadyuvantes">
+                        <option value="Ketamina" 
+                          title="Analg.: 0,1–0,3 mg/kg IV (bolo lento) ± perf 0,1–0,3 mg/kg/h. (Inducción 1–2 mg/kg IV). Preserva reflejos y TA. Precaución: agitación/sialorrea; evitar si HTIC no controlada.">
+                          Ketamina
+                        </option>
+                        <option value="Tramadol" 
+                          title="Bolo: 50–100 mg IV en 2–3 min; repetir cada 6–8 h (máx 400 mg/d). Útil dolor moderado. Precaución: síndrome serotoninérgico (ISRS/ISRSN), náuseas, reduce umbral convulsivo.">
+                          Tramadol
+                        </option>
+                      </optgroup>
+
+                      <optgroup label="🩹 Antiinflamatorios y antipiréticos">
+                        <option value="Ketorolaco" 
+                          title="30 mg IV cada 6–8 h (máx 90 mg/d, 60 mg/d si >65a o IR). Útil dolor somático/cólico. Contraind: sangrado activo, IRC, úlcera; precaución en TCE/trauma con riesgo hemorrágico.">
+                          Ketorolaco
+                        </option>
+                        <option value="Dexketoprofeno" 
+                          title="50 mg IV cada 8–12 h (máx 150 mg/d). Analgésico no opioide rápido. Precaución/contraind: sangrado, IRC, úlcera, tercer trimestre gestación.">
+                          Dexketoprofeno
+                        </option>
+                        <option value="Metamizol" 
+                          title="1–2 g IV cada 6–8 h (máx 6 g/d), perfundir lento. Analgésico/antipirético potente. Precaución: hipotensión si bolo rápido; rara agranulocitosis; vigilar reacciones.">
+                          Metamizol
+                        </option>
+                        <option value="Paracetamol" 
+                          title="1 g IV cada 6–8 h (máx 4 g/d; 3 g/d en fragilidad/hepatopatía). Perfusión 15 min. Base multimodal. Precaución: hepatotoxicidad; ajustar en bajo peso o CHI-Pugh.">
+                          Paracetamol
+                        </option> 
+                      </optgroup>
+
+                      <optgroup label="⚙️ Anestésicos locales / coadyuvantes">
+                        <option value="Lidocaína" 
+                          title="Bolo: 1–1,5 mg/kg IV lento; Perf: 1–2 mg/min (o 1–2 mg/kg/h). Útil en dolor neuropático/torácico (multimodal). Precaución: arritmias, síntomas neurológicos si toxicidad; ajustar en IH/IC.">
+                          Lidocaína
+                        </option>
+                      </optgroup>
+                    </select>
+
+                        <button class="btn-ghost item-add-btn" id="btn-add-analgesia">+ Añadir</button> 
+                    </div> 
+                    <div class="inline-list item-log" id="log-analgesia"></div> 
+                </div> 
+                <div class="item" id="itm-antibioticos"> 
+                    <div class="item-top-row"> 
+                        <div class="top"><input type="checkbox" id="cb-antibioticos"><label for="cb-antibioticos">Antibióticos</label></div> 
+                        <div class="delta" id="tm-antibioticos">00:00</div> 
+                    </div> 
+                    <div class="item-controls"> 
+                        <select id="sel-antibioticos" class="select item-select">
+                      <option selected disabled value="">Indique Atbco</option> 
+
+                      <optgroup label="🧫 Uso habitual en Urgencias">
+                        <option value="Amoxi-Clav" 
+                          title="Amoxicilina-Clavulánico 1–2 g/200 mg IV cada 8 h. Cobertura: flora respiratoria y abdominal leve. Ajustar en IR. Evitar en alergia a penicilinas.">
+                          Amoxi-Clav
+                        </option> 
+                        <option value="Ceftriaxona" 
+                          title="1–2 g IV cada 24 h (hasta 4 g/d). Amplio espectro (neumonía, ITU, sepsis). Compatible con gentamicina. Evitar mezclar con Ca²⁺ IV.">
+                          Ceftriaxona
+                        </option> 
+                        <option value="Clindamicina" 
+                          title="600–900 mg IV cada 8 h. Cubre cocos Gram+ y anaerobios. Útil en alergia a β-lactámicos. Riesgo de colitis por C. difficile.">
+                          Clindamicina
+                        </option> 
+                        <option value="Gentamicina" 
+                          title="5–7 mg/kg IV/IM cada 24 h (dosis única diaria). Cubre Gram−, sin anaerobios. Nefro/ototoxicidad; ajustar en IR. Usar junto a β-lactámico.">
+                          Gentamicina
+                        </option> 
+                        <option value="Metronidazol" 
+                          title="500 mg IV cada 8 h. Cubre anaerobios y protozoos. No mezclar con alcohol (efecto disulfiram). Compatible con cefalosporinas y carbapenémicos.">
+                          Metronidazol
+                        </option> 
+                      </optgroup>
+
+                      <optgroup label="💊 Ampliación de espectro">
+                        <option value="Ciprofloxacino" 
+                          title="400 mg IV cada 12 h (750 mg VO cada 12 h). Gram− y Pseudomonas. Ajustar en IR. Evitar en embarazo. Riesgo de QT largo y tendinopatía.">
+                          Ciprofloxacino
+                        </option> 
+                        <option value="Levofloxacino" 
+                          title="500–750 mg IV/VO cada 24 h. Similar a cipro, mejor en Gram+. Precaución QT, interacciones, tendinopatía. Ajuste renal si ClCr <50.">
+                          Levofloxacino
+                        </option> 
+                        <option value="Ceftazidima" 
+                          title="1–2 g IV cada 8 h. Antipseudomónico. Combinar con vancomicina si riesgo Gram+. Ajustar en IR.">
+                          Ceftazidima
+                        </option> 
+                        <option value="Cefepima" 
+                          title="2 g IV cada 8–12 h. Cefalosporina 4ª gen, amplia cobertura Gram− y Pseudomonas. Ajuste renal. Posible neurotoxicidad si IR.">
+                          Cefepima
+                        </option> 
+                      </optgroup>
+
+                      <optgroup label="🏥 Uso en Críticos / UCI">
+                        <option value="Piperacilina-Tazobactam" 
+                          title="4 g/0,5 g IV cada 6–8 h (infusión prolongada 4 h recomendada). Amplio espectro y Pseudomonas. Ajuste renal. Incompatible con aminoglucósidos en la misma vía.">
+                          Piperacilina-Tazobactam
+                        </option> 
+                        <option value="Vancomicina" 
+                          title="15–20 mg/kg IV cada 8–12 h (ajustar según niveles valle 15–20 µg/ml). Cubre Gram+ y MRSA. Perfusión ≥60 min. Monitorizar función renal.">
+                          Vancomicina
+                        </option> 
+                        <option value="Linezolid" 
+                          title="600 mg IV/VO cada 12 h. Cubre MRSA y Enterococcus resistente. No requiere ajuste renal. Evitar con ISRS (riesgo serotoninérgico). Vigilar plaquetas.">
+                          Linezolid
+                        </option> 
+                        <option value="Meropenem" 
+                          title="1 g IV cada 8 h (hasta 2 g en sepsis grave). Carbapenem amplio espectro (BLEE, Pseudomonas). Ajuste renal. Precaución convulsiones.">
+                          Meropenem
+                        </option> 
+                      </optgroup>
+                    </select>
+
+
+                        <button class="btn-ghost item-add-btn" id="btn-add-antibioticos">+ Añadir</button> 
+                    </div> 
+                    <div class="inline-list item-log" id="log-antibioticos"></div> 
+                </div> 
+                <div class="item" id="itm-otros"> 
+                    <div class="item-top-row"> 
+                        <div class="top"><input type="checkbox" id="cb-otros"><label for="cb-otros">Otros Fármacos</label></div> 
+                        <div class="delta" id="tm-otros">00:00</div> 
+                    </div> 
+                    <div class="item-controls"> 
+                        <select id="sel-otros" class="select item-select"> 
+                      <option selected disabled value="">Indique Fármaco</option> 
+
+                      <optgroup label="🩸 Hematológicos / Hemostáticos">
+                        <option value="Ácido tranexámico" 
+                          title="Trauma: 1 g IV en 10 min + 1 g IV en 8 h (ideal <3 h desde el evento). Contraind: CID activa; precaución en IR.">
+                          Ácido tranexámico
+                        </option>
+                        <option value="Vitamina K" 
+                          title="Reversión AVK: 10 mg IV en 30 min (lento). Asociar PCC si sangrado mayor. Evitar administración rápida (reacciones).">
+                          Vitamina K
+                        </option>
+                      </optgroup>
+
+                      <optgroup label="🛡️ Protección gástrica">
+                        <option value="Pantoprazol" 
+                          title="Profilaxis: 40 mg IV cada 12–24 h. Hemorragia digestiva: bolo 80 mg + perfusión 8 mg/h 72 h.">
+                          Pantoprazol
+                        </option>
+                      </optgroup>
+
+                      <optgroup label="⚡ Anticomiciales / Neuroprotección">
+                        <option value="Midazolam" 
+                          title="Crisis: 5–10 mg IV/IM/IN; repetir según respuesta. Perfusión en status: 0,05–0,2 mg/kg/h. Depresión respiratoria: monitorizar.">
+                          Midazolam
+                        </option>
+                        <option value="Diazepam" 
+                          title="Crisis: 10 mg IV lento (2–5 min) o 10 mg rectal; repetir si precisa. Sedación y depresión respiratoria: monitorizar.">
+                          Diazepam
+                        </option>
+                        <option value="Levetiracetam" 
+                          title="Carga: 1–3 g IV en 15 min (≈20–60 mg/kg). Mantenimiento: 1–1,5 g/12 h. Pocas interacciones; ajustar en IR.">
+                          Levetiracetam
+                        </option>
+                        <option value="Valproato" 
+                          title="Carga: 20–40 mg/kg IV en 10–15 min (máx 3 g). Mantenimiento: 1–2 g/d. Contraindicado en hepatopatía grave y embarazo.">
+                          Valproato
+                        </option>
+                      </optgroup>
+
+                      <optgroup label="💉 Metabólicos">
+                        <option value="Insulina" 
+                          title="Hiperglucemia crítico: perf 0,05–0,1 U/kg/h (objetivo 140–180 mg/dL). HiperK: 10 U IV + glucosa. Vigilar hipoglucemia y K+.">
+                          Insulina (regular)
+                        </option>
+                      </optgroup>
+
+                      <optgroup label="❤️ Cardiológicos / Control hemodinámico">
+                        <option value="Furosemida" 
+                          title="Edema agudo: 20–40 mg IV (duplicar si uso crónico). Vigilar PA, diuresis y K+.">
+                          Furosemida
+                        </option>
+
+                        <option value="Labetalol" 
+                          title="Bolo: 10–20 mg IV lento (2 min), repetir cada 10 min hasta 80 mg; o perf 1–2 mg/min. Indicado en urgencia hipertensiva y disección aórtica. Contraindicado en bradicardia, IC o asma.">
+                          Labetalol
+                        </option>
+
+                        <option value="Urapidilo" 
+                          title="Bolo: 10–25 mg IV lento; perfusión: 2–9 mg/h. Control de HTA en urgencias, pos-IOT o neurocrisis. Precaución: hipotensión y bradicardia.">
+                          Urapidilo
+                        </option>
+
+                        <option value="Dopamina" 
+                          title="Perf: 5–20 µg/kg/min (inotrópico/vasoactivo). Uso cada vez menor; arritmias frecuentes.">
+                          Dopamina
+                        </option>
+                        <option value="Dobutamina" 
+                          title="Perf: 2–20 µg/kg/min. Inotrópico en shock cardiogénico con PAS adecuada. Puede causar taquicardia/hipotensión.">
+                          Dobutamina
+                        </option>
+                        <option value="Adrenalina" 
+                          title="Perf: 0,02–0,2 µg/kg/min (shock refractario). Vigilar taquiarritmias y lactato.">
+                          Adrenalina
+                        </option>
+                        <option value="Noradrenalina" 
+                          title="Perf: 0,05–1 µg/kg/min. 1ª línea en shock distributivo (objetivo PAM ≥65 mmHg). Vía central preferente.">
+                          Noradrenalina
+                        </option>
+                      </optgroup>
+
+                      <optgroup label="🧠 Inducción e intubación (IOT)">
+                        <option value="Etomidato" 
+                          title="0,2–0,3 mg/kg IV (inducción). Estable hemodinámicamente. Evitar en sepsis prolongada por supresión adrenal.">
+                          Etomidato
+                        </option>
+                        <option value="Propofol" 
+                          title="1–2 mg/kg IV (inducción). Perf para sedación. Riesgo de hipotensión; titular por PAS/FR.">
+                          Propofol
+                        </option>
+                        <option value="Rocuronio" 
+                          title="1,0–1,2 mg/kg IV (RSI). Mantenimiento: 0,1–0,2 mg/kg. Reversión con sugammadex si disponible.">
+                          Rocuronio
+                        </option>
+                        <option value="Succinilcolina" 
+                          title="1–1,5 mg/kg IV (RSI). Contraind: hiperK, politrauma/quemados >24–48 h, enfermedades neuromusculares o hipertermia maligna.">
+                          Succinilcolina
+                        </option>
+                      </optgroup>
+                    </select>
+
+                        <button class="btn-ghost item-add-btn" id="btn-add-otros">+ Añadir</button> 
+                    </div> 
+                    <div class="inline-list item-log" id="log-otros"></div> 
+                </div> 
+                <div class="item" id="itm-finproceso"> 
+                    <div class="item-top-row"> 
+                        <div class="top"><input type="checkbox" id="cb-finproceso"><label for="cb-finproceso">Fin de Proceso</label></div> 
+                        <div class="delta" id="tm-finproceso">00:00</div> 
+                    </div> 
+                    <!-- MODIFICACIÓN: Nuevo diseño en 2 columnas -->
+                    <div class="finproceso-grid">
+                        <input type="checkbox" id="fp-estable" value="estable">
+                        <span class="label">Estable</span>
+                        <input type="checkbox" id="fp-ingreso" value="ingreso">
+                        <span class="label">Ingreso</span>
+                        <input type="checkbox" id="fp-traslado" value="traslado">
+                        <span class="label">Traslado</span>
+                        <input type="checkbox" id="fp-pcr" value="pcr">
+                        <span class="label">PCR</span>
+                        <input type="checkbox" id="fp-exitus" value="exitus">
+                        <span class="label">Fallecido</span>
+                    </div>  
+                </div> 
+            </div> 
         </section>
 
-        <section class="group" id="g-misc">
-            <h3>Misceláneos</h3>
-             <div class="row">
-                 <div class="item" id="itm-analgesia">
-                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-analgesia"><label for="cb-analgesia">Analgesia</label></div> <div class="delta" id="tm-analgesia">00:00</div> </div>
-                     <div class="item-controls"> <select id="sel-analgesia" class="select item-select"> <option selected disabled value="">-- Seleccione Fármaco --</option> <option value="Fentanilo">Fentanilo</option> <option value="Morfina">Morfina</option> <option value="Ketamina">Ketamina</option> <option value="Paracetamol">Paracetamol</option> </select> <button class="btn-ghost item-add-btn" id="btn-add-analgesia">+ Registrar</button> </div>
-                     <div class="inline-list item-log" id="log-analgesia"></div>
-                 </div>
-                 <div class="item" id="itm-antibioticos">
-                     <div class="item-top-row"> <div class="top"><input type="checkbox" id="cb-antibioticos"><label for="cb-antibioticos">Antibióticos</label></div> <div class="delta" id="tm-antibioticos">00:00</div> </div>
-                     <div class="item-controls"> <select id="sel-antibioticos" class="select item-select"> <option selected disabled value="">-- Seleccione Fármaco --</option> <option value="Ceftriaxona">Ceftriaxona</option> <option value="Amoxi-Clav">Amoxi-Clav</option> <option value="Clindamicina">Clindamicina</option> <option value="Gentamicina">Gentamicina</option> </select> <button class="btn-ghost item-add-btn" id="btn-add-antibioticos">+ Registrar</button> </div>
-                     <div class="inline-list item-log" id="log-antibioticos"></div>
-                 </div>
-             </div>
+        <section class="group" id="g-alertas">
+            <h3><i class="fa-solid fa-triangle-exclamation" style="color: var(--warn);"></i> Alarmas / Sugerencias</h3>
+            <div class="alertas-container">
+                <div id="dynamic-alerts" class="dynamic-alerts-list">
+                    <span class="no-alerts">No hay alertas activas.</span> 
+                </div>
+                <div class="fixed-recommendations">
+                    <ul>
+                        <li><i class="fa-solid fa-arrows-rotate fa-fw"></i> Reevaluar ABCDE (5-15 min)</li>
+                        <li><i class="fa-solid fa-heart-pulse fa-fw"></i> Monitorización continua</li>
+                        <li><i class="fa-solid fa-notes-medical fa-fw"></i> Anamnesis SAMPLE</li>
+                    </ul>
+                </div>
+            </div>
         </section>
-
-        {/* --- Fin de Proceso y Recordatorios sin cambios estructurales internos --- */}
-        <section class="group" id="g-finproceso"> <h3>Fin de Proceso</h3> <div class="row"> <div class="item"> <div class="item-top-row"><div class="top"><input type="checkbox" id="cb-paciente-estable"><label for="cb-paciente-estable">Paciente Estable</label></div> <div class="delta" id="tm-paciente-estable">00:00</div></div> </div> <div class="item"> <div class="item-top-row"><div class="top"><input type="checkbox" id="cb-trasladado"><label for="cb-trasladado">Trasladado a Hospital</label></div> <div class="delta" id="tm-trasladado">00:00</div></div> </div> <div class="item"> <div class="item-top-row"><div class="top"><input type="checkbox" id="cb-pcr-trauma"><label for="cb-pcr-trauma">PCR en Trauma</label></div> <div class="delta" id="tm-pcr-trauma">00:00</div></div> </div> <div class="item"> <div class="item-top-row"><div class="top"><input type="checkbox" id="cb-exitus"><label for="cb-exitus">Fallecido</label></div> <div class="delta" id="tm-exitus">00:00</div></div> </div> </div> </section>
-        <section class="group" id="g-recordatorios"> <h3>Recordatorios</h3> <div class="row" style="grid-auto-flow: row; grid-auto-rows: 1fr;"> <div class="item"> 
-            <div class="item-top-row"><div class="top"><input type="checkbox" id="rec-revaluar-abcde"><label for="rec-revaluar-abcde">Reevaluar ABCDE</label></div></div> 
-            <div class="small-note">Cada 5-15 min o ante cambios</div> </div> <div class="item"> <div class="item-top-row"><div class="top"><input type="checkbox" id="rec-monitorizar"><label for="rec-monitorizar">Monitorización continua</label></div></div> <div class="small-note">ECG, SpO2, TA, FR</div> </div> <div class="item"> <div class="item-top-row"><div class="top"><input type="checkbox" id="rec-anamesis"><label for="rec-anamesis">Anamnesis SAMPLE/AMPLIA</label></div></div> </div> </div> </section>
-
     </main>
 
     <div id="action-alerts-container" class="action-alerts-container"></div>
@@ -230,119 +1358,716 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- Utils, Header, State, Logging ---
             const pad2 = n => String(n).padStart(2, '0');
             const fmtHMS = ms => { const s = Math.max(0, Math.floor(ms / 1000)); const m = Math.floor(s / 60), ss = s % 60; return `${pad2(m)}:${pad2(ss)}`; };
-
-            const fechaHoraEl = document.getElementById('fechaHora');
-            const pintaFecha = () => { const a = new Date(); fechaHoraEl.textContent = `${pad2(a.getDate())}/${pad2(a.getMonth() + 1)}/${a.getFullYear()} ${pad2(a.getHours())}:${pad2(a.getMinutes())}:${pad2(a.getSeconds())}`; };
-            setInterval(pintaFecha, 1000); pintaFecha();
-
+            const fechaHoraEl = document.getElementById('fechaHora'); const pintaFecha = () => { const a = new Date(); fechaHoraEl.textContent = `${pad2(a.getDate())}/${pad2(a.getMonth() + 1)}/${a.getFullYear()} ${pad2(a.getHours())}:${pad2(a.getMinutes())}:${pad2(a.getSeconds())}`; }; setInterval(pintaFecha, 1000); pintaFecha();
             let t0 = new Date(); const clockEl = document.getElementById('clock'); const tick = () => clockEl.textContent = fmtHMS(Date.now() - t0.getTime()); setInterval(tick, 1000); tick();
-            let EDAD = 35; const edad = document.getElementById('edad'), edadv = document.getElementById('edadv'); edadv.textContent = edad.value; EDAD = +edad.value; edad.addEventListener('input', e => { EDAD = +e.target.value; edadv.textContent = EDAD; addLog('edad', `Edad ajustada a: ${EDAD} años`); });
+            
+            let PESO = 70; const pesoSlider = document.getElementById('peso'), pesoValueEl = document.getElementById('pesov'); const pesoMedEl = document.getElementById('peso-med');
+            if (pesoSlider) { pesoSlider.addEventListener('input', () => { setPesoGlobal(pesoSlider.value); }); }
+            function setPesoGlobal(kg){ kg = Math.max(30, Math.min(150, Math.round(kg))); PESO = kg; if(pesoSlider) pesoSlider.value = kg; if(pesoValueEl) pesoValueEl.textContent = kg; if(pesoMedEl) pesoMedEl.textContent = kg; updateSliderBackground(pesoSlider); }
+            if (pesoSlider) { pesoSlider.addEventListener('change', () => { addLog('peso', `Peso ajustado a: ${PESO} kg`); }); }
 
-            const ids = [ 'triage', 'eval', 'via', 'cervical', 'oxigeno', 'torax', 'hemorragia', 'acceso', 'fluidos', 'glasgow', 'pupilas', 'exposicion', 'temp', 'analgesia', 'antibioticos', 'paciente-estable', 'trasladado', 'pcr-trauma', 'exitus' ];
-            const state = {}; ids.forEach(id => state[id] = { ts: null });
-            const eventLogs = [];
-            function addLog(key, message, detail = '') { const now = new Date(); eventLogs.push({ timestamp: now, timeSinceStart: fmtHMS(now - t0), key: key, message: message, detail: detail }); console.log(`[${fmtHMS(now - t0)}] ${message}`); }
-            function marcar(id, logMessage, logDetail = '') { if (!id || !state[id] || state[id].ts) return; state[id].ts = new Date(); const el = document.getElementById('tm-' + id); if (el) el.textContent = fmtHMS(state[id].ts - t0); if(logMessage) addLog(id, logMessage, logDetail); /* updateGuidance(); */ }
-            function desmarcar(id) { if (!id || !state[id]) return; state[id].ts = null; const tm = document.getElementById('tm-' + id); if (tm) tm.textContent = '00:00'; addLog(id, `Acción ${id} desmarcada`); /* updateGuidance(); */ }
+            const ids = [ 'triage', 'eval', 'via', 'cervical', 'oxigeno', 'torax', 'hemorragia', 'acceso', 'fluidos', 'hemoderivados', 'glasgow', 'pupilas', 'exposicion', 'constantes', 'analgesia', 'antibioticos', 'otros' ]; const finProcesoIds = ['estable', 'ingreso', 'traslado', 'pcr', 'exitus'];
+            const state = {}; ids.forEach(id => state[id] = { ts: null }); finProcesoIds.forEach(id => state[id] = { ts: null });
+            const eventLogs = []; function addLog(key, message, detail = '') { const now = new Date(); eventLogs.push({ timestamp: now, timeSinceStart: fmtHMS(now - t0), key: key, message: message, detail: detail }); console.log(`[${fmtHMS(now - t0)}] ${message}`); }
 
-            const actionAlertsContainer = document.getElementById('action-alerts-container'); const persistentAlerts = new Map();
-            function showPersistentAlert(id, message, typeClass) { /* ... */ } function removePersistentAlert(id) { /* ... */ } function clearAllPersistentAlerts() { /* ... */ } const addWarn = (elementId) => { /* ... */ }; const clearWarn = (elementId) => { /* ... */ }; function updateGuidance() { /* ... */ }
+            // --- Sistema de Alertas Dinámicas Mejorado ---
+            const dynamicAlertsContainer = document.getElementById('dynamic-alerts');
+            let previousGCS = 15;
 
-            ids.forEach(id => { const cb = document.getElementById('cb-' + id); if (!cb) return; const label = document.querySelector(`label[for="cb-${id}"]`); const logMsg = label ? label.textContent.trim() : `Acción ${id}`; cb.addEventListener('change', e => { if (e.target.checked) marcar(id, logMsg); else desmarcar(id); }); });
-            document.querySelectorAll('#g-recordatorios input[type="checkbox"]').forEach(cb => { cb.addEventListener('change', e => { const id = e.target.id.replace('rec-', ''); const labelText = cb.closest('.item').querySelector('label').textContent; if (e.target.checked) addLog('recordatorio-' + id, `Marcado: ${labelText}`); else addLog('recordatorio-' + id, `Desmarcado: ${labelText}`); }); });
+            function updateAlerts() {
+                const alerts = [];
+                
+                // Obtener valores actuales
+                const tasValue = parseInt(document.getElementById('tas').value);
+                const tadValue = parseInt(document.getElementById('tad').value);
+                const frValue = parseInt(document.getElementById('fr').value);
+                const satO2Value = parseInt(document.getElementById('satO2').value);
+                const tempValue = parseFloat(document.getElementById('temp').value);
+                const gcsOcular = parseInt(document.getElementById('gcs-ocular').value);
+                const gcsVerbal = parseInt(document.getElementById('gcs-verbal').value);
+                const gcsMotor = parseInt(document.getElementById('gcs-motor').value);
+                const gcsTotal = gcsOcular + gcsVerbal + gcsMotor;
 
-            /* ===== Triage Logic ===== */
+                // 🔴 Alertas Críticas (Rojo)
+                if (tasValue < 90) {
+                    alerts.push({
+                        type: 'danger',
+                        icon: 'fa-heart-pulse',
+                        message: `TAS ${tasValue}: Shock - Transfundir/Control hemorragia`
+                    });
+                }
+                
+                if (tadValue < 60) {
+                    alerts.push({
+                        type: 'danger',
+                        icon: 'fa-droplet',
+                        message: `TAD ${tadValue}: Hipoperfusión - Asegurar volemia`
+                    });
+                }
+
+                if (gcsTotal <= 8) {
+                    alerts.push({
+                        type: 'danger',
+                        icon: 'fa-brain',
+                        message: `GCS ${gcsTotal}: Coma - Intubar/Monitorizar PIC`
+                    });
+                }
+
+                if (frValue < 8 || frValue > 30) {
+                    alerts.push({
+                        type: 'danger',
+                        icon: 'fa-lungs',
+                        message: `FR ${frValue}: Distrés respiratorio - Ventilar`
+                    });
+                }
+
+                if (satO2Value < 90) {
+                    alerts.push({
+                        type: 'danger',
+                        icon: 'fa-wind',
+                        message: `SatO₂ ${satO2Value}%: Hipoxia severa - O₂ inmediato`
+                    });
+                }
+
+                // 🌡️ Alertas de Temperatura
+                if (tempValue < 35) {
+                    alerts.push({
+                        type: 'danger',
+                        icon: 'fa-temperature-low',
+                        message: `Hipotermia ${tempValue}°C - Calentar activamente`
+                    });
+                } else if (tempValue < 36) {
+                    alerts.push({
+                        type: 'warning',
+                        icon: 'fa-temperature-low',
+                        message: `Hipotermia leve ${tempValue}°C - Monitorizar`
+                    });
+                } else if (tempValue > 38.5) {
+                    alerts.push({
+                        type: 'warning',
+                        icon: 'fa-temperature-high',
+                        message: `Fiebre ${tempValue}°C - Valorar infección/SIRS`
+                    });
+                } else if (tempValue > 39.5) {
+                    alerts.push({
+                        type: 'danger',
+                        icon: 'fa-temperature-high',
+                        message: `Hiperpirexia ${tempValue}°C - Medidas antipiréticas`
+                    });
+                }
+
+                // Detectar deterioro neurológico agudo
+                if (previousGCS - gcsTotal >= 2) {
+                    alerts.push({
+                        type: 'danger',
+                        icon: 'fa-exclamation-triangle',
+                        message: `Deterioro GCS ${previousGCS}→${gcsTotal}: TAC urgente`
+                    });
+                }
+                previousGCS = gcsTotal;
+
+                // 🟠 Alertas Moderadas (Naranja)
+                if (tasValue >= 90 && tasValue <= 100) {
+                    alerts.push({
+                        type: 'warning',
+                        icon: 'fa-heart-pulse',
+                        message: `TAS ${tasValue}: Hipoperfusión - Reposición volumen`
+                    });
+                }
+
+                if (gcsTotal >= 9 && gcsTotal <= 12) {
+                    alerts.push({
+                        type: 'warning',
+                        icon: 'fa-brain',
+                        message: `GCS ${gcsTotal}: TCE moderado - TAC urgente`
+                    });
+                }
+
+                if (frValue >= 21 && frValue <= 30) {
+                    alerts.push({
+                        type: 'warning',
+                        icon: 'fa-lungs',
+                        message: `FR ${frValue}: Taquipnea - Valorar shock/dolor`
+                    });
+                }
+
+                if (satO2Value >= 90 && satO2Value <= 93) {
+                    alerts.push({
+                        type: 'warning',
+                        icon: 'fa-wind',
+                        message: `SatO₂ ${satO2Value}%: Hipoxemia - O₂ suplementario`
+                    });
+                }
+
+                // 🟡 Alertas Leves (Amarillo)
+                if (tasValue > 160) {
+                    alerts.push({
+                        type: 'warning',
+                        icon: 'fa-heart-pulse',
+                        message: `TAS ${tasValue}: HTA - Valorar TCE/dolor`
+                    });
+                }
+
+                if (gcsTotal >= 13 && gcsTotal <= 14) {
+                    alerts.push({
+                        type: 'warning',
+                        icon: 'fa-brain',
+                        message: `GCS ${gcsTotal}: TCE leve - Reevaluar`
+                    });
+                }
+
+                // Ordenar alertas: críticas primero
+                alerts.sort((a, b) => {
+                    const priority = { 'danger': 0, 'warning': 1 };
+                    return priority[a.type] - priority[b.type];
+                });
+
+                // Obtener alerta pupilar (solo si es patológica)
+                const pupilAlert = getPupilAlert();
+
+                // Actualizar interfaz
+                renderAlerts(alerts, pupilAlert);
+                updateConstantsColors();
+            }
+
+            function getPupilAlert() {
+                const od = { 
+                    media: document.getElementById('pup-od-media').checked, 
+                    midriatica: document.getElementById('pup-od-midriatica').checked, 
+                    miotica: document.getElementById('pup-od-miotica').checked, 
+                    reactiva: document.getElementById('pup-od-reactiva').checked, 
+                    rfm: document.getElementById('pup-od-rfm').checked 
+                };
+                const oi = { 
+                    media: document.getElementById('pup-oi-media').checked, 
+                    midriatica: document.getElementById('pup-oi-midriatica').checked, 
+                    miotica: document.getElementById('pup-oi-miotica').checked, 
+                    reactiva: document.getElementById('pup-oi-reactiva').checked, 
+                    rfm: document.getElementById('pup-oi-rfm').checked 
+                };
+                
+                // === Mirada conjugada ===
+                const d = document.getElementById('conj-d').checked;
+                const i = document.getElementById('conj-i').checked;
+
+                // Casos base (bandera roja neurológica)
+                if (d) {
+                    return {
+                        type: 'danger',
+                        icon: 'fa-brain',
+                        message: 'MIRADA CONJUGADA DERECHA: Lesión hemisférica derecha (FEF/ACM) o foco epiléptico contralateral – Activar Código Ictus si déficit; TAC urgente'
+                    };
+                }
+                if (i) {
+                    return {
+                        type: 'danger',
+                        icon: 'fa-brain',
+                        message: 'MIRADA CONJUGADA IZQUIERDA: Lesión hemisférica izquierda (FEF/ACM) o foco epiléptico contralateral – Activar Código Ictus si déficit; TAC urgente'
+                    };
+                }
+
+                // Patrones pupilares según esquema clínico (SOLO alertas patológicas)
+                if (od.midriatica && !od.reactiva && oi.midriatica && !oi.reactiva) {
+                    return {
+                        type: 'danger',
+                        icon: 'fa-brain',
+                        message: 'MIDRIASIS BILATERAL ARREACTIVA: Lesión troncoencefálica grave/anoxia – TAC urgente'
+                    };
+                }
+
+                // Arreflexia bilateral con pupilas medias (daño tronco/pontino)
+                if (od.media && !od.reactiva && oi.media && !oi.reactiva) {
+                    return {
+                        type: 'danger',
+                        icon: 'fa-brain',
+                        message: 'ARREFLEXIA BILATERAL CON PUPILAS MEDIAS: Sospecha de daño troncoencefálico – TAC urgente'
+                    };
+                }
+
+                // Midriasis unilateral arreactiva (herniación uncal / III par)
+                if (od.midriatica && !od.reactiva && oi.media && oi.reactiva) {
+                    return {
+                        type: 'danger',
+                        icon: 'fa-brain',
+                        message: 'MIDRIASIS OD ARREACTIVA: Compresión III par derecho (herniación uncal?) – TAC urgente'
+                    };
+                }
+                if (oi.midriatica && !oi.reactiva && od.media && od.reactiva) {
+                    return {
+                        type: 'danger',
+                        icon: 'fa-brain',
+                        message: 'MIDRIASIS OI ARREACTIVA: Compresión III par izquierdo (herniación uncal?) – TAC urgente'
+                    };
+                }
+
+                // Miosis bilateral arreactiva (pontina grave)
+                if (od.miotica && !od.reactiva && oi.miotica && !oi.reactiva) {
+                    return {
+                        type: 'danger',
+                        icon: 'fa-brain',
+                        message: 'MIOSIS BILATERAL ARREACTIVA: Lesión pontina grave – TAC urgente'
+                    };
+                }
+
+                // Miosis bilateral reactiva (pontina/opioides)
+                if (od.miotica && od.reactiva && oi.miotica && oi.reactiva) {
+                    return {
+                        type: 'warning',
+                        icon: 'fa-brain',
+                        message: 'MIOSIS BILATERAL REACTIVA: Lesión pontina o intoxicación por opioides – Valorar'
+                    };
+                }
+
+                // Horner (miosis unilateral reactiva con anisocoria)
+                if (od.miotica && od.reactiva && !(oi.miotica) && oi.reactiva) {
+                    return {
+                        type: 'warning',
+                        icon: 'fa-brain',
+                        message: 'MIOSIS UNILATERAL REACTIVA (Horner OD): Lesión simpática ipsilateral – Buscar ptosis/anhidrosis'
+                    };
+                }
+                if (oi.miotica && oi.reactiva && !(od.miotica) && od.reactiva) {
+                    return {
+                        type: 'warning',
+                        icon: 'fa-brain',
+                        message: 'MIOSIS UNILATERAL REACTIVA (Horner OI): Lesión simpática ipsilateral – Buscar ptosis/anhidrosis'
+                    };
+                }
+
+                // Midriasis isocórica con hiporreactividad (fármaco/mesencéfalo)
+                if (od.midriatica && oi.midriatica && (!od.reactiva || !oi.reactiva)) {
+                    return {
+                        type: 'warning',
+                        icon: 'fa-brain',
+                        message: 'MIDRIASIS ISOCÓRICA HIPORREACTIVA: Mesencéfalo/anticolinérgicos – Valorar causas y TAC según clínica'
+                    };
+                }
+
+                // Midriasis bilateral reactiva (fármacos/hipoxia/hipercapnia)
+                if (od.midriatica && od.reactiva && oi.midriatica && oi.reactiva) {
+                    return {
+                        type: 'warning',
+                        icon: 'fa-brain',
+                        message: 'MIDRIASIS BILATERAL REACTIVA: Fármacos simpaticomiméticos/anticolinérgicos o hipoxia/hipercapnia – Reevaluar'
+                    };
+                }
+
+                // Defecto aferente relativo (RAPD/Marcus Gunn) aproximado por RFM
+                if (!od.rfm && oi.rfm) {
+                    return {
+                        type: 'warning',
+                        icon: 'fa-brain',
+                        message: 'RAPD APROX. OD (Marcus Gunn): Lesión retina/óptico derecho – Confirmar con prueba de balanceo'
+                    };
+                }
+                if (!oi.rfm && od.rfm) {
+                    return {
+                        type: 'warning',
+                        icon: 'fa-brain',
+                        message: 'RAPD APROX. OI (Marcus Gunn): Lesión retina/óptico izquierdo – Confirmar con prueba de balanceo'
+                    };
+                }
+
+                // Alteración RFM bilateral (sin tamaño patognomónico)
+                if (!od.rfm && !oi.rfm) {
+                    return {
+                        type: 'warning',
+                        icon: 'fa-brain',
+                        message: 'ALTERACIÓN RFM BILATERAL: Valorar patología de tronco/metabólica/fármacos – Completar exploración'
+                    };
+                }
+
+                // Anisocoria inespecífica: SOLO alertar si coexiste signo patológico (p.ej., hiporreactividad)
+                if ((od.midriatica !== oi.midriatica || od.miotica !== oi.miotica) && (!od.reactiva || !oi.reactiva)) {
+                    return {
+                        type: 'warning',
+                        icon: 'fa-brain',
+                        message: 'ANISOCORIA CON HIPORREACTIVIDAD: Compatible con lesión focal – Repetir exploración y valorar TAC'
+                    };
+                }
+
+                // Si ninguna regla patológica se cumple, no retornamos alerta (fisiológica/normal)
+                return null;
+            }
+
+            function updateConstantsColors() {
+                const tempValue = parseFloat(document.getElementById('temp').value);
+                const tasValue = parseInt(document.getElementById('tas').value);
+                const tadValue = parseInt(document.getElementById('tad').value);
+                const frValue = parseInt(document.getElementById('fr').value);
+                const satO2Value = parseInt(document.getElementById('satO2').value);
+
+                // Temperatura
+                const tempLabel = document.querySelector('label[for="temp"]');
+                const tempStrong = document.getElementById('tempv');
+                if (tempValue < 35.1 || tempValue > 39.4) {
+                    tempLabel.classList.add('danger'); tempStrong.classList.add('danger');
+                    tempLabel.classList.remove('warning'); tempStrong.classList.remove('warning');
+                } else if (tempValue < 36 || tempValue > 37.9) {
+                    tempLabel.classList.add('warning'); tempStrong.classList.add('warning');
+                    tempLabel.classList.remove('danger'); tempStrong.classList.remove('danger');
+                } else {
+                    tempLabel.classList.remove('danger', 'warning');
+                    tempStrong.classList.remove('danger', 'warning');
+                }
+
+                // TAS
+                const tasLabel = document.querySelector('label[for="tas"]');
+                const tasStrong = document.getElementById('tasv');
+                if (tasValue < 90.1 || tasValue > 159.9) {
+                    tasLabel.classList.add('danger'); tasStrong.classList.add('danger');
+                    tasLabel.classList.remove('warning'); tasStrong.classList.remove('warning');
+                } else if (tasValue < 100 || tasValue > 145) {
+                    tasLabel.classList.add('warning'); tasStrong.classList.add('warning');
+                    tasLabel.classList.remove('danger'); tasStrong.classList.remove('danger');
+                } else {
+                    tasLabel.classList.remove('danger', 'warning');
+                    tasStrong.classList.remove('danger', 'warning');
+                }
+
+                // TAD
+                const tadLabel = document.querySelector('label[for="tad"]');
+                const tadStrong = document.getElementById('tadv');
+                if (tadValue < 60) {
+                    tadLabel.classList.add('danger'); tadStrong.classList.add('danger');
+                    tadLabel.classList.remove('warning'); tadStrong.classList.remove('warning');
+                } else if (tadValue < 70) {
+                    tadLabel.classList.add('warning'); tadStrong.classList.add('warning');
+                    tadLabel.classList.remove('danger'); tadStrong.classList.remove('danger');
+                } else {
+                    tadLabel.classList.remove('danger', 'warning');
+                    tadStrong.classList.remove('danger', 'warning');
+                }
+
+                // FR
+                const frLabel = document.querySelector('label[for="fr"]');
+                const frStrong = document.getElementById('frv');
+                if (frValue < 8 || frValue > 29) {
+                    frLabel.classList.add('danger'); frStrong.classList.add('danger');
+                    frLabel.classList.remove('warning'); frStrong.classList.remove('warning');
+                } else if (frValue < 12 || frValue > 25) {
+                    frLabel.classList.add('warning'); frStrong.classList.add('warning');
+                    frLabel.classList.remove('danger'); frStrong.classList.remove('danger');
+                } else {
+                    frLabel.classList.remove('danger', 'warning');
+                    frStrong.classList.remove('danger', 'warning');
+                }
+
+                // SatO2
+                const satO2Label = document.querySelector('label[for="satO2"]');
+                const satO2Strong = document.getElementById('satO2v');
+                if (satO2Value < 90) {
+                    satO2Label.classList.add('danger'); satO2Strong.classList.add('danger');
+                    satO2Label.classList.remove('warning'); satO2Strong.classList.remove('warning');
+                } else if (satO2Value < 94) {
+                    satO2Label.classList.add('warning'); satO2Strong.classList.add('warning');
+                    satO2Label.classList.remove('danger'); satO2Strong.classList.remove('danger');
+                } else {
+                    satO2Label.classList.remove('danger', 'warning');
+                    satO2Strong.classList.remove('danger', 'warning');
+                }
+            }
+
+            function renderAlerts(alerts, pupilAlert) {
+                const container = dynamicAlertsContainer;
+                
+                if (alerts.length === 0 && !pupilAlert) {
+                    container.innerHTML = '<span class="no-alerts">No hay alertas activas.</span>';
+                    return;
+                }
+
+                let html = '';
+
+                // Añadir alerta pupilar si existe (solo patológicas)
+                if (pupilAlert) {
+                    html += `<div class="alert-line ${pupilAlert.type}"><i class="fa-solid ${pupilAlert.icon}"></i><span>${pupilAlert.message}</span></div>`;
+                }
+
+                // Añadir alertas médicas (máximo 8 para no saturar)
+                const displayAlerts = alerts.slice(0, 8);
+                displayAlerts.forEach(alert => {
+                    html += `
+                        <div class="alert-line ${alert.type}">
+                            <i class="fa-solid ${alert.icon}"></i>
+                            <span>${alert.message}</span>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML = html;
+            }
+
+            // --- Marcar/Desmarcar ---
+            function marcar(id, logMessage, logDetail = '', forceTimeUpdate = false) { 
+                if (!id || !state.hasOwnProperty(id)) { return; } 
+                const timestamp = new Date(); 
+                if (!state[id].ts || forceTimeUpdate) { 
+                    state[id].ts = timestamp; 
+                    const el = document.getElementById('tm-' + id); 
+                    if (el) el.textContent = fmtHMS(state[id].ts - t0); 
+                    if (logMessage) addLog(id, logMessage, logDetail); 
+                    const cb = document.getElementById('cb-' + id); 
+                    if(cb && !cb.checked) cb.checked = true; 
+                } else if (logMessage) { 
+                    addLog(id, logMessage, logDetail); 
+                } 
+                // Actualizar alertas cuando se marca una acción
+                updateAlerts();
+            }
+            
+            function desmarcar(id) { 
+                if (!id || !state.hasOwnProperty(id)) { return; } 
+                if (state[id].ts) { 
+                    state[id].ts = null; 
+                    const tm = document.getElementById('tm-' + id); 
+                    if (tm) tm.textContent = '00:00'; 
+                    addLog(id, `Acción ${id} desmarcada`); 
+                    const cb = document.getElementById('cb-' + id); 
+                    if(cb && cb.checked) cb.checked = false; 
+                } 
+                updateAlerts();
+            }
+
+            // --- Event Listeners Checkboxes Principales ---
+            ids.forEach(id => { 
+                const cb = document.getElementById('cb-' + id); 
+                if (!cb) return; 
+                const label = document.querySelector(`label[for="cb-${id}"]`); 
+                const logMsg = label ? label.textContent.trim() : `Acción ${id}`; 
+                cb.addEventListener('change', e => { 
+                    if (e.target.checked) { 
+                        marcar(id, logMsg); 
+                    } else { 
+                        desmarcar(id); 
+                    } 
+                }); 
+            });
+
+            // --- Triage Logic ---
             const triageLights = document.querySelectorAll('.triage-light'); const triageInfoParas = document.querySelectorAll('.triage-info p'); const triageCheckbox = document.getElementById('cb-triage');
-            triageLights.forEach(light => { light.addEventListener('click', () => { const selectedTriage = light.dataset.triage; const alreadyActive = light.classList.contains('active'); triageLights.forEach(l => l.classList.remove('active')); if (!alreadyActive) { light.classList.add('active'); triageInfoParas.forEach(p => { p.style.display = (p.dataset.info === selectedTriage) ? 'block' : 'none'; }); const initialMsg = document.querySelector('.triage-info p[data-info="none"]'); if (initialMsg) initialMsg.style.display = 'none'; if (!triageCheckbox.checked) { triageCheckbox.checked = true; triageCheckbox.dispatchEvent(new Event('change')); } addLog('triage', `Triage seleccionado: ${selectedTriage.toUpperCase()}`); } else { triageInfoParas.forEach(p => p.style.display = 'none'); const initialMsg = document.querySelector('.triage-info p[data-info="none"]'); if (initialMsg) initialMsg.style.display = 'block'; addLog('triage', 'Selección de Triage anulada'); } }); });
-            function resetTriageVisuals() { triageLights.forEach(l => l.classList.remove('active')); triageInfoParas.forEach(p => p.style.display = 'none'); const initialMsg = document.querySelector('.triage-info p[data-info="none"]'); if (initialMsg) initialMsg.style.display = 'block'; }
+            triageLights.forEach(light => { light.addEventListener('click', () => { const selectedTriage = light.dataset.triage; const alreadyActive = light.classList.contains('active'); triageLights.forEach(l => l.classList.remove('active')); if (!alreadyActive) { light.classList.add('active'); triageInfoParas.forEach(p => { p.style.display = (p.dataset.info === selectedTriage) ? 'block' : 'none'; }); document.querySelector('.triage-info p[data-info="none"]').style.display = 'none'; marcar('triage', `Triage seleccionado: ${selectedTriage.toUpperCase()}`, '', true); } else { triageInfoParas.forEach(p => p.style.display = 'none'); document.querySelector('.triage-info p[data-info="none"]').style.display = 'block'; addLog('triage', 'Selección de Triage anulada'); } updateAlerts(); }); });
+            function resetTriageVisuals() { triageLights.forEach(l => l.classList.remove('active')); triageInfoParas.forEach(p => p.style.display = 'none'); document.querySelector('.triage-info p[data-info="none"]').style.display = 'block'; }
 
-             /* ===== Mechanism Logic ===== */
+            // --- Mechanism Logic ---
             const mechanismButtons = document.querySelectorAll('.mechanism-btn'); const mechanismInfoParas = document.querySelectorAll('.mechanism-info p'); const evalCheckbox = document.getElementById('cb-eval');
-            mechanismButtons.forEach(button => { button.addEventListener('click', () => { const selectedMechanism = button.dataset.mechanism; const alreadyActive = button.classList.contains('active'); mechanismButtons.forEach(btn => btn.classList.remove('active')); if (!alreadyActive) { button.classList.add('active'); mechanismInfoParas.forEach(p => { p.style.display = (p.dataset.info === selectedMechanism) ? 'block' : 'none'; }); const initialMsg = document.querySelector('.mechanism-info p[data-info="none"]'); if (initialMsg) initialMsg.style.display = 'none'; if (!evalCheckbox.checked) { evalCheckbox.checked = true; evalCheckbox.dispatchEvent(new Event('change')); } const mechanismText = document.querySelector(`.mechanism-info p[data-info="${selectedMechanism}"]`)?.textContent || selectedMechanism; addLog('eval', `Mecanismo seleccionado: ${mechanismText}`); } else { mechanismInfoParas.forEach(p => p.style.display = 'none'); const initialMsg = document.querySelector('.mechanism-info p[data-info="none"]'); if (initialMsg) initialMsg.style.display = 'block'; addLog('eval', 'Selección de Mecanismo anulada'); } }); });
-            function resetMechanismVisuals() { mechanismButtons.forEach(btn => btn.classList.remove('active')); mechanismInfoParas.forEach(p => p.style.display = 'none'); const initialMsg = document.querySelector('.mechanism-info p[data-info="none"]'); if (initialMsg) initialMsg.style.display = 'block'; }
+            mechanismButtons.forEach(button => { button.addEventListener('click', () => { const selectedMechanism = button.dataset.mechanism; const alreadyActive = button.classList.contains('active'); mechanismButtons.forEach(btn => btn.classList.remove('active')); if (!alreadyActive) { button.classList.add('active'); mechanismInfoParas.forEach(p => { p.style.display = (p.dataset.info === selectedMechanism) ? 'block' : 'none'; }); document.querySelector('.mechanism-info p[data-info="none"]').style.display = 'none'; const mechanismText = document.querySelector(`.mechanism-info p[data-info="${selectedMechanism}"]`)?.textContent || selectedMechanism; marcar('eval', `Mecanismo: ${mechanismText}`, '', true); } else { mechanismInfoParas.forEach(p => p.style.display = 'none'); document.querySelector('.mechanism-info p[data-info="none"]').style.display = 'block'; addLog('eval', 'Selección de Mecanismo anulada'); } updateAlerts(); }); });
+            function resetMechanismVisuals() { mechanismButtons.forEach(btn => btn.classList.remove('active')); mechanismInfoParas.forEach(p => p.style.display = 'none'); document.querySelector('.mechanism-info p[data-info="none"]').style.display = 'block'; }
 
-            const gcs = document.getElementById('gcs'), gcsv = document.getElementById('gcsv'); gcs.addEventListener('input', e => gcsv.textContent = e.target.value); gcs.addEventListener('change', e => { marcar('glasgow', 'GCS valorado', e.target.value); document.getElementById('cb-glasgow').checked = true; });
-            const temp = document.getElementById('temp'), tempv = document.getElementById('tempv'); temp.addEventListener('input', e => tempv.textContent = e.target.value); temp.addEventListener('change', e => { marcar('temp', 'Temperatura valorada', `${e.target.value}°C`); document.getElementById('cb-temp').checked = true; });
+            // --- Glasgow Logic ---
+            const gcsOcular = document.getElementById('gcs-ocular'); const gcsVerbal = document.getElementById('gcs-verbal'); const gcsMotor = document.getElementById('gcs-motor'); const gcsOcularV = document.getElementById('gcs-ocular-v'); const gcsVerbalV = document.getElementById('gcs-verbal-v'); const gcsMotorV = document.getElementById('gcs-motor-v'); const gcsTotalEl = document.getElementById('gcs-total'); const gcsCheckbox = document.getElementById('cb-glasgow');
+            function updateGCS() { const ocular = +gcsOcular.value; const verbal = +gcsVerbal.value; const motor = +gcsMotor.value; const total = ocular + verbal + motor; gcsOcularV.textContent = ocular; gcsVerbalV.textContent = verbal; gcsMotorV.textContent = motor; gcsTotalEl.textContent = `GCS Total: ${total}`; if (total >= 13) { gcsTotalEl.style.color = 'var(--warn-pale)'; } else if (total >= 9) { gcsTotalEl.style.color = 'var(--warn)'; } else { gcsTotalEl.style.color = 'var(--red)'; } }
+            function logGCSChange() { const total = +gcsOcular.value + +gcsVerbal.value + +gcsMotor.value; marcar('glasgow', `GCS Valorado: O${gcsOcular.value}V${gcsVerbal.value}M${gcsMotor.value}=${total}`, '', true); updateAlerts(); }
+            [gcsOcular, gcsVerbal, gcsMotor].forEach(slider => { slider.addEventListener('input', updateGCS); slider.addEventListener('change', logGCSChange); }); updateGCS(); 
+
+            // --- Pupilas Logic ---
+            const pupilCheckboxes = document.querySelectorAll('.pupil-grid input[type="checkbox"], .conjugada-buttons input[type="checkbox"]');
+            const pupilCheckbox = document.getElementById('cb-pupilas');
+            const pupilStatusLabel = document.getElementById('pupil-status-label'); 
+            const labelMidriatica = document.getElementById('label-midriatica');
+            const labelMiotica = document.getElementById('label-miotica');
+            const labelRfm = document.getElementById('label-rfm');
+            const labelReactivas = document.getElementById('label-reactivas');
+
+            const pupOdMedia = document.getElementById('pup-od-media'); const pupOiMedia = document.getElementById('pup-oi-media');
+            const pupOdMidriatica = document.getElementById('pup-od-midriatica'); const pupOiMidriatica = document.getElementById('pup-oi-midriatica');
+            const pupOdMiotica = document.getElementById('pup-od-miotica'); const pupOiMiotica = document.getElementById('pup-oi-miotica');
+            const pupOdRfm = document.getElementById('pup-od-rfm'); const pupOiRfm = document.getElementById('pup-oi-rfm');
+            const pupOdReactiva = document.getElementById('pup-od-reactiva');
+            const pupOiReactiva = document.getElementById('pup-oi-reactiva');
+
+            const odSizeCheckboxes = [pupOdMedia, pupOdMidriatica, pupOdMiotica]; 
+            const oiSizeCheckboxes = [pupOiMedia, pupOiMidriatica, pupOiMiotica]; 
+            
+            // Hacer Der e Izd mutuamente excluyentes
+            const conjD = document.getElementById('conj-d');
+            const conjI = document.getElementById('conj-i');
+
+            conjD.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    conjI.checked = false;
+                }
+                updatePupilStatus();
+            });
+
+            conjI.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    conjD.checked = false;
+                }
+                updatePupilStatus();
+            });
+            
+            function updatePupilStatus() {
+                const isMediaDifferent = pupOdMedia.checked !== pupOiMedia.checked;
+                const isMidriaticaDifferent = pupOdMidriatica.checked !== pupOiMidriatica.checked;
+                const isMioticaDifferent = pupOdMiotica.checked !== pupOiMiotica.checked;
+                if (isMediaDifferent || isMidriaticaDifferent || isMioticaDifferent) {
+                    pupilStatusLabel.textContent = 'Anisocóricas'; pupilStatusLabel.classList.add('text-red'); pupilStatusLabel.style.color = 'var(--red)';
+                } else {
+                    pupilStatusLabel.textContent = 'Isocóricas'; pupilStatusLabel.classList.remove('text-red'); pupilStatusLabel.style.color = 'var(--warn-pale)';
+                }
+
+                if (pupOdMidriatica.checked || pupOiMidriatica.checked) { labelMidriatica.classList.add('text-red'); labelMidriatica.style.color = 'var(--red)'; } 
+                else { labelMidriatica.classList.remove('text-red'); labelMidriatica.style.color = ''; }
+
+                if (pupOdMiotica.checked || pupOiMiotica.checked) { labelMiotica.classList.add('text-red'); labelMiotica.style.color = 'var(--red)'; } 
+                else { labelMiotica.classList.remove('text-red'); labelMiotica.style.color = ''; }
+                
+                if (!pupOdReactiva.checked || !pupOiReactiva.checked) { labelReactivas.classList.add('text-red'); labelReactivas.style.color = 'var(--red)'; } 
+                else { labelReactivas.classList.remove('text-red'); labelReactivas.style.color = ''; }
+
+                if (!pupOdRfm.checked || !pupOiRfm.checked) { labelRfm.classList.add('text-red'); labelRfm.style.color = 'var(--red)'; } 
+                else { labelRfm.classList.remove('text-red'); labelRfm.style.color = ''; }
+                
+                // Control Mirada Conjugada
+                const labelConjugada = document.getElementById('label-conjugada');
+
+                if (conjD.checked || conjI.checked) {
+                    labelConjugada.classList.add('text-red');
+                    labelConjugada.style.color = 'var(--red)';
+                } else {
+                    labelConjugada.classList.remove('text-red');
+                    labelConjugada.style.color = '';
+                }
+                
+                const hasPupilLog = eventLogs.some(log => log.key === 'pupilas' && log.timestamp > (state['pupilas']?.ts || 0));
+                if (!pupilCheckbox.checked && hasPupilLog) {
+                    marcar('pupilas', 'Evaluación Pupilar Realizada', '', true); 
+                }
+
+                updateAlerts();
+            }
+
+            pupilCheckboxes.forEach(cb => {
+                cb.addEventListener('change', (event) => {
+                    const changedCheckbox = event.target;
+                    if (odSizeCheckboxes.includes(changedCheckbox) && changedCheckbox.checked) {
+                        odSizeCheckboxes.forEach(otherCb => { if (otherCb !== changedCheckbox) { otherCb.checked = false; } });
+                    } else if (oiSizeCheckboxes.includes(changedCheckbox) && changedCheckbox.checked) {
+                        oiSizeCheckboxes.forEach(otherCb => { if (otherCb !== changedCheckbox) { otherCb.checked = false; } });
+                    }
+                    updatePupilStatus(); 
+                    addLog('pupilas', `Pupila ${changedCheckbox.id} cambiada: ${changedCheckbox.checked}`);
+                });
+            });
+
+            function resetPupilGrid() {
+                pupOdMedia.checked = true; pupOiMedia.checked = true;
+                pupOdMidriatica.checked = false; pupOiMidriatica.checked = false;
+                pupOdMiotica.checked = false; pupOiMiotica.checked = false;
+                pupOdReactiva.checked = true; pupOiReactiva.checked = true;
+                pupOdRfm.checked = true; pupOiRfm.checked = true;
+                
+                // Reset Mirada Conjugada
+                conjD.checked = false;
+                conjI.checked = false;
+                
+                updatePupilStatus(); 
+            }
+            
+            updatePupilStatus();
+
+            // --- Constantes Logic ---
+            const tempSlider = document.getElementById('temp'); const tempV = document.getElementById('tempv'); const tasSlider = document.getElementById('tas'); const tasV = document.getElementById('tasv'); const tadSlider = document.getElementById('tad'); const tadV = document.getElementById('tadv'); const frSlider = document.getElementById('fr'); const frV = document.getElementById('frv'); const satO2Slider = document.getElementById('satO2'); const satO2V = document.getElementById('satO2v'); const constantesCheckbox = document.getElementById('cb-constantes');
+            function updateConstantsDisplay() { tempV.textContent = `${tempSlider.value} °C`; tasV.textContent = `${tasSlider.value} mmHg`; tadV.textContent = `${tadSlider.value} mmHg`; frV.textContent = `${frSlider.value} rpm`; satO2V.textContent = `${satO2Slider.value} %`; }
+            function logConstants() { marcar('constantes', `Constantes Registradas: Tª ${tempSlider.value}, TAS ${tasSlider.value}, TAD ${tadSlider.value}, FR ${frSlider.value}, SatO₂ ${satO2Slider.value}`, '', true); updateAlerts(); }
+            [tempSlider, tasSlider, tadSlider, frSlider, satO2Slider].forEach(slider => { slider.addEventListener('input', updateConstantsDisplay); slider.addEventListener('change', logConstants); }); updateConstantsDisplay();
 
             /* ===== Lógica para Select + Botón + Log ===== */
-            function setupItemLogger(buttonId, selectId, checkboxId, logId) {
-                const button = document.getElementById(buttonId); const select = document.getElementById(selectId); const checkbox = document.getElementById(checkboxId); const logList = document.getElementById(logId); const timeDisplay = document.getElementById(checkboxId.replace('cb-', 'tm-'));
-                if (!button || !select || !checkbox || !logList || !timeDisplay) { console.error("Error al configurar logger para:", buttonId); return; }
-                button.addEventListener('click', () => {
-                    const selectedValue = select.value; const selectedText = select.options[select.selectedIndex].text;
-                    if (!selectedValue || select.selectedIndex === 0) { alert('Por favor, seleccione una opción del desplegable.'); return; }
-                    const timestamp = new Date(); const timeString = fmtHMS(timestamp - t0);
-                    const logEntry = document.createElement('span'); logEntry.textContent = `${selectedText}: ${timeString}`; logList.prepend(logEntry);
-                    const stateId = checkboxId.replace('cb-', '');
-                    if (!checkbox.checked) { checkbox.checked = true; checkbox.dispatchEvent(new Event('change')); if (state[stateId]) { state[stateId].ts = timestamp; timeDisplay.textContent = timeString; } }
-                    else { addLog(stateId, `Registrado: ${selectedText}`); }
-                    select.selectedIndex = 0;
-                    if(checkbox.checked && state[stateId] && state[stateId].ts !== timestamp){ addLog(stateId, `Registrado: ${selectedText}`); }
+            function setupItemLogger(buttonId, selectId, checkboxId, logId) { const button = document.getElementById(buttonId); const select = document.getElementById(selectId); const checkbox = document.getElementById(checkboxId); const logList = document.getElementById(logId); const timeDisplay = document.getElementById('tm-' + checkboxId.replace('cb-', '')); if (!button || !select || !checkbox || !logList || !timeDisplay) { return; } button.addEventListener('click', () => { const selectedValue = select.value; const selectedText = select.options[select.selectedIndex].text; if (!selectedValue || select.selectedIndex === 0) { alert('Por favor, seleccione una opción.'); return; } const timestamp = new Date(); const timeString = fmtHMS(timestamp - t0); const logEntry = document.createElement('span'); logEntry.textContent = `${selectedText}: ${timeString}`; logList.prepend(logEntry); const stateId = checkboxId.replace('cb-', ''); marcar(stateId, `Registrado: ${selectedText}`, '', !state[stateId]?.ts); select.selectedIndex = 0; updateAlerts(); }); }
+            setupItemLogger('btn-add-via', 'sel-via', 'cb-via', 'log-via'); setupItemLogger('btn-add-cervical', 'sel-cervical', 'cb-cervical', 'log-cervical'); setupItemLogger('btn-add-oxigeno', 'sel-oxigeno', 'cb-oxigeno', 'log-oxigeno'); setupItemLogger('btn-add-torax', 'sel-torax', 'cb-torax', 'log-torax'); setupItemLogger('btn-add-hemorragia', 'sel-hemorragia', 'cb-hemorragia', 'log-hemorragia'); setupItemLogger('btn-add-acceso', 'sel-acceso', 'cb-acceso', 'log-acceso'); setupItemLogger('btn-add-fluidos', 'sel-fluidos', 'cb-fluidos', 'log-fluidos'); setupItemLogger('btn-add-hemoderivados', 'sel-hemoderivados', 'cb-hemoderivados', 'log-hemoderivados'); setupItemLogger('btn-add-exposicion', 'sel-exposicion', 'cb-exposicion', 'log-exposicion'); setupItemLogger('btn-add-analgesia', 'sel-analgesia', 'cb-analgesia', 'log-analgesia'); setupItemLogger('btn-add-antibioticos', 'sel-antibioticos', 'cb-antibioticos', 'log-antibioticos'); setupItemLogger('btn-add-otros', 'sel-otros', 'cb-otros', 'log-otros');
+
+            /* --- Lógica Fin de Proceso MODIFICADA --- */
+            const finProcesoCheckboxes = document.querySelectorAll('#itm-finproceso .finproceso-grid input[type="checkbox"]'); 
+            const finProcesoTimeDisplay = document.getElementById('tm-finproceso');
+            const finProcesoMainCheckbox = document.getElementById('cb-finproceso');
+
+            function updateFinProcesoStatus() {
+                // Verificar si al menos una opción está seleccionada
+                const anySelected = Array.from(finProcesoCheckboxes).some(cb => cb.checked);
+        
+                if (anySelected) {
+                    // Activar visualmente la tarjeta principal
+                    if (!finProcesoMainCheckbox.checked) {
+                        finProcesoMainCheckbox.checked = true;
+                        marcar('finproceso', 'Fin de Proceso activado', '', true);
+                    }
+                    
+                    // Actualizar tiempo
+                    const timestamp = new Date();
+                    finProcesoTimeDisplay.textContent = fmtHMS(timestamp - t0);
+                    
+                    // Registrar en el log
+                    const selectedOptions = Array.from(finProcesoCheckboxes)
+                        .filter(cb => cb.checked)
+                        .map(cb => document.querySelector(`label[for="${cb.id}"]`)?.textContent || cb.value)
+                        .join(', ');
+                        
+                    addLog('finproceso', `Fin de Proceso: ${selectedOptions}`);
+                } else {
+                    // Desactivar visualmente la tarjeta principal
+                    if (finProcesoMainCheckbox.checked) {
+                        finProcesoMainCheckbox.checked = false;
+                        desmarcar('finproceso');
+                    }
+                    finProcesoTimeDisplay.textContent = '00:00';
+                }
+                
+                updateAlerts();
+            }
+
+            // Asignar eventos a cada checkbox
+            finProcesoCheckboxes.forEach(checkbox => { 
+                checkbox.addEventListener('change', updateFinProcesoStatus); 
+            });
+
+            function resetFinProceso() { 
+                finProcesoCheckboxes.forEach(checkbox => checkbox.checked = false); 
+                finProcesoMainCheckbox.checked = false;
+                finProcesoTimeDisplay.textContent = '00:00'; 
+                finProcesoIds.forEach(id => { 
+                    if (state[id]) state[id].ts = null; 
                 });
             }
-            // --- Configurar todos los loggers ---
-            setupItemLogger('btn-add-via', 'sel-via', 'cb-via', 'log-via');
-            setupItemLogger('btn-add-cervical', 'sel-cervical', 'cb-cervical', 'log-cervical');
-            setupItemLogger('btn-add-oxigeno', 'sel-oxigeno', 'cb-oxigeno', 'log-oxigeno');
-            setupItemLogger('btn-add-hemorragia', 'sel-hemorragia', 'cb-hemorragia', 'log-hemorragia');
-            setupItemLogger('btn-add-acceso', 'sel-acceso', 'cb-acceso', 'log-acceso');
-            setupItemLogger('btn-add-analgesia', 'sel-analgesia', 'cb-analgesia', 'log-analgesia');
-            setupItemLogger('btn-add-antibioticos', 'sel-antibioticos', 'cb-antibioticos', 'log-antibioticos');
 
-            // Listeners para botones simples/específicos
-            document.getElementById('btn-torax').addEventListener('click', () => { marcar('torax', 'Evaluación torácica completada'); document.getElementById('cb-torax').checked = true; });
-            document.getElementById('btn-pupilas').addEventListener('click', () => { marcar('pupilas', 'Evaluación pupilar realizada'); document.getElementById('cb-pupilas').checked = true; });
+            // --- Función Slider Background ---
+            function updateSliderBackground(slider) { if (!slider) return; const min = +slider.min || 0; const max = +slider.max || 100; const val = +slider.value; const percentage = (max - min > 0) ? ((val - min) / (max - min)) * 100 : 0; slider.style.setProperty('--value-percent', percentage + '%'); }
+            const allSliders = document.querySelectorAll('input[type="range"]'); allSliders.forEach(slider => { updateSliderBackground(slider); slider.addEventListener('input', () => updateSliderBackground(slider)); });
 
-            // Fluidoterapia (botones específicos + log)
-            const fluidosLog = document.getElementById('log-fluidos');
-            const fluidosCheckbox = document.getElementById('cb-fluidos');
-            const fluidosTime = document.getElementById('tm-fluidos');
-            document.getElementById('btn-fluidos').addEventListener('click', () => {
-                const timestamp = new Date(); const timeString = fmtHMS(timestamp - t0);
-                const logEntry = document.createElement('span'); logEntry.textContent = `Cristaloides: ${timeString}`; fluidosLog.prepend(logEntry);
-                if (!fluidosCheckbox.checked) { fluidosCheckbox.checked = true; fluidosCheckbox.dispatchEvent(new Event('change')); if (state.fluidos) { state.fluidos.ts = timestamp; fluidosTime.textContent = timeString;} }
-                else { addLog('fluidos', 'Cristaloides administrados'); }
-            });
-             document.getElementById('btn-sangre').addEventListener('click', () => {
-                const timestamp = new Date(); const timeString = fmtHMS(timestamp - t0);
-                const logEntry = document.createElement('span'); logEntry.textContent = `Hemoderivados: ${timeString}`; fluidosLog.prepend(logEntry);
-                 if (!fluidosCheckbox.checked) { fluidosCheckbox.checked = true; fluidosCheckbox.dispatchEvent(new Event('change')); if (state.fluidos) { state.fluidos.ts = timestamp; fluidosTime.textContent = timeString;} }
-                 else { addLog('fluidos', 'Hemoderivados administrados'); }
-            });
+            // --- Informe y PDF ---
+            const dialogInforme = document.getElementById('dialogInforme'); const tablaInforme = document.getElementById('tablaInforme').querySelector('tbody'); function buildInforme() { tablaInforme.innerHTML = ''; const addRow = (param, val, time) => { const tr = tablaInforme.insertRow(); tr.innerHTML = `<td>${param}</td><td>${val}</td><td>${time}</td>`; }; addRow('Inicio', t0.toLocaleString('es-ES',{ hour: '2-digit', minute:'2-digit', second:'2-digit' }), '00:00'); addRow('Peso', `${PESO} kg`, '—'); eventLogs.sort((a,b) => a.timestamp - b.timestamp).forEach(log => addRow(log.message, log.detail || 'OK', log.timeSinceStart)); }
+            document.getElementById('btnInforme').addEventListener('click', () => { buildInforme(); dialogInforme.showModal(); }); document.getElementById('btnCerrarDialog').addEventListener('click', () => dialogInforme.close()); document.getElementById('btnCerrarInforme').addEventListener('click', () => dialogInforme.close());
+            const btnPDF = document.getElementById('btnPDF'); 
+            if (btnPDF) { btnPDF.addEventListener('click', abrirInformeParaImprimir); } 
+            const btnImprimirDialog = document.getElementById('btnImprimirDialog'); 
+            if (btnImprimirDialog) { btnImprimirDialog.addEventListener('click', abrirInformeParaImprimir); } 
+            function abrirInformeParaImprimir() { console.log("Función Imprimir/PDF llamada"); }
 
-            // --- QUITAR setupSimpleSelectLink --- (Ya no se usan o están cubiertos por loggers)
-
-
-            const dialogInforme = document.getElementById('dialogInforme'); const tablaInforme = document.getElementById('tablaInforme').querySelector('tbody');
-            function buildInforme() { /* ... (código sin cambios) ... */ }
-            function generarHTMLInforme() { /* ... (código sin cambios) ... */ }
-            function abrirInformeParaImprimir() { /* ... (código sin cambios) ... */ }
-
-            document.getElementById('btnInforme').addEventListener('click', () => { buildInforme(); dialogInforme.showModal(); });
-            document.getElementById('btnCerrarDialog').addEventListener('click', () => dialogInforme.close()); document.getElementById('btnCerrarInforme').addEventListener('click', () => dialogInforme.close());
-            document.getElementById('btnCopiarInforme').addEventListener('click', () => { /* ... (código sin cambios) ... */ });
-            document.getElementById('btnPDF').addEventListener('click', abrirInformeParaImprimir); document.getElementById('btnImprimirDialog').addEventListener('click', abrirInformeParaImprimir);
-
+            // --- Reset Logic ---
             document.getElementById('btnReset').addEventListener('click', () => {
-                if (!confirm('¿Está seguro de que desea reiniciar todo el proceso?')) return;
+                if (!confirm('¿Está seguro?')) return;
                 t0 = new Date(); tick();
                 ids.forEach(id => { state[id] = { ts: null }; const cb = document.getElementById('cb-' + id); if (cb) cb.checked = false; const tm = document.getElementById('tm-' + id); if (tm) tm.textContent = '00:00'; });
-                resetTriageVisuals(); resetMechanismVisuals();
-                 // Limpiar todos los logs
-                 document.querySelectorAll('.inline-list.item-log').forEach(log => log.innerHTML = '');
-
-                gcs.value = 15; gcsv.textContent = '15'; temp.value = 36.5; tempv.textContent = '36.5'; edad.value = 35; edadv.textContent = '35'; EDAD = 35; eventLogs.length = 0;
-                document.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
-                document.querySelectorAll('#g-recordatorios input[type="checkbox"]').forEach(cb => cb.checked = false);
-                clearAllPersistentAlerts();
-                ['g-triage', 'g-a', 'g-b', 'g-c', 'g-d', 'g-e', 'g-misc', 'g-finproceso', 'g-recordatorios'].forEach(clearWarn);
+                finProcesoIds.forEach(id => {if(state[id]) state[id].ts = null; });
+                resetTriageVisuals(); resetMechanismVisuals(); resetPupilGrid(); resetFinProceso();
+                document.querySelectorAll('.inline-list.item-log').forEach(log => log.innerHTML = '');
+                gcsOcular.value = 4; gcsVerbal.value = 5; gcsMotor.value = 6; updateGCS(); 
+                tempSlider.value = 36.5; tasSlider.value = 120; tadSlider.value = 80; frSlider.value = 20; satO2Slider.value = 98; updateConstantsDisplay();
+                setPesoGlobal(70); eventLogs.length = 0;
+                previousGCS = 15;
+                document.querySelectorAll('select.item-select').forEach(select => select.selectedIndex = 0);
+                allSliders.forEach(slider => updateSliderBackground(slider)); 
                 addLog('reset', 'Aplicación reiniciada');
-                // updateGuidance(); // Sigue comentado
+                updateAlerts();
             });
+
+            // --- Inicialización ---
+            setPesoGlobal(PESO); 
             addLog('inicio', 'Aplicación iniciada');
-            // updateGuidance(); // Sigue comentado
+            updateAlerts(); // Mostrar alertas iniciales
+            updateConstantsColors(); // Inicializar colores de constantes
         });
     </script>
 </body>
