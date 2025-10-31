@@ -1,0 +1,10 @@
+[
+  {"id":"l01","enunciado":"Dolor en fosa ilíaca derecha","region":"abd-der"},
+  {"id":"l02","enunciado":"Traumatismo craneoencefálico","region":"cabeza"},
+  {"id":"l03","enunciado":"Dolor torácico opresivo","region":"torax"},
+  {"id":"l04","enunciado":"Herida en antebrazo derecho","region":"ms-der"},
+  {"id":"l05","enunciado":"Dolor en hemiabdomen izquierdo","region":"abd-izq"},
+  {"id":"l06","enunciado":"Dolor pélvico agudo","region":"pelvis"},
+  {"id":"l07","enunciado":"Esguince de tobillo izquierdo","region":"mi-izq"},
+  {"id":"l08","enunciado":"Fractura de fémur derecho","region":"mi-der"}
+]

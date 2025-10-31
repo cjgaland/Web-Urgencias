@@ -1,0 +1,802 @@
+[
+  {
+    "id": "dx01",
+    "stem": "Varón 68 a, dolor torácico opresivo 30 min, sudoración fría, náuseas, ECG: elevación ST en II, III y aVF.",
+    "opciones": ["IAM inferior", "Pericarditis aguda", "TEP", "Disección de aorta"],
+    "correcta": 0,
+    "explicacion": "ST elevado en derivaciones inferiores → IAM inferior (coronaria derecha). Activar código.",
+    "tags": ["Cardio","ECG","Crítico"]
+  },
+  {
+    "id": "dx02",
+    "stem": "Mujer 24 a, dolor en fosa ilíaca derecha, fiebre 38,3 °C, náuseas, Blumberg +.",
+    "opciones": ["Apendicitis aguda", "Gastroenteritis", "Cólico nefrítico", "EIP"],
+    "correcta": 0,
+    "explicacion": "Clínica típica. Valorar escalas (Alvarado), analítica y ecografía.",
+    "tags": ["Digestivo","Cirugía"]
+  },
+  {
+    "id": "dx03",
+    "stem": "Varón 45 a, vómitos incoercibles tras ingesta alcohólica, dolor retroesternal intenso, enfisema subcutáneo.",
+    "opciones": ["Síndrome de Boerhaave", "Esofagitis por reflujo", "Úlcera perforada", "NEC"],
+    "correcta": 0,
+    "explicacion": "Rotura esofágica espontánea post-vómitos. Urgencia vital.",
+    "tags": ["Digestivo","Emergencia"]
+  },
+  {
+    "id": "dx04",
+    "stem": "Anciano 82 a, fiebre, tos productiva, crepitantes en base derecha, SatO2 90% aire ambiente.",
+    "opciones": ["Neumonía adquirida en la comunidad", "EPOC reagudizado", "ICC descompensada", "TEP"],
+    "correcta": 0,
+    "explicacion": "Clínica y hallazgos típicos. CURB-65 y Rx.",
+    "tags": ["Respiratorio","Infeccioso"]
+  },
+  {
+    "id": "dx05",
+    "stem": "Joven 22 a, cefalea brusca 'peor de su vida', rigidez de nuca, fotofobia.",
+    "opciones": ["HSA", "Migraña", "Meningitis viral", "Sinusitis aguda"],
+    "correcta": 0,
+    "explicacion": "Cefalea trueno → descartar HSA (TC ± PL).",
+    "tags": ["Neuro","Crítico"]
+  },
+  {
+    "id": "dx06",
+    "stem": "Mujer 32 a, disuria, polaquiuria, urgencia miccional, afebril, sin dolor lumbar.",
+    "opciones": ["Cistitis aguda no complicada", "Pielonefritis aguda", "Cólico renal", "Vulvovaginitis"],
+    "correcta": 0,
+    "explicacion": "Síndrome miccional sin fiebre ni dolor lumbar → cistitis.",
+    "tags": ["Uro","Infeccioso"]
+  },
+  {
+    "id": "dx07",
+    "stem": "Varón 60 a, disnea súbita, dolor pleurítico, taquicardia; antecedente de TVP.",
+    "opciones": ["TEP", "Neumotórax", "IAM", "Crisis de pánico"],
+    "correcta": 0,
+    "explicacion": "Sospecha alta → Wells/Ginebra, dímero D, angio-TC.",
+    "tags": ["Respiratorio","Hematología"]
+  },
+  {
+    "id": "dx08",
+    "stem": "Niño 4 a, fiebre, odinofagia, babeo, posición de trípode, estridor.",
+    "opciones": ["Epiglotitis", "Crupe", "Amigdalitis", "Cuerpo extraño"],
+    "correcta": 0,
+    "explicacion": "No forzar exploración. Asegurar vía aérea con equipo experto.",
+    "tags": ["Pediatría","Vía aérea"]
+  },
+  {
+    "id": "dx09",
+    "stem": "Mujer 70 a, fiebre, poliaquiuria, dolor lumbar, puño-percusión positiva.",
+    "opciones": ["Pielonefritis aguda", "Cistitis", "Cólico renal", "ITU baja complicada"],
+    "correcta": 0,
+    "explicacion": "Clínica de afectación alta; ATB y valoración ingreso según gravedad.",
+    "tags": ["Uro","Infeccioso"]
+  },
+  {
+    "id": "dx10",
+    "stem": "Varón 28 a, dolor testicular súbito, testículo alto, reflejo cremastérico ausente.",
+    "opciones": ["Torsión testicular", "Epididimitis", "Hernia inguinal", "Hidrocele"],
+    "correcta": 0,
+    "explicacion": "Emergencia urológica; des-torsión urgente.",
+    "tags": ["Urología","Emergencia"]
+  },
+  {
+    "id": "dx11",
+    "stem": "Mujer 30 a, dolor pleurítico, disnea, taquicardia; uso de anticonceptivos orales.",
+    "opciones": ["TEP", "Neumonía", "Asma", "Costocondritis"],
+    "correcta": 0,
+    "explicacion": "FRCV trombótico. Estrategia diagnóstica según probabilidad.",
+    "tags": ["Respiratorio","Hematología"]
+  },
+  {
+    "id": "dx12",
+    "stem": "Varón 55 a, fiebre, exantema maculopapular, hipotensión y fallo multiorgánico tras foco cutáneo.",
+    "opciones": ["Shock tóxico", "Sepsis urinaria", "Anafilaxia", "Fiebre medicamentosa"],
+    "correcta": 0,
+    "explicacion": "Clínica compatible con shock tóxico. Soporte hemodinámico y ATB.",
+    "tags": ["Infeccioso","Crítico"]
+  },
+  {
+    "id": "dx13",
+    "stem": "Mujer 40 a, palpitaciones, temblor, ansiedad, bocio, exoftalmos.",
+    "opciones": ["Crisis tirotóxica", "Ansiedad generalizada", "Feocromocitoma", "Síndrome carcinoide"],
+    "correcta": 0,
+    "explicacion": "Clínica sugestiva de hipertiroidismo descompensado. Valorar función tiroidea.",
+    "tags": ["Endocrino","Metabólico"]
+  },
+  {
+    "id": "dx14",
+    "stem": "Varón 65 a, hematuria macroscópica indolora, antecedente de tabaquismo.",
+    "opciones": ["Tumor vesical", "Litiasis renal", "Glomerulonefritis", "ITU"],
+    "correcta": 0,
+    "explicacion": "Hematuria indolora en fumador → descartar neoplasia urológica.",
+    "tags": ["Uro","Oncología"]
+  },
+  {
+    "id": "dx15",
+    "stem": "Mujer 50 a, dolor abdominal difuso, distensión, vómitos, ausencia de deposiciones/gases.",
+    "opciones": ["Obstrucción intestinal", "Gastroenteritis", "SII", "Diverticulitis"],
+    "correcta": 0,
+    "explicacion": "Clínica obstructiva. Rx abdomen, valorar causa y descompresión.",
+    "tags": ["Digestivo","Cirugía"]
+  },
+  {
+    "id": "dx16",
+    "stem": "Varón 35 a, traumatismo craneal, pérdida de conciencia transitoria, amnesia retrógrada, cefalea.",
+    "opciones": ["TCE leve (conmoción)", "Hematoma subdural", "Hematoma epidural", "Fractura craneal"],
+    "correcta": 0,
+    "explicacion": "Clínica compatible con conmoción. Seguimiento y criterios de alerta.",
+    "tags": ["Neuro","Trauma"]
+  },
+  {
+    "id": "dx17",
+    "stem": "Mujer 28 a, fiebre, artralgias, exantema malar, proteinuria.",
+    "opciones": ["Lupus eritematoso sistémico", "Artritis reumatoide", "Vasculitis", "Endocarditis"],
+    "correcta": 0,
+    "explicacion": "Clínica multisistémica sugestiva de LES. Analítica con ANA, anti-DNA.",
+    "tags": ["Reumatología","Autoinmune"]
+  },
+  {
+    "id": "dx18",
+    "stem": "Varón 70 a, disnea progresiva, ortopnea, edema miembros inferiores, ingurgitación yugular.",
+    "opciones": ["ICC descompensada", "EPOC", "Derrame pleural", "Taponamiento cardíaco"],
+    "correcta": 0,
+    "explicacion": "Clínica de insuficiencia cardíaca izquierda y derecha. Ecocardiograma.",
+    "tags": ["Cardio","Crítico"]
+  },
+  {
+    "id": "dx19",
+    "stem": "Niña 3 a, fiebre, tos perruna, estridor, tiraje subcostal.",
+    "opciones": ["Laringitis aguda (crupe)", "Bronquiolitis", "Asma", "Epiglotitis"],
+    "correcta": 0,
+    "explicacion": "Clínica típica de crupe viral. Valorar escala de Westley.",
+    "tags": ["Pediatría","Respiratorio"]
+  },
+  {
+    "id": "dx20",
+    "stem": "Mujer 60 a, dolor abdominal en hipocondrio derecho, fiebre, signo de Murphy positivo.",
+    "opciones": ["Colecistitis aguda", "Colangitis", "Hepatitis", "Pancreatitis"],
+    "correcta": 0,
+    "explicacion": "Clínica sugestiva de inflamación vesicular. Ecografía abdominal.",
+    "tags": ["Digestivo","Cirugía"]
+  },
+  {
+    "id": "dx21",
+    "stem": "Varón 50 a, hematemesis, melenas, antecedente de hepatopatía alcohólica.",
+    "opciones": ["Hemorragia digestiva alta por varices", "Úlcera gastroduodenal", "Síndrome de Mallory-Weiss", "Gastritis"],
+    "correcta": 0,
+    "explicacion": "HDA en paciente cirrótico → sospecha de varices esofágicas.",
+    "tags": ["Digestivo","Hepatología"]
+  },
+  {
+    "id": "dx22",
+    "stem": "Mujer 45 a, parestesias en manos y pies, tetania, signo de Chvostek positivo.",
+    "opciones": ["Hipocalcemia", "Hiperventilación", "Esclerosis múltiple", "Neuropatía"],
+    "correcta": 0,
+    "explicacion": "Clínica neuromuscular por hipocalcemia. Corregir causa subyacente.",
+    "tags": ["Metabólico","Neurológico"]
+  },
+  {
+    "id": "dx23",
+    "stem": "Varón 30 a, dolor lumbar irradiado a ingle, hematuria.",
+    "opciones": ["Cólico renal", "Lumbalgia mecánica", "Pielonefritis", "Aneurisma aorta"],
+    "correcta": 0,
+    "explicacion": "Dolor cólico + hematuria → litiasis ureteral. Ecografía/TC.",
+    "tags": ["Uro","Dolor"]
+  },
+  {
+    "id": "dx24",
+    "stem": "Mujer 25 a, amenorrea, dolor abdominal bajo, sangrado vaginal, mareo.",
+    "opciones": ["Embarazo ectópico roto", "Aborto espontáneo", "Enfermedad pélvica inflamatoria", "Quiste ovárico roto"],
+    "correcta": 0,
+    "explicacion": "Triada clásica: amenorrea + dolor + sangrado. Beta-hCG y ecografía urgente.",
+    "tags": ["Ginecología","Emergencia"]
+  },
+  {
+    "id": "dx25",
+    "stem": "Varón 55 a, ictericia, coluria, acolia, dolor abdominal sordo.",
+    "opciones": ["Obstrucción biliar", "Hepatitis viral", "Hígado graso", "Síndrome de Gilbert"],
+    "correcta": 0,
+    "explicacion": "Ictericia obstructiva. Ecografía abdominal para valorar causa.",
+    "tags": ["Digestivo","Hepatología"]
+  },
+  {
+    "id": "dx26",
+    "stem": "Mujer 70 a, confusión aguda, fiebre, rigidez de nuca.",
+    "opciones": ["Meningitis bacteriana", "Encefalitis", "ACV", "Delirium"],
+    "correcta": 0,
+    "explicacion": "Triada clásica de meningitis en anciano puede estar atenuada. PL urgente.",
+    "tags": ["Neuro","Infeccioso"]
+  },
+  {
+    "id": "dx27",
+    "stem": "Varón 40 a, debilidad muscular proximal, dificultad para levantarse, eritema en heliotropos.",
+    "opciones": ["Dermatomiositis", "Miastenia gravis", "Polimialgia reumática", "Esclerosis lateral amiotrófica"],
+    "correcta": 0,
+    "explicacion": "Clínica sugestiva de miopatía inflamatoria. CK, EMG, biopsia.",
+    "tags": ["Reumatología","Neurológico"]
+  },
+  {
+    "id": "dx28",
+    "stem": "Niño 2 a, fiebre, dificultad respiratoria, sibilancias, taquipnea.",
+    "opciones": ["Bronquiolitis", "Asma", "Neumonía", "Cuerpo extraño"],
+    "correcta": 0,
+    "explicacion": "Clínica típica en lactante. Valorar saturación y score clínico.",
+    "tags": ["Pediatría","Respiratorio"]
+  },
+  {
+    "id": "dx29",
+    "stem": "Mujer 35 a, dolor de cabeza pulsátil, fotofobia, fonofobia, náuseas.",
+    "opciones": ["Migraña", "Cefalea tensional", "HSA", "Meningitis"],
+    "correcta": 0,
+    "explicacion": "Clínica característica de migraña. Descartar otras causas si atípica.",
+    "tags": ["Neuro","Dolor"]
+  },
+  {
+    "id": "dx30",
+    "stem": "Varón 60 a, disfagia progresiva a sólidos, pérdida de peso, regurgitación.",
+    "opciones": ["Cáncer de esófago", "Acalasia", "Estenosis péptica", "Enfermedad por reflujo"],
+    "correcta": 0,
+    "explicacion": "Disfagia progresiva + pérdida de peso → descartar neoplasia.",
+    "tags": ["Digestivo","Oncología"]
+  },
+  {
+    "id": "dx31",
+    "stem": "Mujer 50 a, dolor en hipocondrio derecho, fiebre, ictericia.",
+    "opciones": ["Colangitis aguda", "Colecistitis", "Hepatitis", "Pancreatitis"],
+    "correcta": 0,
+    "explicacion": "Triada de Charcot: dolor + fiebre + ictericia → colangitis.",
+    "tags": ["Digestivo","Infeccioso"]
+  },
+  {
+    "id": "dx32",
+    "stem": "Varón 20 a, traumatismo abdominal, dolor difuso, defensa, ausencia de ruidos intestinales.",
+    "opciones": ["Peritonitis", "Contusión abdominal", "Hematoma recto", "Rotura esplénica"],
+    "correcta": 0,
+    "explicacion": "Abdomen agudo post-trauma → sospecha de perforación visceral.",
+    "tags": ["Trauma","Cirugía"]
+  },
+  {
+    "id": "dx33",
+    "stem": "Mujer 65 a, vértigo rotatorio, nistagmo horizontal, sin acúfenos ni hipoacusia.",
+    "opciones": ["Vértigo posicional paroxístico benigno", "Neuritis vestibular", "Meniere", "ACV cerebeloso"],
+    "correcta": 0,
+    "explicacion": "Vértigo periférico típico. Maniobras diagnósticas y terapéuticas.",
+    "tags": ["Neurológico","ORL"]
+  },
+  {
+    "id": "dx34",
+    "stem": "Varón 55 a, disnea, tos seca, crepitantes bibasales, datos de fibrosis en TC.",
+    "opciones": ["Neumonía intersticial", "EPOC", "Asma", "Bronquiectasias"],
+    "correcta": 0,
+    "explicacion": "Clínica y radiología sugestivas de enfermedad intersticial.",
+    "tags": ["Respiratorio","Imagen"]
+  },
+  {
+    "id": "dx35",
+    "stem": "Mujer 30 a, fiebre, artritis, exantema, serositis.",
+    "opciones": ["Lupus eritematoso sistémico", "Artritis séptica", "Fiebre reumática", "Sarcoidosis"],
+    "correcta": 0,
+    "explicacion": "Clínica multisistémica compatible con LES. Criterios diagnósticos.",
+    "tags": ["Reumatología","Autoinmune"]
+  },
+  {
+    "id": "dx36",
+    "stem": "Varón 70 a, hemoptisis, pérdida de peso, tabaquismo.",
+    "opciones": ["Cáncer de pulmón", "Tuberculosis", "Bronquiectasias", "Embolia pulmonar"],
+    "correcta": 0,
+    "explicacion": "Hemoptisis en fumador → descartar neoplasia pulmonar.",
+    "tags": ["Respiratorio","Oncología"]
+  },
+  {
+    "id": "dx37",
+    "stem": "Niño 5 a, fiebre, exantema en mejillas (eritema en 'slapped cheeks'), exantema reticular en tronco.",
+    "opciones": ["Eritema infeccioso", "Escarlatina", "Rubeola", "Exantema súbito"],
+    "correcta": 0,
+    "explicacion": "Clínica típica de parvovirus B19. Autolimitado en niños sanos.",
+    "tags": ["Pediatría","Infeccioso"]
+  },
+  {
+    "id": "dx38",
+    "stem": "Mujer 40 a, dolor en fosa renal derecha, fiebre, náuseas, puño-percusión positiva.",
+    "opciones": ["Pielonefritis aguda", "Cólico renal", "Apendicitis", "Colecistitis"],
+    "correcta": 0,
+    "explicacion": "Infección del tracto urinario alto. ATB intravenoso según gravedad.",
+    "tags": ["Uro","Infeccioso"]
+  },
+  {
+    "id": "dx39",
+    "stem": "Varón 50 a, dolor epigástrico irradiado a espalda, náuseas, vómitos, amilasemia elevada.",
+    "opciones": ["Pancreatitis aguda", "Úlcera péptica", "Colecistitis", "IAM inferior"],
+    "correcta": 0,
+    "explicacion": "Dolor típico + hiperamilasemia → pancreatitis. Valorar gravedad.",
+    "tags": ["Digestivo","Enzimas"]
+  },
+  {
+    "id": "dx40",
+    "stem": "Mujer 60 a, debilidad generalizada, hiponatremia, hiperpigmentación.",
+    "opciones": ["Insuficiencia suprarrenal", "Síndrome de secreción inadecuada de ADH", "Hipotiroidismo", "Desnutrición"],
+    "correcta": 0,
+    "explicacion": "Clínica sugestiva de enfermedad de Addison. Cortisol urgente.",
+    "tags": ["Endocrino","Metabólico"]
+  },
+  {
+    "id": "dx41",
+    "stem": "Varón 35 a, fiebre, tos, expectoración purulenta, dolor pleurítico.",
+    "opciones": ["Neumonía bacteriana", "Bronquitis aguda", "TEP", "Asma"],
+    "correcta": 0,
+    "explicacion": "Clínica típica de neumonía. Rx tórax y antibioterapia empírica.",
+    "tags": ["Respiratorio","Infeccioso"]
+  },
+  {
+    "id": "dx42",
+    "stem": "Mujer 28 a, dolor abdominal difuso, diarrea con sangre, urgencia rectal.",
+    "opciones": ["Colitis infecciosa", "Enfermedad inflamatoria intestinal", "Síndrome del intestino irritable", "Isquemia mesentérica"],
+    "correcta": 0,
+    "explicacion": "Diarrea inflamatoria → coprocultivo y colonoscopia.",
+    "tags": ["Digestivo","Infeccioso"]
+  },
+  {
+    "id": "dx43",
+    "stem": "Varón 65 a, disfagia brusca, babeo, imposibilidad para tragar saliva.",
+    "opciones": ["Impactación esofágica", "ACV", "Divertículo de Zenker", "Espasmo esofágico"],
+    "correcta": 0,
+    "explicacion": "Disfagia brusca → cuerpo extraño o impacto alimentario.",
+    "tags": ["Digestivo","ORL"]
+  },
+  {
+    "id": "dx44",
+    "stem": "Mujer 50 a, dolor torácico pleurítico, frote pericárdico, ECG con elevación difusa del ST.",
+    "opciones": ["Pericarditis aguda", "IAM", "TEP", "Neumotórax"],
+    "correcta": 0,
+    "explicacion": "Dolor + frote + ECG con concavidad superior → pericarditis.",
+    "tags": ["Cardio","ECG"]
+  },
+  {
+    "id": "dx45",
+    "stem": "Varón 40 a, fiebre, cefalea, mialgias, exantema maculopapular en palmas y plantas.",
+    "opciones": ["Fiebre botonosa", "Sífilis secundaria", "Rickettsiosis", "Mononucleosis"],
+    "correcta": 0,
+    "explicacion": "Clínica sugestiva de rickettsiosis. Antecedente de picadura de garrapata.",
+    "tags": ["Infeccioso","Dermatológico"]
+  },
+  {
+    "id": "dx46",
+    "stem": "Mujer 30 a, dolor en hipogastrio, disuria, polaquiuria, fiebre.",
+    "opciones": ["Cistitis aguda complicada", "Pielonefritis", "Enfermedad pélvica inflamatoria", "Diverticulitis"],
+    "correcta": 0,
+    "explicacion": "ITU baja con fiebre → considerar extensión o complicación.",
+    "tags": ["Uro","Infeccioso"]
+  },
+  {
+    "id": "dx47",
+    "stem": "Varón 55 a, hematemesis, melenas, antecedente de AINEs.",
+    "opciones": ["Úlcera gastroduodenal", "Varices esofágicas", "Gastritis erosiva", "Síndrome de Mallory-Weiss"],
+    "correcta": 0,
+    "explicacion": "HDA en paciente con AINEs → úlcera péptica.",
+    "tags": ["Digestivo","Fármacos"]
+  },
+  {
+    "id": "dx48",
+    "stem": "Mujer 70 a, confusión, deshidratación, hiperglucemia, ausencia de cetonas.",
+    "opciones": ["Estado hiperosmolar hiperglucémico", "Cetoacidosis diabética", "Hipoglucemia", "Síndrome confusional agudo"],
+    "correcta": 0,
+    "explicacion": "Hiperglucemia grave sin cetosis en anciano → síndrome hiperosmolar.",
+    "tags": ["Endocrino","Metabólico"]
+  },
+  {
+    "id": "dx49",
+    "stem": "Varón 45 a, dolor abdominal, diarrea, pérdida de peso, aftas orales.",
+    "opciones": ["Enfermedad de Crohn", "Colitis ulcerosa", "Síndrome del intestino irritable", "Tuberculosis intestinal"],
+    "correcta": 0,
+    "explicacion": "Clínica sugestiva de enfermedad inflamatoria intestinal.",
+    "tags": ["Digestivo","Autoinmune"]
+  },
+  {
+    "id": "dx50",
+    "stem": "Mujer 25 a, fiebre, exantema maculopapular generalizado, linfadenopatías.",
+    "opciones": ["Mononucleosis infecciosa", "Rubéola", "Sarampión", "Farmacodermia"],
+    "correcta": 0,
+    "explicacion": "Fiebre + exantema + adenopatías → virus de Epstein-Barr.",
+    "tags": ["Infeccioso","Dermatológico"]
+  },
+  {
+    "id": "dx51",
+    "stem": "Varón 60 a, disnea, edemas, hepatomegalia, ingurgitación yugular.",
+    "opciones": ["Insuficiencia cardíaca derecha", "Cirrosis", "Pericarditis constrictiva", "Síndrome nefrótico"],
+    "correcta": 0,
+    "explicacion": "Clínica de fallo ventricular derecho. Ecocardiograma.",
+    "tags": ["Cardio","Hepatología"]
+  },
+  {
+    "id": "dx52",
+    "stem": "Mujer 35 a, dolor de garganta, fiebre, exudado amigdalar, adenopatías cervicales.",
+    "opciones": ["Faringoamigdalitis estreptocócica", "Mononucleosis", "Viral", "Absceso periamigdalino"],
+    "correcta": 0,
+    "explicacion": "Clínica sugestiva de infección bacteriana. Test rápido o cultivo.",
+    "tags": ["ORL","Infeccioso"]
+  },
+  {
+    "id": "dx53",
+    "stem": "Varón 50 a, dolor de cabeza, visión borrosa, epistaxis, PA 210/120 mmHg.",
+    "opciones": ["Crisis hipertensiva", "Feocromocitoma", "Encefalopatía hipertensiva", "ACV"],
+    "correcta": 0,
+    "explicacion": "HTA grave con síntomas de órgano diana → urgencia hipertensiva.",
+    "tags": ["Cardio","Neurológico"]
+  },
+  {
+    "id": "dx54",
+    "stem": "Mujer 60 a, dolor torácico, disnea, ECG con supradesnivel ST en V1-V4.",
+    "opciones": ["IAM anterior", "Pericarditis", "TEP", "Disección aórtica"],
+    "correcta": 0,
+    "explicacion": "ST elevado en precordiales → IAM anterior. Código infarto.",
+    "tags": ["Cardio","ECG"]
+  },
+  {
+    "id": "dx55",
+    "stem": "Varón 70 a, fiebre, tos, expectoración verde, confusión.",
+    "opciones": ["Neumonía adquirida en la comunidad", "Bronquitis", "EPOC", "Tuberculosis"],
+    "correcta": 0,
+    "explicacion": "Neumonía en anciano con alteración del estado mental → criterio de gravedad.",
+    "tags": ["Respiratorio","Geriatría"]
+  },
+  {
+    "id": "dx56",
+    "stem": "Mujer 40 a, dolor abdominal, diarrea acuosa, sin fiebre, tras ingesta láctea.",
+    "opciones": ["Intolerancia a la lactosa", "Gastroenteritis viral", "Síndrome del intestino irritable", "Colitis microscópica"],
+    "correcta": 0,
+    "explicacion": "Clínica relacionada con lactosa → prueba de tolerancia o dieta de exclusión.",
+    "tags": ["Digestivo","Alergia"]
+  },
+  {
+    "id": "dx57",
+    "stem": "Varón 30 a, traumatismo ocular, dolor, disminución aguda de agudeza visual.",
+    "opciones": ["Desprendimiento de retina", "Hifema", "Cuerpo extraño intraocular", "Ulcera corneal"],
+    "correcta": 0,
+    "explicacion": "Trauma + pérdida visual → urgencia oftalmológica.",
+    "tags": ["Oftalmología","Trauma"]
+  },
+  {
+    "id": "dx58",
+    "stem": "Mujer 50 a, dolor en fosa renal izquierda, fiebre, escalofríos.",
+    "opciones": ["Pielonefritis aguda", "Cólico renal", "Diverticulitis", "Quiste renal complicado"],
+    "correcta": 0,
+    "explicacion": "Infección urinaria alta. Urocultivo y ATB intravenoso.",
+    "tags": ["Uro","Infeccioso"]
+  },
+  {
+    "id": "dx59",
+    "stem": "Varón 65 a, disnea, sibilancias, tos, antecedente de tabaquismo.",
+    "opciones": ["EPOC reagudizado", "Asma", "ICC", "Bronquiectasias"],
+    "correcta": 0,
+    "explicacion": "Obstrucción al flujo aéreo en fumador → EPOC.",
+    "tags": ["Respiratorio","Crónico"]
+  },
+  {
+    "id": "dx60",
+    "stem": "Mujer 28 a, dolor abdominal bajo, fiebre, flujo vaginal purulento.",
+    "opciones": ["Enfermedad pélvica inflamatoria", "Cistitis", "Apendicitis", "Endometriosis"],
+    "correcta": 0,
+    "explicacion": "Clínica ginecológica infecciosa. ATB de amplio espectro.",
+    "tags": ["Ginecología","Infeccioso"]
+  },
+  {
+    "id": "dx61",
+    "stem": "Varón 40 a, debilidad en piernas, parestesias, reflejos osteotendinosos abolidos.",
+    "opciones": ["Síndrome de Guillain-Barré", "Mielitis transversa", "Esclerosis múltiple", "Polineuropatía"],
+    "correcta": 0,
+    "explicacion": "Debilidad ascendente + arreflexia → Guillain-Barré.",
+    "tags": ["Neurológico","Autoinmune"]
+  },
+  {
+    "id": "dx62",
+    "stem": "Mujer 55 a, dolor mandibular, claudicación mandibular, cefalea, fiebre.",
+    "opciones": ["Arteritis de la temporal", "Neuralgia del trigémino", "Sinusitis", "ATM"],
+    "correcta": 0,
+    "explicacion": "Clínica sugestiva de arteritis de células gigantes. VSG elevada.",
+    "tags": ["Reumatología","Vascular"]
+  },
+  {
+    "id": "dx63",
+    "stem": "Varón 70 a, hematuria, dolor lumbar masa palpable en flanco.",
+    "opciones": ["Cáncer renal", "Pielonefritis", "Quiste renal", "Tuberculosis renal"],
+    "correcta": 0,
+    "explicacion": "Triada clásica de cáncer renal (hematuria, dolor, masa).",
+    "tags": ["Uro","Oncología"]
+  },
+  {
+    "id": "dx64",
+    "stem": "Mujer 30 a, prurito, ictericia, coluria, acolia, embarazo de 32 semanas.",
+    "opciones": ["Colestasis del embarazo", "Hepatitis viral", "Colelitiasis", "HELLP"],
+    "correcta": 0,
+    "explicacion": "Ictericia y prurito en tercer trimestre → colestasis gravídica.",
+    "tags": ["Ginecología","Hepatología"]
+  },
+  {
+    "id": "dx65",
+    "stem": "Varón 50 a, dolor torácico, disnea, ECG con inversión de T en precordiales.",
+    "opciones": ["Síndrome coronario agudo sin supradesnivel ST", "Pericarditis", "TEP", "Miocarditis"],
+    "correcta": 0,
+    "explicacion": "Dolor + cambios isquémicos en ECG → SCA sin SSTE.",
+    "tags": ["Cardio","ECG"]
+  },
+  {
+    "id": "dx66",
+    "stem": "Mujer 25 a, fiebre, artritis, exantema, antecedente de lupus.",
+    "opciones": ["Brote de LES", "Artritis séptica", "Fiebre reumática", "Sarcoidosis"],
+    "correcta": 0,
+    "explicacion": "Paciente con LES → reactivación de la enfermedad.",
+    "tags": ["Reumatología","Autoinmune"]
+  },
+  {
+    "id": "dx67",
+    "stem": "Varón 60 a, disfagia, odinofagia, fiebre, trismus.",
+    "opciones": ["Absceso retrofaríngeo", "Amigdalitis", "Epiglotitis", "Cuerpo extraño esofágico"],
+    "correcta": 0,
+    "explicacion": "Triada: fiebre + disfagia + trismus → absceso profundo del cuello.",
+    "tags": ["ORL","Infeccioso"]
+  },
+  {
+    "id": "dx68",
+    "stem": "Mujer 45 a, dolor abdominal, diarrea con moco y sangre, urgencia rectal.",
+    "opciones": ["Colitis ulcerosa", "Enfermedad de Crohn", "Colitis infecciosa", "Diverticulitis"],
+    "correcta": 0,
+    "explicacion": "Diarrea inflamatoria → enfermedad inflamatoria intestinal.",
+    "tags": ["Digestivo","Autoinmune"]
+  },
+  {
+    "id": "dx69",
+    "stem": "Varón 35 a, traumatismo craneal, salida de líquido claro por nariz.",
+    "opciones": ["Rinorrea de LCR", "Rinitis", "Sinusitis", "Epistaxis"],
+    "correcta": 0,
+    "explicacion": "Salida de líquido claro post-TCE → fístula de LCR.",
+    "tags": ["Neuro","Trauma"]
+  },
+  {
+    "id": "dx70",
+    "stem": "Mujer 50 a, dolor en hipocondrio derecho, fiebre, leucocitosis.",
+    "opciones": ["Colecistitis aguda", "Colangitis", "Hepatitis", "Úlcera duodenal"],
+    "correcta": 0,
+    "explicacion": "Clínica de inflamación vesicular. Ecografía abdominal.",
+    "tags": ["Digestivo","Cirugía"]
+  },
+  {
+    "id": "dx71",
+    "stem": "Varón 65 a, hemoptisis, pérdida de peso, adenopatías supraclaviculares.",
+    "opciones": ["Cáncer de pulmón", "Tuberculosis", "Bronquiectasias", "Granulomatosis"],
+    "correcta": 0,
+    "explicacion": "Hemoptisis + adenopatías + síndrome constitucional → neoplasia.",
+    "tags": ["Respiratorio","Oncología"]
+  },
+  {
+    "id": "dx72",
+    "stem": "Mujer 30 a, dolor de cabeza, fotofobia, rigidez de nuca.",
+    "opciones": ["Meningitis", "HSA", "Migraña", "Cefalea tensional"],
+    "correcta": 0,
+    "explicacion": "Triada meníngea → punción lumbar para diagnóstico.",
+    "tags": ["Neuro","Infeccioso"]
+  },
+  {
+    "id": "dx73",
+    "stem": "Varón 40 a, dolor abdominal, distensión, vómitos, ausencia de deposiciones.",
+    "opciones": ["Obstrucción intestinal", "Gastroenteritis", "SII", "Diverticulitis"],
+    "correcta": 0,
+    "explicacion": "Clínica obstructiva. Rx abdomen en decúbito y bipedestación.",
+    "tags": ["Digestivo","Cirugía"]
+  },
+  {
+    "id": "dx74",
+    "stem": "Mujer 55 a, dolor torácico, disnea, ECG con bloqueo de rama derecha nuevo.",
+    "opciones": ["TEP", "IAM", "Pericarditis", "Neumotórax"],
+    "correcta": 0,
+    "explicacion": "BRDH nuevo + disnea → sospecha de TEP masivo.",
+    "tags": ["Cardio","Respiratorio"]
+  },
+  {
+    "id": "dx75",
+    "stem": "Varón 70 a, debilidad, confusión, hiponatremia, diuréticos.",
+    "opciones": ["Hiponatremia por diuréticos", "SIADH", "Insuficiencia suprarrenal", "Hipotiroidismo"],
+    "correcta": 0,
+    "explicacion": "Hiponatremia en paciente con diuréticos → pérdida de sodio.",
+    "tags": ["Nefrología","Metabólico"]
+  },
+  {
+    "id": "dx76",
+    "stem": "Mujer 25 a, dolor abdominal, amenorrea, sangrado vaginal, masa anexial.",
+    "opciones": ["Embarazo ectópico", "Aborto", "Quiste ovárico", "Enfermedad pélvica inflamatoria"],
+    "correcta": 0,
+    "explicacion": "Triada: amenorrea + dolor + sangrado → sospecha de ectópico.",
+    "tags": ["Ginecología","Emergencia"]
+  },
+  {
+    "id": "dx77",
+    "stem": "Varón 50 a, ictericia, prurito, heces acólicas, dolor abdominal.",
+    "opciones": ["Obstrucción biliar", "Hepatitis", "Cirrosis", "Síndrome de Gilbert"],
+    "correcta": 0,
+    "explicacion": "Ictericia obstructiva. Ecografía para valorar dilatación vías biliares.",
+    "tags": ["Digestivo","Hepatología"]
+  },
+  {
+    "id": "dx78",
+    "stem": "Mujer 60 a, fiebre, tos, expectoración purulenta, consolidación en Rx.",
+    "opciones": ["Neumonía bacteriana", "Tuberculosis", "Cáncer de pulmón", "Absceso pulmonar"],
+    "correcta": 0,
+    "explicacion": "Clínica y radiología compatibles con neumonía.",
+    "tags": ["Respiratorio","Infeccioso"]
+  },
+  {
+    "id": "dx79",
+    "stem": "Varón 35 a, dolor lumbar, fiebre, escalofríos, puño-percusión positiva.",
+    "opciones": ["Pielonefritis aguda", "Cólico renal", "Lumbalgia", "Apendicitis"],
+    "correcta": 0,
+    "explicacion": "Infección urinaria alta. Urocultivo y ATB.",
+    "tags": ["Uro","Infeccioso"]
+  },
+  {
+    "id": "dx80",
+    "stem": "Mujer 40 a, dolor de garganta, fiebre, trismus, desviación de úvula.",
+    "opciones": ["Absceso periamigdalino", "Amigdalitis", "Epiglotitis", "Ludwig"],
+    "correcta": 0,
+    "explicacion": "Trismus + desviación úvula → absceso periamigdalino.",
+    "tags": ["ORL","Infeccioso"]
+  },
+  {
+    "id": "dx81",
+    "stem": "Varón 65 a, disnea, ortopnea, edema miembros inferiores.",
+    "opciones": ["ICC descompensada", "EPOC", "TEP", "Derrame pleural"],
+    "correcta": 0,
+    "explicacion": "Clínica de insuficiencia cardíaca. Ecocardiograma.",
+    "tags": ["Cardio","Crítico"]
+  },
+  {
+    "id": "dx82",
+    "stem": "Mujer 30 a, dolor abdominal, diarrea, urgencia rectal, moco en heces.",
+    "opciones": ["Colitis ulcerosa", "Enfermedad de Crohn", "Colitis infecciosa", "SII"],
+    "correcta": 0,
+    "explicacion": "Diarrea inflamatoria → enfermedad inflamatoria intestinal.",
+    "tags": ["Digestivo","Autoinmune"]
+  },
+  {
+    "id": "dx83",
+    "stem": "Varón 55 a, hematemesis, melenas, cirrosis hepática conocida.",
+    "opciones": ["Hemorragia por varices esofágicas", "Úlcera péptica", "Gastritis", "Síndrome de Mallory-Weiss"],
+    "correcta": 0,
+    "explicacion": "HDA en cirrótico → varices esofágicas hasta demostrar lo contrario.",
+    "tags": ["Digestivo","Hepatología"]
+  },
+  {
+    "id": "dx84",
+    "stem": "Mujer 70 a, confusión, fiebre, rigidez de nuca.",
+    "opciones": ["Meningitis", "Encefalitis", "ACV", "Delirium"],
+    "correcta": 0,
+    "explicacion": "Triada meníngea en anciano puede ser atípica. PL urgente.",
+    "tags": ["Neuro","Infeccioso"]
+  },
+  {
+    "id": "dx85",
+    "stem": "Varón 45 a, dolor torácico, disnea, ECG con elevación ST en derivaciones inferiores.",
+    "opciones": ["IAM inferior", "Pericarditis", "TEP", "Disección aórtica"],
+    "correcta": 0,
+    "explicacion": "ST elevado en II, III, aVF → IAM inferior.",
+    "tags": ["Cardio","ECG"]
+  },
+  {
+    "id": "dx86",
+    "stem": "Mujer 25 a, fiebre, exantema, artralgias, linfadenopatías.",
+    "opciones": ["Mononucleosis", "Rubéola", "Sarampión", "Farmacodermia"],
+    "correcta": 0,
+    "explicacion": "Fiebre + exantema + adenopatías → virus de Epstein-Barr.",
+    "tags": ["Infeccioso","Dermatológico"]
+  },
+  {
+    "id": "dx87",
+    "stem": "Varón 60 a, disnea, tos, crepitantes, cardiomegalia en Rx.",
+    "opciones": ["Edema agudo de pulmón", "Neumonía", "EPOC", "Derrame pleural"],
+    "correcta": 0,
+    "explicacion": "Clínica y radiología compatibles con edema cardiogénico.",
+    "tags": ["Cardio","Respiratorio"]
+  },
+  {
+    "id": "dx88",
+    "stem": "Mujer 50 a, dolor abdominal, fiebre, defensa en FID.",
+    "opciones": ["Apendicitis aguda", "Diverticulitis", "Enfermedad pélvica inflamatoria", "Cólico renal"],
+    "correcta": 0,
+    "explicacion": "Dolor en FID + fiebre + defensa → apendicitis.",
+    "tags": ["Digestivo","Cirugía"]
+  },
+  {
+    "id": "dx89",
+    "stem": "Varón 35 a, traumatismo cervical, dolor, déficit neurológico.",
+    "opciones": ["Lesión medular cervical", "Esguince cervical", "Hematoma epidural", "Fractura vertebral"],
+    "correcta": 0,
+    "explicacion": "Trauma cervical + déficit → inmovilización y estudio urgente.",
+    "tags": ["Trauma","Neurológico"]
+  },
+  {
+    "id": "dx90",
+    "stem": "Mujer 40 a, dolor de cabeza, visión borrosa, papiledema.",
+    "opciones": ["Hipertensión intracraneal", "Migraña", "HSA", "Tumor cerebral"],
+    "correcta": 0,
+    "explicacion": "Cefalea + papiledema → sospecha de HIC. Neuroimagen.",
+    "tags": ["Neuro","Oftalmología"]
+  },
+  {
+    "id": "dx91",
+    "stem": "Varón 55 a, dolor torácico, disnea, ECG con supradesnivel ST en V1-V4.",
+    "opciones": ["IAM anterior", "Pericarditis", "TEP", "Disección aórtica"],
+    "correcta": 0,
+    "explicacion": "ST elevado en precordiales → IAM anterior.",
+    "tags": ["Cardio","ECG"]
+  },
+  {
+    "id": "dx92",
+    "stem": "Mujer 30 a, dolor abdominal, diarrea, fiebre, sangre en heces.",
+    "opciones": ["Colitis infecciosa", "Enfermedad inflamatoria intestinal", "Diverticulitis", "Isquemia mesentérica"],
+    "correcta": 0,
+    "explicacion": "Diarrea inflamatoria → coprocultivo y colonoscopia.",
+    "tags": ["Digestivo","Infeccioso"]
+  },
+  {
+    "id": "dx93",
+    "stem": "Varón 65 a, hematuria, dolor lumbar, pérdida de peso.",
+    "opciones": ["Cáncer urotelial", "Litiasis renal", "Infección urinaria", "Glomerulonefritis"],
+    "correcta": 0,
+    "explicacion": "Hematuria + dolor + síndrome constitucional → neoplasia.",
+    "tags": ["Uro","Oncología"]
+  },
+  {
+    "id": "dx94",
+    "stem": "Mujer 50 a, dolor torácico, disnea, taquicardia, antecedente de cáncer.",
+    "opciones": ["TEP", "Metástasis pulmonares", "Neumonía", "Derrame pleural maligno"],
+    "correcta": 0,
+    "explicacion": "Paciente oncológico con disnea aguda → descartar TEP.",
+    "tags": ["Oncología","Respiratorio"]
+  },
+  {
+    "id": "dx95",
+    "stem": "Varón 40 a, fiebre, tos, expectoración, dolor pleurítico.",
+    "opciones": ["Neumonía", "Bronquitis", "TEP", "Asma"],
+    "correcta": 0,
+    "explicacion": "Clínica típica de neumonía. Rx tórax.",
+    "tags": ["Respiratorio","Infeccioso"]
+  },
+  {
+    "id": "dx96",
+    "stem": "Mujer 60 a, dolor abdominal, distensión, vómitos, ausencia de deposiciones.",
+    "opciones": ["Obstrucción intestinal", "Gastroenteritis", "SII", "Diverticulitis"],
+    "correcta": 0,
+    "explicacion": "Clínica obstructiva. Rx abdomen.",
+    "tags": ["Digestivo","Cirugía"]
+  },
+  {
+    "id": "dx97",
+    "stem": "Varón 70 a, disnea, edemas, hepatomegalia, ingurgitación yugular.",
+    "opciones": ["ICC derecha", "Cirrosis", "Pericarditis constrictiva", "Síndrome nefrótico"],
+    "correcta": 0,
+    "explicacion": "Clínica de fallo ventricular derecho.",
+    "tags": ["Cardio","Hepatología"]
+  },
+  {
+    "id": "dx98",
+    "stem": "Mujer 35 a, dolor de garganta, fiebre, exudado amigdalar.",
+    "opciones": ["Amigdalitis estreptocócica", "Mononucleosis", "Viral", "Absceso periamigdalino"],
+    "correcta": 0,
+    "explicacion": "Faringoamigdalitis bacteriana. Test rápido.",
+    "tags": ["ORL","Infeccioso"]
+  },
+  {
+    "id": "dx99",
+    "stem": "Varón 50 a, cefalea, visión borrosa, epistaxis, HTA grave.",
+    "opciones": ["Crisis hipertensiva", "Feocromocitoma", "Encefalopatía hipertensiva", "ACV"],
+    "correcta": 0,
+    "explicacion": "HTA severa con síntomas de órgano diana.",
+    "tags": ["Cardio","Neurológico"]
+  },
+  {
+    "id": "dx100",
+    "stem": "Mujer 25 a, dolor abdominal bajo, fiebre, flujo vaginal purulento.",
+    "opciones": ["Enfermedad pélvica inflamatoria", "Cistitis", "Apendicitis", "Endometriosis"],
+    "correcta": 0,
+    "explicacion": "Clínica ginecológica infecciosa. ATB empírico.",
+    "tags": ["Ginecología","Infeccioso"]
+  }
+]

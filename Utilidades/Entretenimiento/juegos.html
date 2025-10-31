@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mini-Juegos · Urgencias</title>
+<style>
+  :root{--bg:#0f172a;--card:#111827;--muted:#94a3b8;--accent:#38bdf8;--good:#22c55e;--bad:#ef4444;--warn:#f59e0b;}
+  *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;background:linear-gradient(160deg,#0b1022,#0f172a);}
+  header{display:flex;gap:.75rem;align-items:center;justify-content:space-between;padding:14px 18px;color:#e5e7eb;background:#0b1226;position:sticky;top:0;z-index:5;border-bottom:1px solid #0b1a33}
+  h1{font-size:clamp(16px,2vw,18px);margin:0;font-weight:800;letter-spacing:.3px}
+  .tag{opacity:.9;color:#a5b4fc;font-weight:700}
+  .wrap{max-width:1100px;margin:0 auto;padding:18px}
+  .bar{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 16px}
+  .bar > *{background:#0b1226;border:1px solid #1f2937;color:#cbd5e1;border-radius:999px;padding:8px 12px;font-weight:600}
+  input,select{background:#0b1226;border:1px solid #1f2937;color:#e5e7eb;border-radius:10px;padding:8px 10px}
+  .tabs{display:flex;flex-wrap:wrap;gap:8px}
+  .tab{cursor:pointer;border:1px solid #1f2937;background:#0b1226;color:#cbd5e1;border-radius:12px;padding:10px 14px;font-weight:700}
+  .tab.active{outline:2px solid #1d4ed8;color:#fff}
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px;margin-top:14px}
+  .card{grid-column:span 12;background:#0b1226;border:1px solid #1f2937;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+  .card h2{margin:0;padding:14px 16px;border-bottom:1px solid #1f2937;font-size:18px;color:#e5e7eb}
+  .card .content{padding:14px 16px;color:#cbd5e1}
+  .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .btn{border:1px solid #1f2937;background:#111827;color:#e5e7eb;border-radius:10px;padding:8px 12px;font-weight:700;cursor:pointer}
+  .btn.accent{background:linear-gradient(90deg,#1d4ed8,#22d3ee);border:none;color:#00121a}
+  .btn.good{background:#062d17;border-color:#064e3b;color:#86efac}
+  .btn.bad{background:#3f0b12;border-color:#7f1d1d;color:#fecaca}
+  .pill{padding:4px 8px;border-radius:999px;background:#0b1226;border:1px solid #1f2937;color:#93c5fd;font-weight:700}
+  .muted{color:#94a3b8}
+  .score{font-weight:800;color:#f8fafc}
+  .kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:8px 0}
+  .kpi .box{background:#0b1226;border:1px solid #1f2937;border-radius:12px;padding:10px;text-align:center}
+  .kpi .box .v{font-size:20px;font-weight:900;color:#fff}
+  /* Juegos */
+  .mathQ{font-size:30px;font-weight:900;letter-spacing:1px}
+  .board3x3{display:grid;grid-template-columns:repeat(3,72px);gap:8px;justify-content:center;margin:12px 0}
+  .tile{width:72px;height:72px;border-radius:12px;border:1px solid #1f2937;background:#0f172a;color:#e5e7eb;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px;cursor:pointer;user-select:none}
+  .tile.ok{background:#052e1a;color:#86efac;border-color:#064e3b}
+  .tile.bad{animation:shake .2s}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+  .letters{display:grid;grid-template-columns:repeat(8,36px);gap:6px;justify-content:center}
+  .cell{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#0f172a;border:1px solid #1f2937;color:#e5e7eb;font-weight:800;cursor:pointer;user-select:none}
+  .cell.sel{outline:2px solid var(--accent)}
+  .cell.found{background:#052e1a;color:#86efac;border-color:#064e3b}
+  .list li{margin:2px 0}
+  table{width:100%;border-collapse:collapse;border:1px solid #1f2937}
+  th,td{border-top:1px solid #1f2937;padding:8px;text-align:left}
+  th{color:#a5b4fc;background:#0b1226;position:sticky;top:0}
+  .hint{font-size:12px;color:#94a3b8}
+  .right{color:#86efac;font-weight:800}
+  .wrong{color:#fca5a5;font-weight:800}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎮 Mini-Juegos <span class="tag">Urgencias</span></h1>
+  <div class="row">
+    <label class="muted">Jugador:</label>
+    <input id="player" placeholder="Nombre o alias" minlength="2" maxlength="24">
+    <button class="btn accent" id="saveName">Usar</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="bar">
+    <span class="pill">Puntuación local y ranking opcional en la nube</span>
+    <span class="muted">Consejo: partidas cortas (1–2 min) para descansos micro.</span>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-tab="math">🧮 Cálculo</button>
+    <button class="tab" data-tab="order">🔢 Ordena</button>
+    <button class="tab" data-tab="sopa">🔎 Sopa exprés</button>
+    <button class="tab" data-tab="quiz">❓ Quiz capitales</button>
+    <button class="tab" data-tab="rank">🏆 Ranking</button>
+  </div>
+
+  <!-- CÁLCULO MENTAL -->
+  <section class="card" id="tab-math">
+    <h2>🧮 Cálculo mental (60 s)</h2>
+    <div class="content">
+      <div class="kpi">
+        <div class="box"><div class="l muted">Tiempo</div><div class="v" id="tMath">60</div></div>
+        <div class="box"><div class="l muted">Puntos</div><div class="v score" id="sMath">0</div></div>
+        <div class="box"><div class="l muted">Racha</div><div class="v" id="streak">0</div></div>
+        <div class="box"><div class="l muted">Mejor</div><div class="v" id="bestMath">0</div></div>
+      </div>
+      <div class="row" style="justify-content:center;margin:8px 0;">
+        <span class="mathQ" id="qMath">3 + 4 × 2 = ?</span>
+      </div>
+      <div class="row" style="justify-content:center;gap:8px" id="optMath"></div>
+      <div class="row" style="justify-content:center;margin-top:10px">
+        <button class="btn accent" id="startMath">Comenzar</button>
+        <span class="hint">+10 acierto, −5 fallo. Operadores: + − × ÷ (enteros).</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORDENA 1→9 -->
+  <section class="card" id="tab-order" style="display:none">
+    <h2>🔢 Ordena del 1 al 9</h2>
+    <div class="content" style="text-align:center">
+      <div class="kpi" style="max-width:600px;margin:0 auto">
+        <div class="box"><div class="l muted">Tiempo (s)</div><div class="v" id="tOrder">0.00</div></div>
+        <div class="box"><div class="l muted">Clicks</div><div class="v" id="cOrder">0</div></div>
+        <div class="box"><div class="l muted">Puntos</div><div class="v score" id="sOrder">0</div></div>
+        <div class="box"><div class="l muted">Mejor</div><div class="v" id="bestOrder">0</div></div>
+      </div>
+      <div class="board3x3" id="board"></div>
+      <div class="row" style="justify-content:center">
+        <button class="btn accent" id="startOrder">Nueva partida</button>
+        <span class="hint">Toca 1→9. Más rápido = más puntos.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOPA EXPRÉS -->
+  <section class="card" id="tab-sopa" style="display:none">
+    <h2>🔎 Sopa exprés (3 palabras)</h2>
+    <div class="content">
+      <div class="kpi">
+        <div class="box"><div class="l muted">Tiempo</div><div class="v" id="tSopa">45</div></div>
+        <div class="box"><div class="l muted">Encontradas</div><div class="v" id="foundSopa">0/3</div></div>
+        <div class="box"><div class="l muted">Puntos</div><div class="v score" id="sSopa">0</div></div>
+        <div class="box"><div class="l muted">Mejor</div><div class="v" id="bestSopa">0</div></div>
+      </div>
+      <div class="row" style="align-items:flex-start">
+        <div id="sopaGrid" class="letters"></div>
+        <div>
+          <p class="muted">Palabras a encontrar (↔ / ↕):</p>
+          <ul class="list" id="wordList"></ul>
+          <button class="btn accent" id="startSopa">Comenzar</button>
+          <p class="hint">Selecciona arrastrando: pulsa primera y última letra.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ CAPITALes -->
+  <section class="card" id="tab-quiz" style="display:none">
+    <h2>❓ Quiz: capitales del mundo (5)</h2>
+    <div class="content">
+      <div class="kpi">
+        <div class="box"><div class="l muted">Pregunta</div><div class="v" id="qNum">0/5</div></div>
+        <div class="box"><div class="l muted">Correctas</div><div class="v right" id="okQuiz">0</div></div>
+        <div class="box"><div class="l muted">Fallos</div><div class="v wrong" id="koQuiz">0</div></div>
+        <div class="box"><div class="l muted">Puntos</div><div class="v score" id="sQuiz">0</div></div>
+      </div>
+      <div class="row" style="gap:12px;align-items:flex-start">
+        <div style="flex:1">
+          <div id="qText" class="pill" style="display:inline-block">—</div>
+          <div id="qOpts" style="display:grid;grid-template-columns:repeat(2,minmax(120px,1fr));gap:8px;margin-top:10px"></div>
+        </div>
+        <div style="max-width:260px">
+          <button class="btn accent" id="startQuiz">Comenzar</button>
+          <p class="hint">+20 por acierto. 5 preguntas por ronda.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RANKING -->
+  <section class="card" id="tab-rank" style="display:none">
+    <h2>🏆 Ranking</h2>
+    <div class="content">
+      <div class="row" style="gap:8px;margin-bottom:10px">
+        <select id="rankGame">
+          <option value="math">Cálculo</option>
+          <option value="order">Ordena</option>
+          <option value="sopa">Sopa</option>
+          <option value="quiz">Quiz</option>
+        </select>
+        <button class="btn" id="refreshRank">Actualizar</button>
+        <span class="hint">Se muestran los 10 mejores. Si configuras endpoint, verás los de todos.</span>
+      </div>
+      <table id="rankTable">
+        <thead><tr><th>#</th><th>Jugador</th><th>Puntos</th><th>Fecha</th><th>Fuente</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<script>
+/* ========= CONFIG =========
+   Si configuras un endpoint propio (p. ej., Google Apps Script), pon aquí la URL.
+   Debe aceptar:
+    - POST /scores  (body JSON {user, game, score, ts})
+    - GET  /scores?game=math|order|sopa|quiz  → [{user,score,ts}]
+*/
+const ENDPOINT_URL = ""; // ← deja vacío para solo localStorage
+
+/* ========= UTIL ========= */
+const $ = sel => document.querySelector(sel);
+const $$ = sel => [...document.querySelectorAll(sel)];
+const fmt = n => new Intl.NumberFormat('es-ES').format(n);
+const todayISO = () => new Date().toISOString();
+
+function getPlayer(){
+  const v = $("#player").value.trim();
+  return v.length >= 2 ? v : null;
+}
+function toast(msg){
+  console.log("[INFO]", msg);
+}
+function saveLocalScore(user, game, score){
+  const key = "urgent-games-scores";
+  const arr = JSON.parse(localStorage.getItem(key) || "[]");
+  arr.push({user, game, score, ts: todayISO(), src:"local"});
+  localStorage.setItem(key, JSON.stringify(arr));
+}
+async function saveRemoteScore(user, game, score){
+  if(!ENDPOINT_URL) return;
+  try{
+    await fetch(ENDPOINT_URL+"/scores",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({user, game, score, ts: todayISO()})
+    });
+  }catch(e){ console.warn("No se pudo enviar al endpoint:", e); }
+}
+async function saveScore(game, score){
+  const user = getPlayer() || "Anónimo";
+  saveLocalScore(user, game, score);
+  await saveRemoteScore(user, game, score);
+  toast(`Guardado ${game}: ${score}`);
+  // actualizar “mejor” local
+  setBestBadges();
+}
+function topLocal(game, limit=10){
+  const arr = JSON.parse(localStorage.getItem("urgent-games-scores")||"[]")
+              .filter(x=>x.game===game)
+              .sort((a,b)=>b.score-a.score)
+              .slice(0,limit);
+  return arr;
+}
+async function topMerged(game){
+  const local = topLocal(game, 10).map(x=>({...x,src:"local"}));
+  if(!ENDPOINT_URL){
+    return local;
+  }
+  try{
+    const res = await fetch(ENDPOINT_URL+"/scores?game="+encodeURIComponent(game));
+    const cloud = (await res.json()).map(x=>({...x,src:"nube"}));
+    // Mezclar y deduplicar por (user,score,ts)
+    const all = [...local, ...cloud];
+    const uniq = [];
+    const seen = new Set();
+    for(const r of all){
+      const k = `${r.user}|${r.score}|${r.ts}`;
+      if(!seen.has(k)){ seen.add(k); uniq.push(r); }
+    }
+    return uniq.sort((a,b)=>b.score-a.score).slice(0,10);
+  }catch(e){
+    console.warn("No se pudo leer del endpoint", e);
+    return local;
+  }
+}
+function setBestBadges(){
+  const best=(game)=> {
+    const t=topLocal(game,1);
+    return t.length? t[0].score: 0;
+  };
+  $("#bestMath").textContent = best("math");
+  $("#bestOrder").textContent = best("order");
+  $("#bestSopa").textContent = best("sopa");
+  $("#bestQuiz").textContent = best("quiz");
+}
+
+/* ========= TABS ========= */
+$("#tabs").addEventListener("click", (e)=>{
+  const btn = e.target.closest(".tab");
+  if(!btn) return;
+  $$(".tab").forEach(t=>t.classList.remove("active"));
+  btn.classList.add("active");
+  const id = btn.dataset.tab;
+  ["math","order","sopa","quiz","rank"].forEach(t=>{
+    $("#tab-"+t).style.display = (t===id)?"block":"none";
+  });
+  if(id==="rank") renderRanking();
+});
+
+/* ========= HEADER ========= */
+$("#saveName").addEventListener("click", ()=>{
+  const v = getPlayer();
+  if(!v){ alert("Introduce un nombre (≥ 2 caracteres)."); return; }
+  localStorage.setItem("urgent-games-player", v);
+  toast("Jugador guardado");
+});
+(function initName(){
+  const v = localStorage.getItem("urgent-games-player");
+  if(v) $("#player").value = v;
+})();
+
+/* ========= JUEGO 1: CÁLCULO ========= */
+let mathTimer=null, mathTime=60, mathScore=0, mathStreak=0, mathAns=0;
+function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+function genMath(){
+  const ops = ["+","-","×","÷"];
+  const a=rnd(2,25), b=rnd(2,25);
+  const op = ops[rnd(0,3)];
+  let expr="", res=0;
+  if(op==="÷"){
+    // hacer división exacta
+    const d=rnd(2,10);
+    const q=rnd(2,12);
+    expr = `${d*q} ÷ ${d}`;
+    res = q;
+  }else if(op==="×"){
+    expr = `${a} × ${b}`;
+    res = a*b;
+  }else if(op==="-"){
+    expr = `${a} − ${b}`;
+    res = a-b;
+  }else{
+    expr = `${a} + ${b}`;
+    res = a+b;
+  }
+  $("#qMath").textContent = expr+" = ?";
+  mathAns = res;
+  const opts = new Set([res]);
+  while(opts.size<4){
+    const delta = rnd(-12,12);
+    let v = res+delta;
+    if(v===res) v = res+delta+1;
+    opts.add(v);
+  }
+  const arr=[...opts].sort(()=>Math.random()-0.5);
+  const cont=$("#optMath"); cont.innerHTML="";
+  arr.forEach(v=>{
+    const b=document.createElement("button");
+    b.className="btn"; b.textContent=v;
+    b.onclick=()=>pickMath(v);
+    cont.appendChild(b);
+  });
+}
+function pickMath(v){
+  if(v===mathAns){ mathScore+=10; mathStreak++; }
+  else { mathScore=Math.max(0, mathScore-5); mathStreak=0; }
+  $("#sMath").textContent=mathScore;
+  $("#streak").textContent=mathStreak;
+  genMath();
+}
+function tickMath(){
+  $("#tMath").textContent = mathTime;
+  if(mathTime<=0){
+    clearInterval(mathTimer); mathTimer=null;
+    saveScore("math", mathScore);
+    alert(`Fin: ${mathScore} puntos`);
+    return;
+  }
+  mathTime--;
+}
+$("#startMath").addEventListener("click", ()=>{
+  if(mathTimer) clearInterval(mathTimer);
+  mathTime=60; mathScore=0; mathStreak=0;
+  $("#sMath").textContent=0; $("#streak").textContent=0; $("#tMath").textContent=60;
+  genMath();
+  mathTimer=setInterval(tickMath,1000);
+});
+
+/* ========= JUEGO 2: ORDENA ========= */
+let orderExpect=1, orderStart=0, orderClicks=0, orderScore=0;
+function newOrder(){
+  orderExpect=1; orderClicks=0; orderScore=0;
+  $("#cOrder").textContent=0; $("#sOrder").textContent=0; $("#tOrder").textContent="0.00";
+  const nums=[1,2,3,4,5,6,7,8,9].sort(()=>Math.random()-0.5);
+  const b=$("#board"); b.innerHTML="";
+  nums.forEach(n=>{
+    const d=document.createElement("div"); d.className="tile"; d.textContent=n;
+    d.onclick=()=>tapTile(d,n);
+    b.appendChild(d);
+  });
+  orderStart=performance.now();
+}
+function tapTile(el,n){
+  orderClicks++; $("#cOrder").textContent=orderClicks;
+  if(n===orderExpect){
+    el.classList.add("ok");
+    if(orderExpect===9){
+      const t=(performance.now()-orderStart)/1000;
+      $("#tOrder").textContent=t.toFixed(2);
+      // puntos: base 200 - 10*segundos (mín 10)
+      const pts=Math.max(10, Math.round(200 - 10*t));
+      orderScore=pts; $("#sOrder").textContent=pts;
+      saveScore("order", pts);
+      alert(`¡Hecho en ${t.toFixed(2)} s! +${pts} pts`);
+    }
+    orderExpect++;
+  }else{
+    el.classList.add("bad");
+    setTimeout(()=>el.classList.remove("bad"),180);
+  }
+}
+$("#startOrder").addEventListener("click", newOrder);
+
+/* ========= JUEGO 3: SOPA EXPRÉS ========= */
+let sopaTimer=null, sopaTime=45, sopaScore=0, sopaWords=["SALUD","URGENCIA","PACIENTE"];
+let sopaGrid=[], selStart=null, foundCount=0;
+function placeWords(gridSize=8){
+  // Crea una matriz gridSize x gridSize con letras aleatorias y coloca 3 palabras ↔ / ↕
+  const grid=Array.from({length:gridSize},()=>Array(gridSize).fill(null));
+  const dirs=[[1,0],[0,1]]; // H y V
+  const words=[...sopaWords].sort(()=>Math.random()-0.5);
+  for(const w of words){
+    let placed=false, tries=0;
+    while(!placed && tries<200){
+      tries++;
+      const [dx,dy]=dirs[Math.floor(Math.random()*dirs.length)];
+      const x0=Math.floor(Math.random()*gridSize), y0=Math.floor(Math.random()*gridSize);
+      const x1=x0+dx*(w.length-1), y1=y0+dy*(w.length-1);
+      if(x1<0||x1>=gridSize||y1<0||y1>=gridSize) continue;
+      // comprobar solapes
+      let ok=true;
+      for(let i=0;i<w.length;i++){
+        const x=x0+dx*i, y=y0+dy*i;
+        if(grid[y][x] && grid[y][x]!==w[i]){ ok=false; break; }
+      }
+      if(!ok) continue;
+      for(let i=0;i<w.length;i++){
+        const x=x0+dx*i, y=y0+dy*i;
+        grid[y][x]=w[i];
+      }
+      placed=true;
+    }
+  }
+  // rellenar vacíos
+  const letters="ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+  for(let y=0;y<gridSize;y++){
+    for(let x=0;x<gridSize;x++){
+      if(!grid[y][x]) grid[y][x]=letters[rnd(0,letters.length-1)];
+    }
+  }
+  return grid;
+}
+function renderSopa(){
+  const g=$("#sopaGrid"); g.innerHTML="";
+  sopaGrid.forEach((row,y)=>{
+    row.forEach((ch,x)=>{
+      const d=document.createElement("div");
+      d.className="cell"; d.textContent=ch;
+      d.dataset.x=x; d.dataset.y=y;
+      d.onmousedown=()=> startSel(d);
+      d.onmouseup=()=> endSel(d);
+      g.appendChild(d);
+    });
+  });
+  // lista de palabras
+  const ul=$("#wordList"); ul.innerHTML="";
+  sopaWords.forEach(w=>{
+    const li=document.createElement("li"); li.textContent=w; li.id="w-"+w; ul.appendChild(li);
+  });
+}
+function startSel(el){ $$(".cell").forEach(c=>c.classList.remove("sel")); el.classList.add("sel"); selStart=el; }
+function endSel(el){
+  if(!selStart) return;
+  const x0=+selStart.dataset.x, y0=+selStart.dataset.y;
+  const x1=+el.dataset.x, y1=+el.dataset.y;
+  const horiz=(y0===y1), vert=(x0===x1);
+  if(!(horiz||vert)) { selStart=null; return; }
+  let word="";
+  const path=[];
+  if(horiz){
+    const [a,b]=x0<=x1?[x0,x1]:[x1,x0];
+    for(let x=a;x<=b;x++){ word+=sopaGrid[y0][x]; path.push([x,y0]); }
+  }else{
+    const [a,b]=y0<=y1?[y0,y1]:[y1,y0];
+    for(let y=a;y<=b;y++){ word+=sopaGrid[y][x0]; path.push([x0,y]); }
+  }
+  if(sopaWords.includes(word)){
+    path.forEach(([x,y])=>{
+      const c=[...$$(".cell")].find(n=>+n.dataset.x===x && +n.dataset.y===y);
+      c.classList.add("found");
+    });
+    const li=$("#w-"+word); if(li) li.innerHTML=`<span class="right">✔ ${word}</span>`;
+    foundCount++; $("#foundSopa").textContent=`${foundCount}/3`;
+    sopaScore+=30; $("#sSopa").textContent=sopaScore;
+    if(foundCount===3){
+      clearInterval(sopaTimer); sopaTimer=null;
+      saveScore("sopa", sopaScore + Math.max(0,sopaTime)*2); // bonus por tiempo
+      alert(`¡Sopa completa! Puntos: ${$("#sSopa").textContent}`);
+    }
+  }
+  selStart=null;
+}
+function tickSopa(){
+  $("#tSopa").textContent=sopaTime;
+  if(sopaTime<=0){
+    clearInterval(sopaTimer); sopaTimer=null;
+    alert("Tiempo agotado");
+    saveScore("sopa", sopaScore);
+    return;
+  }
+  sopaTime--;
+}
+$("#startSopa").addEventListener("click", ()=>{
+  if(sopaTimer) clearInterval(sopaTimer);
+  sopaGrid=placeWords(8); sopaTime=45; sopaScore=0; foundCount=0;
+  $("#tSopa").textContent=45; $("#sSopa").textContent=0; $("#foundSopa").textContent="0/3";
+  renderSopa();
+  sopaTimer=setInterval(tickSopa,1000);
+});
+
+/* ========= JUEGO 4: QUIZ ========= */
+const BANK = [
+  {q:"Capital de Canadá", a:["Toronto","Vancouver","Ottawa","Montreal"], ok:2},
+  {q:"Capital de Australia", a:["Melbourne","Sídney","Canberra","Perth"], ok:2},
+  {q:"Capital de Brasil", a:["Río","Brasilia","São Paulo","Salvador"], ok:1},
+  {q:"Capital de Marruecos", a:["Casablanca","Rabat","Fez","Tánger"], ok:1},
+  {q:"Capital de Turquía", a:["Estambul","Ankara","Esmirna","Bursa"], ok:1},
+  {q:"Capital de Suiza", a:["Zúrich","Ginebra","Berna","Basilea"], ok:2},
+  {q:"Capital de India", a:["Bombay","Calcuta","Nueva Delhi","Chennai"], ok:2},
+  {q:"Capital de Sudáfrica", a:["Pretoria","Ciudad del Cabo","Bloemfontein","Todas"], ok:3},
+  {q:"Capital de Croacia", a:["Split","Dubrovnik","Zadar","Zagreb"], ok:3},
+  {q:"Capital de Vietnam", a:["Ho Chi Minh","Hanói","Da Nang","Hue"], ok:1},
+];
+let quizSel=[], qi=0, qOk=0, qKo=0, qScore=0;
+function newQuiz(){
+  quizSel = BANK.sort(()=>Math.random()-0.5).slice(0,5);
+  qi=0; qOk=0; qKo=0; qScore=0;
+  $("#qNum").textContent=`0/5`; $("#okQuiz").textContent=0; $("#koQuiz").textContent=0; $("#sQuiz").textContent=0;
+  renderQ();
+}
+function renderQ(){
+  const item = quizSel[qi];
+  if(!item){ // fin
+    saveScore("quiz", qScore);
+    alert(`Quiz terminado. Puntos: ${qScore}`);
+    return;
+  }
+  $("#qNum").textContent=`${qi+1}/5`;
+  $("#qText").textContent=item.q;
+  const box=$("#qOpts"); box.innerHTML="";
+  item.a.forEach((txt,idx)=>{
+    const b=document.createElement("button");
+    b.className="btn"; b.textContent=txt;
+    b.onclick=()=>pickQ(idx);
+    box.appendChild(b);
+  });
+}
+function pickQ(idx){
+  const item = quizSel[qi];
+  if(idx===item.ok){ qOk++; qScore+=20; } else { qKo++; }
+  $("#okQuiz").textContent=qOk; $("#koQuiz").textContent=qKo; $("#sQuiz").textContent=qScore;
+  qi++; renderQ();
+}
+$("#startQuiz").addEventListener("click", newQuiz);
+
+/* ========= RANKING ========= */
+async function renderRanking(){
+  const game=$("#rankGame").value;
+  const rows = await topMerged(game);
+  const tb=$("#rankTable tbody"); tb.innerHTML="";
+  rows.forEach((r,i)=>{
+    const tr=document.createElement("tr");
+    tr.innerHTML=`<td>${i+1}</td><td>${r.user}</td><td>${fmt(r.score)}</td><td>${new Date(r.ts).toLocaleString('es-ES')}</td><td>${r.src||'—'}</td>`;
+    tb.appendChild(tr);
+  });
+}
+$("#refreshRank").addEventListener("click", renderRanking);
+$("#rankGame").addEventListener("change", renderRanking);
+
+/* ========= INIT ========= */
+setBestBadges();
+</script>
+</body>
+</html>

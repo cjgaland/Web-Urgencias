@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Ranking · Juegos · Urgencias</title>
+
+<link rel="icon" href="../../favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+<style>
+  .wrap{max-width:1000px;margin:0 auto;padding:1rem}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+  .card{background:#fff;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.08);padding:1rem}
+  .row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+  .btn{border:0;border-radius:10px;padding:.55rem .9rem;font-weight:600;cursor:pointer}
+  .btn-primary{background:#0d6efd;color:#fff}
+  .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,.12)}
+  table{width:100%;border-collapse:collapse}
+  th,td{padding:.55rem;border-top:1px solid #eee;text-align:left}
+  th{background:#f8fafc;position:sticky;top:0}
+  .muted{color:#666}
+  .chip{font-size:.85rem;background:#f3f6ff;border:1px solid #e6ecff;border-radius:999px;padding:.2rem .55rem}
+</style>
+</head>
+<body>
+
+<!-- Sidebar (idéntica a juego.html, con Utilidades activo) -->
+<aside class="sidebar" aria-label="Navegación principal">
+  <div class="sidebar-header"><img src="../../images/logo-ags.png" alt="AGS Sur de Córdoba"/></div>
+  <nav>
+    <ul>
+      <li><a href="../../index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+      <li><a href="../../Algoritmos/index.html"><i class="fas fa-sitemap"></i> <span>Algoritmos diagnósticos</span></a></li>
+      <li><a href="../../Calculadoras/index.html"><i class="fas fa-calculator"></i> <span>Calculadoras médicas</span></a></li>
+      <li><a href="../../Utilidades/index.html" class="active"><i class="fas fa-toolbox"></i> <span>Utilidades</span></a></li>
+      <li><a href="../../Formacion/index.html"><i class="fas fa-graduation-cap"></i> <span>Formación</span></a></li>
+      <li><a href="../../Enlaces/index.html"><i class="fas fa-link"></i> <span>Enlaces útiles</span></a></li>
+      <li><a href="../../Documentos/index.html"><i class="fas fa-file-lines"></i> <span>Documentos y plantillas</span></a></li>
+      <li><a href="../../Calidad/index.html"><i class="fas fa-shield-heart"></i> <span>Calidad y Seguridad del Paciente</span></a></li>
+    </ul>
+    <ul class="submenu-criticos">
+      <li><a href="../../Criticos/index.html"><i class="fas fa-procedures"></i> <span>Sala de Críticos</span></a></li>
+    </ul>
+    <ul class="submenu-equipo">
+      <li><a href="../../Profesionales/index.html"><i class="fas fa-user-md"></i> <span>Fichas del personal</span></a></li>
+      <li><a href="../../Cuadrantes/index.html"><i class="fas fa-calendar-alt"></i> <span>Cuadrantes de trabajo</span></a></li>
+    </ul>
+  </nav>
+</aside>
+
+<header class="masthead">
+  <div class="masthead-left"><img src="../../images/Logo-Salud2.png" alt="Junta de Andalucía · Consejería de Salud"/></div>
+  <div class="masthead-right"><img src="../../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Servicio de Urgencias · Hospital de Montilla"/></div>
+</header>
+
+<main class="main-content" role="main">
+  <section class="hero">
+    <div class="hero-icon"><i class="fa-solid fa-trophy"></i></div>
+    <div class="hero-text">
+      <h1>Ranking de juegos</h1>
+      <p>Consulta los mejores resultados guardados localmente. Opcionalmente, activa la nube (Google Sheets / Apps Script) para ver el ranking del equipo.</p>
+    </div>
+  </section>
+
+  <nav class="calc-toc" aria-label="Navegación secundaria">
+    <a href="./index.html">Juegos</a>
+    <a href="./juego.html?game=quiz-dx">Jugar Quiz DX</a>
+  </nav>
+
+  <div class="wrap">
+    <div class="row" style="justify-content:space-between;margin:.5rem 0 1rem">
+      <div class="row">
+        <label class="chip">Juego</label>
+        <select id="selGame">
+          <option value="quiz-dx">Quiz diagnóstico</option>
+          <option value="reflejos">Reflejos clínicos</option>
+          <option value="agudeza-visual">Agudeza visual</option>
+          <option value="agudeza-mental">Agudeza mental</option>
+          <option value="localizacion">Localiza la lesión</option>
+        </select>
+      </div>
+      <div class="row">
+        <span class="muted">Fuente:</span>
+        <span class="chip" id="srcLocal">LocalStorage</span>
+        <span class="chip" id="srcCloud" style="display:none">Nube</span>
+        <button id="btnRefresh" class="btn btn-ghost">Actualizar</button>
+      </div>
+    </div>
+
+    <section class="card">
+      <h2 style="margin:0 0 .5rem">Top 10</h2>
+      <div class="muted" style="margin-bottom:.5rem">Ordenado por puntuación (desc).</div>
+      <table>
+        <thead><tr><th>#</th><th>Jugador</th><th>Puntos</th><th>Fecha</th><th>Fuente</th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </section>
+  </div>
+
+  <p class="disclaimer strong" style="margin-top:1rem">
+    Material interno. Comprueba la vigencia y adecuación clínica antes de su uso.
+  </p>
+</main>
+
+<script type="module">
+  // === Config nube (opcional): deja vacío para solo local ===
+  const ENDPOINT_URL = ""; // p.ej. "https://script.google.com/macros/s/AKfycbx.../exec"
+
+  const $ = (s, el=document)=> el.querySelector(s);
+  const tb = $("#tbody");
+  const selGame = $("#selGame");
+  const srcLocal = $("#srcLocal");
+  const srcCloud = $("#srcCloud");
+
+  function topLocal(game, limit=10){
+    try{
+      const arr = JSON.parse(localStorage.getItem("urgent-games-scores")||"[]")
+        .filter(x=>x.game===game)
+        .sort((a,b)=> (b.score||0) - (a.score||0))
+        .slice(0,limit);
+      return arr.map(r=>({...r, src:"local"}));
+    }catch(e){ return []; }
+  }
+
+  async function topCloud(game){
+    if(!ENDPOINT_URL) return [];
+    try{
+      const res = await fetch(`${ENDPOINT_URL}?game=${encodeURIComponent(game)}`);
+      const data = await res.json(); // [{user,score,ts}]
+      return data.map(r=>({...r, src:"nube"}));
+    }catch(e){
+      console.warn("No se pudo leer de la nube:", e);
+      return [];
+    }
+  }
+
+  async function render(){
+    const game = selGame.value;
+    const local = topLocal(game, 10);
+    const cloud = await topCloud(game);
+    const rows = [...local, ...cloud].sort((a,b)=> (b.score||0) - (a.score||0)).slice(0,10);
+    srcCloud.style.display = cloud.length ? "inline-block" : "none";
+
+    tb.innerHTML = "";
+    rows.forEach((r,i)=>{
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${i+1}</td>
+        <td>${r.user || "—"}</td>
+        <td>${r.score ?? "—"}</td>
+        <td>${r.ts ? new Date(r.ts).toLocaleString("es-ES") : "—"}</td>
+        <td>${r.src || "—"}</td>
+      `;
+      tb.appendChild(tr);
+    });
+  }
+
+  $("#btnRefresh").addEventListener("click", render);
+  selGame.addEventListener("change", render);
+  render();
+</script>
+
+</body>
+</html>

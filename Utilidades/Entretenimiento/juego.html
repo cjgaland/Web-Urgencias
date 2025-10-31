@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Juegos · Urgencias – AGS Sur de Córdoba</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon_transp-180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon_transp-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon_transp-16.png">
+
+  <!-- Estilos globales -->
+  <link rel="stylesheet" href="../../css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- Estilos suaves para el área de juego (no rompen tu theme) -->
+  <style>
+    .game-meta{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin:.25rem 0 1rem}
+    .chip{font-size:.85rem;background:#f3f6ff;border:1px solid #e6ecff;border-radius:999px;padding:.2rem .55rem}
+    .game-toolbar{display:flex;gap:.5rem;flex-wrap:wrap}
+    .btn{border:0;border-radius:10px;padding:.55rem .9rem;cursor:pointer;font-weight:600;line-height:1}
+    .btn-primary{background:#0d6efd;color:#fff}
+    .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,.12)}
+    .btn-secondary{background:#e9eefb}
+    .game-root{min-height:320px;border:1px dashed rgba(0,0,0,.08);border-radius:10px;padding:.75rem;display:grid;place-items:center;background:#fff}
+    .player-box{display:flex;align-items:center;gap:.5rem}
+    .player-box input{border:1px solid #e5e7eb;border-radius:10px;padding:.45rem .6rem}
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" aria-label="Navegación principal">
+    <div class="sidebar-header">
+      <img src="../../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba"/>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="../../index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+        <li><a href="../../Algoritmos/index.html"><i class="fas fa-sitemap"></i> <span>Algoritmos diagnósticos</span></a></li>
+        <li><a href="../../Calculadoras/index.html"><i class="fas fa-calculator"></i> <span>Calculadoras médicas</span></a></li>
+        <li><a href="../../Utilidades/index.html" class="active"><i class="fas fa-toolbox"></i> <span>Utilidades</span></a></li>
+        <li><a href="../../Formacion/index.html"><i class="fas fa-graduation-cap"></i> <span>Formación</span></a></li>
+        <li><a href="../../Enlaces/index.html"><i class="fas fa-link"></i> <span>Enlaces útiles</span></a></li>
+        <li><a href="../../Documentos/index.html"><i class="fas fa-file-lines"></i> <span>Documentos y plantillas</span></a></li>
+        <li><a href="../../Calidad/index.html"><i class="fas fa-shield-heart"></i> <span>Calidad y Seguridad del Paciente</span></a></li>
+      </ul>
+      <ul class="submenu-criticos">
+        <li><a href="../../Criticos/index.html"><i class="fas fa-procedures"></i> <span>Sala de Críticos</span></a></li>
+      </ul>
+      <ul class="submenu-equipo">
+        <li><a href="../../Profesionales/index.html"><i class="fas fa-user-md"></i> <span>Fichas del personal</span></a></li>
+        <li><a href="../../Cuadrantes/index.html"><i class="fas fa-calendar-alt"></i> <span>Cuadrantes de trabajo</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Cabecera con logos -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <img src="../../images/Logo-Salud2.png" alt="Junta de Andalucía · Consejería de Salud"/>
+    </div>
+    <div class="masthead-right">
+      <img src="../../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Servicio de Urgencias · Hospital de Montilla"/>
+    </div>
+  </header>
+
+  <!-- Contenido -->
+  <main class="main-content" role="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-icon" aria-hidden="true"><i class="fa-solid fa-gamepad"></i></div>
+      <div class="hero-text">
+        <!-- Título dinámico: lo actualizará games-core según ?game= -->
+        <h1 id="game-title">Juego</h1>
+        <p>Mini-juego lúdico-formativo. Usa el alias para el ranking local (y nube si se activa).</p>
+      </div>
+    </section>
+
+    <!-- Migas / Acciones -->
+    <nav class="calc-toc" aria-label="Navegación secundaria">
+      <a href="./index.html">Juegos</a>
+      <a href="./ranking.html">Ranking</a>
+    </nav>
+
+    <!-- Meta y controles -->
+    <section class="game-meta" aria-label="Metadatos del juego">
+      <span id="best-label" class="chip">Mejor: —</span>
+
+      <div class="player-box">
+        <label for="playerAlias" class="chip" title="Alias para ranking">Alias</label>
+        <input id="playerAlias" type="text" placeholder="Nombre o alias" minlength="2" maxlength="24" />
+        <button id="btnSaveAlias" class="btn btn-secondary">Guardar</button>
+      </div>
+
+      <div class="game-toolbar" style="margin-left:auto">
+        <button id="btn-reset" class="btn btn-ghost">Reiniciar</button>
+        <a class="btn btn-primary" href="./index.html">Volver</a>
+      </div>
+    </section>
+
+    <!-- Área donde el módulo inyecta su UI -->
+    <section id="game-root" class="game-root" aria-live="polite">
+      Cargando módulo…
+    </section>
+
+    <p class="disclaimer strong" style="margin-top:1rem">
+      Material interno. Comprueba la vigencia y adecuación clínica antes de su uso.
+    </p>
+  </main>
+
+  <!-- Guarda/recupera alias para ranking local -->
+  <script>
+    (function(){
+      const inp = document.getElementById('playerAlias');
+      const btn = document.getElementById('btnSaveAlias');
+      const key = 'urgent-games-player';
+      try {
+        const v = localStorage.getItem(key);
+        if (v) inp.value = v;
+      } catch(_) {}
+      btn?.addEventListener('click', ()=>{
+        const v = (inp.value||'').trim();
+        if(v.length < 2){ alert('Introduce un alias (≥ 2 caracteres)'); return; }
+        try { localStorage.setItem(key, v); } catch(_) {}
+      });
+    })();
+  </script>
+
+  <!-- Núcleo de juegos: resolverá ?game=quiz-dx | reflejos | ... y cargará el módulo -->
+  <script type="module" src="./js/games-core.js?v=20251031"></script>
+</body>
+</html>

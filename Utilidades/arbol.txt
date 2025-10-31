@@ -1,0 +1,14 @@
+Utilidades
+¦   
++---Tratamientos
+    ¦   index.html
+    ¦   script.js
+    ¦   style.css
+    ¦   tratamiento.html
+    ¦   
+    +---data
+
+            profesionales.txt
+
+
+            

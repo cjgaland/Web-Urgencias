@@ -1,0 +1,7 @@
+[
+  {"id":"r01","stim":"Parada con ritmo FV/TV sin pulso","ok":"Desfibrilar"},
+  {"id":"r02","stim":"Anafilaxia con hipotensión y sibilancias","ok":"Adrenalina"},
+  {"id":"r03","stim":"Insuficiencia respiratoria hipoxémica","ok":"Oxígeno"},
+  {"id":"r04","stim":"Glasgow 7 con vía aérea no protegida","ok":"Vía aérea"},
+  {"id":"r05","stim":"Mareo leve sin hipotensión","ok":"Reposo"}
+]
