@@ -27,8 +27,8 @@
 
         header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; padding: 8px 12px; border-bottom: 1px solid #d8dde6; background: #fff; height: 70px; }
         .header-left, .header-right { display: flex; align-items: center; gap: 8px; } .header-right { justify-content: flex-end; }
-        .btn { display: inline-flex; align-items: center; gap: .5rem; cursor: pointer; border: none; border-radius: 12px; padding: 8px 12px; font-weight: 800; background: var(--red); color: #fff; font-size: var(--fs-sm); box-shadow: var(--shadow); transition: background .2s; } .btn:hover { background: var(--red2); } .btn-blue { background: var(--blue); } .btn-blue:hover { background: var(--blue2); }
-        .fab-header{ width:44px; height:44px; border-radius:50%; display:grid; place-items:center; text-decoration:none; color:#fff; border:1px solid #1e2433; box-shadow:var(--shadow); background:#151823; transition: filter .2s; } .fab-header.home{ background:var(--blue); } .fab-header.crit{ background:var(--red); } .fab-header:hover{ filter:brightness(1.1); }
+        .btn { display: inline-flex; align-items: center; gap: .5rem; cursor: pointer; border: none; border-radius: 12px; padding: 8px 12px; font-weight: 800; background: var(--red); color: #fff; font-size: var(--fs-sm); box-shadow: var(--shadow); transition: all 0.2s ease; } .btn:hover { background: var(--red2); transform: translateY(-1px); } .btn:active { transform: translateY(0); } .btn-blue { background: var(--blue); } .btn-blue:hover { background: var(--blue2); }
+        .fab-header{ width:44px; height:44px; border-radius:50%; display:grid; place-items:center; text-decoration:none; color:#fff; border:1px solid #1e2433; box-shadow:var(--shadow); background:#151823; transition: all 0.2s ease; } .fab-header.home{ background:var(--blue); } .fab-header.crit{ background:var(--red); } .fab-header:hover{ filter:brightness(1.1); transform: translateY(-1px); }
         
         .center { text-align: center; line-height: 1.1; color: #000; }
         .center .dt { font-size: var(--fs-sm); color: #000; font-weight: 800; }
@@ -61,15 +61,62 @@
         #g-medicacion { grid-area: med; } 
         #g-alertas { grid-area: alertas; }
 
-        .group { background: var(--card); color: var(--ink); border: 1px solid #082d71; border-radius: var(--radius); padding: 8px; display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 6px; box-shadow: var(--shadow); overflow: hidden; }
+        .group { 
+            background: var(--card); 
+            color: var(--ink); 
+            border: 1px solid #082d71; 
+            border-radius: var(--radius); 
+            padding: 8px; 
+            display: grid; 
+            grid-template-rows: auto minmax(0, 1fr); 
+            gap: 6px; 
+            box-shadow: var(--shadow); 
+            overflow: hidden; 
+            transition: all 0.2s ease;
+        }
+        .group:hover {
+            box-shadow: 0 12px 35px rgba(0,0,0,0.18);
+        }
         .group h3 { margin: 0; font-size: var(--fs-md); font-weight: 800; display: flex; align-items: center; gap: 8px; }
-        .row { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: var(--gap); height: 100%; }
+        .row { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: var(--gap); height: 100%; align-items: stretch; }
         
         /* --- AJUSTES DE TAMAÑO PARA UNIFORMIDAD --- */
         #g-c .row { grid-template-columns: repeat(4, 1fr); } 
         #g-medicacion .row { grid-template-columns: repeat(4, 1fr); } /* 4 subtarjetas iguales */
 
-        .item { background: var(--item-bg); color: var(--item-ink); border: 1px solid var(--item-stroke); border-radius: 10px; padding: 8px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+        .item { 
+            background: var(--item-bg); 
+            color: var(--item-ink); 
+            border: 1px solid var(--item-stroke); 
+            border-radius: 10px; 
+            padding: 8px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 6px; 
+            min-width: 0; 
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        .item:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .item:focus-within {
+            outline: 2px solid var(--blue);
+            outline-offset: 2px;
+        }
+        
+        /* Estados de prioridad visual */
+        .priority-high {
+            border-left: 4px solid var(--red);
+        }
+        .priority-medium {
+            border-left: 4px solid var(--warn);
+        }
+        .priority-low {
+            border-left: 4px solid var(--green);
+        }
+        
         .select, .slider, .btn-ghost, .delta, .mechanism-buttons, .mechanism-info, .triage-lights, .triage-info, .item-controls, .inline-list.item-log, .pupil-grid, .gcs-sliders, .constants-sliders { flex-shrink: 0; }
         
         /* --- NUEVO DISEÑO COMPACTO PARA TRIAGE Y MECANISMO --- */
@@ -82,7 +129,8 @@
         #itm-triage .triage-lights { flex-direction: row; justify-content: center; gap: 12px; }
         #itm-triage .light-row { flex-direction: column; align-items: center; gap: 4px; }
         #itm-eval .mechanism-buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; justify-items: center; }
-        #itm-eval .mechanism-btn { min-width: 36px; padding: 6px; font-size: var(--fs-md); }
+        #itm-eval .mechanism-btn { min-width: 36px; padding: 6px; font-size: var(--fs-md); transition: all 0.2s ease; }
+        #itm-eval .mechanism-btn:active { transform: scale(0.95); }
         #itm-triage .triage-info, #itm-eval .mechanism-info { grid-column: 1 / -1; grid-row: 2 / 3; margin-top: 0; font-size: var(--fs-md); padding: 8px 10px; background: #2a2d1a; color: #e6d8a0; border: 1px solid #5a5528; border-radius: 8px; font-weight: 600; }
         #itm-triage .triage-info p, #itm-eval .mechanism-info p { margin: 0; line-height: 1.3; text-align: center; }
         #itm-triage .triage-info p[data-info="none"], #itm-eval .mechanism-info p[data-info="none"] { color: #a8a07a; font-weight: 400; }
@@ -91,22 +139,24 @@
         .item-top-row { display: grid; grid-template-columns: 1fr auto; gap: var(--gap); align-items: center; flex-shrink: 0; }
         .item-top-row .top { flex-grow: 1; min-height: 50px; } .item-top-row .delta { justify-self: end; align-self: center; flex-shrink: 0; }
         .top { display: block; position: relative; width: 100%; z-index: 2; } .top input[type="checkbox"], .top input[type="radio"] { display: none; }
-        .top label { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; min-height: 50px; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: var(--fs-md); color: #fff; background: #1a1e2d; border: 1px solid var(--item-stroke); transition: background .2s, border-color .2s; text-align: center; }
-        .top label:hover { background: #242a3e; border-color: #38425e; } .top input[type="checkbox"]:checked + label { background: var(--chip-green); border-color: var(--chip-green-b); box-shadow: 0 0 10px rgba(25, 135, 84, 0.5); }
+        .top label { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; min-height: 50px; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: var(--fs-md); color: #fff; background: #1a1e2d; border: 1px solid var(--item-stroke); transition: all 0.2s ease; text-align: center; }
+        .top label:hover { background: #242a3e; border-color: #38425e; transform: translateY(-1px); } .top input[type="checkbox"]:checked + label { background: var(--chip-green); border-color: var(--chip-green-b); box-shadow: 0 0 10px rgba(25, 135, 84, 0.5); }
         .delta{ justify-self:start; font:800 14px/1 "Courier New",monospace; background:#0b0d14; border:1px solid #242a39; border-radius:8px; padding:4px 8px; color:#e8eefb; flex-shrink: 0; }
 
         /* --- Triage Styles --- */
-        .triage-lights { display: flex; } .light-row { display: flex; align-items: center; } .triage-light { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--item-stroke); cursor: pointer; transition: all 0.2s; } .triage-light.red { background-color: var(--red-dim); --light-color: var(--red); } .triage-light.yellow { background-color: var(--warn-dim); --light-color: var(--warn); } .triage-light.green { background-color: var(--green-dim); --light-color: var(--green); } .triage-light.active { background-color: var(--light-color); box-shadow: 0 0 12px 2px var(--light-color); border-color: var(--light-color); } .triage-light:not(.active):hover { border-color: var(--item-ink); } .light-label { font-size: var(--fs-sm); color: var(--item-ink); font-weight: 600; }
+        .triage-lights { display: flex; } .light-row { display: flex; align-items: center; } .triage-light { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--item-stroke); cursor: pointer; transition: all 0.2s ease; } .triage-light.red { background-color: var(--red-dim); --light-color: var(--red); } .triage-light.yellow { background-color: var(--warn-dim); --light-color: var(--warn); } .triage-light.green { background-color: var(--green-dim); --light-color: var(--green); } .triage-light.active { background-color: var(--light-color); box-shadow: 0 0 12px 2px var(--light-color); border-color: var(--light-color); } .triage-light:not(.active):hover { border-color: var(--item-ink); transform: scale(1.1); } .light-label { font-size: var(--fs-sm); color: var(--item-ink); font-weight: 600; }
         .triage-info { width: 100%; font-size: var(--fs-xs); text-align: center; color: var(--item-ink); padding: 6px 8px; background: #0b0d14; border-radius: 6px; margin-top: auto; } .triage-info p { margin: 0; line-height: 1.3; } .triage-info p[data-info="none"] { color: #888; }
         /* --- Mechanism Styles --- */
-        .mechanism-buttons { display: flex; flex-wrap: wrap; } .mechanism-btn { background-color: var(--item-bg); border: 1px solid var(--item-stroke); color: var(--item-ink); border-radius: 8px; padding: 8px 10px; cursor: pointer; font-size: var(--fs-lg); line-height: 1; transition: all 0.2s; min-width: 44px; text-align: center; } .mechanism-btn i.ti { font-size: 1.1em; vertical-align: middle; } .mechanism-btn:hover { background-color: #1a1e2d; border-color: #38425e; } .mechanism-btn.active { background-color: var(--blue); border-color: var(--blue2); color: #fff; box-shadow: 0 0 10px rgba(0, 58, 142, 0.5); }
+        .mechanism-buttons { display: flex; flex-wrap: wrap; } .mechanism-btn { background-color: var(--item-bg); border: 1px solid var(--item-stroke); color: var(--item-ink); border-radius: 8px; padding: 8px 10px; cursor: pointer; font-size: var(--fs-lg); line-height: 1; transition: all 0.2s ease; min-width: 44px; text-align: center; } .mechanism-btn i.ti { font-size: 1.1em; vertical-align: middle; } .mechanism-btn:hover { background-color: #1a1e2d; border-color: #38425e; transform: translateY(-1px); } .mechanism-btn.active { background-color: var(--blue); border-color: var(--blue2); color: #fff; box-shadow: 0 0 10px rgba(0, 58, 142, 0.5); }
+
         .mechanism-info { width: 100%; font-size: var(--fs-sm); text-align: center; color: var(--item-ink); padding: 6px 8px; background: #0b0d14; border-radius: 6px; font-weight: 600; margin-top: auto; } .mechanism-info p { margin: 0; line-height: 1.3; } .mechanism-info p[data-info="none"] { color: #888; font-weight: 400; }
 
         /* --- MODIFICACIÓN: Estructura Select+Log MEJORADA --- */
         .item-controls { display: grid; grid-template-columns: 1fr auto; gap: var(--gap); align-items: center; margin: 4px 0 0 0; }
-        .item-add-btn { padding: 8px 12px; margin: 0; width: auto; flex-shrink: 0; }
+        .item-add-btn { padding: 8px 12px; margin: 0; width: auto; flex-shrink: 0; transition: all 0.2s ease; }
+        .item-add-btn:active { transform: translateY(1px); }
         .inline-list.item-log { 
-            font-size: var(--fs-xs); 
+            font-size: 11px; 
             line-height: 1.3; 
             flex-grow: 1; 
             min-height: 40px; 
@@ -118,12 +168,17 @@
             padding: 4px 6px; 
             margin-top: 0;
             color: var(--warn-pale);
+            font-family: 'Courier New', monospace;
         }
         .inline-list.item-log span { 
             display: block; 
             word-wrap: break-word;
             padding: 2px 0;
             border-bottom: 1px solid #1a1e2d;
+            transition: background 0.2s ease;
+        }
+        .inline-list.item-log span:hover {
+            background: rgba(255,255,255,0.05);
         }
         .inline-list.item-log span:last-child {
             border-bottom: none;
@@ -185,6 +240,10 @@
             border-radius: 3px; 
             display: grid; 
             place-content: center;
+            transition: all 0.2s ease;
+        }
+        .pupil-grid input[type="checkbox"]:hover {
+            border-color: var(--blue);
         }
         .pupil-grid input[type="checkbox"]::before { 
             content: ""; 
@@ -238,7 +297,7 @@
             font-weight: 600; 
             justify-self: start; 
             text-align: left;
-            font-size: 12px;
+            font-size: 18px;
             line-height: 1.2;
             white-space: nowrap;
         }
@@ -255,6 +314,10 @@
             border-radius: 3px; 
             display: grid; 
             place-content: center;
+            transition: all 0.2s ease;
+        }
+        .finproceso-grid input[type="checkbox"]:hover {
+            border-color: var(--blue);
         }
         .finproceso-grid input[type="checkbox"]::before { 
             content: ""; 
@@ -302,35 +365,63 @@
             gap: 3px;
             min-height: 40px;
             flex: 1;
+            max-height: 200px; /* ← NUEVA LÍNEA */
+            overflow-y: auto;  /* ← NUEVA LÍNEA */
         }
 
         .dynamic-alerts-list .no-alerts { 
             color: var(--item-ink); 
             font-style: italic; 
-            font-size: var(--fs-xxs); 
+            font-size: 11px; 
             text-align: center; 
             padding: 15px 0; 
         }
 
         .alert-line { 
-            font-size: var(--fs-xxs);
+            font-size: 11px;
             font-weight: 600;
             line-height: 1.2;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 6px;
-            padding: 2px 0;
+            padding: 5px 6px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        .alert-line:hover {
+            transform: translateX(2px);
+            background: rgba(255,255,255,0.05);
         }
 
-        .alert-line.danger { color: var(--red); }
-        .alert-line.warning { color: var(--warn); }
-        .alert-line.info { color: var(--cyan); }
+        .alert-line.danger { 
+            color: var(--red); 
+            background: rgba(220, 53, 69, 0.1);
+            border-left: 3px solid var(--red);
+        }
+        .alert-line.warning { 
+            color: var(--warn); 
+            background: rgba(255, 210, 63, 0.1);
+            border-left: 3px solid var(--warn);
+        }
+        .alert-line.info { 
+            color: var(--cyan); 
+            background: rgba(13, 202, 240, 0.1);
+            border-left: 3px solid var(--cyan);
+        }
 
         .alert-line i { 
-            font-size: 0.8em;
+            font-size: 0.7em;
             flex-shrink: 0;
-            width: 12px;
+            width: 10px;
             text-align: center;
+            margin-top: 1px;
+        }
+
+        .alert-line span {
+            flex: 1;
+            word-break: break-word;
         }
 
         .fixed-recommendations { 
@@ -358,7 +449,7 @@
         }
 
         .fixed-recommendations li {
-            font-size: var(--fs-xxs);
+            font-size: 10px;
             color: #aeb7cc; 
             display: flex;
             align-items: center;
@@ -367,26 +458,33 @@
         }
         .fixed-recommendations li i { 
             color: var(--item-ink); 
-            font-size: 0.9em;
+            font-size: 0.8em;
         }
         /* --- ▲▲▲ FIN Estilos Mejorados Tarjeta Alertas ▲▲▲ --- */
 
         .slider{ padding: 8px 0; }
         /* --- ESTILOS SLIDERS AZUL/GRIS --- */
-        .gcs-sliders input[type="range"], .constants-sliders input[type="range"], .header-slider input[type="range"] { accent-color: var(--blue); height: 6px; cursor: pointer; width: 100%; background: linear-gradient(to right, var(--blue) 0%, var(--blue) var(--value-percent, 50%), #ddd var(--value-percent, 50%), #ddd 100%); border-radius: 3px; outline: none; -webkit-appearance: none; appearance: none; }
-        .gcs-sliders input[type="range"]::-webkit-slider-thumb, .constants-sliders input[type="range"]::-webkit-slider-thumb, .header-slider input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; background: var(--blue); border-radius: 50%; cursor: pointer; margin-top: -6px; border: 2px solid var(--item-ink); box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
-        .gcs-sliders input[type="range"]::-moz-range-thumb, .constants-sliders input[type="range"]::-moz-range-thumb, .header-slider input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; background: var(--blue); border-radius: 50%; cursor: pointer; border: 2px solid var(--item-ink); box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+        .gcs-sliders input[type="range"], .constants-sliders input[type="range"], .header-slider input[type="range"] { accent-color: var(--blue); height: 6px; cursor: pointer; width: 100%; background: linear-gradient(to right, var(--blue) 0%, var(--blue) var(--value-percent, 50%), #ddd var(--value-percent, 50%), #ddd 100%); border-radius: 3px; outline: none; -webkit-appearance: none; appearance: none; transition: all 0.2s ease; }
+        .gcs-sliders input[type="range"]:hover, .constants-sliders input[type="range"]:hover, .header-slider input[type="range"]:hover { accent-color: var(--blue2); }
+        .gcs-sliders input[type="range"]::-webkit-slider-thumb, .constants-sliders input[type="range"]::-webkit-slider-thumb, .header-slider input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; background: var(--blue); border-radius: 50%; cursor: pointer; margin-top: -6px; border: 2px solid var(--item-ink); box-shadow: 0 1px 3px rgba(0,0,0,0.3); transition: all 0.2s ease; }
+        .gcs-sliders input[type="range"]::-webkit-slider-thumb:hover, .constants-sliders input[type="range"]::-webkit-slider-thumb:hover, .header-slider input[type="range"]::-webkit-slider-thumb:hover { background: var(--blue2); transform: scale(1.1); }
+        .gcs-sliders input[type="range"]::-moz-range-thumb, .constants-sliders input[type="range"]::-moz-range-thumb, .header-slider input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; background: var(--blue); border-radius: 50%; cursor: pointer; border: 2px solid var(--item-ink); box-shadow: 0 1px 3px rgba(0,0,0,0.3); transition: all 0.2s ease; }
+        .gcs-sliders input[type="range"]::-moz-range-thumb:hover, .constants-sliders input[type="range"]::-moz-range-thumb:hover, .header-slider input[type="range"]::-moz-range-thumb:hover { background: var(--blue2); transform: scale(1.1); }
 
-        .select{ width:100%; background:#0b0d14; color:#e8eefb; border:1px solid #283149; border-radius:8px; padding: 8px 10px; font-size: var(--fs-sm); flex-shrink: 0; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e8eefb'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; background-size: 18px; cursor: pointer; }
+        .select{ width:100%; background:#0b0d14; color:#e8eefb; border:1px solid #283149; border-radius:8px; padding: 8px 10px; font-size: var(--fs-sm); flex-shrink: 0; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e8eefb'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; background-size: 18px; cursor: pointer; transition: all 0.2s ease; }
+        .select:hover { border-color: var(--blue); }
         .small-note { font-size: var(--fs-xs); color: #aeb7cc; flex-shrink: 0; margin-top: auto; padding-top: 4px; }
-        .btn-ghost { display: block; width: 100%; padding: 10px 8px; margin-top: 4px; font-size: var(--fs-sm); font-weight: 700; background: #21283a; border: 1px solid #3a445d; color: #fff; border-radius: 8px; cursor: pointer; text-align: center; flex-shrink: 0; transition: background .2s, border-color .2s; }
+        .btn-ghost { display: block; width: 100%; padding: 10px 8px; margin-top: 4px; font-size: var(--fs-sm); font-weight: 700; background: #21283a; border: 1px solid #3a445d; color: #fff; border-radius: 8px; cursor: pointer; text-align: center; flex-shrink: 0; transition: all 0.2s ease; }
+        .btn-ghost:hover { background: #2a3247; border-color: var(--blue); transform: translateY(-1px); }
+        .btn-ghost:active { transform: translateY(0); }
 
         .warn-strong{ outline:4px solid var(--warn); box-shadow: 0 0 0 6px rgba(255,210,63,.30), inset 0 0 0 9999px rgba(255,210,63,.10), var(--shadow); border-color: var(--warn-dark); } @keyframes twinkleStrong{ 0%{ box-shadow: 0 0 0 6px rgba(255,210,63,.45), inset 0 0 0 9999px rgba(255,210,63,.18), var(--shadow); } 100%{ box-shadow: 0 0 0 0 rgba(255,210,63,0), inset 0 0 0 9999px rgba(255,210,63,.06), var(--shadow); } } .blink-strong{ animation: twinkleStrong 900ms infinite alternate; }
         .action-alerts-container { position: fixed; top: 80px; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 99; pointer-events: none; } .action-alert { display: flex; border-radius: 12px; padding: 12px 20px; font-size: var(--fs-lg); font-weight: 700; box-shadow: var(--shadow); align-items: center; gap: 12px; max-width: 90%; animation: slideIn 0.3s ease-out; } .action-alert.red { background: var(--red); color: #fff; } .action-alert.orange { background: var(--orange2); color: #fff; } .action-alert.warn { background: var(--warn); color: #111; } .action-alert.blue { background: var(--blue); color: #fff; } .action-alert.green { background: var(--green); color: #fff; } @keyframes slideIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         .circulo-amarillo { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: var(--warn); color: #000; border-radius: 50%; font-weight: 800; margin-right: 10px; font-size: 16px; border: 2px solid var(--warn-dark); box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
 
-        dialog { border: none; border-radius: 14px; padding: 0; box-shadow: 0 24px 60px rgba(0, 0, 0, .5); width: min(980px, 92vw); color: #0b0c0f; } .dialog-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid #e7eef7; background: #f7f9ff; } .dialog-head h3 { margin: 0; font-size: var(--fs-lg); color: #0b0c0f; } .dialog-body { padding: 10px 14px 14px; background: #fff; max-height: 70vh; overflow-y: auto; } .table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; } .table th, .table td { border-bottom: 1px solid #eef2f7; padding: 6px 8px; text-align: left; white-space: nowrap; } .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; padding: 0 14px 12px; background: #fff; } .btn-ghost-light{ background:#fff; border:1px solid #e3eaf6; color:#0b0c0f; font-weight:700; border-radius:10px; padding:8px 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 0.35rem; }
+        dialog { border: none; border-radius: 14px; padding: 0; box-shadow: 0 24px 60px rgba(0, 0, 0, .5); width: min(980px, 92vw); color: #0b0c0f; } .dialog-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid #e7eef7; background: #f7f9ff; } .dialog-head h3 { margin: 0; font-size: var(--fs-lg); color: #0b0c0f; } .dialog-body { padding: 10px 14px 14px; background: #fff; max-height: 70vh; overflow-y: auto; } .table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; } .table th, .table td { border-bottom: 1px solid #eef2f7; padding: 6px 8px; text-align: left; white-space: nowrap; } .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; padding: 0 14px 12px; background: #fff; } .btn-ghost-light{ background:#fff; border:1px solid #e3eaf6; color:#0b0c0f; font-weight:700; border-radius:10px; padding:8px 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 0.35rem; transition: all 0.2s ease; } .btn-ghost-light:hover { background: #f0f4ff; transform: translateY(-1px); }
 
+        /* --- MEJORAS RESPONSIVE --- */
         @media (max-width: 1100px) { 
             body { overflow: auto; } 
             header { grid-template-columns: 1fr; height: auto; padding-bottom: 12px; } 
@@ -420,13 +518,43 @@
             #g-c .row, #g-a .row, #g-b .row, #g-d .row, #g-e .row, #g-medicacion .row { grid-template-columns: 1fr; grid-auto-flow: row; }
             .action-alerts-container { top: 120px; } 
         }
+
+        @media (max-width: 768px) {
+            .main {
+                grid-template-columns: 1fr;
+                grid-template-areas: 
+                    "triage"
+                    "a" 
+                    "b"
+                    "c"
+                    "d"
+                    "e"
+                    "med"
+                    "alertas";
+            }
+            
+            .item-controls {
+                grid-template-columns: 1fr;
+            }
+            
+            .finproceso-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            
+            .fixed-recommendations ul {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+        }
+
         @media print { body > *:not(.print-container) { display: none !important; } html, body { background:#fff !important; margin: 0 !important; padding: 0 !important; } .print-container { display: block !important; } @page { size: A4 portrait; margin: 15mm; } }
-    
-    
     </style>
 </head>
 
 <body>
+    <!-- HEADER Y ESTRUCTURA HTML SE MANTIENE IGUAL -->
     <header>
         <div class="header-left">
             <button class="btn" id="btnReset" title="Reiniciar"><i class="fa-solid fa-rotate"></i> Reiniciar</button>
@@ -1365,6 +1493,75 @@
             let t0 = new Date(); const clockEl = document.getElementById('clock'); const tick = () => clockEl.textContent = fmtHMS(Date.now() - t0.getTime()); setInterval(tick, 1000); tick();
             
             let PESO = 70; const pesoSlider = document.getElementById('peso'), pesoValueEl = document.getElementById('pesov'); const pesoMedEl = document.getElementById('peso-med');
+            // Variables para control de cambios en constantes
+            let constantesAnteriores = {
+                temp: 36.5,
+                tas: 120,
+                tad: 80,
+                fr: 20,
+                satO2: 98
+            };
+            // --- FUNCIÓN DE CÁLCULO DE DOSIS ---
+            function calcularDosis(farmaco, peso, categoria) {
+                // Solo calcular dosis para las categorías de medicación
+                if (!['analgesia', 'antibioticos', 'otros'].includes(categoria)) {
+                    return ''; // No mostrar nada para otras categorías
+                }
+
+                const dosisCalculadas = {
+                // 💉 ANALGÉSICOS IV
+                'Fentanilo': `Bolo: 25–100 µg IV | Perf: ${(1 * peso).toFixed(0)}–${(2 * peso).toFixed(0)} µg/kg/h (${(peso)} kg → ${((1 * peso)/60).toFixed(1)}–${((2 * peso)/60).toFixed(1)} µg/kg/min)`,
+                'Morfina': `Bolo: 2–4 mg IV cada 5–10 min | Perf: 2–10 mg/h (≈${(0.05 * peso).toFixed(2)}–${(0.1 * peso).toFixed(2)} mg/kg)`,
+                'Ketamina': `Bolo: ${(0.25 * peso).toFixed(1)}–${(0.5 * peso).toFixed(1)} mg/kg (${(peso)} kg → ${(0.25 * peso).toFixed(1)}–${(0.5 * peso).toFixed(1)} mg) | Perf: ${(0.5 * peso).toFixed(1)}–${(2 * peso).toFixed(1)} mg/kg/h`,
+                'Tramadol': `Bolo: 50–100 mg IV en 2–3 min | Máx: 400 mg/día`,
+                'Ketorolaco': `30 mg IV cada 6–8 h | Máx: 90 mg/día`,
+                'Dexketoprofeno': `50 mg IV cada 8 h | Máx: 150 mg/día`,
+                'Metamizol': `2 g IV en 10 min cada 8 h (${(25 * peso).toFixed(0)}–${(35 * peso).toFixed(0)} mg/kg)`,
+                'Paracetamol': `1 g IV cada 6 h | Máx: 4 g/día (${(10 * peso).toFixed(0)}–${(15 * peso).toFixed(0)} mg/kg/dosis)`,
+                'Lidocaína': `Bolo: ${(1 * peso).toFixed(0)} mg (${peso}×1 mg/kg) | Perf: 1–4 mg/min`,
+
+                // 🧫 ANTIBIÓTICOS IV
+                'Amoxi-Clav': `1.2 g IV cada 8 h`,
+                'Ceftriaxona': `1–2 g IV cada 24 h (${(50 * peso).toFixed(0)}–${(100 * peso).toFixed(0)} mg/kg/día)`,
+                'Clindamicina': `600–900 mg IV cada 8 h (${(10 * peso).toFixed(0)}–${(20 * peso).toFixed(0)} mg/kg)`,
+                'Gentamicina': `${(5 * peso).toFixed(0)}–${(7 * peso).toFixed(0)} mg/kg cada 24 h`,
+                'Metronidazol': `500 mg IV cada 8 h (${(7.5 * peso).toFixed(0)} mg/kg)`,
+                'Ciprofloxacino': `400 mg IV cada 12 h`,
+                'Levofloxacino': `500–750 mg IV cada 24 h`,
+                'Ceftazidima': `2 g IV cada 8 h (${(50 * peso).toFixed(0)} mg/kg)`,
+                'Cefepima': `2 g IV cada 8 h (${(50 * peso).toFixed(0)} mg/kg)`,
+                'Piperacilina-Tazobactam': `4.5 g IV cada 6–8 h (${(80 * peso).toFixed(0)} mg/kg)`,
+                'Vancomicina': `${(15 * peso).toFixed(0)}–${(20 * peso).toFixed(0)} mg/kg cada 8–12 h (niveles valle 15–20 µg/mL)`,
+                'Linezolid': `600 mg IV cada 12 h`,
+                'Meropenem': `1–2 g IV cada 8 h (${(20 * peso).toFixed(0)}–${(40 * peso).toFixed(0)} mg/kg)`,
+
+                // 💊 OTROS FÁRMACOS IV
+                'Ácido tranexámico': `1 g IV en 10 min + 1 g IV en 8 h (${(10 * peso).toFixed(0)} mg/kg)`,
+                'Vitamina K': `10 mg IV lento (30 min)`,
+                'Pantoprazol': `Bolo: 80 mg IV | Perf: 8 mg/h`,
+                'Midazolam': `Bolo: 5–10 mg IV | Perf: ${(0.05 * peso).toFixed(2)}–${(0.2 * peso).toFixed(2)} mg/kg/h`,
+                'Diazepam': `10 mg IV lento (${(0.15 * peso).toFixed(1)}–${(0.25 * peso).toFixed(1)} mg/kg)`,
+                'Levetiracetam': `Carga: 1–3 g IV en 15 min (${(20 * peso).toFixed(0)}–${(60 * peso).toFixed(0)} mg/kg) | Mantenimiento: 1–1.5 g/12 h`,
+                'Valproato': `Carga: ${(20 * peso).toFixed(0)}–${(40 * peso).toFixed(0)} mg/kg IV | Mantenimiento: 1–2 g/día`,
+                'Insulina': `Perf: ${(0.05 * peso).toFixed(2)}–${(0.1 * peso).toFixed(2)} U/kg/h`,
+                'Furosemida': `Bolo: 20–40 mg IV (${(0.5 * peso).toFixed(1)}–${(1 * peso).toFixed(1)} mg/kg) | Repetir según respuesta`,
+                'Labetalol': `Bolo: 10–20 mg IV (2 min) | Perf: 1–2 mg/min`,
+                'Urapidilo': `Bolo: 10–25 mg IV lento | Perf: 2–9 mg/h`,
+                'Dopamina': `Perf: ${(5 * peso).toFixed(0)}–${(20 * peso).toFixed(0)} µg/kg/min`,
+                'Dobutamina': `Perf: ${(2 * peso).toFixed(0)}–${(20 * peso).toFixed(0)} µg/kg/min`,
+                'Adrenalina': `Perf: ${(0.02 * peso).toFixed(2)}–${(0.2 * peso).toFixed(2)} µg/kg/min`,
+                'Noradrenalina': `Perf: ${(0.05 * peso).toFixed(2)}–${(1 * peso).toFixed(2)} µg/kg/min`,
+                'Etomidato': `Bolo: ${(0.2 * peso).toFixed(1)}–${(0.3 * peso).toFixed(1)} mg/kg (${(peso)} kg → ${(0.2 * peso).toFixed(1)}–${(0.3 * peso).toFixed(1)} mg)`,
+                'Propofol': `Bolo: ${(1 * peso).toFixed(0)}–${(2 * peso).toFixed(0)} mg/kg | Perf: ${(1 * peso).toFixed(0)}–${(4 * peso).toFixed(0)} mg/kg/h`,
+                'Rocuronio': `Bolo: ${(1 * peso).toFixed(1)}–${(1.2 * peso).toFixed(1)} mg/kg (${(peso)} kg → ${(1 * peso).toFixed(1)}–${(1.2 * peso).toFixed(1)} mg)`,
+                'Succinilcolina': `Bolo: ${(1 * peso).toFixed(1)}–${(1.5 * peso).toFixed(1)} mg/kg (${(peso)} kg → ${(1 * peso).toFixed(1)}–${(1.5 * peso).toFixed(1)} mg)`
+              };
+
+                return dosisCalculadas[farmaco] || ''; // Si no encuentra dosis, devolver vacío
+            }
+
+            
+            
             if (pesoSlider) { pesoSlider.addEventListener('input', () => { setPesoGlobal(pesoSlider.value); }); }
             function setPesoGlobal(kg){ kg = Math.max(30, Math.min(150, Math.round(kg))); PESO = kg; if(pesoSlider) pesoSlider.value = kg; if(pesoValueEl) pesoValueEl.textContent = kg; if(pesoMedEl) pesoMedEl.textContent = kg; updateSliderBackground(pesoSlider); }
             if (pesoSlider) { pesoSlider.addEventListener('change', () => { addLog('peso', `Peso ajustado a: ${PESO} kg`); }); }
@@ -1372,167 +1569,398 @@
             const ids = [ 'triage', 'eval', 'via', 'cervical', 'oxigeno', 'torax', 'hemorragia', 'acceso', 'fluidos', 'hemoderivados', 'glasgow', 'pupilas', 'exposicion', 'constantes', 'analgesia', 'antibioticos', 'otros' ]; const finProcesoIds = ['estable', 'ingreso', 'traslado', 'pcr', 'exitus'];
             const state = {}; ids.forEach(id => state[id] = { ts: null }); finProcesoIds.forEach(id => state[id] = { ts: null });
             const eventLogs = []; function addLog(key, message, detail = '') { const now = new Date(); eventLogs.push({ timestamp: now, timeSinceStart: fmtHMS(now - t0), key: key, message: message, detail: detail }); console.log(`[${fmtHMS(now - t0)}] ${message}`); }
+            
+            // --- FUNCIÓN DESCRIPCIÓN AUTOMÁTICA DE PUPILAS ---
+            function getDescripcionPupilas() {
+                const od = { 
+                    media: document.getElementById('pup-od-media').checked, 
+                    midriatica: document.getElementById('pup-od-midriatica').checked, 
+                    miotica: document.getElementById('pup-od-miotica').checked, 
+                    reactiva: document.getElementById('pup-od-reactiva').checked, 
+                    rfm: document.getElementById('pup-od-rfm').checked 
+                };
+                const oi = { 
+                    media: document.getElementById('pup-oi-media').checked, 
+                    midriatica: document.getElementById('pup-oi-midriatica').checked, 
+                    miotica: document.getElementById('pup-oi-miotica').checked, 
+                    reactiva: document.getElementById('pup-oi-reactiva').checked, 
+                    rfm: document.getElementById('pup-oi-rfm').checked 
+                };
 
-            // --- Sistema de Alertas Dinámicas Mejorado ---
+                const conjD = document.getElementById('conj-d').checked;
+                const conjI = document.getElementById('conj-i').checked;
+
+                let descripcion = [];
+
+                // Tamaño pupilar
+                if (od.media && oi.media) descripcion.push('Isocóricas medias');
+                else if (od.midriatica && oi.midriatica) descripcion.push('Isocóricas midriáticas');
+                else if (od.miotica && oi.miotica) descripcion.push('Isocóricas mióticas');
+                else {
+                    if (od.midriatica) descripcion.push('OD midriática');
+                    if (od.miotica) descripcion.push('OD miótica');
+                    if (od.media) descripcion.push('OD media');
+                    if (oi.midriatica) descripcion.push('OI midriática');
+                    if (oi.miotica) descripcion.push('OI miótica');
+                    if (oi.media) descripcion.push('OI media');
+                    if (descripcion.filter(item => item.includes('OD') || item.includes('OI')).length > 1) {
+                        descripcion = descripcion.filter(item => item.includes('OD') || item.includes('OI'));
+                        descripcion.unshift('Anisocóricas');
+                    }
+                }
+
+                // Reactividad
+                if (od.reactiva && oi.reactiva) descripcion.push('Reactivas');
+                else if (!od.reactiva && !oi.reactiva) descripcion.push('Arreactivas');
+                else {
+                    if (!od.reactiva) descripcion.push('OD arreactiva');
+                    if (!oi.reactiva) descripcion.push('OI arreactiva');
+                }
+
+                // RFM
+                if (od.rfm && oi.rfm) descripcion.push('RFM normal');
+                else if (!od.rfm && !oi.rfm) descripcion.push('RFM anormal');
+                else {
+                    if (!od.rfm) descripcion.push('RFM OD anormal');
+                    if (!oi.rfm) descripcion.push('RFM OI anormal');
+                }
+
+                // Mirada conjugada
+                if (conjD) descripcion.push('Mirada conjugada Derecha');
+                if (conjI) descripcion.push('Mirada conjugada Izquierda');
+
+                return descripcion.join(', ');
+            }
+            
+            
+            // --- SISTEMA DE ALERTAS INTELIGENTES CORREGIDO ---
             const dynamicAlertsContainer = document.getElementById('dynamic-alerts');
             let previousGCS = 15;
+            let traumaScoreHistory = [];
 
+            // Sistema de reglas de alerta CORREGIDO
+            const alertRules = {
+                vitalSigns: {
+                    hypotension: {
+                        condition: (tas, tad, temp, fr, satO2) => tas < 90 || tad < 60,
+                        priority: 'high',
+                        message: (tas, tad) => `HIPOTENSIÓN (TAS:${tas}/TAD:${tad}) - Reposición volémica urgente`,
+                        action: 'circulation',
+                        category: 'danger'
+                    },
+                    hypertension: {
+                        condition: (tas, tad, temp, fr, satO2) => tas > 160,
+                        priority: 'medium',
+                        message: (tas) => `HTA GRAVE (TAS:${tas}) - Valorar TCE/ansiedad/dolor`,
+                        action: 'neurological',
+                        category: 'warning'
+                    },
+                    tachypnea: {
+                        condition: (tas, tad, temp, fr, satO2) => fr > 25,
+                        priority: 'medium',
+                        message: (fr) => `TAQUIPNEA (FR:${fr}) - Valorar shock/dolor/neumotórax`,
+                        action: 'breathing',
+                        category: 'warning'
+                    },
+                    bradypnea: {
+                        condition: (tas, tad, temp, fr, satO2) => fr < 8,
+                        priority: 'high',
+                        message: (fr) => `BRADIPNEA (FR:${fr}) - Soporte ventilatorio inmediato`,
+                        action: 'breathing',
+                        category: 'danger'
+                    },
+                    hypoxia: {
+                        condition: (tas, tad, temp, fr, satO2) => satO2 < 90,
+                        priority: 'high',
+                        message: (satO2) => `HIPOXIA (SatO₂:${satO2}%) - O₂ inmediato`,
+                        action: 'breathing',
+                        category: 'danger'
+                    },
+                    hypothermia: {
+                        condition: (tas, tad, temp, fr, satO2) => temp < 35,
+                        priority: 'high',
+                        message: (temp) => `HIPOTERMIA (${temp}°C) - Calentamiento activo`,
+                        action: 'exposure',
+                        category: 'danger'
+                    },
+                    hyperthermia: {
+                        condition: (tas, tad, temp, fr, satO2) => temp > 38.5,
+                        priority: 'medium',
+                        message: (temp) => `FIEBRE (${temp}°C) - Valorar infección`,
+                        action: 'exposure',
+                        category: 'warning'
+                    },
+                    mildHypoxia: {
+                        condition: (tas, tad, temp, fr, satO2) => satO2 >= 90 && satO2 < 94,
+                        priority: 'medium',
+                        message: (satO2) => `HIPOXEMIA (SatO₂:${satO2}%) - O₂ suplementario`,
+                        action: 'breathing',
+                        category: 'warning'
+                    }
+                },
+                
+                neurological: {
+                    gcsDrop: {
+                        condition: (current, previous) => previous - current >= 2,
+                        priority: 'high',
+                        message: (current, previous) => `DETERIORO GCS ${previous}→${current} - TAC urgente`,
+                        action: 'neurological',
+                        category: 'danger'
+                    },
+                    coma: {
+                        condition: (gcs) => gcs <= 8,
+                        priority: 'high',
+                        message: (gcs) => `COMA (GCS:${gcs}) - Intubación RSI`,
+                        action: 'neurological',
+                        category: 'danger'
+                    },
+                    moderateTBI: {
+                        condition: (gcs) => gcs >= 9 && gcs <= 12,
+                        priority: 'medium',
+                        message: (gcs) => `TCE MODERADO (GCS:${gcs}) - TAC urgente`,
+                        action: 'neurological',
+                        category: 'warning'
+                    }
+                },
+
+                traumaSpecific: {
+                    massiveHemorrhage: {
+                        condition: (tas, mechanism) => tas < 90 && ['vehiculo', 'atropello', 'arma_fuego', 'penetrante'].includes(mechanism),
+                        priority: 'high',
+                        message: () => `HEMORRAGIA MASIVA SOSPECHADA - PHM`,
+                        action: 'circulation',
+                        category: 'danger'
+                    },
+                    tensionPneumothorax: {
+                        condition: (tas, tad, satO2, fr) => (tas < 90 || tad < 60) && satO2 < 90 && fr > 25,
+                        priority: 'high',
+                        message: () => `SOSPECHA NEUMOTÓRAX A TENSIÓN - Descompresión`,
+                        action: 'breathing',
+                        category: 'danger'
+                    }
+                }
+            };
+
+            // Sistema de scoring de trauma
+            function calculateTraumaScore() {
+                const tasValue = parseInt(document.getElementById('tas').value);
+                const frValue = parseInt(document.getElementById('fr').value);
+                const satO2Value = parseInt(document.getElementById('satO2').value);
+                const gcsTotal = calculateGCS();
+                
+                const scores = {
+                    gcs: getGCSScore(gcsTotal),
+                    bp: getBPScore(tasValue),
+                    rr: getRRScore(frValue)
+                };
+                
+                const total = Object.values(scores).reduce((a, b) => a + b, 0);
+                const severity = total < 8 ? 'critical' : total < 12 ? 'serious' : 'stable';
+                
+                const scoreData = {
+                    timestamp: new Date(),
+                    scores,
+                    total,
+                    severity
+                };
+                
+                traumaScoreHistory.push(scoreData);
+                if (traumaScoreHistory.length > 10) traumaScoreHistory.shift();
+                
+                return scoreData;
+            }
+
+            function getGCSScore(gcs) {
+                if (gcs >= 13) return 4;
+                if (gcs >= 9) return 3;
+                if (gcs >= 6) return 2;
+                return 1;
+            }
+
+            function getBPScore(tas) {
+                if (tas >= 90) return 4;
+                if (tas >= 70) return 3;
+                if (tas >= 50) return 2;
+                return 1;
+            }
+
+            function getRRScore(fr) {
+                if (fr >= 10 && fr <= 24) return 4;
+                if (fr >= 25 && fr <= 35) return 3;
+                if (fr > 35 || fr < 10) return 2;
+                return 1;
+            }
+
+            function calculateGCS() {
+                const gcsOcular = parseInt(document.getElementById('gcs-ocular').value);
+                const gcsVerbal = parseInt(document.getElementById('gcs-verbal').value);
+                const gcsMotor = parseInt(document.getElementById('gcs-motor').value);
+                return gcsOcular + gcsVerbal + gcsMotor;
+            }
+
+            // Sistema principal de alertas CORREGIDO
             function updateAlerts() {
                 const alerts = [];
                 
-                // Obtener valores actuales
+                // Obtener valores actuales CORREGIDOS
                 const tasValue = parseInt(document.getElementById('tas').value);
                 const tadValue = parseInt(document.getElementById('tad').value);
                 const frValue = parseInt(document.getElementById('fr').value);
                 const satO2Value = parseInt(document.getElementById('satO2').value);
                 const tempValue = parseFloat(document.getElementById('temp').value);
-                const gcsOcular = parseInt(document.getElementById('gcs-ocular').value);
-                const gcsVerbal = parseInt(document.getElementById('gcs-verbal').value);
-                const gcsMotor = parseInt(document.getElementById('gcs-motor').value);
-                const gcsTotal = gcsOcular + gcsVerbal + gcsMotor;
-
-                // 🔴 Alertas Críticas (Rojo)
-                if (tasValue < 90) {
-                    alerts.push({
-                        type: 'danger',
-                        icon: 'fa-heart-pulse',
-                        message: `TAS ${tasValue}: Shock - Transfundir/Control hemorragia`
-                    });
-                }
+                const currentGCS = calculateGCS();
                 
-                if (tadValue < 60) {
-                    alerts.push({
-                        type: 'danger',
-                        icon: 'fa-droplet',
-                        message: `TAD ${tadValue}: Hipoperfusión - Asegurar volemia`
-                    });
-                }
-
-                if (gcsTotal <= 8) {
-                    alerts.push({
-                        type: 'danger',
-                        icon: 'fa-brain',
-                        message: `GCS ${gcsTotal}: Coma - Intubar/Monitorizar PIC`
-                    });
-                }
-
-                if (frValue < 8 || frValue > 30) {
-                    alerts.push({
-                        type: 'danger',
-                        icon: 'fa-lungs',
-                        message: `FR ${frValue}: Distrés respiratorio - Ventilar`
-                    });
-                }
-
-                if (satO2Value < 90) {
-                    alerts.push({
-                        type: 'danger',
-                        icon: 'fa-wind',
-                        message: `SatO₂ ${satO2Value}%: Hipoxia severa - O₂ inmediato`
-                    });
-                }
-
-                // 🌡️ Alertas de Temperatura
-                if (tempValue < 35) {
-                    alerts.push({
-                        type: 'danger',
-                        icon: 'fa-temperature-low',
-                        message: `Hipotermia ${tempValue}°C - Calentar activamente`
-                    });
-                } else if (tempValue < 36) {
-                    alerts.push({
-                        type: 'warning',
-                        icon: 'fa-temperature-low',
-                        message: `Hipotermia leve ${tempValue}°C - Monitorizar`
-                    });
-                } else if (tempValue > 38.5) {
-                    alerts.push({
-                        type: 'warning',
-                        icon: 'fa-temperature-high',
-                        message: `Fiebre ${tempValue}°C - Valorar infección/SIRS`
-                    });
-                } else if (tempValue > 39.5) {
-                    alerts.push({
-                        type: 'danger',
-                        icon: 'fa-temperature-high',
-                        message: `Hiperpirexia ${tempValue}°C - Medidas antipiréticas`
-                    });
-                }
-
-                // Detectar deterioro neurológico agudo
-                if (previousGCS - gcsTotal >= 2) {
-                    alerts.push({
-                        type: 'danger',
-                        icon: 'fa-exclamation-triangle',
-                        message: `Deterioro GCS ${previousGCS}→${gcsTotal}: TAC urgente`
-                    });
-                }
-                previousGCS = gcsTotal;
-
-                // 🟠 Alertas Moderadas (Naranja)
-                if (tasValue >= 90 && tasValue <= 100) {
-                    alerts.push({
-                        type: 'warning',
-                        icon: 'fa-heart-pulse',
-                        message: `TAS ${tasValue}: Hipoperfusión - Reposición volumen`
-                    });
-                }
-
-                if (gcsTotal >= 9 && gcsTotal <= 12) {
-                    alerts.push({
-                        type: 'warning',
-                        icon: 'fa-brain',
-                        message: `GCS ${gcsTotal}: TCE moderado - TAC urgente`
-                    });
-                }
-
-                if (frValue >= 21 && frValue <= 30) {
-                    alerts.push({
-                        type: 'warning',
-                        icon: 'fa-lungs',
-                        message: `FR ${frValue}: Taquipnea - Valorar shock/dolor`
-                    });
-                }
-
-                if (satO2Value >= 90 && satO2Value <= 93) {
-                    alerts.push({
-                        type: 'warning',
-                        icon: 'fa-wind',
-                        message: `SatO₂ ${satO2Value}%: Hipoxemia - O₂ suplementario`
-                    });
-                }
-
-                // 🟡 Alertas Leves (Amarillo)
-                if (tasValue > 160) {
-                    alerts.push({
-                        type: 'warning',
-                        icon: 'fa-heart-pulse',
-                        message: `TAS ${tasValue}: HTA - Valorar TCE/dolor`
-                    });
-                }
-
-                if (gcsTotal >= 13 && gcsTotal <= 14) {
-                    alerts.push({
-                        type: 'warning',
-                        icon: 'fa-brain',
-                        message: `GCS ${gcsTotal}: TCE leve - Reevaluar`
-                    });
-                }
-
-                // Ordenar alertas: críticas primero
-                alerts.sort((a, b) => {
-                    const priority = { 'danger': 0, 'warning': 1 };
-                    return priority[a.type] - priority[b.type];
+                // Obtener mecanismo de trauma seleccionado
+                const selectedMechanism = document.querySelector('.mechanism-btn.active')?.dataset.mechanism;
+                
+                // Calcular score de trauma
+                const traumaScore = calculateTraumaScore();
+                
+                // Verificar reglas de constantes vitales CORREGIDAS
+                Object.values(alertRules.vitalSigns).forEach(rule => {
+                    if (rule.condition(tasValue, tadValue, tempValue, frValue, satO2Value)) {
+                        alerts.push({
+                            type: rule.category,
+                            icon: getIconForAction(rule.action),
+                            message: rule.message(tasValue, tadValue, tempValue, frValue, satO2Value),
+                            priority: rule.priority === 'high' ? 1 : 2,
+                            timestamp: new Date()
+                        });
+                    }
                 });
 
-                // Obtener alerta pupilar (solo si es patológica)
-                const pupilAlert = getPupilAlert();
+                // Verificar reglas neurológicas
+                Object.values(alertRules.neurological).forEach(rule => {
+                    if (rule.condition(currentGCS, previousGCS)) {
+                        alerts.push({
+                            type: rule.category,
+                            icon: getIconForAction(rule.action),
+                            message: rule.message(currentGCS, previousGCS),
+                            priority: rule.priority === 'high' ? 1 : 2,
+                            timestamp: new Date()
+                        });
+                    }
+                });
 
+                // Verificar reglas específicas de trauma
+                Object.values(alertRules.traumaSpecific).forEach(rule => {
+                    if (rule.condition(tasValue, selectedMechanism, tadValue, satO2Value, frValue)) {
+                        alerts.push({
+                            type: rule.category,
+                            icon: getIconForAction(rule.action),
+                            message: rule.message(),
+                            priority: rule.priority === 'high' ? 1 : 2,
+                            timestamp: new Date()
+                        });
+                    }
+                });
+
+                // Alertas de scoring de trauma
+                if (traumaScore.severity === 'critical') {
+                    alerts.push({
+                        type: 'danger',
+                        icon: 'fa-triage',
+                        message: `TRAUMA CRÍTICO (Score: ${traumaScore.total}) - Equipo trauma`,
+                        priority: 1,
+                        timestamp: new Date()
+                    });
+                } else if (traumaScore.severity === 'serious') {
+                    alerts.push({
+                        type: 'warning',
+                        icon: 'fa-triage',
+                        message: `TRAUMA GRAVE (Score: ${traumaScore.total}) - Monitorizar`,
+                        priority: 2,
+                        timestamp: new Date()
+                    });
+                }
+
+                // Detectar deterioro en el tiempo
+                if (traumaScoreHistory.length >= 2) {
+                    const current = traumaScoreHistory[traumaScoreHistory.length - 1];
+                    const previous = traumaScoreHistory[traumaScoreHistory.length - 2];
+                    
+                    if (current.total - previous.total <= -2) {
+                        alerts.push({
+                            type: 'danger',
+                            icon: 'fa-chart-line-down',
+                            message: `DETERIORO (Score: ${previous.total}→${current.total}) - Revisar ABCDE`,
+                            priority: 1,
+                            timestamp: new Date()
+                        });
+                    }
+                }
+
+                // Actualizar GCS anterior
+                previousGCS = currentGCS;
+
+                // Obtener alerta pupilar
+                const pupilAlert = getPupilAlert();
+                if (pupilAlert) {
+                    alerts.push({
+                        type: pupilAlert.type,
+                        icon: pupilAlert.icon,
+                        message: pupilAlert.message,
+                        priority: pupilAlert.type === 'danger' ? 1 : 2,
+                        timestamp: new Date()
+                    });
+                }
+
+                // Ordenar alertas: críticas primero, luego por timestamp
+                alerts.sort((a, b) => {
+                    if (a.priority !== b.priority) return a.priority - b.priority;
+                    return b.timestamp - a.timestamp;
+                });
+
+                // REGISTRAR ALERTAS CRÍTICAS EN EL INFORME
+                const alertasCriticas = alerts.filter(alert => alert.priority === 1);
+
+                alertasCriticas.forEach(alerta => {
+                    // Evitar duplicados en un periodo corto
+                    const existeAlertaReciente = eventLogs.some(log => 
+                        log.message.includes(alerta.message.substring(0, 30)) && 
+                        (new Date() - log.timestamp) < 30000 // 30 segundos
+                    );
+
+                    if (!existeAlertaReciente) {
+                        addLog('alerta', `🚨 ${alerta.message}`, `Tipo: ${alerta.type}`);
+                    }
+                });
+                
+                
                 // Actualizar interfaz
-                renderAlerts(alerts, pupilAlert);
+                renderAlerts(alerts);
                 updateConstantsColors();
+                updatePriorityVisuals(traumaScore.severity);
             }
 
+            function getIconForAction(action) {
+                const icons = {
+                    'airway': 'fa-lungs',
+                    'breathing': 'fa-wind',
+                    'circulation': 'fa-heart-pulse',
+                    'neurological': 'fa-brain',
+                    'exposure': 'fa-temperature-half',
+                    'default': 'fa-triangle-exclamation'
+                };
+                return icons[action] || icons.default;
+            }
+
+            function updatePriorityVisuals(severity) {
+                // Remover clases anteriores
+                document.querySelectorAll('.priority-high, .priority-medium, .priority-low').forEach(el => {
+                    el.classList.remove('priority-high', 'priority-medium', 'priority-low');
+                });
+                
+                // Añadir clase según severidad
+                const priorityClass = severity === 'critical' ? 'priority-high' : 
+                                   severity === 'serious' ? 'priority-medium' : 'priority-low';
+                
+                document.querySelectorAll('.group').forEach(group => {
+                    group.classList.add(priorityClass);
+                });
+            }
+
+            // Resto del código de alertas (getPupilAlert, updateConstantsColors, renderAlerts) se mantiene igual
             function getPupilAlert() {
                 const od = { 
                     media: document.getElementById('pup-od-media').checked, 
@@ -1549,11 +1977,9 @@
                     rfm: document.getElementById('pup-oi-rfm').checked 
                 };
                 
-                // === Mirada conjugada ===
                 const d = document.getElementById('conj-d').checked;
                 const i = document.getElementById('conj-i').checked;
 
-                // Casos base (bandera roja neurológica)
                 if (d) {
                     return {
                         type: 'danger',
@@ -1569,7 +1995,6 @@
                     };
                 }
 
-                // Patrones pupilares según esquema clínico (SOLO alertas patológicas)
                 if (od.midriatica && !od.reactiva && oi.midriatica && !oi.reactiva) {
                     return {
                         type: 'danger',
@@ -1578,7 +2003,6 @@
                     };
                 }
 
-                // Arreflexia bilateral con pupilas medias (daño tronco/pontino)
                 if (od.media && !od.reactiva && oi.media && !oi.reactiva) {
                     return {
                         type: 'danger',
@@ -1587,7 +2011,6 @@
                     };
                 }
 
-                // Midriasis unilateral arreactiva (herniación uncal / III par)
                 if (od.midriatica && !od.reactiva && oi.media && oi.reactiva) {
                     return {
                         type: 'danger',
@@ -1603,7 +2026,6 @@
                     };
                 }
 
-                // Miosis bilateral arreactiva (pontina grave)
                 if (od.miotica && !od.reactiva && oi.miotica && !oi.reactiva) {
                     return {
                         type: 'danger',
@@ -1612,7 +2034,6 @@
                     };
                 }
 
-                // Miosis bilateral reactiva (pontina/opioides)
                 if (od.miotica && od.reactiva && oi.miotica && oi.reactiva) {
                     return {
                         type: 'warning',
@@ -1621,7 +2042,6 @@
                     };
                 }
 
-                // Horner (miosis unilateral reactiva con anisocoria)
                 if (od.miotica && od.reactiva && !(oi.miotica) && oi.reactiva) {
                     return {
                         type: 'warning',
@@ -1637,7 +2057,6 @@
                     };
                 }
 
-                // Midriasis isocórica con hiporreactividad (fármaco/mesencéfalo)
                 if (od.midriatica && oi.midriatica && (!od.reactiva || !oi.reactiva)) {
                     return {
                         type: 'warning',
@@ -1646,7 +2065,6 @@
                     };
                 }
 
-                // Midriasis bilateral reactiva (fármacos/hipoxia/hipercapnia)
                 if (od.midriatica && od.reactiva && oi.midriatica && oi.reactiva) {
                     return {
                         type: 'warning',
@@ -1655,7 +2073,6 @@
                     };
                 }
 
-                // Defecto aferente relativo (RAPD/Marcus Gunn) aproximado por RFM
                 if (!od.rfm && oi.rfm) {
                     return {
                         type: 'warning',
@@ -1671,7 +2088,6 @@
                     };
                 }
 
-                // Alteración RFM bilateral (sin tamaño patognomónico)
                 if (!od.rfm && !oi.rfm) {
                     return {
                         type: 'warning',
@@ -1680,7 +2096,6 @@
                     };
                 }
 
-                // Anisocoria inespecífica: SOLO alertar si coexiste signo patológico (p.ej., hiporreactividad)
                 if ((od.midriatica !== oi.midriatica || od.miotica !== oi.miotica) && (!od.reactiva || !oi.reactiva)) {
                     return {
                         type: 'warning',
@@ -1689,7 +2104,6 @@
                     };
                 }
 
-                // Si ninguna regla patológica se cumple, no retornamos alerta (fisiológica/normal)
                 return null;
             }
 
@@ -1771,22 +2185,17 @@
                 }
             }
 
-            function renderAlerts(alerts, pupilAlert) {
+            function renderAlerts(alerts) {
                 const container = dynamicAlertsContainer;
                 
-                if (alerts.length === 0 && !pupilAlert) {
+                if (alerts.length === 0) {
                     container.innerHTML = '<span class="no-alerts">No hay alertas activas.</span>';
                     return;
                 }
 
                 let html = '';
 
-                // Añadir alerta pupilar si existe (solo patológicas)
-                if (pupilAlert) {
-                    html += `<div class="alert-line ${pupilAlert.type}"><i class="fa-solid ${pupilAlert.icon}"></i><span>${pupilAlert.message}</span></div>`;
-                }
-
-                // Añadir alertas médicas (máximo 8 para no saturar)
+                // Añadir alertas (máximo 8 para no saturar)
                 const displayAlerts = alerts.slice(0, 8);
                 displayAlerts.forEach(alert => {
                     html += `
@@ -1853,7 +2262,10 @@
 
             // --- Mechanism Logic ---
             const mechanismButtons = document.querySelectorAll('.mechanism-btn'); const mechanismInfoParas = document.querySelectorAll('.mechanism-info p'); const evalCheckbox = document.getElementById('cb-eval');
-            mechanismButtons.forEach(button => { button.addEventListener('click', () => { const selectedMechanism = button.dataset.mechanism; const alreadyActive = button.classList.contains('active'); mechanismButtons.forEach(btn => btn.classList.remove('active')); if (!alreadyActive) { button.classList.add('active'); mechanismInfoParas.forEach(p => { p.style.display = (p.dataset.info === selectedMechanism) ? 'block' : 'none'; }); document.querySelector('.mechanism-info p[data-info="none"]').style.display = 'none'; const mechanismText = document.querySelector(`.mechanism-info p[data-info="${selectedMechanism}"]`)?.textContent || selectedMechanism; marcar('eval', `Mecanismo: ${mechanismText}`, '', true); } else { mechanismInfoParas.forEach(p => p.style.display = 'none'); document.querySelector('.mechanism-info p[data-info="none"]').style.display = 'block'; addLog('eval', 'Selección de Mecanismo anulada'); } updateAlerts(); }); });
+            mechanismButtons.forEach(button => { 
+                button.addEventListener('click', () => { 
+                    const selectedMechanism = button.dataset.mechanism; 
+                    const alreadyActive = button.classList.contains('active'); mechanismButtons.forEach(btn => btn.classList.remove('active')); if (!alreadyActive) { button.classList.add('active'); mechanismInfoParas.forEach(p => { p.style.display = (p.dataset.info === selectedMechanism) ? 'block' : 'none'; }); document.querySelector('.mechanism-info p[data-info="none"]').style.display = 'none'; const mechanismText = document.querySelector(`.mechanism-info p[data-info="${selectedMechanism}"]`)?.textContent || selectedMechanism; marcar('eval', `Mecanismo: ${mechanismText}`, '', true); } else { mechanismInfoParas.forEach(p => p.style.display = 'none'); document.querySelector('.mechanism-info p[data-info="none"]').style.display = 'block'; addLog('eval', 'Selección de Mecanismo anulada'); } updateAlerts(); }); });
             function resetMechanismVisuals() { mechanismButtons.forEach(btn => btn.classList.remove('active')); mechanismInfoParas.forEach(p => p.style.display = 'none'); document.querySelector('.mechanism-info p[data-info="none"]').style.display = 'block'; }
 
             // --- Glasgow Logic ---
@@ -1936,22 +2348,59 @@
                 if (!pupilCheckbox.checked && hasPupilLog) {
                     marcar('pupilas', 'Evaluación Pupilar Realizada', '', true); 
                 }
+                // Marcar automáticamente el checkbox principal si hay cambios
+                    const descripcion = getDescripcionPupilas();
+                    const estadoPorDefecto = "Isocóricas medias, Reactivas, RFM normal";
 
-                updateAlerts();
-            }
+                    if (descripcion !== estadoPorDefecto && !pupilCheckbox.checked) {
+                        pupilCheckbox.checked = true;
+                        const label = document.querySelector('label[for="cb-pupilas"]');
+                        const logMsg = label ? label.textContent.trim() : 'Evaluación Pupilar';
+                        marcar('pupilas', logMsg);
+                    }
+
+                    updateAlerts();
+                }
 
             pupilCheckboxes.forEach(cb => {
-                cb.addEventListener('change', (event) => {
-                    const changedCheckbox = event.target;
-                    if (odSizeCheckboxes.includes(changedCheckbox) && changedCheckbox.checked) {
-                        odSizeCheckboxes.forEach(otherCb => { if (otherCb !== changedCheckbox) { otherCb.checked = false; } });
-                    } else if (oiSizeCheckboxes.includes(changedCheckbox) && changedCheckbox.checked) {
-                        oiSizeCheckboxes.forEach(otherCb => { if (otherCb !== changedCheckbox) { otherCb.checked = false; } });
+            cb.addEventListener('change', (event) => {
+                const changedCheckbox = event.target;
+                if (odSizeCheckboxes.includes(changedCheckbox) && changedCheckbox.checked) {
+                    odSizeCheckboxes.forEach(otherCb => { if (otherCb !== changedCheckbox) { otherCb.checked = false; } });
+                } else if (oiSizeCheckboxes.includes(changedCheckbox) && changedCheckbox.checked) {
+                    oiSizeCheckboxes.forEach(otherCb => { if (otherCb !== changedCheckbox) { otherCb.checked = false; } });
+                }
+                updatePupilStatus();
+
+                // REGISTRAR DESCRIPCIÓN AUTOMÁTICA - VERSIÓN CORREGIDA
+                const descripcion = getDescripcionPupilas();
+                const estadoPorDefecto = "Isocóricas medias, Reactivas, RFM normal";
+
+                // Solo registrar si no es el estado por defecto
+                if (descripcion !== estadoPorDefecto) {
+                    // Evitar duplicados en menos de 3 segundos
+                    const logReciente = eventLogs.some(log => 
+                        log.key === 'pupilas' && 
+                        log.message.includes(descripcion.substring(0, 20)) && // Comparar inicio de la descripción
+                        (new Date() - log.timestamp) < 3000
+                    );
+
+                    if (!logReciente) {
+                        // Usar addLog directamente en lugar de marcar() para forzar el registro
+                        const timestamp = new Date();
+                        const timeString = fmtHMS(timestamp - t0);
+                        addLog('pupilas', `Evaluación Pupilar: ${descripcion}`, '', true);
+
+                        // También marcar el checkbox principal visualmente
+                        if (!pupilCheckbox.checked) {
+                            pupilCheckbox.checked = true;
+                            state['pupilas'].ts = timestamp;
+                            document.getElementById('tm-pupilas').textContent = timeString;
+                        }
                     }
-                    updatePupilStatus(); 
-                    addLog('pupilas', `Pupila ${changedCheckbox.id} cambiada: ${changedCheckbox.checked}`);
-                });
+                }
             });
+        });
 
             function resetPupilGrid() {
                 pupOdMedia.checked = true; pupOiMedia.checked = true;
@@ -1972,11 +2421,63 @@
             // --- Constantes Logic ---
             const tempSlider = document.getElementById('temp'); const tempV = document.getElementById('tempv'); const tasSlider = document.getElementById('tas'); const tasV = document.getElementById('tasv'); const tadSlider = document.getElementById('tad'); const tadV = document.getElementById('tadv'); const frSlider = document.getElementById('fr'); const frV = document.getElementById('frv'); const satO2Slider = document.getElementById('satO2'); const satO2V = document.getElementById('satO2v'); const constantesCheckbox = document.getElementById('cb-constantes');
             function updateConstantsDisplay() { tempV.textContent = `${tempSlider.value} °C`; tasV.textContent = `${tasSlider.value} mmHg`; tadV.textContent = `${tadSlider.value} mmHg`; frV.textContent = `${frSlider.value} rpm`; satO2V.textContent = `${satO2Slider.value} %`; }
-            function logConstants() { marcar('constantes', `Constantes Registradas: Tª ${tempSlider.value}, TAS ${tasSlider.value}, TAD ${tadSlider.value}, FR ${frSlider.value}, SatO₂ ${satO2Slider.value}`, '', true); updateAlerts(); }
+            function logConstants() {
+            const tempValue = parseFloat(tempSlider.value);
+            const tasValue = parseInt(tasSlider.value);
+            const tadValue = parseInt(tadSlider.value);
+            const frValue = parseInt(frSlider.value);
+            const satO2Value = parseInt(satO2Slider.value);
+
+            // Solo registrar si hubo cambio REAL desde el último registro
+            const cambios = [];
+
+            if (tempValue !== constantesAnteriores.temp) cambios.push(`Tª ${tempValue}°C`);
+            if (tasValue !== constantesAnteriores.tas) cambios.push(`TAS ${tasValue} mmHg`);
+            if (tadValue !== constantesAnteriores.tad) cambios.push(`TAD ${tadValue} mmHg`);
+            if (frValue !== constantesAnteriores.fr) cambios.push(`FR ${frValue} rpm`);
+            if (satO2Value !== constantesAnteriores.satO2) cambios.push(`SatO₂ ${satO2Value}%`);
+
+    if (cambios.length > 0) {
+        marcar('constantes', `Constantes modificadas: ${cambios.join(', ')}`, '', true);
+        
+        // Actualizar valores anteriores
+        constantesAnteriores = {
+            temp: tempValue,
+            tas: tasValue,
+            tad: tadValue,
+            fr: frValue,
+            satO2: satO2Value
+        };
+    }
+    updateAlerts();
+}
             [tempSlider, tasSlider, tadSlider, frSlider, satO2Slider].forEach(slider => { slider.addEventListener('input', updateConstantsDisplay); slider.addEventListener('change', logConstants); }); updateConstantsDisplay();
 
             /* ===== Lógica para Select + Botón + Log ===== */
-            function setupItemLogger(buttonId, selectId, checkboxId, logId) { const button = document.getElementById(buttonId); const select = document.getElementById(selectId); const checkbox = document.getElementById(checkboxId); const logList = document.getElementById(logId); const timeDisplay = document.getElementById('tm-' + checkboxId.replace('cb-', '')); if (!button || !select || !checkbox || !logList || !timeDisplay) { return; } button.addEventListener('click', () => { const selectedValue = select.value; const selectedText = select.options[select.selectedIndex].text; if (!selectedValue || select.selectedIndex === 0) { alert('Por favor, seleccione una opción.'); return; } const timestamp = new Date(); const timeString = fmtHMS(timestamp - t0); const logEntry = document.createElement('span'); logEntry.textContent = `${selectedText}: ${timeString}`; logList.prepend(logEntry); const stateId = checkboxId.replace('cb-', ''); marcar(stateId, `Registrado: ${selectedText}`, '', !state[stateId]?.ts); select.selectedIndex = 0; updateAlerts(); }); }
+            function setupItemLogger(buttonId, selectId, checkboxId, logId) { const button = document.getElementById(buttonId); const select = document.getElementById(selectId); const checkbox = document.getElementById(checkboxId); const logList = document.getElementById(logId); const timeDisplay = document.getElementById('tm-' + checkboxId.replace('cb-', '')); if (!button || !select || !checkbox || !logList || !timeDisplay) { return; } 
+            
+            button.addEventListener('click', () => {
+                const selectedValue = select.value;
+                const selectedText = select.options[select.selectedIndex].text;
+                if (!selectedValue || select.selectedIndex === 0) {
+                    alert('Por favor, seleccione una opción.');
+                    return;
+                }
+
+                // CALCULAR DOSIS PARA ESTE FÁRMACO
+                const categoria = selectId.replace('sel-', ''); // 'sel-analgesia' → 'analgesia'
+                const dosis = calcularDosis(selectedValue, PESO, categoria);
+
+                const timestamp = new Date();
+                const timeString = fmtHMS(timestamp - t0);
+                const logEntry = document.createElement('span');
+
+                // MOSTRAR FÁRMACO + DOSIS + HORA (solo si hay dosis)
+                const textoLog = dosis ? `${selectedText} - ${dosis}: ${timeString}` : `${selectedText}: ${timeString}`;
+                logEntry.textContent = textoLog;
+                logList.prepend(logEntry); 
+                
+                const stateId = checkboxId.replace('cb-', ''); marcar(stateId, `Registrado: ${selectedText}`, '', !state[stateId]?.ts); select.selectedIndex = 0; updateAlerts(); }); }
             setupItemLogger('btn-add-via', 'sel-via', 'cb-via', 'log-via'); setupItemLogger('btn-add-cervical', 'sel-cervical', 'cb-cervical', 'log-cervical'); setupItemLogger('btn-add-oxigeno', 'sel-oxigeno', 'cb-oxigeno', 'log-oxigeno'); setupItemLogger('btn-add-torax', 'sel-torax', 'cb-torax', 'log-torax'); setupItemLogger('btn-add-hemorragia', 'sel-hemorragia', 'cb-hemorragia', 'log-hemorragia'); setupItemLogger('btn-add-acceso', 'sel-acceso', 'cb-acceso', 'log-acceso'); setupItemLogger('btn-add-fluidos', 'sel-fluidos', 'cb-fluidos', 'log-fluidos'); setupItemLogger('btn-add-hemoderivados', 'sel-hemoderivados', 'cb-hemoderivados', 'log-hemoderivados'); setupItemLogger('btn-add-exposicion', 'sel-exposicion', 'cb-exposicion', 'log-exposicion'); setupItemLogger('btn-add-analgesia', 'sel-analgesia', 'cb-analgesia', 'log-analgesia'); setupItemLogger('btn-add-antibioticos', 'sel-antibioticos', 'cb-antibioticos', 'log-antibioticos'); setupItemLogger('btn-add-otros', 'sel-otros', 'cb-otros', 'log-otros');
 
             /* --- Lógica Fin de Proceso MODIFICADA --- */
@@ -1985,21 +2486,17 @@
             const finProcesoMainCheckbox = document.getElementById('cb-finproceso');
 
             function updateFinProcesoStatus() {
-                // Verificar si al menos una opción está seleccionada
                 const anySelected = Array.from(finProcesoCheckboxes).some(cb => cb.checked);
         
                 if (anySelected) {
-                    // Activar visualmente la tarjeta principal
                     if (!finProcesoMainCheckbox.checked) {
                         finProcesoMainCheckbox.checked = true;
                         marcar('finproceso', 'Fin de Proceso activado', '', true);
                     }
                     
-                    // Actualizar tiempo
                     const timestamp = new Date();
                     finProcesoTimeDisplay.textContent = fmtHMS(timestamp - t0);
                     
-                    // Registrar en el log
                     const selectedOptions = Array.from(finProcesoCheckboxes)
                         .filter(cb => cb.checked)
                         .map(cb => document.querySelector(`label[for="${cb.id}"]`)?.textContent || cb.value)
@@ -2007,7 +2504,6 @@
                         
                     addLog('finproceso', `Fin de Proceso: ${selectedOptions}`);
                 } else {
-                    // Desactivar visualmente la tarjeta principal
                     if (finProcesoMainCheckbox.checked) {
                         finProcesoMainCheckbox.checked = false;
                         desmarcar('finproceso');
@@ -2018,7 +2514,6 @@
                 updateAlerts();
             }
 
-            // Asignar eventos a cada checkbox
             finProcesoCheckboxes.forEach(checkbox => { 
                 checkbox.addEventListener('change', updateFinProcesoStatus); 
             });
@@ -2043,7 +2538,146 @@
             if (btnPDF) { btnPDF.addEventListener('click', abrirInformeParaImprimir); } 
             const btnImprimirDialog = document.getElementById('btnImprimirDialog'); 
             if (btnImprimirDialog) { btnImprimirDialog.addEventListener('click', abrirInformeParaImprimir); } 
-            function abrirInformeParaImprimir() { console.log("Función Imprimir/PDF llamada"); }
+            
+            
+            function abrirInformeParaImprimir() {
+            // Crear una ventana de impresión
+            const printWindow = window.open('', '_blank', 'width=800,height=600');
+
+            // Construir el contenido HTML para imprimir
+            const contenidoHTML = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Informe SVA Trauma</title>
+                    <meta charset="UTF-8">
+                    <style>
+                        body { 
+                            font-family: Arial, sans-serif; 
+                            margin: 20px; 
+                            line-height: 1.4;
+                            color: #333;
+                        }
+                        .header { 
+                            text-align: center; 
+                            margin-bottom: 30px;
+                            border-bottom: 2px solid #003a8e;
+                            padding-bottom: 15px;
+                        }
+                        h1 { 
+                            color: #003a8e; 
+                            margin: 0 0 10px 0;
+                            font-size: 24px;
+                        }
+                        .info-paciente {
+                            background: #f8f9fa;
+                            padding: 15px;
+                            border-radius: 8px;
+                            margin-bottom: 20px;
+                        }
+                        table { 
+                            width: 100%; 
+                            border-collapse: collapse; 
+                            margin: 20px 0;
+                            font-size: 14px;
+                        }
+                        th, td { 
+                            border: 1px solid #ddd; 
+                            padding: 10px; 
+                            text-align: left; 
+                        }
+                        th { 
+                            background-color: #003a8e; 
+                            color: white;
+                            font-weight: 600;
+                        }
+                        tr:nth-child(even) {
+                            background-color: #f8f9fa;
+                        }
+                        .alert-row { 
+                            background-color: #fff3cd !important; 
+                            font-weight: 600;
+                        }
+                        .timestamp {
+                            color: #666;
+                            font-size: 12px;
+                            text-align: right;
+                            margin-top: 20px;
+                        }
+                        @media print {
+                            body { margin: 15mm; }
+                            .no-print { display: none; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
+                        <h1>Informe SVA Trauma</h1>
+                        <div class="info-paciente">
+                            <strong>Paciente:</strong> ${PESO} kg | 
+                            <strong>Inicio:</strong> ${t0.toLocaleString('es-ES')} | 
+                            <strong>Duración:</strong> ${fmtHMS(Date.now() - t0.getTime())}
+                        </div>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Actuación</th>
+                                <th>Detalle</th>
+                                <th>Tiempo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Inicio</td>
+                                <td>${t0.toLocaleString('es-ES',{ hour: '2-digit', minute:'2-digit', second:'2-digit' })}</td>
+                                <td>00:00</td>
+                            </tr>
+                            <tr>
+                                <td>Peso</td>
+                                <td>${PESO} kg</td>
+                                <td>—</td>
+                            </tr>
+                            ${eventLogs
+                                .sort((a,b) => a.timestamp - b.timestamp)
+                                .map(log => `
+                                    <tr class="${log.key === 'alerta' ? 'alert-row' : ''}">
+                                        <td>${log.message}</td>
+                                        <td>${log.detail || 'OK'}</td>
+                                        <td>${log.timeSinceStart}</td>
+                                    </tr>
+                                `).join('')}
+                        </tbody>
+                    </table>
+
+                    <div class="timestamp">
+                        Generado el: ${new Date().toLocaleString('es-ES')}
+                    </div>
+
+                    <div class="no-print">
+                        <button onclick="window.print()" style="padding: 10px 20px; margin: 20px; background: #003a8e; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                            🖨️ Imprimir
+                        </button>
+                        <button onclick="window.close()" style="padding: 10px 20px; margin: 20px; background: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                            Cerrar
+                        </button>
+                    </div>
+                </body>
+                </html>
+            `;
+    
+    // Escribir el contenido y abrir para imprimir
+    printWindow.document.write(contenidoHTML);
+    printWindow.document.close();
+    
+    // Esperar a que cargue y mostrar opciones de impresión
+    printWindow.onload = function() {
+        printWindow.focus();
+        // Opcional: auto-imprimir
+        // printWindow.print();
+    };
+}
 
             // --- Reset Logic ---
             document.getElementById('btnReset').addEventListener('click', () => {
@@ -2055,19 +2689,32 @@
                 document.querySelectorAll('.inline-list.item-log').forEach(log => log.innerHTML = '');
                 gcsOcular.value = 4; gcsVerbal.value = 5; gcsMotor.value = 6; updateGCS(); 
                 tempSlider.value = 36.5; tasSlider.value = 120; tadSlider.value = 80; frSlider.value = 20; satO2Slider.value = 98; updateConstantsDisplay();
-                setPesoGlobal(70); eventLogs.length = 0;
-                previousGCS = 15;
-                document.querySelectorAll('select.item-select').forEach(select => select.selectedIndex = 0);
-                allSliders.forEach(slider => updateSliderBackground(slider)); 
-                addLog('reset', 'Aplicación reiniciada');
-                updateAlerts();
-            });
+                   // RESETEAR CONSTANTES ANTERIORES (AÑADIR ESTO)
+                constantesAnteriores = {
+                    temp: 36.5,
+                    tas: 120,
+                    tad: 80,
+                    fr: 20,
+                    satO2: 98
+                };
+    
+    setPesoGlobal(70); eventLogs.length = 0;
+    previousGCS = 15;
+    traumaScoreHistory = [];
+    document.querySelectorAll('select.item-select').forEach(select => select.selectedIndex = 0);
+    allSliders.forEach(slider => updateSliderBackground(slider)); 
+    addLog('reset', 'Aplicación reiniciada');
+    updateAlerts();
+});
 
             // --- Inicialización ---
             setPesoGlobal(PESO); 
             addLog('inicio', 'Aplicación iniciada');
             updateAlerts(); // Mostrar alertas iniciales
             updateConstantsColors(); // Inicializar colores de constantes
+            
+            // Actualizar alertas periódicamente
+            setInterval(updateAlerts, 5000);
         });
     </script>
 </body>
