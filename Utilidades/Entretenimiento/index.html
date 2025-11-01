@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Entretenimiento · Juegos · Urgencias – AGS Sur de Córdoba</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon_transp-180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon_transp-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon_transp-16.png">
+
+  <!-- Estilos globales -->
+  <link rel="stylesheet" href="../../css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    /* Ajustes suaves para las tarjetas dentro del acordeón (sin romper tu theme) */
+    .grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+    .card{background:#fff;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.08);padding:1rem;display:flex;flex-direction:column}
+    .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem}
+    .card-header h3{margin:0;font-size:1.05rem}
+    .card-text{margin:.25rem 0 .75rem;color:#444}
+    .card-footer{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:flex-end}
+    .btn{border:0;border-radius:10px;padding:.55rem .9rem;cursor:pointer;font-weight:600;line-height:1}
+    .btn-primary{background:#0d6efd;color:#fff}
+    .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,.12)}
+    .chip{font-size:.8rem;background:#f3f6ff;border:1px solid #e6ecff;border-radius:999px;padding:.2rem .5rem}
+    .small-muted{font-size:.9rem;color:#666}
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" aria-label="Navegación principal">
+    <div class="sidebar-header">
+      <img src="../../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba"/>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="../../index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+        <li><a href="../../Algoritmos/index.html"><i class="fas fa-sitemap"></i> <span>Algoritmos diagnósticos</span></a></li>
+        <li><a href="../../Calculadoras/index.html"><i class="fas fa-calculator"></i> <span>Calculadoras médicas</span></a></li>
+        <li><a href="../../Utilidades/index.html" class="active"><i class="fas fa-toolbox"></i> <span>Utilidades</span></a></li>
+        <li><a href="../../Formacion/index.html"><i class="fas fa-graduation-cap"></i> <span>Formación</span></a></li>
+        <li><a href="../../Enlaces/index.html"><i class="fas fa-link"></i> <span>Enlaces útiles</span></a></li>
+        <li><a href="../../Documentos/index.html"><i class="fas fa-file-lines"></i> <span>Documentos y plantillas</span></a></li>
+        <li><a href="../../Calidad/index.html"><i class="fas fa-shield-heart"></i> <span>Calidad y Seguridad del Paciente</span></a></li>
+      </ul>
+      <ul class="submenu-criticos">
+        <li><a href="../../Criticos/index.html"><i class="fas fa-procedures"></i> <span>Sala de Críticos</span></a></li>
+      </ul>
+      <ul class="submenu-equipo">
+        <li><a href="../../Profesionales/index.html"><i class="fas fa-user-md"></i> <span>Fichas del personal</span></a></li>
+        <li><a href="../../Cuadrantes/index.html"><i class="fas fa-calendar-alt"></i> <span>Cuadrantes de trabajo</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Cabecera con logos -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <img src="../../images/Logo-Salud2.png" alt="Junta de Andalucía · Consejería de Salud"/>
+    </div>
+    <div class="masthead-right">
+      <img src="../../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Servicio de Urgencias · Hospital de Montilla"/>
+    </div>
+  </header>
+
+  <!-- Contenido -->
+  <main class="main-content" role="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-icon" aria-hidden="true"><i class="fa-solid fa-gamepad"></i></div>
+      <div class="hero-text">
+        <h1>Entretenimiento (Juegos)</h1>
+        <p>Juegos lúdico-formativos para profesionales: <strong>agudeza visual y mental</strong>, <strong>reflejos clínicos</strong> y <strong>localización anatómica</strong>, con puntuación y ranking.</p>
+      </div>
+    </section>
+
+    <!-- TOC: ahora con 3 pestañas -->
+    <nav class="calc-toc" aria-label="Índice de bloques">
+      <a href="#juegos">Juegos formativos</a>
+      <a href="#ranking">Ranking</a>
+      <a href="#guias">Guías</a>
+    </nav>
+
+    <!-- Acordeón -->
+    <section class="accordion" id="games-accordion">
+
+      <!-- BLOQUE: Juegos -->
+      <article class="accordion-item" id="juegos">
+        <h2 class="accordion-header">
+          <button class="accordion-toggle" aria-expanded="true" aria-controls="panel-juegos" id="btn-juegos">
+            <i class="fa-solid fa-puzzle-piece"></i> Juegos formativos
+          </button>
+        </h2>
+        <div class="accordion-panel" id="panel-juegos" role="region" aria-labelledby="btn-juegos">
+          <p class="small-muted">Partidas cortas (1–7 min). Guardado local de “Mejor resultado”. Opcional: ranking en la nube para retos entre compañeros.</p>
+          <div class="grid-cards">
+            <!-- Agudeza visual -->
+            <article class="card">
+              <header class="card-header">
+                <h3>👁️ Agudeza visual</h3>
+                <span class="chip">3–5 min</span>
+              </header>
+              <p class="card-text">Matrices con un elemento distinto, evaluación pupilar y observación de signos.</p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./juego.html?game=agudeza-visual">Jugar</a>
+                <a class="btn btn-ghost" href="#guias" data-open="guias">Guía</a>
+              </footer>
+            </article>
+
+            <!-- Agudeza mental -->
+<article class="card">
+  <header class="card-header">
+    <h3>🧮 Agudeza mental</h3>
+    <span class="chip">1–2 min</span>
+  </header>
+  <p class="card-text">Cálculo rápido con + − × ÷. Puntuación por aciertos y bonus por racha.</p>
+  <footer class="card-footer">
+    <a class="btn btn-primary" href="./juego.html?game=agudeza-mental">Jugar</a>
+    <a class="btn btn-ghost" href="#guias" data-open="guias">Guía</a>
+  </footer>
+</article>
+
+            <!-- Quiz clínico -->
+            <article class="card">
+              <header class="card-header">
+                <h3>🧠 Quiz clínico</h3>
+                <span class="chip">3–6 min</span>
+              </header>
+              <p class="card-text">Asocia síntomas con diagnósticos/actuaciones. Bonus por rapidez y racha.</p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./juego.html?game=quiz-dx">Jugar</a>
+                <a class="btn btn-ghost" href="#guias" data-open="guias">Guía</a>
+              </footer>
+            </article>
+
+            <!-- Reflejos clínicos -->
+            <article class="card">
+              <header class="card-header">
+                <h3>⚡ Reflejos clínicos</h3>
+                <span class="chip">1–3 min</span>
+              </header>
+              <p class="card-text">Responde al estímulo clínico correcto lo más rápido posible.</p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./juego.html?game=reflejos">Jugar</a>
+                <a class="btn btn-ghost" href="#guias" data-open="guias">Guía</a>
+              </footer>
+            </article>
+
+            <!-- Localiza la lesión -->
+            <article class="card">
+              <header class="card-header">
+                <h3>🫀 Localiza la lesión</h3>
+                <span class="chip">4–7 min</span>
+              </header>
+              <p class="card-text">Señala estructuras y lesiones en esquemas anatómicos interactivos.</p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./juego.html?game=localizacion">Jugar</a>
+                <a class="btn btn-ghost" href="#guias" data-open="guias">Guía</a>
+              </footer>
+            </article>
+          </div>
+        </div>
+      </article>
+
+      <!-- BLOQUE: Ranking -->
+      <article class="accordion-item" id="ranking">
+        <h2 class="accordion-header">
+          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-ranking" id="btn-ranking">
+            <i class="fa-solid fa-trophy"></i> Ranking y mejores puntuaciones
+          </button>
+        </h2>
+        <div class="accordion-panel" id="panel-ranking" role="region" aria-labelledby="btn-ranking" hidden>
+          <div class="grid-cards">
+            <article class="card">
+              <header class="card-header">
+                <h3>🏆 Top 10</h3>
+                <span class="chip">Local + Nube</span>
+              </header>
+              <p class="card-text">
+                Consulta los mejores resultados locales y, si lo conectas, el ranking global (Google Sheets · Apps Script).
+              </p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./ranking.html">Abrir ranking</a>
+                <a class="btn btn-ghost" href="#" aria-disabled="true">Configurar</a>
+              </footer>
+            </article>
+          </div>
+        </div>
+      </article>
+
+      <!-- BLOQUE: Guías (NUEVO) -->
+      <article class="accordion-item" id="guias">
+        <h2 class="accordion-header">
+          <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-guias" id="btn-guias">
+            <i class="fa-solid fa-book-open"></i> Guías de uso y criterios
+          </button>
+        </h2>
+        <div class="accordion-panel" id="panel-guias" role="region" aria-labelledby="btn-guias" hidden>
+          <div class="grid-cards">
+            <article class="card">
+              <header class="card-header">
+                <h3>👁️ Guía · Agudeza visual</h3>
+                <span class="chip">Evaluación</span>
+              </header>
+              <p class="card-text">Criterios de isocoria/anisocoria, reactividad a la luz y ejemplos de casos.</p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./guias/guia-agudeza-visual.html">Abrir guía</a>
+              </footer>
+            </article>
+            
+            <article class="card">
+  <header class="card-header">
+    <h3>🧮 Guía · Agudeza mental</h3>
+    <span class="chip">Operadores & bonus</span>
+  </header>
+  <p class="card-text">Cómo se generan las operaciones, reglas de puntuación y bonus por racha.</p>
+  <footer class="card-footer">
+    <a class="btn btn-primary" href="./guias/guia-agudeza-mental.html">Abrir guía</a>
+  </footer>
+</article>
+
+
+            <article class="card">
+              <header class="card-header">
+                <h3>🧠 Guía · Quiz clínico</h3>
+                <span class="chip">Banco & scoring</span>
+              </header>
+              <p class="card-text">Estructura del banco, ponderación por rapidez y criterios de corrección.</p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./guias/guia-quiz-dx.html">Abrir guía</a>
+              </footer>
+            </article>
+
+            <article class="card">
+              <header class="card-header">
+                <h3>⚡ Guía · Reflejos clínicos</h3>
+                <span class="chip">Tiempo de reacción</span>
+              </header>
+              <p class="card-text">Acciones estándar ante estímulos críticos, penalizaciones y bonus.</p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./guias/guia-reflejos.html">Abrir guía</a>
+              </footer>
+            </article>
+
+            <article class="card">
+              <header class="card-header">
+                <h3>🫀 Guía · Localiza la lesión</h3>
+                <span class="chip">Regiones</span>
+              </header>
+              <p class="card-text">Mapa anatómico y correspondencias región–enunciado más frecuentes.</p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./guias/guia-localizacion.html">Abrir guía</a>
+              </footer>
+            </article>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <p class="disclaimer strong" style="margin-top:1rem">
+      Material interno. Comprueba la vigencia y adecuación clínica antes de su uso.
+    </p>
+  </main>
+
+  <!-- JS acordeón / TOC -->
+  <script>
+    const toggles = document.querySelectorAll('.accordion-toggle');
+
+    function closeAllExcept(exceptBtn){
+      document.querySelectorAll('.accordion-toggle[aria-expanded="true"]').forEach(openBtn=>{
+        if(openBtn!==exceptBtn){
+          openBtn.setAttribute('aria-expanded','false');
+          document.getElementById(openBtn.getAttribute('aria-controls')).setAttribute('hidden','');
+        }
+      });
+    }
+
+    function openById(id){
+      const article=document.getElementById(id); if(!article) return;
+      const btn=article.querySelector('.accordion-toggle');
+      const panel=article.querySelector('.accordion-panel');
+      if(btn.getAttribute('aria-expanded')!=='true'){
+        closeAllExcept(btn); btn.setAttribute('aria-expanded','true'); panel.removeAttribute('hidden');
+      }
+      article.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+
+    // Toggle acordeón
+    toggles.forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const panel=document.getElementById(btn.getAttribute('aria-controls'));
+        const expanded=btn.getAttribute('aria-expanded')==='true';
+        closeAllExcept(btn);
+        btn.setAttribute('aria-expanded', String(!expanded));
+        expanded?panel.setAttribute('hidden',''):panel.removeAttribute('hidden');
+      });
+    });
+
+    // TOC: abrir secciones
+    document.querySelectorAll('.calc-toc a').forEach(a=>{
+      a.addEventListener('click',e=>{
+        e.preventDefault();
+        const id=a.getAttribute('href').slice(1);
+        openById(id);
+        history.replaceState(null,'','#'+id);
+      });
+    });
+
+    // Botones "Guía" dentro de tarjetas -> abren pestaña Guías
+    document.querySelectorAll('[data-open="guias"]').forEach(btn=>{
+      btn.addEventListener('click',e=>{
+        e.preventDefault();
+        openById('guias');
+      });
+    });
+
+    // Abrir hash si llega con #...
+    if(location.hash) setTimeout(()=>openById(location.hash.slice(1)),50);
+  </script>
+</body>
+</html>
