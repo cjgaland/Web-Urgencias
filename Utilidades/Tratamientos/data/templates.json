@@ -1,0 +1,107 @@
+[
+  {
+    "id": "cardio_basica",
+    "nombre": "Plantilla Cardiología (Básica)",
+    "descripcion": "Paciente estándar con Fibrilación Auricular y profilaxis.",
+    "datos": {
+      "paciente": {
+        "area": "cardiologia",
+        "insuf_renal": "no",
+        "insuf_hepatica": "no",
+        "alergias": ["Penicilina"]
+      },
+      "prescripciones": [
+        {
+          "farmaco": "Adiro",
+          "dosis": "100 mg",
+          "via": "Oral",
+          "pauta": "q24",
+          "inicio": "08:00",
+          "dias": 7,
+          "indicacion": "Antiagregante",
+          "obs": ""
+        },
+        {
+          "farmaco": "Apixaban",
+          "dosis": "5 mg",
+          "via": "Oral",
+          "pauta": "q12",
+          "inicio": "08:00",
+          "dias": 7,
+          "indicacion": "Anticoagulante",
+          "obs": ""
+        }
+      ],
+      "dietas": [
+        {
+          "tipo": "hiposodica",
+          "tipo_text": "Hiposódica",
+          "consistencia": "facil_masticacion",
+          "consistencia_text": "Fácil masticación",
+          "celiaquia": "no",
+          "intolerancias": [],
+          "observaciones": ""
+        }
+      ],
+      "fluidos": [],
+      "let": "2"
+    }
+  },
+  {
+    "id": "digestivo_cirugia",
+    "nombre": "Plantilla Cirugía Digestiva (Post-Op)",
+    "descripcion": "Paciente en postoperatorio inmediato de cirugía digestiva.",
+    "datos": {
+      "paciente": {
+        "area": "cirugia_general",
+        "insuf_renal": "no",
+        "insuf_hepatica": "no",
+        "alergias": []
+      },
+      "prescripciones": [
+        {
+          "farmaco": "Paracetamol",
+          "dosis": "1 g",
+          "via": "Venosa periférica",
+          "pauta": "q8",
+          "inicio": "08:00",
+          "dias": 3,
+          "indicacion": "Analgesia",
+          "obs": ""
+        },
+        {
+          "farmaco": "Omeprazol",
+          "dosis": "40 mg",
+          "via": "Venosa periférica",
+          "pauta": "q24",
+          "inicio": "08:00",
+          "dias": 3,
+          "indicacion": "IBP",
+          "obs": ""
+        }
+      ],
+      "dietas": [
+        {
+          "tipo": "absoluta",
+          "tipo_text": "Absoluta",
+          "consistencia": "",
+          "consistencia_text": "",
+          "celiaquia": "no",
+          "intolerancias": [],
+          "observaciones": "Dieta absoluta hasta nueva orden"
+        }
+      ],
+      "fluidos": [
+        {
+            "via": "con",
+            "solucion": "fisiologico",
+            "volumen": 1000,
+            "frecuencia": "cada_8_horas",
+            "ritmo": 125,
+            "obs": "Suero base"
+        }
+      ],
+      "let": "1"
+    }
+  }
+]

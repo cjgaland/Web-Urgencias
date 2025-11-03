@@ -1,0 +1,1468 @@
+#ANALGÉSICOS Y ANTIPIRÉTICOS
+Paracetamol|1 g|IV|Dolor o fiebre
+Paracetamol|500 mg|VO|Dolor o fiebre
+Paracetamol|120 mg|VO|Dolor pediátrico
+Metamizol|2 g|IV|Dolor o fiebre
+Metamizol|575 mg|VO|Dolor o fiebre
+Metamizol|300 mg|VO|Dolor pediátrico
+Ibuprofeno|600 mg|VO|Dolor o inflamación
+Ibuprofeno|400 mg|VO|Dolor o inflamación
+Ibuprofeno|200 mg|VO|Dolor leve
+Ibuprofeno|100 mg/5ml|VO|Dolor pediátrico
+Aspirina|500 mg|VO|Dolor o fiebre
+Aspirina|100 mg|VO|Prevención cardiovascular
+Aspirina|81 mg|VO|Prevención cardiovascular
+Naproxeno|500 mg|VO|Dolor o inflamación
+Naproxeno|250 mg|VO|Dolor leve
+Diclofenaco|50 mg|VO|Dolor o inflamación
+Diclofenaco|75 mg|IM|Dolor o inflamación
+Diclofenaco|100 mg|Supositorio|Dolor o inflamación
+Diclofenaco|1%|Gel|Dolor tópico
+Ketorolaco|30 mg|IV|Dolor intenso
+Ketorolaco|10 mg|VO|Dolor moderado
+Tramadol|50 mg|VO|Dolor moderado-severo
+Tramadol|100 mg|IV|Dolor moderado-severo
+Tramadol|37.5 mg + Paracetamol|VO|Dolor moderado
+Morfina|10 mg|IV|Dolor intenso
+Morfina|30 mg|VO|Dolor crónico
+Morfina|10 mg|SC|Dolor crónico
+Morfina|30 mg|Liberación prolongada|VO|Dolor crónico
+Codeína|30 mg|VO|Dolor o tos
+Codeína|15 mg|VO|Dolor leve
+Oxicodona|10 mg|VO|Dolor intenso
+Oxicodona|20 mg|Liberación prolongada|VO|Dolor crónico
+Hidromorfona|4 mg|VO|Dolor intenso
+Fentanilo|50 mcg/h|Transdérmico|Dolor crónico
+Fentanilo|100 mcg|IV|Dolor agudo
+Fentanilo|200 mcg|Bucal|Dolor irruptivo
+Buprenorfina|5 mcg/h|Transdérmico|Dolor crónico
+Buprenorfina|2 mg|Sublingual|Dolor agudo
+Tapentadol|50 mg|VO|Dolor moderado-severo
+Pregabalina|150 mg|VO|Dolor neuropático
+Pregabalina|75 mg|VO|Dolor neuropático leve
+Gabapentina|300 mg|VO|Dolor neuropático
+Gabapentina|100 mg|VO|Dolor neuropático leve
+Carbamazepina|200 mg|VO|Neuralgia del trigémino
+Carbamazepina|400 mg|VO|Neuralgia severa
+Fenitoína|100 mg|VO|Neuralgia
+Amitriptilina|25 mg|VO|Dolor neuropático
+Duloxetina|60 mg|VO|Dolor neuropático
+Venlafaxina|75 mg|VO|Dolor neuropático
+Capsaicina|0.075%|Crema|Dolor neuropático tópico
+Lidocaína|5%|Parche|Dolor neuropático tópico
+
+#ANTIBIÓTICOS - PENICILINAS
+Penicilina G|2 millones UI|IV|Infección bacteriana
+Penicilina G|5 millones UI|IV|Infección severa
+Penicilina V|500 mg|VO|Infección bacteriana
+Amoxicilina|500 mg|VO|Infección bacteriana
+Amoxicilina|250 mg|VO|Infección leve
+Amoxicilina|125 mg/5ml|VO|Infección pediátrica
+Amoxicilina/Clavulánico|875/125 mg|VO|Infección bacteriana
+Amoxicilina/Clavulánico|500/125 mg|VO|Infección bacteriana
+Amoxicilina/Clavulánico|1.2 g|IV|Infección bacteriana
+Amoxicilina/Clavulánico|600 mg/5ml|VO|Infección pediátrica
+Ampicilina|1 g|IV|Infección bacteriana
+Ampicilina|500 mg|VO|Infección bacteriana
+Ampicilina/Sulbactam|1.5 g|IV|Infección bacteriana
+Ampicilina/Sulbactam|3 g|IV|Infección severa
+Piperacilina/Tazobactam|4.5 g|IV|Infección nosocomial
+
+#ANTIBIÓTICOS - CEFALOSPORINAS
+Cefalexina|500 mg|VO|Infección bacteriana
+Cefalexina|250 mg|VO|Infección leve
+Cefradina|500 mg|VO|Infección bacteriana
+Cefazolina|1 g|IV|Infección bacteriana
+Cefazolina|2 g|IV|Profilaxis quirúrgica
+Cefuroxima|750 mg|IV|Infección bacteriana
+Cefuroxima|500 mg|VO|Infección bacteriana
+Cefuroxima|250 mg|VO|Infección leve
+Cefotaxima|1 g|IV|Infección bacteriana
+Cefotaxima|2 g|IV|Infección bacteriana grave
+Ceftriaxona|1 g|IV|Infección bacteriana
+Ceftriaxona|2 g|IV|Infección bacteriana grave
+Ceftazidima|2 g|IV|Infección por Pseudomonas
+Ceftazidima|1 g|IV|Infección moderada
+Cefepime|2 g|IV|Infección bacteriana
+Cefepime|1 g|IV|Infección moderada
+Ceftarolina|600 mg|IV|Infección por MRSA
+Cefixima|400 mg|VO|Infección bacteriana
+Cefpodoxima|200 mg|VO|Infección bacteriana
+Cefdinir|300 mg|VO|Infección bacteriana
+Cefditoreno|200 mg|VO|Infección bacteriana
+
+#ANTIBIÓTICOS - CARBAPENEMAS Y OTROS
+Meropenem|1 g|IV|Infección bacteriana grave
+Meropenem|500 mg|IV|Infección moderada
+Imipenem/Cilastatina|500 mg|IV|Infección bacteriana grave
+Imipenem/Cilastatina|1 g|IV|Infección severa
+Ertapenem|1 g|IV|Infección bacteriana
+Doripenem|500 mg|IV|Infección bacteriana
+Aztreonam|1 g|IV|Infección por gram negativos
+Vancomicina|1 g|IV|Infección por gram positivos
+Vancomicina|500 mg|VO|Colitis por C. difficile
+Teicoplanina|400 mg|IV|Infección por gram positivos
+Linezolid|600 mg|VO|Infección por gram positivos
+Linezolid|600 mg|IV|Infección por gram positivos
+Daptomicina|500 mg|IV|Infección por gram positivos
+Tigeciclina|50 mg|IV|Infección intraabdominal
+Ceftobiprol|500 mg|IV|Infección complicada de piel
+
+#ANTIBIÓTICOS - MACRÓLIDOS
+Azitromicina|500 mg|VO|Infección bacteriana
+Azitromicina|250 mg|VO|Infección leve
+Azitromicina|2 g|VO|Dosis única para ETS
+Claritromicina|500 mg|VO|Infección bacteriana
+Claritromicina|250 mg|VO|Infección leve
+Eritromicina|500 mg|VO|Infección bacteriana
+Eritromicina|250 mg|VO|Infección leve
+Eritromicina|500 mg|IV|Infección severa
+
+#ANTIBIÓTICOS - TETRACICLINAS
+Doxiciclina|100 mg|VO|Infección bacteriana
+Doxiciclina|200 mg|VO|Dosis de carga
+Minociclina|100 mg|VO|Infección bacteriana
+Tetraciclina|500 mg|VO|Infección bacteriana
+Tigeciclina|50 mg|IV|Infección intraabdominal
+
+#ANTIBIÓTICOS - QUINOLONAS
+Ciprofloxacino|500 mg|VO|Infección bacteriana
+Ciprofloxacino|400 mg|IV|Infección bacteriana
+Ciprofloxacino|750 mg|VO|Infección complicada
+Levofloxacino|500 mg|VO|Infección bacteriana
+Levofloxacino|750 mg|VO|Infección complicada
+Levofloxacino|500 mg|IV|Infección bacteriana
+Moxifloxacino|400 mg|VO|Infección bacteriana
+Moxifloxacino|400 mg|IV|Infección bacteriana
+Norfloxacino|400 mg|VO|Infección urinaria
+Ofloxacino|400 mg|VO|Infección bacteriana
+
+#ANTIBIÓTICOS - AMINOGLUCÓSIDOS
+Gentamicina|240 mg|IV|Infección bacteriana grave
+Gentamicina|80 mg|IV|Infección moderada
+Gentamicina|5 mg/kg|IV|Infección severa
+Tobramicina|300 mg|IV|Infección bacteriana
+Tobramicina|5 mg/kg|IV|Infección severa
+Amikacina|1 g|IV|Infección bacteriana grave
+Amikacina|500 mg|IV|Infección moderada
+Amikacina|15 mg/kg|IV|Infección severa
+Estreptomicina|1 g|IM|Tuberculosis
+
+#ANTIBIÓTICOS - OTROS
+Clindamicina|600 mg|IV|Infección por anaerobios
+Clindamicina|300 mg|VO|Infección por anaerobios
+Clindamicina|150 mg|VO|Infección leve
+Metronidazol|500 mg|VO|Infección por anaerobios
+Metronidazol|500 mg|IV|Infección por anaerobios
+Metronidazol|250 mg|VO|Infección leve
+Trimetoprim/Sulfametoxazol|160/800 mg|VO|Infección bacteriana
+Trimetoprim/Sulfametoxazol|80/400 mg|VO|Infección leve
+Fosfomicina|3 g|VO|Infección urinaria no complicada
+Nitrofurantoína|100 mg|VO|Infección urinaria
+Nitrofurantoína|50 mg|VO|Profilaxis urinaria
+Colistina|150 mg|IV|Infección multirresistente
+Polimixina B|500.000 UI|IV|Infección multirresistente
+Rifampicina|600 mg|VO|Tuberculosis o profilaxis
+Rifampicina|300 mg|VO|Dosis pediátrica
+Isoniazida|300 mg|VO|Tuberculosis
+Isoniazida|5 mg/kg|VO|Tuberculosis pediátrica
+Pirazinamida|1.5 g|VO|Tuberculosis
+Pirazinamida|25 mg/kg|VO|Tuberculosis pediátrica
+Etambutol|1.2 g|VO|Tuberculosis
+Etambutol|20 mg/kg|VO|Tuberculosis pediátrica
+
+#ANTIVIRALES
+Aciclovir|800 mg|VO|Infección por herpes
+Aciclovir|400 mg|VO|Profilaxis de herpes
+Aciclovir|500 mg|IV|Infección por herpes grave
+Aciclovir|250 mg/m2|IV|Infección pediátrica
+Valaciclovir|500 mg|VO|Infección por herpes
+Valaciclovir|1 g|VO|Herpes zóster
+Famciclovir|250 mg|VO|Infección por herpes
+Famciclovir|500 mg|VO|Herpes zóster
+Ganciclovir|250 mg|IV|Infección por citomegalovirus
+Ganciclovir|1 g|VO|Profilaxis de CMV
+Valganciclovir|450 mg|VO|Infección por citomegalovirus
+Valganciclovir|900 mg|VO|Infección activa por CMV
+Foscarnet|60 mg/kg|IV|Infección por CMV resistente
+Cidofovir|5 mg/kg|IV|Infección por CMV
+Oseltamivir|75 mg|VO|Influenza
+Oseltamivir|45 mg|VO|Influenza pediátrica
+Oseltamivir|30 mg|VO|Influenza infantil
+Zanamivir|10 mg|Inhalado|Influenza
+Peramivir|600 mg|IV|Influenza grave
+Amantadina|100 mg|VO|Influenza A
+Rimantadina|100 mg|VO|Influenza A
+Ribavirina|600 mg|VO|Hepatitis C
+Ribavirina|400 mg|VO|Hepatitis C con cirrosis
+Interferón alfa|3 millones UI|SC|Hepatitis B o C
+Interferón alfa|5 millones UI|SC|Hepatitis C
+Interferón pegilado|180 mcg|SC|Hepatitis C
+Interferón beta|250 mcg|SC|Esclerosis múltiple
+Interferón gamma|100 mcg|SC|Enfermedad granulomatosa
+Entecavir|0.5 mg|VO|Hepatitis B
+Entecavir|1 mg|VO|Hepatitis B resistente
+Tenofovir|300 mg|VO|Hepatitis B o VIH
+Tenofovir|25 mg|VO|Hepatitis B pediátrica
+Lamivudina|100 mg|VO|Hepatitis B o VIH
+Adefovir|10 mg|VO|Hepatitis B
+Telbivudina|600 mg|VO|Hepatitis B
+Sofosbuvir|400 mg|VO|Hepatitis C
+Ledipasvir/Sofosbuvir|90/400 mg|VO|Hepatitis C
+Daclatasvir|60 mg|VO|Hepatitis C
+Simeprevir|150 mg|VO|Hepatitis C
+Boceprevir|800 mg|VO|Hepatitis C
+Telaprevir|750 mg|VO|Hepatitis C
+
+#ANTIRRETROVIRALES - VIH
+Zidovudina|300 mg|VO|VIH
+Zidovudina|200 mg|VO|VIH pediátrico
+Lamivudina|150 mg|VO|VIH
+Lamivudina|300 mg|VO|VIH
+Abacavir|300 mg|VO|VIH
+Tenofovir|300 mg|VO|VIH
+Emtricitabina|200 mg|VO|VIH
+Didanosina|400 mg|VO|VIH
+Estavudina|40 mg|VO|VIH
+Nevirapina|200 mg|VO|VIH
+Efavirenz|600 mg|VO|VIH
+Etravirina|200 mg|VO|VIH
+Rilpivirina|25 mg|VO|VIH
+Lopinavir/Ritonavir|200/50 mg|VO|VIH
+Darunavir|600 mg|VO|VIH
+Atazanavir|300 mg|VO|VIH
+Fosamprenavir|700 mg|VO|VIH
+Tipranavir|500 mg|VO|VIH
+Raltegravir|400 mg|VO|VIH
+Dolutegravir|50 mg|VO|VIH
+Elvitegravir|150 mg|VO|VIH
+Maraviroc|300 mg|VO|VIH
+Enfuvirtida|90 mg|SC|VIH
+Cabotegravir|400 mg|IM|VIH
+
+#ANTIFÚNGICOS
+Fluconazol|150 mg|VO|Infección por hongos
+Fluconazol|400 mg|IV|Infección por hongos grave
+Fluconazol|50 mg|VO|Profilaxis fúngica
+Itraconazol|100 mg|VO|Infección por hongos
+Itraconazol|200 mg|VO|Infección severa
+Voriconazol|200 mg|VO|Infección por hongos invasiva
+Voriconazol|6 mg/kg|IV|Infección por hongos invasiva
+Posaconazol|400 mg|VO|Profilaxis fúngica
+Isavuconazol|200 mg|VO|Infección por hongos invasiva
+Anfotericina B|50 mg|IV|Infección por hongos sistémica
+Anfotericina B liposomal|3 mg/kg|IV|Infección por hongos sistémica
+Caspofungina|50 mg|IV|Infección por hongos invasiva
+Micafungina|100 mg|IV|Infección por hongos invasiva
+Anidulafungina|100 mg|IV|Infección por hongos invasiva
+Nistatina|100.000 UI|VO|Candidiasis oral
+Nistatina|100.000 UI|Suspensión|Candidiasis oral
+Clotrimazol|10 mg|Vaginal|Candidiasis vaginal
+Clotrimazol|1%|Crema|Candidiasis cutánea
+Miconazol|2%|Crema|Candidiasis cutánea
+Ketoconazol|200 mg|VO|Infección por hongos
+Ketoconazol|2%|Champú|Tiña del cuero cabelludo
+Terbinafina|250 mg|VO|Tiña ungueal
+Terbinafina|1%|Crema|Tiña cutánea
+Griseofulvina|500 mg|VO|Tiña del cuero cabelludo
+
+#ANTIHIPERTENSIVOS - ARA II
+Losartán|50 mg|VO|Hipertensión arterial
+Losartán|100 mg|VO|Hipertensión severa
+Valsartán|160 mg|VO|Hipertensión arterial
+Valsartán|320 mg|VO|Hipertensión severa
+Candesartán|16 mg|VO|Hipertensión arterial
+Candesartán|32 mg|VO|Hipertensión severa
+Irbesartán|300 mg|VO|Hipertensión arterial
+Irbesartán|150 mg|VO|Hipertensión leve
+Telmisartán|80 mg|VO|Hipertensión arterial
+Telmisartán|40 mg|VO|Hipertensión leve
+Eprosartán|600 mg|VO|Hipertensión arterial
+Olmesartán|40 mg|VO|Hipertensión arterial
+Olmesartán|20 mg|VO|Hipertensión leve
+
+#ANTIHIPERTENSIVOS - IECA
+Enalapril|20 mg|VO|Hipertensión arterial
+Enalapril|10 mg|VO|Hipertensión leve
+Enalapril|5 mg|VO|Inicio de tratamiento
+Captopril|25 mg|VO|Hipertensión arterial
+Captopril|50 mg|VO|Hipertensión severa
+Captopril|6.25 mg|VO|Crisis hipertensiva
+Lisinopril|20 mg|VO|Hipertensión arterial
+Lisinopril|10 mg|VO|Hipertensión leve
+Lisinopril|40 mg|VO|Hipertensión severa
+Ramipril|10 mg|VO|Hipertensión arterial
+Ramipril|5 mg|VO|Hipertensión leve
+Ramipril|2.5 mg|VO|Inicio de tratamiento
+Quinapril|20 mg|VO|Hipertensión arterial
+Perindopril|8 mg|VO|Hipertensión arterial
+Trandolapril|4 mg|VO|Hipertensión arterial
+Benazepril|20 mg|VO|Hipertensión arterial
+Fosinopril|20 mg|VO|Hipertensión arterial
+Moexipril|15 mg|VO|Hipertensión arterial
+
+#ANTIHIPERTENSIVOS - CALCIO ANTAGONISTAS
+Amlodipino|5 mg|VO|Hipertensión arterial
+Amlodipino|10 mg|VO|Hipertensión severa
+Amlodipino|2.5 mg|VO|Hipertensión leve
+Nifedipino|30 mg|VO|Hipertensión arterial
+Nifedipino|10 mg|VO|Hipertensión leve
+Nifedipino|60 mg|Liberación prolongada|VO|Hipertensión
+Verapamilo|120 mg|VO|Hipertensión arterial
+Verapamilo|240 mg|VO|Hipertensión severa
+Verapamilo|80 mg|VO|Hipertensión leve
+Diltiazem|90 mg|VO|Hipertensión arterial
+Diltiazem|120 mg|VO|Hipertensión severa
+Diltiazem|60 mg|VO|Hipertensión leve
+Felodipino|5 mg|VO|Hipertensión arterial
+Felodipino|10 mg|VO|Hipertensión severa
+Lercanidipino|10 mg|VO|Hipertensión arterial
+Lercanidipino|20 mg|VO|Hipertensión severa
+Nicardipino|30 mg|VO|Hipertensión arterial
+Isradipino|5 mg|VO|Hipertensión arterial
+
+#ANTIHIPERTENSIVOS - BETA BLOQUEADORES
+Atenolol|50 mg|VO|Hipertensión arterial
+Atenolol|100 mg|VO|Hipertensión severa
+Atenolol|25 mg|VO|Hipertensión leve
+Propranolol|40 mg|VO|Hipertensión arterial
+Propranolol|80 mg|VO|Hipertensión severa
+Propranolol|20 mg|VO|Hipertensión leve
+Metoprolol|100 mg|VO|Hipertensión arterial
+Metoprolol|200 mg|VO|Hipertensión severa
+Metoprolol|50 mg|VO|Hipertensión leve
+Carvedilol|25 mg|VO|Hipertensión arterial
+Carvedilol|50 mg|VO|Hipertensión severa
+Carvedilol|12.5 mg|VO|Hipertensión leve
+Nebivolol|5 mg|VO|Hipertensión arterial
+Nebivolol|10 mg|VO|Hipertensión severa
+Nebivolol|2.5 mg|VO|Hipertensión leve
+Bisoprolol|5 mg|VO|Hipertensión arterial
+Bisoprolol|10 mg|VO|Hipertensión severa
+Bisoprolol|2.5 mg|VO|Hipertensión leve
+Labetalol|100 mg|VO|Hipertensión arterial
+Labetalol|200 mg|VO|Hipertensión severa
+Labetalol|20 mg|IV|Crisis hipertensiva
+
+#ANTIHIPERTENSIVOS - DIURÉTICOS
+Hidroclorotiazida|25 mg|VO|Hipertensión arterial
+Hidroclorotiazida|12.5 mg|VO|Hipertensión leve
+Hidroclorotiazida|50 mg|VO|Hipertensión resistente
+Clortalidona|25 mg|VO|Hipertensión arterial
+Clortalidona|12.5 mg|VO|Hipertensión leve
+Clortalidona|50 mg|VO|Hipertensión resistente
+Indapamida|2.5 mg|VO|Hipertensión arterial
+Indapamida|1.5 mg|VO|Hipertensión leve
+Furosemida|40 mg|VO|Hipertensión con edema
+Furosemida|20 mg|VO|Hipertensión leve con edema
+Furosemida|80 mg|VO|Hipertensión severa con edema
+Espironolactona|25 mg|VO|Hipertensión resistente
+Espironolactona|50 mg|VO|Hipertensión severa resistente
+Espironolactona|12.5 mg|VO|Hipertensión leve
+Eplerenona|50 mg|VO|Hipertensión resistente
+Eplerenona|25 mg|VO|Hipertensión leve
+Bumetanida|1 mg|VO|Hipertensión con edema
+Bumetanida|0.5 mg|VO|Hipertensión leve con edema
+Torasemida|10 mg|VO|Hipertensión con edema
+Torasemida|5 mg|VO|Hipertensión leve con edema
+Amilorida|5 mg|VO|Hipertensión con hipokalemia
+Triamtereno|50 mg|VO|Hipertensión con hipokalemia
+
+#ANTIANGINOSOS
+Nitroglicerina|0.4 mg|Sublingual|Angina de pecho
+Nitroglicerina|5 mg|Parche|Angina crónica
+Nitroglicerina|10 mg|IV|Angina inestable
+Isosorbida|20 mg|VO|Angina de pecho
+Isosorbida|40 mg|VO|Angina severa
+Isosorbida|10 mg|VO|Angina leve
+Isosorbida|5 mg|Sublingual|Angina aguda
+Dinitrato de Isosorbida|40 mg|VO|Angina de pecho
+Nicorandil|20 mg|VO|Angina de pecho
+Ranolazina|500 mg|VO|Angina crónica
+Ranolazina|1000 mg|VO|Angina severa
+Ivabradina|5 mg|VO|Angina crónica
+Ivabradina|7.5 mg|VO|Angina severa
+Trimetazidina|35 mg|VO|Angina de pecho
+Trimetazidina|20 mg|VO|Angina leve
+
+#CARDIOLÓGICOS - ANTIARRÍTMICOS
+Digoxina|0.25 mg|VO|Insuficiencia cardíaca
+Digoxina|0.125 mg|VO|Insuficiencia cardíaca leve
+Digoxina|0.5 mg|IV|Insuficiencia cardíaca aguda
+Amiodarona|200 mg|VO|Arritmia cardiaca
+Amiodarona|400 mg|VO|Arritmia severa
+Amiodarona|150 mg|IV|Arritmia cardiaca aguda
+Amiodarona|300 mg|IV|Arritmia cardiaca grave
+Flecainida|100 mg|VO|Arritmia cardiaca
+Flecainida|50 mg|VO|Arritmia leve
+Flecainida|2 mg/kg|IV|Arritmia aguda
+Propafenona|150 mg|VO|Arritmia cardiaca
+Propafenona|300 mg|VO|Arritmia severa
+Sotalol|80 mg|VO|Arritmia cardiaca
+Sotalol|160 mg|VO|Arritmia severa
+Dronedarona|400 mg|VO|Arritmia cardiaca
+Adenosina|6 mg|IV|Taquicardia supraventricular
+Adenosina|12 mg|IV|Taquicardia resistente
+Lidocaína|100 mg|IV|Arritmia ventricular
+Lidocaína|50 mg|IV|Arritmia ventricular leve
+Mexiletina|200 mg|VO|Arritmia ventricular
+Disopiramida|100 mg|VO|Arritmia cardiaca
+Procainamida|500 mg|IV|Arritmia cardiaca
+Quinidina|200 mg|VO|Arritmia cardiaca
+
+#CARDIOLÓGICOS - INOTRÓPICOS
+Dobutamina|250 mg|IV|Insuficiencia cardíaca
+Dobutamina|500 mg|IV|Insuficiencia cardíaca grave
+Dopamina|200 mg|IV|Hipotensión
+Dopamina|400 mg|IV|Hipotensión severa
+Noradrenalina|4 mg|IV|Hipotensión severa
+Noradrenalina|8 mg|IV|Shock séptico
+Adrenalina|1 mg|IV|Paro cardíaco
+Adrenalina|0.5 mg|IV|Anafilaxia
+Milrinona|50 mcg/kg|IV|Insuficiencia cardíaca
+Enoximona|0.5 mg/kg|IV|Insuficiencia cardíaca
+Levosimendán|12.5 mg|IV|Insuficiencia cardíaca aguda
+Digoxina|0.5 mg|IV|Insuficiencia cardíaca aguda
+
+#DIURÉTICOS
+Furosemida|40 mg|IV|Edema agudo
+Furosemida|20 mg|IV|Edema leve
+Furosemida|80 mg|IV|Edema refractario
+Furosemida|500 mg|IV|Edema resistente
+Hidroclorotiazida|25 mg|VO|Edema
+Hidroclorotiazida|50 mg|VO|Edema resistente
+Clortalidona|25 mg|VO|Edema
+Clortalidona|50 mg|VO|Edema resistente
+Indapamida|2.5 mg|VO|Edema
+Espironolactona|25 mg|VO|Edema
+Espironolactona|100 mg|VO|Edema resistente
+Eplerenona|50 mg|VO|Edema
+Eplerenona|25 mg|VO|Edema leve
+Bumetanida|1 mg|VO|Edema
+Bumetanida|2 mg|IV|Edema agudo
+Torasemida|10 mg|VO|Edema
+Torasemida|20 mg|IV|Edema agudo
+Acetazolamida|250 mg|VO|Edema
+Acetazolamida|500 mg|VO|Edema resistente
+Metolazona|5 mg|VO|Edema resistente
+Metolazona|2.5 mg|VO|Edema leve
+
+#ANTICOAGULANTES
+Warfarina|5 mg|VO|Anticoagulación
+Warfarina|2.5 mg|VO|Anticoagulación inicial
+Warfarina|10 mg|VO|Anticoagulación carga
+Acenocumarol|4 mg|VO|Anticoagulación
+Acenocumarol|2 mg|VO|Anticoagulación inicial
+Heparina|5000 UI|SC|Profilaxis tromboembólica
+Heparina|10.000 UI|SC|Profilaxis alta riesgo
+Heparina|25.000 UI|IV|Trombosis aguda
+Heparina|40.000 UI|IV|Trombosis masiva
+Enoxaparina|40 mg|SC|Profilaxis tromboembólica
+Enoxaparina|60 mg|SC|Profilaxis alto riesgo
+Enoxaparina|1 mg/kg|SC|Tratamiento tromboembólico
+Enoxaparina|1.5 mg/kg|SC|Trombosis aguda
+Fondaparinux|2.5 mg|SC|Profilaxis tromboembólica
+Fondaparinux|7.5 mg|SC|Tratamiento tromboembólico
+Rivaroxabán|20 mg|VO|Anticoagulación
+Rivaroxabán|15 mg|VO|Anticoagulación inicial
+Rivaroxabán|10 mg|VO|Profilaxis
+Apixabán|5 mg|VO|Anticoagulación
+Apixabán|2.5 mg|VO|Anticoagulación riesgo alto
+Apixabán|2.5 mg|VO|Profilaxis
+Dabigatrán|150 mg|VO|Anticoagulación
+Dabigatrán|110 mg|VO|Anticoagulación riesgo alto
+Edoxabán|60 mg|VO|Anticoagulación
+Edoxabán|30 mg|VO|Anticoagulación riesgo alto
+
+#ANTIPLAQUETARIOS
+Aspirina|100 mg|VO|Antiagregación plaquetaria
+Aspirina|300 mg|VO|Síndrome coronario agudo
+Aspirina|81 mg|VO|Prevención secundaria
+Clopidogrel|75 mg|VO|Antiagregación plaquetaria
+Clopidogrel|300 mg|VO|Carga inicial
+Clopidogrel|600 mg|VO|Carga alta
+Ticagrelor|90 mg|VO|Antiagregación plaquetaria
+Ticagrelor|180 mg|VO|Carga inicial
+Prasugrel|10 mg|VO|Antiagregación plaquetaria
+Prasugrel|60 mg|VO|Carga inicial
+Ticlopidina|250 mg|VO|Antiagregación plaquetaria
+Cilostazol|100 mg|VO|Enfermedad arterial periférica
+Dipyridamole|200 mg|VO|Antiagregación plaquetaria
+Abciximab|10 mg|IV|Angioplastia coronaria
+Eptifibatida|180 mcg/kg|IV|Síndrome coronario agudo
+Tirofiban|25 mcg/kg|IV|Síndrome coronario agudo
+
+#HIPOLIPEMIANTES - ESTATINAS
+Atorvastatina|20 mg|VO|Hipercolesterolemia
+Atorvastatina|40 mg|VO|Hipercolesterolemia severa
+Atorvastatina|80 mg|VO|Hipercolesterolemia muy severa
+Atorvastatina|10 mg|VO|Hipercolesterolemia leve
+Simvastatina|20 mg|VO|Hipercolesterolemia
+Simvastatina|40 mg|VO|Hipercolesterolemia severa
+Simvastatina|80 mg|VO|Hipercolesterolemia muy severa
+Simvastatina|10 mg|VO|Hipercolesterolemia leve
+Rosuvastatina|10 mg|VO|Hipercolesterolemia
+Rosuvastatina|20 mg|VO|Hipercolesterolemia severa
+Rosuvastatina|40 mg|VO|Hipercolesterolemia muy severa
+Rosuvastatina|5 mg|VO|Hipercolesterolemia leve
+Pravastatina|40 mg|VO|Hipercolesterolemia
+Pravastatina|20 mg|VO|Hipercolesterolemia leve
+Pravastatina|80 mg|VO|Hipercolesterolemia severa
+Lovastatina|20 mg|VO|Hipercolesterolemia
+Lovastatina|40 mg|VO|Hipercolesterolemia severa
+Lovastatina|10 mg|VO|Hipercolesterolemia leve
+Fluvastatina|80 mg|VO|Hipercolesterolemia
+Fluvastatina|40 mg|VO|Hipercolesterolemia leve
+Pitavastatina|2 mg|VO|Hipercolesterolemia
+Pitavastatina|4 mg|VO|Hipercolesterolemia severa
+
+#HIPOLIPEMIANTES - OTROS
+Ezetimiba|10 mg|VO|Hipercolesterolemia
+Fenofibrato|200 mg|VO|Hipertrigliceridemia
+Fenofibrato|145 mg|VO|Hipertrigliceridemia leve
+Fenofibrato|67 mg|VO|Hipertrigliceridemia muy leve
+Gemfibrozil|600 mg|VO|Hipertrigliceridemia
+Gemfibrozil|300 mg|VO|Hipertrigliceridemia leve
+Niacina|500 mg|VO|Hiperlipidemia
+Niacina|1000 mg|VO|Hiperlipidemia severa
+Niacina|250 mg|VO|Hiperlipidemia leve
+Colestiramina|4 g|VO|Hipercolesterolemia
+Colestiramina|8 g|VO|Hipercolesterolemia severa
+Colestipol|5 g|VO|Hipercolesterolemia
+Colesevelam|3.75 g|VO|Hipercolesterolemia
+Ácido bempedoico|180 mg|VO|Hipercolesterolemia
+Lomitapide|10 mg|VO|Hipercolesterolemia familiar
+Mipomersen|200 mg|SC|Hipercolesterolemia familiar
+Evolocumab|140 mg|SC|Hipercolesterolemia
+Alirocumab|75 mg|SC|Hipercolesterolemia
+Inclisiran|284 mg|SC|Hipercolesterolemia
+
+#ANTIDIABÉTICOS - BIGUANIDAS
+Metformina|850 mg|VO|Diabetes tipo 2
+Metformina|500 mg|VO|Diabetes tipo 2 inicial
+Metformina|1000 mg|VO|Diabetes tipo 2 severa
+Metformina|750 mg|Liberación prolongada|VO|Diabetes tipo 2
+
+#ANTIDIABÉTICOS - SULFONILUREAS
+Glibenclamida|5 mg|VO|Diabetes tipo 2
+Glibenclamida|2.5 mg|VO|Diabetes tipo 2 leve
+Glibenclamida|10 mg|VO|Diabetes tipo 2 severa
+Glimepirida|2 mg|VO|Diabetes tipo 2
+Glimepirida|1 mg|VO|Diabetes tipo 2 leve
+Glimepirida|4 mg|VO|Diabetes tipo 2 severa
+Gliclazida|60 mg|VO|Diabetes tipo 2
+Gliclazida|30 mg|VO|Diabetes tipo 2 leve
+Gliclazida|120 mg|VO|Diabetes tipo 2 severa
+Glipizida|5 mg|VO|Diabetes tipo 2
+Glipizida|2.5 mg|VO|Diabetes tipo 2 leve
+Glipizida|10 mg|VO|Diabetes tipo 2 severa
+Tolbutamida|500 mg|VO|Diabetes tipo 2
+Clorpropamida|250 mg|VO|Diabetes tipo 2
+
+#ANTIDIABÉTICOS - MEGLITINIDAS
+Repaglinida|1 mg|VO|Diabetes tipo 2
+Repaglinida|0.5 mg|VO|Diabetes tipo 2 leve
+Repaglinida|2 mg|VO|Diabetes tipo 2 severa
+Nateglinida|120 mg|VO|Diabetes tipo 2
+Nateglinida|60 mg|VO|Diabetes tipo 2 leve
+
+#ANTIDIABÉTICOS - TIAZOLIDINEDIONAS
+Pioglitazona|15 mg|VO|Diabetes tipo 2
+Pioglitazona|30 mg|VO|Diabetes tipo 2 severa
+Pioglitazona|45 mg|VO|Diabetes tipo 2 muy severa
+Rosiglitazona|4 mg|VO|Diabetes tipo 2
+Rosiglitazona|8 mg|VO|Diabetes tipo 2 severa
+
+#ANTIDIABÉTICOS - INHIBIDORES DPP-4
+Sitagliptina|100 mg|VO|Diabetes tipo 2
+Sitagliptina|50 mg|VO|Diabetes tipo 2 con IR
+Sitagliptina|25 mg|VO|Diabetes tipo 2 con IR severa
+Linagliptina|5 mg|VO|Diabetes tipo 2
+Saxagliptina|5 mg|VO|Diabetes tipo 2
+Saxagliptina|2.5 mg|VO|Diabetes tipo 2 con IR
+Alogliptina|25 mg|VO|Diabetes tipo 2
+Alogliptina|12.5 mg|VO|Diabetes tipo 2 con IR
+Alogliptina|6.25 mg|VO|Diabetes tipo 2 con IR severa
+Vildagliptina|50 mg|VO|Diabetes tipo 2
+
+#ANTIDIABÉTICOS - INHIBIDORES SGLT2
+Empagliflozina|10 mg|VO|Diabetes tipo 2
+Empagliflozina|25 mg|VO|Diabetes tipo 2 severa
+Canagliflozina|100 mg|VO|Diabetes tipo 2
+Canagliflozina|300 mg|VO|Diabetes tipo 2 severa
+Dapagliflozina|10 mg|VO|Diabetes tipo 2
+Dapagliflozina|5 mg|VO|Diabetes tipo 2 con IR
+Ertugliflozina|5 mg|VO|Diabetes tipo 2
+Ertugliflozina|15 mg|VO|Diabetes tipo 2 severa
+
+#ANTIDIABÉTICOS - ANÁLOGOS GLP-1
+Exenatida|10 mcg|SC|Diabetes tipo 2
+Exenatida|5 mcg|SC|Diabetes tipo 2 inicial
+Exenatida|2 mg|Liberación prolongada|SC|Diabetes tipo 2
+Liraglutida|1.2 mg|SC|Diabetes tipo 2
+Liraglutida|1.8 mg|SC|Diabetes tipo 2 severa
+Liraglutida|0.6 mg|SC|Diabetes tipo 2 inicial
+Dulaglutida|1.5 mg|SC|Diabetes tipo 2
+Dulaglutida|0.75 mg|SC|Diabetes tipo 2 inicial
+Lixisenatida|20 mcg|SC|Diabetes tipo 2
+Lixisenatida|10 mcg|SC|Diabetes tipo 2 inicial
+Semaglutida|0.5 mg|SC|Diabetes tipo 2
+Semaglutida|1 mg|SC|Diabetes tipo 2 severa
+Semaglutida|14 mg|VO|Diabetes tipo 2
+
+#INSULINAS - RÁPIDAS
+Insulina Regular|10 UI|SC|Diabetes
+Insulina Regular|5 UI|SC|Diabetes leve
+Insulina Regular|20 UI|SC|Diabetes severa
+Insulina Aspart|10 UI|SC|Diabetes
+Insulina Aspart|5 UI|SC|Diabetes leve
+Insulina Aspart|20 UI|SC|Diabetes severa
+Insulina Lispro|10 UI|SC|Diabetes
+Insulina Lispro|5 UI|SC|Diabetes leve
+Insulina Lispro|20 UI|SC|Diabetes severa
+Insulina Glulisina|10 UI|SC|Diabetes
+Insulina Glulisina|5 UI|SC|Diabetes leve
+Insulina Glulisina|20 UI|SC|Diabetes severa
+
+#INSULINAS - INTERMEDIAS
+Insulina NPH|20 UI|SC|Diabetes
+Insulina NPH|10 UI|SC|Diabetes leve
+Insulina NPH|40 UI|SC|Diabetes severa
+
+#INSULINAS - LENTAS
+Insulina Glargina|30 UI|SC|Diabetes
+Insulina Glargina|15 UI|SC|Diabetes leve
+Insulina Glargina|60 UI|SC|Diabetes severa
+Insulina Detemir|20 UI|SC|Diabetes
+Insulina Detemir|10 UI|SC|Diabetes leve
+Insulina Detemir|40 UI|SC|Diabetes severa
+Insulina Degludec|30 UI|SC|Diabetes
+Insulina Degludec|15 UI|SC|Diabetes leve
+Insulina Degludec|60 UI|SC|Diabetes severa
+
+#INSULINAS - PREMEZCLADAS
+Insulina 70/30|30 UI|SC|Diabetes
+Insulina 70/30|15 UI|SC|Diabetes leve
+Insulina 70/30|50 UI|SC|Diabetes severa
+Insulina 75/25|30 UI|SC|Diabetes
+Insulina 50/50|30 UI|SC|Diabetes
+
+#GASTROINTESTINALES - IBPs
+Omeprazol|40 mg|IV|Protección gástrica
+Omeprazol|20 mg|VO|Protección gástrica
+Omeprazol|10 mg|VO|Protección gástrica leve
+Esomeprazol|40 mg|IV|Protección gástrica
+Esomeprazol|20 mg|VO|Protección gástrica
+Pantoprazol|40 mg|IV|Protección gástrica
+Pantoprazol|40 mg|VO|Protección gástrica
+Pantoprazol|20 mg|VO|Protección gástrica leve
+Lansoprazol|30 mg|VO|Protección gástrica
+Lansoprazol|15 mg|VO|Protección gástrica leve
+Rabeprazol|20 mg|VO|Protección gástrica
+Rabeprazol|10 mg|VO|Protección gástrica leve
+Dexlansoprazol|60 mg|VO|Protección gástrica
+Dexlansoprazol|30 mg|VO|Protección gástrica leve
+
+#GASTROINTESTINALES - ANTAGONISTAS H2
+Ranitidina|150 mg|VO|Úlcera gástrica
+Ranitidina|300 mg|VO|Úlcera gástrica severa
+Ranitidina|50 mg|IV|Úlcera gástrica aguda
+Famotidina|20 mg|VO|Úlcera gástrica
+Famotidina|40 mg|VO|Úlcera gástrica severa
+Famotidina|20 mg|IV|Úlcera gástrica aguda
+Cimetidina|400 mg|VO|Úlcera gástrica
+Cimetidina|800 mg|VO|Úlcera gástrica severa
+Cimetidina|300 mg|IV|Úlcera gástrica aguda
+Nizatidina|150 mg|VO|Úlcera gástrica
+Nizatidina|300 mg|VO|Úlcera gástrica severa
+
+#GASTROINTESTINALES - ANTIEMÉTICOS
+Metoclopramida|10 mg|IV|Náuseas o vómitos
+Metoclopramida|10 mg|VO|Náuseas o vómitos
+Metoclopramida|5 mg|VO|Náuseas leves
+Domperidona|10 mg|VO|Náuseas o vómitos
+Domperidona|20 mg|VO|Náuseas severas
+Ondansetrón|8 mg|IV|Náuseas o vómitos
+Ondansetrón|8 mg|VO|Náuseas o vómitos
+Ondansetrón|4 mg|VO|Náuseas leves
+Granisetrón|1 mg|IV|Náuseas o vómitos
+Granisetrón|2 mg|VO|Náuseas o vómitos
+Palonosetrón|0.25 mg|IV|Náuseas o vómitos
+Palonosetrón|0.5 mg|VO|Náuseas o vómitos
+Aprepitant|125 mg|VO|Náuseas o vómitos
+Aprepitant|80 mg|VO|Náuseas o vómitos
+Rolapitant|180 mg|VO|Náuseas o vómitos
+Fosaprepitant|150 mg|IV|Náuseas o vómitos
+
+#GASTROINTESTINALES - ANTIDIARREICOS
+Loperamida|2 mg|VO|Diarrea
+Loperamida|4 mg|VO|Diarrea severa
+Racecadotrilo|100 mg|VO|Diarrea
+Racecadotrilo|200 mg|VO|Diarrea severa
+Sales de rehidratación oral|1 sobre|VO|Diarrea aguda
+
+#GASTROINTESTINALES - LAXANTES
+Lactulosa|15 ml|VO|Estreñimiento
+Lactulosa|30 ml|VO|Estreñimiento severo
+Picosulfato sódico|10 gotas|VO|Estreñimiento
+Bisacodilo|5 mg|VO|Estreñimiento
+Bisacodilo|10 mg|Supositorio|Estreñimiento
+Senósidos|12 mg|VO|Estreñimiento
+Poliethylenglicol|17 g|VO|Estreñimiento
+Lubiprostona|24 mcg|VO|Estreñimiento
+Linaclotida|145 mcg|VO|Estreñimiento
+Plecanatida|3 mg|VO|Estreñimiento
+
+#GASTROINTESTINALES - ENFERMEDAD INFLAMATORIA
+Sulfasalazina|500 mg|VO|Colitis ulcerosa
+Sulfasalazina|1 g|VO|Colitis ulcerosa activa
+Mesalazina|800 mg|VO|Colitis ulcerosa
+Mesalazina|1.6 g|VO|Colitis ulcerosa activa
+Mesalazina|1 g|Rectal|Colitis ulcerosa distal
+Olsalazina|500 mg|VO|Colitis ulcerosa
+Balsalazida|2.25 g|VO|Colitis ulcerosa
+Budesonida|9 mg|VO|Enfermedad de Crohn
+Budesonida|3 mg|VO|Enfermedad de Crohn leve
+Budesonida|6 mg|VO|Enfermedad de Crohn moderada
+
+#RESPIRATORIOS - BRONCODILATADORES
+Salbutamol|2.5 mg|Inhalado|Broncoespasmo
+Salbutamol|4 mg|VO|Broncoespasmo
+Salbutamol|100 mcg|Inhalador|Broncoespasmo
+Salbutamol|200 mcg|Inhalador|Broncoespasmo severo
+Terbutalina|2.5 mg|Inhalado|Broncoespasmo
+Terbutalina|5 mg|Inhalado|Broncoespasmo severo
+Terbutalina|2.5 mg|SC|Broncoespasmo agudo
+Ipratropio|500 mcg|Inhalado|Broncoespasmo
+Ipratropio|250 mcg|Inhalado|Broncoespasmo leve
+Ipratropio|100 mcg|Inhalador|Broncoespasmo
+Tiotropio|18 mcg|Inhalado|EPOC
+Tiotropio|5 mcg|Inhalado|EPOC leve
+Umeclidinio|62.5 mcg|Inhalado|EPOC
+Aclidinio|322 mcg|Inhalado|EPOC
+Glicopirronio|50 mcg|Inhalado|EPOC
+Indacaterol|150 mcg|Inhalado|EPOC
+Olodaterol|5 mcg|Inhalado|EPOC
+Vilanterol|25 mcg|Inhalado|EPOC
+Formoterol|12 mcg|Inhalado|Asma
+Formoterol|6 mcg|Inhalado|Asma leve
+Salmeterol|50 mcg|Inhalado|Asma
+Salmeterol|25 mcg|Inhalado|Asma leve
+
+#RESPIRATORIOS - CORTICOIDES INHALADOS
+Budesonida|200 mcg|Inhalado|Asma
+Budesonida|400 mcg|Inhalado|Asma severa
+Budesonida|100 mcg|Inhalado|Asma leve
+Fluticasona|250 mcg|Inhalado|Asma
+Fluticasona|500 mcg|Inhalado|Asma severa
+Fluticasona|100 mcg|Inhalado|Asma leve
+Beclometasona|200 mcg|Inhalado|Asma
+Beclometasona|400 mcg|Inhalado|Asma severa
+Beclometasona|100 mcg|Inhalado|Asma leve
+Mometasona|200 mcg|Inhalado|Asma
+Mometasona|400 mcg|Inhalado|Asma severa
+Ciclesonida|160 mcg|Inhalado|Asma
+Ciclesonida|80 mcg|Inhalado|Asma leve
+
+#RESPIRATORIOS - COMBINACIONES
+Budesonida/Formoterol|160/4.5 mcg|Inhalado|Asma
+Fluticasona/Salmeterol|250/25 mcg|Inhalado|Asma
+Fluticasona/Salmeterol|500/50 mcg|Inhalado|Asma severa
+Beclometasona/Formoterol|100/6 mcg|Inhalado|Asma
+Mometasona/Formoterol|200/5 mcg|Inhalado|Asma
+Fluticasona/Vilanterol|100/25 mcg|Inhalado|EPOC
+Umeclidinio/Vilanterol|62.5/25 mcg|Inhalado|EPOC
+Glycopyrronio/Indacaterol|50/110 mcg|Inhalado|EPOC
+Aclidinio/Formoterol|400/12 mcg|Inhalado|EPOC
+
+#RESPIRATORIOS - SISTÉMICOS
+Montelukast|10 mg|VO|Asma
+Montelukast|5 mg|VO|Asma pediátrica
+Montelukast|4 mg|VO|Asma infantil
+Zafirlukast|20 mg|VO|Asma
+Zafirlukast|10 mg|VO|Asma leve
+Teofilina|200 mg|VO|Asma o EPOC
+Teofilina|400 mg|VO|Asma o EPOC severa
+Teofilina|100 mg|VO|Asma o EPOC leve
+Aminofilina|250 mg|IV|Asma aguda
+Aminofilina|500 mg|IV|Asma aguda grave
+Prednisona|30 mg|VO|Asma aguda
+Prednisona|60 mg|VO|Asma aguda grave
+Metilprednisolona|40 mg|IV|Asma aguda grave
+Metilprednisolona|125 mg|IV|Asma aguda muy grave
+Hidrocortisona|100 mg|IV|Asma aguda
+Dexametasona|4 mg|IV|Asma aguda
+Oxígeno|2-4 L/min|Inhalado|Hipoxemia
+Oxígeno|10-15 L/min|Inhalado|Hipoxemia grave
+
+#NEUROLÓGICOS - ANTIPARKINSON
+Levodopa/Carbidopa|100/25 mg|VO|Enfermedad de Parkinson
+Levodopa/Carbidopa|200/50 mg|VO|Enfermedad de Parkinson avanzada
+Levodopa/Carbidopa|25/100 mg|VO|Enfermedad de Parkinson inicial
+Pramipexol|0.25 mg|VO|Enfermedad de Parkinson
+Pramipexol|1.5 mg|VO|Enfermedad de Parkinson avanzada
+Pramipexol|0.125 mg|VO|Enfermedad de Parkinson inicial
+Ropinirol|1 mg|VO|Enfermedad de Parkinson
+Ropinirol|8 mg|VO|Enfermedad de Parkinson avanzada
+Ropinirol|0.25 mg|VO|Enfermedad de Parkinson inicial
+Rotigotina|4 mg|Parche|Enfermedad de Parkinson
+Rotigotina|8 mg|Parche|Enfermedad de Parkinson avanzada
+Selegilina|5 mg|VO|Enfermedad de Parkinson
+Selegilina|10 mg|VO|Enfermedad de Parkinson avanzada
+Rasagilina|1 mg|VO|Enfermedad de Parkinson
+Entacapona|200 mg|VO|Enfermedad de Parkinson
+Tolcapona|100 mg|VO|Enfermedad de Parkinson
+Amantadina|100 mg|VO|Enfermedad de Parkinson
+Trihexifenidilo|2 mg|VO|Enfermedad de Parkinson
+Benztropina|2 mg|VO|Enfermedad de Parkinson
+
+#NEUROLÓGICOS - ANTIDEMENCIA
+Donepezilo|10 mg|VO|Demencia tipo Alzheimer
+Donepezilo|5 mg|VO|Demencia tipo Alzheimer inicial
+Donepezilo|23 mg|VO|Demencia tipo Alzheimer avanzada
+Rivastigmina|6 mg|VO|Demencia tipo Alzheimer
+Rivastigmina|3 mg|VO|Demencia tipo Alzheimer inicial
+Rivastigmina|9.5 mg|Parche|Demencia tipo Alzheimer
+Rivastigmina|4.6 mg|Parche|Demencia tipo Alzheimer inicial
+Galantamina|8 mg|VO|Demencia tipo Alzheimer
+Galantamina|4 mg|VO|Demencia tipo Alzheimer inicial
+Galantamina|16 mg|VO|Demencia tipo Alzheimer avanzada
+Galantamina|24 mg|VO|Demencia tipo Alzheimer muy avanzada
+Memantina|10 mg|VO|Demencia tipo Alzheimer
+Memantina|5 mg|VO|Demencia tipo Alzheimer inicial
+Memantina|20 mg|VO|Demencia tipo Alzheimer avanzada
+
+#NEUROLÓGICOS - ANTIMIGRAÑA
+Sumatriptán|50 mg|VO|Migraña
+Sumatriptán|100 mg|VO|Migraña severa
+Sumatriptán|6 mg|SC|Migraña aguda
+Sumatriptán|20 mg|Nasal|Migraña aguda
+Rizatriptán|10 mg|VO|Migraña
+Rizatriptán|5 mg|VO|Migraña leve
+Eletriptán|40 mg|VO|Migraña
+Eletriptán|20 mg|VO|Migraña leve
+Zolmitriptán|2.5 mg|VO|Migraña
+Zolmitriptán|5 mg|VO|Migraña severa
+Almotriptán|12.5 mg|VO|Migraña
+Frovatriptán|2.5 mg|VO|Migraña
+Naratriptán|2.5 mg|VO|Migraña
+Ergotamina|2 mg|VO|Migraña
+Dihidroergotamina|1 mg|IV|Migraña refractaria
+Dihidroergotamina|2 mg|Nasal|Migraña
+
+#NEUROLÓGICOS - PROFILAXIS MIGRAÑA
+Propranolol|40 mg|VO|Profilaxis de migraña
+Propranolol|80 mg|VO|Profilaxis de migraña severa
+Timolol|10 mg|VO|Profilaxis de migraña
+Timolol|20 mg|VO|Profilaxis de migraña severa
+Topiramato|50 mg|VO|Profilaxis de migraña
+Topiramato|100 mg|VO|Profilaxis de migraña severa
+Valproato|500 mg|VO|Profilaxis de migraña
+Valproato|1000 mg|VO|Profilaxis de migraña severa
+Amitriptilina|25 mg|VO|Profilaxis de migraña
+Amitriptilina|50 mg|VO|Profilaxis de migraña severa
+Venlafaxina|75 mg|VO|Profilaxis de migraña
+Flunarizina|10 mg|VO|Profilaxis de migraña
+Candesartán|16 mg|VO|Profilaxis de migraña
+OnabotulinumtoxinA|155 UI|IM|Migraña crónica
+
+#PSICOFÁRMACOS - ANTIDEPRESIVOS ISRS
+Sertralina|50 mg|VO|Depresión
+Sertralina|100 mg|VO|Depresión severa
+Sertralina|25 mg|VO|Depresión leve
+Sertralina|200 mg|VO|Depresión muy severa
+Fluoxetina|20 mg|VO|Depresión
+Fluoxetina|40 mg|VO|Depresión severa
+Fluoxetina|10 mg|VO|Depresión leve
+Fluoxetina|60 mg|VO|Depresión muy severa
+Paroxetina|20 mg|VO|Depresión
+Paroxetina|40 mg|VO|Depresión severa
+Paroxetina|10 mg|VO|Depresión leve
+Paroxetina|50 mg|VO|Depresión muy severa
+Citalopram|20 mg|VO|Depresión
+Citalopram|40 mg|VO|Depresión severa
+Citalopram|10 mg|VO|Depresión leve
+Escitalopram|10 mg|VO|Depresión
+Escitalopram|20 mg|VO|Depresión severa
+Escitalopram|5 mg|VO|Depresión leve
+Fluvoxamina|100 mg|VO|Depresión
+Fluvoxamina|200 mg|VO|Depresión severa
+Fluvoxamina|50 mg|VO|Depresión leve
+
+#PSICOFÁRMACOS - ANTIDEPRESIVOS OTROS
+Venlafaxina|75 mg|VO|Depresión
+Venlafaxina|150 mg|VO|Depresión severa
+Venlafaxina|37.5 mg|VO|Depresión leve
+Duloxetina|60 mg|VO|Depresión
+Duloxetina|120 mg|VO|Depresión severa
+Duloxetina|30 mg|VO|Depresión leve
+Bupropion|150 mg|VO|Depresión
+Bupropion|300 mg|VO|Depresión severa
+Bupropion|75 mg|VO|Depresión leve
+Mirtazapina|30 mg|VO|Depresión
+Mirtazapina|45 mg|VO|Depresión severa
+Mirtazapina|15 mg|VO|Depresión leve
+Trazodona|100 mg|VO|Depresión
+Trazodona|200 mg|VO|Depresión severa
+Trazodona|50 mg|VO|Depresión leve
+Agomelatina|25 mg|VO|Depresión
+Agomelatina|50 mg|VO|Depresión severa
+Vortioxetina|10 mg|VO|Depresión
+Vortioxetina|20 mg|VO|Depresión severa
+Vortioxetina|5 mg|VO|Depresión leve
+
+#PSICOFÁRMACOS - ANSIOLÍTICOS
+Diazepam|10 mg|IV|Ansiedad o agitación
+Diazepam|5 mg|VO|Ansiedad
+Diazepam|2 mg|VO|Ansiedad leve
+Diazepam|20 mg|VO|Ansiedad severa
+Alprazolam|0.5 mg|VO|Ansiedad
+Alprazolam|1 mg|VO|Ansiedad severa
+Alprazolam|0.25 mg|VO|Ansiedad leve
+Lorazepam|2 mg|VO|Ansiedad
+Lorazepam|4 mg|VO|Ansiedad severa
+Lorazepam|1 mg|VO|Ansiedad leve
+Lorazepam|1 mg|IV|Ansiedad aguda
+Clonazepam|2 mg|VO|Ansiedad o convulsiones
+Clonazepam|1 mg|VO|Ansiedad leve
+Clonazepam|4 mg|VO|Ansiedad severa
+Clonazepam|0.5 mg|VO|Ansiedad muy leve
+Clorazepato|10 mg|VO|Ansiedad
+Clorazepato|5 mg|VO|Ansiedad leve
+Clorazepato|25 mg|VO|Ansiedad severa
+Bromazepam|6 mg|VO|Ansiedad
+Bromazepam|3 mg|VO|Ansiedad leve
+Bromazepam|12 mg|VO|Ansiedad severa
+Oxazepam|15 mg|VO|Ansiedad
+Oxazepam|30 mg|VO|Ansiedad severa
+Buspirona|10 mg|VO|Ansiedad
+Buspirona|5 mg|VO|Ansiedad leve
+Buspirona|20 mg|VO|Ansiedad severa
+Hidroxizina|25 mg|VO|Ansiedad
+Hidroxizina|50 mg|VO|Ansiedad severa
+
+#PSICOFÁRMACOS - ANTIPSICÓTICOS
+Risperidona|2 mg|VO|Esquizofrenia
+Risperidona|4 mg|VO|Esquizofrenia severa
+Risperidona|1 mg|VO|Esquizofrenia leve
+Risperidona|6 mg|VO|Esquizofrenia muy severa
+Olanzapina|10 mg|VO|Esquizofrenia
+Olanzapina|20 mg|VO|Esquizofrenia severa
+Olanzapina|5 mg|VO|Esquizofrenia leve
+Quetiapina|200 mg|VO|Esquizofrenia
+Quetiapina|400 mg|VO|Esquizofrenia severa
+Quetiapina|100 mg|VO|Esquizofrenia leve
+Quetiapina|800 mg|VO|Esquizofrenia muy severa
+Aripiprazol|10 mg|VO|Esquizofrenia
+Aripiprazol|15 mg|VO|Esquizofrenia severa
+Aripiprazol|5 mg|VO|Esquizofrenia leve
+Aripiprazol|30 mg|VO|Esquizofrenia muy severa
+Ziprasidona|40 mg|VO|Esquizofrenia
+Ziprasidona|80 mg|VO|Esquizofrenia severa
+Ziprasidona|20 mg|VO|Esquizofrenia leve
+Haloperidol|5 mg|VO|Psicosis
+Haloperidol|10 mg|VO|Psicosis severa
+Haloperidol|2 mg|VO|Psicosis leve
+Haloperidol|5 mg|IM|Psicosis aguda
+Haloperidol|10 mg|IM|Psicosis aguda severa
+Clorpromazina|100 mg|VO|Psicosis
+Clorpromazina|200 mg|VO|Psicosis severa
+Clorpromazina|50 mg|VO|Psicosis leve
+Clorpromazina|100 mg|IM|Psicosis aguda
+Paliperidona|6 mg|VO|Esquizofrenia
+Paliperidona|12 mg|VO|Esquizofrenia severa
+Paliperidona|3 mg|VO|Esquizofrenia leve
+Lurasidona|40 mg|VO|Esquizofrenia
+Lurasidona|80 mg|VO|Esquizofrenia severa
+Asenapina|10 mg|Sublingual|Esquizofrenia
+Asenapina|5 mg|Sublingual|Esquizofrenia leve
+Iloperidona|12 mg|VO|Esquizofrenia
+Iloperidona|24 mg|VO|Esquizofrenia severa
+
+#PSICOFÁRMACOS - ESTABILIZADORES DEL ÁNIMO
+Litio|300 mg|VO|Trastorno bipolar
+Litio|600 mg|VO|Trastorno bipolar severo
+Litio|150 mg|VO|Trastorno bipolar leve
+Litio|900 mg|VO|Trastorno bipolar muy severo
+Valproato|500 mg|VO|Trastorno bipolar
+Valproato|1000 mg|VO|Trastorno bipolar severo
+Valproato|250 mg|VO|Trastorno bipolar leve
+Carbamazepina|200 mg|VO|Trastorno bipolar
+Carbamazepina|400 mg|VO|Trastorno bipolar severo
+Carbamazepina|100 mg|VO|Trastorno bipolar leve
+Lamotrigina|100 mg|VO|Trastorno bipolar
+Lamotrigina|200 mg|VO|Trastorno bipolar severo
+Lamotrigina|50 mg|VO|Trastorno bipolar leve
+Oxcarbazepina|300 mg|VO|Trastorno bipolar
+Oxcarbazepina|600 mg|VO|Trastorno bipolar severo
+Oxcarbazepina|150 mg|VO|Trastorno bipolar leve
+Topiramato|50 mg|VO|Trastorno bipolar
+Topiramato|100 mg|VO|Trastorno bipolar severo
+Gabapentina|300 mg|VO|Trastorno bipolar
+Gabapentina|600 mg|VO|Trastorno bipolar severo
+
+#ANTICONVULSIVOS
+Fenitoína|100 mg|VO|Convulsiones
+Fenitoína|300 mg|VO|Convulsiones severas
+Fenitoína|50 mg|VO|Convulsiones leves
+Fenitoína|100 mg|IV|Estado epiléptico
+Fenitoína|250 mg|IV|Estado epiléptico grave
+Carbamazepina|200 mg|VO|Convulsiones
+Carbamazepina|400 mg|VO|Convulsiones severas
+Carbamazepina|100 mg|VO|Convulsiones leves
+Oxcarbazepina|300 mg|VO|Convulsiones
+Oxcarbazepina|600 mg|VO|Convulsiones severas
+Oxcarbazepina|150 mg|VO|Convulsiones leves
+Valproato|500 mg|VO|Convulsiones
+Valproato|1000 mg|VO|Convulsiones severas
+Valproato|250 mg|VO|Convulsiones leves
+Valproato|500 mg|IV|Estado epiléptico
+Valproato|1000 mg|IV|Estado epiléptico grave
+Levetiracetam|500 mg|VO|Convulsiones
+Levetiracetam|1000 mg|VO|Convulsiones severas
+Levetiracetam|250 mg|VO|Convulsiones leves
+Levetiracetam|1000 mg|IV|Estado epiléptico
+Levetiracetam|2000 mg|IV|Estado epiléptico grave
+Topiramato|50 mg|VO|Convulsiones
+Topiramato|100 mg|VO|Convulsiones severas
+Topiramato|25 mg|VO|Convulsiones leves
+Lamotrigina|100 mg|VO|Convulsiones
+Lamotrigina|200 mg|VO|Convulsiones severas
+Lamotrigina|50 mg|VO|Convulsiones leves
+Gabapentina|300 mg|VO|Convulsiones
+Gabapentina|600 mg|VO|Convulsiones severas
+Gabapentina|100 mg|VO|Convulsiones leves
+Pregabalina|150 mg|VO|Convulsiones
+Pregabalina|300 mg|VO|Convulsiones severas
+Pregabalina|75 mg|VO|Convulsiones leves
+Clonazepam|2 mg|VO|Convulsiones
+Clonazepam|4 mg|VO|Convulsiones severas
+Clonazepam|1 mg|VO|Convulsiones leves
+Clonazepam|1 mg|IV|Estado epiléptico
+Clonazepam|2 mg|IV|Estado epiléptico grave
+Lacosamida|100 mg|VO|Convulsiones
+Lacosamida|200 mg|VO|Convulsiones severas
+Lacosamida|50 mg|VO|Convulsiones leves
+Perampanel|4 mg|VO|Convulsiones
+Perampanel|8 mg|VO|Convulsiones severas
+Perampanel|2 mg|VO|Convulsiones leves
+Zonisamida|100 mg|VO|Convulsiones
+Zonisamida|200 mg|VO|Convulsiones severas
+Zonisamida|50 mg|VO|Convulsiones leves
+Vigabatrin|500 mg|VO|Convulsiones
+Vigabatrin|1000 mg|VO|Convulsiones severas
+Tiagabina|12 mg|VO|Convulsiones
+Tiagabina|16 mg|VO|Convulsiones severas
+Felbamato|1200 mg|VO|Convulsiones
+Felbamato|2400 mg|VO|Convulsiones severas
+
+#ENDOCRINOLÓGICOS - TIROIDEOS
+Levotiroxina|100 mcg|VO|Hipotiroidismo
+Levotiroxina|50 mcg|VO|Hipotiroidismo leve
+Levotiroxina|150 mcg|VO|Hipotiroidismo severo
+Levotiroxina|200 mcg|VO|Hipotiroidismo muy severo
+Levotiroxina|25 mcg|VO|Hipotiroidismo subclínico
+Metimazol|10 mg|VO|Hipertiroidismo
+Metimazol|20 mg|VO|Hipertiroidismo severo
+Metimazol|5 mg|VO|Hipertiroidismo leve
+Propiltiouracilo|100 mg|VO|Hipertiroidismo
+Propiltiouracilo|200 mg|VO|Hipertiroidismo severo
+Propiltiouracilo|50 mg|VO|Hipertiroidismo leve
+Yodo radiactivo|10 mCi|VO|Hipertiroidismo
+Yodo radiactivo|15 mCi|VO|Hipertiroidismo severo
+
+#ENDOCRINOLÓGICOS - CORTICOIDES
+Prednisona|30 mg|VO|Insuficiencia suprarrenal
+Prednisona|60 mg|VO|Proceso inflamatorio severo
+Prednisona|10 mg|VO|Proceso inflamatorio leve
+Prednisona|5 mg|VO|Mantenimiento
+Hidrocortisona|100 mg|IV|Insuficiencia suprarrenal aguda
+Hidrocortisona|20 mg|VO|Insuficiencia suprarrenal leve
+Hidrocortisona|200 mg|IV|Insuficiencia suprarrenal grave
+Metilprednisolona|40 mg|IV|Proceso inflamatorio
+Metilprednisolona|125 mg|IV|Proceso inflamatorio grave
+Metilprednisolona|1000 mg|IV|Pulsoterapia
+Dexametasona|4 mg|IV|Proceso inflamatorio
+Dexametasona|8 mg|IV|Proceso inflamatorio grave
+Dexametasona|20 mg|IV|Edema cerebral
+Fludrocortisona|0.1 mg|VO|Insuficiencia suprarrenal
+Fludrocortisona|0.2 mg|VO|Insuficiencia suprarrenal severa
+
+#ENDOCRINOLÓGICOS - HORMONAS SEXUALES
+Testosterona|50 mg|Transdérmico|Hipogonadismo
+Testosterona|100 mg|Transdérmico|Hipogonadismo severo
+Testosterona|250 mg|IM|Hipogonadismo
+Testosterona|500 mg|IM|Hipogonadismo severo
+Estradiol|1 mg|VO|Menopausia
+Estradiol|2 mg|VO|Menopausia severa
+Estradiol|0.5 mg|VO|Menopausia leve
+Estradiol|50 mcg|Parche|Menopausia
+Estradiol|100 mcg|Parche|Menopausia severa
+Medroxiprogesterona|10 mg|VO|Menopausia
+Medroxiprogesterona|5 mg|VO|Menopausia leve
+Medroxiprogesterona|20 mg|VO|Menopausia severa
+Noretisterona|5 mg|VO|Menopausia
+Levonorgestrel|1.5 mg|VO|Anticoncepción de emergencia
+Levonorgestrel|0.15 mg|VO|Anticoncepción
+Etinilestradiol/Levonorgestrel|30/150 mcg|VO|Anticoncepción
+Drospirenona/Etinilestradiol|3/20 mcg|VO|Anticoncepción
+Clomifeno|50 mg|VO|Inducción de la ovulación
+Clomifeno|100 mg|VO|Inducción de la ovulación resistente
+Tamoxifeno|20 mg|VO|Cáncer de mama
+Tamoxifeno|40 mg|VO|Cáncer de mama avanzado
+Raloxifeno|60 mg|VO|Osteoporosis
+Raloxifeno|120 mg|VO|Osteoporosis severa
+Finasteride|5 mg|VO|Hiperplasia prostática
+Finasteride|1 mg|VO|Alopecia androgénica
+Dutasteride|0.5 mg|VO|Hiperplasia prostática
+Tamsulosina|0.4 mg|VO|Hiperplasia prostática
+Tamsulosina|0.8 mg|VO|Hiperplasia prostática severa
+Alfuzosina|10 mg|VO|Hiperplasia prostática
+Alfuzosina|5 mg|VO|Hiperplasia prostática leve
+Silodosina|8 mg|VO|Hiperplasia prostática
+Doxazosina|4 mg|VO|Hiperplasia prostática
+Doxazosina|8 mg|VO|Hiperplasia prostática severa
+Terazosina|5 mg|VO|Hiperplasia prostática
+Terazosina|10 mg|VO|Hiperplasia prostática severa
+
+#ENDOCRINOLÓGICOS - OSTEOPOROSIS
+Alendronato|70 mg|VO|Osteoporosis
+Alendronato|10 mg|VO|Osteoporosis leve
+Risedronato|35 mg|VO|Osteoporosis
+Risedronato|5 mg|VO|Osteoporosis leve
+Ibandronato|150 mg|VO|Osteoporosis
+Ibandronato|3 mg|IV|Osteoporosis severa
+Ácido zoledrónico|5 mg|IV|Osteoporosis
+Ácido zoledrónico|4 mg|IV|Osteoporosis leve
+Denosumab|60 mg|SC|Osteoporosis
+Teriparatida|20 mcg|SC|Osteoporosis severa
+Abaloparatide|80 mcg|SC|Osteoporosis severa
+Romosozumab|210 mg|SC|Osteoporosis severa
+Calcitonina|200 UI|Nasal|Osteoporosis
+Calcitonina|100 UI|SC|Osteoporosis
+
+#ONCOLÓGICOS - QUIMIOTERAPIA
+Cisplatino|50 mg/m²|IV|Cáncer
+Cisplatino|75 mg/m²|IV|Cáncer avanzado
+Cisplatino|100 mg/m²|IV|Cáncer muy avanzado
+Carboplatino|300 mg/m²|IV|Cáncer
+Carboplatino|400 mg/m²|IV|Cáncer avanzado
+Carboplatino|500 mg/m²|IV|Cáncer muy avanzado
+Oxaliplatino|85 mg/m²|IV|Cáncer
+Oxaliplatino|130 mg/m²|IV|Cáncer avanzado
+Oxaliplatino|170 mg/m²|IV|Cáncer muy avanzado
+Ciclofosfamida|500 mg/m²|IV|Cáncer
+Ciclofosfamida|1000 mg/m²|IV|Cáncer avanzado
+Ciclofosfamida|1500 mg/m²|IV|Cáncer muy avanzado
+Ifosfamida|1500 mg/m²|IV|Cáncer
+Ifosfamida|2000 mg/m²|IV|Cáncer avanzado
+Ifosfamida|2500 mg/m²|IV|Cáncer muy avanzado
+Metotrexato|50 mg/m²|IV|Cáncer
+Metotrexato|100 mg/m²|IV|Cáncer avanzado
+Metotrexato|1000 mg/m²|IV|Cáncer muy avanzado
+5-Fluorouracilo|500 mg/m²|IV|Cáncer
+5-Fluorouracilo|1000 mg/m²|IV|Cáncer avanzado
+5-Fluorouracilo|1500 mg/m²|IV|Cáncer muy avanzado
+Capecitabina|1250 mg/m²|VO|Cáncer
+Capecitabina|2500 mg/m²|VO|Cáncer avanzado
+Gemcitabina|1000 mg/m²|IV|Cáncer
+Gemcitabina|1250 mg/m²|IV|Cáncer avanzado
+Pemetrexed|500 mg/m²|IV|Cáncer
+Pemetrexed|750 mg/m²|IV|Cáncer avanzado
+Doxorrubicina|50 mg/m²|IV|Cáncer
+Doxorrubicina|60 mg/m²|IV|Cáncer avanzado
+Doxorrubicina|75 mg/m²|IV|Cáncer muy avanzado
+Epirrubicina|75 mg/m²|IV|Cáncer
+Epirrubicina|100 mg/m²|IV|Cáncer avanzado
+Daunorrubicina|45 mg/m²|IV|Leucemia
+Daunorrubicina|60 mg/m²|IV|Leucemia avanzada
+Idarrubicina|12 mg/m²|IV|Leucemia
+Idarrubicina|18 mg/m²|IV|Leucemia avanzada
+Bleomicina|15 mg/m²|IV|Cáncer
+Bleomicina|30 mg/m²|IV|Cáncer avanzado
+Mitomicina|10 mg/m²|IV|Cáncer
+Mitomicina|15 mg/m²|IV|Cáncer avanzado
+Mitoxantrona|12 mg/m²|IV|Cáncer
+Mitoxantrona|14 mg/m²|IV|Cáncer avanzado
+Paclitaxel|175 mg/m²|IV|Cáncer
+Paclitaxel|200 mg/m²|IV|Cáncer avanzado
+Paclitaxel|250 mg/m²|IV|Cáncer muy avanzado
+Docetaxel|75 mg/m²|IV|Cáncer
+Docetaxel|100 mg/m²|IV|Cáncer avanzado
+Vinblastina|6 mg/m²|IV|Cáncer
+Vinblastina|10 mg/m²|IV|Cáncer avanzado
+Vincristina|1.4 mg/m²|IV|Cáncer
+Vincristina|2 mg/m²|IV|Cáncer avanzado
+Vinorelbina|30 mg/m²|IV|Cáncer
+Vinorelbina|40 mg/m²|IV|Cáncer avanzado
+Irinotecán|125 mg/m²|IV|Cáncer
+Irinotecán|180 mg/m²|IV|Cáncer avanzado
+Irinotecán|240 mg/m²|IV|Cáncer muy avanzado
+Topotecán|1.5 mg/m²|IV|Cáncer
+Topotecán|2 mg/m²|IV|Cáncer avanzado
+Etopósido|100 mg/m²|IV|Cáncer
+Etopósido|150 mg/m²|IV|Cáncer avanzado
+Tenipósido|100 mg/m²|IV|Cáncer
+Tenipósido|150 mg/m²|IV|Cáncer avanzado
+
+#ONCOLÓGICOS - TERAPIAS DIRIGIDAS
+Imatinib|400 mg|VO|Leucemia mieloide crónica
+Imatinib|600 mg|VO|Leucemia mieloide crónica avanzada
+Imatinib|800 mg|VO|Leucemia mieloide crónica resistente
+Dasatinib|100 mg|VO|Leucemia mieloide crónica
+Dasatinib|140 mg|VO|Leucemia mieloide crónica avanzada
+Nilotinib|300 mg|VO|Leucemia mieloide crónica
+Nilotinib|400 mg|VO|Leucemia mieloide crónica avanzada
+Bosutinib|500 mg|VO|Leucemia mieloide crónica
+Ponatinib|45 mg|VO|Leucemia mieloide crónica resistente
+Trastuzumab|6 mg/kg|IV|Cáncer de mama HER2+
+Trastuzumab|8 mg/kg|IV|Cáncer de mama HER2+ avanzado
+Pertuzumab|840 mg|IV|Cáncer de mama HER2+
+Ado-trastuzumab emtansine|3.6 mg/kg|IV|Cáncer de mama HER2+
+Fam-trastuzumab deruxtecan|5.4 mg/kg|IV|Cáncer de mama HER2+
+Rituximab|375 mg/m²|IV|Linfoma no Hodgkin
+Rituximab|500 mg/m²|IV|Linfoma no Hodgkin avanzado
+Obinutuzumab|1000 mg|IV|Linfoma no Hodgkin
+Ofatumumab|2000 mg|IV|Leucemia linfocítica crónica
+Alemtuzumab|30 mg|IV|Leucemia linfocítica crónica
+Brentuximab vedotina|1.8 mg/kg|IV|Linfoma de Hodgkin
+Bevacizumab|10 mg/kg|IV|Cáncer colorrectal
+Bevacizumab|15 mg/kg|IV|Cáncer colorrectal avanzado
+Cetuximab|400 mg/m²|IV|Cáncer colorrectal
+Cetuximab|250 mg/m²|IV|Cáncer colorrectal mantenimiento
+Panitumumab|6 mg/kg|IV|Cáncer colorrectal
+Regorafenib|160 mg|VO|Cáncer colorrectal
+Aflibercept|4 mg/kg|IV|Cáncer colorrectal
+Ramucirumab|8 mg/kg|IV|Cáncer gástrico
+Sunitinib|50 mg|VO|Cáncer renal
+Sunitinib|37.5 mg|VO|Cáncer renal mantenimiento
+Pazopanib|800 mg|VO|Cáncer renal
+Pazopanib|600 mg|VO|Cáncer renal mantenimiento
+Axitinib|5 mg|VO|Cáncer renal
+Axitinib|10 mg|VO|Cáncer renal avanzado
+Sorafenib|400 mg|VO|Cáncer renal
+Sorafenib|600 mg|VO|Cáncer renal avanzado
+Cabozantinib|60 mg|VO|Cáncer renal
+Lenvatinib|24 mg|VO|Cáncer renal
+Everolimus|10 mg|VO|Cáncer renal
+Temsirolimus|25 mg|IV|Cáncer renal
+Erlotinib|150 mg|VO|Cáncer de pulmón
+Erlotinib|100 mg|VO|Cáncer de pulmón mantenimiento
+Gefitinib|250 mg|VO|Cáncer de pulmón
+Afatinib|40 mg|VO|Cáncer de pulmón
+Afatinib|50 mg|VO|Cáncer de pulmón avanzado
+Osimertinib|80 mg|VO|Cáncer de pulmón
+Osimertinib|160 mg|VO|Cáncer de pulmón avanzado
+Crizotinib|250 mg|VO|Cáncer de pulmón
+Crizotinib|500 mg|VO|Cáncer de pulmón avanzado
+Ceritinib|450 mg|VO|Cáncer de pulmón
+Ceritinib|750 mg|VO|Cáncer de pulmón avanzado
+Alectinib|600 mg|VO|Cáncer de pulmón
+Alectinib|900 mg|VO|Cáncer de pulmón avanzado
+Brigatinib|90 mg|VO|Cáncer de pulmón
+Brigatinib|180 mg|VO|Cáncer de pulmón avanzado
+Lorlatinib|100 mg|VO|Cáncer de pulmón
+Lorlatinib|150 mg|VO|Cáncer de pulmón avanzado
+Vemurafenib|960 mg|VO|Melanoma
+Vemurafenib|720 mg|VO|Melanoma mantenimiento
+Dabrafenib|150 mg|VO|Melanoma
+Dabrafenib|300 mg|VO|Melanoma avanzado
+Trametinib|2 mg|VO|Melanoma
+Trametinib|4 mg|VO|Melanoma avanzado
+Cobimetinib|60 mg|VO|Melanoma
+Cobimetinib|80 mg|VO|Melanoma avanzado
+Encorafenib|450 mg|VO|Melanoma
+Encorafenib|600 mg|VO|Melanoma avanzado
+Binimetinib|45 mg|VO|Melanoma
+Binimetinib|60 mg|VO|Melanoma avanzado
+Ipilimumab|3 mg/kg|IV|Melanoma
+Ipilimumab|10 mg/kg|IV|Melanoma avanzado
+Nivolumab|3 mg/kg|IV|Melanoma
+Nivolumab|240 mg|IV|Melanoma fijo
+Pembrolizumab|2 mg/kg|IV|Melanoma
+Pembrolizumab|200 mg|IV|Melanoma fijo
+Atezolizumab|1200 mg|IV|Cáncer de pulmón
+Atezolizumab|840 mg|IV|Cáncer de pulmón mantenimiento
+Durvalumab|10 mg/kg|IV|Cáncer de pulmón
+Durvalumab|1500 mg|IV|Cáncer de pulmón fijo
+Avelumab|10 mg/kg|IV|Cáncer de vejiga
+Avelumab|800 mg|IV|Cáncer de vejiga fijo
+Cemiplimab|350 mg|IV|Cáncer de piel
+Cemiplimab|500 mg|IV|Cáncer de piel avanzado
+
+#ANESTÉSICOS - INDUCCIÓN
+Propofol|100 mg|IV|Inducción anestésica
+Propofol|200 mg|IV|Inducción anestésica rápida
+Propofol|50 mg|IV|Sedación consciente
+Tiopental|500 mg|IV|Inducción anestésica
+Tiopental|250 mg|IV|Inducción anestésica leve
+Tiopental|1000 mg|IV|Inducción anestésica rápida
+Etomidato|20 mg|IV|Inducción anestésica
+Etomidato|10 mg|IV|Inducción anestésica leve
+Etomidato|30 mg|IV|Inducción anestésica rápida
+Ketamina|50 mg|IV|Anestesia disociativa
+Ketamina|100 mg|IV|Anestesia disociativa profunda
+Ketamina|25 mg|IV|Sedación disociativa
+Midazolam|5 mg|IV|Sedación
+Midazolam|10 mg|IV|Sedación profunda
+Midazolam|2 mg|IV|Sedación leve
+Diazepam|10 mg|IV|Sedación
+Diazepam|20 mg|IV|Sedación profunda
+Diazepam|5 mg|IV|Sedación leve
+Lorazepam|4 mg|IV|Sedación
+Lorazepam|8 mg|IV|Sedación profunda
+Lorazepam|2 mg|IV|Sedación leve
+
+#ANESTÉSICOS - OPIOIDES
+Fentanilo|100 mcg|IV|Analgesia anestésica
+Fentanilo|200 mcg|IV|Analgesia anestésica profunda
+Fentanilo|50 mcg|IV|Analgesia anestésica leve
+Remifentanilo|1 mg|IV|Analgesia anestésica
+Remifentanilo|2 mg|IV|Analgesia anestésica profunda
+Remifentanilo|0.5 mg|IV|Analgesia anestésica leve
+Sufentanilo|50 mcg|IV|Analgesia anestésica
+Sufentanilo|100 mcg|IV|Analgesia anestésica profunda
+Sufentanilo|25 mcg|IV|Analgesia anestésica leve
+Alfentanilo|1 mg|IV|Analgesia anestésica
+Alfentanilo|2 mg|IV|Analgesia anestésica profunda
+Alfentanilo|0.5 mg|IV|Analgesia anestésica leve
+Morfina|10 mg|IV|Analgesia anestésica
+Morfina|20 mg|IV|Analgesia anestésica profunda
+Morfina|5 mg|IV|Analgesia anestésica leve
+
+#ANESTÉSICOS - RELAJANTES MUSCULARES
+Succinilcolina|100 mg|IV|Relajación muscular
+Succinilcolina|200 mg|IV|Relajación muscular rápida
+Succinilcolina|50 mg|IV|Relajación muscular leve
+Rocuronio|50 mg|IV|Relajación muscular
+Rocuronio|100 mg|IV|Relajación muscular rápida
+Rocuronio|25 mg|IV|Relajación muscular leve
+Vecuronio|10 mg|IV|Relajación muscular
+Vecuronio|20 mg|IV|Relajación muscular rápida
+Vecuronio|5 mg|IV|Relajación muscular leve
+Atracurio|50 mg|IV|Relajación muscular
+Atracurio|100 mg|IV|Relajación muscular rápida
+Atracurio|25 mg|IV|Relajación muscular leve
+Cisatracurio|20 mg|IV|Relajación muscular
+Cisatracurio|40 mg|IV|Relajación muscular rápida
+Cisatracurio|10 mg|IV|Relajación muscular leve
+Pancuronio|8 mg|IV|Relajación muscular
+Pancuronio|16 mg|IV|Relajación muscular rápida
+Pancuronio|4 mg|IV|Relajación muscular leve
+
+#ANESTÉSICOS - REGIONALES
+Bupivacaína|50 mg|Espinal|Anestesia regional
+Bupivacaína|100 mg|Espinal|Anestesia regional prolongada
+Bupivacaína|25 mg|Espinal|Anestesia regional leve
+Bupivacaína|0.5%|Local|Anestesia local
+Bupivacaína|0.75%|Local|Anestesia local profunda
+Lidocaína|100 mg|Local|Anestesia local
+Lidocaína|200 mg|Local|Anestesia local extensa
+Lidocaína|50 mg|Local|Anestesia local leve
+Lidocaína|2%|Local|Anestesia local
+Lidocaína|4%|Local|Anestesia local mucosa
+Ropivacaína|100 mg|Espinal|Anestesia regional
+Ropivacaína|200 mg|Espinal|Anestesia regional prolongada
+Ropivacaína|50 mg|Espinal|Anestesia regional leve
+Ropivacaína|0.5%|Local|Anestesia local
+Ropivacaína|0.75%|Local|Anestesia local profunda
+Levobupivacaína|50 mg|Espinal|Anestesia regional
+Levobupivacaína|100 mg|Espinal|Anestesia regional prolongada
+Levobupivacaína|25 mg|Espinal|Anestesia regional leve
+Prilocaína|400 mg|Local|Anestesia local
+Prilocaína|600 mg|Local|Anestesia local extensa
+Prilocaína|200 mg|Local|Anestesia local leve
+Mepivacaína|300 mg|Local|Anestesia local
+Mepivacaína|500 mg|Local|Anestesia local extensa
+Mepivacaína|150 mg|Local|Anestesia local leve
+
+#VITAMINAS Y MINERALES
+Vitamina B12|1000 mcg|IM|Deficiencia de B12
+Vitamina B12|500 mcg|IM|Deficiencia de B12 leve
+Vitamina B12|2000 mcg|IM|Deficiencia de B12 severa
+Ácido fólico|5 mg|VO|Deficiencia de folato
+Ácido fólico|1 mg|VO|Deficiencia de folato leve
+Ácido fólico|10 mg|VO|Deficiencia de folato severa
+Hierro|100 mg|VO|Anemia ferropénica
+Hierro|200 mg|VO|Anemia ferropénica severa
+Hierro|50 mg|VO|Anemia ferropénica leve
+Hierro|200 mg|IV|Anemia ferropénica grave
+Hierro|500 mg|IV|Anemia ferropénica muy grave
+Calcio|500 mg|VO|Deficiencia de calcio
+Calcio|1000 mg|VO|Deficiencia de calcio severa
+Calcio|250 mg|VO|Deficiencia de calcio leve
+Vitamina D|1000 UI|VO|Deficiencia de vitamina D
+Vitamina D|2000 UI|VO|Deficiencia de vitamina D severa
+Vitamina D|400 UI|VO|Deficiencia de vitamina D leve
+Vitamina D|50.000 UI|VO|Deficiencia de vitamina D muy severa
+Vitamina C|500 mg|VO|Deficiencia de vitamina C
+Vitamina C|1000 mg|VO|Deficiencia de vitamina C severa
+Vitamina C|250 mg|VO|Deficiencia de vitamina C leve
+Vitamina B1|100 mg|VO|Deficiencia de tiamina
+Vitamina B1|300 mg|IV|Deficiencia de tiamina severa
+Vitamina B6|50 mg|VO|Deficiencia de piridoxina
+Vitamina B6|100 mg|VO|Deficiencia de piridoxina severa
+Magnesio|400 mg|VO|Deficiencia de magnesio
+Magnesio|800 mg|VO|Deficiencia de magnesio severa
+Magnesio|200 mg|VO|Deficiencia de magnesio leve
+Magnesio|2 g|IV|Deficiencia de magnesio grave
+Potasio|600 mg|VO|Hipokalemia
+Potasio|1200 mg|VO|Hipokalemia severa
+Potasio|300 mg|VO|Hipokalemia leve
+Potasio|20 mEq|IV|Hipokalemia grave
+Potasio|40 mEq|IV|Hipokalemia muy grave
+Zinc|50 mg|VO|Deficiencia de zinc
+Zinc|100 mg|VO|Deficiencia de zinc severa
+Zinc|25 mg|VO|Deficiencia de zinc leve
+Selenio|100 mcg|VO|Deficiencia de selenio
+Selenio|200 mcg|VO|Deficiencia de selenio severa
+Cobre|2 mg|VO|Deficiencia de cobre
+Cobre|4 mg|VO|Deficiencia de cobre severa
+
+#OTROS ESPECIALES
+Naloxona|0.4 mg|IV|Intoxicación por opioides
+Naloxona|2 mg|IV|Intoxicación por opioides grave
+Naloxona|0.1 mg|IV|Intoxicación por opioides leve
+Flumazenil|0.5 mg|IV|Intoxicación por benzodiacepinas
+Flumazenil|1 mg|IV|Intoxicación por benzodiacepinas grave
+Flumazenil|0.2 mg|IV|Intoxicación por benzodiacepinas leve
+Atropina|1 mg|IV|Bradicardia
+Atropina|2 mg|IV|Bradicardia grave
+Atropina|0.5 mg|IV|Bradicardia leve
+Glucagón|1 mg|IM|Hipoglucemia grave
+Glucagón|2 mg|IM|Hipoglucemia muy grave
+Glucagón|0.5 mg|IM|Hipoglucemia moderada
+Fitomenadiona|10 mg|IV|Deficiencia de vitamina K
+Fitomenadiona|20 mg|IV|Deficiencia de vitamina K grave
+Fitomenadiona|5 mg|IV|Deficiencia de vitamina K leve
+Desmopresina|0.2 mg|VO|Diabetes insípida
+Desmopresina|0.4 mg|VO|Diabetes insípida grave
+Desmopresina|0.1 mg|VO|Diabetes insípida leve
+Octreotida|100 mcg|SC|Hemorragia variceal
+Octreotida|500 mcg|SC|Hemorragia variceal grave
+Octreotida|50 mcg|SC|Hemorragia variceal leve
+Colchicina|0.5 mg|VO|Ataque de gota
+Colchicina|1 mg|VO|Ataque de gota grave
+Colchicina|0.25 mg|VO|Ataque de gota leve
+Alopurinol|300 mg|VO|Hiperuricemia
+Alopurinol|600 mg|VO|Hiperuricemia grave
+Alopurinol|100 mg|VO|Hiperuricemia leve
+Febuxostat|80 mg|VO|Hiperuricemia
+Febuxostat|120 mg|VO|Hiperuricemia grave
+Febuxostat|40 mg|VO|Hiperuricemia leve
+Probenecid|500 mg|VO|Gota
+Probenecid|1000 mg|VO|Gota grave
+Probenecid|250 mg|VO|Gota leve
+Sildenafil|50 mg|VO|Disfunción eréctil
+Sildenafil|100 mg|VO|Disfunción eréctil grave
+Sildenafil|25 mg|VO|Disfunción eréctil leve
+Tadalafil|20 mg|VO|Disfunción eréctil
+Tadalafil|40 mg|VO|Disfunción eréctil grave
+Tadalafil|10 mg|VO|Disfunción eréctil leve
+Tadalafil|5 mg|VO|Disfunción eréctil diaria
+Vardenafil|10 mg|VO|Disfunción eréctil
+Vardenafil|20 mg|VO|Disfunción eréctil grave
+Vardenafil|5 mg|VO|Disfunción eréctil leve
+Avanafil|100 mg|VO|Disfunción eréctil
+Avanafil|200 mg|VO|Disfunción eréctil grave
+Avanafil|50 mg|VO|Disfunción eréctil leve

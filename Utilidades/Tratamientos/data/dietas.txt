@@ -1,0 +1,6 @@
+Absoluta
+Normal
+Diabética
+Hiposódica
+Diabética/Hiposódica
+Protección biliar

@@ -1,0 +1,12 @@
+Observación
+UCI
+Pediatría
+Medicina Interna
+Neumología
+Digestivo
+Cardiología
+Hematología
+Cirugía General
+Traumatología
+Urología
+Ginecología

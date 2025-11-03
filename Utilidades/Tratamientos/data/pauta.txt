@@ -1,0 +1,9 @@
+Cada 1 hora
+Cada 2 horas
+Cada 4 horas
+Cada 6 horas
+Cada 8 horas
+Cada 12 horas
+Cada 24 horas
+Si precisa
+Ahora
