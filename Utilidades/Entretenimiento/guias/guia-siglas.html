@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Guía · Siglas Médicas · Juegos · Urgencias – AGS Sur de Córdoba</title>
+
+  <link rel="icon" href="../../../favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../../assets/favicon_transp-180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../../assets/favicon_transp-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../../assets/favicon_transp-16.png">
+
+  <link rel="stylesheet" href="../../../css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    .guide-wrap{max-width:1000px;margin:0 auto;padding:1rem}
+    .guide-card{background:#fff;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.08);padding:1rem;margin:.75rem 0}
+    .guide-card h2{margin:.1rem 0 .6rem;font-size:1.15rem}
+    .btn{border:0;border-radius:10px;padding:.55rem .9rem;cursor:pointer;font-weight:600;line-height:1}
+    .btn-primary{background:#003a6b;color:#fff}
+    .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,.12)}
+    .muted{color:#666}
+    .kbd{display:inline-block;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:6px;padding:.05rem .35rem;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+    ul{margin:.25rem 0 .25rem 1.1rem}
+    table{width:100%;border-collapse:collapse;margin-top:.25rem}
+    th,td{padding:.55rem;border-top:1px solid #eee;text-align:left}
+    th{background:#f8fafc}
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar" aria-label="Navegación principal">
+    <div class="sidebar-header">
+      <img src="../../../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba"/>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="../../../index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+        <li><a href="../../../Algoritmos/index.html"><i class="fas fa-sitemap"></i> <span>Algoritmos diagnósticos</span></a></li>
+        <li><a href="../../../Calculadoras/index.html"><i class="fas fa-calculator"></i> <span>Calculadoras médicas</span></a></li>
+        <li><a href="../../../Utilidades/index.html" class="active"><i class="fas fa-toolbox"></i> <span>Utilidades</span></a></li>
+        <li><a href="../../../Formacion/index.html"><i class="fas fa-graduation-cap"></i> <span>Formación</span></a></li>
+        <li><a href="../../../Enlaces/index.html"><i class="fas fa-link"></i> <span>Enlaces útiles</span></a></li>
+        <li><a href="../../../Documentos/index.html"><i class="fas fa-file-lines"></i> <span>Documentos y plantillas</span></a></li>
+        <li><a href="../../../Calidad/index.html"><i class="fas fa-shield-heart"></i> <span>Calidad y Seguridad del Paciente</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <header class="masthead">
+    <div class="masthead-left">
+      <img src="../../../images/Logo-Salud2.png" alt="Junta de Andalucía · Consejería de Salud"/>
+    </div>
+    <div class="masthead-right">
+      <img src="../../../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Servicio de Urgencias · Hospital de Montilla"/>
+    </div>
+  </header>
+
+  <main class="main-content" role="main">
+    <section class="hero">
+      <div class="hero-icon" aria-hidden="true"><i class="fa-solid fa-font"></i></div>
+      <div class="hero-text">
+        <h1>Guía · Siglas Médicas</h1>
+        <p class="muted">Asocia la sigla (ej. EPOC) con su significado correcto. ¡Cuidado con los distractores!</p>
+      </div>
+    </section>
+
+    <div class="guide-wrap">
+      <article class="guide-card">
+        <h2><i class="fa-solid fa-circle-info"></i> Objetivo y dinámica</h2>
+        <ul>
+          <li>El juego presenta <strong>10 siglas</strong> seleccionadas al azar del banco activo.</li>
+          <li>Dispones de <strong>15 segundos</strong> por cada sigla.</li>
+          <li>Selecciona el significado correcto entre las 4 opciones.</li>
+          <li>Al responder, el juego avanzará automáticamente a la siguiente pregunta.</li>
+          <li>Al final de la partida podrás ver una <strong>revisión de tus fallos</strong>.</li>
+          <li>Accesos rápidos por teclado: <span class="kbd">1</span> <span class="kbd">2</span> <span class="kbd">3</span> <span class="kbd">4</span>.</li>
+        </ul>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:flex-end;margin-top:.25rem">
+          <a class="btn btn-ghost" href="../index.html">← Volver a Juegos</a>
+          <a class="btn btn-primary" href="../juego.html?game=siglas">🎮 Jugar ahora</a>
+        </div>
+      </article>
+
+      <article class="guide-card">
+        <h2><i class="fa-solid fa-chart-line"></i> Puntuación</h2>
+        <ul>
+          <li><strong>Acierto:</strong> +10 puntos base.</li>
+          <li><strong>Bonus por rapidez:</strong> Puntos extra si respondes rápido.</li>
+          <li><strong>Fallo / Tiempo agotado:</strong> 0 puntos en el ítem, reinicia la racha y se añade a la revisión final.</li>
+        </ul>
+      </article>
+
+      <article class="guide-card">
+        <h2><i class="fa-solid fa-trophy"></i> Ranking y mejores resultados</h2>
+        <ul>
+          <li>El ranking usa la clave de juego <span class="kbd">siglas</span> (sin niveles).</li>
+          <li>Tu alias se guarda como <span class="kbd">urgent-games-player</span>.</li>
+          <li>En la pantalla del juego verás un <em>mini-ranking</em> (Top&nbsp;10).</li>
+        </ul>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:flex-end;margin-top:.25rem">
+          <a class="btn btn-primary" href="../ranking.html?game=siglas">🏆 Ver ranking</a>
+        </div>
+      </article>
+
+      <article class="guide-card">
+        <h2><i class="fa-solid fa-hand-holding-heart"></i> Buen uso</h2>
+        <ul>
+          <li>Actividad de <strong>entretenimiento y entrenamiento cognitivo</strong>. No es material docente reglado.</li>
+          <li>¡Cuidado! Algunas siglas pueden tener varios significados (ej. IRA, SAS). El juego señalará la respuesta más común o la específica del banco.</li>
+        </ul>
+      </article>
+
+      <article class="guide-card">
+        <h2><i class="fa-solid fa-circle-question"></i> FAQ</h2>
+        <p><strong>¿Puedo usar teclado?</strong> Atajos <span class="kbd">1</span>–<span class="kbd">4</span> para marcar la opción.</p>
+        <p><strong>¿Qué pasa si me atasco?</strong> Deja que se agote el tiempo. El error se registrará y el juego pasará a la siguiente sigla.</p>
+      </article>
+
+      <div class="guide-card muted">
+        <h2><i class="fa-solid fa-clock-rotate-left"></i> Registro de cambios</h2>
+        <ul>
+          <li><strong>v2.0.0</strong> (04-nov-2025): Flujo de juego acelerado (auto-avance) y revisión de errores al final.</li>
+          <li><strong>v1.0.0</strong> (04-nov-2025): Publicación de la guía. 10 ítems, 15s.</li>
+        </ul>
+      </div>
+
+      <div class="guide-card" style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:flex-end">
+        <a class="btn btn-primary" href="../juego.html?game=siglas">🎮 Jugar ahora</a>
+      </div>
+    </div>
+
+    <p class="disclaimer strong" style="margin-top:1rem">
+      Material interno. Comprueba la vigencia y la adecuación clínica antes de su uso.
+    </p>
+  </main>
+
+</body>
+</html>

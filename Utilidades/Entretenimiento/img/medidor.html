@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Medidor de Hotspots</title>
+    <style>
+        body { font-family: system-ui; background: #f0f2f5; margin: 0; padding: 20px; }
+        h1 { margin-top: 0; }
+        /* El contenedor principal de la imagen */
+        #wrapper {
+            position: relative;
+            width: 800px; /* Ancho fijo para medir fácil */
+            border: 2px solid #000;
+            margin-top: 20px;
+        }
+        #wrapper img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        /* El hotspot que vas a mover */
+        #hotspot {
+            position: absolute;
+            background: rgba(255, 0, 0, 0.4);
+            border: 2px dashed red;
+            box-sizing: border-box; /* Importante */
+
+            /* --- ¡AQUÍ ESTÁ LA MAGIA! --- */
+            /* Cambia estos 4 valores en el inspector (F12) */
+            top: 10%;
+            left: 10%;
+            width: 15%;
+            height: 20%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Herramienta para Medir Hotspots</h1>
+    <p>1. Reemplaza <strong>"TU_IMAGEN_AQUI.png"</strong> en el HTML con la ruta a tu imagen (ej. <code>img/seg-habitacion.png</code>).</p>
+    <p>2. Abre el Inspector (F12) y selecciona el div <code>&lt;div id="hotspot"&gt;</code>.</p>
+    <p>3. En el panel "Styles", <strong>modifica los valores <code>top</code>, <code>left</code>, <code>width</code> y <code>height</code></strong> hasta que el cuadro rojo encaje sobre el error.</p>
+    <p>4. Copia esos 4 valores en tu fichero <code>seguridad.js</code>.</p>
+
+    <div id="wrapper">
+        <img src="seg-habitacion.png" alt="Imagen base del juego">
+        
+        <div id="hotspot"></div>
+    </div>
+
+</body>
+</html>

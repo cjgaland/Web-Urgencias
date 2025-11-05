@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Guía · Desafío de Seguridad · Juegos · Urgencias – AGS Sur de Córdoba</title>
+
+  <link rel="icon" href="../../../favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../../assets/favicon_transp-180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../../assets/favicon_transp-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../../assets/favicon_transp-16.png">
+
+  <link rel="stylesheet" href="../../../css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    .guide-wrap{max-width:1000px;margin:0 auto;padding:1rem}
+    .guide-card{background:#fff;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.08);padding:1rem;margin:.75rem 0}
+    .guide-card h2{margin:.1rem 0 .6rem;font-size:1.15rem}
+    .btn{border:0;border-radius:10px;padding:.55rem .9rem;cursor:pointer;font-weight:600;line-height:1}
+    .btn-primary{background:#003a6b;color:#fff}
+    .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,.12)}
+    .muted{color:#666}
+    .kbd{display:inline-block;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:6px;padding:.05rem .35rem;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+    ul{margin:.25rem 0 .25rem 1.1rem}
+    table{width:100%;border-collapse:collapse;margin-top:.25rem}
+    th,td{padding:.55rem;border-top:1px solid #eee;text-align:left}
+    th{background:#f8fafc}
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar" aria-label="Navegación principal">
+    <div class="sidebar-header">
+      <img src="../../../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba"/>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="../../../index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+        <li><a href="../../../Algoritmos/index.html"><i class="fas fa-sitemap"></i> <span>Algoritmos diagnósticos</span></a></li>
+        <li><a href="../../../Calculadoras/index.html"><i class="fas fa-calculator"></i> <span>Calculadoras médicas</span></a></li>
+        <li><a href="../../../Utilidades/index.html" class="active"><i class="fas fa-toolbox"></i> <span>Utilidades</span></a></li>
+        <li><a href="../../../Formacion/index.html"><i class="fas fa-graduation-cap"></i> <span>Formación</span></a></li>
+        <li><a href="../../../Enlaces/index.html"><i class="fas fa-link"></i> <span>Enlaces útiles</span></a></li>
+        <li><a href="../../../Documentos/index.html"><i class="fas fa-file-lines"></i> <span>Documentos y plantillas</span></a></li>
+        <li><a href="../../../Calidad/index.html"><i class="fas fa-shield-heart"></i> <span>Calidad y Seguridad del Paciente</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <header class="masthead">
+    <div class="masthead-left">
+      <img src="../../../images/Logo-Salud2.png" alt="Junta de Andalucía · Consejería de Salud"/>
+    </div>
+    <div class="masthead-right">
+      <img src="../../../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Servicio de Urgencias · Hospital de Montilla"/>
+    </div>
+  </header>
+
+  <main class="main-content" role="main">
+    <section class="hero">
+      <div class="hero-icon" aria-hidden="true"><i class="fa-solid fa-eye"></i></div>
+      <div class="hero-text">
+        <h1>Guía · Desafío de Seguridad</h1>
+        <p class="muted">Juego de agudeza visual. Encuentra todos los riesgos de seguridad en la imagen.</p>
+      </div>
+    </section>
+
+    <div class="guide-wrap">
+      <article class="guide-card">
+        <h2><i class="fa-solid fa-circle-info"></i> Objetivo y dinámica</h2>
+        <ul>
+          <li>Este juego pone a prueba tu conocimiento en **seguridad del paciente**.</li>
+          <li>Selecciona un nivel (ej. "Habitación", "Carro de medicación").</li>
+          <li>En la imagen aparecerán varios **riesgos de seguridad** ocultos.</li>
+          <li>Debes hacer clic en las "zonas calientes" (hotspots) que representan esos riesgos.</li>
+          <li>Encuentra todos los riesgos antes de que se agote el tiempo.</li>
+        </ul>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:flex-end;margin-top:.25rem">
+          <a class="btn btn-ghost" href="../index.html">← Volver a Juegos</a>
+          <a class="btn btn-primary" href="../juego.html?game=seguridad">🎮 Jugar ahora</a>
+        </div>
+      </article>
+      
+      <article class="guide-card">
+        <h2><i class="fa-solid fa-layer-group"></i> Niveles</h2>
+        <p>Cada nivel presenta un escenario clínico diferente con sus propios riesgos.</p>
+        <table aria-label="Tabla de niveles de Seguridad">
+          <thead><tr><th>Nivel</th><th>Escenario</th><th>Riesgos</th><th>Tiempo</th></tr></thead>
+          <tbody>
+            <tr><td><strong>L1</strong></td><td>Habitación de paciente</td><td>5</td><td>90 s</td></tr>
+            <tr><td><strong>L2</strong></td><td>Carro de medicación</td><td>5</td><td>75 s</td></tr>
+            <tr><td><strong>L3</strong></td><td>(Próximamente)</td><td>-</td><td>-</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <article class="guide-card">
+        <h2><i class="fa-solid fa-chart-line"></i> Puntuación</h2>
+        <ul>
+          <li><strong>Riesgo encontrado:</strong> +100 puntos.</li>
+          <li><strong>Clic erróneo (Fallo):</strong> -25 puntos. ¡No hagas clic a lo loco!</li>
+          <li><strong>Bonus por tiempo:</strong> +10 puntos por cada segundo restante si encuentras todos los riesgos.</li>
+        </ul>
+      </article>
+
+      <article class="guide-card">
+        <h2><i class="fa-solid fa-trophy"></i> Ranking y mejores resultados</h2>
+        <ul>
+          <li>El ranking es <strong>por nivel</strong> usando las claves <span class="kbd">seguridad-l1</span>, <span class="kbd">seguridad-l2</span>, etc.</li>
+          <li>En la pantalla del juego verás un <em>mini-ranking</em> (Top&nbsp;10) del nivel seleccionado.</li>
+        </ul>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:flex-end;margin-top:.25rem">
+          <a class="btn btn-primary" href="../ranking.html?game=seguridad&level=1">🏆 Ver ranking</a>
+        </div>
+      </article>
+      
+      <article class="guide-card">
+        <h2><i class="fa-solid fa-clipboard-check"></i> Revisión de fallos</h2>
+        <p>Al finalizar la partida (por tiempo o por victoria), el juego te mostrará:</p>
+        <ul>
+          <li>Los riesgos que encontraste (marcados en verde).</li>
+          <li>Los riesgos que **no encontraste** (marcados en rojo en la imagen y en una lista).</li>
+        </ul>
+      </article>
+
+    </div>
+
+    <p class="disclaimer strong" style="margin-top:1rem">
+      Material interno. Comprueba la vigencia y la adecuación clínica antes de su uso.
+    </p>
+  </main>
+
+</body>
+</html>

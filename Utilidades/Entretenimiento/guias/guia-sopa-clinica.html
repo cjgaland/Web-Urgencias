@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Guía · Sopa Clínica · Juegos · Urgencias – AGS Sur de Córdoba</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="../../../favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../../assets/favicon_transp-180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../../assets/favicon_transp-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../../assets/favicon_transp-16.png">
+
+  <!-- Estilos globales -->
+  <link rel="stylesheet" href="../../../css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- Estilo local de guías -->
+  <style>
+    .guide-wrap{max-width:1000px;margin:0 auto;padding:1rem}
+    .guide-card{background:#fff;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.08);padding:1rem;margin:.75rem 0}
+    .guide-card h2{margin:.1rem 0 .6rem;font-size:1.15rem}
+    .btn{border:0;border-radius:10px;padding:.55rem .9rem;cursor:pointer;font-weight:600;line-height:1}
+    .btn-primary{background:#003a6b;color:#fff}
+    .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,.12)}
+    .muted{color:#666}
+    .kbd{display:inline-block;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:6px;padding:.05rem .35rem;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+    ul{margin:.25rem 0 .25rem 1.1rem}
+    table{width:100%;border-collapse:collapse;margin-top:.25rem}
+    th,td{padding:.55rem;border-top:1px solid #eee;text-align:left}
+    th{background:#f8fafc}
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" aria-label="Navegación principal">
+    <div class="sidebar-header">
+      <img src="../../../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba"/>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="../../../index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+        <li><a href="../../../Algoritmos/index.html"><i class="fas fa-sitemap"></i> <span>Algoritmos diagnósticos</span></a></li>
+        <li><a href="../../../Calculadoras/index.html"><i class="fas fa-calculator"></i> <span>Calculadoras médicas</span></a></li>
+        <li><a href="../../../Utilidades/index.html" class="active"><i class="fas fa-toolbox"></i> <span>Utilidades</span></a></li>
+        <li><a href="../../../Formacion/index.html"><i class="fas fa-graduation-cap"></i> <span>Formación</span></a></li>
+        <li><a href="../../../Enlaces/index.html"><i class="fas fa-link"></i> <span>Enlaces útiles</span></a></li>
+        <li><a href="../../../Documentos/index.html"><i class="fas fa-file-lines"></i> <span>Documentos y plantillas</span></a></li>
+        <li><a href="../../../Calidad/index.html"><i class="fas fa-shield-heart"></i> <span>Calidad y Seguridad del Paciente</span></a></li>
+      </ul>
+      <ul class="submenu-criticos">
+        <li><a href="../../../Criticos/index.html"><i class="fas fa-procedures"></i> <span>Sala de Críticos</span></a></li>
+      </ul>
+      <ul class="submenu-equipo">
+        <li><a href="../../../Profesionales/index.html"><i class="fas fa-user-md"></i> <span>Fichas del personal</span></a></li>
+        <li><a href="../../../Cuadrantes/index.html"><i class="fas fa-calendar-alt"></i> <span>Cuadrantes de trabajo</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Cabecera con logos -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <img src="../../../images/Logo-Salud2.png" alt="Junta de Andalucía · Consejería de Salud"/>
+    </div>
+    <div class="masthead-right">
+      <img src="../../../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Servicio de Urgencias · Hospital de Montilla"/>
+    </div>
+  </header>
+
+  <!-- Contenido -->
+  <main class="main-content" role="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-icon" aria-hidden="true"><i class="fa-solid fa-magnifying-glass"></i></div>
+      <div class="hero-text">
+        <h1>Guía · Sopa Clínica</h1>
+        <p class="muted">Encuentra términos clínicos en una cuadrícula 10×10. 5 palabras, 90&nbsp;s, 8 direcciones y bonus por tiempo restante.</p>
+      </div>
+    </section>
+
+    <div class="guide-wrap">
+      <!-- Objetivo y dinámica -->
+      <article class="guide-card">
+        <h2><i class="fa-solid fa-circle-info"></i> Objetivo y dinámica</h2>
+        <ul>
+          <li>Selecciona <strong>Comenzar</strong> y busca las <strong>5 palabras</strong> de la lista en la cuadrícula.</li>
+          <li>La selección se realiza arrastrando en línea <em>recta</em> (horizontal, vertical o diagonal).</li>
+          <li>Las palabras pueden aparecer <strong>al derecho o invertidas</strong> (p. ej., “SEPSIS” o “SISPES”).</li>
+          <li>Dispones de <strong>90&nbsp;s</strong>. Si encuentras todas, se suma un bonus por tiempo restante.</li>
+        </ul>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:flex-end;margin-top:.25rem">
+          <a class="btn btn-ghost" href="../index.html">← Volver a Juegos</a>
+          <a class="btn btn-primary" href="../juego.html?game=sopa-clinica">🎮 Jugar ahora</a>
+        </div>
+      </article>
+
+      <!-- Parámetros -->
+      <article class="guide-card">
+        <h2><i class="fa-solid fa-layer-group"></i> Parámetros de juego</h2>
+        <table aria-label="Parámetros de Sopa Clínica">
+          <thead><tr><th>Parámetro</th><th>Valor</th><th>Comentarios</th></tr></thead>
+          <tbody>
+            <tr><td>Tamaño de cuadrícula</td><td>10 × 10</td><td>Letras de relleno aleatorias.</td></tr>
+            <tr><td>Nº de palabras</td><td>5</td><td>Selección aleatoria del banco activo.</td></tr>
+            <tr><td>Tiempo total</td><td>90 s</td><td>Cuenta atrás general de partida.</td></tr>
+            <tr><td>Direcciones válidas</td><td>8</td><td>Horizontal, vertical y diagonales.</td></tr>
+            <tr><td>Inversión de palabras</td><td>Sí</td><td>Se puede colocar al revés para aumentar reto.</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <!-- Puntuación -->
+      <article class="guide-card">
+        <h2><i class="fa-solid fa-chart-line"></i> Puntuación</h2>
+        <ul>
+          <li><strong>Palabra encontrada:</strong> +30 puntos.</li>
+          <li><strong>Bonus final por tiempo:</strong> <code class="kbd">puntos += tiempoRestante × 2</code> si completas las 5.</li>
+          <li><strong>Sin penalización</strong> por intentos: céntrate en encadenar hallazgos.</li>
+        </ul>
+        <p class="muted">La interfaz muestra <em>Tiempo</em>, <em>Encontradas</em> (X/5) y <em>Puntos</em>. Al agotar tiempo, se resaltan las palabras no encontradas.</p>
+      </article>
+
+     
+      <!-- Banco de preguntas -->
+      <article class="guide-card">
+        <h2><i class="fa-solid fa-database"></i> Banco de términos</h2>
+        <p>Incluye actualmente <strong>150 términos</strong> de uso en el entorno clínico. El orden se baraja en cada partida.</p>
+      </article>
+      
+      
+      <!-- Ranking -->
+      <article class="guide-card">
+        <h2><i class="fa-solid fa-trophy"></i> Ranking y mejores resultados</h2>
+        <ul>
+          <li>Clave de juego: <span class="kbd">sopa-clinica</span> (sin niveles).</li>
+          <li>Tu alias se guarda como <span class="kbd">urgent-games-player</span>. Cambíalo en la pantalla del juego.</li>
+          <li>En la pantalla del juego verás un <em>mini-ranking</em> local (Top&nbsp;10).</li>
+        </ul>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:flex-start;margin-top:0.75rem">
+          <a class="btn btn-primary" href="../ranking.html?game=sopa-clinica">🏆 Ver ranking</a>
+        </div>
+      </article>
+
+      <!-- Consejos -->
+      <article class="guide-card">
+        <h2><i class="fa-solid fa-lightbulb"></i> Consejos</h2>
+        <ul>
+          <li>Escanea por <em>patrones</em> (pares de letras poco frecuentes) y recorre diagonales.</li>
+          <li>Marca primero las palabras más largas: suelen “sobresalir” en la cuadrícula.</li>
+          <li>Si te quedas atascado, cambia el sentido de lectura (derecha→izquierda, abajo→arriba).</li>
+          <li>Completar las 5 rápido te otorga un bonus de tiempo considerable.</li>
+        </ul>
+      </article>
+
+      <!-- Buen uso -->
+      <article class="guide-card">
+        <h2><i class="fa-solid fa-hand-holding-heart"></i> Buen uso</h2>
+        <ul>
+          <li>Actividad de <strong>entretenimiento y entrenamiento cognitivo</strong>; no es material docente reglado.</li>
+          <li><strong>No utilices</strong> los contenidos para decisiones clínicas reales.</li>
+          <li>Respeta los turnos y evita jugar en momentos de alta carga asistencial.</li>
+          <li>Si detectas errores o quieres proponer términos, comunícalo al equipo de mejora.</li>
+        </ul>
+      </article>
+
+      <!-- FAQ -->
+      <article class="guide-card">
+        <h2><i class="fa-solid fa-circle-question"></i> FAQ</h2>
+        <p><strong>¿Cómo se selecciona?</strong> Pulsa y arrastra en línea recta (se permite horizontal, vertical y diagonales).</p>
+        <p><strong>¿Puede repetirse una letra en varias palabras?</strong> Sí; la cuadrícula resuelve solapes si las letras coinciden.</p>
+        <p><strong>¿Qué pasa al agotar el tiempo?</strong> Se marcan las palabras restantes y puedes reiniciar la partida.</p>
+      </article>
+
+      <!-- Registro de cambios -->
+      <div class="guide-card muted">
+        <h2><i class="fa-solid fa-clock-rotate-left"></i> Registro de cambios</h2>
+        <ul>
+          <li><strong>v1.0.0</strong> (03-nov-2025): Publicación de la guía. Parámetros: 10×10, 5 palabras, 90 s, 8 direcciones, inversión posible, +30 por palabra y bonus final.</li>
+        </ul>
+      </div>
+
+      <!-- Acciones -->
+      <div class="guide-card" style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:flex-end">
+        <a class="btn btn-ghost" href="../index.html">← Volver a Juegos</a>
+        <a class="btn btn-primary" href="../juego.html?game=sopa-clinica">🎮 Jugar ahora</a>
+      </div>
+    </div>
+
+    <p class="disclaimer strong" style="margin-top:1rem">
+      Material interno. Comprueba la vigencia y la adecuación clínica antes de su uso.
+    </p>
+  </main>
+
+</body>
+</html>
