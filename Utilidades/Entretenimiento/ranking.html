@@ -14,19 +14,20 @@
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
   .card{background:#fff;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.08);padding:1rem}
   .row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
-  .btn{border:0;border-radius:10px;padding:.55rem .9rem;font-weight:600;cursor:pointer}
+  .chip{font-size:.85rem;background:#f3f6ff;border:1px solid #e6ecff;border-radius:999px;padding:.2rem .6rem}
+  .muted{color:#666}
+  .btn{border:0;border-radius:10px;padding:.55rem .9rem;font-weight:600;cursor:pointer;line-height:1}
   .btn-primary{background:#0d6efd;color:#fff}
   .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,.12)}
   table{width:100%;border-collapse:collapse}
   th,td{padding:.55rem;border-top:1px solid #eee;text-align:left}
-  th{background:#f8fafc;position:sticky;top:0}
-  .muted{color:#666}
-  .chip{font-size:.85rem;background:#f3f6ff;border:1px solid #e6ecff;border-radius:999px;padding:.2rem .55rem}
+  th{background:#f8fafc}
+  .qz-meta{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:flex-start}
+  select{padding:.45rem .6rem;border:1px solid #e5e7eb;border-radius:10px;background:#fff}
 </style>
 </head>
 <body>
 
-<!-- Sidebar (idéntica a juego.html, con Utilidades activo) -->
 <aside class="sidebar" aria-label="Navegación principal">
   <div class="sidebar-header"><img src="../../images/logo-ags.png" alt="AGS Sur de Córdoba"/></div>
   <nav>
@@ -56,11 +57,12 @@
 </header>
 
 <main class="main-content" role="main">
+
   <section class="hero">
     <div class="hero-icon"><i class="fa-solid fa-trophy"></i></div>
     <div class="hero-text">
-      <h1>Ranking de juegos</h1>
-      <p>Consulta los mejores resultados guardados localmente. Opcionalmente, activa la nube (Google Sheets / Apps Script) para ver el ranking del equipo.</p>
+      <h1>Ranking · Juegos</h1>
+      <p class="muted">Consulta los mejores resultados guardados localmente por juego, nivel o modo.</p>
     </div>
   </section>
 
@@ -70,81 +72,168 @@
   </nav>
 
   <div class="wrap">
-    <div class="row" style="justify-content:space-between;margin:.5rem 0 1rem">
+    <section class="card" style="margin-bottom:1rem">
+      <h2 style="margin:0 0 .5rem">Selector</h2>
       <div class="row">
         <label class="chip">Juego</label>
-        <select id="selGame">
-          <option value="quiz-dx">Quiz diagnóstico</option>
-          <option value="reflejos">Reflejos clínicos</option>
-          <option value="agudeza-visual">Agudeza visual</option>
-          <option value="agudeza-mental">Agudeza mental</option>
-          <option value="localizacion">Localiza la lesión</option>
+        <select id="selGame" aria-label="Juego">
+          <option value="quiz-dx">Quiz clínico</option>
+          <option value="sopa-clinica">Sopa clínica</option>
+          <option value="calculo">Cálculo mental (por nivel)</option>
+          <option value="parejas">Parejas (por nivel)</option>
+          <option value="capitales">Capitales (por modo)</option>
+          <option value="iberico">Ibérico (por modo)</option>
+          <option value="eponimos">Epónimos Médicos</option>
+          <option value="anagrama">Anagrama Clínico (por nivel)</option>
+          <option value="siglas">Siglas Médicas</option>
+          <option value="intruso">El Intruso</option>
+          <option value="seguridad">Desafío Seguridad (Niveles)</option>
+          </select>
+
+        <label class="chip" id="lblLevel" style="display:none">Nivel</label>
+        <select id="selLevel" aria-label="Nivel" style="display:none">
+          <option value="1">L1</option>
+          <option value="2">L2</option>
+          <option value="3">L3</option>
+          <option value="4">L4</option> 
         </select>
+
+        <label class="chip" id="lblMode" style="display:none">Modo</label>
+        <select id="selMode" aria-label="Modo" style="display:none"></select>
+
+        <button id="btnRefresh" class="btn btn-ghost" style="margin-left:auto">Actualizar</button>
       </div>
-      <div class="row">
-        <span class="muted">Fuente:</span>
-        <span class="chip" id="srcLocal">LocalStorage</span>
-        <span class="chip" id="srcCloud" style="display:none">Nube</span>
-        <button id="btnRefresh" class="btn btn-ghost">Actualizar</button>
-      </div>
-    </div>
+    </section>
 
     <section class="card">
       <h2 style="margin:0 0 .5rem">Top 10</h2>
-      <div class="muted" style="margin-bottom:.5rem">Ordenado por puntuación (desc).</div>
+      <div class="muted" style="margin-bottom:.5rem">Puntuaciones más altas (orden descendente).</div>
       <table>
         <thead><tr><th>#</th><th>Jugador</th><th>Puntos</th><th>Fecha</th><th>Fuente</th></tr></thead>
         <tbody id="tbody"></tbody>
       </table>
     </section>
+
+    <div class="qz-meta" style="margin-top:1rem">
+      <a href="./index.html" class="btn btn-ghost">← Volver a Juegos</a>
+    </div>
   </div>
 
   <p class="disclaimer strong" style="margin-top:1rem">
-    Material interno. Comprueba la vigencia y adecuación clínica antes de su uso.
+    Material interno. Comprueba la vigencia y adecuación antes de su uso.
   </p>
 </main>
 
-<script type="module">
-  // === Config nube (opcional): deja vacío para solo local ===
-  const ENDPOINT_URL = ""; // p.ej. "https://script.google.com/macros/s/AKfycbx.../exec"
-
+<script>
   const $ = (s, el=document)=> el.querySelector(s);
+
   const tb = $("#tbody");
   const selGame = $("#selGame");
-  const srcLocal = $("#srcLocal");
-  const srcCloud = $("#srcCloud");
+  const selLevel = $("#selLevel");
+  const lblLevel = $("#lblLevel");
+  const selMode = $("#selMode");
+  const lblMode = $("#lblMode");
 
-  function topLocal(game, limit=10){
-    try{
-      const arr = JSON.parse(localStorage.getItem("urgent-games-scores")||"[]")
-        .filter(x=>x.game===game)
-        .sort((a,b)=> (b.score||0) - (a.score||0))
-        .slice(0,limit);
-      return arr.map(r=>({...r, src:"local"}));
-    }catch(e){ return []; }
+  const LEVEL_GAMES = new Set(["calculo","parejas","anagrama","seguridad"]);
+  const MODE_GAMES  = new Set(["capitales","iberico"]);
+
+  function getParams(){
+    const u = new URL(location.href);
+    return {
+      game:  u.searchParams.get("game")  || "",
+      level: u.searchParams.get("level") || "",
+      mode:  u.searchParams.get("mode")  || ""
+    };
   }
 
-  async function topCloud(game){
-    if(!ENDPOINT_URL) return [];
-    try{
-      const res = await fetch(`${ENDPOINT_URL}?game=${encodeURIComponent(game)}`);
-      const data = await res.json(); // [{user,score,ts}]
-      return data.map(r=>({...r, src:"nube"}));
-    }catch(e){
-      console.warn("No se pudo leer de la nube:", e);
-      return [];
+  function setModeOptionsForGame(g){
+    selMode.innerHTML = "";
+    if (g === "capitales"){
+      selMode.append(new Option("Capital", "capital"));
+      selMode.append(new Option("País", "pais"));
+    } else if (g === "iberico"){
+      selMode.append(new Option("Localidad → Provincia", "locprov"));
+      selMode.append(new Option("Provincia → Localidad", "provloc"));
     }
   }
 
-  async function render(){
-    const game = selGame.value;
-    const local = topLocal(game, 10);
-    const cloud = await topCloud(game);
-    const rows = [...local, ...cloud].sort((a,b)=> (b.score||0) - (a.score||0)).slice(0,10);
-    srcCloud.style.display = cloud.length ? "inline-block" : "none";
+  function toggleSubSelectors(){
+    const g = selGame.value;
+    const isLevel = LEVEL_GAMES.has(g);
+    const isMode  = MODE_GAMES.has(g);
 
+    lblLevel.style.display = isLevel ? "" : "none";
+    selLevel.style.display = isLevel ? "" : "none";
+
+    // --- 👇 AQUÍ ESTÁ LA CORRECCIÓN ---
+    const optL3 = selLevel.querySelector('option[value="3"]');
+    const optL4 = selLevel.querySelector('option[value="4"]');
+    
+    if (optL3 && optL4) {
+      if (g === "anagrama") {
+        // Anagrama: L1, L2, L3 (oculta L4)
+        optL3.style.display = "";
+        optL4.style.display = "none";
+        if (selLevel.value === "4") selLevel.value = "1";
+        
+      } else if (g === "seguridad") {
+        // Seguridad: L1, L2 (oculta L3 y L4)
+        optL3.style.display = "none";
+        optL4.style.display = "none";
+        if (selLevel.value === "3" || selLevel.value === "4") {
+          selLevel.value = "1";
+        }
+        
+      } else {
+        // Default (Calculo, Parejas): L1, L2, L3, L4 (muestra todo)
+        optL3.style.display = "";
+        optL4.style.display = "";
+      }
+    }
+    // --- 👆 FIN DE LA CORRECCIÓN ---
+
+    lblMode.style.display  = isMode ? "" : "none";
+    selMode.style.display  = isMode ? "" : "none";
+
+    if (isMode){ setModeOptionsForGame(g); }
+  }
+
+  function gameKeyFromSelection(){
+    const g = selGame.value;
+    if (LEVEL_GAMES.has(g)){
+      return `${g}-l${selLevel.value || "1"}`;
+    }
+    if (MODE_GAMES.has(g)){
+      const md = selMode.value;
+      if (g === "capitales") return `capitales-${md || "capital"}`;
+      if (g === "iberico")   return `iberico-${md || "locprov"}`;
+    }
+    return g; // juegos sin sub-opción
+  }
+
+  function topLocal(gameKey, limit=10){
+    try{
+      return JSON.parse(localStorage.getItem("urgent-games-scores")||"[]")
+        .filter(x=>x.game===gameKey)
+        .sort((a,b)=> (Number(b.score)||0) - (Number(a.score)||0))
+        .slice(0,limit)
+        .map(r=>({...r, src:"local"}));
+    }catch{ return []; }
+  }
+
+  function render(){
+    const key = gameKeyFromSelection();
+    localStorage.setItem("urgent-games-last-key", key);
+
+    const data = topLocal(key, 10);
     tb.innerHTML = "";
-    rows.forEach((r,i)=>{
+    if (!data.length){
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td colspan="5" class="muted">No hay registros para <strong>${key}</strong>.</td>`;
+      tb.appendChild(tr);
+      return;
+    }
+    data.forEach((r, i)=>{
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td>${i+1}</td>
@@ -157,9 +246,45 @@
     });
   }
 
-  $("#btnRefresh").addEventListener("click", render);
-  selGame.addEventListener("change", render);
+  function setSelectionFromParamsOrLast(){
+    const {game, level, mode} = getParams();
+    const last = localStorage.getItem("urgent-games-last-key") || "";
+
+    if (game){
+      selGame.value = game;
+      toggleSubSelectors(); 
+      if (LEVEL_GAMES.has(game) && level) selLevel.value = level;
+      if (MODE_GAMES.has(game)  && mode)  selMode.value  = mode;
+      return;
+    }
+
+    if (last){
+      const m = last.match(/^([a-z\-]+?)(?:-l(\d)|-(capital|pais|locprov|provloc))?$/i);
+      if (m){
+        const g = m[1], lv = m[2], md = m[3];
+        // Actualizada la lista de válidos
+        const valid = new Set([...LEVEL_GAMES, ...MODE_GAMES, "quiz-dx", "sopa-clinica", "eponimos", "siglas", "intruso"]);
+        if (valid.has(g)){
+          selGame.value = g;
+          toggleSubSelectors(); 
+          if (lv) selLevel.value = lv;
+          if (md) selMode.value  = md;
+          return;
+        }
+      }
+    }
+
+    selGame.value = "quiz-dx";
+    toggleSubSelectors();
+  }
+
+  setSelectionFromParamsOrLast();
   render();
+
+  $("#btnRefresh").addEventListener("click", render);
+  selGame.addEventListener("change", ()=>{ toggleSubSelectors(); render(); });
+  selLevel.addEventListener("change", render);
+  selMode.addEventListener("change", render);
 </script>
 
 </body>

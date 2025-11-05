@@ -5,33 +5,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Juegos · Urgencias – AGS Sur de Córdoba</title>
 
-  <!-- Favicon -->
   <link rel="icon" href="../../favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon_transp-180.png">
   <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon_transp-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon_transp-16.png">
 
-  <!-- Estilos globales -->
   <link rel="stylesheet" href="../../css/style.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
-  <!-- Estilos suaves para el área de juego (no rompen tu theme) -->
   <style>
     .game-meta{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin:.25rem 0 1rem}
     .chip{font-size:.85rem;background:#f3f6ff;border:1px solid #e6ecff;border-radius:999px;padding:.2rem .55rem}
     .game-toolbar{display:flex;gap:.5rem;flex-wrap:wrap}
     .btn{border:0;border-radius:10px;padding:.55rem .9rem;cursor:pointer;font-weight:600;line-height:1}
-    .btn-primary{background:#0d6efd;color:#fff}
+    .btn-primary{background:#003a6b;color:#fff}
     .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,.12)}
     .btn-secondary{background:#e9eefb}
-    .game-root{min-height:320px;border:1px dashed rgba(0,0,0,.08);border-radius:10px;padding:.75rem;display:grid;place-items:center;background:#fff}
     .player-box{display:flex;align-items:center;gap:.5rem}
     .player-box input{border:1px solid #e5e7eb;border-radius:10px;padding:.45rem .6rem}
+    .game-root{
+      min-height:320px;
+      border:1px dashed rgba(0,0,0,.08);
+      border-radius:10px;
+      padding:.75rem;
+      display:grid;
+      place-items:center;
+      background:#fff;
+      position:relative;
+      overflow:hidden;
+    }
+    .mini-rank{
+      position:absolute;
+      right:.5rem;
+      bottom:.5rem;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:.35rem;
+      z-index:2;
+    }
+    .mini-rank .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.35rem;
+      background:#003a6b;
+      color:#fff;
+      border-radius:999px;
+      padding:.25rem .6rem;
+      font-size:.8rem;
+      box-shadow:0 4px 12px rgba(0,0,0,.12);
+      cursor:pointer;
+      user-select:none;
+    }
+    .mini-rank .badge i{opacity:.9}
+    .mini-rank .panel{
+      width:240px;
+      max-height:240px;
+      overflow:auto;
+      background:#ffffff;
+      border:1px solid #e6ecff;
+      border-radius:10px;
+      box-shadow:0 8px 20px rgba(0,0,0,.12);
+      padding:.5rem;
+      display:none;
+    }
+    .mini-rank.open .panel{display:block}
+    .mini-rank .panel h4{
+      margin:.2rem 0 .4rem;
+      font-size:.95rem;
+      color:#003a6b;
+    }
+    .mini-rank table{width:100%;border-collapse:collapse;font-size:.85rem}
+    .mini-rank th,.mini-rank td{padding:.25rem .3rem;border-top:1px solid #f0f3ff;text-align:left}
+    .mini-rank th{position:sticky;top:0;background:#f8fbff;z-index:1}
+    .mini-rank .muted{color:#667085;font-size:.8rem}
   </style>
 </head>
 <body>
 
-  <!-- Sidebar -->
   <aside class="sidebar" aria-label="Navegación principal">
     <div class="sidebar-header">
       <img src="../../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba"/>
@@ -57,7 +108,6 @@
     </nav>
   </aside>
 
-  <!-- Cabecera con logos -->
   <header class="masthead">
     <div class="masthead-left">
       <img src="../../images/Logo-Salud2.png" alt="Junta de Andalucía · Consejería de Salud"/>
@@ -67,51 +117,43 @@
     </div>
   </header>
 
-  <!-- Contenido -->
   <main class="main-content" role="main">
-    <!-- Hero -->
     <section class="hero">
       <div class="hero-icon" aria-hidden="true"><i class="fa-solid fa-gamepad"></i></div>
       <div class="hero-text">
-        <!-- Título dinámico: lo actualizará games-core según ?game= -->
         <h1 id="game-title">Juego</h1>
         <p>Mini-juego lúdico-formativo. Usa el alias para el ranking local (y nube si se activa).</p>
       </div>
     </section>
 
-    <!-- Migas / Acciones -->
     <nav class="calc-toc" aria-label="Navegación secundaria">
       <a href="./index.html">Juegos</a>
       <a href="./ranking.html">Ranking</a>
     </nav>
 
-    <!-- Meta y controles -->
     <section class="game-meta" aria-label="Metadatos del juego">
       <span id="best-label" class="chip">Mejor: —</span>
-
       <div class="player-box">
         <label for="playerAlias" class="chip" title="Alias para ranking">Alias</label>
         <input id="playerAlias" type="text" placeholder="Nombre o alias" minlength="2" maxlength="24" />
         <button id="btnSaveAlias" class="btn btn-secondary">Guardar</button>
       </div>
-
       <div class="game-toolbar" style="margin-left:auto">
         <button id="btn-reset" class="btn btn-ghost">Reiniciar</button>
         <a class="btn btn-primary" href="./index.html">Volver</a>
       </div>
     </section>
 
-    <!-- Área donde el módulo inyecta su UI -->
     <section id="game-root" class="game-root" aria-live="polite">
       Cargando módulo…
-    </section>
+      
+      </section>
 
     <p class="disclaimer strong" style="margin-top:1rem">
       Material interno para uso exclusivo de entretenimiento y descanso. No válido para uso clínico.
     </p>
   </main>
 
-  <!-- Guarda/recupera alias para ranking local -->
   <script>
     (function(){
       const inp = document.getElementById('playerAlias');
@@ -129,7 +171,93 @@
     })();
   </script>
 
-  <!-- Núcleo de juegos: resolverá ?game=quiz-dx | reflejos | ... y cargará el módulo -->
+  <script>
+    (function(){
+      const params = new URLSearchParams(location.search);
+      const gameId = params.get("game") || "quiz-dx";
+
+      const keyScores = "urgent-games-scores";
+      const $ = (s, el=document)=> el.querySelector(s);
+      const miniBest = $("#miniBest");
+      const miniBody = $("#miniBody");
+      const miniInfo = $("#miniInfo");
+      const badge = $("#miniBadge");
+      const panel = $("#miniPanel");
+      const miniRank = $("#miniRank");
+
+      // Toggle abrir/cerrar panel
+      badge.addEventListener("click", ()=>{
+        miniRank.classList.toggle("open");
+      });
+
+      function topLocal(game, limit=10){
+        try{
+          // ESTA ES LA LÓGICA DEL MINI-RANKING.
+          // Aquí necesitamos la misma lógica de "clave por defecto"
+          // que tiene games-core.js
+          const key = defaultRankKeyFor(game); 
+          
+          return JSON.parse(localStorage.getItem(keyScores)||"[]")
+            .filter(x=>x.game===key)
+            .sort((a,b)=>(b.score||0)-(a.score||0))
+            .slice(0,limit);
+        }catch{ return []; }
+      }
+      
+      // Clave inicial por juego
+      function defaultRankKeyFor(g){
+        if (g === 'calculo')   return 'calculo-l1';
+        if (g === 'parejas')   return 'parejas-l1';
+        if (g === 'capitales') return 'capitales-capital';
+        if (g === 'iberico')   return 'iberico-locprov';
+        return g; // Para quiz-dx, eponimos, siglas, anagrama...
+      }
+
+      function bestLocal(game){
+        const rows = topLocal(game, 50);
+        return rows.length ? (rows[0].score||0) : 0;
+      }
+
+      function renderMiniRank(){
+        const key = defaultRankKeyFor(gameId);
+        
+        // Mejor
+        const best = bestLocal(gameId);
+        miniBest.textContent = `Mejor: ${best}`;
+
+        // Tabla
+        const rows = topLocal(gameId, 10);
+        miniInfo.textContent = rows.length ? `${rows.length} registros para ${key}` : `Sin registros para ${key}`;
+
+        miniBody.innerHTML = "";
+        rows.forEach((r,i)=>{
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${i+1}</td>
+            <td>${r.user || "—"}</td>
+            <td>${r.score ?? "—"}</td>
+            <td>${r.ts ? new Date(r.ts).toLocaleString("es-ES") : "—"}</td>
+          `;
+          miniBody.appendChild(tr);
+        });
+      }
+
+      renderMiniRank();
+
+      // Refresco (Revisión: Tu games-core.js ya dispara un evento 'urgent-score-updated')
+      // Vamos a escuchar ese evento en lugar del setInterval, es más eficiente.
+      window.addEventListener("urgent-score-updated", (ev)=>{
+        // El evento trae la clave exacta (ej. 'calculo-l2'),
+        // pero este mini-ranking simple solo sabe del gameId ('calculo').
+        // Así que simplemente re-renderizamos.
+        renderMiniRank();
+      });
+      
+      window.addEventListener("pageshow", renderMiniRank);
+      window.addEventListener("focus", renderMiniRank);
+    })();
+  </script>
+
   <script type="module" src="./js/games-core.js?v=20251031"></script>
 </body>
 </html>

@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Entretenimiento · Juegos · Urgencias – AGS Sur de Córdoba</title>
 
-  <!-- Favicon -->
   <link rel="icon" href="../../favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon_transp-180.png">
   <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon_transp-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon_transp-16.png">
 
-  <!-- Estilos globales -->
   <link rel="stylesheet" href="../../css/style.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
@@ -32,7 +30,6 @@
 </head>
 <body>
 
-  <!-- Sidebar -->
   <aside class="sidebar" aria-label="Navegación principal">
     <div class="sidebar-header">
       <img src="../../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba"/>
@@ -58,7 +55,6 @@
     </nav>
   </aside>
 
-  <!-- Cabecera con logos -->
   <header class="masthead">
     <div class="masthead-left">
       <img src="../../images/Logo-Salud2.png" alt="Junta de Andalucía · Consejería de Salud"/>
@@ -68,28 +64,23 @@
     </div>
   </header>
 
-  <!-- Contenido -->
   <main class="main-content" role="main">
-    <!-- Hero -->
     <section class="hero">
       <div class="hero-icon" aria-hidden="true"><i class="fa-solid fa-gamepad"></i></div>
       <div class="hero-text">
         <h1>Entretenimiento (Juegos)</h1>
-        <p>Juegos lúdico-formativos para profesionales: <strong>agudeza visual y mental</strong>, <strong>reflejos clínicos</strong> y <strong>localización anatómica</strong>, con puntuación y ranking.</p>
+        <p>Juegos lúdico-formativos para profesionales: <strong>cálculo mental</strong>, <strong>parejas (memoria)</strong>, <strong>quiz clínico</strong>, <strong>sopa clínica</strong>, <strong>capitales</strong> e <strong>ibérico</strong>, con puntuación y ranking.</p>
       </div>
     </section>
 
-    <!-- TOC: ahora con 3 pestañas -->
     <nav class="calc-toc" aria-label="Índice de bloques">
       <a href="#juegos">Juegos formativos</a>
       <a href="#ranking">Ranking</a>
       <a href="#guias">Guías</a>
     </nav>
 
-    <!-- Acordeón -->
     <section class="accordion" id="games-accordion">
 
-      <!-- BLOQUE: Juegos -->
       <article class="accordion-item" id="juegos">
         <h2 class="accordion-header">
           <button class="accordion-toggle" aria-expanded="true" aria-controls="panel-juegos" id="btn-juegos">
@@ -99,33 +90,30 @@
         <div class="accordion-panel" id="panel-juegos" role="region" aria-labelledby="btn-juegos">
           <p class="small-muted">Partidas cortas (1–7 min). Guardado local de “Mejor resultado”. Opcional: ranking en la nube para retos entre compañeros.</p>
           <div class="grid-cards">
-            <!-- Agudeza visual -->
             <article class="card">
               <header class="card-header">
-                <h3>👁️ Agudeza visual</h3>
-                <span class="chip">3–5 min</span>
+                <h3>🧮 Cálculo mental</h3>
+                <span class="chip">1–2 min</span>
               </header>
-              <p class="card-text">Matrices con un elemento distinto, evaluación pupilar y observación de signos.</p>
+              <p class="card-text">Operaciones rápidas + − × ÷ con bonus por racha y rapidez.</p>
               <footer class="card-footer">
-                <a class="btn btn-primary" href="./juego.html?game=agudeza-visual">Jugar</a>
-                <a class="btn btn-ghost" href="#guias" data-open="guias">Guía</a>
+                <a class="btn btn-primary" href="./juego.html?game=calculo">Jugar</a>
+                <a class="btn btn-ghost" href="./guias/guia-calculo.html">Guía</a>
               </footer>
             </article>
 
-            <!-- Agudeza mental -->
-<article class="card">
-  <header class="card-header">
-    <h3>🧮 Agudeza mental</h3>
-    <span class="chip">1–2 min</span>
-  </header>
-  <p class="card-text">Cálculo rápido con + − × ÷. Puntuación por aciertos y bonus por racha.</p>
-  <footer class="card-footer">
-    <a class="btn btn-primary" href="./juego.html?game=agudeza-mental">Jugar</a>
-    <a class="btn btn-ghost" href="#guias" data-open="guias">Guía</a>
-  </footer>
-</article>
+            <article class="card">
+              <header class="card-header">
+                <h3>🃏 Parejas (memoria)</h3>
+                <span class="chip">2–4 min</span>
+              </header>
+              <p class="card-text">Encuentra las parejas de iconos (Font Awesome) con el menor número de movimientos.</p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./juego.html?game=parejas">Jugar</a>
+                <a class="btn btn-ghost" href="./guias/guia-parejas.html">Guía</a>
+              </footer>
+            </article>
 
-            <!-- Quiz clínico -->
             <article class="card">
               <header class="card-header">
                 <h3>🧠 Quiz clínico</h3>
@@ -134,40 +122,110 @@
               <p class="card-text">Asocia síntomas con diagnósticos/actuaciones. Bonus por rapidez y racha.</p>
               <footer class="card-footer">
                 <a class="btn btn-primary" href="./juego.html?game=quiz-dx">Jugar</a>
-                <a class="btn btn-ghost" href="#guias" data-open="guias">Guía</a>
+                <a class="btn btn-ghost" href="./guias/guia-quiz-dx.html">Guía</a>
               </footer>
             </article>
 
-            <!-- Reflejos clínicos -->
             <article class="card">
               <header class="card-header">
-                <h3>⚡ Reflejos clínicos</h3>
-                <span class="chip">1–3 min</span>
+                <h3>🔎 Sopa de letras clínica</h3>
+                <span class="chip">2–3 min</span>
               </header>
-              <p class="card-text">Responde al estímulo clínico correcto lo más rápido posible.</p>
+              <p class="card-text">Encuentra 5 términos clínicos en la cuadrícula antes de que se agote el tiempo.</p>
               <footer class="card-footer">
-                <a class="btn btn-primary" href="./juego.html?game=reflejos">Jugar</a>
-                <a class="btn btn-ghost" href="#guias" data-open="guias">Guía</a>
+                <a class="btn btn-primary" href="./juego.html?game=sopa-clinica">Jugar</a>
+                <a class="btn btn-ghost" href="./guias/guia-sopa-clinica.html">Guía</a>
               </footer>
             </article>
 
-            <!-- Localiza la lesión -->
             <article class="card">
               <header class="card-header">
-                <h3>🫀 Localiza la lesión</h3>
-                <span class="chip">4–7 min</span>
+                <h3>🌍 Capitales</h3>
+                <span class="chip">2–4 min</span>
               </header>
-              <p class="card-text">Señala estructuras y lesiones en esquemas anatómicos interactivos.</p>
+              <p class="card-text">Dos modos: “Localiza capital” y “Localiza país”. Distractores generados al vuelo.</p>
               <footer class="card-footer">
-                <a class="btn btn-primary" href="./juego.html?game=localizacion">Jugar</a>
-                <a class="btn btn-ghost" href="#guias" data-open="guias">Guía</a>
+                <a class="btn btn-primary" href="./juego.html?game=capitales">Jugar</a>
+                <a class="btn btn-ghost" href="./guias/guia-capitales.html">Guía</a>
               </footer>
             </article>
+
+            <article class="card">
+              <header class="card-header">
+                <h3>🗺️ Ibérico</h3>
+                <span class="chip">2–4 min</span>
+              </header>
+              <p class="card-text">Dada una población, elige su provincia correcta. Pensado para agilidad geográfica.</p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./juego.html?game=iberico">Jugar</a>
+                <a class="btn btn-ghost" href="./guias/guia-iberico.html">Guía</a>
+              </footer>
+            </article>
+            
+            <article class="card">
+            <header class="card-header">
+              <h3>🧑‍⚕️ Epónimos Médicos</h3>
+              <span class="chip">3–6 min</span>
+            </header>
+            <p class="card-text">Asocia el signo, síndrome o escala (ej. Cushing) con su definición correcta.</p>
+            <footer class="card-footer">
+              <a class="btn btn-primary" href="./juego.html?game=eponimos">Jugar</a>
+              <a class="btn btn-ghost" href="./guias/guia-eponimos.html">Guía</a>
+            </footer>
+            </article>
+
+            <article class="card">
+              <header class="card-header">
+                <h3>✍️ Anagrama Clínico</h3>
+                <span class="chip">3–6 min</span>
+              </header>
+              <p class="card-text">Ordena las letras para encontrar el término clínico oculto (ej. TOLOGORINAROR).</p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./juego.html?game=anagrama">Jugar</a>
+                <a class="btn btn-ghost" href="./guias/guia-anagrama.html">Guía</a>
+              </footer>
+            </article>
+            
+            <article class="card">
+              <header class="card-header">
+                <h3>🔠 Siglas Médicas</h3>
+                <span class="chip">2–4 min</span>
+              </header>
+              <p class="card-text">Asocia la sigla (ej. TEP, HTA, ACV) con su significado correcto. ¡Rápido!</p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./juego.html?game=siglas">Jugar</a>
+                <a class="btn btn-ghost" href="./guias/guia-siglas.html">Guía</a>
+              </footer>
+            </article>
+            
+            <article class="card">
+              <header class="card-header">
+                <h3>🕵️‍♂️ El Intruso</h3>
+                <span class="chip">2–4 min</span>
+              </header>
+              <p class="card-text">Identifica el término (fármaco, signo...) que no pertenece al grupo.</p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./juego.html?game=intruso">Jugar</a>
+                <a class="btn btn-ghost" href="./guias/guia-intruso.html">Guía</a>
+              </footer>
+            </article>
+            
+            <article class="card">
+              <header class="card-header">
+                <h3>⚠️ Desafío de Seguridad</h3>
+                <span class="chip">2–3 min</span>
+              </header>
+              <p class="card-text">Encuentra todos los riesgos de seguridad del paciente ocultos en la imagen.</p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./juego.html?game=seguridad">Jugar</a>
+                <a class="btn btn-ghost" href="./guias/guia-seguridad.html">Guía</a>
+              </footer>
+            </article>
+            
           </div>
         </div>
       </article>
 
-      <!-- BLOQUE: Ranking -->
       <article class="accordion-item" id="ranking">
         <h2 class="accordion-header">
           <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-ranking" id="btn-ranking">
@@ -193,7 +251,6 @@
         </div>
       </article>
 
-      <!-- BLOQUE: Guías (NUEVO) -->
       <article class="accordion-item" id="guias">
         <h2 class="accordion-header">
           <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-guias" id="btn-guias">
@@ -204,26 +261,25 @@
           <div class="grid-cards">
             <article class="card">
               <header class="card-header">
-                <h3>👁️ Guía · Agudeza visual</h3>
-                <span class="chip">Evaluación</span>
+                <h3>🧮 Guía · Cálculo mental</h3>
+                <span class="chip">Operadores & bonus</span>
               </header>
-              <p class="card-text">Criterios de isocoria/anisocoria, reactividad a la luz y ejemplos de casos.</p>
+              <p class="card-text">Cómo se generan las operaciones, reglas de puntuación y bonus por racha.</p>
               <footer class="card-footer">
-                <a class="btn btn-primary" href="./guias/guia-agudeza-visual.html">Abrir guía</a>
+                <a class="btn btn-primary" href="./guias/guia-calculo.html">Abrir guía</a>
               </footer>
             </article>
-            
-            <article class="card">
-  <header class="card-header">
-    <h3>🧮 Guía · Agudeza mental</h3>
-    <span class="chip">Operadores & bonus</span>
-  </header>
-  <p class="card-text">Cómo se generan las operaciones, reglas de puntuación y bonus por racha.</p>
-  <footer class="card-footer">
-    <a class="btn btn-primary" href="./guias/guia-agudeza-mental.html">Abrir guía</a>
-  </footer>
-</article>
 
+            <article class="card">
+              <header class="card-header">
+                <h3>🃏 Guía · Parejas (memoria)</h3>
+                <span class="chip">Técnicas</span>
+              </header>
+              <p class="card-text">Consejos para memoria de trabajo y configuración de la parrilla.</p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./guias/guia-parejas.html">Abrir guía</a>
+              </footer>
+            </article>
 
             <article class="card">
               <header class="card-header">
@@ -238,25 +294,92 @@
 
             <article class="card">
               <header class="card-header">
-                <h3>⚡ Guía · Reflejos clínicos</h3>
-                <span class="chip">Tiempo de reacción</span>
+                <h3>🔎 Guía · Sopa clínica</h3>
+                <span class="chip">Selección</span>
               </header>
-              <p class="card-text">Acciones estándar ante estímulos críticos, penalizaciones y bonus.</p>
+              <p class="card-text">Cómo se eligen las palabras, diagonales y criterios de tiempo.</p>
               <footer class="card-footer">
-                <a class="btn btn-primary" href="./guias/guia-reflejos.html">Abrir guía</a>
+                <a class="btn btn-primary" href="./guias/guia-sopa.html">Abrir guía</a>
               </footer>
             </article>
 
             <article class="card">
               <header class="card-header">
-                <h3>🫀 Guía · Localiza la lesión</h3>
-                <span class="chip">Regiones</span>
+                <h3>🌍 Guía · Capitales</h3>
+                <span class="chip">Modos</span>
               </header>
-              <p class="card-text">Mapa anatómico y correspondencias región–enunciado más frecuentes.</p>
+              <p class="card-text">Diferencias entre “Localiza capital” y “Localiza país”.</p>
               <footer class="card-footer">
-                <a class="btn btn-primary" href="./guias/guia-localizacion.html">Abrir guía</a>
+                <a class="btn btn-primary" href="./guias/guia-capitales.html">Abrir guía</a>
               </footer>
             </article>
+
+            <article class="card">
+              <header class="card-header">
+                <h3>🗺️ Guía · Ibérico</h3>
+                <span class="chip">Provincia</span>
+              </header>
+              <p class="card-text">Criterios de selección de poblaciones y distractores de provincia.</p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./guias/guia-iberico.html">Abrir guía</a>
+              </footer>
+            </article>
+            
+            <article class="card">
+              <header class="card-header">
+                <h3>🧑‍⚕️ Guía · Epónimos</h3>
+                <span class="chip">Scoring</span>
+              </header>
+              <p class="card-text">Asocia el epónimo (signo, síndrome, escala) con su definición correcta.</p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./guias/guia-eponimos.html">Abrir guía</a>
+              </footer>
+            </article>
+            
+            <article class="card">
+              <header class="card-header">
+                <h3>✍️ Guía · Anagrama</h3>
+                <span class="chip">Niveles</span>
+              </header>
+              <p class="card-text">Ordena las letras para encontrar el término clínico oculto. 3 niveles.</p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./guias/guia-anagrama.html">Abrir guía</a>
+              </footer>
+            </article>
+            
+            <article class="card">
+              <header class="card-header">
+                <h3>🔠 Guía · Siglas</h3>
+                <span class="chip">Rapidez</span>
+              </header>
+              <p class="card-text">Asocia la sigla (ej. TEP, HTA, ACV) con su significado correcto.</p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./guias/guia-siglas.html">Abrir guía</a>
+              </footer>
+            </article>
+            
+            <article class="card">
+              <header class="card-header">
+                <h3>🕵️‍♂️ Guía · El Intruso</h3>
+                <span class="chip">Categorías</span>
+              </header>
+              <p class="card-text">Identifica el término (fármaco, signo...) que no pertenece al grupo.</p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./guias/guia-intruso.html">Abrir guía</a>
+              </footer>
+            </article>
+            
+            <article class="card">
+              <header class="card-header">
+                <h3>⚠️ Guía · Desafío Seguridad</h3>
+                <span class="chip">Niveles</span>
+              </header>
+              <p class="card-text">Encuentra los riesgos de seguridad ocultos en la imagen.</p>
+              <footer class="card-footer">
+                <a class="btn btn-primary" href="./guias/guia-seguridad.html">Abrir guía</a>
+              </footer>
+            </article>
+            
           </div>
         </div>
       </article>
@@ -268,7 +391,6 @@
     </p>
   </main>
 
-  <!-- JS acordeón / TOC -->
   <script>
     const toggles = document.querySelectorAll('.accordion-toggle');
 
