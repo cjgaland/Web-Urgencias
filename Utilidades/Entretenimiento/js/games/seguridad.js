@@ -7,6 +7,8 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
   // ⚠️ Rutas relativas a index.html
   const IMG_HAB = "img/seg-habitacion.png";
   const IMG_CAR  = "img/seg-carro.png";
+  const IMG_MOS  = "img/seg-mostrador.png";
+  const IMG_CAM  = "img/seg-camilla.png";
 
   // Coords en % [x, y, w, h]
   const LEVELS = {
@@ -15,27 +17,53 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
       time: 45, mult: 1.0,
       img: IMG_HAB,
       riesgos: [
-        { nombre: "Paciente sin pulsera identificativa", coords: [38.13, 30.28, 11.01, 5.73] },
-        { nombre: "Barandilla de la cama bajada",        coords: [34.13, 41.71, 38.00, 13.00] },
-        { nombre: "Suelo mojado (sin señalizar)",        coords: [34.52, 76.09, 38.00, 13.00] },
-        { nombre: "Timbre fuera del alcance",            coords: [55.42, 66.04, 8.00, 5.00]   },
-        { nombre: "Agujas en mesilla",                   coords: [70.00, 20.86, 14.00, 5.00]  }
+        { nombre: "Suero sin rotular. Riesgo de trazabilidad y seguimiento de medicacion administrada.", coords: [40.0, 16.9, 4.7, 6.1] },
+        { nombre: "Barandilla baja. Riesgo de caída.", coords: [41.9, 59.9, 14.3, 6.3] },
+        { nombre: "Objeto punzante: jeringuilla cerca del vaso. Fuera de lugar y riesgo de punción.", coords: [73.6, 46.0, 7.1, 2.7] },
+        { nombre: "Pulsador lejano y no accesible al paciente.", coords: [24.4, 76.3, 4.6, 3.9] },
+        { nombre: "Humedad en el suelo con riesgo de caída de personal, enfermo y familiares.", coords: [52.4, 77.9, 19.3, 5.9] }
       ]
+
+
     },
     l2: {
       name: "Nivel 2: Carro de Medicación",
       time: 45, mult: 1.5,
       img: IMG_CAR,
       riesgos: [
-        { nombre: "Carro abierto sin supervisión",       coords: [53.37, 62.26, 33.00, 15.00] },
-        { nombre: "Alto riesgo mal separado",            coords: [26.46, 50.47, 23.00, 14.00] },
-        { nombre: "Jeringa sin identificar",             coords: [13.04, 35.04, 21.35, 5.16]  },
-        { nombre: "Frasco caducado",                     coords: [30.83, 27.30, 11.83, 6.42]  },
-        { nombre: "Contenedor punzantes lleno",          coords: [57.73, 32.14, 18.26, 25.46] }
+        { nombre: "Objeto punzante: jeringuilla sin encapsular y sin rotular.", coords: [44.3, 29.3, 12.1, 4.0] },
+        { nombre: "Caducidad. Fármaco caducado en carro de medicación.", coords: [61.5, 30.5, 5.4, 5.8] },
+        { nombre: "Medicación de Alto Riesgo mezclada con medicacion de uso habitual.", coords: [33.0, 41.7, 18.1, 7.7] },
+        { nombre: "Contenedor mal sellado, lleno y con objetos punzantes.", coords: [73.2, 46.1, 10.4, 14.7] },
+        { nombre: "Cajón abierto con exposicion de medicación.", coords: [15.1, 50.0, 18.3, 7.8] }
+      ]
+
+    },
+    l3: {
+      name: "Nivel 3: Mostrador",
+      time: 45, mult: 1.0,
+      img: IMG_MOS,
+      riesgos: [
+        { nombre: "Proteccion de datos: informacion personal expuesta.", coords: [24.9, 23.7, 18.1, 4.9] },
+        { nombre: "Contraseña expuesta. Riesgo por brecha de seguridad.", coords: [31.1, 49.9, 5.4, 5.8] },
+        { nombre: "Consentimiento firmado sin cumplimentar adecuadamente.", coords: [16.3, 74.6, 18.1, 7.7] },
+        { nombre: "Pulsera identificativa aislada. Posible paciente sin la misma.", coords: [73.6, 69.4, 12.1, 4.6] },
+        { nombre: "Informacion confidencial expuesta. Letra ilegible.", coords: [50.0, 65.7, 10.4, 14.7] }
       ]
     },
-    l3: { name: "Nivel 3 (Próximamente)", time: 0, mult: 2.0, img: "", riesgos: [] },
-    l4: { name: "Nivel 4 (Próximamente)", time: 0, mult: 2.0, img: "", riesgos: [] }
+    l4: {
+      name: "Nivel 4: Camilla de transporte",
+      time: 45, mult: 1.5,
+      img: IMG_CAM,
+      riesgos: [
+        { nombre: "Suero desconectado del paciente. Terminal por el suelo.", coords: [19.4, 14.2, 6.1, 8.8] },
+        { nombre: "Objeto personal mal sujeto con riesgo de pérdida.", coords: [46.1, 43.7, 7.4, 5.1] },
+        { nombre: "Inexistencia de barandillas con riesgo de caídas para el paciente.", coords: [34.8, 57.3, 27.1, 6.2] },
+        { nombre: "Objetos en pasillo que dificultan el traslado y la movilidad.", coords: [3.1, 54.7, 9.7, 18.1] },
+        { nombre: "Pasillo mal iluminado con el consiguiente riesgo para paciene, personal y familiares.", coords: [48.7, 6.8, 22.4, 7.8] }
+      ]
+
+    },
   };
 
   // ---------- Estado ----------
@@ -179,8 +207,8 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
     const topRow = el("div",{class:"levelbar"},[
       el("button",{class:"btn",id:"btnL1",onClick:function(){setLevel("l1");}},"L1"),
       el("button",{class:"btn",id:"btnL2",onClick:function(){setLevel("l2");}},"L2"),
-      el("button",{class:"btn",id:"btnL3",onClick:function(){setLevel("l3");}},"L3 (N/D)"),
-      el("button",{class:"btn",id:"btnL4",onClick:function(){setLevel("l4");}},"L4 (N/D)"),
+      el("button",{class:"btn",id:"btnL3",onClick:function(){setLevel("l3");}},"L3"),
+      el("button",{class:"btn",id:"btnL4",onClick:function(){setLevel("l4");}},"L4"),
       el("span",{class:"badge",id:"lvName",style:"margin-left:.5rem"},""),
       el("span",{class:"badge",id:"bestLocalChip",style:"margin-left:auto"},"Mejor nivel: —")
     ]);
