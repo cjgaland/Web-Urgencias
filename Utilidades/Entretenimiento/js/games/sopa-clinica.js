@@ -196,10 +196,8 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
     running = false;
     clearTimeout(timer);
 
-    // Snapshot ANTES de tocar nada
     const snap = { victoria:!!victoria, score, found:foundCount, total:WORD_COUNT };
 
-    // Guardar y actualizar etiqueta "Mejor" (games-core.js pintará mini-ranking)
     saveLocalScore(GAME_ID, snap.score);
     updateBestBadge(GAME_ID);
 
@@ -211,6 +209,8 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
       const btn = $("#startSopa");
       btn.textContent = "Ver puntuación";
       btn.style.display = "block";
+      // Alinear el botón a la izquierda (como en `qz-meta`)
+      btn.style.margin = "0"; 
       btn.onclick = () => showEndScreen(snap);
     }
   }
@@ -225,6 +225,7 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
     }
   }
 
+  // --- 👇 CORRECCIÓN ---
   function showEndScreen({victoria, score, found, total}){
     root.innerHTML = "";
     root.append(
@@ -232,13 +233,14 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
         el("h2",{}, victoria ? "🏁 ¡Completado!" : "⌛ Tiempo agotado"),
         el("div",{}, `Puntuación: ${score}`),
         el("div",{}, `Encontradas: ${found}/${total}`),
-        el("div",{class:"qz-badges",style:"margin-top:.6rem;display:flex;gap:.5rem;justify-content:center"},[
-          el("button",{class:"btn btn-primary", onClick: init}, "Jugar de nuevo"),
-          el("a",{class:"btn btn-ghost", href:"./index.html"},"Volver a Juegos")
+        // Eliminado el botón "Volver a Juegos" y contenedor cambiado a 'qz-meta'
+        el("div",{class:"qz-meta",style:"margin-top:.6rem; justify-content: flex-start;"},[
+          el("button",{class:"btn btn-primary", onClick: init}, "Jugar de nuevo")
         ])
       ])
     );
   }
+  // --- 👆 FIN CORRECCIÓN ---
 
   // ---------- CSS mínimo del juego ----------
   function injectCss(){
@@ -261,6 +263,12 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
       .sopa-words .list{list-style:none;padding:0;margin:.5rem 0;}
       .sopa-words .list li{color:#374151;}
       .sopa-words .list li.found{text-decoration:line-through;color:#16a34a;font-weight:700;opacity:.8;}
+      
+      /* Añadido para alinear el botón de start a la izquierda */
+      .sopa-words .btn-primary { margin: 0; }
+      /* Añadido para alinear el botón de fin de juego (mt-panel) */
+      .mt-panel { text-align: left; }
+      .mt-panel .qz-meta { justify-content: flex-start; }
     `;
     const s = document.createElement("style");
     s.id = "sopa-lite-css";
@@ -279,18 +287,15 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
     injectCss();
     buildUI();
     try{
-      // Igual que en quiz-dx: URL relativa + cache-buster para reinicios seguidos
       const res = await fetch(DATA_URL + "?t=" + Date.now(), { cache:"no-store" });
       if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
       BANK = await res.json();
 
-      // Asegura que BANK sea un array de strings (palabras) o array de objetos con .palabra
       const normalized = [];
       for (const w of BANK){
         if (typeof w === "string") normalized.push(w.toUpperCase());
         else if (w && typeof w.palabra === "string") normalized.push(w.palabra.toUpperCase());
       }
-      // Selección
       wordsToFind = shuffle(normalized).slice(0, WORD_COUNT);
       renderWordList();
 

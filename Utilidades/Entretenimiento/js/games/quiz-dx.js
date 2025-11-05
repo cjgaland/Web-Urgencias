@@ -1,6 +1,7 @@
 // ======================
-// 🩺 Quiz diagnóstico por síntomas
+// 🩺 Quiz diagnóstico por síntomas (Modo Rápido v2)
 // Módulo compatible con games-core.js (initGame)
+// Auto-avance y revisión de fallos al final.
 // ======================
 export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge }) {
   // ---------- Config ----------
@@ -12,6 +13,7 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
   const st = {
     i: 0, score: 0, streak: 0,
     questionPool: [],
+    review: [], // Array para guardar fallos
     totals: { answered:0, correct:0, timeMs:0 }
   };
   let BANK = [];
@@ -35,11 +37,8 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
 
   // ---------- Lógica de juego ----------
 
-  // --- CAMBIO ---
-  // Esta función ahora construye TODA la UI del juego desde cero.
-  // Esto soluciona el error al "Jugar de nuevo".
   function buildGameUI() {
-    root.innerHTML = ""; // Limpia todo
+    root.innerHTML = ""; 
 
     const panel  = el("div",{class:"qz-panel"});
     const top    = el("div",{class:"qz-top", id:"qzTop", style:"display:none"});
@@ -54,28 +53,25 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
       el("span",{class:"badge", id:"bPlayerName"})
     ]);
 
-    // --- CAMBIO ---
-    // Crea las 10 tarjetas numeradas en lugar de puntos
     const dots = Array.from({length:ROUNDS}, ( _, i )=>el("span",{class:"qz-dot"}, String(i+1)));
     dots.forEach(d=>prog.append(d));
-    // --- FIN CAMBIO ---
 
     top.append(prog, bar, badges);
 
     const stem  = el("div",{class:"qz-stem", id:"stem"});
     const opts  = el("div",{class:"qz-opts", id:"opts"});
-    const exp   = el("div",{class:"qz-exp", id:"exp", style:"display:none"});
-    const nav   = el("div",{class:"qz-meta", id:"qzNav", style:"display:none"},[
-      el("button",{class:"btn btn-secondary", id:"btnNext", disabled:true, onClick:()=>nextQ()}, "Siguiente"),
-      el("a",{class:"btn btn-ghost", href:"./index.html"},"Volver")
-    ]);
+    const exp   = el("div",{class:"qz-exp", id:"exp", style:"display:none"}); 
+    
+    // --- 👇 CORRECCIÓN ---
+    // 'nav' completamente vacío, ya no hay botón "Siguiente"
+    const nav   = el("div",{class:"qz-meta", id:"qzNav", style:"display:none"});
+    // --- 👆 FIN CORRECCIÓN ---
 
     panel.append(top, stem, opts, exp, nav);
     root.append(panel);
 
-    // Accesibilidad teclado (1–4)
     window.addEventListener("keydown", (e)=>{
-      if($("#qzNav")?.style.display === 'none') return;
+      if($("#qzNav")?.style.display === 'none' || answered) return;
       const n = Number(e.key);
       if(n>=1 && n<=4){
         const btn = $$(".qz-opt")[n-1];
@@ -85,7 +81,7 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
   }
 
   function showStartScreen() {
-    buildGameUI(); // Construye la UI
+    buildGameUI(); 
     
     $("#bPlayerName").textContent = "Jugador: " + getAlias();
     $("#stem").innerHTML = `Juego de <strong>Quiz Clínico</strong>. Tienes ${TIME_PER_Q/1000} segundos por pregunta.<br>Pulsa 'Comenzar' cuando estés listo.`;
@@ -99,31 +95,25 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
   }
 
   function startGame() {
-    // 1. Reiniciar estadísticas
     st.i = 0;
     st.score = 0;
     st.streak = 0;
+    st.review = []; 
     st.totals = { answered: 0, correct: 0, timeMs: 0 };
     $("#bScore").textContent = "Puntos: 0";
     $("#bStreak").textContent = "Racha: 0";
 
-    // --- CAMBIO ---
-    // 2. Resetear las tarjetas a su estado original
     $$(".qz-dot").forEach(d => {
-      d.className = "qz-dot"; // Quita .correct, .wrong, .on
+      d.className = "qz-dot";
     });
-    // --- FIN CAMBIO ---
 
-    // 3. Seleccionar 10 preguntas al azar
     const shuffledBank = shuffle([...BANK]);
     st.questionPool = shuffledBank.slice(0, ROUNDS);
 
-    // 4. Mostrar la UI del juego
     $("#qzTop").style.display = "flex";
     $("#qzNav").style.display = "flex";
-    $("#opts").innerHTML = ""; // Limpiar el botón "Comenzar"
+    $("#opts").innerHTML = ""; 
 
-    // 5. Cargar la primera pregunta
     nextQ();
   }
 
@@ -146,6 +136,13 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
     if(answered) return;
     answered = true;
     cancelAnimationFrame(raf);
+    
+    st.review.push({
+      pregunta: current.stem,
+      correcta: current.opciones[current.correcta],
+      explicacion: current.explicacion || ""
+    });
+    
     reveal(null, false, TIME_PER_Q);
   }
 
@@ -160,6 +157,15 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
     const ok = idx === current.shuffledCorrectIndex;
     
     if(ok) btn.classList.add("correct"); else btn.classList.add("wrong");
+    
+    if (!ok) {
+      st.review.push({
+        pregunta: current.stem,
+        correcta: current.opciones[current.correcta],
+        explicacion: current.explicacion || ""
+      });
+    }
+    
     reveal(idx, ok, elapsed);
   }
 
@@ -167,15 +173,11 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
     const btns = $$(".qz-opt");
     btns[current.shuffledCorrectIndex]?.classList.add("correct");
 
-    // --- CAMBIO ---
-    // Pinta la tarjeta de rojo o verde según el resultado
     const currentDot = $$(".qz-dot")[st.i];
     if (currentDot) {
       currentDot.classList.add(ok ? "correct" : "wrong");
     }
-    // --- FIN CAMBIO ---
 
-    // scoring
     st.totals.answered++;
     st.totals.timeMs += Math.min(elapsed, TIME_PER_Q);
 
@@ -192,28 +194,23 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
     $("#bScore").textContent  = `Puntos: ${st.score}`;
     $("#bStreak").textContent = `Racha: ${st.streak}`;
 
-    $("#exp").style.display = "block";
-    $("#exp").innerHTML = `
-      <div><strong>Diagnóstico correcto:</strong> ${current.opciones[current.correcta]}</div>
-      ${current.explicacion ? `<div style="margin-top:.35rem">${current.explicacion}</div>` : ""}
-      ${current.tags?.length ? `<div class="qz-badges" style="margin-top:.35rem">${current.tags.map(t=>`<span class="badge">${t}</span>`).join("")}</div>` : ""}
-    `;
+    // --- 👇 CORRECCIÓN ---
+    // Ya no se muestra la explicación aquí
+    // $("#exp").style.display = "block";
+    // ...
+    // --- 👆 FIN CORRECCIÓN ---
 
     st.i++;
-    $("#btnNext").disabled = false;
+    setTimeout(() => nextQ(), 600); // Avanza solo tras 600ms
   }
 
   function nextQ(){
     if(st.i >= ROUNDS) return endGame();
 
-    $("#btnNext").disabled = true;
     $("#exp").style.display = "none";
     $("#opts").innerHTML = "";
     
-    // --- CAMBIO ---
-    // Marca la tarjeta actual con la clase 'on' (borde azul)
     $$(".qz-dot").forEach((d, idx) => d.classList.toggle("on", idx === st.i));
-    // --- FIN CAMBIO ---
     
     answered = false;
     current = st.questionPool[st.i];
@@ -236,22 +233,40 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
   }
 
   function endGame(){
+    cancelAnimationFrame(raf);
     const mean = st.totals.answered ? Math.round(st.totals.timeMs / st.totals.answered) : 0;
     
     saveLocalScore("quiz-dx", st.score);
     updateBestBadge("quiz-dx");
 
-    root.innerHTML = ""; // Limpia la UI del juego
+    root.innerHTML = "";
     const box = el("div",{class:"qz-panel"});
     box.append(
       el("h2",{},"🏁 Resultado"),
       el("div",{} , `Correctas: ${st.totals.correct}/${st.totals.answered}`),
       el("div",{} , `Puntuación: ${st.score}`),
-      el("div",{} , `Tiempo medio por pregunta: ${mean} ms`),
-      el("div",{class:"qz-badges", style:"margin-top:.6rem;display:flex;gap:.5rem"},[
-        // Llama a showStartScreen para reconstruir la UI
-        el("button",{class:"btn btn-primary", onClick: showStartScreen}, "Jugar de nuevo"),
-        el("a",{class:"btn btn-ghost", href:"./index.html"},"Volver a Juegos")
+      el("div",{} , `Tiempo medio por pregunta: ${mean} ms`)
+    );
+    
+    const errors = st.review;
+    if (errors.length > 0) {
+      box.append(el("h3", { style: "margin-top: 1.5rem; margin-bottom: 0.5rem;" }, "Revisión de errores:"));
+      const errList = el("div", { class: "quiz-errors-list" });
+      errors.forEach(err => {
+        errList.append(
+          el("div", { class: "quiz-error-item" }, [
+            el("div", { class: "quiz-error-q" }, `P: ${err.pregunta}`),
+            el("div", { class: "quiz-error-a" }, `R: ${err.correcta}`),
+            err.explicacion ? el("div", { class: "quiz-error-exp" }, err.explicacion) : null
+          ])
+        );
+      });
+      box.append(errList);
+    }
+    
+    box.append(
+      el("div",{class:"qz-meta", style:"margin-top:.6rem;"},[
+        el("button",{class:"btn btn-primary", onClick: showStartScreen}, "Jugar de nuevo")
       ])
     );
     root.append(box);
@@ -262,13 +277,12 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
     if(document.getElementById("quizdx-lite-css")) return;
     const css = `
       .qz-panel{width:min(760px,100%);display:grid;gap:.9rem}
-      .qz-top{display:flex;align-items:center;gap:.5rem; flex-wrap: wrap;} /* wrap porsiaca */
+      .qz-top{display:flex;align-items:center;gap:.5rem; flex-wrap: wrap;}
       
-      /* --- INICIO CAMBIO CSS TARJETAS --- */
       .qz-progress{display:flex;gap:.25rem;align-items:center;flex: 1 1 auto; order: 3; min-width: 100%;}
       .qz-dot{
-        flex-basis: 28px; /* Ancho base */
-        flex-grow: 1; /* Crecer para ocupar espacio */
+        flex-basis: 28px;
+        flex-grow: 1;
         height: 28px;
         border-radius: 6px;
         background: #e5e7eb;
@@ -286,16 +300,15 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
         box-shadow: 0 0 5px rgba(13,110,253,.5);
       }
       .qz-dot.correct{
-        background: #dcfce7; /* Verde */
+        background: #dcfce7;
         color: #166534;
         border-color: #86efac;
       }
       .qz-dot.wrong{
-        background: #fee2e2; /* Rojo */
+        background: #fee2e2;
         color: #991b1b;
         border-color: #fca5a5;
       }
-      /* --- FIN CAMBIO CSS TARJETAS --- */
 
       .qz-timerbar{position:relative;height:10px;background:#eef2ff;border-radius:999px;overflow:hidden;flex: 1 1 200px; order: 1;}
       .qz-timerbar-fill{display:block;height:100%;width:100%;background:#0d6efd;transform-origin:left center;transform:scaleX(1)}
@@ -307,9 +320,19 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
       .qz-opt.correct{background:#ecfdf5;border-color:#bbf7d0}
       .qz-opt.wrong{opacity:.65}
       .qz-badges .badge{font-size:.8rem;background:#f3f6ff;border:1px solid #e6ecff;border-radius:999px;padding:.15rem .5rem}
-      .qz-meta{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:flex-end}
+      .qz-meta{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:flex-start;margin-top: .75rem;}
       .qz-exp{background:#fbfbfe;border:1px solid #eef;padding:.6rem .7rem;border-radius:10px}
       .qz-opt:focus{outline:2px solid #0d6efd;outline-offset:2px}
+      
+      .quiz-errors-list { display: grid; gap: 0.75rem; }
+      .quiz-error-item { 
+        background: #fdf2f2; border: 1px solid #fecaca; 
+        border-radius: 8px; padding: 0.5rem 0.75rem;
+        text-align: left;
+      }
+      .quiz-error-q { font-weight: 700; color: #991b1b; }
+      .quiz-error-a { color: #166534; }
+      .quiz-error-exp { font-size: 0.9rem; color: #444; margin-top: 0.25rem; }
     `;
     const style = document.createElement("style");
     style.id = "quizdx-lite-css";
@@ -320,10 +343,10 @@ export async function initGame({ root, saveLocalScore, getAlias, updateBestBadge
   // ---------- Inicio ----------
   injectLiteStyles();
   try{
-    const res = await fetch(DATA_URL, {cache:"no-store"});
+    const res = await fetch(DATA_URL + "?t=" + Date.now(), {cache:"no-store"});
     BANK = await res.json();
     BANK = BANK.filter(q=>q && Array.isArray(q.opciones) && typeof q.correcta === "number");
-    showStartScreen(); // Arranca el juego mostrando la pantalla de inicio
+    showStartScreen(); 
   }catch(err){
     root.textContent = "No se pudo cargar el banco de preguntas.";
     console.error(err);
