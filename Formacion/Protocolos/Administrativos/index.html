@@ -1,105 +1,135 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<title>Protocolos / Procedimientos Administrativos – Urgencias · AGS Sur de Córdoba</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Protocolos Administrativos · Formación · Urgencias – AGS Sur de Córdoba</title>
+
   <!-- Favicon -->
-<link rel="icon" href="../../../favicon.ico" type="image/x-icon">
+  <link rel="icon" href="../../../favicon.ico" type="image/x-icon">
   
-        <!-- Iconos móviles -->
+  <!-- Iconos móviles -->
   <link rel="apple-touch-icon" sizes="180x180" href="../../../assets/favicon_transp-180.png">
   <link rel="icon" type="image/png" sizes="32x32" href="../../../assets/favicon_transp-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../../../assets/favicon_transp-16.png">
-  
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-<style>
-:root{--c1:#0a5ea8;--c1d:#0a4c84;--bd:#e1eefc;--bg:#f7fbff;--bx:#d1d9e6;--tx:#0a4c84}
-*{box-sizing:border-box}
-body{font-family:Roboto,Arial,sans-serif;margin:0;background:#fff;color:#0f172a}
-.container{max-width:1100px;margin:auto;padding:16px}
 
-/* Cabecera con logo centrado */
-.hero-top{display:flex;flex-direction:column;align-items:center;gap:.4rem;margin:8px 0 12px}
-.hero-top img{width:180px;height:auto;opacity:.95}
-.hero-top h1{font-size:1.05rem;margin:4px 0 0;color:var(--tx);display:flex;align-items:center;gap:.5rem}
-.hero-top h1 i{color:var(--c1)}
+  <!-- Estilos globales -->
+  <link rel="stylesheet" href="../../../css/style.css?v=20250819-1">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-.toolbar{display:flex;justify-content:center}
-input[type="search"]{width:min(680px,92%);border:1px solid var(--bx);border-radius:12px;padding:.6rem .8rem}
-
-.note{margin:.6rem 0 1.2rem;text-align:center;color:#667085}
-
-.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
-.link-card{border:1px solid #e5e7eb;border-radius:12px;padding:12px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.link-card .title{font-weight:700;color:var(--c1d);margin:0 0 6px}
-.meta{display:flex;gap:.6rem;flex-wrap:wrap;font-size:.9rem;color:#475569;margin:.35rem 0}
-.meta .tag{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:999px;padding:.05rem .45rem}
-.actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem}
-.btn{display:inline-flex;align-items:center;gap:.35rem;border:1px solid #d9e2ec;background:#eef2f7;color:#0a4c84;border-radius:10px;padding:.45rem .65rem;text-decoration:none}
-.btn.primary{background:var(--c1);border-color:transparent;color:#fff}
-.badge-year{margin-left:.4rem;background:#eef2f7;border:1px solid #d9e2ec;color:#0a4c84;padding:.1rem .5rem;border-radius:999px;font-weight:600}
-</style>
+  <style>
+    .container{max-width:1100px;margin:0 auto;padding:16px}
+    .hero{display:flex;align-items:center;gap:14px;margin:8px 16px 8px}
+    .hero .hero-icon i{font-size:1.6rem;color:#0a5ea8}
+    .toolbar{display:flex;justify-content:center;margin:8px 0 6px}
+    .toolbar input[type="search"]{width:min(680px,92%);border:1px solid #d1d9e6;border-radius:12px;padding:.6rem .8rem}
+    .note{text-align:center;color:#667085;margin:.6rem 0 1rem}
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
+    .link-card{border:1px solid #e5e7eb;border-radius:12px;padding:12px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+    .title{font-weight:700;color:#0a4c84;margin:0 0 6px}
+    .meta{display:flex;gap:.6rem;flex-wrap:wrap;font-size:.9rem;color:#475569;margin:.35rem 0}
+    .meta .tag{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:999px;padding:.05rem .45rem}
+    .actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem}
+    .btn{display:inline-flex;align-items:center;gap:.35rem;border:1px solid #d9e2ec;background:#eef2f7;color:#0a4c84;border-radius:10px;padding:.45rem .65rem;text-decoration:none}
+    .btn.primary{background:#0a5ea8;border-color:transparent;color:#fff}
+    .badge-year{margin-left:.4rem;background:#eef2f7;border:1px solid #d9e2ec;color:#0a4c84;padding:.1rem .5rem;border-radius:999px;font-weight:600}
+  </style>
 </head>
 <body>
-<div class="container">
 
-  <!-- Cabecera con logo + título -->
-  <div class="hero-top">
-    <img src="../../../images/administrativos.png" alt="Protocolos / Procedimientos" />
-    <h1><i class="fa-solid fa-file-invoice"></i> Protocolos / Procedimientos <span class="badge-year">Administrativos</span></h1>
-  </div>
+  <!-- Sidebar (igual que Formación, rutas ajustadas) -->
+  <aside class="sidebar" aria-label="Navegación principal">
+    <div class="sidebar-header">
+      <img src="../../../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba" />
+    </div>
+    <nav>
+      <ul>
+        <li><a href="../../../index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+        <li><a href="../../../Algoritmos/index.html"><i class="fas fa-sitemap"></i> <span>Algoritmos diagnósticos</span></a></li>
+        <li><a href="../../../Calculadoras/index.html"><i class="fas fa-calculator"></i> <span>Calculadoras médicas</span></a></li>
+        <li><a href="../../../Utilidades/index.html"><i class="fas fa-toolbox"></i> <span>Utilidades</span></a></li>
+        <li><a href="../../../Formacion/index.html" class="active"><i class="fas fa-graduation-cap"></i> <span>Formación</span></a></li>
+        <li><a href="../../../Enlaces/index.html"><i class="fas fa-link"></i> <span>Enlaces útiles</span></a></li>
+        <li><a href="../../../Documentos/index.html"><i class="fas fa-file-lines"></i> <span>Documentos y plantillas</span></a></li>
+        <li><a href="../../../Calidad/index.html"><i class="fas fa-shield-heart"></i> <span>Calidad y Seguridad del Paciente</span></a></li>
+      </ul>
 
-  <!-- Buscador -->
-  <div class="toolbar">
-    <input id="buscador" type="search" placeholder="Buscar por título, autor o tema…" autocomplete="off">
-  </div>
-  <p class="note">Repositorio interno con fines docentes. Verifica versiones oficiales y vigentes.</p>
+      <ul class="submenu-criticos">
+        <li><a href="../../../Criticos/index.html"><i class="fas fa-procedures"></i> <span>Sala de Críticos</span></a></li>
+      </ul>
 
-  <!-- Tarjetas -->
-  <div id="grid" class="card-grid"></div>
+      <ul class="submenu-equipo">
+        <li><a href="../../../Profesionales/index.html"><i class="fas fa-user-md"></i> <span>Fichas del personal</span></a></li>
+        <li><a href="../../../Cuadrantes/index.html"><i class="fas fa-calendar-alt"></i> <span>Cuadrantes de trabajo</span></a></li>
+      </ul>
+    </nav>
+  </aside>
 
-</div>
+  <!-- Cabecera con logos -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <img src="../../../images/Logo-Salud2.png" alt="Junta de Andalucía · Consejería de Salud y Consumo" />
+    </div>
+    <div class="masthead-right">
+      <img src="../../../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Servicio de Urgencias · Hospital de Montilla" />
+    </div>
+  </header>
 
-<!-- 1) Carga el script común -->
-<script src="../protocols-common.js"></script>
-<!-- 2) Carga los datos del año -->
-<script src="data.js"></script>
-<!-- 3) Lanza el render -->
-<script> 
-	window.addEventListener('DOMContentLoaded', () => renderProtocols('Administrativos')); /* cambia el año correspondiente */
-</script>
-  
-<script>
-/* Contador independiente: cuenta lo que ya está en #grid */
-window.addEventListener('load', () => {
-  // número de sesiones = número de tarjetas renderizadas
-  const n = document.querySelectorAll('#grid .link-card').length;
+  <!-- Contenido -->
+  <main class="main-content" role="main">
+    <section class="hero">
+      <div class="hero-icon" aria-hidden="true">
+        <i class="fa-solid fa-folder-open"></i>
+      </div>
+      <div class="hero-text">
+        <h1>Protocolos / Procedimientos <span class="badge-year">Administrativos</span></h1>
+        
+<div class="actions" style="margin-top: .8rem;">
+          <a class="btn" href="../Clinicos/index.html">
+            <i class="fa-solid fa-file-medical"></i> Ir a Protocolos Clínicos
+          </a>
+        </div>
+        
+        
+      </div>
+      
+    </section>
 
-  // localiza el <h1> (soporta .hero-top h1 y .hero h1)
-  const h1 = document.querySelector('.hero-top h1, .hero h1');
-  if (!h1) return;
+    <div class="container">
+      <div class="toolbar">
+        <input id="buscador" type="search" placeholder="Buscar por título, autor o tema…" autocomplete="off">
+      </div>
+      <p class="note">Repositorio interno con fines docentes. Verifica versiones oficiales y vigentes.</p>
 
-  // crea/actualiza el badge
-  let badge = h1.querySelector('.count-badge');
-  if (!badge) {
-    badge = document.createElement('span');
-    badge.className = 'count-badge';
-    h1.appendChild(badge);
-  }
-  badge.textContent = n === 1 ? '1 sesión' : `${n} protocolos`;
-  badge.classList.toggle('count-blue', n > 0);
-  badge.classList.toggle('count-gray', n === 0);
-});
-</script>
- 
- 
+      <div id="grid" class="card-grid"></div>
+    </div>
+  </main>
+
+  <!-- Lógica común + datos -->
+  <script src="../protocols-common.js?v=1"></script>
+  <script src="data.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      renderProtocols('Administrativos');
+    });
+
+    // Contador visual en el H1 (opcional)
+    window.addEventListener('load', function(){
+      var n = document.querySelectorAll('#grid .link-card').length;
+      var h1 = document.querySelector('.hero h1');
+      if(!h1) return;
+      var badge = document.createElement('span');
+      badge.textContent = (n === 1 ? '1 protocolo' : (n + ' protocolos'));
+      badge.style.marginLeft = '.5rem';
+      badge.style.background = '#e8f2fc';
+      badge.style.border = '1px solid #cfe3f8';
+      badge.style.color = '#0a5ea8';
+      badge.style.padding = '.1rem .5rem';
+      badge.style.borderRadius = '999px';
+      badge.style.fontWeight = '600';
+      h1.appendChild(badge);
+    });
+  </script>
 </body>
 </html>
-
-
-
-
-
-
