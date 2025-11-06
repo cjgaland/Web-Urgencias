@@ -2,96 +2,137 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Protocolos y Procedimientos Clínicos y Adminsitrativos· Urgencias · AGS Sur de Córdoba</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Protocolos y Procedimientos · Formación · Urgencias – AGS Sur de Córdoba</title>
+
   <!-- Favicon -->
   <link rel="icon" href="../../favicon.ico" type="image/x-icon">
   
-    <!-- Iconos móviles -->
+  <!-- Iconos móviles -->
   <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon_transp-180.png">
   <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon_transp-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon_transp-16.png">
-  
-  <!-- Fuentes / iconos -->
+
+  <!-- Estilos globales -->
+  <link rel="stylesheet" href="../../css/style.css?v=20250819-1">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-  <!-- Estilo global del proyecto -->
-  <link rel="stylesheet" href="../../css/style.css?v=20250819-1">
-
-  <!-- Estilo local mínimo para la rejilla (solo por si falta algo en tu CSS) -->
   <style>
-    :root{--c1:#0a5ea8;--c1d:#0a4c84;--bx:#d1d9e6;--tx:#0a4c84}
-    *{box-sizing:border-box}
-    body{font-family:Roboto,Arial,sans-serif;margin:0;background:#fff;color:#0f172a}
-    .container{max-width:1100px;margin:auto;padding:16px}
-    .hero-top{display:flex;flex-direction:column;align-items:center;gap:.4rem;margin:8px 0 12px}
-    .hero-top img{width:180px;height:auto;opacity:.95}
-    .hero-top h1{font-size:1.05rem;margin:4px 0 0;color:var(--tx);display:flex;align-items:center;gap:.5rem}
-    .hero-top h1 i{color:var(--c1)}
+    .container{max-width:1100px;margin:0 auto;padding:16px}
+    .hero{display:flex;align-items:center;gap:14px;margin:8px 16px 16px}
+    .hero .hero-icon i{font-size:1.6rem;color:#0a5ea8}
     .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
-    .link-card{border:1px solid #e5e7eb;border-radius:12px;padding:14px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-    .link-card .title{font-weight:700;color:var(--c1d);margin:0 0 6px}
+    .link-card{border:1px solid #e5e7eb;border-radius:12px;padding:14px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.05);position:relative}
+    .link-card .title{font-weight:700;color:#0a4c84;margin:0 0 6px}
     .link-description{color:#475569;font-size:.95rem;margin:.35rem 0 0}
     .actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem}
     .btn{display:inline-flex;align-items:center;gap:.35rem;border:1px solid #d9e2ec;background:#eef2f7;color:#0a4c84;border-radius:10px;padding:.45rem .65rem;text-decoration:none}
-    .btn.primary{background:var(--c1);border-color:transparent;color:#fff}
-    /* Respaldo por si no cargase style.css (tú ya lo tienes) */
-    .category-card{position:relative}
-    .category-count{position:absolute;top:8px;right:10px;padding:.15rem .5rem;border-radius:999px;font-weight:600;font-size:.85rem;border:1px solid transparent}
-    .category-count.count--has{background:#e8f2fc;color:#0a5ea8;border-color:#cfe3f8}
-    .category-count.count--zero{background:#f3f4f6;color:#6b7280;border-color:#e5e7eb}
+    .btn.primary{background:#0a5ea8;border-color:transparent;color:#fff}
+    .category-count{position:absolute;top:8px;right:10px;padding:.15rem .5rem;border-radius:999px;font-weight:600;font-size:.85rem;border:1px solid #cfe3f8;background:#f3f4f6;color:#6b7280}
+    .category-count.count--has{background:#e8f2fc;color:#0a5ea8}
+    .link-icon i{font-size:1.3rem;color:#0a5ea8}
+    /* Layout general ya lo define tu CSS: .sidebar, .masthead, .main-content */
   </style>
 </head>
-  
 <body>
-  <div class="container">
-    <!-- Cabecera con logo + título -->
-    <div class="hero-top">
-      <img src="../../images/administrativos.png" alt="Procedimientos y Protocolos" />
-      <h1><i class="fa-regular fa-list-check"></i> Protocolos y Procedimientos</h1>
+
+  <!-- Sidebar (mismo que Formación, rutas ajustadas) -->
+  <aside class="sidebar" aria-label="Navegación principal">
+    <div class="sidebar-header">
+      <img src="../../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba" />
     </div>
+    <nav>
+      <ul>
+        <li><a href="../../index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+        <li><a href="../../Algoritmos/index.html"><i class="fas fa-sitemap"></i> <span>Algoritmos diagnósticos</span></a></li>
+        <li><a href="../../Calculadoras/index.html"><i class="fas fa-calculator"></i> <span>Calculadoras médicas</span></a></li>
+        <li><a href="../../Utilidades/index.html"><i class="fas fa-toolbox"></i> <span>Utilidades</span></a></li>
+        <li><a href="../../Formacion/index.html" class="active"><i class="fas fa-graduation-cap"></i> <span>Formación</span></a></li>
+        <li><a href="../../Enlaces/index.html"><i class="fas fa-link"></i> <span>Enlaces útiles</span></a></li>
+        <li><a href="../../Documentos/index.html"><i class="fas fa-file-lines"></i> <span>Documentos y plantillas</span></a></li>
+        <li><a href="../../Calidad/index.html"><i class="fas fa-shield-heart"></i> <span>Calidad y Seguridad del Paciente</span></a></li>
+      </ul>
 
-    <!-- Tarjetas de años -->
-    <div id="grid" class="card-grid"></div>
-  </div>
+      <!-- Bloque adicional: Sala de Críticos -->
+      <ul class="submenu-criticos">
+        <li><a href="../../Criticos/index.html"><i class="fas fa-procedures"></i> <span>Sala de Críticos</span></a></li>
+      </ul>
 
-  <!-- Construcción de tarjetas de año -->
+      <!-- Bloque adicional: Equipo -->
+      <ul class="submenu-equipo">
+        <li><a href="../../Profesionales/index.html"><i class="fas fa-user-md"></i> <span>Fichas del personal</span></a></li>
+        <li><a href="../../Cuadrantes/index.html"><i class="fas fa-calendar-alt"></i> <span>Cuadrantes de trabajo</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Cabecera con logos (igual que Formación, rutas ajustadas) -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <img src="../../images/Logo-Salud2.png" alt="Junta de Andalucía · Consejería de Salud y Consumo" />
+    </div>
+    <div class="masthead-right">
+      <img src="../../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Servicio de Urgencias · Hospital de Montilla" />
+    </div>
+  </header>
+
+  <!-- Contenido -->
+  <main class="main-content" role="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-icon" aria-hidden="true">
+        <i class="fa-solid fa-list-check"></i>
+      </div>
+      <div class="hero-text">
+        <h1>Protocolos y Procedimientos</h1>
+        <p>Acceso a <strong>Administrativos</strong> y <strong>Clínicos</strong>, con contador automático.</p>
+      </div>
+    </section>
+
+    <!-- Tarjetas categorías -->
+    <div class="container">
+      <div id="grid" class="card-grid"></div>
+    </div>
+  </main>
+
+  <!-- Construcción de tarjetas de categoría -->
   <script>
-    // Años publicados
     const CATEGORIES = ["Administrativos","Clinicos"];
+    const ICONS = {
+      Administrativos: { tile:"fa-folder-open", action:"fa-folder-open" },
+      Clinicos:        { tile:"fa-file-medical", action:"fa-file-medical" }
+    };
 
-    // Construye las tarjetas base con contador "0" (gris)
     const grid = document.getElementById('grid');
-    CATEGORIES.forEach(y => {
-      const div = document.createElement('div');
-      div.className = 'link-card category-card';
-      div.dataset.category = y;
-      div.innerHTML = `
-        <span class="category-count count--zero">0</span>
-        <div class="link-icon"><i class="fa-regular fa-list-check"></i></div>
+    CATEGORIES.forEach(cat => {
+      const { tile, action } = ICONS[cat] || { tile:"fa-folder", action:"fa-folder" };
+      const card = document.createElement('div');
+      card.className = 'link-card category-card';
+      card.dataset.category = cat;
+      card.innerHTML = `
+        <span class="category-count">0</span>
+        <div class="link-icon"><i class="fa-solid ${tile}"></i></div>
         <div class="link-content">
-          <a href="${y}/index.html" class="title">Protocolos ${y === 'hasta-2019' ? 'hasta 2019' : y}</a>
-          <p class="link-description">Protocolos y Procedimientos ${y === 'hasta-2019' ? 'hasta 2019' : y}.</p>
+          <a href="${cat}/index.html" class="title">Protocolos ${cat}</a>
+          <p class="link-description">Protocolos y Procedimientos ${cat}.</p>
           <div class="actions">
-            <a class="btn primary" href="${y}/index.html"><i class="fa-solid fa-folder-open"></i> Ver año</a>
-            <a class="btn" href="${y}/data.js" target="_blank" rel="noopener"><i class="fa-solid fa-code"></i> data.js</a>
+            <a class="btn primary" href="${cat}/index.html"><i class="fa-solid ${action}"></i> Ver</a>
+            <a class="btn" href="${cat}/data.js" target="_blank" rel="noopener"><i class="fa-solid fa-code"></i> data.js</a>
           </div>
-        </div>
-      `;
-      grid.appendChild(div);
+        </div>`;
+      grid.appendChild(card);
     });
   </script>
 
-  <!-- Lógica común para contadores (reutilizable) -->
-  <script src="protocols-common.js"></script>
+  <!-- Contadores (común) -->
+  <script src="protocols-common.js?v=1"></script>
   <script>
-    // Inicializa el contador automático leyendo cada data.js del año
     Protocols.initCategoryCounters({
-      categories: ["Administrativos","Clinicos",],
-      basePath: "",                 // estamos en /Formacion/Protocoos/ → data.js está en "<año>/data.js"
-      cardSelector: ".category-card",   // tarjeta del año
-      badgeSelector: ".category-count"  // span del contador
+      categories: ["Administrativos","Clinicos"],
+      basePath: "",                       // data.js en "<categoria>/data.js"
+      cardSelector: ".category-card",
+      badgeSelector: ".category-count"
     });
   </script>
 </body>
