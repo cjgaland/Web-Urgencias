@@ -1,0 +1,980 @@
+[
+  {
+    "pregunta": "EPOC",
+    "opciones": [
+      "Enfermedad Pulmonar Obstructiva Crónica",
+      "Evento Pulmonar Oclusivo Central",
+      "Estimulación Precoz de Coagulación",
+      "Edema Pulmonar de Origen Cardiogénico"
+    ],
+    "correcta": 0,
+    "explicacion": ""
+  },
+  {
+    "pregunta": "IAM",
+    "opciones": [
+      "Infarto Agudo de Miocardio",
+      "Insuficiencia Aórtica Mitral",
+      "Índice de Afectación Muscular",
+      "Intervención Aórtica Mayor"
+    ],
+    "correcta": 0,
+    "explicacion": ""
+  },
+  {
+    "pregunta": "ACV",
+    "opciones": [
+      "Accidente Cerebrovascular",
+      "Acceso Venoso Central",
+      "Arritmia Cardíaca Ventricular",
+      "Activación Celular Viral"
+    ],
+    "correcta": 0,
+    "explicacion": "También conocido como Ictus."
+  },
+  {
+    "pregunta": "HTA",
+    "opciones": [
+      "Hipertensión Arterial",
+      "Hipotiroidismo Adquirido",
+      "Hemorragia Tarsal Aguda",
+      "Hiperplasia Timica Asociada"
+    ],
+    "correcta": 0,
+    "explicacion": ""
+  },
+  {
+    "pregunta": "TEP",
+    "opciones": [
+      "Tromboembolismo Pulmonar",
+      "Traumatismo Encefálico Periférico",
+      "Tiempo de Espera en Triaje",
+      "Terapia Electroconvulsiva Pautada"
+    ],
+    "correcta": 0,
+    "explicacion": ""
+  },
+  {
+    "pregunta": "DM",
+    "opciones": [
+      "Diabetes Mellitus",
+      "Deterioro Mental",
+      "Dosis Máxima",
+      "Desfibrilador Manual"
+    ],
+    "correcta": 0,
+    "explicacion": "Comúnmente usado para Diabetes Mellitus (Tipo 1 o Tipo 2)."
+  },
+  {
+    "pregunta": "IRA",
+    "opciones": [
+      "Insuficiencia Renal Aguda",
+      "Insuficiencia Respiratoria Aguda",
+      "Índice de Riesgo Anual",
+      "Ambas 1 y 2 son correctas"
+    ],
+    "correcta": 3,
+    "explicacion": "¡Cuidado! IRA puede significar tanto Insuficiencia Renal Aguda como Insuficiencia Respiratoria Aguda."
+  },
+  {
+    "pregunta": "RCP",
+    "opciones": [
+      "Reanimación Cardiopulmonar",
+      "Reflujo Gastroesofágico Persistente",
+      "Rotura Completa de Peroné",
+      "Ratio de Coagulación Plasmática"
+    ],
+    "correcta": 0,
+    "explicacion": ""
+  },
+  {
+    "pregunta": "FA",
+    "opciones": [
+      "Fibrilación Auricular",
+      "Fracaso Agudo",
+      "Fiebre Amarilla",
+      "Fractura Abierta"
+    ],
+    "correcta": 0,
+    "explicacion": "La arritmia cardíaca más frecuente."
+  },
+  {
+    "pregunta": "SAS",
+    "opciones": [
+      "Servicio Andaluz de Salud",
+      "Síndrome de Apnea del Sueño",
+      "Ambas 1 y 2 son correctas",
+      "Ninguna es correcta"
+    ],
+    "correcta": 2,
+    "explicacion": "En este contexto de juegos de salud, ambas son siglas válidas y muy conocidas."
+  },
+  {
+    "pregunta": "ASA",
+    "opciones": [
+      "Ácido Acetilsalicílico",
+      "Asistencia Sanitaria Ambulatoria",
+      "Análisis Sistemático Avanzado",
+      "Ambulancia de Soporte Avanzado"
+    ],
+    "correcta": 0,
+    "explicacion": "Antiagregante plaquetario comúnmente conocido como Aspirina."
+  },
+  {
+    "pregunta": "AINE",
+    "opciones": [
+      "Antiinflamatorio No Esteroideo",
+      "Análisis Infeccioso No Específico",
+      "Asistencia Inmediata No Estructural",
+      "Agente Inmunomodulador No Esteroidal"
+    ],
+    "correcta": 0,
+    "explicacion": "Grupo de fármacos antiinflamatorios como ibuprofeno, naproxeno, etc."
+  },
+  {
+    "pregunta": "IAMCEST",
+    "opciones": [
+      "Infarto Agudo de Miocardio con Elevación del ST",
+      "Intervención Arterial Múltiple Compleja Estándar",
+      "Índice de Actividad Miocárdica Crítica Estable",
+      "Insuficiencia Aguda Mitocondrial con Estasis"
+    ],
+    "correcta": 0,
+    "explicacion": "Tipo de infarto que requiere intervención coronaria percutánea urgente."
+  },
+  {
+    "pregunta": "IAMSEST",
+    "opciones": [
+      "Infarto Agudo de Miocardio sin Elevación del ST",
+      "Intervención Arterial Mínima Sistémica",
+      "Índice de Actividad Miocárdica Secundaria",
+      "Insuficiencia Aguda Mitral Sin Estenosis"
+    ],
+    "correcta": 0,
+    "explicacion": "Tipo de infarto manejado inicialmente con tratamiento médico intensivo."
+  },
+  {
+    "pregunta": "SCACEST",
+    "opciones": [
+      "Síndrome Coronario Agudo con Elevación del ST",
+      "Sistema de Cuidados Agudos Cardiológicos",
+      "Seguimiento Clínico Ambulatorio Cardiaco",
+      "Síndrome de Compresión Abdominal Central"
+    ],
+    "correcta": 0,
+    "explicacion": "Término equivalente a IAMCEST."
+  },
+  {
+    "pregunta": "SCASEST",
+    "opciones": [
+      "Síndrome Coronario Agudo sin Elevación del ST",
+      "Sistema de Cuidados Ambulatorios Secundarios",
+      "Seguimiento Clínico Avanzado Sistemático",
+      "Síndrome de Compresión Abdominal Simple"
+    ],
+    "correcta": 0,
+    "explicacion": "Término equivalente a IAMSEST."
+  },
+  {
+    "pregunta": "FAV",
+    "opciones": [
+      "Fístula Arteriovenosa",
+      "Frecuencia Auricular Variable",
+      "Fármaco Antiviral",
+      "Filtración Alveolar Vascular"
+    ],
+    "correcta": 0,
+    "explicacion": "Comunicación anormal entre arteria y vena, usada para hemodiálisis."
+  },
+  {
+    "pregunta": "CVC",
+    "opciones": [
+      "Catéter Venoso Central",
+      "Control Vascular Central",
+      "Cirugía Vascular Correctiva",
+      "Cuidados Vasculares Críticos"
+    ],
+    "correcta": 0,
+    "explicacion": "Dispositivo para acceso venoso profundo."
+  },
+  {
+    "pregunta": "PICC",
+    "opciones": [
+      "Catéter Central de Inserción Periférica",
+      "Procedimiento Inmediato de Control Cardíaco",
+      "Protocolo de Intervención Clínica Compleja",
+      "Prueba de Insuficiencia Cardíaca Crónica"
+    ],
+    "correcta": 0,
+    "explicacion": "Catéter venoso central insertado por vía periférica."
+  },
+  {
+    "pregunta": "VNI",
+    "opciones": [
+      "Ventilación No Invasiva",
+      "Valoración Neurológica Integral",
+      "Vía Nasal Instrumentada",
+      "Verificación Nutricional Inmediata"
+    ],
+    "correcta": 0,
+    "explicacion": "Soporte ventilatorio sin necesidad de intubación endotraqueal."
+  },
+  {
+    "pregunta": "VM",
+    "opciones": [
+      "Ventilación Mecánica",
+      "Valoración Muscular",
+      "Vía Médula",
+      "Volumen Minuto"
+    ],
+    "correcta": 0,
+    "explicacion": "Soporte ventilatorio mediante respirador artificial."
+  },
+  {
+    "pregunta": "TQT",
+    "opciones": [
+      "Tiempo de Quirófano Total",
+      "Tratamiento Quirúrgico Terapéutico",
+      "Técnica de Quimioterapia Tópica",
+      "Toxicidad Química Tisular"
+    ],
+    "correcta": 0,
+    "explicacion": "Tiempo total que un paciente permanece en quirófano."
+  },
+  {
+    "pregunta": "PQR",
+    "opciones": [
+      "Programación Quirúrgica Rápida",
+      "Prueba de Qualidad Respiratoria",
+      "Protocolo Quirúrgico de Recuperación",
+      "Proceso Quirúrgico Reglado"
+    ],
+    "correcta": 0,
+    "explicacion": "Sistema de programación de cirugías."
+  },
+  {
+    "pregunta": "RCE",
+    "opciones": [
+      "Reacción Cruzada Eritrocitaria",
+      "Rehabilitación Cardíaca Especial",
+      "Respuesta Clínica Eficaz",
+      "Registro de Complicaciones Estándar"
+    ],
+    "correcta": 0,
+    "explicacion": "Prueba de compatibilidad sanguínea."
+  },
+  {
+    "pregunta": "PAS",
+    "opciones": [
+      "Presión Arterial Sistólica",
+      "Programa de Atención Sanitaria",
+      "Prueba de Alergia Sistémica",
+      "Protocolo de Alta Segura"
+    ],
+    "correcta": 0,
+    "explicacion": "Sinónimo de TAS (Tensión Arterial Sistólica)."
+  },
+  {
+    "pregunta": "PAD",
+    "opciones": [
+      "Presión Arterial Diastólica",
+      "Programa de Atención Domiciliaria",
+      "Prueba de Alergia Dérmica",
+      "Protocolo de Alta Diferida"
+    ],
+    "correcta": 0,
+    "explicacion": "Sinónimo de TAD (Tensión Arterial Diastólica)."
+  },
+  {
+    "pregunta": "MAP",
+    "opciones": [
+      "Presión Arterial Media",
+      "Monitorización Ambulatoria de Presión",
+      "Método de Análisis Patológico",
+      "Medicación Antihipertensiva Personalizada"
+    ],
+    "correcta": 0,
+    "explicacion": "Término inglés equivalente a PAM."
+  },
+  {
+    "pregunta": "SOFA",
+    "opciones": [
+      "Escala SOFA (Fallos Orgánicos Secuenciales)",
+      "Sistema de Observación Farmacológica Avanzada",
+      "Seguimiento Organizativo Funcional Asistencial",
+      "Standard de Oxigenación Funcional Avanzado"
+    ],
+    "correcta": 0,
+    "explicacion": "Escala para evaluar fallo multiorgánico en pacientes críticos."
+  },
+  {
+    "pregunta": "APACHE",
+    "opciones": [
+      "Escala de Gravedad en UCI",
+      "Análisis Programático de Cuidados Hospitalarios Especiales",
+      "Asistencia Personalizada Avanzada en Cuidados Hospitalarios",
+      "Aplicación Práctica de Cuidados Hospitalarios Estandarizados"
+    ],
+    "correcta": 0,
+    "explicacion": "Sistema de puntuación de gravedad en cuidados intensivos."
+  },
+  {
+    "pregunta": "SIRS",
+    "opciones": [
+      "Síndrome de Respuesta Inflamatoria Sistémica",
+      "Sistema Integrado de Registro Sanitario",
+      "Seguimiento Intensivo Respiratorio Simple",
+      "Standard de Intervención en Reanimación Sistémica"
+    ],
+    "correcta": 0,
+    "explicacion": "Respuesta inflamatoria generalizada del organismo."
+  },
+  {
+    "pregunta": "SEP",
+    "opciones": [
+      "Sepsis",
+      "Sistema de Emergencias Prehospitalarias",
+      "Seguimiento Epidemiológico Programado",
+      "Standard de Evaluación Pediátrica"
+    ],
+    "correcta": 0,
+    "explicacion": "Infección con respuesta inflamatoria sistémica."
+  },
+  {
+    "pregunta": "ShD",
+    "opciones": [
+      "Shock Distributivo",
+      "Sistema Hospitalario de Derivación",
+      "Seguimiento Hematológico Diario",
+      "Standard de Hidratación Domiciliaria"
+    ],
+    "correcta": 0,
+    "explicacion": "Tipo de shock que incluye séptico, anafiláctico y neurogénico."
+  },
+  {
+    "pregunta": "ShH",
+    "opciones": [
+      "Shock Hipovolémico",
+      "Sistema Hospitalario de Hospitalización",
+      "Seguimiento Hepático Horizontal",
+      "Standard de Hemodinámica"
+    ],
+    "correcta": 0,
+    "explicacion": "Shock por disminución del volumen sanguíneo circulante."
+  },
+  {
+    "pregunta": "ShC",
+    "opciones": [
+      "Shock Cardiogénico",
+      "Sistema de Cuidados Cardiológicos",
+      "Seguimiento Cardíaco Continuo",
+      "Standard de Circulación Coronaria"
+    ],
+    "correcta": 0,
+    "explicacion": "Shock por fallo de la bomba cardíaca."
+  },
+  {
+    "pregunta": "ShO",
+    "opciones": [
+      "Shock Obstructivo",
+      "Sistema Hospitalario de Observación",
+      "Seguimiento Oftalmológico",
+      "Standard de Oxigenación"
+    ],
+    "correcta": 0,
+    "explicacion": "Shock por obstrucción al flujo sanguíneo (TEP, taponamiento, etc.)."
+  },
+  {
+    "pregunta": "SDRA",
+    "opciones": [
+      "Síndrome de Distrés Respiratorio Agudo",
+      "Sistema de Derivación Rápida Asistencial",
+      "Seguimiento Deambulatorio Respiratorio Ambulatorio",
+      "Standard de Diagnóstico Radiológico Avanzado"
+    ],
+    "correcta": 0,
+    "explicacion": "Insuficiencia respiratoria aguda grave con infiltrados pulmonares bilaterales."
+  },
+  {
+    "pregunta": "TCE",
+    "opciones": [
+      "Traumatismo Craneoencefálico",
+      "Trasplante Cardíaco Electivo",
+      "Técnica de Cirugía Endoscópica",
+      "Tiempo de Coagulación Extendido"
+    ],
+    "correcta": 0,
+    "explicacion": "Lesión física del cráneo y/o contenido intracraneal."
+  },
+  {
+    "pregunta": "TEG",
+    "opciones": [
+      "Tromboelastografía",
+      "Tratamiento Endoscópico Gástrico",
+      "Técnica de Extracción Guiada",
+      "Tiempo de Esterilización General"
+    ],
+    "correcta": 0,
+    "explicacion": "Prueba que evalúa globalmente la coagulación sanguínea."
+  },
+  {
+    "pregunta": "ROTEM",
+    "opciones": [
+      "Tromboelastometría Rotacional",
+      "Registro Oficial de Trasplantes y Médula",
+      "Revisión Oftalmológica Temprana",
+      "Radioterapia Oncológica Total con ElectroMagnetismo"
+    ],
+    "correcta": 0,
+    "explicacion": "Variante moderna de la tromboelastografía."
+  },
+  {
+    "pregunta": "ECMO",
+    "opciones": [
+      "Oxigenación por Membrana Extracorpórea",
+      "Evaluación Cardíaca Molecular Organizada",
+      "Esquema de Control Metabólico Ortopédico",
+      "Estudio Clínico Multicéntrico Ordenado"
+    ],
+    "correcta": 0,
+    "explicacion": "Sistema de soporte cardiorrespiratorio extracorpóreo."
+  },
+  {
+    "pregunta": "BIS",
+    "opciones": [
+      "Índice Biespectral",
+      "Balance Inmunológico Sistémico",
+      "Base de Información Sanitaria",
+      "Biopsia Inmunohistoquímica Standard"
+    ],
+    "correcta": 0,
+    "explicacion": "Monitorización de la profundidad anestésica."
+  },
+  {
+    "pregunta": "BVM",
+    "opciones": [
+      "Bolsa-Válvula-Máscara",
+      "Balance Vascular Metabólico",
+      "Biopsia Vascular Múltiple",
+      "Base de Validación Médica"
+    ],
+    "correcta": 0,
+    "explicacion": "Dispositivo para ventilación manual de emergencia."
+  },
+  {
+    "pregunta": "DEA",
+    "opciones": [
+      "Desfibrilador Externo Automático",
+      "Diagnóstico Específico Avanzado",
+      "Dispositivo de Electroanálisis",
+      "Documentación Electrónica Asistencial"
+    ],
+    "correcta": 0,
+    "explicacion": "Equipo para desfibrilación semiautomática en emergencias."
+  },
+  {
+    "pregunta": "DESA",
+    "opciones": [
+      "Desfibrilador Externo Semiautomático",
+      "Diagnóstico Específico Sanitario Avanzado",
+      "Dispositivo de Electroestimulación Automática",
+      "Documentación Electrónica Sanitaria Asistida"
+    ],
+    "correcta": 0,
+    "explicacion": "Término equivalente a DEA."
+  },
+  {
+    "pregunta": "SVB",
+    "opciones": [
+      "Soporte Vital Básico",
+      "Sistema Vascular Bronquial",
+      "Seguimiento Vascular Bilateral",
+      "Standard de Validación Biológica"
+    ],
+    "correcta": 0,
+    "explicacion": "Conjunto de maniobras de reanimación sin equipamiento avanzado."
+  },
+  {
+    "pregunta": "SVA",
+    "opciones": [
+      "Soporte Vital Avanzado",
+      "Sistema Vascular Arterial",
+      "Seguimiento Vascular Avanzado",
+      "Standard de Validación Analítica"
+    ],
+    "correcta": 0,
+    "explicacion": "Reanimación con equipamiento y fármacos especializados."
+  },
+  {
+    "pregunta": "SVAP",
+    "opciones": [
+      "Soporte Vital Avanzado Pediátrico",
+      "Sistema Vascular Arterial Periférico",
+      "Seguimiento Vascular Avanzado Programado",
+      "Standard de Validación Analítica Pediátrica"
+    ],
+    "correcta": 0,
+    "explicacion": "Soporte vital avanzado específico para niños."
+  },
+  {
+    "pregunta": "PNL",
+    "opciones": [
+      "Psiconeuroinmunología",
+      "Programa Nacional de Lactancia",
+      "Protocolo de Nutrición Liquida",
+      "Prueba Neurológica Lateral"
+    ],
+    "correcta": 0,
+    "explicacion": "Disciplina que estudia la interacción mente-sistema inmunológico."
+  },
+  {
+    "pregunta": "TOC",
+    "opciones": [
+      "Trastorno Obsesivo-Compulsivo",
+      "Tiempo de Oclusión Coronaria",
+      "Técnica de Oxigenación Continua",
+      "Tratamiento Oncológico Combinado"
+    ],
+    "correcta": 0,
+    "explicacion": "Trastorno de ansiedad con obsesiones y compulsiones."
+  },
+  {
+    "pregunta": "TEPT",
+    "opciones": [
+      "Trastorno por Estrés Postraumático",
+      "Tiempo de Espera para Trasplante",
+      "Técnica de Electroforesis Proteica Total",
+      "Tratamiento Endoscópico Percutáneo Transitorio"
+    ],
+    "correcta": 0,
+    "explicacion": "Trastorno de ansiedad tras experiencia traumática."
+  },
+  {
+    "pregunta": "TDAH",
+    "opciones": [
+      "Trastorno por Déficit de Atención e Hiperactividad",
+      "Tiempo de Duración de la Anestesia Hospitalaria",
+      "Técnica de Diagnóstico Avanzado Hospitalario",
+      "Tratamiento Dermatológico Antihistamínico"
+    ],
+    "correcta": 0,
+    "explicacion": "Trastorno del neurodesarrollo con inatención e hiperactividad."
+  },
+  {
+    "pregunta": "TEA",
+    "opciones": [
+      "Trastorno del Espectro Autista",
+      "Tiempo de Espera Ambulatoria",
+      "Técnica de Electroanálisis Avanzado",
+      "Tratamiento Específico Antiviral"
+    ],
+    "correcta": 0,
+    "explicacion": "Condición del neurodesarrollo con alteraciones en comunicación e interacción social."
+  },
+  {
+    "pregunta": "TUS",
+    "opciones": [
+      "Trastorno por Uso de Sustancias",
+      "Tiempo de Uso Sanitario",
+      "Técnica de Ultrasonido Sistémico",
+      "Tratamiento Urgente Sanitario"
+    ],
+    "correcta": 0,
+    "explicacion": "Término actual para adicciones y abuso de sustancias."
+  },
+  {
+    "pregunta": "TCA",
+    "opciones": [
+      "Trastorno de la Conducta Alimentaria",
+      "Tiempo de Coagulación Activado",
+      "Técnica de Cirugía Ambulatoria",
+      "Tratamiento Combinado Antirretroviral"
+    ],
+    "correcta": 0,
+    "explicacion": "Incluye anorexia, bulimia y trastorno por atracón."
+  },
+  {
+    "pregunta": "TGI",
+    "opciones": [
+      "Trastorno Generalizado del Desarrollo",
+      "Tiempo de Gestación Ideal",
+      "Técnica de Guía Instrumental",
+      "Tratamiento Gastrointestinal Intensivo"
+    ],
+    "correcta": 0,
+    "explicacion": "Término anterior para lo que ahora se denomina TEA."
+  },
+  {
+    "pregunta": "TLP",
+    "opciones": [
+      "Trastorno Límite de Personalidad",
+      "Tiempo de Latencia Prolongado",
+      "Técnica de Laboratorio Psicológico",
+      "Tratamiento Lumbar Percutáneo"
+    ],
+    "correcta": 0,
+    "explicacion": "Trastorno de personalidad con inestabilidad emocional y relacional."
+  },
+  {
+    "pregunta": "TAP",
+    "opciones": [
+      "Trastorno Afectivo Persistente",
+      "Tiempo de Actuación Profesional",
+      "Técnica de Análisis Psicológico",
+      "Tratamiento Antipsicótico Prolongado"
+    ],
+    "correcta": 0,
+    "explicacion": "Trastornos del estado de ánimo crónicos."
+  },
+  {
+    "pregunta": "TDM",
+    "opciones": [
+      "Trastorno Depresivo Mayor",
+      "Tiempo de Duración Media",
+      "Técnica de Diagnóstico Molecular",
+      "Tratamiento Dermatológico Múltiple"
+    ],
+    "correcta": 0,
+    "explicacion": "Episodio depresivo grave que afecta el funcionamiento global."
+  },
+  {
+    "pregunta": "TBP",
+    "opciones": [
+      "Trastorno Bipolar",
+      "Tiempo de Baja Patológica",
+      "Técnica de Biopsia Percutánea",
+      "Tratamiento Biológico Personalizado"
+    ],
+    "correcta": 0,
+    "explicacion": "Trastorno del estado de ánimo con episodios maníacos y depresivos."
+  },
+  {
+    "pregunta": "TEA",
+    "opciones": [
+      "Trastorno del Espectro Autista",
+      "Técnica de Electroanálisis Avanzado",
+      "Tratamiento Específico Antiviral",
+      "Tiempo de Espera Ambulatoria"
+    ],
+    "correcta": 0,
+    "explicacion": "Ya incluido anteriormente, pero importante en psiquiatría infantil."
+  },
+  {
+    "pregunta": "TGD",
+    "opciones": [
+      "Trastorno Generalizado del Desarrollo",
+      "Tiempo de Gestación Demorado",
+      "Técnica de Guía Diagnóstica",
+      "Tratamiento Gastrointestinal Dirigido"
+    ],
+    "correcta": 0,
+    "explicacion": "Término anterior para los trastornos del espectro autista."
+  },
+  {
+    "pregunta": "TANV",
+    "opciones": [
+      "Trastorno de Aprendizaje No Verbal",
+      "Tiempo de Actuación No Validado",
+      "Técnica de Análisis No Invasivo",
+      "Tratamiento Antineoplásico Vertical"
+    ],
+    "correcta": 0,
+    "explicacion": "Dificultades en habilidades visoespaciales y sociales."
+  },
+  {
+    "pregunta": "TEL",
+    "opciones": [
+      "Trastorno Específico del Lenguaje",
+      "Tiempo de Espera Largo",
+      "Técnica de Electroforesis Líquida",
+      "Tratamiento Endoscópico Laparoscópico"
+    ],
+    "correcta": 0,
+    "explicacion": "Alteración del desarrollo del lenguaje sin causa evidente."
+  },
+  {
+    "pregunta": "TDA",
+    "opciones": [
+      "Trastorno por Déficit de Atención",
+      "Tiempo de Duración Anestésica",
+      "Técnica de Diagnóstico Automatizado",
+      "Tratamiento Dermatológico Antifúngico"
+    ],
+    "correcta": 0,
+    "explicacion": "Variante del TDAH sin hiperactividad."
+  },
+  {
+    "pregunta": "TND",
+    "opciones": [
+      "Trastorno del Neurodesarrollo",
+      "Tiempo de Normalización Diagnóstica",
+      "Técnica de Neuromodulación Dirigida",
+      "Tratamiento Nutricional Domiciliario"
+    ],
+    "correcta": 0,
+    "explicacion": "Categoría que incluye TEA, TDAH, TEL, etc."
+  },
+  {
+    "pregunta": "TMS",
+    "opciones": [
+      "Estimulación Magnética Transcraneal",
+      "Tiempo Máximo de Supervivencia",
+      "Técnica de Monitorización Sistémica",
+      "Tratamiento Médico Sintomático"
+    ],
+    "explicacion": "Técnica no invasiva para tratamiento de depresión y otros trastornos."
+  },
+  {
+    "pregunta": "TEC",
+    "opciones": [
+      "Terapia Electroconvulsiva",
+      "Tiempo de Espera Corto",
+      "Técnica de Electrocoagulación",
+      "Tratamiento Endoscópico Colorrectal"
+    ],
+    "correcta": 0,
+    "explicacion": "Tratamiento para depresión grave y otros trastornos psiquiátricos."
+  },
+  {
+    "pregunta": "ISRS",
+    "opciones": [
+      "Inhibidor Selectivo de la Recaptación de Serotonina",
+      "Intervención Sanitaria Rápida y Sistemática",
+      "Índice de Supervivencia Renal Standard",
+      "Instrumento de Seguimiento Respiratorio Simple"
+    ],
+    "correcta": 0,
+    "explicacion": "Clase de antidepresivos como fluoxetina, sertralina, paroxetina."
+  },
+  {
+    "pregunta": "IRSN",
+    "opciones": [
+      "Inhibidor de la Recaptación de Serotonina y Noradrenalina",
+      "Intervención Radiológica Sistemática Neurológica",
+      "Índice de Respuesta Sistémica Normal",
+      "Instrumento de Registro Sanitario Nacional"
+    ],
+    "correcta": 0,
+    "explicacion": "Antidepresivos como venlafaxina, duloxetina."
+  },
+  {
+    "pregunta": "IMAO",
+    "opciones": [
+      "Inhibidor de la Monoaminooxidasa",
+      "Intervención Médica Ambulatoria Organizada",
+      "Índice de Monitorización Ambulatoria Ortopédica",
+      "Instrumento de Medición Analítica Ordenada"
+    ],
+    "correcta": 0,
+    "explicacion": "Clase antigua de antidepresivos con restricciones dietéticas."
+  },
+  {
+    "pregunta": "ATC",
+    "opciones": [
+      "Antipsicótico Típico Convencional",
+      "Análisis Toxicológico Completo",
+      "Asistencia Técnica Clínica",
+      "Ambulancia de Traslado Crítico"
+    ],
+    "correcta": 0,
+    "explicacion": "Antipsicóticos de primera generación como haloperidol."
+  },
+  {
+    "pregunta": "AAC",
+    "opciones": [
+      "Antipsicótico Atípico de Segunda Generación",
+      "Análisis Anticoagulante Controlado",
+      "Asistencia Ambulatoria Compleja",
+      "Ambulancia de Alta Complejidad"
+    ],
+    "correcta": 0,
+    "explicacion": "Antipsicóticos como risperidona, olanzapina, quetiapina."
+  },
+  {
+    "pregunta": "BDZ",
+    "opciones": [
+      "Benzodiazepina",
+      "Biopsia Dirigida Zonal",
+      "Balance Dietético Zonal",
+      "Base de Datos Zoológica"
+    ],
+    "correcta": 0,
+    "explicacion": "Fármacos ansiolíticos como diazepam, lorazepam, alprazolam."
+  },
+  {
+    "pregunta": "ACO",
+    "opciones": [
+      "Anticoagulante Oral",
+      "Análisis Clínico Ortopédico",
+      "Asistencia Cardiológica Ordenada",
+      "Ambulancia de Cuidados Ortopédicos"
+    ],
+    "correcta": 0,
+    "explicacion": "Fármacos como acenocumarol (Sintrom) o warfarina."
+  },
+  {
+    "pregunta": "ACOD",
+    "opciones": [
+      "Anticoagulante Oral de Acción Directa",
+      "Análisis Clínico Oncológico Dirigido",
+      "Asistencia Cardiológica de Origen Domiciliario",
+      "Ambulancia de Cuidados Oncológicos Dirigidos"
+    ],
+    "correcta": 0,
+    "explicacion": "Nuevos anticoagulantes como dabigatrán, rivaroxabán, apixabán."
+  },
+  {
+    "pregunta": "ARA-II",
+    "opciones": [
+      "Antagonista del Receptor de Angiotensina II",
+      "Análisis Radiológico Avanzado de Imagen",
+      "Asistencia Respiratoria Avanzada Instrumentada",
+      "Ambulancia de Rescate Avanzado de Incidencias"
+    ],
+    "correcta": 0,
+    "explicacion": "Fármacos como losartán, valsartán, irbesartán."
+  },
+  {
+    "pregunta": "IECA",
+    "opciones": [
+      "Inhibidor de la Enzima Convertidora de Angiotensina",
+      "Intervención Endoscópica Colorrectal Avanzada",
+      "Índice de Evaluación Clínica Asistida",
+      "Instrumento de Electrocardiografía Avanzada"
+    ],
+    "correcta": 0,
+    "explicacion": "Fármacos como enalapril, lisinopril, ramipril."
+  },
+  {
+    "pregunta": "BRA",
+    "opciones": [
+      "Bloqueante del Receptor de Aldosterona",
+      "Biopsia Renal Automatizada",
+      "Balance Respiratorio Avanzado",
+      "Base de Registro Asistencial"
+    ],
+    "correcta": 0,
+    "explicacion": "Fármacos como espironolactona, eplerenona."
+  },
+  {
+    "pregunta": "BBDH",
+    "opciones": [
+      "Bloqueante Beta de Duración Horaria",
+      "Biopsia de Bazo Dirigida Hepática",
+      "Balance Bioquímico de Duración Hospitalaria",
+      "Base de Datos Biomédica Hospitalaria"
+    ],
+    "correcta": 0,
+    "explicacion": "Betabloqueantes de acción prolongada."
+  },
+  {
+    "pregunta": "BCCA",
+    "opciones": [
+      "Bloqueante de los Canales de Calcio",
+      "Biopsia Colorrectal Completa Avanzada",
+      "Balance Cardíaco Computerizado Avanzado",
+      "Base de Cuidados Clínicos Asistidos"
+    ],
+    "correcta": 0,
+    "explicacion": "Fármacos como amlodipino, nifedipino, verapamilo."
+  },
+  {
+    "pregunta": "IDO",
+    "opciones": [
+      "Inhibidor de la Dipeptidil Peptidasa-4",
+      "Intervención Dermatológica Ordenada",
+      "Índice de Diagnóstico Oportuno",
+      "Instrumento de Detección Oftalmológica"
+    ],
+    "correcta": 0,
+    "explicacion": "Fármacos para diabetes como sitagliptina, vildagliptina."
+  },
+  {
+    "pregunta": "ISGLT-2",
+    "opciones": [
+      "Inhibidor del Cotransportador Sodio-Glucosa 2",
+      "Intervención Sistemática Guiada por Laboratorio Técnico",
+      "Índice de Seguimiento Glucémico Longitudinal Tipo 2",
+      "Instrumento de Screening Genético Laboratorial Tipo 2"
+    ],
+    "correcta": 0,
+    "explicacion": "Fármacos como dapagliflozina, empagliflozina."
+  },
+  {
+    "pregunta": "AGLP-1",
+    "opciones": [
+      "Análogo del Péptido Similar al Glucagón tipo 1",
+      "Análisis Genético Laboratorial Programado tipo 1",
+      "Asistencia Guiada por Laboratorio Patológico tipo 1",
+      "Ambulancia de Gestión Logística Programada tipo 1"
+    ],
+    "correcta": 0,
+    "explicacion": "Fármacos como liraglutida, semaglutida, dulaglutida."
+  },
+  {
+    "pregunta": "HMG",
+    "opciones": [
+      "Inhibidor de la HMG-CoA reductasa",
+      "Hospitalización Médica Guiada",
+      "Historial Médico General",
+      "Hemodinámica Monitorizada Guiada"
+    ],
+    "correcta": 0,
+    "explicacion": "Estatinas como atorvastatina, simvastatina, rosuvastatina."
+  },
+  {
+    "pregunta": "PPI",
+    "opciones": [
+      "Inhibidor de la Bomba de Protones",
+      "Programa de Prevención Integral",
+      "Protocolo de Protección Inmunológica",
+      "Prueba de Permeabilidad Intestinal"
+    ],
+    "correcta": 0,
+    "explicacion": "Fármacos como omeprazol, pantoprazol, esomeprazol."
+  },
+  {
+    "pregunta": "H2",
+    "opciones": [
+      "Antagonista de los Receptores H2",
+      "Hospitalización de 2º nivel",
+      "Historial de 2ª generación",
+      "Hemodinámica de 2º orden"
+    ],
+    "correcta": 0,
+    "explicacion": "Fármacos como ranitidina, famotidina."
+  },
+  {
+    "pregunta": "5-ASA",
+    "opciones": [
+      "Ácido 5-Aminosalicílico",
+      "Sistema de 5 Análisis Secuenciales Avanzados",
+      "Seguimiento de 5 Años de Supervivencia Asistida",
+      "Standard de 5 Aplicaciones Sanitarias Asistidas"
+    ],
+    "correcta": 0,
+    "explicacion": "Fármacos para enfermedad inflamatoria intestinal como mesalazina."
+  },
+  {
+    "pregunta": "FANS",
+    "opciones": [
+      "Fármaco Antiinflamatorio No Esteroideo",
+      "Filtración Avanzada No Selectiva",
+      "Frecuencia Anormal No Sistémica",
+      "Formación Asistencial No Sanitaria"
+    ],
+    "correcta": 0,
+    "explicacion": "Sinónimo de AINE."
+  },
+  {
+    "pregunta": "AINES",
+    "opciones": [
+      "Antiinflamatorios No Esteroideos",
+      "Análisis Infecciosos No Específicos Sistemáticos",
+      "Asistencias Inmediatas No Estructurales Secuenciales",
+      "Agentes Inmunomoduladores No Esteroidales Sistémicos"
+    ],
+    "correcta": 0,
+    "explicacion": "Plural de AINE."
+  }
+]  

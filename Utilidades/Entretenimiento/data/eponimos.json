@@ -1,0 +1,1970 @@
+[
+  {
+    "pregunta": "Enfermedad de Alzheimer",
+    "opciones": [
+      "Demencia degenerativa progresiva",
+      "Enfermedad cerebrovascular",
+      "Trastorno del movimiento coreico",
+      "Encefalitis autoinmune"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Alois Alzheimer, es la causa más común de demencia degenerativa."
+  },
+  {
+    "pregunta": "Enfermedad de Parkinson",
+    "opciones": [
+      "Trastorno neurodegenerativo con temblor en reposo y rigidez",
+      "Enfermedad desmielinizante",
+      "Trastorno neuromuscular autoinmune",
+      "Enfermedad priónica"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por James Parkinson, caracterizada por temblor, rigidez, bradicinesia e inestabilidad postural."
+  },
+  {
+    "pregunta": "Enfermedad de Huntington",
+    "opciones": [
+      "Corea hereditaria progresiva con demencia",
+      "Distonía generalizada",
+      "Ataxia cerebelosa",
+      "Enfermedad de la motoneurona"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por George Huntington, trastorno autosómico dominante con corea y deterioro cognitivo."
+  },
+  {
+    "pregunta": "Síndrome de Guillain-Barré",
+    "opciones": [
+      "Polirradiculoneuropatía desmielinizante aguda",
+      "Miastenia gravis",
+      "Esclerosis múltiple",
+      "Síndrome miasténico de Lambert-Eaton"
+    ],
+    "correcta": 0,
+    "explicacion": "Polineuropatía inflamatoria aguda que puede seguir a infecciones, descrita por Guillain, Barré y Strohl."
+  },
+    {
+    "pregunta": "Signo de Murphy",
+    "opciones": [
+      "Dolor a la palpación en hipocondrio derecho al inspirar (Colecistitis)",
+      "Equimosis periumbilical (Pancreatitis)",
+      "Dolor en fosa ilíaca izquierda al palpar la derecha (Diverticulitis)",
+      "Equimosis en flancos (Pancreatitis)"
+    ],
+    "correcta": 0,
+    "explicacion": "Es el dolor que causa la detención de la inspiración al palpar el punto cístico. Típico de la colecistitis aguda."
+  },
+  {
+    "pregunta": "Enfermedad de Crohn",
+    "opciones": [
+      "Enfermedad inflamatoria intestinal transmural",
+      "Colitis ulcerosa",
+      "Síndrome de intestino irritable",
+      "Enfermedad celíaca"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Burrill Crohn, afecta cualquier parte del tracto GI con inflamación transmural."
+  },
+  {
+    "pregunta": "Enfermedad de Hodgkin",
+    "opciones": [
+      "Linfoma con células de Reed-Sternberg",
+      "Linfoma no Hodgkin",
+      "Leucemia linfocítica aguda",
+      "Mieloma múltiple"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Thomas Hodgkin, linfoma caracterizado por células de Reed-Sternberg."
+  },
+  {
+    "pregunta": "Síndrome de Marfan",
+    "opciones": [
+      "Trastorno del tejido conectivo con aracnodactilia",
+      "Síndrome de Ehlers-Danlos",
+      "Osteogénesis imperfecta",
+      "Síndrome de Noonan"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Antoine Marfan, afecta fibrilina-1, con alteraciones esqueléticas, oculares y cardiovasculares."
+  },
+  {
+    "pregunta": "Síndrome de Down",
+    "opciones": [
+      "Trisomía 21",
+      "Trisomía 18",
+      "Trisomía 13",
+      "Síndrome de Turner"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por John Langdon Down, causado por trisomía del cromosoma 21."
+  },
+  {
+    "pregunta": "Síndrome de Turner",
+    "opciones": [
+      "45,XO con disgenesia gonadal",
+      "47,XXY",
+      "47,XYY",
+      "Trisomía 21"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Henry Turner, caracterizado por cariotipo 45,X y talla baja, cuello alado, etc."
+  },
+  {
+    "pregunta": "Síndrome de Klinefelter",
+    "opciones": [
+      "47,XXY con hipogonadismo hipergonadotrópico",
+      "45,XO",
+      "47,XYY",
+      "Trisomía 18"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Harry Klinefelter, síndrome con cariotipo 47,XXY y ginecomastia, infertilidad."
+  },
+  {
+    "pregunta": "Signo de Babinski",
+    "opciones": [
+      "Extensión del hallux al estimular la planta del pie",
+      "Flexión de los dedos al estimular la planta",
+      "Temblor que aumenta con el movimiento",
+      "Rigidez en rueda dentada"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Joseph Babinski, indica lesión de la vía piramidal cuando es positivo en adultos."
+  },
+  {
+    "pregunta": "Reflejo de Romberg",
+    "opciones": [
+      "Pérdida del equilibrio con ojos cerrados",
+      "Temblor intencional",
+      "Movimientos coreicos",
+      "Debilidad muscular proximal"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Moritz Romberg, positivo cuando hay alteración de la propiocepción."
+  },
+    {
+    "pregunta": "Maniobra de Valsalva",
+    "opciones": [
+      "Espiración forzada contra una glotis cerrada",
+      "Girar la cabeza y presionar el seno carotídeo",
+      "Inmersión de la cara en agua fría",
+      "Flexión pasiva de las piernas en supino"
+    ],
+    "correcta": 0,
+    "explicacion": "Nombrada por Antonio Maria Valsalva, se usa para valorar el sistema nervioso autónomo o frenar taquicardias."
+  },
+    {
+    "pregunta": "Ganglio de Virchow",
+    "opciones": [
+      "Ganglio supraclavicular izquierdo palpable",
+      "Nódulo palpable en el ombligo",
+      "Adenopatía en la axila",
+      "Ganglio inguinal inflamado"
+    ],
+    "correcta": 0,
+    "explicacion": "También llamado ganglio de Troisier. Su palpación (signo de Troisier) sugiere metástasis de tumores abdominales (gástrico)."
+  },
+  {
+    "pregunta": "Signo de Cullen",
+    "opciones": [
+      "Equimosis periumbilical",
+      "Equimosis en los flancos",
+      "Coloración azulada de la mucosa vaginal",
+      "Palpación de un ganglio supraclavicular izquierdo"
+    ],
+    "correcta": 0,
+    "explicacion": "Signo de pancreatitis hemorrágica, descrito por Thomas S. Cullen."
+  },
+  {
+    "pregunta": "Signo de Grey-Turner",
+    "opciones": [
+      "Equimosis en los flancos",
+      "Equimosis periumbilical",
+      "Dolor en FID al palpar FII",
+      "Aparición de ictericia"
+    ],
+    "correcta": 0,
+    "explicacion": "Otro signo de hemorragia retroperitoneal, como en la pancreatitis."
+  },
+  {
+    "pregunta": "Maniobra de Ortolani",
+    "opciones": [
+      "Para detectar displasia de cadera en lactantes",
+      "Para evaluar apendicitis",
+      "Para diagnosticar trombosis venosa",
+      "Para detectar neumonía"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Marino Ortolani, usada para detectar luxación congénita de cadera en recién nacidos."
+  },
+  {
+    "pregunta": "Signo de Trousseau",
+    "opciones": [
+      "Espasmo carpopedal con isquemia del brazo",
+      "Equimosis periumbilical",
+      "Dolor en hipocondrio derecho",
+      "Ictericia progresiva"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Armand Trousseau, indica hipocalcemia cuando se produce espasmo carpopedal con el manguito."
+  },
+  {
+    "pregunta": "Signo de Chvostek",
+    "opciones": [
+      "Contracción facial al percutir el nervio facial",
+      "Espasmo carpopedal con isquemia",
+      "Dolor abdominal a la palpación",
+      "Edema de extremidades"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por František Chvostek, indica hipocalcemia cuando hay hiperexcitabilidad neuromuscular."
+  },
+  {
+    "pregunta": "Síndrome de Horner",
+    "opciones": [
+      "Miosis, ptosis, anhidrosis",
+      "Midriasis, exoftalmos, taquicardia",
+      "Nistagmo, diplopía, disartria",
+      "Temblor, rigidez, bradicinesia"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Johann Horner, por lesión de la vía simpática cervical."
+  },
+  {
+    "pregunta": "Síndrome de Brown-Séquard",
+    "opciones": [
+      "Hemisepción medular: parálisis ipsilateral y pérdida contralateral de dolor/temperatura",
+      "Sección medular completa",
+      "Compresión de cono medular",
+      "Síndrome de cauda equina"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Charles-Édouard Brown-Séquard, por hemisección medular."
+  },
+  {
+    "pregunta": "Enfermedad de Paget",
+    "opciones": [
+      "Trastorno del remodelado óseo",
+      "Enfermedad inflamatoria intestinal",
+      "Dermatitis eccematosa",
+      "Carcinoma de mama"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por James Paget, puede referirse a enfermedad ósea o enfermedad de Paget mamaria."
+  },
+  {
+    "pregunta": "Enfermedad de Graves",
+    "opciones": [
+      "Hipertiroidismo autoinmune con oftalmopatía",
+      "Hipotiroidismo congénito",
+      "Tiroiditis subaguda",
+      "Bocio multinodular"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Robert Graves, hipertiroidismo por anticuerpos anti-receptor de TSH."
+  },
+  {
+    "pregunta": "Enfermedad de Hashimoto",
+    "opciones": [
+      "Tiroiditis autoinmune crónica",
+      "Hipertiroidismo autoinmune",
+      "Tiroiditis subaguda",
+      "Cáncer de tiroides"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Hakaru Hashimoto, tiroiditis linfocítica crónica que lleva a hipotiroidismo."
+  },
+  {
+    "pregunta": "Síndrome de Goodpasture",
+    "opciones": [
+      "Glomerulonefritis y hemorragia pulmonar por anti-GBM",
+      "Nefritis lúpica",
+      "Granulomatosis con poliangeítis",
+      "Síndrome nefrótico"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Ernest Goodpasture, enfermedad autoinmune con anticuerpos anti-membrana basal glomerular."
+  },
+  {
+    "pregunta": "Síndrome de Reiter",
+    "opciones": [
+      "Artritis reactiva, uretritis, conjuntivitis",
+      "Artritis reumatoide",
+      "Lupus eritematoso sistémico",
+      "Espondilitis anquilosante"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Hans Reiter, artritis reactiva post-infecciosa (principalmente por Chlamydia)."
+  },
+  {
+    "pregunta": "Síndrome de Sjögren",
+    "opciones": [
+      "Enfermedad autoinmune con sequedad ocular y oral",
+      "Artritis reumatoide",
+      "Lupus eritematoso",
+      "Esclerodermia"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Henrik Sjögren, caracterizado por infiltración linfocítica de glándulas exocrinas."
+  },
+  {
+    "pregunta": "Enfermedad de Behçet",
+    "opciones": [
+      "Vasculitis con úlceras orales/genitales y uveítis",
+      "Lupus eritematoso",
+      "Sarcoidosis",
+      "Síndrome de Stevens-Johnson"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Hulusi Behçet, vasculitis sistémica con afectación mucocutánea, ocular y articular."
+  },
+  {
+    "pregunta": "Síndrome de Kawasaki",
+    "opciones": [
+      "Vasculitis de mediano calibre en niños con fiebre prolongada",
+      "Artritis idiopática juvenil",
+      "Escarlatina",
+      "Mononucleosis infecciosa"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Tomisaku Kawasaki, puede causar aneurismas coronarios si no se trata."
+  },
+  {
+    "pregunta": "Enfermedad de Wilson",
+    "opciones": [
+      "Trastorno del metabolismo del cobre con acumulación hepática y cerebral",
+      "Hemocromatosis",
+      "Enfermedad de Gaucher",
+      "Porfinia"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Samuel Wilson, autosómica recesiva por mutación en gen ATP7B."
+  },
+  {
+    "pregunta": "Enfermedad de Gaucher",
+    "opciones": [
+      "Déficit de glucocerebrosidasa con acumulación de glucosilceramida",
+      "Déficit de alfa-galactosidasa A",
+      "Déficit de hexosaminidasa A",
+      "Déficit de fostofructoquinasa"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Philippe Gaucher, enfermedad por almacenamiento lisosomal."
+  },
+  {
+    "pregunta": "Enfermedad de Tay-Sachs",
+    "opciones": [
+      "Déficit de hexosaminidasa A con acumulación de GM2",
+      "Déficit de glucocerebrosidasa",
+      "Déficit de alfa-1-antitripsina",
+      "Déficit de fenilalanina hidroxilasa"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Warren Tay y Bernard Sachs, enfermedad neurodegenerativa fatal en lactantes."
+  },
+  {
+    "pregunta": "Síndrome de Lesch-Nyhan",
+    "opciones": [
+      "Déficit de HGPRT con hiperuricemia y automutilación",
+      "Déficit de adenosina deaminasa",
+      "Déficit de glucosa-6-fosfatasa",
+      "Déficit de piruvato quinasa"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Michael Lesch y William Nyhan, trastorno del metabolismo de las purinas."
+  },
+  {
+    "pregunta": "Síndrome de Kartagener",
+    "opciones": [
+      "Situs inversus, bronquiectasias y sinusitis",
+      "Bronquiectasias y pancreatitis",
+      "Situs inversus y cardiopatía congénita",
+      "Sinusitis y poliposis nasal"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Manes Kartagener, forma de discinesia ciliar primaria."
+  },
+  {
+    "pregunta": "Síndrome de Budd-Chiari",
+    "opciones": [
+      "Trombosis de venas suprahepáticas",
+      "Trombosis de vena porta",
+      "Hígado graso agudo del embarazo",
+      "Cirrosis hepática"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por George Budd y Hans Chiari, obstrucción del flujo venoso hepático."
+  },
+  {
+    "pregunta": "Síndrome de Peutz-Jeghers",
+    "opciones": [
+      "Poliposis hamartomatosa y pigmentación mucocutánea",
+      "Poliposis adenomatosa familiar",
+      "Síndrome de Lynch",
+      "Neurofibromatosis tipo 1"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Johannes Peutz y Harold Jeghers, asociado a mayor riesgo de cáncer gastrointestinal."
+  },
+  {
+    "pregunta": "Síndrome de Zollinger-Ellison",
+    "opciones": [
+      "Gastrinoma con úlceras pépticas severas",
+      "Insulinoma con hipoglucemias",
+      "Glucagonoma con dermatitis",
+      "VIPoma con diarrea secretora"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Robert Zollinger y Edwin Ellison, por tumor productor de gastrina."
+  },
+  {
+    "pregunta": "Síndrome de Crigler-Najjar",
+    "opciones": [
+      "Déficit severo de UDP-glucuronosiltransferasa",
+      "Déficit de bilirrubina conjugada",
+      "Síndrome de Gilbert",
+      "Dubin-Johnson"
+    ],
+    "explicacion": "Descrito por John Crigler y Victor Najjar, hiperbilirrubinemia no conjugada grave."
+  },
+  {
+    "pregunta": "Síndrome de Dubin-Johnson",
+    "opciones": [
+      "Déficit en excreción de bilirrubina conjugada, hígado pigmentado",
+      "Déficit de conjugación de bilirrubina",
+      "Hepatitis autoinmune",
+      "Colestasis intrahepática"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Isadore Dubin y Frank Johnson, hiperbilirrubinemia conjugada benigna."
+  },
+  {
+    "pregunta": "Síndrome de Rotor",
+    "opciones": [
+      "Hiperbilirrubinemia conjugada sin pigmentación hepática",
+      "Hiperbilirrubinemia no conjugada",
+      "Hepatitis crónica",
+      "Cirrosis biliar primaria"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Arturo Rotor, similar a Dubin-Johnson pero sin depósito de pigmento."
+  },
+  {
+    "pregunta": "Síndrome de Gilbert",
+    "opciones": [
+      "Hiperbilirrubinemia no conjugada benigna",
+      "Hiperbilirrubinemia conjugada",
+      "Anemia hemolítica",
+      "Hepatitis viral"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Nicolas Gilbert, déficit leve de UDP-glucuronosiltransferasa, muy común."
+  },
+  {
+    "pregunta": "Síndrome de Wolff-Parkinson-White",
+    "opciones": [
+      "Preexcitación ventricular por vía accesoria",
+      "Bloqueo auriculoventricular completo",
+      "Síndrome del seno enfermo",
+      "Taquicardia ventricular"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Louis Wolff, John Parkinson y Paul White, asociado a taquiarritmias."
+  },
+  {
+    "pregunta": "Síndrome de Brugada",
+    "opciones": [
+      "Cardiopatía arritmogénica con patrón ECG característico",
+      "Síndrome de QT largo",
+      "Miocardiopatía hipertrófica",
+      "Síndrome de Marfan"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por los hermanos Brugada, asociado a muerte súbita por FV en adultos jóvenes."
+  },
+  {
+    "pregunta": "Síndrome de Long QT",
+    "opciones": [
+      "Prolongación del intervalo QT con riesgo de Torsade de Pointes",
+      "Acortamiento del intervalo QT",
+      "Síndrome de Brugada",
+      "Síndrome de Wolff-Parkinson-White"
+    ],
+    "correcta": 0,
+    "explicacion": "Puede ser congénito (Romano-Ward, Jervell-Lange-Nielsen) o adquirido."
+  },
+  {
+    "pregunta": "Síndrome de Eisenmenger",
+    "opciones": [
+      "Cortocircuito izquierda-derecha que se invierte",
+      "Comunicación interauricular pequeña",
+      "Estenosis aórtica crítica",
+      "Coartación de aorta"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Victor Eisenmenger, por hipertensión pulmonar irreversible en cardiopatías congénitas."
+  },
+  {
+    "pregunta": "Tetralogía de Fallot",
+    "opciones": [
+      "Estenosis pulmonar, CIV, cabalgamiento aórtico, hipertrofia ventricular derecha",
+      "CIA, estenosis mitral, hipertrofia ventricular izquierda",
+      "Transposición de grandes vasos",
+      "Tronco arterioso"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Étienne-Louis Fallot, cardiopatía cianótica más común en niños mayores."
+  },
+  {
+    "pregunta": "Síndrome de Noonan",
+    "opciones": [
+      "Rasgos similares a Turner con cardiopatía (estenosis pulmonar)",
+      "Trisomía 21",
+      "Síndrome de Marfan",
+      "Síndrome de Edwards"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Jacqueline Noonan, autosómico dominante, facies característica y cardiopatía."
+  },
+  {
+    "pregunta": "Síndrome de Edwards",
+    "opciones": [
+      "Trisomía 18",
+      "Trisomía 21",
+      "Trisomía 13",
+      "Monosomía X"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por John Edwards, trisomía 18 con grave discapacidad y malformaciones."
+  },
+  {
+    "pregunta": "Síndrome de Patau",
+    "opciones": [
+      "Trisomía 13",
+      "Trisomía 18",
+      "Trisomía 21",
+      "47,XXY"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Klaus Patau, trisomía 13 con labio leporino, polidactilia, etc."
+  },
+  {
+    "pregunta": "Síndrome de Angelman",
+    "opciones": [
+      "Retraso severo, risa inmotivada, ataxia (deleción 15q11-13 materna)",
+      "Retraso moderado, comportamiento obsesivo",
+      "Macrocefalia, autismo",
+      "Hipotonía neonatal grave"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Harry Angelman, contraparte del síndrome de Prader-Willi (deleción paternal)."
+  },
+  {
+    "pregunta": "Síndrome de Prader-Willi",
+    "opciones": [
+      "Hipotonía neonatal, hiperfagia, obesidad (deleción 15q11-13 paterna)",
+      "Risa inmotivada, ataxia",
+      "Albinismo ocular, hemorragias",
+      "Baja estatura, braquidactilia"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Andrea Prader y Heinrich Willi, por falta de expresión de genes paternos en 15q11-13."
+  },
+  {
+    "pregunta": "Síndrome de DiGeorge",
+    "opciones": [
+      "Deleción 22q11.2 con hipoplasia tímica y paratiroides",
+      "Trisomía 21",
+      "Síndrome de Turner",
+      "Síndrome de Klinefelter"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Angelo DiGeorge, incluye cardiopatía, hipocalcemia, inmunodeficiencia."
+  },
+  {
+    "pregunta": "Síndrome de Wiskott-Aldrich",
+    "opciones": [
+      "Inmunodeficiencia con eczema y trombocitopenia",
+      "Inmunodeficiencia combinada severa",
+      "Agammaglobulinemia ligada al X",
+      "Síndrome de DiGeorge"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Alfred Wiskott y Robert Aldrich, ligado al X, por mutación en gen WAS."
+  },
+  {
+    "pregunta": "Enfermedad de Bruton",
+    "opciones": [
+      "Agammaglobulinemia ligada al X",
+      "Inmunodeficiencia combinada severa",
+      "Síndrome de hiper-IgM",
+      "Deficiencia de ADA"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Ogden Bruton, falta de producción de inmunoglobulinas por mutación en BTK."
+  },
+  {
+    "pregunta": "Síndrome de Job",
+    "opciones": [
+      "Déficit de STAT3 con infecciones por Staphylococcus e IgE elevada",
+      "Agammaglobulinemia",
+      "Deficiencia de C1 inhibidor",
+      "Síndrome de Wiskott-Aldrich"
+    ],
+    "correcta": 0,
+    "explicacion": "También llamado síndrome de hiper-IgE, con infecciones recurrentes y dermatitis."
+  },
+  {
+    "pregunta": "Angioedema hereditario",
+    "opciones": [
+      "Déficit de C1 inhibidor con edema subcutáneo y laríngeo",
+      "Urticaria crónica",
+      "Anafilaxia por alimentos",
+      "Síndrome de Stevens-Johnson"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por William Osler, autosómico dominante, edema sin prurito ni urticaria."
+  },
+  {
+    "pregunta": "Síndrome de Sheehan",
+    "opciones": [
+      "Necrosis hipofisaria postparto por hemorragia",
+      "Diabetes insípida",
+      "Síndrome de Cushing",
+      "Acromegalia"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Harold Sheehan, insuficiencia hipofisaria tras shock hemorrágico en el parto."
+  },
+  {
+    "pregunta": "Síndrome de Conn",
+    "opciones": [
+      "Hiperaldosteronismo primario",
+      "Síndrome de Cushing",
+      "Feocromocitoma",
+      "Hiperplasia adrenal congénita"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Jerome Conn, generalmente por adenoma productor de aldosterona."
+  },
+  {
+    "pregunta": "Síndrome de Waterhouse-Friderichsen",
+    "opciones": [
+      "Insuficiencia suprarrenal aguda por meningococcemia",
+      "Sepsis por Staphylococcus",
+      "Shock séptico por E. coli",
+      "Neumonía necrotizante"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Rupert Waterhouse y Carl Friderichsen, asociado a meningitis meningocócica."
+  },
+  {
+    "pregunta": "Enfermedad de von Willebrand",
+    "opciones": [
+      "Déficit cuantitativo o cualitativo de factor von Willebrand",
+      "Hemofilia A",
+      "Hemofilia B",
+      "Púrpura trombocitopénica inmune"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Erik von Willebrand, trastorno hemorrágico hereditario más común."
+  },
+  {
+    "pregunta": "Enfermedad de Christmas",
+    "opciones": [
+      "Hemofilia B (déficit de factor IX)",
+      "Hemofilia A (déficit de factor VIII)",
+      "Enfermedad de von Willebrand",
+      "Déficit de factor VII"
+    ],
+    "correcta": 0,
+    "explicacion": "Nombrada por Stephen Christmas, el primer paciente descrito con este déficit."
+  },
+  {
+    "pregunta": "Anemia de Fanconi",
+    "opciones": [
+      "Anemia aplásica congénita con malformaciones",
+      "Anemia ferropénica",
+      "Anemia megaloblástica",
+      "Anemia de células falciformes"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Guido Fanconi, anemia aplásica con predisposición a leucemia."
+  },
+  {
+    "pregunta": "Anemia de Cooley",
+    "opciones": [
+      "Beta-talasemia mayor",
+      "Anemia de Fanconi",
+      "Anemia de Blackfan-Diamond",
+      "Esferocitosis hereditaria"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Thomas Cooley, forma grave de beta-talasemia con hepatoesplenomegalia."
+  },
+  {
+    "pregunta": "Enfermedad de Blackfan-Diamond",
+    "opciones": [
+      "Anemia de Diamond-Blackfan (eritroblastopenia congénita)",
+      "Anemia de Fanconi",
+      "Anemia de Cooley",
+      "Anemia aplásica adquirida"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Kenneth Blackfan y Louis Diamond, anemia hipoplásica congénita."
+  },
+  {
+    "pregunta": "Púrpura de Henoch-Schönlein",
+    "opciones": [
+      "Vasculitis por IgA con púrpura palpable, artralgia, dolor abdominal",
+      "Púrpura trombocitopénica inmune",
+      "Púrpura por déficit de vitamina C",
+      "Vasculitis crioglobulinémica"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Johann Schönlein y Eduard Henoch, vasculitis más común en niños."
+  },
+  {
+    "pregunta": "Enfermedad de Berger",
+    "opciones": [
+      "Nefropatía por IgA",
+      "Glomerulonefritis membranosa",
+      "Nefropatía diabética",
+      "Pielonefritis crónica"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Jean Berger, glomerulonefritis con depósitos de IgA en mesangio."
+  },
+  {
+    "pregunta": "Síndrome de Alport",
+    "opciones": [
+      "Nefritis hereditaria con sordera neurosensorial",
+      "Síndrome nefrótico congénito",
+      "Enfermedad poliquística renal",
+      "Glomerulonefritis rápidamente progresiva"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Arthur Alport, por mutación en colágeno tipo IV, ligado al X generalmente."
+  },
+  {
+    "pregunta": "Enfermedad de Fabry",
+    "opciones": [
+      "Déficit de alfa-galactosidasa A con acumulación de globotriaosilceramida",
+      "Déficit de glucocerebrosidasa",
+      "Déficit de esfingomielinasa",
+      "Déficit de hexosaminidasa"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Johannes Fabry, enfermedad por almacenamiento lisosomal ligada al X."
+  },
+  {
+    "pregunta": "Enfermedad de Niemann-Pick",
+    "opciones": [
+      "Déficit de esfingomielinasa con acumulación de esfingomielina",
+      "Déficit de glucocerebrosidasa",
+      "Déficit de alfa-galactosidasa",
+      "Déficit de cistationina beta-sintasa"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Albert Niemann y Ludwig Pick, enfermedad por almacenamiento lisosomal."
+  },
+  {
+    "pregunta": "Síndrome de Rett",
+    "opciones": [
+      "Encefalopatía progresiva en niñas con mutación MECP2",
+      "Autismo infantil",
+      "Síndrome de Angelman",
+      "Síndrome de West"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Andreas Rett, trastorno del neurodesarrollo casi exclusivo de niñas."
+  },
+  {
+    "pregunta": "Síndrome de West",
+    "opciones": [
+      "Triada: espasmos infantiles, hipsarritmia, regresión del desarrollo",
+      "Epilepsia mioclónica juvenil",
+      "Síndrome de Lennox-Gastaut",
+      "Epilepsia rolándica"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por William West, encefalopatía epiléptica de la infancia."
+  },
+  {
+    "pregunta": "Síndrome de Lennox-Gastaut",
+    "opciones": [
+      "Encefalopatía epiléptica con múltiples tipos de crisis y EEG lento",
+      "Epilepsia ausencia infantil",
+      "Síndrome de West",
+      "Epilepsia del lóbulo temporal"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por William Lennox y Henri Gastaut, encefalopatía epiléptica grave."
+  },
+    {
+    "pregunta": "Escala de Glasgow",
+    "opciones": [
+      "Evalúa el nivel de conciencia (ocular, verbal, motora)",
+      "Clasifica la insuficiencia cardíaca",
+      "Estima el riesgo de ACV en Fibrilación Auricular",
+      "Mide el riesgo de úlceras por presión"
+    ],
+    "correcta": 0,
+    "explicacion": "Desarrollada por Graham Teasdale y Bryan J. Jennett en Glasgow, Escocia."
+  },
+  {
+    "pregunta": "Síndrome de Sturge-Weber",
+    "opciones": [
+      "Angioma facial, glaucoma, angiomatosis leptomeníngea",
+      "Neurofibromatosis tipo 1",
+      "Esclerosis tuberosa",
+      "Síndrome de Von Hippel-Lindau"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por William Sturge y Frederick Weber, facomatosis con mancha en vino de Oporto."
+  },
+  {
+    "pregunta": "Síndrome de Von Hippel-Lindau",
+    "opciones": [
+      "Facomatosis con hemangioblastomas, feocromocitoma, cáncer renal",
+      "Neurofibromatosis tipo 2",
+      "Esclerosis tuberosa",
+      "Síndrome de Sturge-Weber"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Eugen von Hippel y Arvid Lindau, autosómico dominante por gen VHL."
+  },
+  {
+    "pregunta": "Esclerosis tuberosa",
+    "opciones": [
+      "Facomatosis con tubérculos corticales, angiofibromas, rabdomiomas",
+      "Neurofibromatosis tipo 1",
+      "Síndrome de Von Hippel-Lindau",
+      "Síndrome de Sturge-Weber"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Désiré-Magloire Bourneville, autosómica dominante por mutaciones TSC1/TSC2."
+  },
+  {
+    "pregunta": "Neurofibromatosis tipo 1",
+    "opciones": [
+      "Enfermedad de Von Recklinghausen",
+      "Neurofibromatosis tipo 2",
+      "Esclerosis tuberosa",
+      "Síndrome de Sturge-Weber"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Friedrich von Recklinghausen, con manchas café con leche, nódulos de Lisch."
+  },
+  {
+    "pregunta": "Neurofibromatosis tipo 2",
+    "opciones": [
+      "Schwannomas vestibulares bilaterales, mutación merlina",
+      "Neurofibromas cutáneos múltiples",
+      "Manchas café con leche",
+      "Angiofibromas faciales"
+    ],
+    "correcta": 0,
+    "explicacion": "Caracterizada por schwannomas vestibulares bilaterales y otros tumores del SNC."
+  },
+  {
+    "pregunta": "Síndrome de Miller-Dieker",
+    "opciones": [
+      "Lisencefalia clásica con deleción 17p13.3",
+      "Holoprosencefalia",
+      "Hidrocefalia congénita",
+      "Agenesia del cuerpo calloso"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por James Miller y H. Dieker, malformación cerebral con facies característica."
+  },
+  {
+    "pregunta": "Síndrome de Dandy-Walker",
+    "opciones": [
+      "Hidrocefalia, quiste de fosa posterior, agenesia de vermis cerebeloso",
+      "Síndrome de Arnold-Chiari",
+      "Hidrocefalia de presión normal",
+      "Estenosis acueductal"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Walter Dandy y Arthur Walker, malformación congénita cerebelosa."
+  },
+  {
+    "pregunta": "Malformación de Arnold-Chiari",
+    "opciones": [
+      "Herniación de amígdalas cerebelosas through foramen magnum",
+      "Quiste aracnoideo",
+      "Hidrocefalia comunicante",
+      "Agenesia del septum pellucidum"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Julius Arnold y Hans Chiari, tipo I es la más común en adultos."
+  },
+  {
+    "pregunta": "Síndrome de Guillain-Barré",
+    "opciones": [
+      "Polirradiculoneuropatía desmielinizante aguda",
+      "Polineuropatía crónica inflamatoria",
+      "Miastenia gravis",
+      "Esclerosis lateral amiotrófica"
+    ],
+    "correcta": 0,
+    "explicacion": "Ya incluido anteriormente, pero importante como epónimo neurológico clave."
+  },
+  {
+    "pregunta": "Síndrome de Lambert-Eaton",
+    "opciones": [
+      "Síndrome miasténico por anticuerpos anti-canales de calcio presinápticos",
+      "Miastenia gravis",
+      "Síndrome de Guillain-Barré",
+      "Botulismo"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Edward Lambert y Lee Eaton, asociado a cáncer de pulmón de células pequeñas."
+  },
+  {
+    "pregunta": "Enfermedad de Charcot-Marie-Tooth",
+    "opciones": [
+      "Neuropatía hereditaria motora y sensitiva",
+      "Distrofia muscular de Duchenne",
+      "Esclerosis lateral amiotrófica",
+      "Miastenia gravis"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Jean-Martin Charcot, Pierre Marie y Howard Tooth, polineuropatía hereditaria."
+  },
+    {
+    "pregunta": "Tríada de Charcot (Colangitis)",
+    "opciones": [
+      "Fiebre, ictericia y dolor abdominal",
+      "Hipertensión, bradicardia y alteración respiratoria",
+      "Nistagmo, disartria y temblor intencional",
+      "Ingurgitación yugular, hipotensión y ruidos cardíacos apagados"
+    ],
+    "correcta": 0,
+    "explicacion": "No confundir con la tríada de Charcot de la Esclerosis Múltiple (opción 3)."
+  },
+  {
+    "pregunta": "Esclerosis lateral amiotrófica",
+    "opciones": [
+      "Enfermedad de la motoneurona, enfermedad de Lou Gehrig",
+      "Esclerosis múltiple",
+      "Enfermedad de Alzheimer",
+      "Enfermedad de Parkinson"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Jean-Martin Charcot, conocida como enfermedad de Lou Gehrig."
+  },
+  {
+    "pregunta": "Síndrome de Balint",
+    "opciones": [
+      "Ataxia óptica, apraxia ocular, simultagnosia",
+      "Afasia de Wernicke",
+      "Síndrome de Gerstmann",
+      "Negligencia hemiespacial"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Rezső Bálint, por lesiones biparietales."
+  },
+  {
+    "pregunta": "Síndrome de Gerstmann",
+    "opciones": [
+      "Acalculia, agrafia, desorientación derecha-izquierda, agnosia digital",
+      "Afasia, apraxia, agnosia",
+      "Amnesia anterógrada, confabulación",
+      "Alexia sin agrafia"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Josef Gerstmann, por lesión en lóbulo parietal izquierdo."
+  },
+  {
+    "pregunta": "Síndrome de Kearns-Sayre",
+    "opciones": [
+      "Oftalmoplejía externa progresiva, retinopatía pigmentaria, bloqueo cardíaco",
+      "Distrofia muscular facioescapulohumeral",
+      "Miastenia gravis",
+      "Síndrome de Guillain-Barré"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Thomas Kearns y George Sayre, enfermedad mitocondrial con deleciones del DNA mitocondrial."
+  },
+  {
+    "pregunta": "Síndrome de MELAS",
+    "opciones": [
+      "Encefalomiopatía mitocondrial, acidosis láctica, episodios stroke-like",
+      "Epilepsia mioclónica progresiva",
+      "Síndrome de Kearns-Sayre",
+      "Enfermedad de Leigh"
+    ],
+    "correcta": 0,
+    "explicacion": "Acrónimo para Mitochondrial Encephalomyopathy, Lactic Acidosis, and Stroke-like episodes."
+  },
+  {
+    "pregunta": "Enfermedad de Leigh",
+    "opciones": [
+      "Encefalomiopatía necrotizante subaguda infantil",
+      "Leucoencefalopatía multifocal progresiva",
+      "Encefalitis herpética",
+      "Enfermedad de Alexander"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Archibald Leigh, trastorno mitocondrial del neurodesarrollo."
+  },
+  {
+    "pregunta": "Síndrome de Riley-Day",
+    "opciones": [
+      "Disautonomía familiar (HSAN tipo III)",
+      "Síndrome de Guillain-Barré",
+      "Neuropatía diabética",
+      "Síndrome de Sjögren"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Richard Riley y Robert Day, insensibilidad congénita al dolor con disautonomía."
+  },
+  {
+    "pregunta": "Enfermedad de Hirschsprung",
+    "opciones": [
+      "Megacolon congénito por aganglionosis",
+      "Enfermedad de Crohn",
+      "Colitis ulcerosa",
+      "Síndrome de intestino irritable"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Harald Hirschsprung, ausencia de células ganglionares del plexo mientérico."
+  },
+  {
+    "pregunta": "Síndrome de Prune Belly",
+    "opciones": [
+      "Triada: ausencia de músculos abdominales, anomalías urinarias, criptorquidia",
+      "Onfalocele",
+      "Gastrosquisis",
+      "Síndrome de Beckwith-Wiedemann"
+    ],
+    "correcta": 0,
+    "explicacion": "También llamado síndrome de Eagle-Barrett, con abdomen en ciruela pasa."
+  },
+    {
+    "pregunta": "Tríada de Beck (Taponamiento cardíaco)",
+    "opciones": [
+      "Ingurgitación yugular, hipotensión y ruidos cardíacos apagados",
+      "Fiebre, ictericia y dolor abdominal",
+      "Edema, HTA y proteinuria",
+      "Cefalea, vómitos y papiledema"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Claude Beck, indica taponamiento cardíaco agudo."
+  },
+  {
+    "pregunta": "Síndrome de Beckwith-Wiedemann",
+    "opciones": [
+      "Macroglosia, onfalocele, gigantismo, hipoglucemia neonatal",
+      "Síndrome de Prune Belly",
+      "Síndrome de Marfan",
+      "Síndrome de Noonan"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por John Beckwith y Hans-Rudolf Wiedemann, asociado a mayor riesgo de tumor de Wilms."
+  },
+  {
+    "pregunta": "Síndrome de Mallory-Weiss",
+    "opciones": [
+      "Desgarros esofagogástricos por vómitos repetidos",
+      "Úlcera péptica sangrante",
+      "Várices esofágicas",
+      "Síndrome de Boerhaave"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por George Mallory y Soma Weiss, laceraciones longitudinales en unión esofagogástrica."
+  },
+  {
+    "pregunta": "Síndrome de Boerhaave",
+    "opciones": [
+      "Ruptura esofágica espontánea",
+      "Desgarro de Mallory-Weiss",
+      "Perforación gástrica",
+      "Divertículo de Zenker"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Herman Boerhaave, ruptura completa de esófago, emergencia quirúrgica."
+  },
+  {
+    "pregunta": "Divertículo de Zenker",
+    "opciones": [
+      "Divertículo faringoesofágico (hipofaríngeo)",
+      "Divertículo de Meckel",
+      "Divertículo epifrénico",
+      "Divertículo yeyunal"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Friedrich Albert von Zenker, divertículo de pulsión en área de Killian."
+  },
+  {
+    "pregunta": "Divertículo de Meckel",
+    "opciones": [
+      "Divertículo ileal por persistencia del conducto onfalomesentérico",
+      "Divertículo de Zenker",
+      "Divertículo colónico",
+      "Divertículo duodenal"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Johann Meckel, la malformación congénita más común del tracto GI."
+  },
+  {
+    "pregunta": "Síndrome de Zollinger-Ellison",
+    "opciones": [
+      "Gastrinoma con úlceras pépticas severas",
+      "Insulinoma con hipoglucemias",
+      "Glucagonoma con dermatitis",
+      "VIPoma con diarrea secretora"
+    ],
+    "correcta": 0,
+    "explicacion": "Ya incluido anteriormente, pero importante en gastroenterología."
+  },
+  {
+    "pregunta": "Síndrome de Gardner",
+    "opciones": [
+      "Poliposis adenomatosa familiar con osteomas y tumores desmoides",
+      "Síndrome de Peutz-Jeghers",
+      "Síndrome de Lynch",
+      "Síndrome de Turcot"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Eldon Gardner, variante de poliposis adenomatosa familiar."
+  },
+  {
+    "pregunta": "Síndrome de Turcot",
+    "opciones": [
+      "Poliposis colorectal con tumores del SNC",
+      "Neurofibromatosis tipo 1",
+      "Síndrome de Gardner",
+      "Síndrome de Peutz-Jeghers"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Jacques Turcot, asociación de poliposis y glioblastoma/meduloblastoma."
+  },
+  {
+    "pregunta": "Síndrome de Lynch",
+    "opciones": [
+      "Cáncer colorectal hereditario no polipósico (HNPCC)",
+      "Poliposis adenomatosa familiar",
+      "Síndrome de Peutz-Jeghers",
+      "Síndrome de Gardner"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Henry Lynch, defectos en reparación de DNA mismatch repair."
+  },
+  {
+    "pregunta": "Síndrome de Plummer-Vinson",
+    "opciones": [
+      "Disfagia, anemia ferropénica, membranas esofágicas",
+      "Acalasia",
+      "Estenosis péptica esofágica",
+      "Espasmo esofágico difuso"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Henry Plummer y Porter Vinson, asociado a mayor riesgo de cáncer de esófago."
+  },
+  {
+    "pregunta": "Enfermedad de Ménière",
+    "opciones": [
+      "Tríada: vértigo episódico, acúfenos, hipoacusia fluctuante",
+      "Neuritis vestibular",
+      "Vértigo posicional paroxístico benigno",
+      "Migraña vestibular"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Prosper Ménière, hidrops endolinfático del oído interno."
+  },
+  {
+    "pregunta": "Enfermedad de Paget ósea",
+    "opciones": [
+      "Trastorno del remodelado óseo con huesos agrandados y deformados",
+      "Osteogénesis imperfecta",
+      "Osteoporosis",
+      "Osteomalacia"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por James Paget, aumento del recambio óseo con hueso desorganizado."
+  },
+  {
+    "pregunta": "Síndrome de Tietze",
+    "opciones": [
+      "Condritis de cartílagos costales (inflamación costocondral)",
+      "Síndrome de Marfan",
+      "Angina de pecho",
+      "Embolia pulmonar"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Alexander Tietze, dolor torácico anterior por inflamación costocondral."
+  },
+  {
+    "pregunta": "Síndrome de Caplan",
+    "opciones": [
+      "Neumoconiosis con artritis reumatoide",
+      "Asbestosis",
+      "Silicosis",
+      "Bronquitis crónica"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Anthony Caplan, nódulos reumatoides en pulmones de mineros con neumoconiosis."
+  },
+  {
+    "pregunta": "Síndrome de Goodpasture",
+    "opciones": [
+      "Glomerulonefritis y hemorragia pulmonar por anti-GBM",
+      "Granulomatosis con poliangeítis",
+      "Síndrome de Churg-Strauss",
+      "Lupus eritematoso sistémico"
+    ],
+    "correcta": 0,
+    "explicacion": "Ya incluido anteriormente, pero importante en nefrología/neumología."
+  },
+  {
+    "pregunta": "Síndrome de Hamman-Rich",
+    "opciones": [
+      "Fibrosis pulmonar idiopática aguda",
+      "Síndrome de distrés respiratorio agudo",
+      "Neumonía organizada criptogénica",
+      "Proteinosis alveolar pulmonar"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Louis Hamman y Arnold Rich, forma aguda de fibrosis pulmonar."
+  },
+  {
+    "pregunta": "Síndrome de MacLeod",
+    "opciones": [
+      "Enfisema unilateral (síndrome de Swyer-James)",
+      "Atelectasia lobar",
+      "Neumotórax a tensión",
+      "Derrame pleural masivo"
+    ],
+    "correcta": 0,
+    "explicacion": "También llamado síndrome de Swyer-James, hiperclaridad pulmonar unilateral."
+  },
+  {
+    "pregunta": "Síndrome de Pancoast",
+    "opciones": [
+      "Tumor del surco superior con dolor hombro, síndrome de Horner, atrofia mano",
+      "Metástasis pulmonares múltiples",
+      "Mesotelioma pleural",
+      "Tuberculosis apical"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Henry Pancoast, generalmente por carcinoma broncogénico del vértice pulmonar."
+  },
+  {
+    "pregunta": "Síndrome de Dressler",
+    "opciones": [
+      "Pericarditis post-infarto de miocardio",
+      "Síndrome de Wolff-Parkinson-White",
+      "Angina inestable",
+      "Insuficiencia cardíaca aguda"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por William Dressler, pericarditis autoinmune post-IAM."
+  },
+  {
+    "pregunta": "Síndrome de Barlow",
+    "opciones": [
+      "Prolapso de válvula mitral",
+      "Estenosis aórtica",
+      "Insuficiencia mitral reumática",
+      "Comunicación interauricular"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por John Brereton Barlow, también llamado síndrome de prolapso valvular mitral."
+  },
+  {
+    "pregunta": "Enfermedad de Ebstein",
+    "opciones": [
+      "Anomalía congénita con desplazamiento apical de la válvula tricúspide",
+      "Estenosis pulmonar",
+      "Tetralogía de Fallot",
+      "Transposición de grandes vasos"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Wilhelm Ebstein, anomalía de válvula tricúspide con auricularización del ventrículo."
+  },
+  {
+    "pregunta": "Síndrome de Wolff-Parkinson-White",
+    "opciones": [
+      "Preexcitación ventricular por vía accesoria",
+      "Síndrome de Brugada",
+      "Síndrome de QT largo",
+      "Taquicardia ventricular polimórfica"
+    ],
+    "correcta": 0,
+    "explicacion": "Ya incluido anteriormente, pero fundamental en cardiología."
+  },
+  {
+    "pregunta": "Síndrome de Romano-Ward",
+    "opciones": [
+      "Síndrome de QT largo congénito sin sordera",
+      "Síndrome de Jervell-Lange-Nielsen",
+      "Síndrome de Brugada",
+      "Síndrome de Marfan"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Cesarino Romano y Owen Ward, QT largo autosómico dominante."
+  },
+  {
+    "pregunta": "Síndrome de Jervell-Lange-Nielsen",
+    "opciones": [
+      "QT largo congénito con sordera neurosensorial",
+      "Síndrome de Romano-Ward",
+      "Síndrome de Usher",
+      "Síndrome de Alport"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Anton Jervell y Fred Lange-Nielsen, QT largo autosómico recesivo con sordera."
+  },
+  {
+    "pregunta": "Síndrome de Takotsubo",
+    "opciones": [
+      "Cardiomiopatía por estrés (síndrome del corazón roto)",
+      "Infarto agudo de miocardio",
+      "Miocarditis viral",
+      "Derrame pericárdico"
+    ],
+    "correcta": 0,
+    "explicacion": "También llamado cardiomiopatía por estrés, con discinesia apical transitoria."
+  },
+  {
+    "pregunta": "Síndrome de Lemierre",
+    "opciones": [
+      "Tromboflebitis séptica de vena yugular post-angina",
+      "Endocarditis infecciosa",
+      "Meningitis bacteriana",
+      "Absceso retrofaríngeo"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por André Lemierre, generalmente por Fusobacterium necrophorum."
+  },
+  {
+    "pregunta": "Enfermedad de Kawasaki",
+    "opciones": [
+      "Vasculitis de mediano calibre en niños con fiebre prolongada",
+      "Escarlatina",
+      "Sarampión",
+      "Mononucleosis"
+    ],
+    "correcta": 0,
+    "explicacion": "Ya incluido anteriormente, pero importante en pediatría."
+  },
+  {
+    "pregunta": "Síndrome de Reye",
+    "opciones": [
+      "Encefalopatía + hígado graso (asociado a aspirina en niños con varicela/gripe)",
+      "Hepatitis viral",
+      "Síndrome de Guillain-Barré",
+      "Meningoencefalitis"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Ralph Reye, asociado al uso de aspirina en infecciones virales en niños."
+  },
+  {
+    "pregunta": "Síndrome de Stevens-Johnson",
+    "opciones": [
+      "Reacción de hipersensibilidad grave con afectación cutánea y mucosa <10% SC",
+      "Pénfigo vulgar",
+      "Penfigoide ampolloso",
+      "Eritema multiforme mayor"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Albert Stevens y Frank Johnson, forma grave de eritema multiforme."
+  },
+  {
+    "pregunta": "Síndrome de Lyell",
+    "opciones": [
+      "Necrólisis epidérmica tóxica (>30% SC)",
+      "Síndrome de Stevens-Johnson",
+      "Pénfigo paraneoplásico",
+      "Dermatitis exfoliativa"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Alan Lyell, la forma más grave de reacción medicamentosa."
+  },
+  {
+    "pregunta": "Enfermedad de Bowen",
+    "opciones": [
+      "Carcinoma epidermoide in situ",
+      "Enfermedad de Paget extramamaria",
+      "Queratosis actínica",
+      "Liquen plano"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por John Bowen, carcinoma intraepidérmico."
+  },
+  {
+    "pregunta": "Enfermedad de Paget mamaria",
+    "opciones": [
+      "Carcinoma ductal in situ con extensión epidérmica del pezón",
+      "Enfermedad de Bowen",
+      "Melanoma maligno",
+      "Dermatitis del pezón"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por James Paget, asociada a carcinoma ductal subyacente."
+  },
+  {
+    "pregunta": "Síndrome de Sézary",
+    "opciones": [
+      "Linfoma cutáneo de células T con células de Sézary en sangre periférica",
+      "Micosis fungoide",
+      "Linfoma de Hodgkin",
+      "Leucemia linfocítica crónica"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Albert Sézary, variante leucémica de la micosis fungoide."
+  },
+  {
+    "pregunta": "Granuloma anular",
+    "opciones": [
+      "Dermatosis benigna con pápulas en anillo",
+      "Liquen plano",
+      "Sarcoidosis cutánea",
+      "Eritema anular centrífugo"
+    ],
+    "correcta": 0,
+    "explicacion": "Aunque no lleva nombre epónimo, a veces se incluye en listados de dermatología."
+  },
+  {
+    "pregunta": "Síndrome de Sweet",
+    "opciones": [
+      "Dermatosis neutrofílica aguda febril",
+      "Lupus eritematoso cutáneo",
+      "Vasculitis leucocitoclástica",
+      "Pioderma gangrenoso"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Robert Sweet, pápulas y placas eritematosas dolorosas con fiebre."
+  },
+  {
+    "pregunta": "Pioderma gangrenoso",
+    "opciones": [
+      "Úlcera necrótica con base violácea",
+      "Vasculitis cutánea",
+      "Úlcera por estasis",
+      "Ectima"
+    ],
+    "correcta": 0,
+    "explicacion": "Aunque no es estrictamente epónimo, se incluye frecuentemente en síndromes dermatológicos."
+  },
+  {
+    "pregunta": "Síndrome de Behçet",
+    "opciones": [
+      "Vasculitis con úlceras orales/genitales y uveítis",
+      "Lupus eritematoso",
+      "Síndrome de Reiter",
+      "Sarcoidosis"
+    ],
+    "correcta": 0,
+    "explicacion": "Ya incluido anteriormente, pero importante en dermatología y reumatología."
+  },
+  {
+    "pregunta": "Enfermedad de Darier",
+    "opciones": [
+      "Queratosis folicular (disqueratosis folicular)",
+      "Ictiosis vulgar",
+      "Psoriasis",
+      "Liquen plano"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Ferdinand-Jean Darier, genodermatosis autosómica dominante."
+  },
+  {
+    "pregunta": "Enfermedad de Hailey-Hailey",
+    "opciones": [
+      "Pénfigo benigno familiar",
+      "Penfigoide ampolloso",
+      "Dermatitis herpetiforme",
+      "Epidermólisis bullosa"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por los hermanos Hailey, genodermatosis con ampollas en pliegues."
+  },
+  {
+    "pregunta": "Síndrome de Gorlin",
+    "opciones": [
+      "Síndrome del carcinoma basocelular nevoide",
+      "Neurofibromatosis tipo 1",
+      "Esclerosis tuberosa",
+      "Síndrome de Muir-Torre"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Robert Gorlin, múltiples carcinomas basocelulares, queratoquistes odontogénicos."
+  },
+  {
+    "pregunta": "Síndrome de Muir-Torre",
+    "opciones": [
+      "Tumores sebáceos + cáncer colorectal (variante de Lynch)",
+      "Síndrome de Gardner",
+      "Síndrome de Gorlin",
+      "Neurofibromatosis"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Muir y Torre, asociación de tumores cutáneos sebáceos con cáncer interno."
+  },
+  {
+    "pregunta": "Signo de Nikolsky",
+    "opciones": [
+      "Desprendimiento epidérmico con presión lateral (pénfigo)",
+      "Prurito en dermatosis",
+      "Dermografismo",
+      "Fenómeno de Koebner"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Pyotr Nikolsky, positivo en pénfigo vulgar y necrólisis epidérmica tóxica."
+  },
+  {
+    "pregunta": "Fenómeno de Koebner",
+    "opciones": [
+      "Aparición de lesiones en áreas de trauma (psoriasis, liquen)",
+      "Signo de Nikolsky",
+      "Prurito aquagénico",
+      "Dermografismo"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Heinrich Koebner, aparece en psoriasis, liquen plano, vitíligo."
+  },
+  {
+    "pregunta": "Síndrome de Ramsay Hunt",
+    "opciones": [
+      "Herpes zóster ótico + parálisis facial",
+      "Parálisis de Bell",
+      "Neuritis vestibular",
+      "Otitis media aguda"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por James Ramsay Hunt, por reactivación de VZV en ganglio geniculado."
+  },
+  {
+    "pregunta": "Parálisis de Bell",
+    "opciones": [
+      "Parálisis facial periférica idiopática",
+      "Síndrome de Ramsay Hunt",
+      "Accidente cerebrovascular",
+      "Tumor del ángulo pontocerebeloso"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Charles Bell, parálisis facial aguda de causa desconocida."
+  },
+  {
+    "pregunta": "Síndrome de Frey",
+    "opciones": [
+      "Sudoración gustativa post-parotidectomía",
+      "Síndrome de Horner",
+      "Síndrome de Sjögren",
+      "Parálisis facial"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Lucja Frey, sudoración y rubor en área mandibular al comer."
+  },
+  {
+    "pregunta": "Enfermedad de Kimura",
+    "opciones": [
+      "Enfermedad inflamatoria crónica con nódulos subcutáneos (Asia)",
+      "Linfoma de Hodgkin",
+      "Sarcoidosis",
+      "Tuberculosis"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Kimura, enfermedad inflamatoria con eosinofilia y nódulos en cabeza/cuello."
+  },
+  {
+    "pregunta": "Síndrome de Cogan",
+    "opciones": [
+      "Queratitis intersticial + síntomas vestibulococleares",
+      "Síndrome de Vogt-Koyanagi-Harada",
+      "Enfermedad de Behçet",
+      "Sarcoidosis ocular"
+    ],
+    "explicacion": "Descrito por David Cogan, vasculitis con afectación ocular y auditiva."
+  },
+  {
+    "pregunta": "Síndrome de Vogt-Koyanagi-Harada",
+    "opciones": [
+      "Uveítis + alteraciones neurológicas/dermatológicas (alopecia, vitíligo)",
+      "Síndrome de Cogan",
+      "Enfermedad de Behçet",
+      "Esclerosis múltiple"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Vogt, Koyanagi y Harada, uveomeningitis con afectación multisistémica."
+  },
+  {
+    "pregunta": "Úlcera de Mooren",
+    "opciones": [
+      "Úlcera corneal periférica crónica idiopática",
+      "Úlcera herpética",
+      "Queratitis bacteriana",
+      "Úlcera por exposición"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Bowen y Mooren, úlcera corneal periférica dolorosa."
+  },
+  {
+    "pregunta": "Queratitis de Thygeson",
+    "opciones": [
+      "Queratitis punctata superficial recidivante",
+      "Queratitis herpética",
+      "Queratitis por exposición",
+      "Úlcera corneal"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Phillips Thygeson, queratitis punctata bilateral recurrente."
+  },
+  {
+    "pregunta": "Síndrome de Duane",
+    "opciones": [
+      "Retracción globo ocular + limitación movimientos oculares horizontales",
+      "Estrabismo convergente",
+      "Parálisis del III par",
+      "Nistagmo congénito"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Alexander Duane, anomalía congénita de inervación ocular."
+  },
+  {
+    "pregunta": "Síndrome de Gradenigo",
+    "opciones": [
+      "Triada: otitis media, dolor trigeminal, parálisis abducens (VI par)",
+      "Síndrome de Ramsay Hunt",
+      "Síndrome de Guillain-Barré",
+      "Meningitis bacteriana"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Giuseppe Gradenigo, por extensión de otitis media al ápex petroso."
+  },
+  {
+    "pregunta": "Síndrome de Tolosa-Hunt",
+    "opciones": [
+      "Oftalmoplejía dolorosa por granuloma inflamatorio en seno cavernoso",
+      "Aneurisma carotídeo",
+      "Tumor de hipófisis",
+      "Trombosis de seno cavernoso"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Tolosa y Hunt, oftalmoplejía dolorosa sensible a esteroides."
+  },
+  {
+    "pregunta": "Síndrome de Garcin",
+    "opciones": [
+      "Parálisis unilateral de todos los pares craneales",
+      "Síndrome de Wallenberg",
+      "Síndrome de Weber",
+      "Síndrome de Millard-Gubler"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Raymond Garcin, por afectación de base de cráneo."
+  },
+  {
+    "pregunta": "Síndrome de Wallenberg",
+    "opciones": [
+      "Infarto bulbar lateral (oclusión AICA/PICA)",
+      "Infarto de la arteria cerebral media",
+      "Infarto talámico",
+      "Hemorragia pontina"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Adolf Wallenberg, por oclusión de arteria cerebelosa posteroinferior (PICA)."
+  },
+  {
+    "pregunta": "Síndrome de Weber",
+    "opciones": [
+      "Infarto peduncular: parálisis III ipsilateral + hemiparesia contralateral",
+      "Síndrome de Wallenberg",
+      "Síndrome de Millard-Gubler",
+      "Síndrome de Locked-in"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Hermann Weber, por oclusión de arteria cerebral posterior."
+  },
+  {
+    "pregunta": "Síndrome de Millard-Gubler",
+    "opciones": [
+      "Lesión pontina ventral: parálisis facial ipsilateral + hemiparesia contralateral",
+      "Síndrome de Weber",
+      "Síndrome de Wallenberg",
+      "Síndrome de Foville"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Millard y Gubler, por lesión en protuberancia inferior."
+  },
+  {
+    "pregunta": "Síndrome de Foville",
+    "opciones": [
+      "Lesión pontina dorsal: parálisis conjugada de la mirada + hemiparesia",
+      "Síndrome de Millard-Gubler",
+      "Síndrome de Weber",
+      "Síndrome de Wallenberg"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Achille Foville, por lesión en protuberancia tegmentaria."
+  },
+  {
+    "pregunta": "Síndrome de Benedikt",
+    "opciones": [
+      "Lesión mesencefálica: parálisis III ipsilateral + temblor contralateral",
+      "Síndrome de Weber",
+      "Síndrome de Claude",
+      "Síndrome de Parinaud"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Moritz Benedikt, por lesión en mesencéfalo tegmentario."
+  },
+  {
+    "pregunta": "Síndrome de Claude",
+    "opciones": [
+      "Lesión mesencefálica: parálisis III ipsilateral + ataxia contralateral",
+      "Síndrome de Weber",
+      "Síndrome de Benedikt",
+      "Síndrome de Parinaud"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Henri Claude, por lesión en núcleo rojo y brazo conjuntival superior."
+  },
+  {
+    "pregunta": "Síndrome de Parinaud",
+    "opciones": [
+      "Parálisis de la mirada vertical superior, nistagmo convergence-retraction",
+      "Síndrome de Weber",
+      "Síndrome de Wallenberg",
+      "Síndrome de One-and-a-half"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Henri Parinaud, por lesión pretectal (tumor pineal, hidrocefalia)."
+  },
+  {
+    "pregunta": "Síndrome One-and-a-half",
+    "opciones": [
+      "Parálisis mirada horizontal + internuclear oftalmoplejía ipsilateral",
+      "Síndrome de Parinaud",
+      "Síndrome de Wallenberg",
+      "Síndrome de Weber"
+    ],
+    "correcta": 0,
+    "explicacion": "Por lesión en protuberancia que afecta PPRF y fascículo longitudinal medial."
+  },
+  {
+    "pregunta": "Síndrome de Balint",
+    "opciones": [
+      "Ataxia óptica, apraxia ocular, simultagnosia",
+      "Síndrome de Gerstmann",
+      "Síndrome de Anton",
+      "Síndrome de Capgras"
+    ],
+    "correcta": 0,
+    "explicacion": "Ya incluido anteriormente, pero importante en neurología de conducta."
+  },
+  {
+    "pregunta": "Síndrome de Anton",
+    "opciones": [
+      "Ceguera cortical con anosognosia (niega la ceguera)",
+      "Síndrome de Balint",
+      "Síndrome de Gerstmann",
+      "Síndrome de Capgras"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Gabriel Anton, por lesión occipital bilateral."
+  },
+  {
+    "pregunta": "Síndrome de Capgras",
+    "opciones": [
+      "Ilusión de dobles (cree que familiares son impostores)",
+      "Síndrome de Fregoli",
+      "Síndrome de Cotard",
+      "Síndrome de Anton"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Joseph Capgras, delirio de suplantación en psicosis y demencia."
+  },
+  {
+    "pregunta": "Síndrome de Fregoli",
+    "opciones": [
+      "Cree que diferentes personas son la misma persona disfrazada",
+      "Síndrome de Capgras",
+      "Síndrome de Cotard",
+      "Síndrome de Anton"
+    ],
+    "correcta": 0,
+    "explicacion": "Delirio de que perseguidores adoptan apariencias de otras personas."
+  },
+  {
+    "pregunta": "Síndrome de Cotard",
+    "opciones": [
+      "Delirio nihilista (cree que está muerto o no existe)",
+      "Síndrome de Capgras",
+      "Síndrome de Fregoli",
+      "Síndrome de Anton"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Jules Cotard, en depresión psicótica y esquizofrenia."
+  },
+  {
+    "pregunta": "Síndrome de Ganser",
+    "opciones": [
+      "Respuestas aproximadas (habla pas de tout) en trastornos disociativos",
+      "Síndrome de Cotard",
+      "Síndrome de Capgras",
+      "Síndrome de Munchausen"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Sigbert Ganser, respuestas absurdas pero relacionadas con la pregunta."
+  },
+  {
+    "pregunta": "Síndrome de Munchausen",
+    "opciones": [
+      "Trastorno facticio (fingimiento de enfermedad para asumir rol de enfermo)",
+      "Hipocondría",
+      "Trastorno de somatización",
+      "Simulación"
+    ],
+    "correcta": 0,
+    "explicacion": "Nombrado por Baron Munchausen, fingimiento de enfermedad sin ganancia externa."
+  },
+  {
+    "pregunta": "Síndrome de Munchausen por poderes",
+    "opciones": [
+      "Trastorno facticio infligido a otro (generalmente madre a hijo)",
+      "Abuso infantil",
+      "Negligencia",
+      "Síndrome del niño maltratado"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Roy Meadow, la madre causa síntomas o enfermedad en su hijo."
+  },
+  {
+    "pregunta": "Síndrome de Othello",
+    "opciones": [
+      "Celos patológicos delirantes",
+      "Trastorno obsesivo-compulsivo",
+      "Paranoia",
+      "Trastorno límite de personalidad"
+    ],
+    "correcta": 0,
+    "explicacion": "Nombrado por el personaje de Shakespeare, celos delirantes de infidelidad."
+  },
+  {
+    "pregunta": "Síndrome de Stendhal",
+    "opciones": [
+      "Síntomas psicosomáticos ante obras de arte de gran belleza",
+      "Ataque de pánico",
+      "Crisis epiléptica",
+      "Migraña con aura"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Graziella Magherini, taquicardia, mareo, confusión en galerías de arte."
+  },
+  {
+    "pregunta": "Síndrome de Jerusalén",
+    "opciones": [
+      "Ideación religiosa delirante en visitantes de Jerusalén",
+      "Esquizofrenia paranoide",
+      "Trastorno bipolar",
+      "Trastorno esquizoafectivo"
+    ],
+    "correcta": 0,
+    "explicacion": "Psicosis aguda con temas religiosos en peregrinos o turistas en Jerusalén."
+  },
+    {
+    "pregunta": "Enfermedad de Addison",
+    "opciones": [
+      "Insuficiencia suprarrenal crónica",
+      "Exceso de producción de cortisol",
+      "Inflamación del apéndice",
+      "Enfermedad desmielinizante del SNC"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrita por Thomas Addison, es la insuficiencia suprarrenal primaria."
+  },
+  {
+    "pregunta": "Síndrome de Diógenes",
+    "opciones": [
+      "Abandono personal y acumulación de objetos/desperdicios",
+      "Trastorno obsesivo-compulsivo",
+      "Esquizofrenia",
+      "Demencia avanzada"
+    ],
+    "correcta": 0,
+    "explicacion": "Nombrado por el filósofo cínico, autonegligencia extrema y acumulación."
+  },
+  {
+    "pregunta": "Síndrome de Charles Bonnet",
+    "opciones": [
+      "Alucinaciones visuales complejas en personas con deterioro visual",
+      "Esquizofrenia",
+      "Demencia con cuerpos de Lewy",
+      "Delirium"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Charles Bonnet, alucinaciones en personas sanas con pérdida visual."
+  },
+  {
+    "pregunta": "Síndrome de Ekbom",
+    "opciones": [
+      "Delirio de parasitosis (cree que insectos le infestan)",
+      "Prurito real por parasitosis",
+      "Dermatitis artefacta",
+      "Trastorno obsesivo-compulsivo"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Karl Ekbom, delirio de infestación por parásitos."
+  },
+  {
+    "pregunta": "Síndrome de Alice en el País de las Maravillas",
+    "opciones": [
+      "Alteración de la percepción del tamaño corporal (micro/macropsia)",
+      "Migraña con aura",
+      "Crisis parcial compleja",
+      "Consumo de alucinógenos"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por John Todd, alteraciones perceptivas en migraña, epilepsia, infecciones."
+  },
+  {
+    "pregunta": "Síndrome de la mano ajena",
+    "opciones": [
+      "Movimientos involuntarios de la mano con sensación de extrañeza",
+      "Temblor esencial",
+      "Corea de Huntington",
+      "Distonía focal"
+    ],
+    "correcta": 0,
+    "explicacion": "También llamado síndrome de la mano alienígena, por lesión del cuerpo calloso."
+  },
+  {
+    "pregunta": "Síndrome de Pica",
+    "opciones": [
+      "Ingestión de sustancias no nutritivas (tierra, papel, etc.)",
+      "Bulimia nerviosa",
+      "Anorexia nerviosa",
+      "Trastorno rumiativo"
+    ],
+    "correcta": 0,
+    "explicacion": "Del latín 'urraca', ave que come objetos diversos."
+  },
+  {
+    "pregunta": "Síndrome de Kluver-Bucy",
+    "opciones": [
+      "Hiperoralidad, hipersexualidad, placidez, agnosia visual (lobectomía temporal)",
+      "Síndrome de Korsakoff",
+      "Demencia frontotemporal",
+      "Enfermedad de Alzheimer"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Heinrich Kluver y Paul Bucy, por lesión bilateral de lóbulos temporales."
+  },
+  {
+    "pregunta": "Síndrome de Korsakoff",
+    "opciones": [
+      "Amnesia anterógrada + confabulación (déficit tiamina)",
+      "Demencia alcohólica",
+      "Síndrome de Wernicke",
+      "Enfermedad de Alzheimer"
+    ],
+    "correcta": 0,
+    "explicacion": "Descrito por Sergei Korsakoff, generalmente secundario a encefalopatía de Wernicke."
+  }    
+    
+]

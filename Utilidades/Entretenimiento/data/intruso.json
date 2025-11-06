@@ -1,0 +1,1222 @@
+[
+  {
+    "pregunta": "Fármacos: IECA",
+    "opciones": [
+      "Enalapril",
+      "Captopril",
+      "Losartán",
+      "Lisinopril"
+    ],
+    "correcta": 2,
+    "explicacion": "El intruso es Losartán (un ARA-II). El resto son IECA."
+  },
+  {
+    "pregunta": "Fármacos: IBP",
+    "opciones": [
+      "Omeprazol",
+      "Pantoprazol",
+      "Ranitidina",
+      "Esomeprazol"
+    ],
+    "correcta": 2,
+    "explicacion": "El intruso es Ranitidina (un Anti-H2). El resto son IBP."
+  },
+  {
+    "pregunta": "Signos de Pancreatitis",
+    "opciones": [
+      "Signo de Cullen",
+      "Signo de Grey-Turner",
+      "Signo de Murphy",
+      "Amilasa elevada"
+    ],
+    "correcta": 2,
+    "explicacion": "El intruso es el Signo de Murphy (típico de Colecistitis). Los otros son de Pancreatitis."
+  },
+  {
+    "pregunta": "Tríada de Cushing",
+    "opciones": [
+      "Hipertensión arterial",
+      "Bradicardia",
+      "Alteración respiratoria",
+      "Hipotensión arterial"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Hipotensión. La tríada de Cushing (HT intracraneal) cursa con HTA."
+  },
+  {
+    "pregunta": "Patologías: Bacterianas",
+    "opciones": [
+      "Neumonía por Neumococo",
+      "Gripe",
+      "Faringoamigdalitis purulenta",
+      "Celulitis"
+    ],
+    "correcta": 1,
+    "explicacion": "El intruso es la Gripe (vírica). El resto son de origen bacteriano."
+  },
+  {
+    "pregunta": "Anticoagulantes",
+    "opciones": [
+      "Sintrom (Acenocumarol)",
+      "Heparina",
+      "Clopidogrel",
+      "Apixaban"
+    ],
+    "correcta": 2,
+    "explicacion": "El intruso es Clopidogrel (un antiagregante). El resto son anticoagulantes."
+  },
+  {
+    "pregunta": "Fármacos: Estatinas",
+    "opciones": [
+      "Atorvastatina",
+      "Simvastatina",
+      "Fenofibrato",
+      "Rosuvastatina"
+    ],
+    "correcta": 2,
+    "explicacion": "El intruso es Fenofibrato (un fibrato). El resto son estatinas."
+  },
+  {
+    "pregunta": "Antidiabéticos Orais",
+    "opciones": [
+      "Metformina",
+      "Glibenclamida",
+      "Insulina",
+      "Sitagliptina"
+    ],
+    "correcta": 2,
+    "explicacion": "El intruso es la Insulina (se administra de forma parenteral). El resto son orales."
+  },
+  {
+    "pregunta": "Fármacos: AINEs",
+    "opciones": [
+      "Ibuprofeno",
+      "Paracetamol",
+      "Naproxeno",
+      "Diclofenaco"
+    ],
+    "correcta": 1,
+    "explicacion": "El intruso es el Paracetamol (es un analgésico puro, no un AINE)."
+  },
+  {
+    "pregunta": "Antidepresivos ISRS",
+    "opciones": [
+      "Sertralina",
+      "Fluoxetina",
+      "Paroxetina",
+      "Amitriptilina"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es Amitriptilina (un antidepresivo tricíclico). El resto son ISRS."
+  },
+  {
+    "pregunta": "Signo de Trousseau",
+    "opciones": [
+      "Espasmo carpopedal",
+      "Hipocalcemia",
+      "Hipomagnesemia",
+      "Hiperreflexia"
+    ],
+    "correcta": 2,
+    "explicacion": "El intruso es la Hipomagnesemia. El signo de Trousseau se asocia a Hipocalcemia."
+  },
+  {
+    "pregunta": "Manifestaciones de Lupus",
+    "opciones": [
+      "Eritema malar",
+      "Artritis",
+      "Fotosensibilidad",
+      "Nódulos de Heberden"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso son los Nódulos de Heberden (típicos de artrosis). El resto son criterios de Lupus."
+  },
+  {
+    "pregunta": "Tríada de Virchow",
+    "opciones": [
+      "Éstasis venoso",
+      "Hipercoagulabilidad",
+      "Lesión endotelial",
+      "Anemia"
+    ],
+    "explicacion": "El intruso es la Anemia. La tríada de Virchow describe los factores de riesgo para trombosis."
+  },
+  {
+    "pregunta": "Signos Meningeos",
+    "opciones": [
+      "Signo de Kernig",
+      "Signo de Brudzinski",
+      "Rigidez de nuca",
+      "Signo de Babinski"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es el Signo de Babinski (indica lesión de la vía piramidal). El resto son signos meníngeos."
+  },
+  {
+    "pregunta": "Síndrome Nefrótico",
+    "opciones": [
+      "Proteinuria",
+      "Hipoalbuminemia",
+      "Edema",
+      "Oliguria"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Oliguria (más típica del síndrome nefrítico). El resto son componentes del nefrótico."
+  },
+  {
+    "pregunta": "Patologías Autoinmunes",
+    "opciones": [
+      "Artritis Reumatoide",
+      "Lupus Eritematoso Sistémico",
+      "Esclerosis Múltiple",
+      "Gota"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Gota (enfermedad metabólica por depósito de cristales). El resto son autoinmunes."
+  },
+  {
+    "pregunta": "Infecciones Víricas",
+    "opciones": [
+      "Varicela",
+      "Sarampión",
+      "Paperas",
+      "Tos ferina"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Tos ferina (causada por la bacteria *Bordetella pertussis*). El resto son víricas."
+  },
+  {
+    "pregunta": "Enfermedades de Transmisión Sexual",
+    "opciones": [
+      "Sífilis",
+      "Gonorrea",
+      "Herpes genital",
+      "Tuberculosis"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Tuberculosis (se transmite principalmente por vía aérea)."
+  },
+  {
+    "pregunta": "Patologías Tiroideas",
+    "opciones": [
+      "Enfermedad de Graves",
+      "Tiroiditis de Hashimoto",
+      "Bocio multinodular",
+      "Enfermedad de Addison"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Enfermedad de Addison (insuficiencia suprarrenal). El resto afectan a la tiroides."
+  },
+  {
+    "pregunta": "Cánceres Ginecológicos",
+    "opciones": [
+      "Cáncer de cuello uterino",
+      "Cáncer de ovario",
+      "Cáncer de endometrio",
+      "Cáncer de próstata"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es el Cáncer de próstata (es una patología masculina)."
+  },
+  {
+    "pregunta": "Pruebas de Función Hepática",
+    "opciones": [
+      "ALT (TGP)",
+      "AST (TGO)",
+      "Fosfatasa alcalina",
+      "Creatinina"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Creatinina (marcador de función renal). El resto son enzimas hepáticas."
+  },
+  {
+    "pregunta": "Marcadores Tumorales",
+    "opciones": [
+      "PSA",
+      "CEA",
+      "CA-125",
+      "PCR"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la PCR (Proteína C Reactiva, marcador de inflamación inespecífico)."
+  },
+  {
+    "pregunta": "Estudios de Imagen con Radiación",
+    "opciones": [
+      "Tomografía Computarizada (TC)",
+      "Radiografía simple",
+      "Gammagrafía ósea",
+      "Resonancia Magnética (RM)"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Resonancia Magnética (usa campos magnéticos, no radiación ionizante)."
+  },
+  {
+    "pregunta": "Vías de Administración Parenteral",
+    "opciones": [
+      "Intravenosa (IV)",
+      "Intramuscular (IM)",
+      "Subcutánea (SC)",
+      "Oral"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la vía Oral (es enteral, no parenteral)."
+  },
+  {
+    "pregunta": "Órganos Intraperitoneales",
+    "opciones": [
+      "Estómago",
+      "Hígado",
+      "Bazo",
+      "Riñón"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es el Riñón (es un órgano retroperitoneal)."
+  },
+  {
+    "pregunta": "Huesos del Carpo",
+    "opciones": [
+      "Escafoides",
+      "Semilunar",
+      "Piramidal",
+      "Astrágalo"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es el Astrágalo (es un hueso del tarso, del pie)."
+  },
+  {
+    "pregunta": "Válvulas Cardíacas",
+    "opciones": [
+      "Válvula mitral",
+      "Válvula tricúspide",
+      "Válvula aórtica",
+      "Vena cava inferior"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Vena cava inferior (es un vaso sanguíneo, no una válvula)."
+  },
+  {
+    "pregunta": "Nervios del Plexo Braquial",
+    "opciones": [
+      "Nervio radial",
+      "Nervio mediano",
+      "Nervio cubital",
+      "Nervio ciático"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es el Nervio ciático (pertenece al plexo sacro)."
+  },
+  {
+    "pregunta": "Músculos del Manguito Rotador",
+    "opciones": [
+      "Supraespinoso",
+      "Infraespinoso",
+      "Redondo menor",
+      "Deltoides"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es el Deltoides (es un abductor del hombro, pero no forma parte del manguito)."
+  },
+  {
+    "pregunta": "Tratamiento de la Diabetes Tipo 2",
+    "opciones": [
+      "Metformina",
+      "Cambios en el estilo de vida",
+      "Insulina",
+      "Quimioterapia"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Quimioterapia (tratamiento oncológico, no para la diabetes)."
+  },
+  {
+    "pregunta": "Medidas de Prevención Primaria",
+    "opciones": [
+      "Vacunación",
+      "Educación para la salud",
+      "Cribado de cáncer",
+      "Promoción de dieta saludable"
+    ],
+    "correcta": 2,
+    "explicacion": "El intruso es el Cribado de cáncer (es una medida de prevención secundaria)."
+  },
+  {
+    "pregunta": "Medidas de Aislamiento",
+    "opciones": [
+      "Aislamiento de contacto",
+      "Aislamiento aéreo",
+      "Aislamiento entérico",
+      "Aislamiento quirúrgico"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es el Aislamiento quirúrgico (se refiere a la técnica estéril en cirugía, no a pacientes infecciosos)."
+  },
+  {
+    "pregunta": "Fármacos: Betabloqueantes",
+    "opciones": [
+      "Propranolol",
+      "Atenolol",
+      "Bisoprolol",
+      "Amlodipino"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es Amlodipino (es un calcioantagonista). El resto son betabloqueantes."
+  },
+  {
+    "pregunta": "Fármacos: Antipsicóticos",
+    "opciones": [
+      "Haloperidol",
+      "Risperidona",
+      "Olanzapina",
+      "Diazepam"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es Diazepam (es una benzodiacepina, ansiolítico). El resto son antipsicóticos."
+  },
+  {
+    "pregunta": "Fármacos: Antagonistas H1",
+    "opciones": [
+      "Loratadina",
+      "Cetirizina",
+      "Fexofenadina",
+      "Ranitidina"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es Ranitidina (es un antagonista H2, para el estómago). El resto son H1 (antialérgicos)."
+  },
+  {
+    "pregunta": "Signos de Insuficiencia Cardíaca",
+    "opciones": [
+      "Disnea",
+      "Edema maleolar",
+      "Ingurgitación yugular",
+      "Hemoptisis"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Hemoptisis (expectoración con sangre, más asociada a TEP o cáncer de pulmón)."
+  },
+  {
+    "pregunta": "Manifestaciones de Hipertiroidismo",
+    "opciones": [
+      "Taquicardia",
+      "Pérdida de peso",
+      "Intolerancia al calor",
+      "Bradicardia"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Bradicardia (es un signo de hipotiroidismo). El hipertiroidismo cursa con taquicardia."
+  },
+  {
+    "pregunta": "Causas de Anemia Microcítica",
+    "opciones": [
+      "Anemia ferropénica",
+      "Talasemia",
+      "Anemia de enfermedades crónicas",
+      "Anemia megaloblástica"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Anemia megaloblástica (es macrocítica, por déficit de B12/ácido fólico)."
+  },
+  {
+    "pregunta": "Factores de Riesgo Cardiovascular",
+    "opciones": [
+      "Hipertensión",
+      "Diabetes",
+      "Hipercolesterolemia",
+      "Artritis reumatoide"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Artritis reumatoide (enfermedad inflamatoria, no un FR cardiovascular clásico)."
+  },
+  {
+    "pregunta": "Síntomas de Hiperglucemia",
+    "opciones": [
+      "Poliuria",
+      "Polidipsia",
+      "Polifagia",
+      "Hipoglucemia"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Hipoglucemia (es lo opuesto a la hiperglucemia)."
+  },
+    {
+    "pregunta": "Antibióticos: Macrólidos",
+    "opciones": [
+      "Azitromicina",
+      "Claritromicina",
+      "Eritromicina",
+      "Amoxicilina"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es Amoxicilina (es una penicilina). El resto son macrólidos."
+  },
+  {
+    "pregunta": "Antibióticos: Quinolonas",
+    "opciones": [
+      "Ciprofloxacino",
+      "Levofloxacino",
+      "Moxifloxacino",
+      "Amoxicilina"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es Amoxicilina (es una penicilina). El resto son quinolonas."
+  },
+  {
+    "pregunta": "Fármacos: Corticoides",
+    "opciones": [
+      "Prednisona",
+      "Hidrocortisona",
+      "Dexametasona",
+      "Testosterona"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es Testosterona (es una hormona sexual). El resto son corticoides."
+  },
+  {
+    "pregunta": "Fármacos: Broncodilatadores",
+    "opciones": [
+      "Salbutamol",
+      "Ipratropio",
+      "Budesonida",
+      "Formoterol"
+    ],
+    "correcta": 2,
+    "explicacion": "El intruso es Budesonida (es un corticoide inhalado). El resto son broncodilatadores."
+  },
+  {
+    "pregunta": "Signo de Homans",
+    "opciones": [
+      "Dolor en pantorrilla",
+      "Trombosis venosa profunda",
+      "Dorsiflexión del pie",
+      "Dolor abdominal"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es el Dolor abdominal. El signo de Homans se evalúa en la pierna y sugiere TVP."
+  },
+  {
+    "pregunta": "Signo de Giordano",
+    "opciones": [
+      "Dolor lumbar",
+      "Despistaje renal",
+      "Puño percusión renal",
+      "Dolor en hipocondrio derecho"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es Dolor en hipocondrio derecho (más sugestivo de patología hepática o biliar). El signo de Giordano sugiere patología renal."
+  },
+  {
+    "pregunta": "Manifestaciones de Meningitis",
+    "opciones": [
+      "Fotofobia",
+      "Cefalea",
+      "Fiebre",
+      "Hematuria"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Hematuria (sangre en orina, no relacionada con meningitis)."
+  },
+  {
+    "pregunta": "Síndrome de Cushing",
+    "opciones": [
+      "Cara de luna llena",
+      "Giba dorsal",
+      "Osteoporosis",
+      "Hipotensión"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Hipotensión. El síndrome de Cushing cursa con Hipertensión arterial."
+  },
+  {
+    "pregunta": "Tetralogía de Fallot",
+    "opciones": [
+      "Estenosis pulmonar",
+      "Comunicación interventricular",
+      "Cabalgamiento aórtico",
+      "Estenosis aórtica"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Estenosis aórtica. El cuarto componente de la tetralogía es la Hipertrofia ventricular derecha."
+  },
+  {
+    "pregunta": "Enfermedades Exantemáticas",
+    "opciones": [
+      "Sarampión",
+      "Rubeola",
+      "Varicela",
+      "Tétanos"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es el Tétanos (no produce exantema). El resto son enfermedades exantemáticas."
+  },
+  {
+    "pregunta": "Patologías por Priones",
+    "opciones": [
+      "Enfermedad de Creutzfeldt-Jakob",
+      "Kuru",
+      "Insomnio familiar fatal",
+      "Enfermedad de Alzheimer"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Enfermedad de Alzheimer (etiopatogenia diferente, aunque también neurodegenerativa)."
+  },
+  {
+    "pregunta": "Zoonosis",
+    "opciones": [
+      "Rabia",
+      "Brucelosis",
+      "Leptospirosis",
+      "Gonorrea"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Gonorrea (enfermedad de transmisión sexual humana). El resto son zoonosis."
+  },
+  {
+    "pregunta": "Enfermedades Parasitarias",
+    "opciones": [
+      "Malaria",
+      "Toxoplasmosis",
+      "Amebiasis",
+      "Tuberculosis"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Tuberculosis (enfermedad bacteriana). El resto son parasitarias."
+  },
+  {
+    "pregunta": "Pruebas de Coagulación",
+    "opciones": [
+      "Tiempo de Protrombina (TP)",
+      "Tiempo de Tromboplastina Parcial (TTP)",
+      "Fibrinógeno",
+      "Transaminasas"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso son las Transaminasas (enzimas hepáticas). El resto son pruebas de coagulación."
+  },
+  {
+    "pregunta": "Electrolitos",
+    "opciones": [
+      "Sodio",
+      "Potasio",
+      "Calcio",
+      "Glucosa"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Glucosa (es un nutriente, no un electrolito)."
+  },
+  {
+    "pregunta": "Gasometría Arterial",
+    "opciones": [
+      "pH",
+      "pCO2",
+      "pO2",
+      "Hemoglobina"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Hemoglobina (se mide en hemograma, no en gasometría)."
+  },
+  {
+    "pregunta": "Técnicas de Imagen Cardíaca",
+    "opciones": [
+      "Ecocardiograma",
+      "Cateterismo cardíaco",
+      "Angio-TAC",
+      "Colonoscopia"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Colonoscopia (exploración del colon)."
+  },
+  {
+    "pregunta": "Vías de Transmisisión del VIH",
+    "opciones": [
+      "Sanguínea",
+      "Sexual",
+      "Vertical (madre-hijo)",
+      "Aérea"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la vía Aérea. El VIH no se transmite por el aire."
+  },
+  {
+    "pregunta": "Medidas de Bioseguridad",
+    "opciones": [
+      "Lavado de manos",
+      "Uso de guantes",
+      "Uso de mascarilla",
+      "Uso de bata estéril en consulta"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es el Uso de bata estéril en consulta (reservado para procedimientos específicos, no es una medida general de bioseguridad)."
+  },
+  {
+    "pregunta": "Criterios de Sepsis",
+    "opciones": [
+      "Fiebre >38°C",
+      "Taquicardia",
+      "Taquipnea",
+      "Bradicardia"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Bradicardia. Los criterios de sepsis incluyen taquicardia, no bradicardia."
+  },
+  {
+    "pregunta": "Signos de Alarma en un Neonato",
+    "opciones": [
+      "Ictericia",
+      "Fiebre",
+      "Rechazo del alimento",
+      "Sonrisa social"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Sonrisa social (es un hito del desarrollo normal). El resto son signos de alarma."
+  },
+  {
+    "pregunta": "Fármacos: Anticonvulsivantes",
+    "opciones": [
+      "Ácido Valproico",
+      "Carbamazepina",
+      "Fenitoína",
+      "Paracetamol"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es Paracetamol (analgésico, no anticonvulsivante)."
+  },
+  {
+    "pregunta": "Fármacos: Antipalúdicos",
+    "opciones": [
+      "Cloroquina",
+      "Mefloquina",
+      "Arteméter",
+      "Amoxicilina"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es Amoxicilina (antibiótico, no antipalúdico)."
+  },
+  {
+    "pregunta": "Fármacos: Antirretrovirales",
+    "opciones": [
+      "Efavirenz",
+      "Tenofovir",
+      "Lopinavir/Ritonavir",
+      "Omeprazol"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es Omeprazol (IBP, para protección gástrica)."
+  },
+  {
+    "pregunta": "Fármacos: Quimioterápicos",
+    "opciones": [
+      "Cisplatino",
+      "Doxorrubicina",
+      "Paclitaxel",
+      "Insulina"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es Insulina (hormona para la diabetes)."
+  },
+  {
+    "pregunta": "Signo de Chvostek",
+    "opciones": [
+      "Espasmo facial",
+      "Hipocalcemia",
+      "Perforación intestinal",
+      "Irritabilidad neuromuscular"
+    ],
+    "correcta": 2,
+    "explicacion": "El intruso es Perforación intestinal. El signo de Chvostek se asocia a hipocalcemia."
+  },
+  {
+    "pregunta": "Signo de Rovsing",
+    "opciones": [
+      "Dolor en FID",
+      "Apendicitis",
+      "Compresión en FII",
+      "Dolor en hipocondrio derecho"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es Dolor en hipocondrio derecho (sugestivo de patología hepática). El signo de Rovsing es para apendicitis."
+  },
+  {
+    "pregunta": "Signo de Kehr",
+    "opciones": [
+      "Dolor en hombro izquierdo",
+      "Rotura esplénica",
+      "Hemorragia intraabdominal",
+      "Dolor en fosa ilíaca derecha"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es Dolor en fosa ilíaca derecha (sugestivo de apendicitis). El signo de Kehr sugiere patología esplénica."
+  },
+  {
+    "pregunta": "Manifestaciones de Shock",
+    "opciones": [
+      "Hipotensión",
+      "Taquicardia",
+      "Piel fría y húmeda",
+      "Policitemia"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Policitemia (aumento de glóbulos rojos). En el shock hay mala perfusión, no policitemia."
+  },
+  {
+    "pregunta": "Síndrome de Guillain-Barré",
+    "opciones": [
+      "Debilidad muscular ascendente",
+      "Parálisis flácida",
+      "Pérdida de reflejos",
+      "Hiperreflexia"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Hiperreflexia. El síndrome de Guillain-Barré cursa con arreflexia o hiporreflexia."
+  },
+  {
+    "pregunta": "Causas de Acidosis Metabólica",
+    "opciones": [
+      "Cetoacidosis diabética",
+      "Acidosis láctica",
+      "Insuficiencia renal",
+      "Hiperventilación"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Hiperventilación (causa alcalosis respiratoria)."
+  },
+  {
+    "pregunta": "Factores de Riesgo de Cáncer de Pulmón",
+    "opciones": [
+      "Tabaquismo",
+      "Exposición al asbesto",
+      "Exposición al radón",
+      "Dieta rica en fibra"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es Dieta rica en fibra (es un factor protector, no de riesgo)."
+  },
+  {
+    "pregunta": "Síntomas de Depresión",
+    "opciones": [
+      "Ánimo bajo",
+      "Anhedonia",
+      "Alteraciones del sueño",
+      "Manía"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Manía (es lo opuesto a la depresión, característico del trastorno bipolar)."
+  },
+  {
+    "pregunta": "Síntomas de Ansiedad",
+    "opciones": [
+      "Inquietud",
+      "Taquicardia",
+      "Sudoración",
+      "Bradipnea"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Bradipnea (respiración lenta). La ansiedad cursa con taquipnea (respiración rápida)."
+  },
+  {
+    "pregunta": "Criterios de Jones (Fiebre Reumática)",
+    "opciones": [
+      "Poliartritis",
+      "Carditis",
+      "Corea de Sydenham",
+      "Hematuria"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Hematuria. Los criterios mayores de Jones no incluyen alteraciones renales."
+  },
+  {
+    "pregunta": "Manifestaciones de Esclerodermia",
+    "opciones": [
+      "Piel endurecida",
+      "Fenómeno de Raynaud",
+      "Telangiectasias",
+      "Eritema malar"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es el Eritema malar (más característico del Lupus)."
+  },
+  {
+    "pregunta": "Signos de Deshidratación",
+    "opciones": [
+      "Piel seca",
+      "Mucosas secas",
+      "Ojos hundidos",
+      "Edema"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es el Edema (acumulación de líquido, lo opuesto a la deshidratación)."
+  },
+  {
+    "pregunta": "Complicaciones de la Diabetes",
+    "opciones": [
+      "Retinopatía",
+      "Nefropatía",
+      "Neuropatía",
+      "Osteoartritis"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Osteoartritis (enfermedad degenerativa articular, no una complicación microvascular de la diabetes)."
+  },
+  {
+    "pregunta": "Tipos de Heridas",
+    "opciones": [
+      "Abrasión",
+      "Laceración",
+      "Punción",
+      "Fractura"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Fractura (lesión ósea, no un tipo de herida de partes blandas)."
+  },
+  {
+    "pregunta": "Tipos de Fracturas",
+    "opciones": [
+      "Cerrada",
+      "Abierta",
+      "Conminuta",
+      "Luxación"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Luxación (es una lesión articular, no un tipo de fractura)."
+  },
+  {
+    "pregunta": "Quemaduras por Profundidad",
+    "opciones": [
+      "1er grado",
+      "2do grado",
+      "3er grado",
+      "4to grado (por corriente eléctrica)"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es 4to grado. La clasificación clásica por profundidad es de 1er, 2do y 3er grado."
+  },
+  {
+    "pregunta": "Escala de Glasgow",
+    "opciones": [
+      "Apertura ocular",
+      "Respuesta verbal",
+      "Respuesta motora",
+      "Reflejo pupilar"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es el Reflejo pupilar. La Escala de Glasgow no lo incluye."
+  },
+  {
+    "pregunta": "Signos de Embolia Pulmonar",
+    "opciones": [
+      "Dolor pleurítico",
+      "Disnea",
+      "Hemoptisis",
+      "Hematemesis"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Hematemesis (vómito con sangre, de origen digestivo)."
+  },
+  {
+    "pregunta": "Manifestaciones de Ictus",
+    "opciones": [
+      "Pérdida de fuerza en hemicuerpo",
+      "Afasia",
+      "Desviación de la comisura labial",
+      "Dolor torácico opresivo"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es el Dolor torácico opresivo (más sugestivo de síndrome coronario agudo)."
+  },
+  {
+    "pregunta": "Síntomas de Hipertensión Intracraneal",
+    "opciones": [
+      "Cefalea",
+      "Vómitos en escopetazo",
+      "Papiledema",
+      "Hipotensión ortostática"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Hipotensión ortostática (asociada a hipovolemia o disautonomía, no a HIC)."
+  },
+  {
+    "pregunta": "Causas de Anemia Hemolítica",
+    "opciones": [
+      "Anemia de células falciformes",
+      "Esferocitosis hereditaria",
+      "Déficit de G6PD",
+      "Déficit de hierro"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es el Déficit de hierro (causa anemia microcítica por falta de producción, no hemólisis)."
+  },
+  {
+    "pregunta": "Líquidos de Reposición",
+    "opciones": [
+      "Suero salino 0.9%",
+      "Ringer Lactato",
+      "Suero glucosado 5%",
+      "Sangre completa"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Sangre completa (es un hemoderivado, no un cristaloide de reposición estándar)."
+  },
+  {
+    "pregunta": "Vías de Acceso Venoso Central",
+    "opciones": [
+      "Yugular interna",
+      "Subclavia",
+      "Femoral",
+      "Cefálica"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la vía Cefálica (es una vía venosa periférica)."
+  },
+  {
+    "pregunta": "Músculos Respiratorios",
+    "opciones": [
+      "Diafragma",
+      "Intercostales",
+      "Escalenos",
+      "Bíceps braquial"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es el Bíceps braquial (músculo del brazo, no participa en la respiración)."
+  },
+  {
+    "pregunta": "Huesos Largos",
+    "opciones": [
+      "Fémur",
+      "Húmero",
+      "Tibia",
+      "Vértebra"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Vértebra (es un hueso irregular)."
+  },
+  {
+    "pregunta": "Arterias de la Extremidad Superior",
+    "opciones": [
+      "Arteria axilar",
+      "Arteria braquial",
+      "Arteria radial",
+      "Arteria femoral"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Arteria femoral (pertenece a la extremidad inferior)."
+  },
+  {
+    "pregunta": "Nervios Craneales Motores Oculares",
+    "opciones": [
+      "III Par (Oculomotor)",
+      "IV Par (Troclear)",
+      "VI Par (Abducens)",
+      "V Par (Trigémino)"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es el V Par (Trigémino, es mixto pero principalmente sensitivo facial y motor de la masticación)."
+  },
+  {
+    "pregunta": "Válvulas Venosas",
+    "opciones": [
+      "Válvula ileocecal",
+      "Válvula mitral",
+      "Válvula aórtica",
+      "Válvula tricúspide"
+    ],
+    "correcta": 0,
+    "explicacion": "El intruso es la Válvula ileocecal (es una válvula del sistema digestivo, entre íleon y ciego). El resto son válvulas cardíacas."
+  },
+  {
+    "pregunta": "Tratamiento del Asma Aguda",
+    "opciones": [
+      "Broncodilatadores",
+      "Corticoides sistémicos",
+      "Oxigenoterapia",
+      "Antibióticos"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso son los Antibióticos (solo se usan si hay evidencia de infección bacteriana concurrente)."
+  },
+  {
+    "pregunta": "Tratamiento del Infarto Agudo de Miocardio",
+    "opciones": [
+      "Aspirina",
+      "Morfina",
+      "Nitroglicerina",
+      "Insulina"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Insulina (no es parte del tratamiento estándar inicial a menos que el paciente sea diabético con hiperglucemia)."
+  },
+  {
+    "pregunta": "Medidas de Reanimación Cardiopulmonar (RCP)",
+    "opciones": [
+      "Compresiones torácicas",
+      "Ventilaciones de rescate",
+      "Uso del DEA",
+      "Administración de líquidos IV"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Administración de líquidos IV (no es parte del algoritmo básico de RCP)."
+  },
+  {
+    "pregunta": "Signos de Neumotórax a Tensión",
+    "opciones": [
+      "Hipersonoridad",
+      "Desviación traqueal",
+      "Disminución del murmullo vesicular",
+      "Cianosis central"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Cianosis central (es un signo tardío e inespecífico de hipoxia). Los tres primeros son los clásicos de la tríada."
+  },
+  {
+    "pregunta": "Manifestaciones de Insuficiencia Suprarrenal",
+    "opciones": [
+      "Hipotensión",
+      "Hiperpigmentación",
+      "Astenia",
+      "Obesidad central"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Obesidad central (es un signo de exceso de cortisol, como en el Síndrome de Cushing)."
+  },
+  {
+    "pregunta": "Causas de Acidosis Respiratoria",
+    "opciones": [
+      "EPOC",
+      "Depresión del SNC",
+      "Miastenia Gravis",
+      "Ansiedad"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Ansiedad (causa alcalosis respiratoria por hiperventilación)."
+  },
+  {
+    "pregunta": "Factores de Riesgo de Osteoporosis",
+    "opciones": [
+      "Menopausia",
+      "Corticoterapia crónica",
+      "Inmovilización",
+      "Obesidad mórbida"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Obesidad mórbida (el exceso de peso es un factor protector relativo para la osteoporosis)."
+  },
+  {
+    "pregunta": "Síntomas de Hipercalcemia",
+    "opciones": [
+      "Estreñimiento",
+      "Poliuria",
+      "Debilidad muscular",
+      "Tetania"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Tetania (es un signo de Hipocalcemia)."
+  },
+  {
+    "pregunta": "Signos de Meningoencefalitis",
+    "opciones": [
+      "Fiebre",
+      "Cefalea",
+      "Rigidez de nuca",
+      "Hematuria"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Hematuria (sangre en orina, no relacionada con meningoencefalitis)."
+  },
+  {
+    "pregunta": "Criterios de Systemic Inflammatory Response Syndrome (SIRS)",
+    "opciones": [
+      "Temperatura >38°C o <36°C",
+      "Frecuencia cardíaca >90 lpm",
+      "Leucocitos >12.000 o <4.000",
+      "Plaquetas <150.000"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso son las Plaquetas <150.000 (es trombocitopenia, no es uno de los criterios SIRS). El cuarto criterio SIRS es FR >20 o PaCO2 <32 mmHg."
+  },
+  {
+    "pregunta": "Manifestaciones de Síndrome de Abstinencia",
+    "opciones": [
+      "Temblor",
+      "Ansiedad",
+      "Sudoración",
+      "Bradicardia"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Bradicardia. El síndrome de abstinencia cursa con taquicardia."
+  },
+  {
+    "pregunta": "Signos de Insuficiencia Hepática",
+    "opciones": [
+      "Ictericia",
+      "Ascitis",
+      "Encefalopatía",
+      "Hemoptisis"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Hemoptisis (sangrado en pulmones). Los signos de insuficiencia hepática incluyen coagulopatía, pero no específicamente hemoptisis."
+  },
+  {
+    "pregunta": "Complicaciones de la Cirrosis",
+    "opciones": [
+      "Hemorragia por varices esofágicas",
+      "Peritonitis bacteriana espontánea",
+      "Encefalopatía hepática",
+      "Neumonía lobar"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es la Neumonía lobar (infección pulmonar, no una complicación directa de la cirrosis)."
+  },
+  {
+    "pregunta": "Fármacos: Antagonistas del Calcio",
+    "opciones": [
+      "Amlodipino",
+      "Nifedipino",
+      "Verapamilo",
+      "Losartán"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es Losartán (es un ARA-II). El resto son calcioantagonistas."
+  },
+  {
+    "pregunta": "Fármacos: Diuréticos",
+    "opciones": [
+      "Furosemida",
+      "Hidroclorotiazida",
+      "Espironolactona",
+      "Metformina"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es Metformina (es un antidiabético)."
+  },
+  {
+    "pregunta": "Fármacos: Antianginosos",
+    "opciones": [
+      "Nitroglicerina",
+      "Isosorbida",
+      "Propranolol",
+      "Omeprazol"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es Omeprazol (IBP, para protección gástrica)."
+  },
+  {
+    "pregunta": "Fármacos: Antieméticos",
+    "opciones": [
+      "Ondansetrón",
+      "Metoclopramida",
+      "Domperidona",
+      "Paracetamol"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es Paracetamol (analgésico, no antiemético)."
+  },
+  {
+    "pregunta": "Fármacos: Laxantes",
+    "opciones": [
+      "Lactulosa",
+      "Bisacodilo",
+      "Sales de magnesio",
+      "Loperamida"
+    ],
+    "correcta": 3,
+    "explicacion": "El intruso es Loperamida (es un antidiarreico, hace lo contrario)."
+  }
+]
