@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Guía Farmacológica · Urgencias – AGS Sur de Córdoba</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+
+  <!-- Iconos móviles -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon_transp-180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon_transp-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon_transp-16.png">
+
+  <!-- Estilos globales -->
+  <link rel="stylesheet" href="../../css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <!-- Estilos específicos Farmacia -->
+  <link rel="stylesheet" href="./css/farmacia.css"/>
+
+  <style>
+    /* --- Ajustes visuales del módulo Farmacia (estructura y layout) --- */
+    .farm-hero{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+    .farm-hero .icon{font-size:44px;color:#003a6b}
+    .farm-hero h1{margin:0}
+    .farm-search{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .farm-search input[type="search"]{flex:1;min-width:260px;padding:.7rem .9rem;border:1px solid #e5e7eb;border-radius:10px}
+    .farm-search .hint{color:#64748b;font-size:.9rem}
+
+    /* Dos columnas: izq imagen; dcha ficha + calc apiladas */
+    .farm-wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:12px;align-items:start}
+    .stack{display:grid;gap:12px}
+
+    .farm-card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05)}
+    .farm-card .hd{padding:10px 12px;border-bottom:1px solid #e5e7eb;font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .farm-card .bd{padding:12px}
+
+    .drug-img{width:100%;height:auto;border-radius:10px;object-fit:contain;background:#f8fafc;border:1px dashed #e5e7eb;min-height:260px}
+    .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .kv{display:grid;gap:4px}
+    .kv label{font-size:.85rem;color:#64748b}
+    .kv .v{font-weight:600}
+    .btn {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 10px;
+  padding: .55rem .9rem;
+  cursor: pointer;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.2s ease;
+}
+.btn i {
+  margin-right: .35rem;
+}
+
+/* Botones de navegación (siempre con color) */
+.btn-consulta,
+.btn-critico,
+.btn-frigo {
+  color: white !important;
+  border-radius: 10px;
+  padding: .55rem .9rem;
+  cursor: pointer;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.2s ease;
+}
+
+/* Botón Consulta - Azul */
+.btn-consulta {
+  background: #0ea5e9 !important;
+  border: 1px solid #0284c7 !important;
+}
+.btn-consulta:hover {
+  background: #0284c7 !important;
+  border-color: #0369a1 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+}
+
+/* Botón Críticos - Rojo/Naranja */
+.btn-critico {
+  background: #ef4444 !important;
+  border: 1px solid #dc2626 !important;
+}
+.btn-critico:hover {
+  background: #dc2626 !important;
+  border-color: #b91c1c !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* Botón Frigorífico - Violeta */
+.btn-frigo {
+  background: #8b5cf6 !important;
+  border: 1px solid #7c3aed !important;
+}
+.btn-frigo:hover {
+  background: #7c3aed !important;
+  border-color: #6d28d9 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.btn:active,
+.btn-consulta:active,
+.btn-critico:active,
+.btn-frigo:active {
+  transform: translateY(0);
+}
+    .muted{color:#64748b}
+    .tag{display:inline-block;background:#f1f5f9;color:#0f172a;border:1px solid #e5e7eb;border-radius:999px;padding:.25rem .6rem;font-size:.85rem}
+    .pill{display:inline-flex;align-items:center;gap:6px;padding:.4rem .6rem;border-radius:999px;border:1px solid #e5e7eb}
+    .pill i{color:#0ea5e9}
+    .hl{background:#fffbeb;border:1px dashed #fde68a;padding:.6rem .8rem;border-radius:10px}
+
+    /* Selector de vista sobre imagen (dinámico) */
+    .view-seg{display:flex; gap:6px; flex-wrap:wrap; margin-top:0}
+    .view-crumb{font-size:.9rem;color:#64748b}
+
+    /* Imagen + hotspots integrados y miniatura */
+    .product-wrap{position:relative; border-radius:10px; overflow:hidden; margin-top:8px}
+    #hotLayer{position:absolute; inset:0}
+    #thumbDrug{
+      position:absolute; display:none; background:#fff; object-fit:contain;
+      border:2px solid #fff; box-shadow:0 4px 16px rgba(0,0,0,.25); border-radius:8px;
+      z-index:3; pointer-events:none;
+    }
+
+    /* Cabecera de ficha en rojo si riesgo activo (el body no cambia) */
+    .ficha-card.risk-active .bd{ background:initial !important; color:inherit !important; }
+    .ficha-card.risk-active .kv label{ color:inherit !important; opacity:1 !important; }
+    .ficha-card.risk-active .kv .v{ color:inherit !important; }
+
+    /* Ocultables por tipo */
+    .is-hidden{display:none !important}
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" aria-label="Navegación principal">
+    <div class="sidebar-header">
+      <img src="../../images/logo-ags.png" alt="Área de Gestión Sanitaria Sur de Córdoba"/>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="../../index.html"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+        <li><a href="../../Algoritmos/index.html"><i class="fas fa-sitemap"></i> <span>Algoritmos diagnósticos</span></a></li>
+        <li><a href="../../Calculadoras/index.html"><i class="fas fa-calculator"></i> <span>Calculadoras médicas</span></a></li>
+        <li><a href="../../Utilidades/index.html" class="active"><i class="fas fa-toolbox"></i> <span>Utilidades</span></a></li>
+        <li><a href="../../Formacion/index.html"><i class="fas fa-graduation-cap"></i> <span>Formación</span></a></li>
+        <li><a href="../../Enlaces/index.html"><i class="fas fa-link"></i> <span>Enlaces útiles</span></a></li>
+        <li><a href="../../Documentos/index.html"><i class="fas fa-file-lines"></i> <span>Documentos y plantillas</span></a></li>
+        <li><a href="../../Calidad/index.html"><i class="fas fa-shield-heart"></i> <span>Calidad y Seguridad del Paciente</span></a></li>
+      </ul>
+      <ul class="submenu-criticos">
+        <li><a href="../../Criticos/index.html"><i class="fas fa-procedures"></i> <span>Sala de Críticos</span></a></li>
+      </ul>
+      <ul class="submenu-equipo">
+        <li><a href="../../Profesionales/index.html"><i class="fas fa-user-md"></i> <span>Fichas del personal</span></a></li>
+        <li><a href="../../Cuadrantes/index.html"><i class="fas fa-calendar-alt"></i> <span>Cuadrantes de trabajo</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Cabecera -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <img src="../../images/Logo-Salud2.png" alt="Junta de Andalucía · Consejería de Salud y Consumo"/>
+    </div>
+    <div class="masthead-right">
+      <img src="../../images/LOGO-SERVICIO-DE-URGENCIAS-NEGRO.png" alt="Servicio de Urgencias · Hospital de Montilla"/>
+    </div>
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="main-content" role="main">
+    <section class="farm-hero">
+      <div class="icon"><i class="fa-solid fa-pills"></i></div>
+      <div>
+        <h1>Guía Farmacológica Urgencias/Emergencias</h1>
+        <p class="muted">
+          Localiza medicación, material sanitario y equipos; revisa información clave y su ubicación exacta en los armarios de <strong>Consulta</strong> y <strong>Sala de Críticos</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- Buscador -->
+    <section class="farm-card" style="margin-top:10px">
+      <div class="hd">Buscar</div>
+      <div class="bd">
+        <div class="farm-search">
+          <input id="q" type="search" placeholder="Nombre o principio activo…" autocomplete="off"/>
+          <button id="btnClear" class="btn">Limpiar</button>
+          <span class="hint">Escribe al menos 2 caracteres · Pulsa Enter para seleccionar el primero</span>
+        </div>
+        <div id="sug" class="seg" style="margin-top:8px"></div>
+      </div>
+    </section>
+
+    <!-- Imagen (izquierda) + Ficha y Cálculo (derecha) -->
+    <section class="farm-wrap" style="margin-top:10px">
+      <!-- Columna izquierda: Imagen / Vista integrada -->
+      <div class="farm-card">
+        <div class="hd">
+          <div class="view-seg" id="viewSeg"><!-- botones dinámicos aquí --></div>
+          <span id="viewCrumb" class="view-crumb">Vista: Producto</span>
+        </div>
+        <div class="bd">
+          <div class="product-wrap">
+            <img id="imgDrug" class="drug-img" alt="Imagen del producto" src="data:,"/>
+            <div id="hotLayer"></div>
+            <img id="thumbDrug" alt="Miniatura" src="data:,"/>
+          </div>
+          <div id="imgHint" class="hl" style="margin-top:8px;display:none">
+            No hay imagen asociada en el JSON. Puedes añadirla más adelante sin afectar al uso clínico.
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna derecha: Ficha + Calculadora apiladas -->
+      <div class="stack">
+        <!-- Ficha breve (conmutada por tipo) -->
+        <div id="cardFicha" class="farm-card ficha-card">
+          <div id="hdrFicha" class="hd">Ficha breve</div>
+          <div class="bd">
+            <!-- Píldora de tipo -->
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+              <span id="tipoPill" class="pill"><i class="fa-regular fa-circle-dot"></i> —</span>
+            </div>
+
+            <div class="info-grid">
+              <!-- Nombre (común) -->
+              <div class="kv"><label>Nombre</label><div id="fNombre" class="v">—</div></div>
+
+              <!-- ====== Bloque FÁRMACO ====== -->
+              <div class="kv kv-drug"><label>Principio activo</label><div id="fPA" class="v">—</div></div>
+              <div class="kv kv-drug"><label>Grupo terapéutico</label><div id="fGrupo" class="v">—</div></div>
+              <div class="kv kv-drug"><label>Vías</label><div id="fVias" class="v">—</div></div>
+              <div class="kv kv-drug" style="grid-column: span 2;"><label>Indicaciones</label><div id="fIndic" class="v">—</div></div>
+
+              <!-- Dosificación dentro de ficha (solo fármaco) -->
+              <div class="kv kv-drug" id="rowDosi"><label>Dosificación y posología</label><div id="fDosi" class="v">—</div></div>
+              <div class="kv kv-drug" id="rowCarga" style="display:none"><label>Dosis de carga</label><div id="fCarga" class="v">—</div></div>
+              <div class="kv kv-drug" id="rowMant"  style="display:none"><label>Dosis de mantenimiento</label><div id="fMant" class="v">—</div></div>
+
+              <!-- ====== Bloque MATERIAL/EQUIPO ====== -->
+              <div class="kv kv-me" style="grid-column: span 2; display:none"><label>Descripción</label><div id="fDesc" class="v">—</div></div>
+              <div class="kv kv-me" style="grid-column: span 2; display:none"><label>Normas de uso</label><div id="fUso" class="v">—</div></div>
+              <div class="kv kv-me" style="grid-column: span 2; display:none"><label>Conservación</label><div id="fCons" class="v">—</div></div>
+              <div class="kv kv-me" style="grid-column: span 2; display:none"><label>Enlaces</label><div id="fLinks" class="v">—</div></div>
+
+              <!-- Comunes -->
+              <div class="kv" style="grid-column: span 2;"><label>Advertencias</label><div id="fAdv" class="v">—</div></div>
+              <div class="kv" style="grid-column: span 2;"><label>Localización</label><div id="fLoc" class="v">—</div></div>
+            </div>
+
+            <div class="btn-row" style="margin-top:10px">
+              <a id="lnkConsulta" class="btn btn-consulta" href="consulta.html" aria-disabled="true">
+                <i class="fa-solid fa-stethoscope"></i> Consulta
+              </a>
+              <a id="lnkCritOral" class="btn btn-critico" href="criticosoral.html" aria-disabled="true">
+                <i class="fa-solid fa-pills"></i> Críticos · Oral
+              </a>
+              <a id="lnkCritIV" class="btn btn-critico" href="criticosiv.html" aria-disabled="true">
+                <i class="fa-solid fa-syringe"></i> Críticos · IV
+              </a>
+              <!-- Añadir este botón -->
+              <a id="lnkFrigo" class="btn btn-frigo" href="frigorifico.html" aria-disabled="true">
+                <i class="fa-solid fa-temperature-low"></i> Frigorífico
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- TARJETA: Dosificación y posología (cálculo por peso) -->
+        <div id="cardCalc" class="farm-card">
+          <div class="hd">Dosificación y posología (cálculo por peso si aplica)</div>
+          <div class="bd">
+            <div class="calc-row" style="display:grid;grid-template-columns:160px 1fr;gap:8px;align-items:center">
+              <label for="peso"><strong>Peso (kg)</strong></label>
+              <input id="peso" type="number" min="1" step="0.5" placeholder="Ej. 70"/>
+            </div>
+
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0">
+              <span class="pill"><i class="fa-regular fa-circle-dot"></i> <span id="unidadInfo">Auto</span></span>
+              <span class="pill"><i class="fa-regular fa-clock"></i> Ajuste por pauta si procede</span>
+            </div>
+
+            <div class="calc-out" id="calcOut" style="background:#0b1220;color:#e2e8f0;border-radius:10px;padding:10px;min-height:56px;white-space:pre-line">
+              Introduce un peso y selecciona un fármaco para ver cálculo.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Avisos legales -->
+    <p class="disclaimer strong">
+      Material interno. Verifica dosis y adecuación clínica antes de su uso. Ajusta según función renal, edad y comorbilidades.
+    </p>
+    <p class="disclaimer centered">
+      LAS IMÁGENES Y PRESENTACIÓN DE LOS FÁRMACOS PUEDE NO COINCIDIR EXACTAMENTE CON LOS PRODUCTOS DISPONIBLES DEBIDO A LA VARIACIÓN DE SUMINISTRADORES, PERO EL PRINCIPIO ACTIVO, DOSIS Y CONCENTRACIÓN ES CORRECTA.
+    </p>
+  </main>
+
+  <!-- Scripts comunes (orden IMPORTANTE) -->
+  <script src="./js/utils.js"></script>
+  <script src="./js/farmacia.js"></script>
+
+  <!-- Script principal de esta página -->
+  <script>
+  (function(){
+    var $ = function(s){ return document.querySelector(s); };
+    var el = {
+      q: $('#q'), sug: $('#sug'), btnClear: $('#btnClear'),
+      imgDrug: $('#imgDrug'), imgHint: $('#imgHint'),
+      // ficha
+      fNombre: $('#fNombre'),
+      fPA: $('#fPA'), fGrupo: $('#fGrupo'), fVias: $('#fVias'), fIndic: $('#fIndic'),
+      rowDosi: $('#rowDosi'), fDosi: $('#fDosi'),
+      rowCarga: $('#rowCarga'), fCarga: $('#fCarga'),
+      rowMant: $('#rowMant'),  fMant:  $('#fMant'),
+      // material/equipo
+      fDesc: $('#fDesc'), fUso: $('#fUso'), fCons: $('#fCons'), fLinks: $('#fLinks'),
+      // comunes
+      fAdv: $('#fAdv'), fLoc: $('#fLoc'),
+      // layout
+      viewSeg: $('#viewSeg'), viewCrumb: $('#viewCrumb'),
+      hotLayer: $('#hotLayer'), thumbDrug: $('#thumbDrug'),
+      cardFicha: $('#cardFicha'), hdrFicha: $('#hdrFicha'),
+      lnkConsulta: $('#lnkConsulta'), lnkCritOral: $('#lnkCritOral'), lnkCritIV: $('#lnkCritIV'), lnkFrigo: $('#lnkFrigo'),
+      tipoPill: $('#tipoPill'),
+      // tarjeta cálculo
+      cardCalc: $('#cardCalc'), peso: $('#peso'), calcOut: $('#calcOut'), unidadInfo: $('#unidadInfo')
+    };
+
+    var DATA = [], RISKMAP = new Map(), sel = null, NSEL = null;
+    var currentView = 'producto';
+    var currentHotspot = null;
+
+    var ro = new ResizeObserver(function(){
+      if (sel && currentView!=='producto' && currentHotspot) positionThumb(currentHotspot);
+    });
+    ro.observe(document.body);
+
+    Promise.all([
+      Farmacia.cargarTodosFarmacos(),
+      fetch('./data/altoriesgo.json?cb=' + Date.now()).then(function(r){ return r.json(); }).catch(function(){ return []; })
+    ]).then(function(arr){
+      var drugs = arr[0], risk = arr[1];
+      DATA = Array.isArray(drugs) ? drugs : [];
+      RISKMAP = Farmacia.buildRiskMap(risk || []);
+      // preselección por ?id
+      var preId = Utils.getParam('id');
+      if (preId){
+        var d = DATA.find(function(x){ return (x.id||'').toLowerCase() === preId.toLowerCase(); });
+        if (d) selectItem(d);
+      }
+    });
+
+    el.imgDrug.addEventListener('load', function(){
+      if (sel && currentView!=='producto' && currentHotspot){
+        positionThumb(currentHotspot);
+      }
+    });
+
+    /* ====== Buscador */
+    el.q.addEventListener('input', function(){
+      var t = (el.q.value||'').trim().toLowerCase();
+      el.sug.innerHTML='';
+      if(t.length<2) return;
+      var hits = DATA.filter(function(d){
+        var n = (d.nombre||'').toLowerCase();
+        var pa = (d.principio_activo||'').toLowerCase();
+        return n.indexOf(t)>-1 || pa.indexOf(t)>-1;
+      }).slice(0,12);
+      hits.forEach(function(d){
+        var b=document.createElement('button');
+        b.className='btn';
+        var info = Farmacia.getRiskInfo(d, RISKMAP);
+        b.innerHTML = (info ? '<i class="fa-solid fa-triangle-exclamation" style="color:#b91c1c"></i>&nbsp;' : '')
+          + (d.nombre || d.principio_activo || d.id);
+        b.onclick=function(){ selectItem(d); };
+        el.sug.appendChild(b);
+      });
+    });
+    el.q.addEventListener('keydown', function(e){
+      if(e.key==='Enter'){
+        var t=(el.q.value||'').trim().toLowerCase();
+        var d=DATA.find(function(x){
+          return ((x.nombre||'').toLowerCase().indexOf(t)>-1)||((x.principio_activo||'').toLowerCase().indexOf(t)>-1);
+        });
+        if(d) selectItem(d);
+      }
+    });
+    el.btnClear.onclick=function(){ el.q.value=''; el.sug.innerHTML=''; clearItem(); };
+
+    function setTipo(tipo){
+      // Píldora de tipo
+      const nombres = { farmaco:'Fármaco', material:'Material sanitario', equipo:'Electromedicina' };
+      if(el.tipoPill){
+        el.tipoPill.innerHTML = '<i class="fa-regular fa-circle-dot"></i> ' + (nombres[tipo] || '—');
+      }
+
+      // Toggle de bloques de ficha
+      const showDrug = (tipo === 'farmaco');
+      document.querySelectorAll('.kv-drug').forEach(n => n.classList.toggle('is-hidden', !showDrug));
+      const showME = !showDrug;
+      document.querySelectorAll('.kv-me').forEach(n => n.style.display = showME ? '' : 'none');
+
+      // Mostrar/ocultar tarjeta de cálculo
+      el.cardCalc.style.display = showDrug ? '' : 'none';
+
+      // Alto riesgo SOLO para fármacos
+      if (showDrug){
+        Farmacia.applyRiskHeader({
+          headerEl: el.hdrFicha,
+          baseTitle: 'Ficha breve',
+          drug: sel,
+          riskMap: RISKMAP
+        });
+      } else {
+        el.hdrFicha.classList.remove('risk');
+        el.hdrFicha.textContent = 'Ficha breve';
+      }
+
+      // Reset de filas internas de dosificación para dejar decidir a paintFichaDosificacion
+      if (showDrug){
+        el.rowDosi.style.display = '';
+        el.rowCarga.style.display = 'none';
+        el.rowMant.style.display  = 'none';
+      } else {
+        el.rowDosi.style.display = 'none';
+        el.rowCarga.style.display = 'none';
+        el.rowMant.style.display  = 'none';
+      }
+    }
+
+    function selectItem(d){
+      sel = d;
+      NSEL = Farmacia.normalizeDrug(d);
+      el.q.value = NSEL.nombre || '';
+      el.sug.innerHTML = '';
+
+      // Imagen principal
+      const imgSrc = Utils.normalizePath(NSEL.imagen_producto);
+      if (imgSrc){ el.imgDrug.src = imgSrc; el.imgHint.style.display='none'; }
+      else { el.imgDrug.src = 'data:,'; el.imgHint.style.display='block'; }
+
+      // Tipo y conmutación de bloques
+      const tipo = (d.tipo || 'farmaco');
+      setTipo(tipo);
+
+      // Nombre (común)
+      el.fNombre.textContent = NSEL.nombre || '—';
+
+      if (tipo === 'farmaco'){
+        // Campos específicos de fármaco
+        el.fPA.textContent    = NSEL.principio_activo || '—';
+        const rinfoBody = Farmacia.getRiskInfo(d, RISKMAP);
+        el.fGrupo.textContent = (rinfoBody && rinfoBody.grupo) ? rinfoBody.grupo : '—';
+        el.fVias.textContent  = NSEL.vias_display;
+        el.fIndic.textContent = Array.isArray(NSEL.indicaciones) ? NSEL.indicaciones.join('; ') : '—';
+
+        // Asegurar filas y pintar resumen de dosificación en ficha
+        el.rowDosi.style.display = '';
+        el.rowCarga.style.display = 'none';
+        el.rowMant.style.display  = 'none';
+        paintFichaDosificacion(NSEL);
+
+        // Limpiar campos de material/equipo
+        el.fDesc.textContent = '—';
+        el.fUso.textContent  = '—';
+        el.fCons.textContent = '—';
+        el.fLinks.textContent = '—';
+
+        // Recalcular tarjeta de cálculo
+        recalc();
+      } else {
+        // Material / Equipo
+        el.fDesc.textContent = d.descripcion || '—';
+        el.fUso.textContent  = Array.isArray(d.uso) ? d.uso.join(' · ') : (d.uso || '—');
+        el.fCons.textContent = Array.isArray(d.conservacion) ? d.conservacion.join(' · ') : (d.conservacion || '—');
+
+        if (Array.isArray(d.enlaces) && d.enlaces.length){
+          el.fLinks.innerHTML = d.enlaces.map(function(e){
+            var t = e.titulo || 'Enlace';
+            var u = e.url || '#';
+            return '<a class="tag" href="'+u+'" target="_blank" rel="noopener">'+t+'</a>';
+          }).join(' ');
+        } else {
+          el.fLinks.textContent = '—';
+        }
+
+        // Limpiar campos de fármaco y mensaje de cálculo
+        el.fPA.textContent = '—';
+        el.fGrupo.textContent = '—';
+        el.fVias.textContent = '—';
+        el.fIndic.textContent = '—';
+        el.calcOut.textContent = 'El cálculo por peso no aplica a material/equipo.';
+        el.unidadInfo.textContent = '—';
+      }
+
+      // Advertencias (comunes)
+      el.fAdv.textContent = Array.isArray(NSEL.advertencias) ? NSEL.advertencias.join('; ') : (NSEL.advertencias || '—');
+
+      // Localización
+      el.fLoc.innerHTML = getLocSummary(d);
+
+      // Vistas e hipervínculos
+      buildViewButtons(d);
+      setViewMode('producto', d);
+      wireLinks(d);
+    }
+
+    function clearItem(){
+      sel=null; NSEL=null;
+      el.imgDrug.src='data:,'; el.imgHint.style.display='none';
+
+      el.fNombre.textContent='—';
+      // drug
+      el.fPA.textContent='—'; el.fGrupo.textContent='—'; el.fVias.textContent='—'; el.fIndic.textContent='—';
+      el.rowDosi.style.display=''; el.fDosi.textContent='—';
+      el.rowCarga.style.display='none'; el.fCarga.textContent='—';
+      el.rowMant.style.display='none';  el.fMant.textContent='—';
+      // ME
+      el.fDesc.textContent='—'; el.fUso.textContent='—'; el.fCons.textContent='—'; el.fLinks.textContent='—';
+      // comunes
+      el.fLoc.textContent='—'; el.fAdv.textContent='—';
+
+      el.hdrFicha.classList.remove('risk');
+      el.hdrFicha.textContent = 'Ficha breve';
+      el.viewSeg.innerHTML = '';
+      el.viewCrumb.textContent = 'Vista: Producto';
+      el.hotLayer.innerHTML = '';
+      el.thumbDrug.style.display = 'none';
+      currentView = 'producto';
+      currentHotspot = null;
+      disableLink(el.lnkConsulta); disableLink(el.lnkCritOral); disableLink(el.lnkCritIV); disableLink(el.lnkFrigo);
+
+      // Reset bloques visibles (por defecto fármaco on)
+      document.querySelectorAll('.kv-drug').forEach(function(n){ n.classList.remove('is-hidden'); });
+      document.querySelectorAll('.kv-me').forEach(function(n){ n.style.display='none'; });
+
+      // Reset tarjeta cálculo
+      el.cardCalc.style.display = '';
+      el.calcOut.textContent = 'Introduce un peso y selecciona un fármaco para ver cálculo.';
+      el.unidadInfo.textContent = 'Auto';
+      el.peso.value = '';
+    }
+
+    function disableLink(a){
+      if(!a) return;
+      a.setAttribute('aria-disabled','true');
+      a.style.opacity='.5';
+      a.style.pointerEvents='none';
+    }
+    function enableLink(a){
+      if(!a) return;
+      a.removeAttribute('aria-disabled');
+      a.style.opacity='1';
+      a.style.pointerEvents='auto';
+    }
+    function wireLinks(d){
+      var id = d.id || '';
+      if(el.lnkConsulta){
+        el.lnkConsulta.href = Farmacia.linkTo('consulta.html', { id: id });
+        enableLink(el.lnkConsulta);
+      }
+      if(el.lnkCritOral){
+        el.lnkCritOral.href = Farmacia.linkTo('criticosoral.html', { id: id });
+        enableLink(el.lnkCritOral);
+      }
+      if(el.lnkCritIV){
+        el.lnkCritIV.href = Farmacia.linkTo('criticosiv.html', { id: id });
+        enableLink(el.lnkCritIV);
+      }
+      if(el.lnkFrigo){
+        el.lnkFrigo.href = Farmacia.linkTo('frigorifico.html', { id: id });
+        enableLink(el.lnkFrigo);
+      }
+    }
+
+    /* ====== Vistas/Localización ====== */
+    function getLocationEntries(d){
+      var out = [];
+      var c = d && d.localizacion && d.localizacion.consulta;
+      if (c && Array.isArray(c.hotspots) && c.hotspots.length){
+        out.push({ id:'consulta', label:'Consulta', map:c.map, hotspots:c.hotspots });
+      }
+      var crit = (d && d.localizacion && Array.isArray(d.localizacion.criticos)) ? d.localizacion.criticos : [];
+      var oral = crit.find(function(x){ return x.id==='oral'; });
+      if (oral && Array.isArray(oral.hotspots) && oral.hotspots.length){
+        out.push({ id:'oral', label:'Críticos · Oral', map:oral.map, hotspots:oral.hotspots });
+      }
+      var iv = crit.find(function(x){ return x.id==='iv'; });
+      if (iv && Array.isArray(iv.hotspots) && iv.hotspots.length){
+        out.push({ id:'iv', label:'Críticos · IV', map:iv.map, hotspots:iv.hotspots });
+      }
+      var frigo = d && d.localizacion && d.localizacion.frigorifico;
+      if (frigo && Array.isArray(frigo.hotspots) && frigo.hotspots.length){
+        out.push({ id:'frigo', label:'Frigorífico', map:frigo.map, hotspots:frigo.hotspots });
+      }
+      return out;
+    }
+
+    function buildViewButtons(d){
+      el.viewSeg.innerHTML = '';
+      var bProd = document.createElement('button');
+      bProd.className = 'btn';
+      bProd.textContent = 'Producto';
+      bProd.dataset.view = 'producto';
+      bProd.onclick = function(){ setViewMode('producto', d); };
+      el.viewSeg.appendChild(bProd);
+
+      getLocationEntries(d).forEach(function(ent){
+        var btn = document.createElement('button');
+        btn.className = 'btn';
+        btn.textContent = ent.label;
+        btn.dataset.view = ent.id;
+        btn.onclick = function(){ setViewMode(ent.id, d); };
+        el.viewSeg.appendChild(btn);
+      });
+    }
+
+    function setViewMode(mode, d){
+      currentView = mode;
+      var mapNames = { producto:'Producto', consulta:'Consulta', oral:'Críticos · Oral', iv:'Críticos · IV', frigo:'Frigorífico'  };
+      el.viewCrumb.textContent = 'Vista: ' + (mapNames[mode] || 'Producto');
+
+      el.viewSeg.querySelectorAll('.btn').forEach(function(b){
+        var active = (b.dataset.view === mode);
+        b.style.background = active ? '#0ea5e9' : '';
+        b.style.borderColor = active ? '#0ea5e9' : '';
+        b.style.color = active ? '#fff' : '';
+      });
+
+      if (mode === 'producto'){
+        var imgSrc = Utils.normalizePath(NSEL ? NSEL.imagen_producto : (d && d.imagenes ? d.imagenes.producto : null));
+        el.imgDrug.src = imgSrc || 'data:,';
+        el.thumbDrug.style.display = 'none';
+        el.hotLayer.innerHTML = '';
+        currentHotspot = null;
+        return;
+      }
+
+      var entries = getLocationEntries(d);
+      var ent = entries.find(function(e){ return e.id === mode; });
+      if (!ent){
+        setViewMode('producto', d);
+        return;
+      }
+      el.imgDrug.src = Utils.normalizePath(ent.map) || 'data:,';
+      el.hotLayer.innerHTML = '';
+
+      var hs = ent.hotspots || [];
+      if (!hs.length){ el.thumbDrug.style.display = 'none'; currentHotspot = null; return; }
+
+      hs.forEach(function(h){
+        if (h.shape === 'rect'){
+          var box = document.createElement('div');
+          box.style.position = 'absolute';
+          box.style.left   = (h.x*100)+'%';
+          box.style.top    = (h.y*100)+'%';
+          box.style.width  = (h.w*100)+'%';
+          box.style.height = (h.h*100)+'%';
+          box.style.border = '2px solid #2563eb';
+          box.style.background = 'rgba(37,99,235,.12)';
+          box.style.borderRadius = '6px';
+          box.style.zIndex = 2;
+          el.hotLayer.appendChild(box);
+        }
+      });
+
+      var h0 = hs[0];
+      var prodSrc = Utils.normalizePath(NSEL ? NSEL.imagen_producto : (d && d.imagenes ? d.imagenes.producto : null));
+      currentHotspot = (prodSrc && h0 && h0.shape === 'rect') ? h0 : null;
+
+      if (currentHotspot){
+        positionThumb(currentHotspot);
+      } else {
+        el.thumbDrug.style.display = 'none';
+      }
+    }
+
+    function positionThumb(h){
+      var wrapRect = el.imgDrug.parentElement.getBoundingClientRect();
+      var W = wrapRect.width;
+      var H = wrapRect.height;
+
+      var left = h.x * W;
+      var top  = h.y * H;
+      var ww   = h.w * W;
+      var hh   = h.h * H;
+
+      var prodSrc = Utils.normalizePath(NSEL ? NSEL.imagen_producto : (sel && sel.imagenes ? sel.imagenes.producto : null));
+      if (!prodSrc || ww<=0 || hh<=0){ el.thumbDrug.style.display='none'; return; }
+
+      el.thumbDrug.src = prodSrc;
+      el.thumbDrug.style.display = 'block';
+      el.thumbDrug.style.left   = left + 'px';
+      el.thumbDrug.style.top    = top  + 'px';
+      el.thumbDrug.style.width  = ww   + 'px';
+      el.thumbDrug.style.height = hh   + 'px';
+    }
+
+    function getLocSummary(d){
+      var entries = getLocationEntries(d);
+      if (!entries.length) return '<span class="tag">Sin coordenadas</span>';
+      return entries.map(function(e){
+        var n = (e.hotspots||[]).length;
+        return '<span class="tag">'+e.label+(n>1 ? ' ('+n+')' : '')+'</span>';
+      }).join(' ');
+    }
+
+    /* ====== Resumen “Dosificación y posología” (FÁRMACO) ====== */
+    function resumenFichaDosiPoso(N){
+      if (!N || !N.dosis || !N.dosis.adulto) return '—';
+      var D = N.dosis.adulto;
+      var parts = [];
+      if (typeof D.dosis_fija_mg === 'number') {
+        parts.push(D.dosis_fija_mg + ' mg por toma');
+      } else if (D.dosis_por_kg_mgkg) {
+        if (typeof D.dosis_por_kg_mgkg === 'number') {
+          parts.push(D.dosis_por_kg_mgkg + ' mg/kg por toma');
+        } else if (D.dosis_por_kg_mgkg && typeof D.dosis_por_kg_mgkg.min === 'number' && typeof D.dosis_por_kg_mgkg.max === 'number'){
+          parts.push(D.dosis_por_kg_mgkg.min + '–' + D.dosis_por_kg_mgkg.max + ' mg/kg por toma');
+        }
+      }
+      if (D.intervalo_horas){
+        if (typeof D.intervalo_horas === 'number') parts.push(D.intervalo_horas + ' h');
+        else if (D.intervalo_horas.min != null && D.intervalo_horas.max != null) parts.push(D.intervalo_horas.min + '–' + D.intervalo_horas.max + ' h');
+      }
+      if (parts.length === 0) return '—';
+      return parts.join(' · ');
+    }
+    function resumenFichaCarga(c){
+      var parts = [];
+      if (!c) return '—';
+      if (typeof c.dosis_fija_mg === 'number') parts.push(c.dosis_fija_mg + ' mg');
+      else if (c.dosis_por_kg_mgkg){
+        if (typeof c.dosis_por_kg_mgkg === 'number') parts.push(c.dosis_por_kg_mgkg + ' mg/kg');
+        else if (c.dosis_por_kg_mgkg && typeof c.dosis_por_kg_mgkg.min === 'number' && typeof c.dosis_por_kg_mgkg.max === 'number'){
+          parts.push(c.dosis_por_kg_mgkg.min + '–' + c.dosis_por_kg_mgkg.max + ' mg/kg');
+        }
+      }
+      if (typeof c.tiempo_adm_min === 'number') parts.push(c.tiempo_adm_min + ' min');
+      return parts.length ? parts.join(' · ') : '—';
+    }
+    function resumenFichaMantenimiento(m){
+      var parts = [];
+      if (!m) return '—';
+      if (typeof m.dosis_fija_mg === 'number') parts.push(m.dosis_fija_mg + ' mg por toma');
+      else if (m.dosis_por_kg_mgkg){
+        if (typeof m.dosis_por_kg_mgkg === 'number') parts.push(m.dosis_por_kg_mgkg + ' mg/kg por toma');
+        else if (m.dosis_por_kg_mgkg && typeof m.dosis_por_kg_mgkg.min === 'number' && typeof m.dosis_por_kg_mgkg.max === 'number'){
+          parts.push(m.dosis_por_kg_mgkg.min + '–' + m.dosis_por_kg_mgkg.max + ' mg/kg por toma');
+        }
+      }
+      if (m.intervalo_horas){
+        if (typeof m.intervalo_horas === 'number') parts.push(m.intervalo_horas + ' h');
+        else if (m.intervalo_horas.min != null && m.intervalo_horas.max != null) parts.push(m.intervalo_horas.min + '–' + m.intervalo_horas.max + ' h');
+      }
+      if (m.max_diaria){
+        if (m.max_diaria.mg != null) parts.push('Máx. diario: ' + m.max_diaria.mg + ' mg');
+        if (m.max_diaria.g  != null) parts.push('Máx. diario: ' + m.max_diaria.g + ' g');
+        if (m.max_diaria.mgkg != null) parts.push('Máx. diario: ' + m.max_diaria.mgkg + ' mg/kg');
+      }
+      return parts.length ? parts.join(' · ') : '—';
+    }
+    function paintFichaDosificacion(N){
+      el.rowDosi.style.display = '';
+      el.rowCarga.style.display = 'none';
+      el.rowMant.style.display  = 'none';
+      el.fDosi.textContent = '—'; el.fCarga.textContent = '—'; el.fMant.textContent = '—';
+
+      if (!N || !N.dosis || !N.dosis.adulto){
+        el.rowDosi.style.display = '';
+        el.fDosi.textContent = N && N.posologia_texto ? N.posologia_texto : '—';
+        return;
+      }
+      var D = N.dosis.adulto;
+      if (N.via === 'iv' && (D.carga || D.mantenimiento)){
+        el.rowDosi.style.display = 'none';
+        el.rowCarga.style.display = '';
+        el.rowMant.style.display  = '';
+        el.fCarga.textContent = resumenFichaCarga(D.carga);
+        el.fMant.textContent  = resumenFichaMantenimiento(D.mantenimiento);
+      } else {
+        el.rowDosi.style.display = '';
+        el.rowCarga.style.display = 'none';
+        el.rowMant.style.display  = 'none';
+        el.fDosi.textContent = resumenFichaDosiPoso(N);
+      }
+    }
+
+    /* ====== Calculadora (tarjeta derecha) ====== */
+    function isNum(x){ return typeof x==='number' && !isNaN(x); }
+    function fmtMg(n){ return (Math.round(n*100)/100) + ' mg'; }
+    function fmtG(n){  return (Math.round(n*100)/100) + ' g'; }
+    function fmtRangeNum(r){ return (r && isNum(r.min) && isNum(r.max)) ? (r.min + '–' + r.max) : null; }
+    function fmtInterval(v){
+      if (isNum(v)) return v + ' h';
+      if (v && isNum(v.min) && isNum(v.max)) return v.min + '–' + v.max + ' h';
+      return null;
+    }
+    function maxDiariaTxt(maxObj){
+      if (!maxObj) return null;
+      if (isNum(maxObj.mg)) return 'Máx. diario: ' + fmtMg(maxObj.mg);
+      if (isNum(maxObj.g))  return 'Máx. diario: ' + fmtG(maxObj.g);
+      if (isNum(maxObj.mgkg)) return 'Máx. diario: ' + maxObj.mgkg + ' mg/kg';
+      return null;
+    }
+    function calcKgBlock(mgkg, peso){
+      if (isNum(mgkg)){
+        var mg = mgkg * peso;
+        return fmtMg(mg) + ' por toma (' + mgkg + ' mg/kg × ' + peso + ' kg)';
+      }
+      var r = fmtRangeNum(mgkg);
+      if (r){
+        var minmg = mgkg.min * peso;
+        var maxmg = mgkg.max * peso;
+        return fmtMg(minmg) + ' – ' + fmtMg(maxmg) + ' por toma (' + mgkg.min + '–' + mgkg.max + ' mg/kg × ' + peso + ' kg)';
+      }
+      return null;
+    }
+    function outLines(lines){
+      return '<ul style="margin:.3rem 0 .2rem 1rem;line-height:1.5">' + lines.map(function(t){ return '<li>'+t+'</li>'; }).join('') + '</ul>';
+    }
+
+    function recalc(){
+      var p = +el.peso.value || 0;
+      if(!NSEL){
+        el.calcOut.textContent = 'Introduce un peso y selecciona un fármaco para ver cálculo.';
+        el.unidadInfo.textContent='Auto';
+        return;
+      }
+      var D = NSEL.dosis && NSEL.dosis.adulto ? NSEL.dosis.adulto : null;
+      if(!D){
+        el.calcOut.textContent = 'Este fármaco no tiene dosificación de adulto definida.';
+        el.unidadInfo.textContent='Auto';
+        return;
+      }
+
+      var tipo = D.tipo || '';
+      var lines = [];
+
+      if (tipo === 'kg'){
+        if (p<=0){ el.calcOut.textContent='Introduce peso para calcular dosis (mg/kg).'; el.unidadInfo.textContent='mg/kg'; return; }
+        var kgTxt = calcKgBlock(D.dosis_por_kg_mgkg, p);
+        if (kgTxt) lines.push(kgTxt);
+        var itv = fmtInterval(D.intervalo_horas);
+        if (itv) lines.push('Intervalo: ' + itv);
+        var mx = maxDiariaTxt(D.max_diaria);
+        if (mx) lines.push(mx);
+        if (NSEL.posologia_texto) lines.push('Posología: ' + NSEL.posologia_texto);
+        el.calcOut.innerHTML = outLines(lines);
+        el.unidadInfo.textContent='mg/kg';
+        return;
+      }
+
+      if (tipo === 'fija'){
+        if (isNum(D.dosis_fija_mg)) lines.push('Dosis fija: ' + fmtMg(D.dosis_fija_mg) + ' por toma');
+        var itv2 = fmtInterval(D.intervalo_horas);
+        if (itv2) lines.push('Intervalo: ' + itv2);
+        var mx2 = maxDiariaTxt(D.max_diaria);
+        if (mx2) lines.push(mx2);
+        if (NSEL.posologia_texto) lines.push('Posología: ' + NSEL.posologia_texto);
+        el.calcOut.innerHTML = outLines(lines);
+        el.unidadInfo.textContent='mg';
+        return;
+      }
+
+      if (tipo === 'fija_o_kg'){
+        if (isNum(D.dosis_fija_mg)) lines.push('Dosis fija: ' + fmtMg(D.dosis_fija_mg) + ' por toma');
+        if (p>0){
+          var kgTxt2 = calcKgBlock(D.dosis_por_kg_mgkg, p);
+          if (kgTxt2) lines.push('Alternativa por peso: ' + kgTxt2);
+        } else {
+          lines.push('Alternativa por peso: requiere peso (mg/kg).');
+        }
+        var itv3 = fmtInterval(D.intervalo_horas);
+        if (itv3) lines.push('Intervalo: ' + itv3);
+        var mx3 = maxDiariaTxt(D.max_diaria);
+        if (mx3) lines.push(mx3);
+        if (NSEL.posologia_texto) lines.push('Posología: ' + NSEL.posologia_texto);
+        el.calcOut.innerHTML = outLines(lines);
+        el.unidadInfo.textContent = (p>0 ? 'mg y mg/kg' : 'mg');
+        return;
+      }
+
+      if (tipo === 'iv_carga_mto'){
+        var c = D.carga || null;
+        if (c){
+          if (isNum(c.dosis_fija_mg)) lines.push('Carga: ' + fmtMg(c.dosis_fija_mg));
+          else if (p>0 && (isNum(c.dosis_por_kg_mgkg) || (c.dosis_por_kg_mgkg && isNum(c.dosis_por_kg_mgkg.min)))){
+            lines.push('Carga: ' + calcKgBlock(c.dosis_por_kg_mgkg, p));
+          } else if (c.dosis_por_kg_mgkg){
+            lines.push('Carga: requiere peso (mg/kg).');
+          }
+          if (isNum(c.tiempo_adm_min)) lines.push('Tiempo de administración: ' + c.tiempo_adm_min + ' min');
+        }
+
+        var m = D.mantenimiento || null;
+        if (m){
+          if (isNum(m.dosis_fija_mg)) lines.push('Mantenimiento: ' + fmtMg(m.dosis_fija_mg) + ' por toma');
+          else if (p>0 && (isNum(m.dosis_por_kg_mgkg) || (m.dosis_por_kg_mgkg && isNum(m.dosis_por_kg_mgkg.min)))){
+            lines.push('Mantenimiento: ' + calcKgBlock(m.dosis_por_kg_mgkg, p));
+          } else if (m.dosis_por_kg_mgkg){
+            lines.push('Mantenimiento: requiere peso (mg/kg).');
+          }
+          var itv4 = fmtInterval(m.intervalo_horas);
+          if (itv4) lines.push('Intervalo: ' + itv4);
+          var mx4 = maxDiariaTxt(m.max_diaria);
+          if (mx4) lines.push(mx4);
+        }
+
+        if (NSEL.posologia_texto) lines.push('Posología: ' + NSEL.posologia_texto);
+        el.calcOut.innerHTML = outLines(lines);
+        el.unidadInfo.textContent = 'mg / mg/kg';
+        return;
+      }
+
+      el.calcOut.textContent = 'Tipo de dosificación no reconocido en el JSON.';
+      el.unidadInfo.textContent='Auto';
+    }
+
+    el.peso.addEventListener('input', recalc);
+
+    function joinList(v){ return Array.isArray(v) ? v.join(' · ') : (v || '—'); }
+
+  })();
+  </script>
+</body>
+</html>

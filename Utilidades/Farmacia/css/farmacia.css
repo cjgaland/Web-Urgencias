@@ -1,0 +1,137 @@
+/* =========================================================
+   Farmacia · Estilos comunes
+   Objetivo de este paso: Alto Riesgo SOLO en la cabecera
+   ========================================================= */
+
+/* Cabecera en estado Alto Riesgo: fondo rojo, texto amarillo */
+.farm-card .hd.risk{
+  background: #b91c1c !important;       /* rojo intenso accesible */
+  color: #facc15 !important;             /* amarillo para contraste */
+  border-bottom-color: #7f1d1d !important;
+}
+
+/* Iconos dentro de la cabecera en riesgo */
+.farm-card .hd.risk i{
+  color: #facc15 !important;
+}
+
+/* Insignia/título enriquecido dentro de la cabecera (opcional) */
+.farm-card .hd .risk-badge{
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-weight: 800;
+}
+
+/* Separador “—” o “·” más discreto */
+.farm-card .hd .risk-badge .sep{
+  opacity: .6;
+}
+
+/* Asegura que los enlaces/botones de la cabecera mantengan contraste */
+.farm-card .hd.risk a,
+.farm-card .hd.risk .btn{
+  color: #0b1220;             /* si usas botones claros dentro, deja contraste */
+  border-color: rgba(0,0,0,.15);
+  background: #fde68a1a;      /* toque sutil; no imprescindible */
+}
+/* ——— Botones por contexto (más específicos para ganar a .btn del index) ——— */
+
+/* Consulta (azul pálido) */
+.btn.btn-consulta{
+  background: #dbeafe;        /* fondo azul pálido */
+  border: 1px solid #93c5fd;  /* borde azul medio */
+  color: #0f172a;             /* texto negro (alto contraste) */
+  font-weight: 600;
+}
+.btn.btn-consulta:hover{ filter: brightness(0.96); }
+.btn.btn-consulta[aria-disabled="true"]{
+  opacity: .55; pointer-events: none;
+}
+
+/* Críticos (rojo pálido) */
+.btn.btn-critico{
+  background: #fee2e2;        /* fondo rojo claro */
+  border: 1px solid #fca5a5;  /* borde rojo medio */
+  color: #0f172a;             /* texto negro */
+  font-weight: 600;
+}
+.btn.btn-critico:hover{ filter: brightness(0.96); }
+.btn.btn-critico[aria-disabled="true"]{
+  opacity: .55; pointer-events: none;
+}
+/* === Botones base (compartidos con index.html) === */
+.btn{
+  border:1px solid #e5e7eb;
+  background:#fff;
+  border-radius:10px;
+  padding:.55rem .9rem;
+  cursor:pointer;
+  font-weight:700;
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+  text-decoration:none;
+  color:inherit;
+}
+.btn i{ margin-right:0; } /* ya usamos gap */
+.btn-row{ display:flex; gap:8px; flex-wrap:wrap; }
+
+/* =========================================================
+   Botón Quitar Selección
+   ========================================================= */
+.btn.btn-quitar-seleccion {
+  background: #fee2e2;        /* fondo rojo claro */
+  border: 1px solid #fca5a5;  /* borde rojo medio */
+  color: #0f172a;             /* texto negro */
+  font-weight: 600;
+}
+.btn.btn-quitar-seleccion:hover {
+  background: #fecaca;        /* rojo más intenso al hover */
+  border-color: #f87171;
+}
+/* Botón flotante candado */
+.fab-lock{
+  position: fixed; right: 16px; bottom: 16px;
+  z-index: 9999;
+  border: 1px solid #e5e7eb; background:#fff; color:#0f172a;
+  border-radius: 999px; padding:.6rem .8rem; font-weight:700; cursor:pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,.15);
+}
+.fab-lock:hover{ background:#f8fafc }
+
+/* Modo edición (pista visual) */
+.editing .arm-wrap{ outline: 2px dashed #60a5fa; outline-offset: 4px; }
+.mini.editing{ box-shadow: 0 0 0 2px #60a5fa inset !important; cursor: move; }
+
+/* Botón Frigorífico - Violeta */
+.btn-frigo {
+  background: #8b5cf6;
+  border: 1px solid #7c3aed;
+  color: white;
+  border-radius: 10px;
+  padding: 0.55rem 0.9rem;
+  cursor: pointer;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.2s ease;
+}
+
+.btn-frigo:hover {
+  background: #7c3aed;
+  border-color: #6d28d9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.btn-frigo:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(139, 92, 246, 0.3);
+}
+
+.btn-frigo i {
+  margin-right: 0.35rem;
+}
