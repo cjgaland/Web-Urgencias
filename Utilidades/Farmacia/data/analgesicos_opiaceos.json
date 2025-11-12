@@ -1,0 +1,73 @@
+[
+  {
+    "id": "tramadol-iv",
+    "nombre": "Tramadol IV",
+    "principio_activo": "Tramadol",
+    "formas": [
+      "Ampollas 100 mg/2 ml"
+    ],
+    "vias": [
+      "IV"
+    ],
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Dolor moderado a intenso",
+      "Dolor postoperatorio",
+      "Cólico o dolor musculoesquelético cuando no se controla con AINEs"
+    ],
+    "advertencias": [
+      "Somnolencia, mareo, náuseas, riesgo de convulsiones a dosis altas",
+      "Precaución si tratamiento con ISRS, tricíclicos o IMAO (riesgo de síndrome serotoninérgico)",
+      "Evitar administración rápida (riesgo de náuseas e hipotensión)"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Tramadoliv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.62,
+            "y": 0.32,
+            "w": 0.17,
+            "h": 0.14
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 100,
+        "intervalo_horas": {
+          "min": 6,
+          "max": 8
+        },
+        "max_diaria": {
+          "mg": 400
+        },
+        "comentarios": "Administrar IV lenta o diluida (2–3 min). Dosis habitual: 50–100 mg cada 6–8 h. Máx. 400 mg/24 h."
+      }
+    },
+    "posologia_texto": "50–100 mg IV lenta cada 6–8 h. Máx. 400 mg/día. Administrar en 2–3 min o diluido en 100 ml de SSF."
+  }
+]

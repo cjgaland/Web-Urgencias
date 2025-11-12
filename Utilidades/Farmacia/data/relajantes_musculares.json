@@ -1,0 +1,167 @@
+[
+  {
+    "id": "bromuro-hioscina-iv",
+    "nombre": "Bromuro de Hioscina IV",
+    "principio_activo": "Bromuro de Hioscina",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": ["Cólico renal", "Cólico biliar", "Espasmos gastrointestinales"],
+    "advertencias": ["Precaución en glaucoma", "Retención urinaria", "Taquicardia"],
+    "imagenes": {
+      "producto": "../img/farmacos/Hioscinaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+  {
+    "shape": "rect",
+    "x": 0.22,
+    "y": 0.65,
+    "w": 0.16,
+    "h": 0.14
+  }
+]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.61,
+            "y": 0.55,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 20,
+        "intervalo_horas": { "min": 6, "max": 8 },
+        "max_diaria": { "mg": 80 },
+        "comentarios": "Administrar IV lenta. Efecto rápido en 2-10 minutos. Contraindicado en glaucoma de ángulo estrecho."
+      }
+    },
+    "posologia_texto": "20 mg cada 6-8 h IV. Máx. 80 mg/día."
+  },
+  {
+    "id": "biperideno-iv",
+    "nombre": "Biperideno IV",
+    "principio_activo": "Biperideno",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": ["Reacciones extrapiramidales", "Parkinsonismo", "Distonías agudas"],
+    "advertencias": ["Glaucoma", "Retención urinaria", "Sequedad de boca"],
+    "imagenes": {
+      "producto": "../img/farmacos/Biperidenoiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.61,
+            "y": 0.4,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 5,
+        "intervalo_horas": { "min": 0, "max": 0 },
+        "max_diaria": { "mg": 20 },
+        "comentarios": "Administrar IV lenta. Para reacciones agudas: 5 mg. Repetir si es necesario cada 30 min."
+      }
+    },
+    "posologia_texto": "5 mg IV según necesidad. Máx. 20 mg/día."
+  },
+  {
+    "id": "neostigmina-iv",
+    "nombre": "Neostigmina IV",
+    "principio_activo": "Neostigmina",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": ["Reversión bloqueo neuromuscular", "Miastenia gravis", "Ileo paralítico"],
+    "advertencias": ["Bradicardia", "Broncoespasmo", "Salivación"],
+    "imagenes": {
+      "producto": "../img/farmacos/Neostigminaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.81,
+            "y": 0.4,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija_o_kg",
+        "dosis_fija_mg": 2.5,
+        "dosis_por_kg_mgkg": 0.05,
+        "intervalo_horas": { "min": 0, "max": 0 },
+        "max_diaria": { "mg": 10 },
+        "comentarios": "Administrar con atropina para prevenir bradicardia. Para reversión anestesia: 0.05-0.07 mg/kg."
+      }
+    },
+    "posologia_texto": "2.5-5 mg IV según necesidad. Máx. 10 mg/día."
+  }
+]

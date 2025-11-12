@@ -1,0 +1,304 @@
+[
+  {
+    "id": "enoxaparina-40",
+    "nombre": "Enoxaparina 40 mg",
+    "principio_activo": "Enoxaparina",
+    "via": "sc",
+    "forma": "jeringas",
+    "indicaciones": [
+      "Profilaxis trombosis",
+      "Síndrome coronario agudo"
+    ],
+    "advertencias": [
+      "Hemorragia",
+      "Trombocitopenia",
+      "Administración SC"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Enoxaparina40.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.14,
+            "y": 0.85,
+            "w": 0.11,
+            "h": 0.14
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 40,
+        "intervalo_horas": 24,
+        "comentarios": "Profilaxis: 40 mg/24 h SC. Tratamiento: 1 mg/kg/12 h. En I.R. ajustar dosis."
+      }
+    },
+    "posologia_texto": "40 mg cada 24 h SC. Tratamiento: 1 mg/kg/12 h."
+  },
+  {
+    "id": "enoxaparina-60",
+    "nombre": "Enoxaparina 60 mg",
+    "principio_activo": "Enoxaparina",
+    "via": "sc",
+    "forma": "jeringas",
+    "indicaciones": [
+      "Profilaxis trombosis",
+      "Tratamiento tromboembolismo"
+    ],
+    "advertencias": [
+      "Hemorragia",
+      "Trombocitopenia",
+      "Administración SC"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Enoxaparina60.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.26,
+            "y": 0.85,
+            "w": 0.11,
+            "h": 0.14
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 60,
+        "intervalo_horas": 24,
+        "comentarios": "Profilaxis en pacientes de alto riesgo: 60 mg/24 h SC. Peso >100 kg: considerar 80 mg."
+      }
+    },
+    "posologia_texto": "60 mg cada 24 h SC."
+  },
+  {
+    "id": "enoxaparina-80",
+    "nombre": "Enoxaparina 80 mg",
+    "principio_activo": "Enoxaparina",
+    "via": "sc",
+    "forma": "jeringas",
+    "indicaciones": [
+      "Profilaxis trombosis en obesos",
+      "Tratamiento tromboembolismo"
+    ],
+    "advertencias": [
+      "Hemorragia",
+      "Trombocitopenia",
+      "Administración SC"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Enoxaparina80.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.39,
+            "y": 0.85,
+            "w": 0.11,
+            "h": 0.14
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 80,
+        "intervalo_horas": 24,
+        "comentarios": "Para pacientes >100 kg: 80 mg/24 h SC. En tratamiento: 1 mg/kg/12 h."
+      }
+    },
+    "posologia_texto": "80 mg cada 24 h SC. Tratamiento: 1 mg/kg/12 h."
+  },
+  {
+    "id": "fundaparinux-iv",
+    "nombre": "Fundaparinux IV",
+    "principio_activo": "Fundaparinux",
+    "via": "iv",
+    "forma": "jeringas",
+    "indicaciones": [
+      "Profilaxis trombosis",
+      "Tratamiento tromboembolismo"
+    ],
+    "advertencias": [
+      "Hemorragia",
+      "Insuficiencia renal",
+      "Sin antídoto"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Fundaparinuxsc.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.51,
+            "y": 0.85,
+            "w": 0.11,
+            "h": 0.14
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 2.5,
+        "intervalo_horas": 24,
+        "comentarios": "Profilaxis: 2.5 mg/24 h SC. Tratamiento: 7.5 mg/24 h SC. Ajustar en IR."
+      }
+    },
+    "posologia_texto": "2.5 mg cada 24 h SC. Tratamiento: 7.5 mg/24 h."
+  },
+  {
+    "id": "heparina-sodica-iv",
+    "nombre": "Heparina Sódica IV",
+    "principio_activo": "Heparina Sódica",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Tromboembolismo",
+      "Síndrome coronario agudo",
+      "Profilaxis trombosis"
+    ],
+    "advertencias": [
+      "Hemorragia",
+      "Trombocitopenia",
+      "Monitorizar TTPA"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Heparinaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.01,
+            "y": 0.84,
+            "w": 0.11,
+            "h": 0.14
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "iv_carga_mto",
+        "carga": {
+          "dosis_fija_mg": 5000,
+          "dosis_por_kg_mgkg": null,
+          "tiempo_adm_min": 1
+        },
+        "mantenimiento": {
+          "dosis_fija_mg": 25000,
+          "dosis_por_kg_mgkg": null,
+          "intervalo_horas": 24,
+          "max_diaria": {
+            "mg": 40000
+          }
+        },
+        "comentarios": "Carga: 5000-10000 UI. Mantenimiento: 1000-2000 UI/h. TTPA objetivo: 1.5-2.5 veces control."
+      }
+    },
+    "posologia_texto": "Carga: 5000-10000 UI IV. Mantenimiento: 1000-2000 UI/h."
+  }
+]

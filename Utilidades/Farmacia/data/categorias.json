@@ -1,0 +1,220 @@
+{
+  "categorias": [
+    {
+      "id": "analgesicos_opiaceos",
+      "nombre": "Analgésicos Opioides",
+      "descripcion": "Opioides mayores para dolor intenso",
+      "color": "#dc2626",
+      "icono": "💊",
+      "riesgo": "alto"
+    },
+    {
+      "id": "analgesicos_no_opiaceos",
+      "nombre": "Analgésicos No Opioides",
+      "descripcion": "Analgésicos comunes y AINEs",
+      "color": "#ef4444",
+      "icono": "😌",
+      "riesgo": "medio"
+    },
+    {
+      "id": "antibioticos",
+      "nombre": "Antibióticos",
+      "descripcion": "Antimicrobianos para infecciones bacterianas",
+      "color": "#10b981",
+      "icono": "🦠",
+      "riesgo": "medio"
+    },
+    {
+      "id": "antifungicos",
+      "nombre": "Antifúngicos",
+      "descripcion": "Fármacos para infecciones por hongos",
+      "color": "#84cc16",
+      "icono": "🍄",
+      "riesgo": "medio"
+    },
+    {
+      "id": "antivirales",
+      "nombre": "Antivirales",
+      "descripcion": "Fármacos para infecciones virales",
+      "color": "#3b82f6",
+      "icono": "🦠",
+      "riesgo": "medio"
+    },
+    {
+      "id": "ansioliticos",
+      "nombre": "Ansiolíticos",
+      "descripcion": "Benzodiacepinas y otros ansiolíticos",
+      "color": "#8b5cf6",
+      "icono": "😌",
+      "riesgo": "alto"
+    },
+    {
+      "id": "antidepresivos",
+      "nombre": "Antidepresivos",
+      "descripcion": "ISRS, tricíclicos y otros antidepresivos",
+      "color": "#7e22ce",
+      "icono": "🧠",
+      "riesgo": "medio"
+    },
+    {
+      "id": "antipsicoticos",
+      "nombre": "Antipsicóticos",
+      "descripcion": "Fármacos para trastornos psicóticos",
+      "color": "#6b21a8",
+      "icono": "🧠",
+      "riesgo": "alto"
+    },
+    {
+      "id": "antiepilepticos",
+      "nombre": "Antiepilépticos",
+      "descripcion": "Fármacos para crisis epilépticas",
+      "color": "#c026d3",
+      "icono": "⚡",
+      "riesgo": "alto"
+    },
+    {
+      "id": "antiarritmicos",
+      "nombre": "Antiarrítmicos",
+      "descripcion": "Fármacos para arritmias cardíacas",
+      "color": "#dc2626",
+      "icono": "❤️",
+      "riesgo": "alto"
+    },
+    {
+      "id": "antihipertensivos",
+      "nombre": "Antihipertensivos",
+      "descripcion": "Fármacos para la hipertensión arterial",
+      "color": "#ea580c",
+      "icono": "🩸",
+      "riesgo": "medio"
+    },
+    {
+      "id": "diureticos",
+      "nombre": "Diuréticos",
+      "descripcion": "Fármacos para eliminar líquidos",
+      "color": "#0ea5e9",
+      "icono": "💧",
+      "riesgo": "medio"
+    },
+    {
+      "id": "broncodilatadores",
+      "nombre": "Broncodilatadores",
+      "descripcion": "Fármacos para el asma y EPOC",
+      "color": "#06b6d4",
+      "icono": "🫁",
+      "riesgo": "medio"
+    },
+    {
+      "id": "corticosteroides",
+      "nombre": "Corticosteroides",
+      "descripcion": "Antiinflamatorios esteroideos",
+      "color": "#f59e0b",
+      "icono": "💊",
+      "riesgo": "medio"
+    },
+    {
+      "id": "antihistaminicos",
+      "nombre": "Antihistamínicos",
+      "descripcion": "Fármacos para alergias",
+      "color": "#f97316",
+      "icono": "🤧",
+      "riesgo": "bajo"
+    },
+    {
+      "id": "gastrointestinales",
+      "nombre": "Gastrointestinales",
+      "descripcion": "Fármacos para el sistema digestivo",
+      "color": "#22c55e",
+      "icono": "🍽️",
+      "riesgo": "bajo"
+    },
+    {
+      "id": "antidiabeticos",
+      "nombre": "Antidiabéticos",
+      "descripcion": "Fármacos para la diabetes",
+      "color": "#84cc16",
+      "icono": "🩸",
+      "riesgo": "alto"
+    },
+    {
+      "id": "anticoagulantes",
+      "nombre": "Anticoagulantes",
+      "descripcion": "Fármacos para prevenir trombosis",
+      "color": "#ef4444",
+      "icono": "🩸",
+      "riesgo": "alto"
+    },
+    {
+      "id": "antiagregantes",
+      "nombre": "Antiagregantes",
+      "descripcion": "Fármacos para prevenir agregación plaquetaria",
+      "color": "#f43f5e",
+      "icono": "🩸",
+      "riesgo": "alto"
+    },
+    {
+      "id": "relajantes_musculares",
+      "nombre": "Relajantes Musculares",
+      "descripcion": "Fármacos para espasmos musculares",
+      "color": "#a855f7",
+      "icono": "💪",
+      "riesgo": "medio"
+    },
+    {
+      "id": "anestesicos",
+      "nombre": "Anestésicos",
+      "descripcion": "Fármacos para anestesia y sedación",
+      "color": "#6366f1",
+      "icono": "😴",
+      "riesgo": "alto"
+    },
+    {
+      "id": "contrastes_medios",
+      "nombre": "Contrastes y Medios",
+      "descripcion": "Medios de contraste para diagnóstico",
+      "color": "#6b7280",
+      "icono": "📷",
+      "riesgo": "medio"
+    },
+    {
+      "id": "soluciones_intravenosas",
+      "nombre": "Soluciones Intravenosas",
+      "descripcion": "Sueros y soluciones para perfusión",
+      "color": "#0ea5e9",
+      "icono": "💧",
+      "riesgo": "bajo"
+    },
+    {
+      "id": "vitaminas_suplementos",
+      "nombre": "Vitaminas y Suplementos",
+      "descripcion": "Vitaminas, minerales y suplementos",
+      "color": "#eab308",
+      "icono": "💊",
+      "riesgo": "bajo"
+    },
+    {
+      "id": "emergencias_reanimacion",
+      "nombre": "Emergencias y Reanimación",
+      "descripcion": "Fármacos críticos para reanimación",
+      "color": "#dc2626",
+      "icono": "🚑",
+      "riesgo": "alto"
+    },
+    {
+      "id": "colirios",
+      "nombre": "Colirios",
+      "descripcion": "Colirios y preparados oculares",
+      "color": "#38bdf8",
+      "icono": "👁️",
+      "riesgo": "medio"
+    },
+    {
+      "id": "otros",
+      "nombre": "Otros Fármacos",
+      "descripcion": "Fármacos que no encajan en otras categorías",
+      "color": "#6b7280",
+      "icono": "💊",
+      "riesgo": "variable"
+    }
+  ]
+}

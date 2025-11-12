@@ -1,0 +1,65 @@
+[
+  {
+    "id": "monitor-desfibrilador",
+    "tipo": "equipo",
+    "nombre": "Monitor-desfibrilador",
+    "descripcion": "Monitor multiparámetro con desfibrilación manual/DEA y marcapasos.",
+    "caracteristicas": [
+      "Modos: DEA y manual",
+      "Energía bifásica hasta 200–360 J",
+      "Marcapasos transcutáneo"
+    ],
+    "uso": [
+      "Comprobar conexión electrodos",
+      "Seleccionar energía según protocolo",
+      "Cargar y desfibrilar con seguridad"
+    ],
+    "conservacion": [
+      "Baterías cargadas",
+      "Electrodos en fecha",
+      "Autotest diario"
+    ],
+    "enlaces": [
+      { "titulo": "Manual rápido (PDF)", "url": "https://…" },
+      { "titulo": "Vídeo de uso", "url": "https://…" }
+    ],
+    "imagenes": { "producto": "../img/equipos/desfibrilador.png" },
+    "localizacion": {
+      "criticos": [
+        { "id":"oral", "map":"../img/armarios/criticos_oral.png", "hotspots": [] },
+        { "id":"iv",   "map":"../img/armarios/criticos_iv.png",   "hotspots": [] }
+      ]
+    }
+  },
+  {
+    "id": "vmni",
+    "tipo": "equipo",
+    "nombre": "Respirador VMNI",
+    "descripcion": "Ventilador para ventilación no invasiva (CPAP/BiPAP).",
+    "caracteristicas": ["Modos CPAP/BiPAP", "Alarmas de fuga y apnea"],
+    "uso": [
+      "Mascarilla adecuada y fijación",
+      "Iniciar con IPAP/EPAP según protocolo",
+      "Monitorizar tolerancia y fugas"
+    ],
+    "conservacion": ["Filtros limpios", "Circuitos disponibles"],
+    "enlaces": [{ "titulo": "Vídeo VMNI en urgencias", "url": "https://…" }],
+    "imagenes": { "producto": "../img/equipos/vmni.png" },
+    "localizacion": { "criticos": [{ "id":"iv","map":"../img/armarios/criticos_iv.png","hotspots": [] }] }
+  },
+  {
+    "id": "ecografo",
+    "tipo": "equipo",
+    "nombre": "Ecógrafo portátil",
+    "descripcion": "Ecógrafo a pie de cama con sondas lineal y convexo.",
+    "caracteristicas": ["Presets RUSH, FAST", "Grabación de clips"],
+    "uso": [
+      "Seleccionar preset",
+      "Ajustar profundidad/ganancia",
+      "Guardar imágenes según protocolo"
+    ],
+    "conservacion": ["Sondas desinfectadas", "Gel disponible"],
+    "imagenes": { "producto": "../img/equipos/ecografo.png" },
+    "localizacion": { "consulta": { "map":"../img/armarios/consultas.png", "hotspots": [] } }
+  }
+]

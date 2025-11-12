@@ -1,0 +1,288 @@
+[
+  {
+    "id": "oxibuprocaina-0-4-colirio",
+    "nombre": "Oxibuprocaína 0,4% colirio",
+    "principio_activo": "Oxibuprocaína",
+    "via": "ocular",
+    "forma": "colirio",
+    "indicaciones": [
+      "Anestesia tópica para procedimientos oculares",
+      "Tonometría, extracción de cuerpo extraño superficial"
+    ],
+    "advertencias": [
+      "Uso exclusivo en consulta/hospital: no para domicilio",
+      "Puede retrasar la cicatrización corneal si se usa repetidamente"
+    ],
+    "imagenes": { "producto": "../img/farmacos/Oxibuprocaina 0.4 colirio.png" },
+    "localizacion": {
+      "consulta": { "map": "../img/armarios/consultas.png", "hotspots": [] },
+      "criticos": [
+        { "id": "oral", "map": "../img/armarios/criticos_oral.png", "hotspots": [] },
+        { "id": "iv", "map": "../img/armarios/criticos_iv.png", "hotspots": [] }
+      ],
+      "frigorifico": { "map": "../img/armarios/frigo.png", "hotspots": [] }
+    },
+    "dosis": { "adulto": { "tipo": "topico", "dosis_fija_mg": null, "intervalo_horas": null, "max_diaria": null, "comentarios": "1–2 gotas antes del procedimiento; repetir según necesidad clínica." } },
+    "posologia_texto": "1–2 gotas en el ojo a tratar; repetir si es preciso durante el procedimiento."
+  },
+  {
+    "id": "fluoresceina-tira-1mg",
+    "nombre": "Fluoresceína tira 1 mg",
+    "principio_activo": "Fluoresceína",
+    "via": "ocular",
+    "forma": "tiras",
+    "indicaciones": [
+      "Tinción corneal (úlceras, erosiones)",
+      "Test de Seidel"
+    ],
+    "advertencias": [
+      "Puede teñir lentes de contacto blandas",
+      "Uso diagnóstico"
+    ],
+    "imagenes": { "producto": "../img/farmacos/Fluoresceina tira 1mg.png" },
+    "localizacion": {
+      "consulta": { "map": "../img/armarios/consultas.png", "hotspots": [] },
+      "criticos": [
+        { "id": "oral", "map": "../img/armarios/criticos_oral.png", "hotspots": [] },
+        { "id": "iv", "map": "../img/armarios/criticos_iv.png", "hotspots": [] }
+      ],
+      "frigorifico": { "map": "../img/armarios/frigo.png", "hotspots": [] }
+    },
+    "dosis": { "adulto": { "tipo": "topico", "dosis_fija_mg": null, "intervalo_horas": null, "max_diaria": null, "comentarios": "Humectar la tira con suero y tocar el fondo de saco conjuntival." } },
+    "posologia_texto": "Aplicación única diagnóstica sobre fondo de saco conjuntival."
+  },
+  {
+    "id": "tobramicina-0-3-colirio",
+    "nombre": "Tobramicina 0,3% colirio",
+    "principio_activo": "Tobramicina",
+    "via": "ocular",
+    "forma": "colirio",
+    "indicaciones": [
+      "Conjuntivitis bacteriana",
+      "Queratitis bacteriana superficial (coadyuvante)"
+    ],
+    "advertencias": [
+      "Suspender si aparece irritación intensa",
+      "No usar con lente de contacto blanda puesta"
+    ],
+    "imagenes": { "producto": "../img/farmacos/Tobramicina 0.3 colirio.png" },
+    "localizacion": {
+      "consulta": { "map": "../img/armarios/consultas.png", "hotspots": [] },
+      "criticos": [
+        { "id": "oral", "map": "../img/armarios/criticos_oral.png", "hotspots": [] },
+        { "id": "iv", "map": "../img/armarios/criticos_iv.png", "hotspots": [] }
+      ],
+      "frigorifico": { "map": "../img/armarios/frigo.png", "hotspots": [] }
+    },
+    "dosis": { "adulto": { "tipo": "topico", "intervalo_horas": 6, "comentarios": "1 gota cada 4–6 h; en cuadros severos, cada 2 h los 1–2 primeros días." } },
+    "posologia_texto": "1 gota cada 4–6 h; en grave, cada 2 h las primeras 24–48 h y luego espaciar."
+  },
+  {
+    "id": "ciprofloxacino-0-3-colirio",
+    "nombre": "Ciprofloxacino 0,3% colirio",
+    "principio_activo": "Ciprofloxacino",
+    "via": "ocular",
+    "forma": "colirio",
+    "indicaciones": [
+      "Conjuntivitis bacteriana (incluye Pseudomonas)",
+      "Queratitis bacteriana superficial"
+    ],
+    "advertencias": [
+      "Puede producir depósitos blanquecinos transitorios",
+      "Evitar uso con lente blanda durante el tratamiento"
+    ],
+    "imagenes": { "producto": "../img/farmacos/Ciprofloxacino 0.3 colirio.png" },
+    "localizacion": {
+      "consulta": { "map": "../img/armarios/consultas.png", "hotspots": [] },
+      "criticos": [
+        { "id": "oral", "map": "../img/armarios/criticos_oral.png", "hotspots": [] },
+        { "id": "iv", "map": "../img/armarios/criticos_iv.png", "hotspots": [] }
+      ],
+      "frigorifico": { "map": "../img/armarios/frigo.png", "hotspots": [] }
+    },
+    "dosis": { "adulto": { "tipo": "topico", "intervalo_horas": 6, "comentarios": "1 gota cada 4–6 h; en queratitis, pautas más intensas los primeros días." } },
+    "posologia_texto": "1 gota cada 4–6 h; intensificar las primeras 24–48 h en infecciones severas."
+  },
+  {
+    "id": "moxifloxacino-0-5-colirio",
+    "nombre": "Moxifloxacino 0,5% colirio",
+    "principio_activo": "Moxifloxacino",
+    "via": "ocular",
+    "forma": "colirio",
+    "indicaciones": [
+      "Conjuntivitis bacteriana",
+      "Queratitis superficial o ulcerativa"
+    ],
+    "advertencias": [
+      "Evitar contacto del gotero con el ojo/párpados",
+      "Puede causar leve sensación de quemazón transitoria"
+    ],
+    "imagenes": { "producto": "../img/farmacos/Moxifloxacino 0.5 colirio.png" },
+    "localizacion": {
+      "consulta": { "map": "../img/armarios/consultas.png", "hotspots": [] },
+      "criticos": [
+        { "id": "oral", "map": "../img/armarios/criticos_oral.png", "hotspots": [] },
+        { "id": "iv", "map": "../img/armarios/criticos_iv.png", "hotspots": [] }
+      ],
+      "frigorifico": { "map": "../img/armarios/frigo.png", "hotspots": [] }
+    },
+    "dosis": { "adulto": { "tipo": "topico", "intervalo_horas": 6, "comentarios": "1 gota cada 6–8 h durante ~7 días o según respuesta clínica." } },
+    "posologia_texto": "1 gota cada 6–8 h durante ~7 días o según evolución."
+  },
+  {
+    "id": "diclofenaco-0-1-colirio",
+    "nombre": "Diclofenaco 0,1% colirio",
+    "principio_activo": "Diclofenaco",
+    "via": "ocular",
+    "forma": "colirio",
+    "indicaciones": [
+      "Dolor/Inflamación ocular leve",
+      "Fotofobia post-traumatismo superficial"
+    ],
+    "advertencias": [
+      "Puede retardar cicatrización corneal",
+      "Evitar uso prolongado sin control"
+    ],
+    "imagenes": { "producto": "../img/farmacos/Diclofenaco 0.1 colirio.png" },
+    "localizacion": {
+      "consulta": { "map": "../img/armarios/consultas.png", "hotspots": [] },
+      "criticos": [
+        { "id": "oral", "map": "../img/armarios/criticos_oral.png", "hotspots": [] },
+        { "id": "iv", "map": "../img/armarios/criticos_iv.png", "hotspots": [] }
+      ],
+      "frigorifico": { "map": "../img/armarios/frigo.png", "hotspots": [] }
+    },
+    "dosis": { "adulto": { "tipo": "topico", "intervalo_horas": 6, "comentarios": "1 gota cada 6–8 h durante pocos días según respuesta." } },
+    "posologia_texto": "1 gota cada 6–8 h durante pocos días."
+  },
+  {
+    "id": "olopatadina-0-1-colirio",
+    "nombre": "Olopatadina 0,1% colirio",
+    "principio_activo": "Olopatadina",
+    "via": "ocular",
+    "forma": "colirio",
+    "indicaciones": [
+      "Conjuntivitis alérgica",
+      "Prurito y lagrimeo por alergia"
+    ],
+    "advertencias": [
+      "Puede causar escozor leve transitorio",
+      "Retirar la lente blanda antes de la instilación"
+    ],
+    "imagenes": { "producto": "../img/farmacos/Olopatadina 0.1 colirio.png" },
+    "localizacion": {
+      "consulta": { "map": "../img/armarios/consultas.png", "hotspots": [] },
+      "criticos": [
+        { "id": "oral", "map": "../img/armarios/criticos_oral.png", "hotspots": [] },
+        { "id": "iv", "map": "../img/armarios/criticos_iv.png", "hotspots": [] }
+      ],
+      "frigorifico": { "map": "../img/armarios/frigo.png", "hotspots": [] }
+    },
+    "dosis": { "adulto": { "tipo": "topico", "intervalo_horas": 12, "comentarios": "1 gota cada 12 h; puede aumentarse a cada 8 h en brotes." } },
+    "posologia_texto": "1 gota cada 12 h (cada 8 h si síntomas intensos)."
+  },
+  {
+    "id": "tropicamida-1-colirio",
+    "nombre": "Tropicamida 1% colirio",
+    "principio_activo": "Tropicamida",
+    "via": "ocular",
+    "forma": "colirio",
+    "indicaciones": [
+      "Midriasis para exploración de fondo de ojo",
+      "Cicloplejía leve en uveítis anterior"
+    ],
+    "advertencias": [
+      "Precaución en glaucoma de ángulo cerrado",
+      "Visión borrosa y fotofobia tras la instilación"
+    ],
+    "imagenes": { "producto": "../img/farmacos/Tropicamida 1 colirio.png" },
+    "localizacion": {
+      "consulta": { "map": "../img/armarios/consultas.png", "hotspots": [] },
+      "criticos": [
+        { "id": "oral", "map": "../img/armarios/criticos_oral.png", "hotspots": [] },
+        { "id": "iv", "map": "../img/armarios/criticos_iv.png", "hotspots": [] }
+      ],
+      "frigorifico": { "map": "../img/armarios/frigo.png", "hotspots": [] }
+    },
+    "dosis": { "adulto": { "tipo": "topico", "comentarios": "Exploración: 1 gota, repetir a los 5 min si precisa. Uveítis: 1 gota cada 8–12 h." } },
+    "posologia_texto": "Exploración: 1 gota, repetir a 5 min si precisa. Uveítis: 1 gota cada 8–12 h."
+  },
+  {
+    "id": "ciclopentolato-1-colirio",
+    "nombre": "Ciclopentolato 1% colirio",
+    "principio_activo": "Ciclopentolato",
+    "via": "ocular",
+    "forma": "colirio",
+    "indicaciones": [
+      "Cicloplejía en exploración ocular",
+      "Uveítis anterior moderada o intensa"
+    ],
+    "advertencias": [
+      "Contraindicado en glaucoma de ángulo cerrado",
+      "Evitar conducir tras la instilación"
+    ],
+    "imagenes": { "producto": "../img/farmacos/Ciclopentolato 1 colirio.png" },
+    "localizacion": {
+      "consulta": { "map": "../img/armarios/consultas.png", "hotspots": [] },
+      "criticos": [
+        { "id": "oral", "map": "../img/armarios/criticos_oral.png", "hotspots": [] },
+        { "id": "iv", "map": "../img/armarios/criticos_iv.png", "hotspots": [] }
+      ],
+      "frigorifico": { "map": "../img/armarios/frigo.png", "hotspots": [] }
+    },
+    "dosis": { "adulto": { "tipo": "topico", "comentarios": "Exploración: 1 gota, repetir a los 10–15 min si precisa. Uveítis: 1 gota cada 8–12 h según respuesta." } },
+    "posologia_texto": "Exploración: 1 gota, repetir a los 10–15 min si precisa. Uveítis: 1 gota cada 8–12 h."
+  },
+  {
+    "id": "fenilefrina-2-5-colirio",
+    "nombre": "Fenilefrina 2,5% colirio",
+    "principio_activo": "Fenilefrina",
+    "via": "ocular",
+    "forma": "colirio",
+    "indicaciones": [
+      "Midriasis (combinado con tropicamida)",
+      "Descongestión conjuntival"
+    ],
+    "advertencias": [
+      "Precaución en HTA, IC e hipertiroidismo",
+      "Evitar en glaucoma de ángulo cerrado"
+    ],
+    "imagenes": { "producto": "../img/farmacos/Fenilefrina 2.5 colirio.png" },
+    "localizacion": {
+      "consulta": { "map": "../img/armarios/consultas.png", "hotspots": [] },
+      "criticos": [
+        { "id": "oral", "map": "../img/armarios/criticos_oral.png", "hotspots": [] },
+        { "id": "iv", "map": "../img/armarios/criticos_iv.png", "hotspots": [] }
+      ],
+      "frigorifico": { "map": "../img/armarios/frigo.png", "hotspots": [] }
+    },
+    "dosis": { "adulto": { "tipo": "topico", "comentarios": "1 gota; para dilatación, 1 gota junto con tropicamida." } },
+    "posologia_texto": "1 gota según necesidad; para dilatación, 1 gota junto con tropicamida."
+  },
+  {
+    "id": "timolol-0-5-colirio",
+    "nombre": "Timolol 0,5% colirio",
+    "principio_activo": "Timolol",
+    "via": "ocular",
+    "forma": "colirio",
+    "indicaciones": [
+      "Disminuir presión intraocular (glaucoma/HTO)",
+      "Uso puntual en crisis hipertensivas oculares"
+    ],
+    "advertencias": [
+      "Contraindicado en asma, BAV y bradicardia",
+      "Absorción sistémica: presionar canto interno 1–2 min"
+    ],
+    "imagenes": { "producto": "../img/farmacos/Timolol 0.5 colirio.png" },
+    "localizacion": {
+      "consulta": { "map": "../img/armarios/consultas.png", "hotspots": [] },
+      "criticos": [
+        { "id": "oral", "map": "../img/armarios/criticos_oral.png", "hotspots": [] },
+        { "id": "iv", "map": "../img/armarios/criticos_iv.png", "hotspots": [] }
+      ],
+      "frigorifico": { "map": "../img/armarios/frigo.png", "hotspots": [] }
+    },
+    "dosis": { "adulto": { "tipo": "topico", "intervalo_horas": 12, "comentarios": "1 gota cada 12 h; presionar saco lagrimal 1–2 min para reducir absorción sistémica." } },
+    "posologia_texto": "1 gota cada 12 h. Presionar saco lagrimal 1–2 min."
+  }
+]

@@ -1,0 +1,658 @@
+[
+  {
+    "id": "alprazolam-0-5",
+    "nombre": "Alprazolam 0,5 mg",
+    "principio_activo": "Alprazolam",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Ansiedad",
+      "Crisis de pánico"
+    ],
+    "advertencias": [
+      "Precaución en ancianos",
+      "Sedación"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Alprazolam0.5.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.02,
+            "y": 0.15,
+            "w": 0.17,
+            "h": 0.14
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.81,
+              "y": 0.58,
+              "w": 0.16,
+              "h": 0.17
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 0.5,
+        "intervalo_horas": 8,
+        "max_diaria": {
+          "mg": 4
+        },
+        "comentarios": "Dosis habitual ansiedad: 0,25–0,5 mg/8 h. En ancianos iniciar 0,25 mg/8–12 h y ajustar."
+      }
+    },
+    "posologia_texto": "0,5 mg cada 8 h. Máx. 4 mg/día. (Iniciar 0,25 mg; especial precaución en ancianos)."
+  },
+  {
+    "id": "clorazepato-iv",
+    "nombre": "Clorazepato IV",
+    "principio_activo": "Clorazepato",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Ansiedad severa",
+      "Agitación psicomotriz",
+      "Premedicación anestésica"
+    ],
+    "advertencias": [
+      "Depresión respiratoria",
+      "Hipotensión",
+      "Precaución en ancianos"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Clorazepato20iv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.71,
+            "y": 0.4,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 50,
+        "intervalo_horas": {
+          "min": 8,
+          "max": 12
+        },
+        "max_diaria": {
+          "mg": 150
+        },
+        "comentarios": "Administrar IV lenta. Dosis usual: 50 mg cada 8-12 h. En ancianos reducir dosis al 50%."
+      }
+    },
+    "posologia_texto": "50 mg cada 8-12 h IV. Máx. 150 mg/día. Administrar lentamente."
+  },
+  {
+    "id": "diazepam-10",
+    "nombre": "Diazepam 10 mg",
+    "principio_activo": "Diazepam",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Ansiedad intensa",
+      "Espasmos musculares"
+    ],
+    "advertencias": [
+      "Sedación potente",
+      "Precaución en insuficiencia respiratoria"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Diazepam10.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.42,
+            "y": 0.15,
+            "w": 0.17,
+            "h": 0.14
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.02,
+              "y": 0.58,
+              "w": 0.16,
+              "h": 0.17
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 10,
+        "intervalo_horas": {
+          "min": 6,
+          "max": 8
+        },
+        "max_diaria": {
+          "mg": 40
+        },
+        "comentarios": "Ansiedad severa/espasmos: 5–10 mg, 3–4 veces/día. Ancianos: iniciar 2–2,5 mg, 1–2 veces/día."
+      }
+    },
+    "posologia_texto": "10 mg cada 6–8 h. Máx. 40 mg/día. (Ancianos: 2–2,5 mg cada 12–24 h)."
+  },
+  {
+    "id": "diazepam-10-iv",
+    "nombre": "Diazepam 10 mg IV",
+    "principio_activo": "Diazepam",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Crisis de ansiedad severa",
+      "Convulsiones o status epiléptico",
+      "Agitación psicomotriz",
+      "Espasmos musculares intensos"
+    ],
+    "advertencias": [
+      "Depresión respiratoria y apnea si administración rápida",
+      "Hipotensión, somnolencia y bradicardia",
+      "Precaución en ancianos o insuficiencia respiratoria"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Diazepamiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.81,
+            "y": 0.15,
+            "w": 0.17,
+            "h": 0.14
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.84,
+            "y": 0.14,
+            "w": 0.07,
+            "h": 0.1
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 10,
+        "intervalo_horas": {
+          "min": 6,
+          "max": 8
+        },
+        "max_diaria": {
+          "mg": 40
+        },
+        "comentarios": "Administrar lentamente (al menos 1 ml/min). En crisis: 5–10 mg IV, repetir según respuesta hasta 30 mg. Puede continuar por vía oral."
+      }
+    },
+    "posologia_texto": "5–10 mg IV lenta (1 ml/min), repetir según respuesta. Máx. 40 mg/día."
+  },
+  {
+    "id": "diazepam-10-rectal",
+    "nombre": "Diazepam 10 mg rectal",
+    "principio_activo": "Diazepam",
+    "via": "rectal",
+    "forma": "microenemas",
+    "indicaciones": [
+      "Crisis epilépticas",
+      "Status epilépticus"
+    ],
+    "advertencias": [
+      "Depresión respiratoria",
+      "Monitorizar función respiratoria"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Diazepam10rectal.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 10,
+        "intervalo_horas": {
+          "min": 4,
+          "max": 12
+        },
+        "max_diaria": {
+          "mg": 30
+        },
+        "comentarios": "Para crisis epilépticas graves: 10 mg. Repetir a los 10 min si persiste. Máx. 30 mg/día en adultos."
+      }
+    },
+    "posologia_texto": "10 mg según necesidad. Repetir a los 10 min si persiste crisis. Máx. 30 mg/día."
+  },
+  {
+    "id": "diazepam-5",
+    "nombre": "Diazepam 5 mg",
+    "principio_activo": "Diazepam",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Ansiedad",
+      "Tensión psíquica"
+    ],
+    "advertencias": [
+      "Sedación",
+      "Riesgo de caídas"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Diazepam5.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.22,
+            "y": 0.15,
+            "w": 0.16,
+            "h": 0.14
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 5,
+        "intervalo_horas": {
+          "min": 6,
+          "max": 12
+        },
+        "max_diaria": {
+          "mg": 40
+        },
+        "comentarios": "Ansiedad: 2–10 mg, 2–4 veces/día. Ancianos: iniciar 2–2,5 mg, 1–2 veces/día y ajustar."
+      }
+    },
+    "posologia_texto": "5 mg cada 6–12 h. Máx. 40 mg/día. (Ancianos: 2–2,5 mg cada 12–24 h)."
+  },
+  {
+    "id": "diazepam-5-rectal",
+    "nombre": "Diazepam 5 mg rectal",
+    "principio_activo": "Diazepam",
+    "via": "rectal",
+    "forma": "microenemas",
+    "indicaciones": [
+      "Crisis epilépticas",
+      "Status epilépticus"
+    ],
+    "advertencias": [
+      "Depresión respiratoria",
+      "Monitorizar función respiratoria"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Diazepam5rectal.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.22,
+              "y": 0.58,
+              "w": 0.16,
+              "h": 0.17
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 5,
+        "intervalo_horas": {
+          "min": 4,
+          "max": 12
+        },
+        "max_diaria": {
+          "mg": 20
+        },
+        "comentarios": "Para crisis epilépticas: 5-10 mg. Repetir a los 10 min si persiste la crisis. Máx. 2-3 dosis/día."
+      }
+    },
+    "posologia_texto": "5-10 mg según necesidad. Repetir a los 10 min si persiste crisis. Máx. 20 mg/día."
+  },
+  
+  {
+    "id": "diazepam-105-rectal",
+    "nombre": "Diazepam 10 mg rectal",
+    "principio_activo": "Diazepam",
+    "via": "rectal",
+    "forma": "microenemas",
+    "indicaciones": [
+      "Crisis epilépticas",
+      "Status epilépticus"
+    ],
+    "advertencias": [
+      "Depresión respiratoria",
+      "Monitorizar función respiratoria"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Diazepam10rectal.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.42,
+              "y": 0.58,
+              "w": 0.16,
+              "h": 0.17
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 5,
+        "intervalo_horas": {
+          "min": 4,
+          "max": 12
+        },
+        "max_diaria": {
+          "mg": 20
+        },
+        "comentarios": "Para crisis epilépticas: 5-10 mg. Repetir a los 10 min si persiste la crisis. Máx. 2-3 dosis/día."
+      }
+    },
+    "posologia_texto": "5-10 mg según necesidad. Repetir a los 10 min si persiste crisis. Máx. 20 mg/día."
+  },
+  {
+  "id": "midazolam-iv",
+  "nombre": "Midazolam IV",
+  "principio_activo": "Midazolam",
+  "via": "iv",
+  "forma": "ampollas",
+  "indicaciones": [
+    "Sedación en procedimientos",
+    "Premedicación",
+    "Agitación severa",
+    "Convulsiones/estatus epiléptico (alternativa)"
+  ],
+  "advertencias": [
+    "Depresión respiratoria e hipotensión: administrar IV lenta con monitorización",
+    "Mayor sensibilidad en ancianos/insuficiencia respiratoria o hepática",
+    "Interacciones con opioides y depresores del SNC (potenciación sedante)"
+  ],
+  "imagenes": {
+    "producto": "../img/farmacos/Midazolamiv.png"
+  },
+  "localizacion": {
+    "consulta": {
+      "map": "../img/armarios/consultas.png",
+      "hotspots": []
+    },
+    "criticos": [
+      {
+        "id": "oral",
+        "map": "../img/armarios/criticos_oral.png",
+        "hotspots": []
+      },
+      {
+        "id": "iv",
+        "map": "../img/armarios/criticos_iv.png",
+        "hotspots": [
+        {
+          "shape": "rect",
+          "x": 0.76,
+          "y": 0.13,
+          "w": 0.07,
+          "h": 0.1
+        }
+      ]
+      }
+    ],
+    "frigorifico": {
+      "map": "../img/armarios/frigo.png",
+      "hotspots": []
+    }
+  },
+  "dosis": {
+    "adulto": {
+      "tipo": "kg",
+      "dosis_por_kg_mgkg": 0.05,
+      "intervalo_horas": null,
+      "max_diaria": null,
+      "comentarios": "Sedación en procedimientos: 1–2 mg IV lenta, repetir en incrementos de 1 mg cada 2–3 min hasta efecto (típico 2–5 mg). Perfusión: 0,02–0,1 mg/kg/h si precisa sedación mantenida. Convulsiones: 5–10 mg IV lenta como bolo."
+    }
+  },
+  "posologia_texto": "Sedación: 1–2 mg IV lenta, repetir hasta 2–5 mg según respuesta. Si precisa, perfusión 0,02–0,1 mg/kg/h. Convulsiones: 5–10 mg IV lenta."
+},
+
+  {
+    "id": "lorazepam-1",
+    "nombre": "Lorazepam 1 mg",
+    "principio_activo": "Lorazepam",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Ansiedad",
+      "Agitación"
+    ],
+    "advertencias": [
+      "Sedación",
+      "Riesgo de dependencia"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Lorazepam1.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.62,
+            "y": 0.15,
+            "w": 0.16,
+            "h": 0.14
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.62,
+              "y": 0.58,
+              "w": 0.16,
+              "h": 0.17
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 1,
+        "intervalo_horas": {
+          "min": 8,
+          "max": 12
+        },
+        "max_diaria": {
+          "mg": 10
+        },
+        "comentarios": "Ansiedad: 1–2 mg, 2–3 veces/día. Ancianos/debilitados: 0,5–1 mg, 1–2 veces/día; ajustar."
+      }
+    },
+    "posologia_texto": "1 mg cada 8–12 h. Máx. 10 mg/día. (Ancianos: 0,5–1 mg cada 12–24 h)."
+  }
+]

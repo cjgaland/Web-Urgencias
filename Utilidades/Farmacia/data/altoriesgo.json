@@ -1,0 +1,282 @@
+[
+  {
+    "principio_activo": "Epinefrina",
+    "grupo_terapeutico": "Agonista adrenérgico",
+    "grupo_afectado": "Todos"
+  },
+  {
+    "principio_activo": "Noradrenalina",
+    "grupo_terapeutico": "Agonista adrenérgico",
+    "grupo_afectado": "Todos"
+  },
+  {
+    "principio_activo": "Dopamina",
+    "grupo_terapeutico": "Agonista adrenérgico",
+    "grupo_afectado": "Todos"
+  },
+  {
+    "principio_activo": "Heparina",
+    "grupo_terapeutico": "Anticoagulante",
+    "grupo_afectado": "Todos"
+  },
+  {
+    "principio_activo": "Warfarina",
+    "grupo_terapeutico": "Anticoagulante",
+    "grupo_afectado": "Todos"
+  },
+  {
+    "principio_activo": "Acenocumarol",
+    "grupo_terapeutico": "Anticoagulante",
+    "grupo_afectado": "Todos"
+  },
+  {
+    "principio_activo": "Rocuronio",
+    "grupo_terapeutico": "Bloqueante neuromuscular",
+    "grupo_afectado": "Todos"
+  },
+  {
+    "principio_activo": "Suxametonio",
+    "grupo_terapeutico": "Bloqueante neuromuscular",
+    "grupo_afectado": "Todos"
+  },
+  {
+    "principio_activo": "Vincristina",
+    "grupo_terapeutico": "Agente antineoplásico",
+    "grupo_afectado": "Todos"
+  },
+  {
+    "principio_activo": "Insulina glargina",
+    "grupo_terapeutico": "Hipoglucemiante",
+    "grupo_afectado": "Todos"
+  },
+  {
+    "principio_activo": "Insulina lispro",
+    "grupo_terapeutico": "Hipoglucemiante",
+    "grupo_afectado": "Todos"
+  },
+  {
+    "principio_activo": "Insulina regular",
+    "grupo_terapeutico": "Hipoglucemiante",
+    "grupo_afectado": "Todos"
+  },
+  {
+    "principio_activo": "Metotrexato",
+    "grupo_terapeutico": "Antimetabolito",
+    "grupo_afectado": "Todos"
+  },
+  {
+    "principio_activo": "Morfina",
+    "grupo_terapeutico": "Analgésico opioide",
+    "grupo_afectado": "Todos"
+  },
+  {
+    "principio_activo": "Fentanilo",
+    "grupo_terapeutico": "Analgésico opioide",
+    "grupo_afectado": "Todos"
+  },
+  {
+    "principio_activo": "Cloruro potásico",
+    "grupo_terapeutico": "Electrolito concentrado",
+    "grupo_afectado": "Todos"
+  },
+  {
+    "principio_activo": "Fosfato potásico",
+    "grupo_terapeutico": "Electrolito concentrado",
+    "grupo_afectado": "Todos"
+  },
+  {
+    "principio_activo": "Amiodarona",
+    "grupo_terapeutico": "Antiarrítmico",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Dronedarona",
+    "grupo_terapeutico": "Antiarrítmico",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Ácido acetilsalicílico",
+    "grupo_terapeutico": "Antiagregante plaquetario",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Clopidogrel",
+    "grupo_terapeutico": "Antiagregante plaquetario",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Apixabán",
+    "grupo_terapeutico": "Anticoagulante",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Rivaroxabán",
+    "grupo_terapeutico": "Anticoagulante",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Dabigatrán",
+    "grupo_terapeutico": "Anticoagulante",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Carbamazepina",
+    "grupo_terapeutico": "Antiepiléptico",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Fenitoína",
+    "grupo_terapeutico": "Antiepiléptico",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Ácido valproico",
+    "grupo_terapeutico": "Antiepiléptico",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Ibuprofeno",
+    "grupo_terapeutico": "AINE",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Diclofenaco",
+    "grupo_terapeutico": "AINE",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Naproxeno",
+    "grupo_terapeutico": "AINE",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Haloperidol",
+    "grupo_terapeutico": "Antipsicótico",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Risperidona",
+    "grupo_terapeutico": "Antipsicótico",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Quetiapina",
+    "grupo_terapeutico": "Antipsicótico",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Lorazepam",
+    "grupo_terapeutico": "Ansiolítico",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Diazepam",
+    "grupo_terapeutico": "Ansiolítico",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Alprazolam",
+    "grupo_terapeutico": "Ansiolítico",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Metoprolol",
+    "grupo_terapeutico": "Betabloqueante",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Bisoprolol",
+    "grupo_terapeutico": "Betabloqueante",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Prednisona",
+    "grupo_terapeutico": "Corticosteroide",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Digoxina",
+    "grupo_terapeutico": "Glucósido cardíaco",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Furosemida",
+    "grupo_terapeutico": "Diurético",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Espironolactona",
+    "grupo_terapeutico": "Diurético ahorrador de potasio",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Eplerenona",
+    "grupo_terapeutico": "Diurético ahorrador de potasio",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Glibenclamida",
+    "grupo_terapeutico": "Hipoglucemiante oral",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Metformina",
+    "grupo_terapeutico": "Hipoglucemiante oral",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Tacrolimus",
+    "grupo_terapeutico": "Inmunosupresor",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Ciclosporina",
+    "grupo_terapeutico": "Inmunosupresor",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Litio",
+    "grupo_terapeutico": "Estabilizador del ánimo",
+    "grupo_afectado": "Crónicos"
+  },
+  {
+    "principio_activo": "Gentamicina",
+    "grupo_terapeutico": "Antibiótico",
+    "grupo_afectado": "Pediatría"
+  },
+  {
+    "principio_activo": "Vancomicina",
+    "grupo_terapeutico": "Antibiótico",
+    "grupo_afectado": "Pediatría"
+  },
+  {
+    "principio_activo": "Midazolam",
+    "grupo_terapeutico": "Sedante",
+    "grupo_afectado": "Pediatría"
+  },
+  {
+    "principio_activo": "Propofol",
+    "grupo_terapeutico": "Sedante",
+    "grupo_afectado": "Pediatría"
+  },
+  {
+    "principio_activo": "Paracetamol intravenoso",
+    "grupo_terapeutico": "Analgésico no opioide",
+    "grupo_afectado": "Pediatría"
+  },
+  {
+    "principio_activo": "Metadona",
+    "grupo_terapeutico": "Analgésico opioide",
+    "grupo_afectado": "Todos"
+  },
+  {
+    "principio_activo": "Hidromorfona",
+    "grupo_terapeutico": "Analgésico opioide",
+    "grupo_afectado": "Todos"
+  },
+  {
+    "principio_activo": "Oxicodona",
+    "grupo_terapeutico": "Analgésico opioide",
+    "grupo_afectado": "Todos"
+  }
+]

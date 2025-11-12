@@ -1,0 +1,133 @@
+[
+  {
+    "id": "cetirizina-10",
+    "nombre": "Cetirizina 10 mg",
+    "principio_activo": "Cetirizina",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Rinitis alérgica",
+      "Urticaria"
+    ],
+    "advertencias": [
+      "Sedación leve",
+      "Precaución al conducir",
+      "Sequedad de boca"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Cetirizina10.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.83,
+            "y": 0.01,
+            "w": 0.15,
+            "h": 0.12
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 10,
+        "intervalo_horas": 24,
+        "comentarios": "Administrar una vez al día. Puede causar somnolencia. Menor efecto sedante que antihistamínicos de primera generación."
+      }
+    },
+    "posologia_texto": "10 mg cada 24 h."
+  },
+  {
+    "id": "dexclorfeniramina-iv",
+    "nombre": "Dexclorfeniramina IV",
+    "principio_activo": "Dexclorfeniramina",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Reacción alérgica",
+      "Urticaria",
+      "Rinitis alérgica"
+    ],
+    "advertencias": [
+      "Sedación",
+      "Precaución al conducir",
+      "Sequedad de boca"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Dexclorfeniraminaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.02,
+            "y": 0.65,
+            "w": 0.16,
+            "h": 0.14
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.81,
+            "y": 0.54,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 5,
+        "intervalo_horas": {
+          "min": 8,
+          "max": 12
+        },
+        "max_diaria": {
+          "mg": 15
+        },
+        "comentarios": "Administrar IV lenta. Puede causar somnolencia. Evitar actividades que requieran alerta."
+      }
+    },
+    "posologia_texto": "5 mg cada 8-12 h IV. Máx. 15 mg/día."
+  }
+]

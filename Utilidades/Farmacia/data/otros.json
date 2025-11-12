@@ -1,0 +1,547 @@
+[
+  {
+    "id": "naloxona-iv",
+    "nombre": "Naloxona IV",
+    "principio_activo": "Naloxona",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": ["Intoxicación por opioides", "Reversión depresión respiratoria"],
+    "advertencias": ["Síndrome de abstinencia", "Efecto corta duración", "Monitorizar respiración"],
+    "imagenes": {
+      "producto": "../img/farmacos/Naloxona iv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+        {
+          "shape": "rect",
+          "x": 0.92,
+          "y": 0.14,
+          "w": 0.07,
+          "h": 0.1
+        }
+      ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 0.4,
+        "intervalo_horas": { "min": 2, "max": 3 },
+        "max_diaria": { "mg": 10 },
+        "comentarios": "Administrar 0.4-2 mg IV cada 2-3 min hasta respuesta. Efecto 1-2 horas."
+      }
+    },
+    "posologia_texto": "0.4-2 mg cada 2-3 min IV. Repetir según necesidad."
+  },
+  {
+    "id": "flumazenilo-iv",
+    "nombre": "Flumazenilo IV",
+    "principio_activo": "Flumazenilo",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": ["Intoxicación por benzodiacepinas", "Reversión sedación"],
+    "advertencias": ["Convulsiones", "Síndrome de abstinencia", "Resedación"],
+    "imagenes": {
+      "producto": "../img/farmacos/Flumazeniloiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.91,
+            "y": 0.25,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 0.2,
+        "intervalo_horas": { "min": 1, "max": 1 },
+        "max_diaria": { "mg": 3 },
+        "comentarios": "Administrar 0.2 mg cada 1 min hasta respuesta. Máx. 3 mg. Efecto 30-60 min."
+      }
+    },
+    "posologia_texto": "0.2 mg cada 1 min IV. Máx. 3 mg."
+  },
+  {
+    "id": "tranexamico-iv",
+    "nombre": "Tranexámico IV",
+    "principio_activo": "Ácido Tranexámico",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": ["Hemorragia", "Hiperfibrinolisis", "Trauma"],
+    "advertencias": ["Trombosis", "Convulsiones en altas dosis", "Hipersensibilidad"],
+    "imagenes": {
+      "producto": "../img/farmacos/Tranexamicoiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.63,
+            "y": 0.85,
+            "w": 0.11,
+            "h": 0.14
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija_o_kg",
+        "dosis_fija_mg": 1000,
+        "dosis_por_kg_mgkg": 10,
+        "intervalo_horas": { "min": 6, "max": 8 },
+        "max_diaria": { "mg": 4000 },
+        "comentarios": "Administrar 1 g cada 6-8 h IV. En trauma: 1 g en 10 min, luego 1 g en 8 h."
+      }
+    },
+    "posologia_texto": "1 g cada 6-8 h IV. Máx. 4 g/día."
+  },
+
+  {
+    "id": "nitroglicerina-iv",
+    "nombre": "Nitroglicerina IV",
+    "principio_activo": "Nitroglicerina",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": ["Angina inestable", "Edema agudo de pulmón", "Hipertensión"],
+    "advertencias": ["Hipotensión", "Cefalea", "Tolerancia"],
+    "imagenes": {
+      "producto": "../img/farmacos/Nitroglicerinaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.81,
+            "y": 0.25,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": null,
+        "dosis_por_kg_mgkg": null,
+        "intervalo_horas": null,
+        "max_diaria": null,
+        "comentarios": "Iniciar 5-10 mcg/min, aumentar 5-10 mcg/min cada 5-10 min. Rango: 10-200 mcg/min."
+      }
+    },
+    "posologia_texto": "5-200 mcg/min IV. Titular según respuesta."
+  },
+  {
+    "id": "noradrenalina-iv",
+    "nombre": "Noradrenalina IV",
+    "principio_activo": "Noradrenalina",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": ["Shock", "Hipotensión refractaria", "Vasopresor"],
+    "advertencias": ["Extravasación", "Isquemia periférica", "Arritmias"],
+    "imagenes": {
+      "producto": "../img/farmacos/Noradrenalinaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.01,
+            "y": 0.1,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": null,
+        "dosis_por_kg_mgkg": null,
+        "intervalo_horas": null,
+        "max_diaria": null,
+        "comentarios": "Iniciar 0.05-0.1 mcg/kg/min. Rango: 0.05-3 mcg/kg/min. Titular según PAM."
+      }
+    },
+    "posologia_texto": "0.05-3 mcg/kg/min IV. Titular según presión arterial."
+  },
+  {
+    "id": "dobutamina-iv",
+    "nombre": "Dobutamina IV",
+    "principio_activo": "Dobutamina",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": ["Insuficiencia cardíaca", "Shock cardiogénico", "Inotrópico"],
+    "advertencias": ["Taquicardia", "Arritmias", "Hipotensión"],
+    "imagenes": {
+      "producto": "../img/farmacos/Dobutaminaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.21,
+            "y": 0.11,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": null,
+        "dosis_por_kg_mgkg": null,
+        "intervalo_horas": null,
+        "max_diaria": null,
+        "comentarios": "Iniciar 2-5 mcg/kg/min. Rango: 2-20 mcg/kg/min. Titular según gasto cardíaco."
+      }
+    },
+    "posologia_texto": "2-20 mcg/kg/min IV. Titular según respuesta."
+  },
+  {
+    "id": "dopamina-iv",
+    "nombre": "Dopamina IV",
+    "principio_activo": "Dopamina",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": ["Shock", "Hipotensión", "Inotrópico"],
+    "advertencias": ["Arritmias", "Vasoconstricción", "Extravasación"],
+    "imagenes": {
+      "producto": "../img/farmacos/Dopaminaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+        {
+          "shape": "rect",
+          "x": 0.11,
+          "y": 0.11,
+          "w": 0.08,
+          "h": 0.12
+        }
+      ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": null,
+        "dosis_por_kg_mgkg": null,
+        "intervalo_horas": null,
+        "max_diaria": null,
+        "comentarios": "Renal: 1-3 mcg/kg/min. Cardíaco: 3-10 mcg/kg/min. Vasopresor: >10 mcg/kg/min."
+      }
+    },
+    "posologia_texto": "1-20 mcg/kg/min IV. Titular según indicación."
+  },
+  {
+    "id": "efedrina-iv",
+    "nombre": "Efedrina IV",
+    "principio_activo": "Efedrina",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": ["Hipotensión", "Anestesia", "Vasopresor"],
+    "advertencias": ["Taquicardia", "Hipertensión", "Arritmias"],
+    "imagenes": {
+      "producto": "../img/farmacos/Efedrinaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.31,
+            "y": 0.11,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 10,
+        "intervalo_horas": { "min": 5, "max": 10 },
+        "max_diaria": { "mg": 150 },
+        "comentarios": "Administrar 5-10 mg cada 5-10 min según respuesta. Efecto 10-60 min."
+      }
+    },
+    "posologia_texto": "5-10 mg cada 5-10 min IV. Máx. 150 mg/día."
+  },
+{
+  "id": "lidocaina-2-sc",
+  "nombre": "Lidocaína 2% SC",
+  "principio_activo": "Lidocaína",
+  "via": "sc",
+  "forma": "ampollas",
+  "indicaciones": [
+    "Anestesia local por infiltración subcutánea",
+    "Procedimientos menores (sutura, drenaje de abscesos, infiltraciones)",
+    "Bloqueos nerviosos periféricos"
+  ],
+  "advertencias": [
+    "No superar la dosis máxima (4,5 mg/kg sin adrenalina, 7 mg/kg con adrenalina)",
+    "Riesgo de toxicidad sistémica (CNS y cardiovascular) con sobredosis o administración intravascular",
+    "Evitar en bloqueo cardíaco grave sin marcapasos o hipersensibilidad a amidas"
+  ],
+  "imagenes": {
+    "producto": "../img/farmacos/Lidocaina 2 sc.png"
+  },
+  "localizacion": {
+    "consulta": {
+      "map": "../img/armarios/consultas.png",
+      "hotspots": []
+    },
+    "criticos": [
+      {
+        "id": "oral",
+        "map": "../img/armarios/criticos_oral.png",
+        "hotspots": []
+      },
+      {
+        "id": "iv",
+        "map": "../img/armarios/criticos_iv.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.61,
+            "y": 0.69,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+      }
+    ],
+    "frigorifico": {
+      "map": "../img/armarios/frigo.png",
+      "hotspots": []
+    }
+  },
+  "dosis": {
+    "adulto": {
+      "tipo": "kg",
+      "dosis_por_kg_mgkg": 4.5,
+      "intervalo_horas": null,
+      "max_diaria": { "mgkg": 4.5 },
+      "comentarios": "No superar 4,5 mg/kg sin adrenalina o 7 mg/kg con adrenalina. Ejemplo: adulto 70 kg → máx. 315 mg (≈15 ml de lidocaína 2%). Administrar lentamente y aspirar antes de infiltrar."
+    }
+  },
+  "posologia_texto": "Anestesia local: infiltrar lentamente sin sobrepasar 4,5 mg/kg (≈15 ml de lidocaína 2% en adulto 70 kg)."
+},
+
+  {
+    "id": "acetilcisteina-20-iv",
+    "nombre": "Acetilcisteína 20% IV",
+    "principio_activo": "Acetilcisteína",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": ["Intoxicación por paracetamol", "Mucolítico", "Fibrosis quística"],
+    "advertencias": ["Reacción anafilactoide", "Broncoespasmo", "Hipotensión"],
+    "imagenes": {
+      "producto": "../img/farmacos/N-Acetilcisteina20%iv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.71,
+            "y": 0.69,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "iv_carga_mto",
+        "carga": {
+          "dosis_fija_mg": 150000,
+          "dosis_por_kg_mgkg": 150,
+          "tiempo_adm_min": 15
+        },
+        "mantenimiento": {
+          "dosis_fija_mg": 50000,
+          "dosis_por_kg_mgkg": 50,
+          "intervalo_horas": 4,
+          "max_diaria": { "mg": 300000 }
+        },
+        "comentarios": "Intoxicación paracetamol: 150 mg/kg en 15 min, luego 50 mg/kg en 4 h, luego 100 mg/kg en 16 h."
+      }
+    },
+    "posologia_texto": "Carga: 150 mg/kg en 15 min. Mantenimiento: 50 mg/kg en 4 h, luego 100 mg/kg en 16 h."
+  }
+  
+
+]

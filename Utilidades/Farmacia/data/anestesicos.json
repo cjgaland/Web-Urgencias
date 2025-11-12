@@ -1,0 +1,128 @@
+[
+  {
+    "id": "etomidato-iv",
+    "nombre": "Etomidato IV",
+    "principio_activo": "Etomidato",
+    "formas": [
+      "Ampollas 2 mg/ml"
+    ],
+    "vias": [
+      "IV"
+    ],
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Inducción anestésica (inestabilidad hemodinámica)",
+      "Secuencia de intubación rápida"
+    ],
+    "advertencias": [
+      "Mioclonías",
+      "Supresión suprarrenal transitoria",
+      "Usar solo los bolos necesarios"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Etomidatoiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.67,
+            "y": 0.13,
+            "w": 0.07,
+            "h": 0.1
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "kg",
+        "dosis_por_kg_mgkg": 0.3,
+        "comentarios": "Inducción: 0,2–0,3 mg/kg en bolo IV. Evitar perfusión continua por riesgo de insuficiencia suprarrenal."
+      }
+    },
+    "posologia_texto": "Inducción 0,2–0,3 mg/kg IV en bolo. No usar en perfusión continua."
+  },
+  {
+    "id": "propofol-1-iv",
+    "nombre": "Propofol 1% IV",
+    "principio_activo": "Propofol",
+    "formas": [
+      "Viales 1% (10 mg/ml)"
+    ],
+    "vias": [
+      "IV"
+    ],
+    "via": "iv",
+    "forma": "viales",
+    "indicaciones": [
+      "Inducción anestésica",
+      "Sedación en UCI o procedimientos"
+    ],
+    "advertencias": [
+      "Depresión respiratoria e hipotensión",
+      "Evitar en alergia a soja o huevo",
+      "Monitorizar constantes y vía aérea"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Propofoliv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.59,
+            "y": 0.13,
+            "w": 0.07,
+            "h": 0.1
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "kg",
+        "dosis_por_kg_mgkg": 2,
+        "comentarios": "Inducción: 1,5–2,5 mg/kg en bolo. Sedación: perfusión 0,5–4 mg/kg/h, titular según respuesta."
+      }
+    },
+    "posologia_texto": "Inducción 1,5–2,5 mg/kg IV. Sedación: perfusión 0,5–4 mg/kg/h con monitorización."
+  }
+]

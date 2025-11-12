@@ -1,0 +1,182 @@
+[
+  {
+    "id": "vitamina-k-iv",
+    "nombre": "Vitamina K (Fitomenadiona) IV",
+    "principio_activo": "Fitomenadiona",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Reversión de anticoagulación por warfarina o acenocumarol",
+      "Deficiencia de vitamina K por malabsorción o antibióticos",
+      "Hemorragias por déficit de factores dependientes de vitamina K"
+    ],
+    "advertencias": [
+      "Administrar IV muy lenta (≥30 segundos por mg) para evitar reacciones anafilactoides",
+      "No administrar por vía IM en pacientes anticoagulados",
+      "Controlar INR a las 6–12 h tras administración"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/VitaminaKiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.75,
+            "y": 0.85,
+            "w": 0.11,
+            "h": 0.14
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 10,
+        "intervalo_horas": null,
+        "max_diaria": { "mg": 40 },
+        "comentarios": "Hemorragia por antagonistas de vitamina K: 5–10 mg IV lenta. Dosis máxima recomendada: 40 mg/24 h."
+      }
+    },
+    "posologia_texto": "5–10 mg IV lenta; ajustar según INR. Máx. 40 mg/día."
+  },
+  {
+    "id": "piridoxina-iv",
+    "nombre": "Piridoxina (Vitamina B6) IV",
+    "principio_activo": "Piridoxina hidrocloruro",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Tratamiento y profilaxis de la neuropatía inducida por isoniacida",
+      "Déficit nutricional de vitamina B6",
+      "Intoxicación por isoniacida o hidracina"
+    ],
+    "advertencias": [
+      "Administrar lentamente por vía IV directa o diluida en SSF",
+      "En intoxicación por isoniacida: dosis igual a la cantidad ingerida de fármaco (mg por mg)",
+      "Uso puntual en urgencias; la suplementación crónica debe ser oral"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Piridoxinaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.91,
+            "y": 0.69,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 100,
+        "intervalo_horas": 24,
+        "max_diaria": { "mg": 200 },
+        "comentarios": "Déficit o profilaxis: 100 mg IV/24 h. En intoxicación por isoniacida: dosis igual (mg por mg) al fármaco ingerido, máx. 5 g."
+      }
+    },
+    "posologia_texto": "100 mg IV/24 h. En intoxicación: dosis igual (mg por mg) a la isoniacida ingerida, máx. 5 g."
+  },
+  {
+    "id": "tiamina-iv",
+    "nombre": "Tiamina (Vitamina B1) IV",
+    "principio_activo": "Tiamina clorhidrato",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Profilaxis y tratamiento del síndrome de Wernicke-Korsakoff",
+      "Déficit de tiamina en alcoholismo crónico o desnutrición",
+      "Administración previa a soluciones glucosadas en pacientes con riesgo de déficit"
+    ],
+    "advertencias": [
+      "Administrar antes de la glucosa en pacientes alcohólicos o desnutridos",
+      "Puede producir reacciones anafilácticas raras con administración IV rápida",
+      "Evitar administración simultánea en la misma jeringa con soluciones alcalinas"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Tiaminaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.81,
+            "y": 0.69,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 100,
+        "intervalo_horas": 24,
+        "max_diaria": { "mg": 300 },
+        "comentarios": "Profilaxis: 100 mg IV/24 h. Wernicke-Korsakoff: 100–500 mg IV/8 h los primeros 3 días, luego 100 mg/24 h."
+      }
+    },
+    "posologia_texto": "100 mg IV/24 h (profilaxis). Wernicke-Korsakoff: 100–500 mg IV/8 h durante 3 días, luego 100 mg/24 h."
+  }
+]

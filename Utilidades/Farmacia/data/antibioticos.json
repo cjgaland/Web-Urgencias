@@ -1,0 +1,132 @@
+[
+  {
+    "id": "amoxicilina-1000",
+    "nombre": "Amoxicilina 1000 mg",
+    "principio_activo": "Amoxicilina",
+    "via": "oral",
+    "forma": "sobres",
+    "indicaciones": [
+      "Infecciones respiratorias",
+      "Infecciones urinarias",
+      "Infecciones de piel y tejidos blandos"
+    ],
+    "advertencias": [
+      "Alergia a penicilinas",
+      "Diarrrea",
+      "Erupción cutánea"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Amoxicilina1000.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.19,
+            "y": 0.01,
+            "w": 0.14,
+            "h": 0.12
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 1000,
+        "intervalo_horas": {
+          "min": 8,
+          "max": 12
+        },
+        "max_diaria": {
+          "mg": 3000
+        },
+        "comentarios": "Disolver el contenido del sobre en agua. Tomar cada 8-12 horas. En infecciones graves aumentar frecuencia."
+      }
+    },
+    "posologia_texto": "1000 mg cada 8-12 h. Máx. 3 g/día. Disolver en agua."
+  },
+  {
+    "id": "amoxicilina-clavulanico-875-125",
+    "nombre": "Amoxicilina/Clavulánico 875/125 mg",
+    "principio_activo": "Amoxicilina/Clavulánico",
+    "via": "oral",
+    "forma": "sobres",
+    "indicaciones": [
+      "Infecciones respiratorias",
+      "Infecciones urinarias complicadas",
+      "Infecciones de piel y tejidos blandos"
+    ],
+    "advertencias": [
+      "Alergia a penicilinas",
+      "Hepatotoxicidad",
+      "Diarrrea"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/AmoxicilinaClavulanico875.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.34,
+            "y": 0.01,
+            "w": 0.15,
+            "h": 0.11
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 875,
+        "intervalo_horas": {
+          "min": 8,
+          "max": 12
+        },
+        "max_diaria": {
+          "mg": 1750
+        },
+        "comentarios": "Disolver el contenido del sobre en agua. Tomar cada 8-12 horas. Relación fija 7:1 (amoxicilina:clavulánico)."
+      }
+    },
+    "posologia_texto": "875/125 mg cada 8-12 h. Máx. 1750/250 mg/día. Disolver en agua."
+  }
+]

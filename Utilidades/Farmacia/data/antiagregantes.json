@@ -1,0 +1,352 @@
+[
+  {
+    "id": "aas-100",
+    "nombre": "AAS 100 mg",
+    "principio_activo": "Ácido Acetilsalicílico",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Prevención secundaria cardiovascular",
+      "Antiagregante plaquetario",
+      "Síndrome coronario agudo"
+    ],
+    "advertencias": [
+      "Riesgo hemorrágico",
+      "Úlcera péptica",
+      "Asma"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/AAS100.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.02,
+              "y": 0.01,
+              "w": 0.14,
+              "h": 0.14
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 100,
+        "intervalo_horas": 24,
+        "comentarios": "Dosis habitual para antiagregación: 75-150 mg/día. En SCA: masticar 300 mg inicial."
+      }
+    },
+    "posologia_texto": "100 mg cada 24 h."
+  },
+  {
+    "id": "aas-300",
+    "nombre": "AAS 300 mg",
+    "principio_activo": "Ácido Acetilsalicílico",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Síndrome coronario agudo",
+      "Ictus isquémico agudo",
+      "Dosis de carga antiagregante"
+    ],
+    "advertencias": [
+      "Riesgo hemorrágico",
+      "Úlcera péptica",
+      "Asma"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/AAS300.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.19,
+              "y": 0.01,
+              "w": 0.14,
+              "h": 0.14
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 300,
+        "intervalo_horas": 24,
+        "comentarios": "Para SCA: masticar 300 mg inicial. Mantenimiento: 100 mg/día. No usar en hemorragia activa."
+      }
+    },
+    "posologia_texto": "300 mg dosis única en SCA. Luego 100 mg/día."
+  },
+  {
+    "id": "clopidogrel-300",
+    "nombre": "Clopidogrel 300 mg",
+    "principio_activo": "Clopidogrel",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Dosis de carga en SCA",
+      "Pre-intervención coronaria"
+    ],
+    "advertencias": [
+      "Riesgo hemorrágico",
+      "Monitorizar función hepática"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Clopidogrel300.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.51,
+              "y": 0.01,
+              "w": 0.14,
+              "h": 0.14
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 300,
+        "intervalo_horas": 24,
+        "comentarios": "Dosis de carga única. Luego continuar con 75 mg/día. En intervención urgente: 600 mg."
+      }
+    },
+    "posologia_texto": "300 mg dosis única de carga. Luego 75 mg/día."
+  },
+  {
+    "id": "clopidogrel-75",
+    "nombre": "Clopidogrel 75 mg",
+    "principio_activo": "Clopidogrel",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Prevención secundaria cardiovascular",
+      "Síndrome coronario agudo",
+      "Stent coronario"
+    ],
+    "advertencias": [
+      "Riesgo hemorrágico",
+      "Monitorizar función hepática",
+      "Interacciones"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Clopidogrel75.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.35,
+              "y": 0.01,
+              "w": 0.14,
+              "h": 0.14
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 75,
+        "intervalo_horas": 24,
+        "comentarios": "Dosis de mantenimiento: 75 mg/día. Dosis de carga: 300-600 mg. Duración tratamiento según indicación."
+      }
+    },
+    "posologia_texto": "75 mg cada 24 h."
+  },
+  {
+    "id": "prasugrel-10",
+    "nombre": "Prasugrel 10 mg",
+    "principio_activo": "Prasugrel",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Síndrome coronario agudo",
+      "Intervención coronaria percutánea"
+    ],
+    "advertencias": [
+      "Alto riesgo hemorrágico",
+      "Contraindicado en ACV previo",
+      "Edad >75 años"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Prasugrel10.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.67,
+              "y": 0.01,
+              "w": 0.14,
+              "h": 0.14
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 10,
+        "intervalo_horas": 24,
+        "comentarios": "Dosis de carga: 60 mg. Mantenimiento: 10 mg/día. En peso <60 kg: 5 mg/día."
+      }
+    },
+    "posologia_texto": "10 mg cada 24 h. Dosis carga: 60 mg."
+  },
+  {
+    "id": "ticagrelor-90",
+    "nombre": "Ticagrelor 90 mg",
+    "principio_activo": "Ticagrelor",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Síndrome coronario agudo",
+      "Prevención secundaria cardiovascular"
+    ],
+    "advertencias": [
+      "Riesgo hemorrágico",
+      "Disnea",
+      "Bradicardia"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Ticagrelor90.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.83,
+              "y": 0.01,
+              "w": 0.14,
+              "h": 0.14
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 90,
+        "intervalo_horas": 12,
+        "comentarios": "Dosis de carga: 180 mg (2 comprimidos). Mantenimiento: 90 mg cada 12 h."
+      }
+    },
+    "posologia_texto": "90 mg cada 12 h. Dosis carga: 180 mg."
+  }
+]

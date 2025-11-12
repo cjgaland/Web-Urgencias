@@ -1,0 +1,132 @@
+[
+  {
+    "id": "salbutamol-iv",
+    "nombre": "Salbutamol IV",
+    "principio_activo": "Salbutamol",
+    "formas": [
+      "Ampollas para perfusión IV"
+    ],
+    "vias": [
+      "IV"
+    ],
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Broncoespasmo severo",
+      "Exacerbación asmática grave",
+      "EPOC descompensado con broncoespasmo"
+    ],
+    "advertencias": [
+      "Taquicardia, temblor, hipopotasemia; monitorizar K+, FC y TA",
+      "Precaución en cardiopatía isquémica, arritmias y hipertiroidismo"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Salbutamolsc.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.91,
+            "y": 0.55,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "kg",
+        "dosis_por_kg_mgkg": null,
+        "intervalo_horas": null,
+        "max_diaria": null,
+        "comentarios": "Bolo 0,25 mg IV lento (opcional) y después perfusión 5–20 μg/min, titular a respuesta y efectos adversos. Vigilar K+ y ECG."
+      }
+    },
+    "posologia_texto": "Perfusión 5–20 μg/min IV, titular según respuesta. Control de FC, TA y K+."
+  },
+  {
+    "id": "teofilina-iv",
+    "nombre": "Teofilina IV",
+    "principio_activo": "Teofilina",
+    "formas": [
+      "Viales/ampollas para perfusión IV"
+    ],
+    "vias": [
+      "IV"
+    ],
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Broncoespasmo en asma/EPOC (uso restringido)",
+      "Crisis asmática refractaria a tratamiento estándar"
+    ],
+    "advertencias": [
+      "Índice terapéutico estrecho: monitorizar niveles plasmáticos",
+      "Arritmias, náuseas, vómitos, convulsiones a dosis altas",
+      "Interacciones (CYP1A2, 3A4); ajustar en hepatopatía y ancianos"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Teofilinaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.91,
+            "y": 0.4,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "kg",
+        "dosis_por_kg_mgkg": 5,
+        "intervalo_horas": null,
+        "max_diaria": null,
+        "comentarios": "Carga 5–6 mg/kg IV en 20–30 min, después perfusión 0,5–1 mg/kg/h (ajustar a niveles 10–20 μg/ml). Reducir dosis en hepatopatía/ancianos y si ya recibía teofilina."
+      }
+    },
+    "posologia_texto": "Carga 5–6 mg/kg IV (20–30 min) y mantenimiento 0,5–1 mg/kg/h, con monitorización de niveles (10–20 μg/ml)."
+  }
+]

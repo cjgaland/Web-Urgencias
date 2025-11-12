@@ -1,0 +1,195 @@
+[
+  {
+    "id": "fenitoina-iv",
+    "nombre": "Fenitoína IV",
+    "principio_activo": "Fenitoína",
+    "formas": [
+      "Ampollas IV (50 mg/ml)"
+    ],
+    "vias": [
+      "IV"
+    ],
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Estatus epiléptico (alternativa a levetiracetam)",
+      "Crisis convulsivas refractarias"
+    ],
+    "advertencias": [
+      "Riesgo de hipotensión y arritmias: infundir ≤50 mg/min con monitorización ECG/TA",
+      "Irritación venosa (evitar extravasación)",
+      "Interacciones enzimáticas (CYP450)"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Fenitoinaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.01,
+            "y": 0.4,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "kg",
+        "dosis_por_kg_mgkg": 20,
+        "intervalo_horas": 8,
+        "max_diaria": null,
+        "comentarios": "Carga 15–20 mg/kg IV (máx. 50 mg/min) con monitorización; mantenimiento 100 mg/8 h o según niveles plasmáticos."
+      }
+    },
+    "posologia_texto": "Carga 15–20 mg/kg IV (≤50 mg/min) con ECG/TA; mantenimiento 100 mg cada 8 h según niveles."
+  },
+  {
+    "id": "levetiracetam-iv",
+    "nombre": "Levetiracetam IV",
+    "principio_activo": "Levetiracetam",
+    "formas": [
+      "Viales/bolsas para perfusión IV (100 mg/ml)"
+    ],
+    "vias": [
+      "IV"
+    ],
+    "via": "iv",
+    "forma": "viales",
+    "indicaciones": [
+      "Crisis convulsiva aguda",
+      "Estatus epiléptico (carga y mantenimiento)"
+    ],
+    "advertencias": [
+      "Somnolencia; vigilar estado neurológico",
+      "Ajustar dosis en insuficiencia renal",
+      "Perfundir en 15 min (habitual) según presentación"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Levetiracetamiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.11,
+            "y": 0.4,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "kg",
+        "dosis_por_kg_mgkg": 40,
+        "intervalo_horas": 12,
+        "max_diaria": {
+          "mg": 3000
+        },
+        "comentarios": "Carga 20–60 mg/kg IV (habitual 40–60 mg/kg), luego mantenimiento 500–1500 mg/12 h. Ajustar a función renal."
+      }
+    },
+    "posologia_texto": "Carga 20–60 mg/kg IV (p. ej., 40–60 mg/kg) y mantenimiento 500–1500 mg cada 12 h. Ajustar en IR."
+  },
+  {
+  "id": "valproato-sodico-iv",
+  "nombre": "Valproato sódico IV",
+  "principio_activo": "Ácido valproico (valproato sódico)",
+  "via": "iv",
+  "forma": "viales",
+  "indicaciones": [
+    "Crisis epilépticas generalizadas o parciales",
+    "Status epiléptico",
+    "Prevención de crisis en pacientes que no toleran vía oral"
+  ],
+  "advertencias": [
+    "Contraindicado en hepatopatía, porfiria y alteraciones del ciclo de la urea",
+    "Controlar función hepática y niveles plasmáticos (50–100 µg/ml)",
+    "Puede causar somnolencia, náuseas o elevación de transaminasas"
+  ],
+  "imagenes": {
+    "producto": "../img/farmacos/Valproatoiv.png"
+  },
+  "localizacion": {
+    "consulta": {
+      "map": "../img/armarios/consultas.png",
+      "hotspots": []
+    },
+    "criticos": [
+      {
+        "id": "oral",
+        "map": "../img/armarios/criticos_oral.png",
+        "hotspots": []
+      },
+      {
+        "id": "iv",
+        "map": "../img/armarios/criticos_iv.png",
+        "hotspots": [
+        {
+          "shape": "rect",
+          "x": 0.21,
+          "y": 0.4,
+          "w": 0.08,
+          "h": 0.12
+        }
+      ]
+      }
+    ],
+    "frigorifico": {
+      "map": "../img/armarios/frigo.png",
+      "hotspots": []
+    }
+  },
+  "dosis": {
+    "adulto": {
+      "tipo": "kg",
+      "dosis_por_kg_mgkg": 15,
+      "intervalo_horas": 12,
+      "max_diaria": { "mgkg": 60 },
+      "comentarios": "Dosis de carga en status epiléptico: 15–30 mg/kg IV en 10–15 min (máx. 3 g). Mantenimiento: 5–10 mg/kg cada 12 h (máx. 60 mg/kg/día). Administrar diluido en SSF o glucosa al 5%."
+    }
+  },
+  "posologia_texto": "Carga: 15–30 mg/kg IV en 10–15 min (máx. 3 g). Mantenimiento: 5–10 mg/kg cada 12 h. Máx. 60 mg/kg/día."
+}
+
+]

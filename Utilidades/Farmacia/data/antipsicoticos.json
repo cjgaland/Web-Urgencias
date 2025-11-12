@@ -1,0 +1,209 @@
+[
+  {
+    "id": "clorpromazina-iv",
+    "nombre": "Clorpromazina IV",
+    "principio_activo": "Clorpromazina",
+    "formas": [
+      "Ampollas 25 mg/ml"
+    ],
+    "vias": [
+      "IV"
+    ],
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Agitación psicótica",
+      "Delirium",
+      "Náuseas y vómitos refractarios"
+    ],
+    "advertencias": [
+      "Hipotensión ortostática frecuente; administrar IV muy lenta",
+      "Sedación intensa y riesgo extrapiramidal",
+      "Evitar combinar con depresores del SNC"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Clorpromazinaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.41,
+            "y": 0.4,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 25,
+        "intervalo_horas": null,
+        "max_diaria": {
+          "mg": 300
+        },
+        "comentarios": "5–25 mg IV lenta (al menos 2 min) o IM; repetir según respuesta. Ajustar en ancianos o hipotensos."
+      }
+    },
+    "posologia_texto": "5–25 mg IV lenta o IM; repetir según respuesta. Máx. 300 mg/día."
+  },
+  {
+    "id": "haloperidol-iv",
+    "nombre": "Haloperidol IV",
+    "principio_activo": "Haloperidol",
+    "formas": [
+      "Ampollas 5 mg/ml"
+    ],
+    "vias": [
+      "IV"
+    ],
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Agitación psicomotriz aguda",
+      "Delirium",
+      "Psicosis"
+    ],
+    "advertencias": [
+      "Prolongación del QT y riesgo de arritmias",
+      "Evitar administración rápida IV; monitorizar ECG",
+      "Síndrome extrapiramidal o acatisia"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Haloperidoliv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.31,
+            "y": 0.4,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 5,
+        "intervalo_horas": null,
+        "max_diaria": {
+          "mg": 20
+        },
+        "comentarios": "Administrar 2,5–10 mg IV o IM lenta; repetir cada 30–60 min si precisa. Máx. 20 mg/día. Ajustar en ancianos."
+      }
+    },
+    "posologia_texto": "2,5–10 mg IV o IM lenta según respuesta. Repetir cada 30–60 min si precisa. Máx. 20 mg/día."
+  },
+  {
+    "id": "tiaprida-iv",
+    "nombre": "Tiaprida IV",
+    "principio_activo": "Tiaprida",
+    "formas": [
+      "Ampollas 100 mg/2 ml"
+    ],
+    "vias": [
+      "IV"
+    ],
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Agitación psicomotriz",
+      "Síndrome confusional agudo (delirium)",
+      "Demencias con agresividad"
+    ],
+    "advertencias": [
+      "Somnolencia e hipotensión",
+      "Prolongación del QT; precaución con otros fármacos que prolongan QT",
+      "Ajustar dosis en insuficiencia renal"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Tiapridaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.51,
+            "y": 0.4,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 100,
+        "intervalo_horas": {
+          "min": 8,
+          "max": 12
+        },
+        "max_diaria": {
+          "mg": 400
+        },
+        "comentarios": "50–100 mg IV lenta o IM cada 8–12 h; ajustar en IR o ancianos."
+      }
+    },
+    "posologia_texto": "50–100 mg IV lenta o IM cada 8–12 h según respuesta. Máx. 400 mg/día."
+  }
+]

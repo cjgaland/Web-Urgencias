@@ -1,0 +1,394 @@
+[
+  {
+    "id": "dexametasona-iv",
+    "nombre": "Dexametasona IV",
+    "principio_activo": "Dexametasona",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Reacción alérgica grave",
+      "Shock anafiláctico",
+      "Procesos inflamatorios",
+      "Edema cerebral"
+    ],
+    "advertencias": [
+      "Monitorizar glucemia",
+      "Precaución en diabéticos",
+      "Riesgo de infección"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Dexametasonaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.42,
+            "y": 0.65,
+            "w": 0.17,
+            "h": 0.14
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 4,
+        "intervalo_horas": {
+          "min": 6,
+          "max": 8
+        },
+        "max_diaria": {
+          "mg": 24
+        },
+        "comentarios": "En anafilaxia: 4-20 mg IV. Para edema cerebral: 10 mg IV inicial, luego 4 mg cada 6 h."
+      }
+    },
+    "posologia_texto": "4 mg cada 6-8 h IV. Máx. 24 mg/día. En anafilaxia: 4-20 mg."
+  },
+  {
+    "id": "dexametasona-susp-1-100",
+    "nombre": "Dexametasona suspensión 1 mg/ml (100 ml)",
+    "principio_activo": "Dexametasona",
+    "via": "oral",
+    "forma": "suspensión",
+    "indicaciones": [
+      "Asma agudo en pediatría",
+      "Laringitis",
+      "Procesos inflamatorios respiratorios"
+    ],
+    "advertencias": [
+      "Uso puntual; no sustituye al tratamiento de fondo",
+      "Puede causar hiperglucemia o alteraciones conductuales transitorias",
+      "No suspender bruscamente tratamientos prolongados"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/DexametasonaSuspension.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.32,
+            "y": 0.59,
+            "w": 0.09,
+            "h": 0.08
+          }
+        ]
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "kg",
+        "dosis_por_kg_mgkg": 0.6,
+        "intervalo_horas": 24,
+        "max_diaria": {
+          "mg": 12
+        },
+        "comentarios": "Pediatría: Asma agudo 0,6 mg/kg (máx. 12 mg), dosis única; puede repetirse a las 24 h si persiste clínica. Laringitis: 0,6 mg/kg dosis única."
+      }
+    },
+    "posologia_texto": "Pediatría: 0,6 mg/kg VO (máx. 12 mg). En asma, dosis única repetible a las 24 h; en laringitis, dosis única."
+  },
+  {
+    "id": "hidrocortisona-iv",
+    "nombre": "Hidrocortisona IV",
+    "principio_activo": "Hidrocortisona",
+    "via": "iv",
+    "forma": "viales",
+    "indicaciones": [
+      "Insuficiencia suprarrenal",
+      "Shock séptico",
+      "Crisis addisoniana"
+    ],
+    "advertencias": [
+      "Monitorizar electrolitos",
+      "Hiperglucemia",
+      "Retención hidrosalina"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Hidrocortisonaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.01,
+            "y": 0.69,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 100,
+        "intervalo_horas": {
+          "min": 6,
+          "max": 8
+        },
+        "max_diaria": {
+          "mg": 400
+        },
+        "comentarios": "En insuficiencia suprarrenal aguda: 100 mg IV cada 6-8 h. En shock séptico: 200 mg/día en 4 dosis."
+      }
+    },
+    "posologia_texto": "100 mg cada 6-8 h IV. Máx. 400 mg/día."
+  },
+  {
+    "id": "metilprednisolona-20-iv",
+    "nombre": "Metilprednisolona 20 IV",
+    "principio_activo": "Metilprednisolona",
+    "via": "iv",
+    "forma": "viales",
+    "indicaciones": [
+      "Procesos inflamatorios",
+      "Reacciones alérgicas",
+      "Enfermedades reumáticas"
+    ],
+    "advertencias": [
+      "Monitorizar glucemia",
+      "Precaución en infecciones",
+      "Hipoalbuminemia"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Metilprednisolona20.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.62,
+            "y": 0.65,
+            "w": 0.17,
+            "h": 0.14
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.11,
+            "y": 0.69,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 20,
+        "intervalo_horas": 24,
+        "comentarios": "Administrar IV lenta. En procesos graves puede aumentarse la dosis. Equivalentia: 4 mg dexametasona = 20 mg metilprednisolona."
+      }
+    },
+    "posologia_texto": "20 mg cada 24 h IV."
+  },
+  {
+    "id": "metilprednisolona-250-iv",
+    "nombre": "Metilprednisolona 250 IV",
+    "principio_activo": "Metilprednisolona",
+    "via": "iv",
+    "forma": "viales",
+    "indicaciones": [
+      "Pulsoterapia",
+      "Transplante de órganos",
+      "LES grave",
+      "Vasculitis sistémica"
+    ],
+    "advertencias": [
+      "Monitorizar ECG durante infusión",
+      "Hipotensión",
+      "Arritmias",
+      "Hipokalemia"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Metilprednisolona250iv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.31,
+            "y": 0.69,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 250,
+        "intervalo_horas": 24,
+        "comentarios": "Pulsoterapia: 250-1000 mg/día durante 3-5 días. Administrar en infusión IV lenta (30-60 min). Monitorizar presión arterial."
+      }
+    },
+    "posologia_texto": "250-1000 mg cada 24 h IV en pulsoterapia. Administrar en 30-60 min."
+  },
+  {
+    "id": "metilprednisolona-40-iv",
+    "nombre": "Metilprednisolona 40 IV",
+    "principio_activo": "Metilprednisolona",
+    "via": "iv",
+    "forma": "viales",
+    "indicaciones": [
+      "Procesos inflamatorios graves",
+      "Shock séptico",
+      "Exacerbación asmática",
+      "LES grave"
+    ],
+    "advertencias": [
+      "Monitorizar glucemia",
+      "Riesgo de infección",
+      "Ulcera péptica"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Metilprednisolona40.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.82,
+            "y": 0.65,
+            "w": 0.16,
+            "h": 0.14
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.21,
+            "y": 0.69,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 40,
+        "intervalo_horas": 24,
+        "max_diaria": {
+          "mg": 120
+        },
+        "comentarios": "En situaciones graves: 30 mg/kg IV en 30 min, repetir cada 4-6 h si es necesario. Shock séptico: 200 mg/día en 4 dosis."
+      }
+    },
+    "posologia_texto": "40 mg cada 24 h IV. En graves: 30 mg/kg cada 4-6 h."
+  }
+]

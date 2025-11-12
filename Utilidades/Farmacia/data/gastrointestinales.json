@@ -1,0 +1,397 @@
+[
+  {
+    "id": "metoclopramida-iv",
+    "nombre": "Metoclopramida IV",
+    "principio_activo": "Metoclopramida",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Náuseas y vómitos",
+      "Reflujo gastroesofágico",
+      "Vaciamiento gástrico lento"
+    ],
+    "advertencias": [
+      "Reacciones extrapiramidales",
+      "Síndrome neuroléptico maligno",
+      "Sedación"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Metoclopramidaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.62,
+            "y": 0.49,
+            "w": 0.16,
+            "h": 0.14
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.51,
+            "y": 0.54,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 10,
+        "intervalo_horas": {
+          "min": 6,
+          "max": 8
+        },
+        "max_diaria": {
+          "mg": 30
+        },
+        "comentarios": "Administrar IV lenta (1-2 min). En ancianos reducir dosis. Máx. 0.5 mg/kg/día."
+      }
+    },
+    "posologia_texto": "10 mg cada 6-8 h IV. Máx. 30 mg/día."
+  },
+  {
+    "id": "omeprazol-20",
+    "nombre": "Omeprazol 20 mg",
+    "principio_activo": "Omeprazol",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Úlcera péptica",
+      "Reflujo gastroesofágico",
+      "Protección gástrica"
+    ],
+    "advertencias": [
+      "Tomar antes de las comidas",
+      "No triturar comprimidos",
+      "Déficit vitamina B12"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Omeprazol20.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.02,
+            "y": 0.01,
+            "w": 0.15,
+            "h": 0.11
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 20,
+        "intervalo_horas": 24,
+        "comentarios": "Tomar en ayunas 30 min antes del desayuno. No triturar o masticar. Cápsulas con gránulos gastrorresistentes."
+      }
+    },
+    "posologia_texto": "20 mg cada 24 h en ayunas."
+  },
+  {
+    "id": "ondansetron-iv",
+    "nombre": "Ondansetron IV",
+    "principio_activo": "Ondansetron",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Náuseas y vómitos postoperatorios",
+      "Náuseas por quimioterapia"
+    ],
+    "advertencias": [
+      "Cefalea",
+      "Estreñimiento",
+      "Prolongación QT"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Ondansetromiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.81,
+            "y": 0.48,
+            "w": 0.17,
+            "h": 0.14
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.41,
+            "y": 0.54,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 4,
+        "intervalo_horas": {
+          "min": 8,
+          "max": 12
+        },
+        "max_diaria": {
+          "mg": 16
+        },
+        "comentarios": "Administrar IV lenta (2-5 min). Para quimioterapia: 8 mg antes del tratamiento."
+      }
+    },
+    "posologia_texto": "4 mg cada 8-12 h IV. Máx. 16 mg/día."
+  },
+  {
+    "id": "ondansetron-susp-0-8-100",
+    "nombre": "Ondansetron suspensión 0,8 mg/ml (100 ml)",
+    "principio_activo": "Ondansetron",
+    "via": "oral",
+    "forma": "suspensión",
+    "indicaciones": [
+      "Gastroenteritis aguda con vómitos (pediatría)",
+      "Náuseas y vómitos"
+    ],
+    "advertencias": [
+      "Posible prolongación del QT: precaución en cardiopatía, hipopotasemia/hipomagnesemia y con otros fármacos que prolongan el QT",
+      "Usar en dosis única en gastroenteritis; reevaluar si vómitos persistentes",
+      "Ajustar en insuficiencia hepática grave"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/OndansetronSuspension.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.34,
+            "y": 0.38,
+            "w": 0.08,
+            "h": 0.09
+          }
+        ]
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "kg",
+        "dosis_por_kg_mgkg": null,
+        "intervalo_horas": null,
+        "max_diaria": null,
+        "comentarios": "Uso principal pediátrico en gastroenteritis: 8–15 kg → 2 mg (≈2,5 ml); 15–30 kg → 4 mg (≈5 ml); >30 kg → 8 mg (≈10 ml). Dosis única."
+      }
+    },
+    "posologia_texto": "Dosis única (pediatría) en gastroenteritis: 8–15 kg: 2 mg (≈2,5 ml); 15–30 kg: 4 mg (≈5 ml); >30 kg: 8 mg (≈10 ml)."
+  },
+  {
+    "id": "pantoprazol-iv",
+    "nombre": "Pantoprazol IV",
+    "principio_activo": "Pantoprazol",
+    "via": "iv",
+    "forma": "viales",
+    "indicaciones": [
+      "Úlcera péptica",
+      "Reflujo gastroesofágico",
+      "Profilaxis de estrés"
+    ],
+    "advertencias": [
+      "Hipomagnesemia",
+      "Administración lenta",
+      "Interacciones"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Pantoprazoliv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.42,
+            "y": 0.49,
+            "w": 0.17,
+            "h": 0.14
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.71,
+            "y": 0.55,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 40,
+        "intervalo_horas": 24,
+        "comentarios": "Administrar en infusión IV en 15 min. Para profilaxis de estrés: 40 mg/24 h."
+      }
+    },
+    "posologia_texto": "40 mg cada 24 h IV. Administrar en 15 min."
+  },
+  {
+    "id": "ranitidina-iv",
+    "nombre": "Ranitidina IV",
+    "principio_activo": "Ranitidina",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Úlcera péptica",
+      "Reflujo gastroesofágico",
+      "Protección gástrica"
+    ],
+    "advertencias": [
+      "Trombocitopenia",
+      "Hepatotoxicidad",
+      "Administración lenta"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Ranitidinaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.22,
+            "y": 0.49,
+            "w": 0.16,
+            "h": 0.14
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 50,
+        "intervalo_horas": {
+          "min": 6,
+          "max": 8
+        },
+        "max_diaria": {
+          "mg": 200
+        },
+        "comentarios": "Administrar IV lenta (5 min). También puede administrarse en infusión continua."
+      }
+    },
+    "posologia_texto": "50 mg cada 6-8 h IV. Máx. 200 mg/día."
+  }
+]

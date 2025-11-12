@@ -1,0 +1,720 @@
+[
+  {
+    "id": "dexketoprofeno-25",
+    "nombre": "Dexketoprofeno 25 mg",
+    "principio_activo": "Dexketoprofeno",
+    "formas": [
+      "Comprimidos 25 mg"
+    ],
+    "vias": [
+      "VO"
+    ],
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Dolor agudo",
+      "Dolor musculoesquelético",
+      "Dolor postoperatorio"
+    ],
+    "advertencias": [
+      "Riesgo gastrointestinal",
+      "Precaución en úlcera péptica",
+      "Nefrotoxicidad"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Dexketoprofeno25.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.03,
+            "y": 0.49,
+            "w": 0.15,
+            "h": 0.14
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 25,
+        "intervalo_horas": {
+          "min": 8,
+          "max": 12
+        },
+        "max_diaria": {
+          "mg": 75
+        },
+        "comentarios": "Tomar con alimentos. No superar 75 mg/día. Duración máxima tratamiento: 3-5 días."
+      }
+    },
+    "posologia_texto": "25 mg cada 8-12 h. Máx. 75 mg/día. Tomar con alimentos."
+  },
+  {
+    "id": "dexketoprofeno-iv",
+    "nombre": "Dexketoprofeno IV",
+    "principio_activo": "Dexketoprofeno",
+    "formas": [
+      "Ampollas 50 mg/2 ml"
+    ],
+    "vias": [
+      "IV"
+    ],
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Dolor agudo",
+      "Dolor postoperatorio"
+    ],
+    "advertencias": [
+      "Riesgo hemorragia",
+      "Precaución en úlcera péptica",
+      "Nefrotoxicidad"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Dexketoprofenoiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.03,
+            "y": 0.32,
+            "w": 0.16,
+            "h": 0.14
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.31,
+              "y": 0.54,
+              "w": 0.08,
+              "h": 0.12
+            }
+          ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 50,
+        "intervalo_horas": 8,
+        "max_diaria": {
+          "mg": 150
+        },
+        "comentarios": "Administrar en infusión IV lenta (30 segundos a 5 minutos). No usar más de 2 días."
+      }
+    },
+    "posologia_texto": "50 mg cada 8 h IV. Máx. 150 mg/día."
+  },
+  {
+    "id": "diclofenaco-50",
+    "nombre": "Diclofenaco 50 mg",
+    "principio_activo": "Diclofenaco",
+    "formas": [
+      "Comprimidos 50 mg"
+    ],
+    "vias": [
+      "VO"
+    ],
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Dolor inflamatorio",
+      "Artritis",
+      "Procesos inflamatorios"
+    ],
+    "advertencias": [
+      "Riesgo gastrointestinal",
+      "Precaución en asmáticos",
+      "Nefrotoxicidad"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Diclofenaco50.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.73,
+            "y": 0.82,
+            "w": 0.22,
+            "h": 0.16
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 50,
+        "intervalo_horas": {
+          "min": 8,
+          "max": 12
+        },
+        "max_diaria": {
+          "mg": 150
+        },
+        "comentarios": "Tomar con alimentos. Dosis máxima 50 mg/8 h. Formas de liberación retardada: 75-100 mg/24 h."
+      }
+    },
+    "posologia_texto": "50 mg cada 8-12 h. Máx. 150 mg/día. Tomar con alimentos."
+  },
+  {
+    "id": "diclofenaco-im",
+    "nombre": "Diclofenaco IM",
+    "principio_activo": "Diclofenaco",
+    "formas": [
+      "Ampollas 75 mg/3 ml"
+    ],
+    "vias": [
+      "IM"
+    ],
+    "via": "im",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Dolor agudo",
+      "Procesos inflamatorios",
+      "Cólico renal"
+    ],
+    "advertencias": [
+      "Riesgo gastrointestinal",
+      "Precaución en asmáticos",
+      "Dolor en sitio inyección"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Diclofenacoim.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.82,
+            "y": 0.32,
+            "w": 0.17,
+            "h": 0.14
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 75,
+        "intervalo_horas": 12,
+        "max_diaria": {
+          "mg": 150
+        },
+        "comentarios": "Administrar por vía IM profunda. No usar más de 2 días consecutivos. Rotar sitio de inyección."
+      }
+    },
+    "posologia_texto": "75 mg cada 12 h IM. Máx. 150 mg/día."
+  },
+  {
+    "id": "ibuprofeno-600",
+    "nombre": "Ibuprofeno 600 mg",
+    "principio_activo": "Ibuprofeno",
+    "formas": [
+      "Comprimidos 600 mg"
+    ],
+    "vias": [
+      "VO"
+    ],
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Dolor inflamatorio",
+      "Fiebre",
+      "Procesos inflamatorios",
+      "Artritis"
+    ],
+    "advertencias": [
+      "Riesgo gastrointestinal",
+      "Precaución en asmáticos",
+      "Nefrotoxicidad"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Ibuprofeno600.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.26,
+            "y": 0.82,
+            "w": 0.21,
+            "h": 0.16
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 600,
+        "intervalo_horas": {
+          "min": 6,
+          "max": 8
+        },
+        "max_diaria": {
+          "mg": 2400
+        },
+        "comentarios": "Tomar con alimentos. Dosis máxima 600 mg/6 h. Evitar en úlcera péptica activa."
+      }
+    },
+    "posologia_texto": "600 mg cada 6-8 h. Máx. 2,4 g/día. Tomar con alimentos."
+  },
+  {
+    "id": "ketorolaco-iv",
+    "nombre": "Ketorolaco IV",
+    "principio_activo": "Ketorolaco",
+    "formas": [
+      "Ampollas 30 mg/1 ml"
+    ],
+    "vias": [
+      "IV"
+    ],
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Dolor agudo intenso",
+      "Dolor postoperatorio"
+    ],
+    "advertencias": [
+      "Riesgo hemorrágico",
+      "No usar más de 5 días",
+      "Nefrotoxicidad"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Ketorolacoiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.42,
+            "y": 0.32,
+            "w": 0.17,
+            "h": 0.14
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.21,
+            "y": 0.54,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 30,
+        "intervalo_horas": 8,
+        "max_diaria": {
+          "mg": 90
+        },
+        "comentarios": "Administrar IV en 15-30 segundos. No superar 5 días de tratamiento. En ancianos: 15 mg cada 8 h."
+      }
+    },
+    "posologia_texto": "30 mg cada 8 h IV. Máx. 90 mg/día. No más de 5 días."
+  },
+  {
+    "id": "metamizol-575",
+    "nombre": "Metamizol 575 mg",
+    "principio_activo": "Metamizol",
+    "formas": [
+      "Comprimidos 575 mg"
+    ],
+    "vias": [
+      "VO"
+    ],
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Dolor moderado",
+      "Fiebre",
+      "Cólico"
+    ],
+    "advertencias": [
+      "Riesgo de agranulocitosis",
+      "No usar más de 7 días",
+      "Hipotensión"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Metamizol575.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.49,
+            "y": 0.82,
+            "w": 0.21,
+            "h": 0.16
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 575,
+        "intervalo_horas": {
+          "min": 6,
+          "max": 8
+        },
+        "max_diaria": {
+          "mg": 3000
+        },
+        "comentarios": "No superar 3 g/día. Suspender si aparece fiebre o infección. Evitar uso prolongado."
+      }
+    },
+    "posologia_texto": "575 mg cada 6-8 h. Máx. 3 g/día."
+  },
+  {
+    "id": "metamizol-iv",
+    "nombre": "Metamizol IV",
+    "principio_activo": "Metamizol",
+    "formas": [
+      "Ampollas 2 g/5 ml"
+    ],
+    "vias": [
+      "IV"
+    ],
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Dolor agudo intenso",
+      "Fiebre",
+      "Cólico"
+    ],
+    "advertencias": [
+      "Riesgo de agranulocitosis",
+      "Hipotensión"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Metamizoliv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.22,
+            "y": 0.32,
+            "w": 0.16,
+            "h": 0.14
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.11,
+            "y": 0.54,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 2000,
+        "intervalo_horas": 8,
+        "max_diaria": {
+          "mg": 5000
+        },
+        "comentarios": "Administrar IV lenta (15-30 minutos). Monitorizar presión arterial. Dosis máxima 5 g/día."
+      }
+    },
+    "posologia_texto": "2 g cada 8 h IV. Máx. 5 g/día."
+  },
+  {
+    "id": "paracetamol-500",
+    "nombre": "Paracetamol 500 mg",
+    "principio_activo": "Paracetamol",
+    "formas": [
+      "Comprimidos 500 mg"
+    ],
+    "vias": [
+      "VO"
+    ],
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Dolor leve-moderado",
+      "Fiebre"
+    ],
+    "advertencias": [
+      "Hepatotoxicidad en dosis altas",
+      "Precaución en insuficiencia hepática",
+      "Evitar en alcoholismo"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Paracetamol500.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.02,
+            "y": 0.82,
+            "w": 0.21,
+            "h": 0.16
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 500,
+        "intervalo_horas": {
+          "min": 6,
+          "max": 8
+        },
+        "max_diaria": {
+          "mg": 4000
+        },
+        "comentarios": "Dosis máxima 1 g cada 6 h. En insuficiencia hepática reducir dosis o evitar. No superar 4 g/día."
+      }
+    },
+    "posologia_texto": "500-1000 mg cada 6-8 h. Máx. 4 g/día."
+  },
+  {
+    "id": "paracetamol-iv",
+    "nombre": "Paracetamol IV",
+    "principio_activo": "Paracetamol",
+    "formas": [
+      "Viales 1 g/100 ml"
+    ],
+    "vias": [
+      "IV"
+    ],
+    "via": "iv",
+    "forma": "viales",
+    "indicaciones": [
+      "Dolor leve-moderado",
+      "Fiebre",
+      "Postoperatorio"
+    ],
+    "advertencias": [
+      "Hepatotoxicidad en dosis altas",
+      "Precaución en insuficiencia hepática"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Paracetamoliv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.01,
+            "y": 0.54,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 1000,
+        "intervalo_horas": {
+          "min": 6,
+          "max": 8
+        },
+        "max_diaria": {
+          "mg": 4000
+        },
+        "comentarios": "Administrar en infusión IV en 15 minutos. No superar 4 g/día. En peso <50 kg: 15 mg/kg."
+      }
+    },
+    "posologia_texto": "1 g cada 6-8 h IV. Máx. 4 g/día."
+  }
+]

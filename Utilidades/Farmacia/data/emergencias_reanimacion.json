@@ -1,0 +1,393 @@
+[
+  {
+    "id": "adrenalina-iv",
+    "nombre": "Adrenalina IV",
+    "principio_activo": "Adrenalina",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Parada cardiorrespiratoria",
+      "Shock anafiláctico",
+      "Broncoespasmo grave"
+    ],
+    "advertencias": [
+      "Taquicardia",
+      "Hipotensión/HTA",
+      "Arritmias"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Adrenalinaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+        {
+          "shape": "rect",
+          "x": 0.51,
+          "y": 0.01,
+          "w": 0.07,
+          "h": 0.1
+        }
+      ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija_o_kg",
+        "dosis_fija_mg": 1,
+        "dosis_por_kg_mgkg": 0.01,
+        "intervalo_horas": {
+          "min": 3,
+          "max": 5
+        },
+        "max_diaria": {
+          "mg": 10
+        },
+        "comentarios": "RCP: 1 mg cada 3-5 min. Anafilaxia: 0.3-0.5 mg IM. Infusión: 0.1-1 mcg/kg/min."
+      }
+    },
+    "posologia_texto": "RCP: 1 mg cada 3-5 min IV. Anafilaxia: 0.3-0.5 mg IM."
+  },
+  {
+    "id": "atropina-iv",
+    "nombre": "Atropina IV",
+    "principio_activo": "Atropina",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Bradicardia",
+      "Bloqueo AV",
+      "Intoxicación por organofosforados"
+    ],
+    "advertencias": [
+      "Taquicardia",
+      "Retención urinaria",
+      "Glaucoma"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Atropinaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.59,
+            "y": 0.01,
+            "w": 0.07,
+            "h": 0.1
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 0.5,
+        "intervalo_horas": {
+          "min": 3,
+          "max": 5
+        },
+        "max_diaria": {
+          "mg": 3
+        },
+        "comentarios": "Bradicardia: 0.5-1 mg cada 3-5 min. Máx. 3 mg. Dosis mínima efectiva: 0.5 mg."
+      }
+    },
+    "posologia_texto": "0.5-1 mg cada 3-5 min IV. Máx. 3 mg."
+  },
+  {
+    "id": "cloruro-calcio-iv",
+    "nombre": "Cloruro Cálcico IV",
+    "principio_activo": "Cloruro Cálcico",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Hipocalcemia grave",
+      "Hiperpotasemia",
+      "Parada cardíaca"
+    ],
+    "advertencias": [
+      "Extravasación grave",
+      "Bradicardia",
+      "Irritación venosa"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/CloruroCalcicoiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.75,
+            "y": 0.01,
+            "w": 0.07,
+            "h": 0.1
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 1000,
+        "intervalo_horas": {
+          "min": 0,
+          "max": 0
+        },
+        "max_diaria": {
+          "mg": 3000
+        },
+        "comentarios": "Administrar 10 ml (1 g) IV lenta. Parada: 1 g cada 10 min. Mayor contenido calcio que gluconato."
+      }
+    },
+    "posologia_texto": "1 g IV en 10 min. Parada: 1 g cada 10 min."
+  },
+  {
+    "id": "gluconato-calcio-iv",
+    "nombre": "Gluconato Cálcico IV",
+    "principio_activo": "Gluconato Cálcico",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Hipocalcemia",
+      "Hiperpotasemia",
+      "Bloqueo por calcioantagonistas"
+    ],
+    "advertencias": [
+      "Bradicardia",
+      "Extravasación",
+      "Precipitación con bicarbonato"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/GluconatoCalcicoiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.83,
+            "y": 0.01,
+            "w": 0.07,
+            "h": 0.1
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 1000,
+        "intervalo_horas": {
+          "min": 0,
+          "max": 0
+        },
+        "max_diaria": {
+          "mg": 3000
+        },
+        "comentarios": "Administrar 10-20 ml (1-2 g) IV lenta en 10-20 min. Para hiperK: 10 ml en 2-5 min."
+      }
+    },
+    "posologia_texto": "1-2 g IV en 10-20 min. HiperK: 1 g en 2-5 min."
+  },
+  {
+    "id": "glucosa-50-iv",
+    "nombre": "Glucosa 50% IV",
+    "principio_activo": "Glucosa",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Hipoglucemia",
+      "Intoxicación por bloqueadores beta"
+    ],
+    "advertencias": [
+      "Flebitis",
+      "Hiperglucemia",
+      "Extravasación"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Glucosa50%iv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.51,
+            "y": 0.69,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 25000,
+        "intervalo_horas": {
+          "min": 0,
+          "max": 0
+        },
+        "max_diaria": {
+          "mg": 100000
+        },
+        "comentarios": "Administrar 50 ml (25 g) IV lenta. Repetir según glucemia. Monitorizar respuesta."
+      }
+    },
+    "posologia_texto": "25-50 g IV según necesidad. Repetir según glucemia."
+  },
+  {
+    "id": "sulfato-magnesio-iv",
+    "nombre": "Sulfato de Magnesio IV",
+    "principio_activo": "Sulfato de Magnesio",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Torsades de pointes",
+      "Eclampsia",
+      "Asma grave"
+    ],
+    "advertencias": [
+      "Hipotensión",
+      "Depresión respiratoria",
+      "Debilidad muscular"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/SulfatoMgiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.92,
+            "y": 0.01,
+            "w": 0.07,
+            "h": 0.1
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija_o_kg",
+        "dosis_fija_mg": 2000,
+        "dosis_por_kg_mgkg": 25,
+        "intervalo_horas": {
+          "min": 0,
+          "max": 0
+        },
+        "max_diaria": {
+          "mg": 10000
+        },
+        "comentarios": "Torsades: 1-2 g en 10-15 min. Eclampsia: 4-6 g en 20 min, luego 1-2 g/h. Monitorizar reflejos."
+      }
+    },
+    "posologia_texto": "1-2 g IV en 10-15 min. Eclampsia: 4-6 g en 20 min."
+  }
+]

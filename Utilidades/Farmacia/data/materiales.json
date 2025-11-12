@@ -1,0 +1,140 @@
+[
+  {
+    "id": "apositos-adhesivos",
+    "tipo": "material",
+    "nombre": "Apósitos adhesivos estériles",
+    "descripcion": "Apósito estéril con adhesivo perimetral. 7x5 cm.",
+    "uso": [
+      "Cobertura de punción y heridas pequeñas"
+    ],
+    "conservacion": [
+      "Proteger del calor y humedad"
+    ],
+    "advertencias": [
+      "No usar en piel lesionada o alérgica al adhesivo"
+    ],
+    "imagenes": {
+      "producto": "../img/material/Apositos.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.5,
+              "y": 0.79,
+              "w": 0.2,
+              "h": 0.19
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ]
+    }
+  },
+  {
+    "id": "botes-hemocultivo",
+    "tipo": "material",
+    "nombre": "Botes para hemocultivo (aerobio/anaerobio)",
+    "descripcion": "Pareja de frascos para extracción de hemocultivos.",
+    "uso": [
+      "Extracción estéril venosa",
+      "Primero aerobio si una sola muestra"
+    ],
+    "conservacion": [
+      "No refrigerar",
+      "Respetar fecha de caducidad"
+    ],
+    "advertencias": [
+      "Limpiar tapón con antiséptico antes de inocular",
+      "No sobrellenar"
+    ],
+    "imagenes": {
+      "producto": "../img/material/hemocultivo.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.03,
+              "y": 0.79,
+              "w": 0.2,
+              "h": 0.19
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ]
+    }
+  },
+  {
+    "id": "gasas-esteriles",
+    "tipo": "material",
+    "nombre": "Gasas estériles 10x10",
+    "descripcion": "Gasas de algodón hidrófilo estériles 10x10 cm, paquete de 10.",
+    "uso": [
+      "Limpieza de heridas",
+      "Absorción de exudado",
+      "Apósito primario"
+    ],
+    "conservacion": [
+      "Mantener el envase cerrado hasta su uso",
+      "Almacenar en lugar seco"
+    ],
+    "advertencias": [
+      "No utilizar si el sobre está dañado o húmedo"
+    ],
+    "imagenes": {
+      "producto": "../img/material/Gasas.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.26,
+              "y": 0.79,
+              "w": 0.2,
+              "h": 0.19
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ]
+    }
+  }
+]

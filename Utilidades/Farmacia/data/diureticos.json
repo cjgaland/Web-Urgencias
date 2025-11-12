@@ -1,0 +1,64 @@
+[
+  {
+    "id": "furosemida-iv",
+    "nombre": "Furosemida IV",
+    "principio_activo": "Furosemida",
+    "formas": ["Ampollas 20 mg/2 ml"],
+    "vias": ["IV"],
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Edema agudo de pulmón",
+      "Sobrecarga de volumen",
+      "Insuficiencia cardiaca descompensada"
+    ],
+    "advertencias": [
+      "Riesgo de hipovolemia y alteraciones electrolíticas",
+      "Puede causar hipotensión; administrar IV lenta",
+      "Ototoxicidad si se administra demasiado rápido o a dosis altas"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Furosemida iv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.41,
+            "y": 0.69,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 20,
+        "intervalo_horas": null,
+        "max_diaria": { "mg": 600 },
+        "comentarios": "Bolo inicial 20–40 mg IV lenta; repetir/duplicar según respuesta clínica y función renal. Puede continuarse en perfusión si precisa."
+      }
+    },
+    "posologia_texto": "20–40 mg IV lenta, titular según diuresis y respuesta. Máx. hasta 600 mg/día según situación clínica."
+  }
+]

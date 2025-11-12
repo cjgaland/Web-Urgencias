@@ -1,0 +1,761 @@
+[
+  {
+    "id": "amiodarona-200",
+    "nombre": "Amiodarona 200 mg",
+    "principio_activo": "Amiodarona",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Arritmias ventriculares",
+      "Fibrilación auricular",
+      "Taquiarritmias"
+    ],
+    "advertencias": [
+      "Toxicidad pulmonar",
+      "Hepatotoxicidad",
+      "Alteraciones tiroideas"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Amiodarona200.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.82,
+              "y": 0.38,
+              "w": 0.16,
+              "h": 0.17
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 200,
+        "intervalo_horas": 24,
+        "max_diaria": {
+          "mg": 400
+        },
+        "comentarios": "Dosis carga: 600-800 mg/día durante 1-2 semanas. Mantenimiento: 200-400 mg/día."
+      }
+    },
+    "posologia_texto": "200-400 mg cada 24 h. Dosis carga: 600-800 mg/día."
+  },
+  {
+    "id": "amiodarona-iv",
+    "nombre": "Amiodarona IV",
+    "principio_activo": "Amiodarona",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Arritmias ventriculares",
+      "Fibrilación auricular",
+      "Taquicardia ventricular"
+    ],
+    "advertencias": [
+      "Hipotensión",
+      "Flebitis",
+      "Monitorizar ECG"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Amiodaronaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.67,
+              "y": 0.01,
+              "w": 0.07,
+              "h": 0.1
+            }
+          ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "iv_carga_mto",
+        "carga": {
+          "dosis_fija_mg": 300,
+          "dosis_por_kg_mgkg": 5,
+          "tiempo_adm_min": 20
+        },
+        "mantenimiento": {
+          "dosis_fija_mg": 900,
+          "dosis_por_kg_mgkg": null,
+          "intervalo_horas": 24,
+          "max_diaria": {
+            "mg": 1200
+          }
+        },
+        "comentarios": "Carga: 300 mg en 20-60 min. Mantenimiento: 900 mg/24 h. Cambiar a oral lo antes posible."
+      }
+    },
+    "posologia_texto": "Carga: 300 mg en 20-60 min. Mantenimiento: 900 mg/24 h IV."
+  },
+  {
+    "id": "atenolol-iv",
+    "nombre": "Atenolol IV",
+    "principio_activo": "Atenolol",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Taquiarritmias",
+      "Control frecuencia en FA",
+      "Angina"
+    ],
+    "advertencias": [
+      "Bradicardia",
+      "Hipotensión",
+      "Broncoespasmo"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Atenololiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.61,
+              "y": 0.25,
+              "w": 0.08,
+              "h": 0.12
+            }
+          ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 5,
+        "intervalo_horas": {
+          "min": 0,
+          "max": 0
+        },
+        "max_diaria": {
+          "mg": 10
+        },
+        "comentarios": "Administrar 2.5-5 mg en 5 min. Repetir a los 10 min si es necesario. Máx. 10 mg."
+      }
+    },
+    "posologia_texto": "2.5-5 mg IV en 5 min. Repetir a los 10 min. Máx. 10 mg."
+  },
+  {
+    "id": "flecainida-100",
+    "nombre": "Flecainida 100 mg",
+    "principio_activo": "Flecainida",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Taquiarritmias supraventriculares",
+      "Fibrilación auricular",
+      "Taquicardia ventricular"
+    ],
+    "advertencias": [
+      "Proarritmia",
+      "Insuficiencia cardiaca",
+      "Bloqueo AV"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Flecainida100.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.22,
+              "y": 0.18,
+              "w": 0.17,
+              "h": 0.17
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 100,
+        "intervalo_horas": 12,
+        "max_diaria": {
+          "mg": 300
+        },
+        "comentarios": "Dosis inicial: 50 mg cada 12 h. Ajustar según respuesta. Máx. 300 mg/día."
+      }
+    },
+    "posologia_texto": "100 mg cada 12 h. Máx. 300 mg/día."
+  },
+  {
+    "id": "flecainida-iv",
+    "nombre": "Flecainida IV",
+    "principio_activo": "Flecainida",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Taquiarritmias supraventriculares agudas",
+      "Conversión FA"
+    ],
+    "advertencias": [
+      "Proarritmia",
+      "Hipotensión",
+      "Monitorizar ECG"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Flecainidaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.41,
+              "y": 0.25,
+              "w": 0.08,
+              "h": 0.12
+            }
+          ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija_o_kg",
+        "dosis_fija_mg": 150,
+        "dosis_por_kg_mgkg": 2,
+        "intervalo_horas": {
+          "min": 8,
+          "max": 12
+        },
+        "max_diaria": {
+          "mg": 300
+        },
+        "comentarios": "Administrar en 10-30 min. Monitorizar ECG y presión arterial."
+      }
+    },
+    "posologia_texto": "2 mg/kg o 150 mg IV en 10-30 min. Máx. 300 mg/día."
+  },
+  {
+    "id": "procainamida-iv",
+    "nombre": "Procainamida IV",
+    "principio_activo": "Procainamida",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Taquiarritmias ventriculares",
+      "Fibrilación auricular"
+    ],
+    "advertencias": [
+      "Hipotensión",
+      "Lupus eritematoso",
+      "Bloqueo cardíaco"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Procainamidaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.21,
+              "y": 0.25,
+              "w": 0.08,
+              "h": 0.12
+            }
+          ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "iv_carga_mto",
+        "carga": {
+          "dosis_fija_mg": 500,
+          "dosis_por_kg_mgkg": 17,
+          "tiempo_adm_min": 30
+        },
+        "mantenimiento": {
+          "dosis_fija_mg": 2000,
+          "dosis_por_kg_mgkg": null,
+          "intervalo_horas": 24,
+          "max_diaria": {
+            "mg": 4000
+          }
+        },
+        "comentarios": "Carga: 17 mg/kg a 0.3 mg/kg/min. Mantenimiento: 2-4 mg/min. Niveles terapéuticos: 4-10 mcg/mL."
+      }
+    },
+    "posologia_texto": "Carga: 17 mg/kg en 30 min. Mantenimiento: 2-4 mg/min IV."
+  },
+  {
+    "id": "propafenona-300",
+    "nombre": "Propafenona 300 mg",
+    "principio_activo": "Propafenona",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Taquiarritmias supraventriculares",
+      "Fibrilación auricular",
+      "Taquicardia ventricular"
+    ],
+    "advertencias": [
+      "Proarritmia",
+      "Insuficiencia cardiaca",
+      "Bloqueo AV"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Propafenona300.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.02,
+              "y": 0.18,
+              "w": 0.17,
+              "h": 0.17
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 300,
+        "intervalo_horas": 8,
+        "max_diaria": {
+          "mg": 900
+        },
+        "comentarios": "Dosis usual: 150-300 mg cada 8 h. Reducir en insuficiencia hepática."
+      }
+    },
+    "posologia_texto": "300 mg cada 8 h. Máx. 900 mg/día."
+  },
+  {
+    "id": "digoxina-iv",
+    "nombre": "Digoxina IV",
+    "principio_activo": "Digoxina",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Control de frecuencia en FA/flutter con respuesta rápida",
+      "Insuficiencia cardíaca con disfunción sistólica (como coadyuvante)"
+    ],
+    "advertencias": [
+      "Ajustar en ancianos y en insuficiencia renal",
+      "Riesgo de toxicidad: controlar niveles (0,5–0,9 ng/ml en IC), potasio y función renal",
+      "Bradicardia y bloqueos AV: monitorizar ECG"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Digoxinaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.11,
+            "y": 0.25,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": null,
+        "intervalo_horas": 6,
+        "max_diaria": {
+          "mg": 1
+        },
+        "comentarios": "Dosis de carga habitual: 0,5 mg IV, seguida de 0,25 mg IV cada 6–8 h hasta 0,75–1 mg total (según respuesta). Mantenimiento: 0,125–0,25 mg/24 h (ajustar a función renal/edad)."
+      }
+    },
+    "posologia_texto": "Carga: 0,5 mg IV, luego 0,25 mg IV cada 6–8 h hasta 0,75–1 mg total. Mantenimiento: 0,125–0,25 mg/24 h."
+  },
+  {
+    "id": "propafenona-iv",
+    "nombre": "Propafenona IV",
+    "principio_activo": "Propafenona",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Taquicardia supraventricular paroxística",
+      "Fibrilación auricular de reciente comienzo",
+      "Taquicardia ventricular sostenida (selección especializada)"
+    ],
+    "advertencias": [
+      "Clase IC: evitar en cardiopatía estructural/infarto previo",
+      "Riesgo de ensanchamiento QRS y proarritmia: monitorizar ECG",
+      "Precaución en insuficiencia hepática o bloqueo AV"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Propafenonaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.31,
+            "y": 0.25,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "kg",
+        "dosis_por_kg_mgkg": 2,
+        "intervalo_horas": null,
+        "max_diaria": {
+          "mg": 300
+        },
+        "comentarios": "Carga 2 mg/kg IV lenta en 10–20 min (máx. 150 mg); puede repetirse otra carga si persiste. Mantenimiento: perfusión 0,5–1 mg/min durante 1–3 h con ECG y TA continuos."
+      }
+    },
+    "posologia_texto": "2 mg/kg IV en 10–20 min (máx. 150 mg); repetir si precisa. Después, perfusión 0,5–1 mg/min durante 1–3 h con monitorización."
+  },
+  {
+    "id": "adenosina-iv",
+    "nombre": "Adenosina IV",
+    "principio_activo": "Adenosina",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Diagnóstico y/o terminación de TSV por reentrada (no flutter/FA)",
+      "Prueba diagnóstica de taquicardias de QRS ancho regulares"
+    ],
+    "advertencias": [
+      "Administrar en bolo rápido por vía proximal + lavado rápido",
+      "Broncoespasmo: precaución/evitar en asma severa",
+      "Interacciones: teofilina reduce efecto; dipiridamol lo potencia; en trasplante cardíaco sensibilidad aumentada (usar dosis menores)"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Adenosinaiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.01,
+            "y": 0.25,
+            "w": 0.08,
+            "h": 0.12
+          }
+        ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 6,
+        "intervalo_horas": null,
+        "max_diaria": null,
+        "comentarios": "Bolo rápido 6 mg; si no revierte en 1–2 min → 12 mg; si persiste → 12 mg. Monitorizar ECG continuo y TA."
+      }
+    },
+    "posologia_texto": "Bolo rápido 6 mg → si no revierte, 12 mg → puede repetirse 12 mg; con ECG y lavado rápido."
+  },
+  {
+    "id": "nimodipino-iv",
+    "nombre": "Nimodipino IV",
+    "principio_activo": "Nimodipino",
+    "via": "iv",
+    "forma": "viales para perfusión",
+    "indicaciones": [
+      "Prevención/tratamiento del vasoespasmo tras hemorragia subaracnoidea aneurismática (HSA)"
+    ],
+    "advertencias": [
+      "Solo perfusión intravenosa (no IV directa): riesgo de hipotensión grave",
+      "Fotosensible: proteger la vía y el frasco de la luz",
+      "Evitar coadministración con otros hipotensores potentes sin monitorización estrecha"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Nimodipinoiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+        {
+          "shape": "rect",
+          "x": 0.71,
+          "y": 0.25,
+          "w": 0.08,
+          "h": 0.12
+        }
+      ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": null,
+        "intervalo_horas": null,
+        "max_diaria": null,
+        "comentarios": "Perfusión inicial 1 mg/h (≈5 ml/h de 0,2 mg/ml) durante 2 h; si tolera, aumentar a 2 mg/h (≈10 ml/h). Duración típica 5–14 días, pasando después a vía oral según protocolo."
+      }
+    },
+    "posologia_texto": "Iniciar 1 mg/h 2 h; si tolera, 2 mg/h en perfusión continua (5–14 días), luego vía oral."
+  },
+  {
+    "id": "verapamilo-iv",
+    "nombre": "Verapamilo IV",
+    "principio_activo": "Verapamilo",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Taquicardia supraventricular",
+      "Control de frecuencia en FA"
+    ],
+    "advertencias": [
+      "Hipotensión",
+      "Bloqueo AV",
+      "Insuficiencia cardiaca"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Verapamiloiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.51,
+              "y": 0.25,
+              "w": 0.08,
+              "h": 0.12
+            }
+          ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 10,
+        "intervalo_horas": {
+          "min": 0,
+          "max": 0
+        },
+        "max_diaria": {
+          "mg": 20
+        },
+        "comentarios": "Administrar 5-10 mg en 2 min. Repetir a los 15-30 min si es necesario. Máx. 20 mg."
+      }
+    },
+    "posologia_texto": "5-10 mg IV en 2 min. Repetir a los 15-30 min. Máx. 20 mg."
+  }
+]

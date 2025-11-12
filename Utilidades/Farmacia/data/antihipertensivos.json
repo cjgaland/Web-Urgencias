@@ -1,0 +1,697 @@
+[
+  {
+    "id": "atenolol-100",
+    "nombre": "Atenolol 100 mg",
+    "principio_activo": "Atenolol",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Hipertensión arterial",
+      "Angina de pecho",
+      "Arritmias"
+    ],
+    "advertencias": [
+      "Bradicardia",
+      "Broncoespasmo",
+      "Insuficiencia cardiaca"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Atenolol100.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.62,
+              "y": 0.38,
+              "w": 0.16,
+              "h": 0.17
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 100,
+        "intervalo_horas": 24,
+        "comentarios": "Dosis máxima recomendada. En pacientes seleccionados puede usarse 100 mg/día."
+      }
+    },
+    "posologia_texto": "100 mg cada 24 h."
+  },
+  
+  {
+    "id": "atenolol-50",
+    "nombre": "Atenolol 50 mg",
+    "principio_activo": "Atenolol",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Hipertensión arterial",
+      "Angina de pecho",
+      "Arritmias"
+    ],
+    "advertencias": [
+      "Bradicardia",
+      "Broncoespasmo",
+      "Insuficiencia cardiaca"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Atenolol50.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.42,
+              "y": 0.38,
+              "w": 0.16,
+              "h": 0.17
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 50,
+        "intervalo_horas": 24,
+        "max_diaria": {
+          "mg": 100
+        },
+        "comentarios": "Dosis habitual: 50-100 mg/día. En angina puede necesitar 100 mg/día."
+      }
+    },
+    "posologia_texto": "50 mg cada 24 h. Máx. 100 mg/día."
+  },
+  {
+    "id": "bisoprolol-5",
+    "nombre": "Bisoprolol 5 mg",
+    "principio_activo": "Bisoprolol",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Hipertensión arterial",
+      "Insuficiencia cardíaca",
+      "Angina"
+    ],
+    "advertencias": [
+      "Bradicardia",
+      "Broncoespasmo",
+      "Insuficiencia cardiaca aguda"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Bisoprolol5.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.02,
+              "y": 0.38,
+              "w": 0.16,
+              "h": 0.17
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 20,
+        "intervalo_horas": 24,
+        "comentarios": "En hipertensión: 2.5-10 mg/día. En ICF: iniciar 1.25 mg/día, aumentar gradualmente."
+      }
+    },
+    "posologia_texto": "20 mg cada 24 h. En ICF iniciar con 1.25 mg/día."
+  },
+  {
+    "id": "captopril-25",
+    "nombre": "Captopril 25 mg",
+    "principio_activo": "Captopril",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Hipertensión arterial",
+      "Insuficiencia cardíaca"
+    ],
+    "advertencias": [
+      "Riesgo de hipotensión",
+      "Monitorizar función renal",
+      "Angioedema"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Captopril25.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.51,
+            "y": 0.01,
+            "w": 0.14,
+            "h": 0.11
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 25,
+        "intervalo_horas": {
+          "min": 8,
+          "max": 12
+        },
+        "max_diaria": {
+          "mg": 150
+        },
+        "comentarios": "Tomar 1 hora antes de las comidas. Iniciar con 12,5-25 mg/12 h. En ICF: 6.25 mg inicial."
+      }
+    },
+    "posologia_texto": "25 mg cada 8-12 h. Máx. 150 mg/día. Tomar 1 h antes de comidas."
+  },
+  {
+    "id": "captopril-50",
+    "nombre": "Captopril 50 mg",
+    "principio_activo": "Captopril",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Hipertensión arterial",
+      "Insuficiencia cardíaca"
+    ],
+    "advertencias": [
+      "Riesgo de hipotensión",
+      "Monitorizar función renal",
+      "Angioedema"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Captopril50.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": [
+          {
+            "shape": "rect",
+            "x": 0.67,
+            "y": 0.01,
+            "w": 0.14,
+            "h": 0.11
+          }
+        ]
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.82,
+              "y": 0.18,
+              "w": 0.16,
+              "h": 0.17
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 50,
+        "intervalo_horas": {
+          "min": 8,
+          "max": 12
+        },
+        "max_diaria": {
+          "mg": 150
+        },
+        "comentarios": "Tomar 1 hora antes de las comidas. Dosis máxima 50 mg/8 h."
+      }
+    },
+    "posologia_texto": "50 mg cada 8-12 h. Máx. 150 mg/día. Tomar 1 h antes de comidas."
+  },
+  {
+    "id": "carvedilol-6-25",
+    "nombre": "Carvedilol 6.25 mg",
+    "principio_activo": "Carvedilol",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Hipertensión arterial",
+      "Insuficiencia cardíaca",
+      "Post-IAM"
+    ],
+    "advertencias": [
+      "Bradicardia",
+      "Hipotensión",
+      "Broncoespasmo"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Carvedilol6.25.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.22,
+              "y": 0.38,
+              "w": 0.16,
+              "h": 0.17
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 6.25,
+        "intervalo_horas": 12,
+        "max_diaria": {
+          "mg": 50
+        },
+        "comentarios": "En ICF: iniciar 3.125 mg cada 12 h, doblar cada 2 semanas. Máx. 25 mg cada 12 h."
+      }
+    },
+    "posologia_texto": "6.25 mg cada 12 h. En ICF iniciar con 3.125 mg cada 12 h."
+  },
+  {
+    "id": "diltiazem-60",
+    "nombre": "Diltiazem 60 mg",
+    "principio_activo": "Diltiazem",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Hipertensión arterial",
+      "Angina de pecho",
+      "Control frecuencia en FA"
+    ],
+    "advertencias": [
+      "Bradicardia",
+      "Bloqueo AV",
+      "Insuficiencia cardiaca"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Diltiazem60.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.42,
+              "y": 0.18,
+              "w": 0.17,
+              "h": 0.17
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 60,
+        "intervalo_horas": 8,
+        "max_diaria": {
+          "mg": 360
+        },
+        "comentarios": "Dosis usual: 60-120 mg cada 8 h. Formas retard: 180-240 mg/24 h."
+      }
+    },
+    "posologia_texto": "60 mg cada 8 h. Máx. 360 mg/día."
+  },
+  {
+    "id": "labetalol-iv",
+    "nombre": "Labetalol IV",
+    "principio_activo": "Labetalol",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Crisis hipertensiva",
+      "Feocromocitoma",
+      "Hipertensión perioperatoria"
+    ],
+    "advertencias": [
+      "Bradicardia",
+      "Broncoespasmo",
+      "Hipotensión ortostática"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Labetaloliv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.41,
+              "y": 0.11,
+              "w": 0.08,
+              "h": 0.12
+            }
+          ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 20,
+        "intervalo_horas": {
+          "min": 10,
+          "max": 10
+        },
+        "max_diaria": {
+          "mg": 300
+        },
+        "comentarios": "Administrar 20 mg IV en 2 min. Repetir 40-80 mg cada 10 min hasta control. Máx. 300 mg."
+      }
+    },
+    "posologia_texto": "20 mg IV en 2 min, repetir cada 10 min. Máx. 300 mg."
+  },
+  {
+    "id": "nifedipino-10",
+    "nombre": "Nifedipino 10 mg",
+    "principio_activo": "Nifedipino",
+    "via": "oral",
+    "forma": "cápsulas",
+    "indicaciones": [
+      "Hipertensión arterial",
+      "Angina de pecho"
+    ],
+    "advertencias": [
+      "Hipotensión",
+      "Cefalea",
+      "Edema maleolar"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Nifedipino10.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.62,
+              "y": 0.18,
+              "w": 0.16,
+              "h": 0.17
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 10,
+        "intervalo_horas": 8,
+        "max_diaria": {
+          "mg": 60
+        },
+        "comentarios": "Formas de liberación retardada: 20-60 mg/24 h. No usar formas rápidas en crisis hipertensivas."
+      }
+    },
+    "posologia_texto": "10 mg cada 8 h. Máx. 60 mg/día."
+  },
+  {
+    "id": "propranolol-40",
+    "nombre": "Propranolol 40 mg",
+    "principio_activo": "Propranolol",
+    "via": "oral",
+    "forma": "comprimidos",
+    "indicaciones": [
+      "Hipertensión arterial",
+      "Angina",
+      "Arritmias",
+      "Migraña"
+    ],
+    "advertencias": [
+      "Bradicardia",
+      "Broncoespasmo",
+      "Síndrome de abstinencia"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Propranolol40.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.73,
+              "y": 0.79,
+              "w": 0.24,
+              "h": 0.19
+            }
+          ]
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": []
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija",
+        "dosis_fija_mg": 40,
+        "intervalo_horas": 8,
+        "max_diaria": {
+          "mg": 320
+        },
+        "comentarios": "Dosis usual: 40-80 mg cada 8 h. Formas retard: 80-160 mg/24 h."
+      }
+    },
+    "posologia_texto": "40 mg cada 8 h. Máx. 320 mg/día."
+  },
+  {
+    "id": "urapidilo-iv",
+    "nombre": "Urapidilo IV",
+    "principio_activo": "Urapidilo",
+    "via": "iv",
+    "forma": "ampollas",
+    "indicaciones": [
+      "Crisis hipertensiva",
+      "Hipertensión perioperatoria"
+    ],
+    "advertencias": [
+      "Hipotensión",
+      "Taquicardia refleja",
+      "Monitorizar presión arterial"
+    ],
+    "imagenes": {
+      "producto": "../img/farmacos/Urapidiloiv.png"
+    },
+    "localizacion": {
+      "consulta": {
+        "map": "../img/armarios/consultas.png",
+        "hotspots": []
+      },
+      "criticos": [
+        {
+          "id": "oral",
+          "map": "../img/armarios/criticos_oral.png",
+          "hotspots": []
+        },
+        {
+          "id": "iv",
+          "map": "../img/armarios/criticos_iv.png",
+          "hotspots": [
+            {
+              "shape": "rect",
+              "x": 0.51,
+              "y": 0.13,
+              "w": 0.07,
+              "h": 0.1
+            }
+          ]
+        }
+      ],
+      "frigorifico": {
+        "map": "../img/armarios/frigo.png",
+        "hotspots": []
+      }
+    },
+    "dosis": {
+      "adulto": {
+        "tipo": "fija_o_kg",
+        "dosis_fija_mg": 25,
+        "dosis_por_kg_mgkg": 0.4,
+        "intervalo_horas": {
+          "min": 0,
+          "max": 0
+        },
+        "max_diaria": {
+          "mg": 200
+        },
+        "comentarios": "Bolo: 12.5-25 mg. Infusión: 2-4 mg/h. Ajustar según respuesta."
+      }
+    },
+    "posologia_texto": "Bolo: 12.5-25 mg IV. Infusión: 2-4 mg/h. Máx. 200 mg/día."
+  }
+]
