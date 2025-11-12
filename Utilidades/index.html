@@ -78,10 +78,12 @@
 
     <!-- Índice (TOC) -->
     <nav class="calc-toc" aria-label="Índice de bloques">
-      <a href="#tratamientos">Tratamientos</a>
-      <a href="#diagnosticos">Diagnósticos</a>
-      <a href="#entretenimiento">Entretenimiento</a>
-    </nav>
+  <a href="#tratamientos">Tratamientos</a>
+  <a href="#farmacia">Farmacia</a> <!-- NUEVO -->
+  <a href="#diagnosticos">Diagnósticos</a>
+  <a href="#entretenimiento">Entretenimiento</a>
+</nav>
+
 
     <!-- Acordeón -->
     <section class="accordion" id="utils-accordion">
@@ -125,6 +127,60 @@
           </div>
         </div>
       </article>
+      
+      <!-- FARMACIA -->
+<article class="accordion-item" id="farmacia">
+  <h2 class="accordion-header">
+    <button class="accordion-toggle" aria-expanded="false" aria-controls="panel-farm" id="btn-farm">
+      <i class="fa-solid fa-pills"></i>
+      Farmacia
+    </button>
+  </h2>
+  <div class="accordion-panel" id="panel-farm" role="region" aria-labelledby="btn-farm" hidden>
+    <div class="links-grid">
+
+      <!-- Guía Farmacológica -->
+      <div class="link-card">
+        <div class="link-icon"><i class="fa-solid fa-book-medical"></i></div>
+        <div class="link-content">
+          <a href="Farmacia/index.html">Guía Farmacológica Urgencias/Emergencias</a>
+          <p class="link-description">Búsqueda de fármacos, fichas breves y localización en armarios.</p>
+        </div>
+      </div>
+
+      <!-- Calculadoras -->
+      <div class="link-card">
+        <div class="link-icon"><i class="fa-solid fa-calculator"></i></div>
+        <div class="link-content">
+          <a href="../Calculadoras/index.html">Calculadoras de dosis</a>
+          <p class="link-description">Apoyo para cálculo de dosis, perfusiones y ajustes por peso y función renal.</p>
+        </div>
+      </div>
+
+      <!-- Consulta Médica -->
+      <div class="link-card">
+        <div class="link-icon"><i class="fa-solid fa-stethoscope"></i></div>
+        <div class="link-content">
+          <a href="Farmacia/Vistas/consultas.html">Consulta Médica</a>
+          <p class="link-description">Acceso a medicación urgente en área de consultas.</p>
+        </div>
+      </div>
+
+      <!-- Enlace a Críticos -->
+      <div class="link-card">
+        <div class="link-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+        <div class="link-content">
+          <a href="../Criticos/index.html">Sala de Críticos</a>
+          <p class="link-description">Interfaz táctil para localizar medicación crítica.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</article>
+
+
+      
 
       <!-- DIAGNÓSTICOS -->
       <article class="accordion-item" id="diagnosticos">
