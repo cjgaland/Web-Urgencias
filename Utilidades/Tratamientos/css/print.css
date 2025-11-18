@@ -1,11 +1,9 @@
 /* css/print.css */
-/* Estilos optimizados para impresión */
-
 @media print {
-  /* Reset para impresión */
-  * {
+  /* --- 1. RESET BÁSICO --- */
+  *, *::before, *::after {
     background: transparent !important;
-    color: black !important;
+    color: #000 !important;
     box-shadow: none !important;
     text-shadow: none !important;
   }
@@ -13,354 +11,82 @@
   body {
     font-family: "Arial", sans-serif;
     font-size: 12pt;
-    line-height: 1.4;
-    background: white !important;
-    color: black !important;
+    line-height: 1.3;
     margin: 0;
-    padding: 0.5in;
-  }
-  
-  /* Ocultar elementos no necesarios en impresión */
-  .header,
-  .toolbar,
-  .btn,
-  .no-print,
-  .form-actions,
-  .card-body > .form-grid,
-  [data-action],
-  .modal,
-  .modal-overlay,
-  .toast {
-    display: none !important;
-  }
-  
-  /* Mantener solo el contenido esencial */
-  .container {
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  
-  /* Estilos para hojas de impresión */
-  .print-sheet {
-    page-break-inside: avoid;
-    break-inside: avoid;
-    margin-bottom: 0.5in;
-    border: 1px solid #ccc !important;
-    padding: 0.25in;
+    padding: 0.5cm;
     background: white !important;
   }
   
-  .print-sheet:last-child {
-    margin-bottom: 0;
-  }
-  
-  /* Encabezados de impresión */
-  .print-header {
-    text-align: center;
-    margin-bottom: 0.25in;
-    padding-bottom: 0.1in;
-    border-bottom: 2px solid #000;
-  }
-  
-  .print-header h1 {
-    font-size: 16pt;
-    font-weight: bold;
-    margin: 0 0 0.1in 0;
-  }
-  
-  .print-header .subtitle {
-    font-size: 10pt;
-    color: #666;
-  }
-  
-  /* Información del paciente */
-  .print-meta {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 0.1in;
-    margin: 0.15in 0;
-    font-size: 10pt;
-  }
-  
-  .print-meta-item {
-    border: 1px solid #ccc;
-    padding: 0.1in;
-    border-radius: 2px;
-  }
-  
-  .print-meta-item strong {
-    font-weight: bold;
-  }
-  
-  /* Chips para información importante */
-  .print-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.1in;
-    margin: 0.15in 0;
-  }
-  
-  .print-chip {
-    border: 1px solid #000;
-    padding: 0.05in 0.1in;
-    border-radius: 12px;
-    font-size: 9pt;
-    font-weight: bold;
-    background: #f8f8f8 !important;
-  }
-  
-  /* Secciones LET */
-  .let-print {
-    background: #f0f0f0 !important;
-    border: 1px solid #000;
-    padding: 0.15in;
-    margin: 0.15in 0;
-    page-break-inside: avoid;
-  }
-  
-  .let-print h3 {
-    font-size: 11pt;
-    font-weight: bold;
-    margin: 0 0 0.1in 0;
-    text-decoration: underline;
-  }
-  
-  .let-print p {
-    margin: 0.05in 0;
-    font-size: 10pt;
-  }
-  
-  /* Tablas optimizadas para impresión */
-  .print-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 0.15in 0;
-    font-size: 9pt;
-    page-break-inside: avoid;
-  }
-  
-  .print-table th {
-    background: #f8f8f8 !important;
-    border: 1px solid #000;
-    padding: 0.08in;
-    font-weight: bold;
-    text-align: left;
-  }
-  
-  .print-table td {
-    border: 1px solid #ccc;
-    padding: 0.06in;
-    vertical-align: top;
-  }
-  
-  .print-table tr:nth-child(even) {
-    background: #f8f8f8 !important;
-  }
-  
-  /* Bloque de enfermería */
-  .enfermeria-section {
-    margin: 0.15in 0;
-    page-break-inside: avoid;
-  }
-  
-  .enfermeria-section h3 {
-    font-size: 11pt;
-    font-weight: bold;
-    margin: 0 0 0.1in 0;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 0.05in;
-  }
-  
-  .enfermeria-item {
-    margin: 0.05in 0;
-    padding-left: 0.1in;
-    font-size: 10pt;
-  }
-  
-  .enfermeria-item strong {
-    font-weight: bold;
-  }
-  
-  /* Firmas */
-  .print-signatures {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.5in;
-    margin-top: 0.3in;
-    page-break-inside: avoid;
-  }
-  
-  .signature-line {
-    border-top: 1px solid #000;
-    padding-top: 0.2in;
-    text-align: center;
-    font-size: 9pt;
-  }
-  
-  /* Pegatinas */
-  .pegatina-print {
-    border: 2px dashed #000 !important;
-    padding: 0.2in;
-    text-align: center;
-    margin: 0.15in 0;
-    page-break-inside: avoid;
-    background: #f8f8f8 !important;
-  }
-  
-  .pegatina-print.horizontal {
-    width: 100%;
-    height: 1.5in;
-  }
-  
-  .pegatina-print.vertical {
-    width: 3.5in;
-    height: 2in;
-    margin: 0.15in auto;
-  }
-  
-  /* Control de saltos de página */
-  .page-break {
-    page-break-before: always;
-  }
-  
-  .avoid-break {
-    page-break-inside: avoid;
-  }
-  
-  /* +++ SECCIÓN MODIFICADA +++ */
-  /* Modos de impresión específicos */
+  /* --- 2. OCULTAR UI --- */
+  .header, .toolbar, .btn, .modal, .modal-overlay, .toast, .form-group, datalist { display: none !important; }
+  .no-print { display: none !important; }
 
-  /* 1. Ocultar AMBAS tarjetas de impresión por defecto */
-  .medico-only,
-  .enfermeria-only {
-    display: none !important;
+  /* --- 3. VISIBILIDAD ESTRUCTURAL --- */
+  body.print-medico .grid.no-print,
+  body.print-enfermeria .grid.no-print {
+    display: block !important; width: 100% !important; margin: 0 !important; padding: 0 !important; border: none !important;
   }
+  body.print-medico .grid.no-print > *:not(.medico-only),
+  body.print-enfermeria .grid.no-print > *:not(.enfermeria-only) { display: none !important; }
   
-  /* 2. Mostrar SOLO la tarjeta médica cuando el body tenga la clase */
+  .medico-only, .enfermeria-only { display: none !important; }
+
   body.print-medico .medico-only {
-    display: block !important;
+    display: block !important; visibility: visible !important; width: 100%; position: absolute; top: 0; left: 0;
   }
-  
-  /* 3. Mostrar SOLO la tarjeta de enfermería cuando el body tenga la clase */
   body.print-enfermeria .enfermeria-only {
-    display: block !important;
+    display: block !important; visibility: visible !important; width: 100%; position: absolute; top: 0; left: 0;
   }
-  
-  /* (Estas reglas antiguas pueden quedarse por si las usas dentro de las tablas) */
-  body.print-medico .enfermeria-content {
-    display: none !important;
-  }
-  body.print-enfermeria .medico-content {
-    display: none !important;
-  }
-  /* +++ FIN SECCIÓN MODIFICADA +++ */
 
-  /* Estilos para listas */
-  .print-list {
-    margin: 0.1in 0;
-    padding-left: 0.2in;
+  /* QUITAR BORDES DE TARJETA PARA QUE PAREZCA DOCUMENTO */
+  #enfermeria-print-card, #medico-print-card {
+      border: none !important;
+      box-shadow: none !important;
+      background: white !important;
   }
+
+  /* --- 5. ESTILOS GENÉRICOS DE TABLA E IMPRESIÓN --- */
+  .print-sheet { page-break-inside: avoid; }
   
-  .print-list li {
-    margin: 0.05in 0;
-    font-size: 10pt;
-  }
+  /* Grid Header Médico */
+  .print-meta-grid { display: grid !important; grid-template-columns: 1.2fr 0.6fr 0.8fr 0.8fr 0.6fr 0.6fr !important; gap: 6px !important; font-size: 10pt !important; margin-bottom: 15px; border: none !important; }
+  /* Grid Header Enfermería (4 columnas para mejor distribución) */
+  .nurse-meta-grid { display: grid !important; grid-template-columns: 1fr 1fr 1fr 1fr !important; gap: 8px !important; font-size: 10pt !important; margin-bottom: 15px; border: none !important; }
   
-  /* Alertas importantes */
-  .print-alert {
-    background: #fffacd !important;
-    border: 2px solid #ffd700;
-    padding: 0.1in;
-    margin: 0.1in 0;
-    font-weight: bold;
-    page-break-inside: avoid;
-  }
+  .print-meta-grid div, .nurse-meta-grid div { border: 1px solid #ccc; padding: 4px 6px; border-radius: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .print-meta-grid .full-width, .nurse-meta-grid .full-width { grid-column: 1 / -1 !important; white-space: normal !important; }
+  .print-meta-grid .grid-span-2, .nurse-meta-grid .grid-span-2 { grid-column: span 2 !important; }
+
+  /* Tablas Estándar */
+  .print-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 9pt; table-layout: fixed; }
+  .print-table th { border-bottom: 2px solid #000; background-color: #f0f0f0 !important; padding: 5px; text-align: left; font-weight: bold; print-color-adjust: exact; }
+  .print-table td { border-bottom: 1px solid #ccc; padding: 6px 5px; vertical-align: top; }
+
+  /* Tabla Informativa 1x4 Enfermería */
+  .info-4-col { table-layout: fixed; width: 100%; border-collapse: collapse; }
+  .info-4-col th, .info-4-col td { border: 1px solid #000 !important; padding: 4px; text-align: left; vertical-align: top; }
+  .info-4-col th { background-color: #f0f0f0 !important; font-weight: bold; text-align: center; }
+
+  h2 { font-size: 16pt; margin-bottom: 10px; text-transform: uppercase; text-align: center; border-bottom: 3px solid #000; padding-bottom: 5px; }
+  h3 { font-size: 12pt; margin-top: 15px; margin-bottom: 5px; border-bottom: 1px solid #000; font-weight: bold; }
+  .pegatina-space { border: 2px dashed #999 !important; display: flex; align-items: center; justify-content: center; color: #999; }
+  .print-alert { border: 2px solid #000 !important; background-color: #fff !important; padding: 10px; margin: 10px 0; font-weight: bold; }
+  .firmas-print { margin-top: 30px; page-break-inside: avoid; }
+  .firmas-print p { margin: 8px 0; }
+
+  @page { margin: 1cm; size: A4; }
+
+  /* --- REJILLA HORARIA ENFERMERÍA (NURSE-GRID) --- */
+  .nurse-grid { table-layout: fixed !important; width: 100% !important; border-collapse: collapse !important; }
+  .nurse-grid th, .nurse-grid td { border: 1px solid #000 !important; padding: 2px !important; height: 22px !important; vertical-align: middle !important; text-align: center !important; font-size: 8pt !important; }
   
-  /* Códigos de barras (placeholder) */
-  .barcode-area {
-    border: 1px dashed #ccc;
-    padding: 0.1in;
-    text-align: center;
-    margin: 0.1in 0;
-    font-family: monospace;
-    background: #f8f8f8 !important;
-  }
+  /* Columna Descripción */
+  .nurse-grid .col-info { width: 30% !important; text-align: left !important; padding-left: 5px !important; white-space: normal !important; overflow: hidden; font-size: 8.5pt; }
+  /* Columnas Horas */
+  .nurse-grid .col-hour { width: 2.9% !important; }
+  /* Cabecera */
+  .nurse-grid thead th { background-color: #e0e0e0 !important; height: 20px !important; }
   
-  /* Números de página */
-  @page {
-    margin: 0.5in;
-    size: A4;
-    
-    @bottom-center {
-      content: "Página " counter(page);
-      font-size: 9pt;
-      color: #666;
-    }
-  }
-  
-  @page :first {
-    margin-top: 0.5in;
-  }
-  
-  /* Mejoras específicas para elementos comunes */
-  .card {
-    border: 1px solid #ccc !important;
-    background: white !important;
-    margin-bottom: 0.25in;
-    break-inside: avoid;
-  }
-  
-  .card-header {
-    background: #f0f0f0 !important;
-    border-bottom: 1px solid #ccc;
-    padding: 0.1in;
-    font-weight: bold;
-  }
-  
-  h2, h3, h4 {
-    color: black !important;
-    margin: 0.1in 0 0.05in 0;
-  }
-  
-  h2 {
-    font-size: 14pt;
-  }
-  
-  h3 {
-    font-size: 12pt;
-  }
-  
-  h4 {
-    font-size: 11pt;
-  }
-  
-  p {
-    margin: 0.05in 0;
-  }
-  
-  /* Ocultar elementos interactivos */
-  select,
-  input,
-  textarea,
-  button {
-    display: none !important;
-  }
-  
-  /* Mostrar valores de selects e inputs */
-  select[data-print-value]::before,
-  input[data-print-value]::before {
-    content: attr(data-print-value);
-    display: inline !important;
-  }
-  
-  /* Estilos para checkboxes marcados */
-  input[type="checkbox"]:checked::before {
-    content: "✓ ";
-    font-weight: bold;
-  }
-  
-  input[type="checkbox"]:not(:checked)::before {
-    content: "☐ ";
-  }
+  /* SEPARADORES GRUESOS */
+  tr.thick-border-top td { border-top: 3px solid #000 !important; }
 }
