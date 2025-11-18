@@ -11,7 +11,7 @@ const safeToast = (msg, type = 'info') => {
 const LET_DATA = {
   1: {
     titulo: "LET 1 - Soporte total",
-    actitud: "SOPORTE TOTAl",
+    actitud: "SOPORTE TOTAL",
     aclaracion: "LET 1 - El paciente recibe todas las medidas necesarias, sin excepción."
   },
   2: {
@@ -239,6 +239,8 @@ export const LETModule = (() => {
   StateManager.subscribe((nuevoEstado, estadoAnterior, cambios) => {
     if (cambios.let !== undefined) {
       renderLETDisplay();
+      // CORRECCIÓN FALLO 1 Y 2: Actualizar visualmente los botones
+      actualizarBotonesLET(nuevoEstado.let); 
     }
   });
 

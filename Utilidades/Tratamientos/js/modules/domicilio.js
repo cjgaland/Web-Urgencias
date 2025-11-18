@@ -28,22 +28,13 @@ export const DomicilioModule = (() => {
       }
     } catch (e) {
       console.error('Domicilio: error cargando vías', e);
-      showToast('No se pudieron cargar las vías', 'error');
     }
   }
 
-  // --- Loader de Pauta a prueba de nombre ---
   async function obtenerPautas() {
-    // Intenta los 3 nombres habituales sin romper si alguno no existe
-    if (typeof DataLoader.cargarPautas === 'function') {
-      return await DataLoader.cargarPautas();
-    }
-    if (typeof DataLoader.cargarPauta === 'function') {
-      return await DataLoader.cargarPauta();
-    }
-    if (typeof DataLoader.cargarFrecuencias === 'function') {
-      return await DataLoader.cargarFrecuencias();
-    }
+    if (typeof DataLoader.cargarPautas === 'function') return await DataLoader.cargarPautas();
+    if (typeof DataLoader.cargarPauta === 'function') return await DataLoader.cargarPauta();
+    if (typeof DataLoader.cargarFrecuencias === 'function') return await DataLoader.cargarFrecuencias();
     return [];
   }
 
@@ -62,7 +53,6 @@ export const DomicilioModule = (() => {
       }
     } catch (e) {
       console.error('Domicilio: error cargando pautas', e);
-      showToast('No se pudieron cargar las pautas', 'error');
     }
   }
 
@@ -116,6 +106,7 @@ export const DomicilioModule = (() => {
     const v = getForm();
     const err = validar(v);
     if (err) { showToast(err, 'warning'); return; }
+    v.timestamp = new Date().toISOString();
     StateActions.addToArray('domicilio', v);
     limpiar();
     renderTable();
@@ -145,6 +136,10 @@ export const DomicilioModule = (() => {
     const v = getForm();
     const err = validar(v);
     if (err) { showToast(err, 'warning'); return; }
+    
+    const original = GlobalState.domicilio[moduleState.editingIndex] || {};
+    v.timestamp = original.timestamp || new Date().toISOString();
+    
     StateActions.updateInArray('domicilio', moduleState.editingIndex, v);
     cancelarEdicion();
     renderTable();
@@ -159,6 +154,7 @@ export const DomicilioModule = (() => {
 
   function vaciar() {
     StateActions.clearArray('domicilio');
+    limpiar();
     renderTable();
     showToast('Lista vaciada', 'info');
   }
@@ -172,33 +168,33 @@ export const DomicilioModule = (() => {
     DOMHelpers.setValue('#dom_dias', '1');
     DOMHelpers.setValue('#dom_indicacion', '');
     DOMHelpers.setValue('#dom_obs', '');
-  }
-
-  function cancelarEdicion() {
-    limpiar();
+    
     moduleState.editingIndex = -1;
     DOMHelpers.showElement('#btnAddDom');
     DOMHelpers.hideElement('#btnUpdateDom');
     DOMHelpers.hideElement('#btnCancelEditDom');
   }
 
+  function cancelarEdicion() {
+    limpiar();
+  }
+
   function renderTable() {
     const tbody = $('#tablaDom tbody');
     if (!tbody) return;
     tbody.innerHTML = '';
+    const lista = (GlobalState.domicilio || []).slice().reverse();
 
-    const items = GlobalState.domicilio || [];
-    if (items.length === 0) {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `<td colspan="10" style="text-align:center;color:#64748b">No hay medicación domiciliaria</td>`;
-      tbody.appendChild(tr);
+    if (lista.length === 0) {
+      tbody.innerHTML = `<tr style="text-align:center;color:#64748b"><td colspan="10">No hay medicación domiciliaria</td></tr>`;
       return;
     }
 
-    items.forEach((it, idx) => {
+    lista.forEach((it, i) => {
+      const realIndex = (GlobalState.domicilio.length - 1) - i;
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>${idx + 1}</td>
+        <td>${i + 1}</td>
         <td>${it.farmaco}</td>
         <td>${it.dosis}</td>
         <td>${it.via}</td>
@@ -209,12 +205,8 @@ export const DomicilioModule = (() => {
         <td>${it.obs || ''}</td>
         <td>
           <div style="display:flex;gap:4px;justify-content:center">
-            <button class="btn btn-sm edit" data-action="edit" data-index="${idx}" title="Editar">
-              <i class="fas fa-edit"></i>
-            </button>
-            <button class="btn btn-sm danger" data-action="delete" data-index="${idx}" title="Eliminar">
-              <i class="fas fa-trash"></i>
-            </button>
+            <button class="btn btn-sm edit" data-action="edit" data-index="${realIndex}"><i class="fas fa-edit"></i></button>
+            <button class="btn btn-sm danger" data-action="delete" data-index="${realIndex}"><i class="fas fa-trash"></i></button>
           </div>
         </td>
       `;
@@ -229,15 +221,12 @@ export const DomicilioModule = (() => {
     }));
   }
 
-  return {
-    init,
-    add,
-    actualizar,
-    editar,
-    eliminar,
-    vaciar,
-    getParaImpresion
-  };
+  // SUSCRIPCIÓN
+  StateManager.subscribe((nuevo, anterior, cambios) => {
+    if (cambios.domicilio !== undefined) renderTable();
+  });
+
+  return { init, add, actualizar, editar, eliminar, vaciar, getParaImpresion };
 })();
 
 export default DomicilioModule;

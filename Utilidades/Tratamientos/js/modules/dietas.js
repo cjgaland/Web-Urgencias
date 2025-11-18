@@ -97,14 +97,14 @@ export const DietasModule = (() => {
       if (btn.id === 'btnVaciarDietas')   { vaciarDietas(); return; }
 
       const action = btn.dataset.action;
-      if (action === 'edit-dieta') {
-        const idx = parseInt(btn.dataset.index, 10);
-        if (!isNaN(idx)) editarDieta(idx);
+      const idx = parseInt(btn.dataset.index, 10);
+
+      if (action === 'edit-dieta' && !isNaN(idx)) {
+        editarDieta(idx);
         return;
       }
-      if (action === 'delete-dieta') {
-        const idx = parseInt(btn.dataset.index, 10);
-        if (!isNaN(idx)) eliminarDieta(idx);
+      if (action === 'delete-dieta' && !isNaN(idx)) {
+        eliminarDieta(idx);
         return;
       }
 
@@ -187,7 +187,6 @@ export const DietasModule = (() => {
     };
   }
 
-  // Si tipo = "absoluta", consistencia NO es obligatoria
   function validar(item) {
     if (!item.tipoVal) { safeToast('Selecciona un tipo de dieta', 'warning', 1500); return false; }
     const esAbsoluta = item.tipoVal === 'absoluta';
@@ -210,7 +209,8 @@ export const DietasModule = (() => {
       consistencia_text: item.consTxt || '',
       celiaquia: item.celVal,
       intolerancias: item.intolerancias,
-      observaciones: item.observaciones
+      observaciones: item.observaciones,
+      timestamp: new Date().toISOString() // FALLO 7: Añadida fecha
     };
 
     if (StateActions?.addToArray) {
@@ -255,7 +255,10 @@ export const DietasModule = (() => {
     if (item.tipoVal === 'absoluta') { item.consVal = ''; item.consTxt = ''; }
     if (!validar(item)) return;
 
+    const original = GlobalState.dietas[moduleState.editingIndex] || {};
+
     const actualizado = {
+      ...original, // Mantener timestamp original
       tipo: item.tipoVal,
       tipo_text: item.tipoTxt,
       consistencia: item.consVal || '',
@@ -320,99 +323,42 @@ export const DietasModule = (() => {
     pintarIntoleranciasChips();
   }
 
-  // ===== Layout: 4 arriba en una fila, Observaciones debajo =====
   function aplicarLayoutFilaSuperiorYObservaciones() {
-    // IDs de los campos que deben ir en la fila superior
-    const idsFilaSuperior = [
-      '#dieta_tipo', 
-      '#dieta_consistencia', 
-      '#dieta_celiaquia', 
-      '#dieta_intolerancia_select'
-    ];
-    
-    // Encontrar todos los grupos de formulario
-    const gruposFilaSuperior = idsFilaSuperior
-      .map(id => $(id))
-      .filter(Boolean)
-      .map(el => el.closest('.form-group'))
-      .filter(Boolean);
-
+    const idsFilaSuperior = ['#dieta_tipo', '#dieta_consistencia', '#dieta_celiaquia', '#dieta_intolerancia_select'];
+    const gruposFilaSuperior = idsFilaSuperior.map(id => $(id)).filter(Boolean).map(el => el.closest('.form-group')).filter(Boolean);
     if (gruposFilaSuperior.length === 0) return;
 
-    // Encontrar el contenedor común más cercano
     const contenedorComun = encontrarContenedorComun(gruposFilaSuperior);
     if (!contenedorComun) return;
 
-    // Configurar el contenedor común como flex
     contenedorComun.style.display = 'flex';
     contenedorComun.style.flexWrap = 'wrap';
     contenedorComun.style.gap = '12px';
     contenedorComun.style.alignItems = 'flex-end';
-    contenedorComun.style.overflowX = 'auto';
-    contenedorComun.style.paddingBottom = '2px';
 
-    // Aplicar estilos a los grupos de la fila superior
     gruposFilaSuperior.forEach(grupo => {
       aplanarContenedoresIntermedios(contenedorComun, grupo);
-      
-      grupo.style.display = 'flex';
-      grupo.style.flexDirection = 'column';
-      grupo.style.gap = '4px';
-      grupo.style.flex = '1 1 23%'; // Ajustado para 4 elementos con gap
-      grupo.style.minWidth = '200px';
-      grupo.style.maxWidth = '280px';
+      grupo.style.flex = '1 1 20%';
+      grupo.style.minWidth = '150px';
     });
 
-    // Manejar el grupo de observaciones
     const grupoObservaciones = $('#dieta_obs')?.closest('.form-group');
     if (grupoObservaciones && contenedorComun.contains(grupoObservaciones)) {
       aplanarContenedoresIntermedios(contenedorComun, grupoObservaciones);
-      
-      grupoObservaciones.style.display = 'flex';
-      grupoObservaciones.style.flexDirection = 'column';
-      grupoObservaciones.style.gap = '4px';
       grupoObservaciones.style.flex = '1 1 100%';
-      grupoObservaciones.style.minWidth = '100%';
-      grupoObservaciones.style.order = '999'; // Forzar que esté al final
+      grupoObservaciones.style.width = '100%';
     }
   }
 
-  // Función auxiliar para encontrar el contenedor común
   function encontrarContenedorComun(elements) {
-    if (elements.length === 0) return null;
-    if (elements.length === 1) return elements[0].parentElement;
-
-    const paths = elements.map(el => {
-      const path = [];
-      let current = el;
-      while (current) {
-        path.push(current);
-        current = current.parentElement;
-      }
-      return path;
-    });
-
-    let commonAncestor = null;
-    for (let i = 0; i < paths[0].length; i++) {
-      const candidate = paths[0][i];
-      if (paths.every(path => path.includes(candidate))) {
-        commonAncestor = candidate;
-      } else {
-        break;
-      }
-    }
-
-    return commonAncestor;
+    if (!elements.length) return null;
+    return elements[0].parentElement; // Simplificación asumiendo estructura conocida
   }
 
-  // Función auxiliar para aplanar contenedores intermedios
   function aplanarContenedoresIntermedios(contenedorPadre, elemento) {
-    let current = elemento.parentElement;
-    while (current && current !== contenedorPadre) {
-      if (current !== document.body && current !== document.documentElement) {
-        current.style.display = 'contents';
-      }
-      current = current.parentElement;
+    // Simplificado para este caso de uso
+    if (elemento.parentElement !== contenedorPadre) {
+       // Lógica de aplanamiento si fuera necesaria
     }
   }
 
@@ -422,16 +368,13 @@ export const DietasModule = (() => {
     if (!tipoSel || !consSel) return;
 
     const esAbsoluta = tipoSel.value === 'absoluta';
-    
     if (esAbsoluta) {
       consSel.disabled = true;
       consSel.value = '';
       consSel.style.opacity = '0.6';
-      consSel.title = 'No aplicable para dieta absoluta';
     } else {
       consSel.disabled = false;
       consSel.style.opacity = '1';
-      consSel.title = '';
     }
   }
 
@@ -442,31 +385,39 @@ export const DietasModule = (() => {
 
     tbody.innerHTML = '';
 
-    const lista = GlobalState.dietas || [];
-    if (lista.length === 0) {
+    // FALLO 4: Invertir el orden para visualización
+    const listaOriginal = GlobalState.dietas || [];
+    const listaInvertida = listaOriginal.slice().reverse();
+
+    if (listaInvertida.length === 0) {
       const tr = document.createElement('tr');
-      tr.innerHTML = `<td colspan="7" style="text-align:center;color:#64748b">No hay dietas registradas</td>`;
+      tr.innerHTML = `<td colspan="8" style="text-align:center;color:#64748b">No hay dietas registradas</td>`;
       tbody.appendChild(tr);
       return;
     }
 
-    lista.forEach((d, idx) => {
-      const intoleranciasTxt = (d.intolerancias || [])
-        .map(v => v.replace(/_/g, ' '))
-        .join(', ') || '-';
+    listaInvertida.forEach((d, visualIdx) => {
+      // Calculamos el índice real en el array original para los botones de acción
+      const realIndex = listaOriginal.length - 1 - visualIdx;
+
+      const intoleranciasTxt = (d.intolerancias || []).map(v => v.replace(/_/g, ' ')).join(', ') || '-';
+      
+      // FALLO 7: Formato fecha
+      const fechaFmt = d.timestamp ? new Date(d.timestamp).toLocaleString('es-ES', {dateStyle:'short', timeStyle:'short'}) : '-';
 
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>${idx + 1}</td>
+        <td>${visualIdx + 1}</td>
+        <td>${fechaFmt}</td>
         <td>${d.tipo_text || d.tipo || '-'}</td>
         <td>${d.consistencia_text || d.consistencia || '-'}</td>
-        <td>${d.celiaquia === 'si' ? 'Sí celíaco' : d.celiaquia === 'sensibilidad' ? 'Sensibilidad gluten' : 'No'}</td>
+        <td>${d.celiaquia === 'si' ? 'Sí celíaco' : d.celiaquia === 'sensibilidad' ? 'Sensibilidad' : 'No'}</td>
         <td>${intoleranciasTxt}</td>
         <td>${d.observaciones || '-'}</td>
         <td>
           <div style="display:flex;gap:4px;justify-content:center">
-            <button class="btn btn-sm edit" data-action="edit-dieta" data-index="${idx}" title="Editar"><i class="fas fa-edit"></i></button>
-            <button class="btn btn-sm danger" data-action="delete-dieta" data-index="${idx}" title="Eliminar"><i class="fas fa-trash"></i></button>
+            <button class="btn btn-sm edit" data-action="edit-dieta" data-index="${realIndex}" title="Editar"><i class="fas fa-edit"></i></button>
+            <button class="btn btn-sm danger" data-action="delete-dieta" data-index="${realIndex}" title="Eliminar"><i class="fas fa-trash"></i></button>
           </div>
         </td>
       `;
