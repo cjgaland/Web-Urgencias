@@ -1,443 +1,283 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Urgencias · Generador de Hojas de Tratamiento</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Urgencias · Generador de Hojas de Tratamiento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/print.css" media="print">
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <div class="brand">
-                <div class="logo">
-                    <i class="fas fa-stethoscope"></i>
-                </div>
-                <div class="brand-text">
-                    <h1>Generador de Hojas de Tratamiento</h1>
-                    <small>Servicio de Urgencias · AGS Sur de Córdoba</small>
-                </div>
+<div class="container">
+  <div class="header">
+    <div class="brand">
+      <div class="logo">
+        <i class="fa solid fa-file-contract"></i>
+      </div>
+      <div class="brand-text">
+        <h1>Generador de Hojas de Tratamiento</h1>
+        <small>Servicio de Urgencias · AGS Sur de Córdoba</small>
+      </div>
+    </div>
+    <div class="toolbar controls">
+      <button class="btn alt" id="btnDemo"><i class="fas fa-magic"></i> Cargar ejemplo</button>
+      <button id="btnCargarPlantilla" class="btn alt"><i class="fas fa-file-invoice"></i> Cargar Plantilla</button>
+      <button class="btn" id="btnGuardar"><i class="fas fa-save"></i> Guardar</button>
+      <button class="btn alt" id="btnHistorial"><i class="fas fa-history"></i> Historial</button>
+      <label class="btn alt" for="fileJSON" style="cursor:pointer"><i class="fas fa-file-import"></i> Importar</label>
+      <input id="fileJSON" type="file" accept="application/json" style="display:none">
+      <button class="btn ok" id="btnMedico"><i class="fas fa-print"></i> Médica</button>
+      <button class="btn warn" id="btnEnfermeria"><i class="fas fa-print"></i> Enfermería</button>
+      <button class="btn danger" id="btnLimpiar"><i class="fas fa-broom"></i> Limpiar</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="letOverlay"></div>
+  <div class="modal" id="letModal">
+    <div class="modal-header"><h3 id="letModalTitle">LET</h3><button class="modal-close" id="letModalClose">×</button></div>
+    <div class="modal-content" id="letModalContent"></div>
+  </div>
+
+  <div class="modal-overlay" id="historialOverlay"></div>
+  <div class="modal" id="historialModal">
+    <div class="modal-header"><h3>Historial</h3><button class="modal-close" id="historialModalClose">×</button></div>
+    <div class="modal-content">
+      <div id="historialLista" style="max-height:400px;overflow-y:auto"></div>
+      <div style="margin-top:16px;text-align:center"><button class="btn alt" id="btnLimpiarHistorial">Limpiar Historial</button></div>
+    </div>
+  </div>
+
+  <datalist id="medicamentos-list"></datalist>
+
+  <div class="grid no-print">
+    <div class="fila-1">
+      <div class="card bloque-paciente" id="paciente-card">
+        <h2><i class="fas fa-user-injured"></i> Datos del paciente</h2>
+        <div class="rows-4">
+          <div class="form-group"><label>Nº Historia clínica</label><input id="pac_hisclin" type="number" min="0" class="form-control"></div>
+          <div class="form-group"><label>Edad</label><input id="pac_edad" type="number" min="0" class="form-control"></div>
+          <div class="form-group"><label>Sexo</label><select id="pac_sexo" class="form-control"><option value="">Seleccionar</option><option value="M">Masculino</option><option value="F">Femenino</option></select></div>
+          <div class="form-group"><label>Peso (kg)</label><input id="pac_peso" type="number" step="0.1" class="form-control"></div>
+        </div>
+        
+        <div class="rows-2" style="margin-top:12px">
+          <div class="form-group">
+            <label>Alergias o Intolerancias</label>
+            <div style="display:flex;gap:8px;align-items:end">
+              <input id="pac_alergia_input" class="form-control" style="flex:1">
+              <button type="button" class="btn btn-sm" id="btnAddAlergia"><i class="fas fa-plus"></i> Añadir</button>
             </div>
-            <div class="toolbar controls">
-                <button class="btn alt" id="btnDemo">
-                    <i class="fas fa-magic"></i> Ejemplo
-                </button>
-                <button class="btn" id="btnGuardar">
-                    <i class="fas fa-save"></i> Guardar
-                </button>
-                <button class="btn alt" id="btnHistorial">
-                    <i class="fas fa-history"></i> Historial
-                </button>
-                <label class="btn alt" for="fileJSON" style="cursor:pointer">
-                    <i class="fas fa-file-import"></i> Importar
-                </label>
-                <input id="fileJSON" type="file" accept="application/json" style="display:none">
-                <button class="btn ok" id="btnMedico">
-                    <i class="fas fa-print"></i> Médica
-                </button>
-                <button class="btn warn" id="btnEnfermeria">
-                    <i class="fas fa-print"></i> Enfermería
-                </button>
-                <button class="btn danger" id="btnLimpiar">
-                    <i class="fas fa-broom"></i> Limpiar
-                </button>
-            </div>
+            <div id="alergias-list" style="margin-top:8px"></div>
+          </div>
+          <div class="form-group">
+             <label>Servicio de destino</label><select id="pac_area" class="form-control"><option value="">Seleccionar...</option></select>
+          </div>
         </div>
 
-        <!-- Modales -->
-        <div class="modal-overlay" id="letOverlay"></div>
-        <div class="modal" id="letModal">
-            <div class="modal-header">
-                <h3 id="letModalTitle">LET 1 - Soporte total</h3>
-                <button class="modal-close" id="letModalClose">×</button>
-            </div>
-            <div class="modal-content" id="letModalContent"></div>
+        <div class="form-group" style="margin-top:12px">
+            <label>Diagnóstico</label>
+            <textarea id="pac_diagnostico" class="form-control" rows="2" placeholder="Escriba el diagnóstico principal..."></textarea>
         </div>
 
-        <div class="modal-overlay" id="historialOverlay"></div>
-        <div class="modal" id="historialModal">
-            <div class="modal-header">
-                <h3>Historial de Tratamientos</h3>
-                <button class="modal-close" id="historialModalClose">×</button>
-            </div>
-            <div class="modal-content">
-                <div id="historialLista" style="max-height:400px;overflow-y:auto"></div>
-                <div style="margin-top:16px;text-align:center">
-                    <button class="btn alt" id="btnLimpiarHistorial">Limpiar Historial</button>
-                </div>
-            </div>
+        <div class="insuficiencia-group" style="margin-top:12px">
+          <div class="insuficiencia-item"><label>Insuficiencia Renal</label><div class="si-no-buttons"><button type="button" class="si-no-btn si" data-action="si-no-toggle" data-tipo="renal" data-valor="si">Sí</button><button type="button" class="si-no-btn no selected" data-action="si-no-toggle" data-tipo="renal" data-valor="no">No</button></div></div>
+          <div class="insuficiencia-item"><label>Insuficiencia Hepática</label><div class="si-no-buttons"><button type="button" class="si-no-btn si" data-action="si-no-toggle" data-tipo="hepatica" data-valor="si">Sí</button><button type="button" class="si-no-btn no selected" data-action="si-no-toggle" data-tipo="hepatica" data-valor="no">No</button></div></div>
         </div>
+        
+        <div class="form-group" style="margin-top:12px"><label>Médico responsable</label><select id="pac_medico" class="form-control"></select></div>
+        <div class="form-group" style="margin-top:12px"><label>Fecha/Hora prescripción</label><input id="pac_fecha" type="datetime-local" class="form-control"></div>
+      </div>
 
-        <!-- Contenido principal - NUEVA ESTRUCTURA -->
-        <div class="main-layout no-print">
-            <!-- Columna izquierda: Datos del paciente y LET -->
-            <div class="left-column">
-                <!-- Datos del paciente -->
-                <div class="card bloque-paciente">
-                    <h2><i class="fas fa-user-injured"></i> Datos del paciente</h2>
-                    
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Edad</label>
-                            <input id="pac_edad" type="number" min="0" placeholder="Años" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Sexo</label>
-                            <select id="pac_sexo" class="form-control">
-                                <option value="">Seleccionar</option>
-                                <option value="M">Masculino</option>
-                                <option value="F">Femenino</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Peso (kg)</label>
-                            <input id="pac_peso" type="number" step="0.1" min="0" placeholder="kg" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Alergias o Intolerancias</label>
-                        <div class="input-with-button">
-                            <input id="pac_alergia_input" placeholder="Nombre de la alergia..." class="form-control">
-                            <button type="button" class="btn btn-sm" id="btnAddAlergia"><i class="fas fa-plus"></i></button>
-                        </div>
-                        <div id="alergias-list" class="chips-container"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Servicio de destino</label>
-                        <select id="pac_area" class="form-control">
-                            <option value="">Seleccionar...</option>
-                            <option value="observacion">Observación</option>
-                            <option value="pediatria">Pediatría</option>
-                            <option value="uci">UCI</option>
-                            <option value="medicina_interna">Medicina Interna</option>
-                            <option value="neumologia">Neumología</option>
-                            <option value="cardiologia">Cardiología</option>
-                            <option value="digestivo">Digestivo</option>
-                        </select>
-                    </div>
-
-                    <div class="insuficiencia-group">
-                        <div class="insuficiencia-item">
-                            <label>Insuficiencia Renal</label>
-                            <div class="si-no-buttons">
-                                <button type="button" class="si-no-btn si" data-tipo="renal" data-valor="si">Sí</button>
-                                <button type="button" class="si-no-btn no selected" data-tipo="renal" data-valor="no">No</button>
-                            </div>
-                        </div>
-                        <div class="insuficiencia-item">
-                            <label>Insuficiencia Hepática</label>
-                            <div class="si-no-buttons">
-                                <button type="button" class="si-no-btn si" data-tipo="hepatica" data-valor="si">Sí</button>
-                                <button type="button" class="si-no-btn no selected" data-tipo="hepatica" data-valor="no">No</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Médico responsable</label>
-                        <select id="pac_medico" class="form-control">
-                            <option value="">Seleccionar médico...</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Fecha/Hora prescripción</label>
-                        <input id="pac_fecha" type="datetime-local" class="form-control">
-                    </div>
-                </div>
-
-                <!-- LET -->
-                <div class="card bloque-let">
-                    <h2><i class="fas fa-balance-scale"></i> Limitación de Esfuerzo Terapéutico</h2>
-                    <div class="let-options">
-                        <button class="let-btn" data-let="1">LET 1</button>
-                        <button class="let-btn" data-let="2">LET 2</button>
-                        <button class="let-btn" data-let="3">LET 3</button>
-                        <button class="let-btn" data-let="4">LET 4</button>
-                        <button class="let-btn" data-let="5">LET 5</button>
-                    </div>
-                    <button class="btn alt btn-full" id="btnInfoLET">
-                        <i class="fas fa-info-circle"></i> Ver información completa
-                    </button>
-                    <div class="let-display" id="letDisplay" style="display:none">
-                        <h4 id="letActitud"></h4>
-                        <p id="letAclaracion"></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Columna central: Medicación -->
-            <div class="center-column">
-                <!-- Medicación Actual -->
-                <div class="card bloque-medicacion">
-                    <h2><i class="fas fa-pills"></i> Medicación Actual</h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Fármaco</label>
-                            <input id="p_farmaco" placeholder="Paracetamol" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Dosis</label>
-                            <input id="p_dosis" placeholder="1 g" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Vía</label>
-                            <select id="p_via" class="form-control">
-                                <option>VO</option><option>IV</option><option>IM</option><option>SC</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Pauta</label>
-                            <select id="p_freq" class="form-control">
-                                <option value="q8">Cada 8 h</option>
-                                <option value="q12">Cada 12 h</option>
-                                <option value="q24" selected>Cada 24 h</option>
-                                <option value="q6">Cada 6 h</option>
-                                <option value="prn">Si precisa (PRN)</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Inicio</label>
-                            <input id="p_inicio" type="time" value="10:00" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Días</label>
-                            <input id="p_dias" type="number" min="1" value="1" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Indicación</label>
-                        <input id="p_indicacion" placeholder="Fiebre, dolor..." class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Observaciones</label>
-                        <input id="p_obs" placeholder="Precauciones..." class="form-control">
-                    </div>
-                    <div class="form-actions">
-                        <button class="btn" id="btnAdd"><i class="fas fa-plus"></i> Añadir</button>
-                        <button class="btn ok" id="btnUpdate" style="display:none"><i class="fas fa-save"></i> Actualizar</button>
-                        <button class="btn alt" id="btnCancelEdit" style="display:none"><i class="fas fa-times"></i> Cancelar</button>
-                        <button class="btn alt" id="btnVaciarTabla"><i class="fas fa-trash"></i> Vaciar</button>
-                    </div>
-                    <div class="table-container">
-                        <table id="tabla">
-                            <thead>
-                                <tr>
-                                    <th>#</th><th>Fármaco</th><th>Dosis</th><th>Vía</th><th>Pauta</th>
-                                    <th>Inicio</th><th>Días</th><th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Medicación Opcional -->
-                <div class="card bloque-medicacion">
-                    <h2><i class="fas fa-lightbulb"></i> Medicación Opcional</h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Condición</label>
-                            <select id="opc_condicion" class="form-control">
-                                <option value="">Seleccionar...</option>
-                                <option value="fiebre">Si fiebre &gt;38°C</option>
-                                <option value="dolor">Si dolor</option>
-                                <option value="agitacion">Si agitación</option>
-                                <option value="nauseas">Si náuseas/vómitos</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Fármaco</label>
-                            <input id="opc_farmaco" placeholder="Paracetamol..." class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Dosis</label>
-                            <input id="opc_dosis" placeholder="1 g" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Vía</label>
-                            <select id="opc_via" class="form-control">
-                                <option>VO</option><option>IV</option><option>IM</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Frec. Máx.</label>
-                            <select id="opc_freqmax" class="form-control">
-                                <option value="q4">Cada 4 h</option>
-                                <option value="q6">Cada 6 h</option>
-                                <option value="q8" selected>Cada 8 h</option>
-                                <option value="q12">Cada 12 h</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Observaciones</label>
-                        <input id="opc_obs" placeholder="Precauciones..." class="form-control">
-                    </div>
-                    <div class="form-actions">
-                        <button class="btn" id="btnAddOpcional"><i class="fas fa-plus"></i> Añadir</button>
-                        <button class="btn ok" id="btnUpdateOpcional" style="display:none"><i class="fas fa-save"></i> Actualizar</button>
-                        <button class="btn alt" id="btnCancelEditOpcional" style="display:none"><i class="fas fa-times"></i> Cancelar</button>
-                        <button class="btn alt" id="btnVaciarOpcional"><i class="fas fa-trash"></i> Vaciar</button>
-                    </div>
-                    <div class="table-container">
-                        <table id="tablaOpcional">
-                            <thead>
-                                <tr>
-                                    <th>#</th><th>Condición</th><th>Fármaco</th><th>Dosis</th>
-                                    <th>Vía</th><th>Freq. Máx.</th><th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Columna derecha: Dietas, Fluidoterapia, etc. -->
-            <div class="right-column">
-                <!-- Dietas -->
-                <div class="card bloque-dietas">
-                    <h2><i class="fas fa-utensils"></i> Dietas</h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Tipo de dieta</label>
-                            <select id="dieta_tipo" class="form-control">
-                                <option value="">Seleccionar...</option>
-                                <option value="absoluta">Absoluta</option>
-                                <option value="normal">Normal</option>
-                                <option value="diabetica">Diabética</option>
-                                <option value="hiposodica">Hiposódica</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Consistencia</label>
-                            <select id="dieta_consistencia" class="form-control">
-                                <option value="">Seleccionar...</option>
-                                <option value="iniciar_tolerancia">Iniciar tolerancia</option>
-                                <option value="liquida">Líquida</option>
-                                <option value="triturada">Triturada</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Observaciones</label>
-                        <textarea id="dieta_obs" placeholder="Observaciones..." rows="2" class="form-control"></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button class="btn" id="btnAddDieta"><i class="fas fa-plus"></i> Añadir</button>
-                        <button class="btn ok" id="btnUpdateDieta" style="display:none"><i class="fas fa-save"></i> Actualizar</button>
-                        <button class="btn alt" id="btnCancelEditDieta" style="display:none"><i class="fas fa-times"></i> Cancelar</button>
-                        <button class="btn alt" id="btnVaciarDietas"><i class="fas fa-trash"></i> Vaciar</button>
-                    </div>
-                    <div class="table-container">
-                        <table id="tablaDietas">
-                            <thead>
-                                <tr><th>#</th><th>Tipo</th><th>Consistencia</th><th>Acciones</th></tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Fluidoterapia -->
-                <div class="card bloque-fluidoterapia">
-                    <h2><i class="fas fa-tint"></i> Fluidoterapia</h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Estado de vía</label>
-                            <select id="fluido_via" class="form-control">
-                                <option value="sin">Sin vía</option>
-                                <option value="salinizada">Vía salinizada</option>
-                                <option value="con">Con vía</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Solución</label>
-                            <select id="fluido_solucion" class="form-control">
-                                <option value="">Seleccionar...</option>
-                                <option value="fisiologico">Fisiológico</option>
-                                <option value="glucosalino">Glucosalino</option>
-                                <option value="glucosado5">Glucosado 5%</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Volumen</label>
-                            <select id="fluido_volumen" class="form-control">
-                                <option value="">Seleccionar...</option>
-                                <option value="500">500 ml</option>
-                                <option value="1000">1000 ml</option>
-                                <option value="1500">1500 ml</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Frecuencia</label>
-                            <select id="fluido_frecuencia" class="form-control">
-                                <option value="">Seleccionar...</option>
-                                <option value="8h">Cada 8 horas</option>
-                                <option value="12h">Cada 12 horas</option>
-                                <option value="24h">Cada 24 horas</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Ritmo (ml/h)</label>
-                        <input id="fluido_ritmo" type="number" placeholder="Ej: 42" class="form-control">
-                    </div>
-                    <div class="form-actions">
-                        <button class="btn" id="btnAddFluido"><i class="fas fa-plus"></i> Añadir</button>
-                        <button class="btn ok" id="btnUpdateFluido" style="display:none"><i class="fas fa-save"></i> Actualizar</button>
-                        <button class="btn alt" id="btnCancelEditFluido" style="display:none"><i class="fas fa-times"></i> Cancelar</button>
-                        <button class="btn alt" id="btnVaciarFluidos"><i class="fas fa-trash"></i> Vaciar</button>
-                    </div>
-                    <div class="table-container">
-                        <table id="tablaFluidos">
-                            <thead>
-                                <tr><th>#</th><th>Solución</th><th>Volumen</th><th>Frecuencia</th><th>Acciones</th></tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Configuraciones rápidas -->
-                <div class="card bloque-cuidados">
-                    <h2><i class="fas fa-heartbeat"></i> Cuidados y Monitoreo</h2>
-                    <div class="quick-actions">
-                        <button class="btn quick-btn" id="btnGuardarCuidados">
-                            <i class="fas fa-bed"></i> Guardar Cuidados
-                        </button>
-                        <button class="btn quick-btn" id="btnGuardarOxigenacion">
-                            <i class="fas fa-lungs"></i> Guardar Oxigenación
-                        </button>
-                        <button class="btn quick-btn" id="btnGuardarPruebas">
-                            <i class="fas fa-search"></i> Guardar Pruebas
-                        </button>
-                    </div>
-                </div>
-            </div>
+      <div class="card bloque-let">
+        <h2><i class="fas fa-balance-scale"></i> Limitación de Esfuerzo Terapéutico</h2>
+        <div class="let-options" id="let-container">
+          <div class="let-option"><button class="let-btn" data-let="1">LET 1</button></div>
+          <div class="let-option"><button class="let-btn" data-let="2">LET 2</button></div>
+          <div class="let-option"><button class="let-btn" data-let="3">LET 3</button></div>
+          <div class="let-option"><button class="let-btn" data-let="4">LET 4</button></div>
+          <div class="let-option"><button class="let-btn" data-let="5">LET 5</button></div>
         </div>
-
-        <!-- Hojas de impresión (se mantienen igual) -->
-        <div class="card print-sheet medico">
-            <h2>HOJA DE TRATAMIENTO MÉDICO</h2>
-            <div class="print-content">
-                <!-- Contenido de impresión... -->
-            </div>
-        </div>
+        <div style="display:flex;justify-content:center;margin:16px 0"><button class="btn alt" id="btnInfoLET"><i class="fas fa-info-circle"></i> Ver info</button></div>
+        <div class="let-display" id="letDisplay" style="display:none"><h4 id="letActitud"></h4><p id="letAclaracion"></p></div>
+      </div>
     </div>
 
-    <script src="script.js"></script>
+    <div class="fila-2">
+      <div class="card bloque-dietas" id="dietas-card">
+        <h2><i class="fas fa-utensils"></i> Dietas</h2>
+        <div class="dietas-fila-superior" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; align-items: end; margin-bottom: 12px;">
+          <div class="form-group"><label>Tipo</label><select id="dieta_tipo" class="form-control"><option value="">...</option></select></div>
+          <div class="form-group"><label>Consistencia</label><select id="dieta_consistencia" class="form-control"><option value="">...</option></select></div>
+          <div class="form-group"><label>Celiaquía</label><select id="dieta_celiaquia" class="form-control"><option value="no">No</option><option value="si">Sí</option><option value="sensibilidad">Sensibilidad</option></select></div>
+          <div class="form-group"><label>Intolerancias</label><div style="display:flex;gap:8px"><select id="dieta_intolerancia_select" class="form-control" style="flex:1"></select><button class="btn btn-sm" id="btnAddIntolerancia"><i class="fas fa-plus"></i></button></div><div id="intolerancias-list"></div></div>
+        </div>
+        <div class="form-group"><label>Observaciones</label><textarea id="dieta_obs" class="form-control" rows="2"></textarea></div>
+        <div style="display:flex;gap:10px;margin-top:16px"><button class="btn" id="btnAddDieta">Añadir</button><button class="btn ok" id="btnUpdateDieta" style="display:none">Guardar</button><button class="btn alt" id="btnCancelEditDieta" style="display:none">Cancelar</button><button class="btn alt" id="btnVaciarDietas">Vaciar</button></div>
+        <div class="table-wrap" style="margin-top:16px"><table id="tablaDietas"><thead><tr><th>#</th><th>Fecha</th><th>Tipo</th><th>Consistencia</th><th>Celiaquía</th><th>Intolerancias</th><th>Obs</th><th>Acciones</th></tr></thead><tbody></tbody></table></div>
+      </div>
+
+      <div class="card bloque-fluidoterapia" id="fluidos-card">
+        <h2><i class="fas fa-tint"></i> Fluidoterapia</h2>
+        <div class="rows-3">
+          <div class="form-group"><label>Vía</label><select id="fluido_via" class="form-control"><option value="sin">Sin vía</option><option value="salinizada">Salinizada</option><option value="con">Con vía</option></select></div>
+          <div id="campos_fila_superior" style="display:none"><div class="form-group"><label>Solución</label><select id="fluido_solucion" class="form-control"></select></div><div class="form-group"><label>Volumen</label><select id="fluido_volumen" class="form-control"><option value="500">500</option><option value="1000">1000</option></select></div></div>
+        </div>
+        <div class="rows-2" style="margin-top:12px"><div id="campos_fila_inferior" style="display:none"><div class="form-group"><label>Frecuencia</label><select id="fluido_frecuencia" class="form-control"></select></div><div class="form-group"><label>Ritmo</label><input id="fluido_ritmo" type="number" class="form-control"></div></div></div>
+        <div class="form-group" style="margin-top:12px"><label>Obs</label><input id="fluido_obs" class="form-control"></div>
+        <div style="display:flex;gap:10px;margin-top:16px"><button class="btn" id="btnAddFluido">Añadir</button><button class="btn ok" id="btnUpdateFluido" style="display:none">Guardar</button><button class="btn alt" id="btnCancelEditFluido" style="display:none">Cancelar</button><button class="btn alt" id="btnVaciarFluidos">Vaciar</button></div>
+        <div class="table-wrap" style="margin-top:16px"><table id="tablaFluidos"><thead><tr><th>#</th><th>Tipo</th><th>Solución</th><th>Volumen</th><th>Frecuencia</th><th>Ritmo</th><th>Obs</th><th>Acciones</th></tr></thead><tbody></tbody></table></div>
+      </div>
+
+      <div class="card bloque-medicacion">
+        <h2><i class="fas fa-pills"></i> Medicación Actual</h2>
+        <div class="rows-6"><div class="form-group"><label>Fármaco</label><input id="p_farmaco" list="medicamentos-list" class="form-control"></div><div class="form-group"><label>Dosis</label><input id="p_dosis" class="form-control"></div><div class="form-group"><label>Vía</label><select id="p_via" class="form-control"></select></div><div class="form-group"><label>Pauta</label><select id="p_freq" class="form-control"></select></div><div class="form-group"><label>Inicio</label><input id="p_inicio" type="time" value="08:00" class="form-control"></div><div class="form-group"><label>Días</label><input id="p_dias" type="number" value="1" class="form-control"></div></div>
+        <div class="rows-2" style="margin-top:12px"><div class="form-group"><label>Indicación</label><input id="p_indicacion" class="form-control"></div><div class="form-group"><label>Obs</label><input id="p_obs" class="form-control"></div></div>
+        <div style="display:flex;gap:10px;margin-top:16px"><button class="btn" id="btnAdd">Añadir</button><button class="btn ok" id="btnUpdate" style="display:none">Guardar</button><button class="btn alt" id="btnCancelEdit" style="display:none">Cancelar</button><button class="btn alt" id="btnVaciarTabla">Vaciar</button></div>
+        <div class="table-wrap" style="margin-top:16px"><table id="tabla"><thead><tr><th>#</th><th>Fármaco</th><th>Dosis</th><th>Vía</th><th>Pauta</th><th>Inicio</th><th>Días</th><th>Ind</th><th>Obs</th><th>Acciones</th></tr></thead><tbody></tbody></table></div>
+      </div>
+      
+      <div class="card bloque-medicacion"><h2><i class="fas fa-lightbulb"></i> Medicación Opcional</h2><div class="rows-5"><div class="form-group"><label>Condición</label><select id="opc_condicion" class="form-control"></select></div><div class="form-group"><label>Fármaco</label><input id="opc_farmaco" list="medicamentos-list" class="form-control"></div><div class="form-group"><label>Dosis</label><input id="opc_dosis" class="form-control"></div><div class="form-group"><label>Vía</label><select id="opc_via" class="form-control"></select></div><div class="form-group"><label>Frec Max</label><select id="opc_freqmax" class="form-control"></select></div></div><div class="form-group"><label>Obs</label><input id="opc_obs" class="form-control"></div><div style="display:flex;gap:10px;margin-top:16px"><button class="btn" id="btnAddOpcional">Añadir</button><button class="btn ok" id="btnUpdateOpcional" style="display:none">Guardar</button><button class="btn alt" id="btnCancelEditOpcional" style="display:none">Cancelar</button><button class="btn alt" id="btnVaciarOpcional">Vaciar</button></div><div class="table-wrap" style="margin-top:16px"><table id="tablaOpcional"><thead><tr><th>#</th><th>Cond</th><th>Fármaco</th><th>Dosis</th><th>Vía</th><th>Frec</th><th>Obs</th><th>Acciones</th></tr></thead><tbody></tbody></table></div></div>
+
+      <div class="card bloque-medicacion"><h2><i class="fas fa-clock"></i> Medicación Puntual</h2><div class="rows-5"><div class="form-group"><label>Fármaco</label><input id="pun_farmaco" list="medicamentos-list" class="form-control"></div><div class="form-group"><label>Dosis</label><input id="pun_dosis" class="form-control"></div><div class="form-group"><label>Vía</label><select id="pun_via" class="form-control"></select></div><div class="form-group"><label>Ind</label><input id="pun_indicacion" class="form-control"></div><div class="form-group"><label>Cuándo</label><select id="pun_cuando" class="form-control"><option value="ahora">Ahora</option></select></div></div><div class="form-group"><label>Obs</label><input id="pun_obs" class="form-control"></div><div style="display:flex;gap:10px;margin-top:16px"><button class="btn" id="btnAddPuntual">Añadir</button><button class="btn ok" id="btnUpdatePuntual" style="display:none">Guardar</button><button class="btn alt" id="btnCancelEditPuntual" style="display:none">Cancelar</button><button class="btn alt" id="btnVaciarPuntual">Vaciar</button></div><div class="table-wrap" style="margin-top:16px"><table id="tablaPuntual"><thead><tr><th>#</th><th>Fármaco</th><th>Dosis</th><th>Vía</th><th>Ind</th><th>Cuándo</th><th>Obs</th><th>Acciones</th></tr></thead><tbody></tbody></table></div></div>
+
+      <div class="card bloque-medicacion" id="domicilio-card"><h2><i class="fas fa-house-chimney"></i> Domiciliaria</h2><div class="rows-3"><div class="form-group"><label>Fármaco</label><input id="dom_farmaco" list="medicamentos-list" class="form-control"></div><div class="form-group"><label>Dosis</label><input id="dom_dosis" class="form-control"></div><div class="form-group"><label>Vía</label><select id="dom_via" class="form-control"></select></div></div><div class="rows-3"><div class="form-group"><label>Pauta</label><select id="dom_freq" class="form-control"></select></div><div class="form-group"><label>Inicio</label><input id="dom_inicio" type="time" class="form-control"></div><div class="form-group"><label>Días</label><input id="dom_dias" type="number" class="form-control"></div></div><div class="rows-2"><div class="form-group"><label>Ind</label><input id="dom_indicacion" class="form-control"></div><div class="form-group"><label>Obs</label><input id="dom_obs" class="form-control"></div></div><div style="display:flex;gap:10px;margin-top:16px"><button class="btn" id="btnAddDom">Añadir</button><button class="btn ok" id="btnUpdateDom" style="display:none">Guardar</button><button class="btn alt" id="btnCancelEditDom" style="display:none">Cancelar</button><button class="btn alt" id="btnVaciarDom">Vaciar</button></div><div class="table-wrap" style="margin-top:16px"><table id="tablaDom"><thead><tr><th>#</th><th>Fármaco</th><th>Dosis</th><th>Vía</th><th>Pauta</th><th>Días</th><th>Obs</th><th>Acciones</th></tr></thead><tbody></tbody></table></div></div>
+      
+      <div class="fila-3">
+        <div class="card bloque-oxigenacion" id="respiratorio-card"><h2><i class="fas fa-lungs"></i> Respiratorio</h2><div class="form-group"><label>Oxígeno</label><input type="radio" name="resp_oxigeno" value="no" checked> No <input type="radio" name="resp_oxigeno" value="si"> Sí <div id="resp_ox_inline" style="display:none"><select id="resp_ox_dispositivo" class="form-control"><option value="gafas_nasales">Gafas</option><option value="ventimask">Ventimask</option></select><div id="resp_ox_lpm_wrap"><select id="resp_ox_lpm" class="form-control"></select></div><div id="resp_ox_venti_wrap" style="display:none"><select id="resp_ox_venti_pct" class="form-control"></select></div></div></div><div class="form-group"><label>Aerosol</label><input type="radio" name="resp_aero" value="no" checked> No <input type="radio" name="resp_aero" value="si"> Sí <div id="resp_aero_block" style="display:none"><label><input type="checkbox" id="aero_salbutamol"> Salbutamol</label><input id="aero_salbutamol_dosis" class="form-control"><label><input type="checkbox" id="aero_ipratropio"> Ipratropio</label><input id="aero_ipratropio_dosis" class="form-control"><label><input type="checkbox" id="aero_budesonida"> Budesonida</label><input id="aero_budesonida_dosis" class="form-control"></div></div><div class="form-group"><label>VMNI</label><input type="radio" name="resp_vmni" value="no" checked> No <input type="radio" name="resp_vmni" value="si"> Sí <div id="vmni_inline" style="display:none"><select id="resp_vmni_tipo" class="form-control"><option value="oaf">OAF</option><option value="cpap">CPAP</option><option value="bipap">BIPAP</option></select> <div id="vmni_oaf_params" style="display:none"><input id="resp_oaf_flujo" class="form-control"></div><div id="vmni_cpap_params" style="display:none"><input id="resp_cpap_ipap" class="form-control"></div><div id="vmni_bipap_params" style="display:none"><input id="resp_bipap_ipap" class="form-control"></div></div></div><div class="form-group"><label>Obs</label><input id="resp_obs" class="form-control"></div><div style="display:flex;gap:10px;margin-top:16px"><button class="btn" id="btnAddResp">Añadir</button><button class="btn ok" id="btnUpdateResp" style="display:none">Guardar</button><button class="btn alt" id="btnCancelEditResp" style="display:none">Cancelar</button><button class="btn alt" id="btnVaciarResp">Vaciar</button></div><div class="table-wrap"><table id="tablaResp"><thead><tr><th>#</th><th>Fec</th><th>Ox</th><th>Aero</th><th>VMNI</th><th>Obs</th><th>Act</th></tr></thead><tbody></tbody></table></div></div>
+        
+        <div class="card bloque-cuidados" id="cuidados-card"><h2><i class="fas fa-heartbeat"></i> Cuidados</h2><div class="form-group"><label>General</label><input type="checkbox" id="cui_cama"> Cama <input type="checkbox" id="cui_sedest"> Sedest <input type="checkbox" id="cui_deamb"> Deamb <input type="checkbox" id="cui_barand"> Barand <input type="checkbox" id="cui_timbre"> Timbre <input type="checkbox" id="cui_upp"> UPP</div><div class="form-group"><label>Diuresis</label><input type="radio" name="cui_diuresis" value="no" checked> No <input type="radio" name="cui_diuresis" value="si"> Sí <div id="cui_diuresis_block" style="display:none"><select id="cui_diuresis_tipo" class="form-control"><option value="miccional">Miccional</option></select></div></div><div class="form-group"><label>Depos</label><input type="radio" name="cui_depos" value="no" checked> No <input type="radio" name="cui_depos" value="si"> Sí</div><div class="form-group"><label>Monitor</label><input type="radio" name="cui_mon" value="no" checked> No <input type="radio" name="cui_mon" value="si"> Sí <div id="cui_mon_block" style="display:none"><label><input type="radio" name="cui_mon_int" value="si"> Intermit</label><div id="cui_mon_int_block" style="display:none"><input type="checkbox" id="int_ta"> TA <input type="checkbox" id="int_temp"> T <input type="checkbox" id="int_fc"> FC <input type="checkbox" id="int_sat"> Sat <input type="checkbox" id="int_glu"> Glu</div><label><input type="radio" name="cui_mon_cont" value="si"> Cont</label><div id="cui_mon_cont_block" style="display:none"><input type="checkbox" id="cont_ecg"> ECG</div></div></div><div class="form-group"><label>Obs</label><input id="cui_obs" class="form-control"></div><div style="display:flex;gap:10px;margin-top:16px"><button class="btn" id="btnAddCuidados">Añadir</button><button class="btn ok" id="btnUpdateCuidados" style="display:none">Guardar</button><button class="btn alt" id="btnCancelEditCuidados" style="display:none">Cancelar</button><button class="btn alt" id="btnVaciarCuidados">Vaciar</button></div><div class="table-wrap"><table id="tablaCuidados"><thead><tr><th>#</th><th>Fec</th><th>Gen</th><th>Diu</th><th>Dep</th><th>Mon</th><th>Obs</th><th>Act</th></tr></thead><tbody></tbody></table></div></div>
+        
+        <div class="card" id="pruebas-card" style="border-left:6px solid #3b82f6"><h2><i class="fas fa-vial"></i> Pruebas</h2><div class="form-group"><label>Analítica</label><input type="radio" name="pr_ana" value="no" checked> No <input type="radio" name="pr_ana" value="si"> Sí <div id="pr_ana_block" style="display:none"><input type="checkbox" id="ana_hemo"> Hemo <input type="checkbox" id="ana_bioq"> Bioq</div></div><div class="form-group"><label>Radio</label><input type="radio" name="pr_rx" value="no" checked> No <input type="radio" name="pr_rx" value="si"> Sí <div id="pr_rx_block" style="display:none"><input type="checkbox" id="rx_simple"> Simp <input type="checkbox" id="rx_eco"> Eco</div></div><div class="form-group"><label>Otras</label><input type="radio" name="pr_otras" value="no" checked> No <input type="radio" name="pr_otras" value="si"> Sí <div id="pr_otras_block" style="display:none"><input type="checkbox" id="ot_eda"> EDA</div></div><div class="form-group"><label>Cons</label><input type="radio" name="pr_hc" value="no" checked> No <input type="radio" name="pr_hc" value="si"> Sí <div id="pr_hc_block" style="display:none"><select id="pr_hc_esp" class="form-control"></select><div id="pr_hc_chips"></div><button class="btn btn-sm" id="btnAddHC">+</button></div></div><div class="form-group"><label>Obs</label><input id="pr_obs" class="form-control"></div><div style="display:flex;gap:10px;margin-top:16px"><button class="btn" id="btnAddPruebas">Añadir</button><button class="btn ok" id="btnUpdatePruebas" style="display:none">Guardar</button><button class="btn alt" id="btnCancelEditPruebas" style="display:none">Cancelar</button><button class="btn danger" id="btnVaciarPruebas">Vaciar</button></div><div class="table-wrap"><table id="tablaPruebas"><thead><tr><th>#</th><th>Fec</th><th>Ana</th><th>Rad</th><th>Otr</th><th>Cons</th><th>Obs</th><th>Act</th></tr></thead><tbody></tbody></table></div></div>
+      </div>
+    </div>
+
+    <div class="card bloque-paciente medico-only" id="medico-print-card" style="border-left-color:var(--success)">
+       <h2><i class="fas fa-file-medical"></i> HOJA DE TRATAMIENTO MÉDICO</h2>
+       
+       <div class="rows-2" style="align-items:flex-start;gap:var(--space-lg)">
+         <div style="display:flex;justify-content:center">
+           <div class="pegatina-space" style="height:5cm;width:10cm">
+             <div class="pegatina-text">Pegatina<br><small>10x5 cm</small></div>
+           </div>
+         </div>
+         <div>
+           <h3 style="margin:0 0 10px"><i class="fas fa-user-injured"></i> Datos Paciente</h3>
+           <div class="print-meta-grid">
+             <div><strong>HC:</strong> <span id="print_pac_hisclin"></span></div>
+             <div><strong>Edad:</strong> <span id="print_pac_edad"></span></div>
+             <div><strong>Sexo:</strong> <span id="print_pac_sexo"></span></div>
+             <div><strong>Peso:</strong> <span id="print_pac_peso"></span></div>
+             <div><strong>Renal:</strong> <span id="print_pac_renal"></span></div>
+             <div><strong>Hep:</strong> <span id="print_pac_hepatica"></span></div>
+             <div class="grid-span-2"><strong>Fecha:</strong> <span id="print_pac_fecha"></span></div>
+             <div class="full-width"><strong>Servicio:</strong> <span id="print_pac_area"></span></div>
+             <div class="full-width"><strong>Alergias:</strong> <span id="print_pac_alergias"></span></div>
+             <div class="full-width"><strong>Diagnóstico:</strong> <span id="print_pac_diagnostico"></span></div>
+           </div>
+         </div>
+       </div>
+
+       <hr style="margin:20px 0">
+
+       <div id="print_let_container" class="print-alert" style="display: none; margin-bottom: 10px; padding: 5px; border: 2px solid var(--warning); background-color: #fffbeb;">
+         <h4 style="margin: 0 0 4px 0; font-size: 12px; color: var(--gray-900);">
+           <i class="fas fa-balance-scale"></i> Limitación de Esfuerzo Terapéutico
+         </h4>
+         <p id="print_let_texto" style="margin: 0; font-size: 11px; font-weight: bold;"></p>
+       </div>
+
+       <h3 style="margin:0 0 5px"><i class="fas fa-pills"></i> Tratamiento Farmacológico</h3>
+       <div class="table-wrap">
+         <table id="tabla_print_medico" class="print-table">
+           <thead><tr><th>Tipo</th><th>Fármaco</th><th>Dosis</th><th>Vía</th><th>Pauta / Obs</th></tr></thead>
+           <tbody id="print_medico_tbody"></tbody>
+         </table>
+       </div>
+       
+       <div id="print_extra_tables_container"></div>
+       
+       <div class="firmas-print">
+         <p><strong>Médico:</strong> <span id="print_pac_medico"></span></p>
+         <p><strong>Firma:</strong> _______________________</p>
+       </div>
+    </div>
+
+    <div class="card bloque-oxigenacion enfermeria-only" id="enfermeria-print-card" style="border:none !important; box-shadow:none !important; background:white !important;">
+      <h2><i class="fas fa-file-waveform"></i> HOJA DE TRATAMIENTO · ENFERMERÍA</h2>
+      
+      <div class="rows-2" style="align-items: flex-start; gap: var(--space-lg);">
+        <div style="display: flex; justify-content: center; align-items: center;">
+          <div class="pegatina-space" style="margin: 0; height: 4cm; width: 9cm;">
+            <div class="pegatina-text">Pegatina del paciente<br><small>10x5 cm</small></div>
+          </div>
+        </div>
+        <div>
+          <h3 style="margin-top: 0; margin-bottom: var(--space-sm);">Datos del Paciente</h3>
+          <div class="nurse-meta-grid">
+            <div><strong>Nº HC:</strong> <span id="print_enf_hisclin">---</span></div>
+            <div><strong>Edad:</strong> <span id="print_enf_edad">---</span></div>
+            <div><strong>Sexo:</strong> <span id="print_enf_sexo">---</span></div>
+            <div><strong>Peso:</strong> <span id="print_enf_peso">---</span></div>
+            <div class="grid-span-2"><strong>Ins. Renal:</strong> <span id="print_enf_renal">No</span></div>
+            <div class="grid-span-2"><strong>Ins. Hepática:</strong> <span id="print_enf_hepatica">No</span></div>
+            <div class="grid-span-2"><strong>Fecha:</strong> <span id="print_enf_fecha">---</span></div>
+            <div class="grid-span-2"><strong>Alergias:</strong> <span id="print_enf_alergias">Ninguna conocida</span></div>
+            <div class="full-width"><strong>Servicio Destino:</strong> <span id="print_enf_area">---</span></div>
+            <div class="full-width"><strong>Diagnóstico:</strong> <span id="print_enf_diagnostico">---</span></div>
+          </div>
+        </div>
+      </div>
+      
+      <hr style="margin: 10px 0;">
+
+      <div id="print_let_container_enf" class="print-alert" style="display: none; margin-bottom: 10px; padding: 5px; border: 2px solid var(--warning); background-color: #fffbeb;">
+        <h4 style="margin: 0 0 4px 0; font-size: 12px; color: var(--gray-900);"><i class="fas fa-balance-scale"></i> Limitación de Esfuerzo Terapéutico</h4>
+        <p id="print_let_texto_enf" style="margin: 0; font-size: 11px; font-weight: bold;"></p>
+      </div>
+
+      <table class="print-table info-4-col" style="margin-bottom: 10px;">
+         <thead>
+             <tr>
+                 <th style="width:25%"><i class="fas fa-heartbeat"></i> Cuidados y Constantes</th>
+                 <th style="width:25%"><i class="fas fa-utensils"></i> Dietas</th>
+                 <th style="width:25%"><i class="fas fa-tint"></i> Fluidoterapia</th>
+                 <th style="width:25%"><i class="fas fa-lungs"></i> Respiratorio</th>
+             </tr>
+         </thead>
+         <tbody>
+             <tr style="height: 60px; vertical-align: top;">
+                 <td id="print_enf_info_cuidados" style="font-size: 9pt;"></td>
+                 <td id="print_enf_info_dietas" style="font-size: 9pt;"></td>
+                 <td id="print_enf_info_fluidos" style="font-size: 9pt;"></td>
+                 <td id="print_enf_info_resp" style="font-size: 9pt;"></td>
+             </tr>
+         </tbody>
+      </table>
+
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 5px;">
+        <h3 style="margin: 0; border: none; font-size: 12pt;">Tratamiento Farmacológico</h3>
+        <div style="font-size: 10pt; font-weight: bold;">FECHA DE ADMINISTRACIÓN: ________________________</div>
+      </div>
+
+      <div class="table-wrap">
+        <table id="tabla_print_enfermeria" class="print-table nurse-grid">
+          <thead>
+            <tr id="enf_header_row"></tr>
+          </thead>
+          <tbody id="print_enfermeria_tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="firmas-print" style="margin-top: 15px;">
+        <p><strong>Enfermería (Firma):</strong> ___________________________________</p>
+      </div>
+    </div>
+
+  </div> 
+</div> 
+<script type="module" src="js/app.js"></script>
 </body>
 </html>
