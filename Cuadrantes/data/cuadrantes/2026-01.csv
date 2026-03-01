@@ -1,4 +1,4 @@
-Unnamed: 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31
+Nombre,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31
 "Caballero, Martín",,M+G,,FO,M,,S,RD,RD,FO,,S,RD,RD,LDA,LDA,,,RD,M+O,M,S,RD,,F,S,SD,LDA,RD,M+G,
 "Molina, Ángel",,M+O,,R,S,,T,M,LDA,F,,S,,M+T,M+G,S,,,M,M+G,S,SD,T,,FO,M,S,LDA,LDA,S,
 "Cabello, Ángel",FO,S,F,,M+O,,S,T,M,F,,S,T,M,M+G,S,,,M,M+G,S,SD,T,,F,S,SD,T,M,M+G,
@@ -16,11 +16,11 @@ Unnamed: 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,
 "Granados, Sheila",,S,,,S,,M,M+O,M,,,S,M+G,S,SD,T,,F,S,SD,LDA,M,M+G,,,M,M,M+G,S,SD,
 "Fernández, Enrique",,M+G,,F,S,,M,M+G,S,,,LDA,M+O,M,S,LDA,,F,S,SD,T,LDA,M+G,,,T,M,M+G,S,SD,
 "Salas, Elena",,S,,,S,,T,M,M+G,,,M,LS,M+G,S,SD,,,M+O,M,S,LS,LDA,FO,,S,T,M,M+G,S,R
-"López, Raquel",,S,,,S,,LDA,M,M+G,,,T,M,M+G,S,SD,,,M+G,S,SD,T,M,F,,S,T,M,M+O,M,
+"López Latorre, Raquel",,S,,,S,,LDA,M,M+G,,,T,M,M+G,S,SD,,,M+G,S,SD,T,M,F,,S,T,M,M+O,M,
 "Guerrero, Aurora",,MT,,F,S,,RD,RD,M+O,,,S,S,RD+G,S,SD,,,LDA,LDA,LDA,RD,RD,R,,S,RD,RD,G,S,F
-"Lomas, Marta",,S,,,S,,M,M,M+G,,,T,M,M+O,M,S,,,S,M+G,S,T,M,F,,S,LDA,M,M+G,S,
-"Jiménez, Isabel",R,S,,,M+G,,S,,,,,G,S,SD,,,R,,M+G,S,SD,,,,R,,G,S,SD,,
+"Lomas Alarcón, Marta",,S,,,S,,M,M,M+G,,,T,M,M+O,M,S,,,S,M+G,S,T,M,F,,S,LDA,M,M+G,S,
 "Aguilera, Manuel",,S,,F,S,R,S,OT,OT,,,OT,OT,OT,G,S,,,OT,G,S,OT,OT,,,OT,M+O,M,S,M+O,
+"Jiménez Ruiz, Isabel",R,S,,,M+G,,S,,,,,G,S,SD,,,R,,M+G,S,SD,,,,R,,G,S,SD,,
 "Gómez Bruque, Isabel",BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM
-"Pablo, Lola",LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS
-"Galán, Carlos",OT,LDA,OT,OT,LDA,OT,LDA,LDA,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,LDA,OT,OT,LDA,OT,OT,OT,OT,LDA,LDA,OT,OT
+"Pablo, Lola",,LS,,,LS,,LS,LS,LS,,,LS,LS,LS,LS,LS,,,LS,LS,LS,LS,LS,,,LS,LS,LS,LS,LS,
+"Galán, Carlos",,LDA,,,LDA,,LDA,LDA,OT,,,OT,OT,OT,OT,OT,,,OT,LDA,OT,OT,LDA,,,OT,OT,LDA,LDA,OT,

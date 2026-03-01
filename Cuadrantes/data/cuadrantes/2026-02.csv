@@ -1,26 +1,26 @@
-Unnamed: 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28
-"Caballero, Martín",,LD,RD,R+G,,,,,M+G,,,RD,RD,F,,,RD,RD,M+O,M,,,,R+G,,,LD,
-"Molina, Ángel",R,,,M+G,,,,,M+G,,M,M,,F,,,T,M,M+G,,,,M,M+O,M,,T,
-"Cabello, Ángel",,M,M,M+O,M,,,,M+G,,,T,M,FO,,M,,M,M+G,,R,,,M+G,,,T,
-"López, Marisa",,T,M,M+G,,,,,M+O,M,,T,M,F,,,T,M,M+G,,,,M,M+G,,,M,R
-"Romero, Rafael",,,,,M+G,,,,,,,M+G,,,F,,,,,M+O,,R,,,M+G,,,
-"Rico, Manuel",,,T,M,M+G,,,,M,M+G,,,LD,,F,,,T,M,M+G,,,T,M,M+O,M,,
-"Gutiérrez, Miguel",,T,,M,M+O,M,,,,M+G,,,T,,FO,M,,T,M,M+G,,,M,M,M+G,,,
-"Soto, Esperanza",,,T,M,M+G,,,,M,M+O,M,,T,,F,,,LD,LD,M+G,,,T,M,M+G,,,
-"Medrán, Juan Miguel",FO,M,,T,M,M+G,,,T,M,M+O,M,,,,M+O,M,,T,M,F,,,T,M,M+G,,
-"López, Silvia",F,,,T,M,M+G,,,T,M,M+G,,,,,M+G,,,T,M,F,,,T,M,M+G,,
-"Martínez, Tomás",F,,,RD,RD,M+O,,R,,,R+G,,,,,M+G,,,RD,RD,FO,,,RD,RD,LD,LD,
-"Muñoz, Beatriz",BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL
-"Gómez Martín, Isabel",,LD,LD,LD,RD,RD,F,,,RD,RD,M+G,,,,LD,M+O,M,,LD,,F,,,RD,RD,R+G,
-"Medina, Paula",,M+G,,,T,M,FO,,,M+G,LD,LD,,,,M,M+G,,,T,,F,,,LD,LD,M+O,
-"Granados, Sheila",,M+O,M,,T,M,F,,,T,M,M+G,,,,LD,M+G,,,LD,,FO,M,,LD,M,M+G,
-"Fernández, Enrique",,M+G,,,LD,LD,F,,,T,M,M+O,M,,,,M+G,,,T,,F,,,T,M,M+G,
-"Salas, Elena",,M,M+G,,,T,,F,,,T,,M+G,,,T,M,M+O,M,,,,M+G,,,LS,LS,F
-"López, Raquel",,,M+G,,,T,,FO,M,,T,M,M+G,,,T,M,M+G,,,,,M+O,M,,T,M,F
-"Guerrero, Aurora",,LD,M+O,M,,LD,,F,,,RD,RD,M+G,,,RD,RD,RD,LD,LD,,,R+G,,,LD,RD,FO
-"Lomas, Marta",,M,M+G,,,LD,,F,,,LD,LD,M+O,,R,,,M+G,,,,,M+G,,,T,M,F
-"Aguilera, Manuel",F,,,,,M+G,,,,,M+G,,,,,M+G,,,,,F,,,,T,M+G,,
-"Jiménez, Isabel",,G,,,,,,,,,,,,R,,,,G,,,,,,,,M+O,M,
+Nombre,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28
+"Caballero, Martín",,LD,RD,G,S,SD,,,M+G,S,SD,RD,RD,F,,S,RD,M+O,M,S,,,RD,RD+G,S,SD,LD,
+"Molina, Ángel",R,S,SD,M+G,S,SD,,,M+G,S,M,SD,M,,,SD,T,LD,M+G,S,F,S,M,M,M+O,M,T,
+"Cabello, Ángel",,,M,M+O,M,S,,,M+G,S,SD,M+T,,FO,S,M,LD,M,M+G,S,R,,M+G,S,SD,SD,T,
+"López, Marisa",,T,M,M+G,S,SD,,,M+O,M,M,T,S,F,,S,SD,M,M+G,S,,,LD,M+G,S,T,M,R
+"Romero, Rafael",,OT,OT,OT,M+G,S,,,OT,OT,OT,M+G,S,,F,S,SD,OT,OT,M+O,,R,S,DOC,M+G,DOC,SD,
+"Rico, Manuel",,S,T,M,M+G,S,,,M,M+G,S,SD,LD,,F,S,SD,T,M,M+G,S,,T,M+O,M,S,SD,
+"Gutiérrez, Miguel",,T,S,SD,M+O,M,,,S,M,M+G,S,T,,,M,SD,T,M,M+G,S,FO,M,M,M+G,S,SD,
+"Soto, Esperanza",,SD,T,M,M+G,S,,,M,M+O,M,S,T,,F,S,M+G,S,LD,M,,,T,M,LD,SD,G,
+"Medrán, Juan Miguel",FO,M,S,T,LD,,R,,T,S,M+O,M,M+G,,,M+O,M,S,T,LD,F,,M,T,LD,M+G,S,
+"López, Silvia",F,S,SD,T,T,M+G,,,T,M,,M+G,S,,,M+G,S,SD,T,M,F,,S,T,M,M+G,S,
+"Martínez, Tomás",F,S,SD,RD,RD,M+O,,R,S,SD,RD,RD,RD,,,M+G,S,G,S,SD,FO,,S,RD,RD,LD,LD,
+"Muñoz, Beatriz",F,S,SD,RD,RD,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL,BL
+"Gómez Martín, Isabel",,LD,LD,LD,RD,RD,F,,S,M+G,S,RD,SD,,,LD,M+O,M,S,G,,F,S,SD,RD,RD,RD,
+"Medina, Paula",,M+G,S,M,M,M,FO,,S,M+G,S,LD,LD,,,SD,M+G,S,SD,T,,F,S,SD,LD,LD,M+O,
+"Granados, Sheila",,M+O,M,S,T,M,F,,S,T,M+G,S,M,,FO,M,M+G,S,SD,LD,,,LD,SD,LD,M,M+G,
+"Fernández, Enrique",,M+G,S,SD,LD,LD,F,,S,,M+T,M+O,M,,,S,SD,M+G,S,T,,F,S,SD,T,M,M+G,
+"Salas, Elena",,S,M+G,S,SD,T,,F,S,SD,T,LS,M+G,,,T,M,S,M+O,M,,,M+G,S,SD,LS,LS,F
+"López Latorre, Raquel",,M,M+G,S,SD,T,,FO,M,T,S,M,M+O,,,T,T,S,SD,,,,M+O,M,M+G,S,M,F
+"Guerrero, Aurora",,LD,M+O,M,S,LD,,F,S,,RD,RD,M+G,,,RD,RD,RD,LD,LD,,,LD,S,,RD+G,RD,FO
+"Lomas Alarcón, Marta",,M,M+G,S,SD,M+G,,F,S,SD,LD,LD,LD,,R,S,SD,M+G,S,SD,,,SD,M+G,S,T,M,F
+"Aguilera, Manuel",,OT,OT,LD,OT,OT,,,OT,LD,G,S,OT,R,,S,OT,OT,OT,OT,,,OT,OT,OT,M+O,M,
+"Jiménez Ruiz, Isabel",,M+G,S,SD,,M+G,,,,,,M+G,S,F,,M+G,S,SD,SD,,,,M+G,S,T,SD,,
 "Gómez Bruque, Isabel",BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM
-"Pablo, Lola",LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS,LS
-"Galán, Carlos",OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT,OT
+"Pablo, Lola",,LS,LS,LS,LS,LS,,,LS,LS,LS,LS,LS,,,LS,LS,LS,LS,LS,,,LS,LS,LS,LS,LS,
+"Galán, Carlos",,OT,OT,OT,OT,OT,,,OT,OT,OT,OT,OT,,,OT,OT,OT,OT,OT,,,OT,DOC,OT,DOC,OT,
