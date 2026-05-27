@@ -1,26 +1,26 @@
 Nombre,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31
-"Caballero, Martín",,,,M+G,,,,RD,,F,,,RD,RD,M+O,,R,,,M+G,,,,,M+G,,,RD,RD,FO,
-"Molina, Ángel",,,,M+G,,M,T,M+G,,F,,,OT,M,M+G,,,T,M,M+O,M,,F,,M+G,,,T,M,,
-"Cabello, Ángel",,,,OT,M+G,,,T,,F,,,T,M,,FO,,T,M,M+G,,,R,,M+O,M,,T,S,F,
-"López, Marisa",,,,,M+O,M,M,M+G,,FO,M,M+G,T,,,,,M,T,M+G,,,F,,M+G,,M,,M,,
-"Romero, Rafael",F,,,,,,,,,,M+O,M,,,T,F,,,,,G,,,,,M+G,,,,,FO
-"Rico, Manuel",F,,,M,T,M+G,,,,,M+G,,,T,M,F,,,OT,M,M+O,M,,,M,M+G,,,T,,F
-"Gutiérrez, Miguel",FO,,R,,,M+G,,,,,M+G,,,T,M,,F,,OT,T,M+T,,,,LD,M+O,M,,LD,,F
-"Soto, Esperanza",F,,,T,M,M+O,M,,,,M+G,,,OT,,,,,T,M,M+G,,FO,,M,M+G,,,T,,F
-"Medrán, Juan Miguel",,F,,M,T,,M+O,M,,,M,M+O,M,,T,,F,,,OT,T,M+O,,,T,M,M+G,,,R,
-"López, Silvia",,F,,,M,T,M+G,,,,,OT,,LD,LD,F,,,,T,M,M+G,,R,,T,,M+G,,,
-"Martínez, Tomás",,FO,,,OT,RD,M+G,,,,RD,M+G,,,RD,,FO,M,,LD,RD,M+G,,,RD,RD,M+O,M,,,
-"Muñoz, Beatriz",,F,,,RD,LD,M+G,,,,OT,,,M+G,RD,,F,,,RD,RD,M+G,,,RD,RD,M+G,,,,
-"Gómez Martín, Isabel",,,F,,,OT,OT,,,,RD,RD,M+O,M,,,,,M+G,,RD,RD,F,,,RD,RD,M+G,,,
-"Medina, Paula",,,F,T,,M+G,,M+G,,,M+T,M,M+G,,,,,,,,,M,,,,,M+G,,,F,
-"Gómez Bruque, Isabel",,,FO,M,,RD,RD,,,,RD,OT,M+G,,,,,M+G,,,RD,OT,,,,RD,RD,M+O,M,F,
-"Fernández, Enrique",,,F,,,M,M,M+O,,R,,,M+G,,M+G,,,M+G,,,OT,M,,,,T,M,M+G,,,
-"Salas, Elena",,,,,M+G,,,T,F,,,T,LS,M+O,M,,,,M+G,,,LS,,F,,,T,LS,M+G,,
-"López Latorre, Raquel",,,,,M+G,,FR,M,F,,,T,M,M+G,,,,OT,M+O,M,,T,,F,,,T,M,M+G,,
-"Guerrero, Aurora",,,,M+G,,,RD,RD,FO,,,RD,RD,OT,RD,,,M+G,,,,T,,F,,,RD,RD,M+O,,R
-"Lomas Alarcón, Marta",,,,M+O,M,,FR,M,F,,,M,M,M+G,,,,M,M+G,,M,,,FO,M,,OT,M,M+G,,
-"Aguilera, Manuel",,R,,,,T,,,,,,,,,,R,,M+O,M,,M+G,,,,,,,,,,
-"Jiménez Ruiz, Isabel",R,,,,,,T,,R,,T,M+G,,,M+G,,,,,,,,,,T,M,,,,,
+"Caballero, Martín",,,,M+G,S,S,RD,RD,,F,S,S,RD,RD,M+O,,R,S,S,M+G,S,S,,,M+G,S,S,RD,RD,FO,
+"Molina, Ángel",,,,M+G,S,M,T,M+G,,F,S,S,OT,M,M+G,,,M+T,M,M+O,M,S,F,,M+G,S,S,S,M,,
+"Cabello, Ángel",,,,OT,M+G,S,S,T,,F,S,S,T,M,S,FO,,T,M,M+G,S,S,,,S,M+G,SD,T,S,F,
+"López, Marisa",,,,T,M+O,M,M,M+G,,FO,M,M+G,S,S,S,,,M,T,M+G,S,S,F,,M+G,S,M,T,M,,
+"Romero, Rafael",F,,,OT,OT,OT,OT,OT,,,M+O,M,S,OT,T,F,,S,OT,OT,M+G,S,,,OT,M+G,S,S,OT,,FO
+"Rico, Manuel",F,,,M,T,M+G,S,S,F,,M+G,S,S,T,M,,,S,OT,M,M+O,M,,,S,S,M+O,M,T,,F
+"Gutiérrez, Miguel",FO,,R,S,S,M+G,S,S,,,M+G,S,S,T,M,,F,S,OT,T,M+T,,,,S,LD,SD,SD,LD,,F
+"Soto, Esperanza",F,,,,M,M+O,M,S,,,M+G,S,S,OT,S,,,,T,M,M+G,S,FO,,M,M+G,S,S,T,,F
+"Medrán, Juan Miguel",,F,,M+T,S,S,M+O,M,,,M,M+O,M,S,T,,F,S,S,OT,T,M+O,,R,T,M,M+G,S,S,R,
+"López, Silvia",,F,,S,M,T,M+G,S,,,S,OT,,LD,LD,F,,S,S,T,M,M+G,,,,T,,M+G,S,,
+"Martínez, Tomás",,FO,,S,OT,RD,M+G,S,,,RD,M+G,S,S,RD,,FO,M,M+G,LD,RD,T,,FO,M,S,RD,RD,RD,,
+"Muñoz, Beatriz",,F,,,RD,LD,M+G,S,,,OT,S,RD,M+G,S,,F,S,S,RD,RD,M+G,,,RD,RD,M+G,S,S,,
+"Gómez Martín, Isabel",,,F,S,S,RD,RD,,,,RD,RD,M+O,M,S,,,S,M+G,S,RD,RD,F,,S,RD,,M+G,S,,
+"Medina, Paula",,,F,,T,M+G,S,M+G,,,M+T,M,M+G,S,S,,,S,S,S,,M,,,S,,M+G,S,S,F,
+"Gómez Bruque, Isabel",,,FO,M,,RD,RD,RD,,,RD,OT,M+G,S,S,,,M+G,S,S,RD,OT,,,S,RD,RD,M+O,M,F,
+"Fernández, Enrique",,,F,S,S,M,M,M+O,,R,S,S,M+G,S,M+G,,,M+G,S,S,OT,M,,,S,M+T,S,M+G,S,,
+"Salas, Elena",,,,S,M+G,S,S,T,F,,S,T,T,M+O,M,,,S,LS,LS,S,M+G,,F,S,S,T,LS,M+G,,
+"López Latorre, Raquel",,,,S,M+G,S,FR,M,F,,S,T,M,M+G,,,,OT,M+O,M,S,T,,F,S,S,T,M,M+G,,
+"Guerrero, Aurora",,,,M+G,S,S,RD,RD,FO,,,RD,RD,OT,RD,,,M+G,S,S,RD,LD,,F,S,S,RD,RD,M+O,,R
+"Lomas Alarcón, Marta",,,,M+O,M,S,FR,M,F,,S,M,M,M+G,S,F,,S,M+G,S,M+G,S,,,M+O,M,T,M,S,,
+"Aguilera, Manuel",,R,,,,CA,,,,,,,,,,R,,M+O,M,,,,R,,,M+O,M,,M+G,,
+"Jiménez Ruiz, Isabel",R,,,,,,T,S,R,,T,M+G,S,S,M+G,,,,,,,,,,M+T,S,M,,,,
 "Granados, Sheila",BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM,BM
 "Pablo, Lola",,,,LS,LS,LS,LS,LS,,,LS,LS,LS,LS,LS,,,LS,LS,LS,LS,LS,,,LS,LS,LS,LS,LS,,
 "Galán, Carlos",,,,OT,OT,OT,OT,OT,,,OT,OT,OT,OT,OT,,,OT,OT,OT,OT,OT,,,OT,OT,OT,OT,OT,,
